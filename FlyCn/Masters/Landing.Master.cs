@@ -53,7 +53,7 @@ namespace FlyCn.Masters
         protected void lnkLoginLogout_Click(object sender, EventArgs e)
         {
             Session.Remove(Const.LoginSession);
-            Response.Redirect("../Home.aspx");
+            Response.Redirect("~/Home.aspx");
         }
 
 

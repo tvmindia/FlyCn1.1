@@ -7,11 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FlyCn
-{
-
-    public partial class About
-    {
-
+namespace $rootnamespace$ {
+    
+    
+    public partial class ViewSwitcher {
     }
 }

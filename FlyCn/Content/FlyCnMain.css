@@ -184,6 +184,7 @@ iframe {
 .TileTable {
     padding:5px;
     margin-left:10px; width:100%; 
+    
 }
 .Tiles {
      color:white;
@@ -197,4 +198,9 @@ iframe {
 }
 .TileIcon {
     width:100%;
+}
+
+.RadSplitterDiv {
+
+    height:700px;
 }
