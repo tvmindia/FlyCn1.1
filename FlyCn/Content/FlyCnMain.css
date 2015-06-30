@@ -1,4 +1,23 @@
-﻿.underConstructionLogo {
+﻿
+
+
+iframe {
+    border-style: none;
+    height:auto;
+}
+
+.title {
+    font-size: large;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.Desc {
+    font-size: medium;
+     text-align:center;
+}
+
+.underConstructionLogo {
     background-position: center center;
     position: absolute;
     top: 2%;
@@ -21,4 +40,160 @@
     color: #333333;
     position: relative;
     top: 60%;
+}
+
+.baseStyles {
+    font-family: 'segoe UI' , Tahoma, Geneva, Verdana, sans-serif;
+    
+}
+.header-cont {
+    width:100%;
+  
+    top:0px;
+    z-index:5;
+}
+.headerStrip {
+   
+    text-align: right;
+    border-bottom-style: outset;
+    border-bottom-width: medium;
+    border-bottom-color: #003300;
+    background: rgb(34,34,34); /* for IE */
+    background: rgba(34,34,34,0.55);
+    margin-left:-10px;
+     margin-top:-10px;
+      width: 102%;
+       color:white;
+}
+ 
+.footerStrip1 {
+    border-top-style: outset;
+    border-top-width: medium;
+    border-top-color: #003300;
+   color:white;
+    text-align: left;
+    font-size: x-small;
+ 
+
+ background: rgb(34,34,34); /* for IE */
+    background: rgba(34,34,34,0.55);
+
+     margin-left:-10px;
+     padding-top:25px;
+     padding-bottom:25px;
+      width: 102%;
+
+}
+
+
+
+.footerStrip2 {
+   
+    width: 100%;
+    text-align: left;
+    font-size: x-small;
+ 
+
+
+}
+
+.fullScreenIframe {
+     width:99%;
+     height:550px;
+}
+
+.contentPaneStyle {
+    
+}
+
+
+.LoginDiv {
+    border-style: outset;
+    border-width: thin;
+    padding: 50px;
+    background: rgb(34,34,34); /* for IE */
+    background: rgba(34,34,34,0.75);
+    width: 500px;
+    height: 150px;
+    position: absolute;
+    top: 35%;
+    left: 30%;
+    border-radius: 20px;
+    text-align: center;
+    vertical-align: middle;
+    display: none;
+}
+
+.LoginCaption {
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    height: 15px;
+    font-size: x-large;
+}
+
+.LoginButton {
+    cursor:pointer;
+     text-decoration: none;
+     color:white;
+}
+
+.LogicCloseButton {
+    position: absolute;
+    top: -35px;
+    right: -35px;
+    width: 50px;
+    height: 50px;
+      cursor:pointer;
+}
+
+.LoginError {
+
+    color:red;
+
+}
+
+.HomeBox1 {
+    width: 30%;
+    background-color: #3366FF;
+    color: #CCFFCC;
+    vertical-align: top;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.HomeBox2 {
+    width: 30%;
+    background-color: #009999;
+    color: #FFFFFF;
+     vertical-align: top;
+     border-radius: 20px;
+      padding: 10px;
+}
+
+.HomeBox3 {
+    width: 30%;
+    background-color: #FF6666;
+    color: #FFFFFF;
+    vertical-align: top;
+    border-radius: 20px;
+     padding: 10px;
+}
+
+.TileTable {
+    padding:5px;
+    margin-left:10px; width:100%; 
+}
+.Tiles {
+     color:white;
+    border-radius: 25px;
+    background-color: #FF6666;
+    vertical-align: middle;
+    text-align: center;
+    width: 125px;
+    height: 125px;
+}
+.TileIcon {
+    width:100%;
 }

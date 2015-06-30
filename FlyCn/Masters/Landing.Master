@@ -7,14 +7,102 @@
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+    <script src="../Scripts/jquery-1.8.2.min.js"></script>
+    <link href="../Content/FlyCnMain.css" rel="stylesheet" />
+    <link href="../Content/Site.css" rel="stylesheet" />
+    <script type="text/javascript">
+        function openLogin(opt) {
+            //alert(document.getElementById("LoginDiv").style.display);
+            //document.getElementById("LoginDiv").style.display = "block";
+            if (opt == 'slow') {
+                $("#LoginDiv").slideDown();
+            } else {
+                $("#LoginDiv").show();
+            }
+            return false;
+        }
+
+        function CloseLogin() {
+            //alert(document.getElementById("LoginDiv").style.display);
+            $("#LoginDiv").fadeOut();
+
+        }
+
+        $(document).ready(function(){
+            if(document.getElementById("lblError").innerHTML!=""){
+                openLogin('');
+            }
+            else if (document.getElementById("lblUser").innerHTML == "") {
+              //  openLogin('slow');
+            }
+        });
+        
+       
+         
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    <div class="baseStyles">
+        <div class="header-cont">
+        <div id="HeaderStrip">
+            <table class="headerStrip"><tr><td style="width:10%">
+                <img src="../Images/logo.PNG" style="width:50%" /></td><td></td>
+                <td style="width:10%" class=""  >
+                    <asp:Label ID="lblUser" runat="server" Text=""></asp:Label></td>
+                <td style="width:10%" >
+                    <asp:LinkButton ID="lnkLoginLogout" runat="server" Text="Login" class="LoginButton" OnClick="lnkLoginLogout_Click"></asp:LinkButton>
+                   </td><td style="width:1%"></td></tr></table>
+        </div></div><div class="mainBody">
+         <asp:ContentPlaceHolder ID="MainBody" runat="server"  > 
         
-        </asp:ContentPlaceHolder>
+        </asp:ContentPlaceHolder></div><br />
+       <div id="FooterStrips" class="footerStrip1">
+             <table style="width:100%"  >
+                 <tr ><td style="width:1%"></td><td>FlyCn 1.0 | RWDX | </td><td style="width:10%"></td><td style="width:1%"></td></tr>
+ </table> <table style="width:100%" class="footerStrip2"><tr class="footerStrip2"><td style="width:1%"></td><td>Registered to : Company A </td><td style="width:10%"></td><td style="width:1%"></td></tr>
+             </table>
+
+       </div>
     </div>
+
+
+        <div class="LoginDiv" id="LoginDiv">
+            <img src="../Images/close.png" class="LogicCloseButton" onclick="CloseLogin()" />
+            <table style="width: 100%">
+
+                <tr>
+                    <td style="width: 5%"></td>
+                    <td style="width: 85%">
+                        <input id="txtUsername" runat="server" class="LoginCaption" name="Username" type="text" value="User Name" onfocus="if (this.value == 'User Name') {this.value = '';}" onblur="if (this.value == ''){this.value = 'User Name'} " /></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="width: 5%"></td>
+                    <td style="width: 85%">
+                        <input id="txtPassword" runat="server" class="LoginCaption" name="Password" type="password" value="Password" onfocus="if (this.value == 'Password') {this.value = '';}" onblur="if (this.value == ''){ this.value == 'password'}" /></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="3">&nbsp; </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <asp:ImageButton ID="btnLogin" runat="server" ImageUrl="~/Images/arrowR.png" OnClick="btnLogin_Click" />
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    
+                    <td>
+                        <asp:Label ID="lblError" runat="server" Text="" Class="LoginError"></asp:Label> 
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
     </form>
 </body>
 </html>

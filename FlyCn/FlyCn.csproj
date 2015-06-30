@@ -108,6 +108,10 @@
     <Reference Include="Microsoft.AspNet.Membership.OpenAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Microsoft.AspNet.Membership.OpenAuth.1.0.1\lib\net45\Microsoft.AspNet.Membership.OpenAuth.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Web.UI, Version=2015.2.623.45, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\UI for ASP.NET AJAX Q2 2015\Bin45\Telerik.Web.UI.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
@@ -131,6 +135,7 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Content\FlyCnMain.css" />
+    <Content Include="Content\Home.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -187,10 +192,49 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Default.aspx" />
+    <Content Include="FlyCnMasters\GeneralMaster.aspx" />
     <Content Include="ForgotPassword.aspx" />
+    <Content Include="Home.aspx" />
     <Content Include="Images\accent.png" />
+    <Content Include="Images\arrowR.png" />
+    <Content Include="Images\bg.jpg" />
+    <Content Include="Images\bg1.jpg" />
+    <Content Include="Images\bg3.jpg" />
     <Content Include="Images\bullet.png" />
+    <Content Include="Images\close.png" />
     <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\Icons\approval.png" />
+    <Content Include="Images\Icons\dashboard.png" />
+    <Content Include="Images\Icons\graphs.png" />
+    <Content Include="Images\Icons\MileStones.png" />
+    <Content Include="Images\Icons\Reports.png" />
+    <Content Include="Images\Landing\7.jpg" />
+    <Content Include="Images\Landing\a21.png" />
+    <Content Include="Images\Landing\accent.png" />
+    <Content Include="Images\Landing\b21.png" />
+    <Content Include="Images\Landing\bl1.jpg" />
+    <Content Include="Images\Landing\bl2.jpg" />
+    <Content Include="Images\Landing\bl3.jpg" />
+    <Content Include="Images\Landing\bl4.jpg" />
+    <Content Include="Images\Landing\blue.jpg" />
+    <Content Include="Images\Landing\bullet.png" />
+    <Content Include="Images\Landing\heroAccent.png" />
+    <Content Include="Images\Landing\loading.gif" />
+    <Content Include="Images\Landing\oil-gas-industry-1.jpg" />
+    <Content Include="Images\Landing\oil-gas-industry-2.jpg" />
+    <Content Include="Images\Landing\oil-gas-industry-petrochemical-plant-35620726.jpg" />
+    <Content Include="Images\Landing\oil-gas-workers-inside-refinery-two-large-background-34975637.jpg" />
+    <Content Include="Images\Landing\orderedList0.png" />
+    <Content Include="Images\Landing\orderedList1.png" />
+    <Content Include="Images\Landing\orderedList2.png" />
+    <Content Include="Images\Landing\orderedList3.png" />
+    <Content Include="Images\Landing\orderedList4.png" />
+    <Content Include="Images\Landing\orderedList5.png" />
+    <Content Include="Images\Landing\orderedList6.png" />
+    <Content Include="Images\Landing\orderedList7.png" />
+    <Content Include="Images\Landing\orderedList8.png" />
+    <Content Include="Images\Landing\orderedList9.png" />
+    <Content Include="Images\logo.PNG" />
     <Content Include="Images\orderedList0.png" />
     <Content Include="Images\orderedList1.png" />
     <Content Include="Images\orderedList2.png" />
@@ -205,15 +249,20 @@
     <Content Include="Global.asax" />
     <Content Include="Images\screw.png" />
     <Content Include="Login.aspx" />
+    <Content Include="Menu.aspx" />
     <Content Include="packages.config" />
     <Content Include="Masters\Landing.Master" />
     <Content Include="Masters\Popup.Master" />
     <Content Include="Masters\IframePage.Master" />
+    <Content Include="Masters\inputPages.master" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jssor.js" />
+    <Content Include="Scripts\jssor.slider.js" />
+    <Content Include="Scripts\jssor.slider.mini.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
@@ -236,7 +285,8 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
-    <Content Include="UnderConstruction.aspx" />
+    <Content Include="General\UnderConstruction.aspx" />
+    <Content Include="SubMenu.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -298,6 +348,15 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="FlyCnDAL\dbConnection.cs" />
+    <Compile Include="FlyCnDAL\Landing.cs" />
+    <Compile Include="FlyCnDAL\Security.cs" />
+    <Compile Include="FlyCnMasters\GeneralMaster.aspx.cs">
+      <DependentUpon>GeneralMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlyCnMasters\GeneralMaster.aspx.designer.cs">
+      <DependentUpon>GeneralMaster.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -307,6 +366,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -322,6 +388,13 @@
     <Compile Include="Masters\IframePage.Master.designer.cs">
       <DependentUpon>IframePage.Master</DependentUpon>
     </Compile>
+    <Compile Include="Masters\inputPages.master.cs">
+      <DependentUpon>inputPages.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\inputPages.master.designer.cs">
+      <DependentUpon>inputPages.master</DependentUpon>
+    </Compile>
     <Compile Include="Masters\Landing.Master.cs">
       <DependentUpon>Landing.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -335,6 +408,13 @@
     </Compile>
     <Compile Include="Masters\Popup.Master.designer.cs">
       <DependentUpon>Popup.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Menu.aspx.cs">
+      <DependentUpon>Menu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Menu.aspx.designer.cs">
+      <DependentUpon>Menu.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
@@ -351,13 +431,22 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
-    <Compile Include="UnderConstruction.aspx.cs">
+    <Compile Include="General\UnderConstruction.aspx.cs">
       <DependentUpon>UnderConstruction.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UnderConstruction.aspx.designer.cs">
+    <Compile Include="General\UnderConstruction.aspx.designer.cs">
       <DependentUpon>UnderConstruction.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SubMenu.aspx.cs">
+      <DependentUpon>SubMenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubMenu.aspx.designer.cs">
+      <DependentUpon>SubMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UIClasses\Const.cs" />
+    <Compile Include="UIClasses\DynamicIcons.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -368,13 +457,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="General\" />
-    <Folder Include="Images\Landing\" />
-    <Folder Include="UIClasses\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
     <Content Include="Site.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
