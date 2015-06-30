@@ -31,9 +31,13 @@ namespace FlyCn.UIClasses
                     "<div style=" + "width:100%;>" +
                         "<table style=" + "width:100%;>" +
                             "<tr>";
+
+            int rows = 1;
+            int cols = 0;
+
             for (int f = 0; f < ds.Tables[0].Rows.Count; f++)
             {
-
+                cols = cols + 1;
                 myInnerHtml = myInnerHtml + Environment.NewLine;
                 if (id == null)
                 {
@@ -50,7 +54,7 @@ namespace FlyCn.UIClasses
                     myInnerHtml = myInnerHtml + "<td class='Tiles' >";
                     string img = ds.Tables[0].Rows[f]["subimgUrl"].ToString();
 
-                    myInnerHtml = myInnerHtml + " <table class='TileIcon'> <tr><td><img" + " src=" + "'" + img + "'" + " onclick" + "=" + "bindimageLink('" + ds.Tables[0].Rows[f]["subPath"].ToString() + "') border=" + "0" + " alt=Submission Form" + "/></td></tr>" +
+                    myInnerHtml = myInnerHtml + " <table class='TileIcon'> <tr><td><img" + " src=" + "'" + img + "'" + " onclick" + "=" + "parent.bindimageLink('" + ds.Tables[0].Rows[f]["subPath"].ToString() + "') border=" + "0" + " alt=Submission Form" + "/></td></tr>" +
                 "<tr>" +
                     "<td>" +
                        " <span class=" + "description" + ">" + ds.Tables[0].Rows[f]["subdescription"].ToString() + "</span>" +
@@ -86,8 +90,20 @@ namespace FlyCn.UIClasses
                 {
                     myInnerHtml = myInnerHtml + "</tr>" +
                                "  <tr>";
+                    rows = rows + 1;
+                    cols = 0;
                 }
             }
+
+            if (cols > 0)
+            {
+                for (int m = 0; m < 3 - cols; m++)
+                {
+                    myInnerHtml = myInnerHtml + "<td></td>";
+                }
+
+            }
+
             myInnerHtml = myInnerHtml +
            "</tr>" +
                          " </table>" +

@@ -43,6 +43,12 @@
 
    
     }
+
+
+    function bindimageLink(url) {
+       // alert(url);
+        window.location = url;
+    }
  
 </script>
      <table style="width: 100%">
