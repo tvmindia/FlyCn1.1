@@ -220,6 +220,7 @@
     <Content Include="Images\Landing\bullet.png" />
     <Content Include="Images\Landing\heroAccent.png" />
     <Content Include="Images\Landing\loading.gif" />
+    <Content Include="Images\Landing\logo.PNG" />
     <Content Include="Images\Landing\oil-gas-industry-1.jpg" />
     <Content Include="Images\Landing\oil-gas-industry-2.jpg" />
     <Content Include="Images\Landing\oil-gas-industry-petrochemical-plant-35620726.jpg" />
@@ -234,7 +235,6 @@
     <Content Include="Images\Landing\orderedList7.png" />
     <Content Include="Images\Landing\orderedList8.png" />
     <Content Include="Images\Landing\orderedList9.png" />
-    <Content Include="Images\logo.PNG" />
     <Content Include="Images\orderedList0.png" />
     <Content Include="Images\orderedList1.png" />
     <Content Include="Images\orderedList2.png" />
