@@ -228,6 +228,7 @@
     <Content Include="EIL\ConstructionPunchList.aspx" />
     <Content Include="EIL\PunchList.aspx" />
     <Content Include="EIL\QCPunchList.aspx" />
+    <Content Include="favicon.ico" />
     <Content Include="FlyCnMasters\DynamicMaster.aspx" />
     <Content Include="FlyCnMasters\GeneralMasters.aspx" />
     <Content Include="ForgotPassword.aspx" />
@@ -284,7 +285,6 @@
     <Content Include="Images\orderedList7.png" />
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
-    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\screw.png" />
     <Content Include="Login.aspx" />
@@ -532,7 +532,9 @@
     </Compile>
     <Compile Include="UIClasses\Const.cs" />
     <Compile Include="UIClasses\DynamicIcons.cs" />
-    <Compile Include="UIClasses\InputPages.cs" />
+    <Compile Include="UIClasses\InputPages.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
