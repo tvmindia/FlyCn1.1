@@ -13,14 +13,14 @@
                  <telerik:RadTreeView ID="rtvLeftMenu" runat="server">
                      <Nodes >
                          <telerik:RadTreeNode   CssClass="Desc"   >
-                             <NodeTemplate>
+                            <%-- <NodeTemplate>
                                  <a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
                              </NodeTemplate>
                          </telerik:RadTreeNode>
                           <telerik:RadTreeNode   CssClass="Desc"  >
                              <NodeTemplate>
                                  <a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Company" target="contentPane">Company</a>
-                             </NodeTemplate>
+                             </NodeTemplate>--%>
                          </telerik:RadTreeNode>
                      </Nodes>
                      <DataBindings>

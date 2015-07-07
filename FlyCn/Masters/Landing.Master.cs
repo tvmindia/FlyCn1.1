@@ -14,14 +14,14 @@ namespace FlyCn.Masters
         protected void Page_Init(object sender, EventArgs e)
         {
             if (Session[Const.LoginSession] == null) {
-
+                imgMenu.Visible = false;
                 lnkLoginLogout.Attributes.Add("onclick", "return openLogin('slow')");
             }
             else {
                 FlyCnDAL.Security.UserAuthendication UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
                 lblUser.Text = UA.userName;
                 lnkLoginLogout.Text = "Logout";
-                
+                imgMenu.Visible = true;
             }
 
         }

@@ -224,6 +224,10 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Default.aspx" />
+    <Content Include="EIL\ClientPunchList.aspx" />
+    <Content Include="EIL\ConstructionPunchList.aspx" />
+    <Content Include="EIL\PunchList.aspx" />
+    <Content Include="EIL\QCPunchList.aspx" />
     <Content Include="FlyCnMasters\DynamicMaster.aspx" />
     <Content Include="FlyCnMasters\GeneralMasters.aspx" />
     <Content Include="ForgotPassword.aspx" />
@@ -241,6 +245,7 @@
     <Content Include="Images\Icons\graphs.png" />
     <Content Include="Images\Icons\MileStones.png" />
     <Content Include="Images\Icons\Reports.png" />
+    <Content Include="Images\Icons\tilesIcon.png" />
     <Content Include="Images\Landing\7.jpg" />
     <Content Include="Images\Landing\a21.png" />
     <Content Include="Images\Landing\accent.png" />
@@ -382,9 +387,39 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EIL\ClientPunchList.aspx.cs">
+      <DependentUpon>ClientPunchList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIL\ClientPunchList.aspx.designer.cs">
+      <DependentUpon>ClientPunchList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIL\ConstructionPunchList.aspx.cs">
+      <DependentUpon>ConstructionPunchList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIL\ConstructionPunchList.aspx.designer.cs">
+      <DependentUpon>ConstructionPunchList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIL\PunchList.aspx.cs">
+      <DependentUpon>PunchList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIL\PunchList.aspx.designer.cs">
+      <DependentUpon>PunchList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIL\QCPunchList.aspx.cs">
+      <DependentUpon>QCPunchList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIL\QCPunchList.aspx.designer.cs">
+      <DependentUpon>QCPunchList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FlyCnDAL\dbConnection.cs" />
+    <Compile Include="FlyCnDAL\DALConstants.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
     <Compile Include="FlyCnDAL\MasterData.cs" />
+    <Compile Include="FlyCnDAL\PunchList.cs" />
     <Compile Include="FlyCnDAL\Security.cs" />
     <Compile Include="FlyCnMasters\DynamicMaster.aspx.cs">
       <DependentUpon>DynamicMaster.aspx</DependentUpon>
@@ -497,6 +532,7 @@
     </Compile>
     <Compile Include="UIClasses\Const.cs" />
     <Compile Include="UIClasses\DynamicIcons.cs" />
+    <Compile Include="UIClasses\InputPages.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
