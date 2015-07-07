@@ -224,6 +224,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Default.aspx" />
+    <Content Include="FlyCnMasters\DynamicMaster.aspx" />
     <Content Include="FlyCnMasters\GeneralMasters.aspx" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="Home.aspx" />
@@ -383,7 +384,15 @@
     </Compile>
     <Compile Include="FlyCnDAL\dbConnection.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
+    <Compile Include="FlyCnDAL\MasterData.cs" />
     <Compile Include="FlyCnDAL\Security.cs" />
+    <Compile Include="FlyCnMasters\DynamicMaster.aspx.cs">
+      <DependentUpon>DynamicMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlyCnMasters\DynamicMaster.aspx.designer.cs">
+      <DependentUpon>DynamicMaster.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FlyCnMasters\GeneralMasters.aspx.cs">
       <DependentUpon>GeneralMasters.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
