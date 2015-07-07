@@ -283,12 +283,12 @@
     <Content Include="Global.asax" />
     <Content Include="Images\screw.png" />
     <Content Include="Login.aspx" />
+    <Content Include="Masters\inputPages.master" />
     <Content Include="Menu.aspx" />
     <Content Include="packages.config" />
     <Content Include="Masters\Landing.Master" />
     <Content Include="Masters\Popup.Master" />
     <Content Include="Masters\IframePage.Master" />
-    <Content Include="Masters\inputPages.master" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
