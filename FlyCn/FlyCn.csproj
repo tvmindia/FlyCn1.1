@@ -287,6 +287,7 @@
     <Content Include="Images\orderedList9.png" />
     <Content Include="Global.asax" />
     <Content Include="Images\screw.png" />
+    <Content Include="Images\tilesIcon.png" />
     <Content Include="Login.aspx" />
     <Content Include="Masters\inputPages.master" />
     <Content Include="Menu.aspx" />
