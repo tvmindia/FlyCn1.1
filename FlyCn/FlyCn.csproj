@@ -432,13 +432,16 @@
     <Compile Include="EIL\QCPunchList.aspx.designer.cs">
       <DependentUpon>QCPunchList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="FlyCnDAL\Activities.cs" />
+    <Compile Include="FlyCnDAL\Activities.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="FlyCnDAL\DALConstants.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FlyCnDAL\dbConnection.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
     <Compile Include="FlyCnDAL\MasterData.cs" />
+    <Compile Include="FlyCnDAL\Modules.cs" />
     <Compile Include="FlyCnDAL\PunchList.cs">
       <SubType>Code</SubType>
     </Compile>
