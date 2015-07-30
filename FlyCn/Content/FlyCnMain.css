@@ -204,3 +204,22 @@ iframe {
 
     height:700px;
 }
+
+.InputCaption {
+    color: #FFFFFF;
+    font-size: medium;
+}
+
+
+.InputDate {
+
+     color: #FFFFFF;
+    font-size: medium;
+}
+
+.combo {
+    border-radius:5px;
+    height:25px;
+    width:200px
+
+}

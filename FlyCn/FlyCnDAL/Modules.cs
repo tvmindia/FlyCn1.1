@@ -10,7 +10,8 @@ namespace FlyCn.FlyCnDAL
 {
     public class Modules
     {
-
+        public string cmbTextField = "ModuleID";
+        public string cmbValueField = "ModuleDesc";
 
         public DataSet GetModules()
         {

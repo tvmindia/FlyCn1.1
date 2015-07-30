@@ -11,7 +11,22 @@ namespace FlyCn.Activities
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack) {
+                loadModules();
+            }
+        }
+
+
+        void loadModules() {
+
+            FlyCnDAL.Modules mObj = new FlyCnDAL.Modules();
+            rcmbModules.DataSource = mObj.GetModules().Tables[0];
+            rcmbModules.DataTextField = mObj.cmbTextField;
+            rcmbModules.DataValueField = mObj.cmbValueField;
+            rcmbModules.DataBind();
+
 
         }
+
     }
 }
