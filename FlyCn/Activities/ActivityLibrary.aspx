@@ -25,7 +25,7 @@
                 </td>
             </tr>
         </table>
-        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" Width="100%" OnClientTabSelected="onClientTabSelected" CausesValidation="false">
+        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" Width="90%" OnClientTabSelected="onClientTabSelected" CausesValidation="false" Skin="Office2010Silver" SelectedIndex="0">
             <Tabs>
                 <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="100px" runat="server"></telerik:RadTab>
                  <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="100px" runat="server"></telerik:RadTab>
