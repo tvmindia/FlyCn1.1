@@ -67,6 +67,15 @@ namespace FlyCn.Activities {
         protected global::Telerik.Web.UI.RadPageView rpList;
         
         /// <summary>
+        /// rgActList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid rgActList;
+        
+        /// <summary>
         /// rpAddEdit control.
         /// </summary>
         /// <remarks>

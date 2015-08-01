@@ -250,8 +250,11 @@
     <Content Include="Images\heroAccent.png" />
     <Content Include="Images\Icons\approval.png" />
     <Content Include="Images\Icons\dashboard.png" />
+    <Content Include="Images\Icons\editIcon.png" />
     <Content Include="Images\Icons\graphs.png" />
+    <Content Include="Images\Icons\ListIcon.png" />
     <Content Include="Images\Icons\MileStones.png" />
+    <Content Include="Images\Icons\NewIcon.png" />
     <Content Include="Images\Icons\Reports.png" />
     <Content Include="Images\Icons\tilesIcon.png" />
     <Content Include="Images\Landing\7.jpg" />

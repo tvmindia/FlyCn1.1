@@ -26,5 +26,25 @@ namespace FlyCn.FlyCnDAL
             
         }
 
+
+        public DataSet GetActivities(string ProjNo )
+        {
+            DataSet dataset = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+
+
+            SqlCommand cmd = new SqlCommand("GetActLibrary", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("ProjectNo", ProjNo);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            dataset = new DataSet();
+            adapter.Fill(dataset);
+            con.Close();
+            return dataset;
+
+        }
     }
 }
