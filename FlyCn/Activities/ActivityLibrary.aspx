@@ -30,10 +30,10 @@
               <tr><td colspan="3">&nbsp;</td></tr>
         </table>
          <div class="innerDiv">
-        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="400px" OnClientTabSelected="onClientTabSelected" CausesValidation="false" Skin="Silk" SelectedIndex="0">
+        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" CausesValidation="false" Skin="Silk" SelectedIndex="0">
             <Tabs>
-                <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="200px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png"  ></telerik:RadTab>
-                 <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="200px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
+                <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png"  ></telerik:RadTab>
+                 <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
             </Tabs>
         </telerik:RadTabStrip>
         <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
