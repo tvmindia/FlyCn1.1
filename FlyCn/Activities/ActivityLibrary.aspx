@@ -24,13 +24,13 @@
                 
                 <td></td>
                 <td>
-                    <telerik:RadComboBox ID="rcmbModules" runat="server" AutoPostBack="true" CssClass="Initialcombo" Skin="Silk" ></telerik:RadComboBox>
+                    <telerik:RadComboBox ID="rcmbModules" runat="server" AutoPostBack="true" CssClass="Initialcombo"   ></telerik:RadComboBox>
                 </td>
             </tr>
               <tr><td colspan="3">&nbsp;</td></tr>
         </table>
          <div class="innerDiv">
-        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" CausesValidation="false" Skin="Silk" SelectedIndex="0">
+        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" CausesValidation="false"   SelectedIndex="0">
             <Tabs>
                 <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png"  ></telerik:RadTab>
                  <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
@@ -47,7 +47,7 @@
                         <td style="width:1%"></td>
                          <td>
                              
-                <telerik:RadGrid ID="rgActList" runat="server" OnNeedDataSource="rgActList_NeedDataSource" Skin="Silk">
+                <telerik:RadGrid ID="rgActList" runat="server" OnNeedDataSource="rgActList_NeedDataSource"  >
                       <MasterTableView DataKeyNames="ModuleID,ModuleActID"   AutoGenerateColumns="False" HeaderStyle-HorizontalAlign="Center">
                          
                           <PagerStyle Mode="NumericPages" />
