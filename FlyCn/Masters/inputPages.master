@@ -1,26 +1,31 @@
 ﻿<%@ Master Language="C#" MasterPageFile="~/Masters/Landing.Master" AutoEventWireup="true" CodeBehind="inputPages.master.cs" Inherits="FlyCn.Masters.inputPages" %>
 <%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+      <style type="text/css">  
+        
+
+ 
+    </style>  
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainBody" runat="server">
-
+  
 
     <div class="RadSplitterDiv">
         <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
       
-        <telerik:RadSplitter ID="RadSplitter1" runat="server">
-             <telerik:RadPane ID="RadPane1" runat="server" Width="150">
+        <telerik:RadSplitter ID="RadSplitter1" runat="server" Height="100%"  >
+             <telerik:RadPane ID="RadPane1" runat="server" Width="150"  CssClass="AutoHeight">
                  <telerik:RadTreeView ID="rtvLeftMenu" runat="server">
                      <Nodes >
                          <telerik:RadTreeNode   CssClass="Desc"   >
-                             <NodeTemplate>
+                            <%-- <NodeTemplate>
                                  <a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
                              </NodeTemplate>
                          </telerik:RadTreeNode>
                           <telerik:RadTreeNode   CssClass="Desc"  >
                              <NodeTemplate>
                                  <a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Company" target="contentPane">Company</a>
-                             </NodeTemplate>
+                             </NodeTemplate>--%>
                          </telerik:RadTreeNode>
                      </Nodes>
                      <DataBindings>
@@ -29,9 +34,9 @@
                  </telerik:RadTreeView>
                     
             </telerik:RadPane>
-            <telerik:RadSplitBar ID="RadSplitbar1" runat="server" CollapseMode="Forward">
+            <telerik:RadSplitBar ID="RadSplitbar1" runat="server" CollapseMode="Forward"   >
             </telerik:RadSplitBar>
-            <telerik:RadPane ID="contentPane" runat="server" Height="261px" Width="1241px" ClientIDMode="Static"  ContentUrl="~/General/UnderConstruction.aspx">
+            <telerik:RadPane ID="contentPane" runat="server"   Width="1241px" ClientIDMode="Static"  ContentUrl="~/General/UnderConstruction.aspx">
             </telerik:RadPane>
         </telerik:RadSplitter>
     </div>

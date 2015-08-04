@@ -108,9 +108,13 @@
     <Reference Include="Microsoft.AspNet.Membership.OpenAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Microsoft.AspNet.Membership.OpenAuth.1.0.1\lib\net45\Microsoft.AspNet.Membership.OpenAuth.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Web.UI, Version=2015.2.623.45, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Web.UI, Version=2014.3.1024.45, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\UI for ASP.NET AJAX Q2 2015\Bin45\Telerik.Web.UI.dll</HintPath>
+      <HintPath>bin\Telerik.Web.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Web.UI.Skins, Version=2014.1.225.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Telerik.Web.UI.Skins.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -134,6 +138,8 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="Activities\ActivityLibrary.aspx" />
+    <Content Include="Activities\Main.aspx" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.UI.Combined.dll" />
@@ -164,6 +170,7 @@
     <Content Include="bin\System.Web.Optimization.dll" />
     <Content Include="bin\System.Web.Providers.dll" />
     <Content Include="bin\Telerik.Web.UI.dll" />
+    <Content Include="bin\Telerik.Web.UI.Skins.dll" />
     <Content Include="bin\Telerik.Web.UI.xml" />
     <Content Include="bin\WebGrease.dll" />
     <Content Include="Content\FlyCnMain.css" />
@@ -224,6 +231,11 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Default.aspx" />
+    <Content Include="EIL\ClientPunchList.aspx" />
+    <Content Include="EIL\ConstructionPunchList.aspx" />
+    <Content Include="EIL\PunchList.aspx" />
+    <Content Include="EIL\QCPunchList.aspx" />
+    <Content Include="favicon.ico" />
     <Content Include="FlyCnMasters\DynamicMaster.aspx" />
     <Content Include="FlyCnMasters\GeneralMasters.aspx" />
     <Content Include="ForgotPassword.aspx" />
@@ -238,9 +250,13 @@
     <Content Include="Images\heroAccent.png" />
     <Content Include="Images\Icons\approval.png" />
     <Content Include="Images\Icons\dashboard.png" />
+    <Content Include="Images\Icons\editIcon.png" />
     <Content Include="Images\Icons\graphs.png" />
+    <Content Include="Images\Icons\ListIcon.png" />
     <Content Include="Images\Icons\MileStones.png" />
+    <Content Include="Images\Icons\NewIcon.png" />
     <Content Include="Images\Icons\Reports.png" />
+    <Content Include="Images\Icons\tilesIcon.png" />
     <Content Include="Images\Landing\7.jpg" />
     <Content Include="Images\Landing\a21.png" />
     <Content Include="Images\Landing\accent.png" />
@@ -279,9 +295,9 @@
     <Content Include="Images\orderedList7.png" />
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
-    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\screw.png" />
+    <Content Include="Images\tilesIcon.png" />
     <Content Include="Login.aspx" />
     <Content Include="Masters\inputPages.master" />
     <Content Include="Menu.aspx" />
@@ -337,6 +353,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\ActivityLibrary.aspx.cs">
+      <DependentUpon>ActivityLibrary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Activities\ActivityLibrary.aspx.designer.cs">
+      <DependentUpon>ActivityLibrary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Activities\Main.aspx.cs">
+      <DependentUpon>Main.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Activities\Main.aspx.designer.cs">
+      <DependentUpon>Main.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="Account\Login.aspx.cs">
@@ -382,9 +412,47 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EIL\ClientPunchList.aspx.cs">
+      <DependentUpon>ClientPunchList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIL\ClientPunchList.aspx.designer.cs">
+      <DependentUpon>ClientPunchList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIL\ConstructionPunchList.aspx.cs">
+      <DependentUpon>ConstructionPunchList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIL\ConstructionPunchList.aspx.designer.cs">
+      <DependentUpon>ConstructionPunchList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIL\PunchList.aspx.cs">
+      <DependentUpon>PunchList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIL\PunchList.aspx.designer.cs">
+      <DependentUpon>PunchList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIL\QCPunchList.aspx.cs">
+      <DependentUpon>QCPunchList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIL\QCPunchList.aspx.designer.cs">
+      <DependentUpon>QCPunchList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FlyCnDAL\Activities.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FlyCnDAL\DALConstants.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="FlyCnDAL\dbConnection.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
     <Compile Include="FlyCnDAL\MasterData.cs" />
+    <Compile Include="FlyCnDAL\Modules.cs" />
+    <Compile Include="FlyCnDAL\PunchList.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="FlyCnDAL\Security.cs" />
     <Compile Include="FlyCnMasters\DynamicMaster.aspx.cs">
       <DependentUpon>DynamicMaster.aspx</DependentUpon>
@@ -497,6 +565,9 @@
     </Compile>
     <Compile Include="UIClasses\Const.cs" />
     <Compile Include="UIClasses\DynamicIcons.cs" />
+    <Compile Include="UIClasses\InputPages.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

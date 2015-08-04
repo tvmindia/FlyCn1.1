@@ -204,3 +204,47 @@ iframe {
 
     height:700px;
 }
+
+.InputCaption {
+    color: #FFFFFF;
+    font-size: medium;
+}
+
+
+.InputDate {
+
+     color: #FFFFFF;
+    font-size: medium;
+}
+
+.Initialcombo {
+    border-radius:5px;   
+    width:400px;
+
+}
+
+/*-------------input ----------------------*/
+
+.baseInputStyles {
+    font-family: 'segoe UI' , Tahoma, Geneva, Verdana, sans-serif;  
+    vertical-align:middle;
+    
+}
+.inputMainContainer {
+    width:95%;
+    border-radius:10px;
+     background:rgba(160,160,160,0.7);
+     top:10%;
+     
+     min-height:500px;
+   /*margin:0 auto;*/ 
+
+}
+
+    .inputMainContainer .innerDiv {
+    width: 97%;
+  margin:0 auto;
+    min-height: 400px;
+    background-color: #F4F8FF;
+     border-radius:10px;
+}

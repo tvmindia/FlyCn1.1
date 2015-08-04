@@ -37,7 +37,10 @@
             }
         });
         
-       
+        function goMenu() {
+
+            window.location = "../Menu.aspx"
+        }
          
     </script>
 </head>
@@ -47,7 +50,10 @@
         <div class="header-cont">
         <div id="HeaderStrip">
             <table class="headerStrip"><tr><td style="width:10%">
-                <img src="../Images/logo.PNG" style="width:50%" /></td><td></td>
+                <img src="../Images/logo.PNG" style="width:50%" /></td><td></td> <td style="width:10%" class=""  >
+                    <asp:Image ID="imgMenu" runat="server" ImageUrl="~/Images/Icons/tilesIcon.png"  onclick="goMenu();"/>
+                     
+                                                                                 </td>
                 <td style="width:10%" class=""  >
                     <asp:Label ID="lblUser" runat="server" Text=""></asp:Label></td>
                 <td style="width:10%" >

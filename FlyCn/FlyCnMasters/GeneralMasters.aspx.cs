@@ -12,15 +12,17 @@ namespace FlyCn.FlyCnMasters
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           // LoadLeftMenu();
+            LoadLeftMenu();
         }
 
 
         public void LoadLeftMenu()
         {
-            FlyCnDAL.MasterData masters = new FlyCnDAL.MasterData();
-            RadTreeView tview = (RadTreeView)this.Master.FindControl("Content2").FindControl("rtvLeftMenu");
-            masters.BindTree(tview);
+            UIClasses.InputPages ip = new UIClasses.InputPages();
+            FlyCnDAL.MasterData Masters = new FlyCnDAL.MasterData();
+
+            RadTreeView tview = ip.FindLeftTree(this);
+            Masters.BindTree(tview);
             
 
         }
