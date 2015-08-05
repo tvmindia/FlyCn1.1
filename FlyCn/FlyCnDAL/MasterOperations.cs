@@ -10,6 +10,8 @@ namespace FlyCn.FlyCnDAL
 {
     public class MasterOperations
     {
+
+  
         #region Methods
 
         #region InsertMasterData
