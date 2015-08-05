@@ -45,7 +45,10 @@ namespace FlyCn.FlyCnDAL
                 rtn.Target = "contentPane";               
                 myTree.Nodes.Add(rtn);
             }
-        
+            RadTreeNode rtn1 = new RadTreeNode("MasterPerssonel", "M_Personnel"); //<a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
+            rtn1.NavigateUrl = "../FlyCnMasters/Personal.aspx";
+            rtn1.Target = "contentPane";
+            myTree.Nodes.Add(rtn1);
         }
     }
 }
