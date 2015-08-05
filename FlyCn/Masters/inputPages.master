@@ -37,8 +37,8 @@
                     <td style="color: black; font: bold">Error</td>
                     <td></td>
                     <td style="text-align: left; height: 0.8px; width: 2px">
-
-                        <img src="Images/Close.png" style="padding-right: 1px; margin-left: 1px; margin-right: 1px; width: 15px; height: 15px" onclick="hideMe();" />
+                  <img src="../Images/close.png" onclick="hideMe();" />
+                        <%--<img src="Images/Close.png" style="padding-right: 1px; margin-left: 1px; margin-right: 1px; width: 15px; height: 15px" onclick="hideMe();" />--%>
                     </td>
                 </tr>
                 <tr>
