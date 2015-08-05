@@ -18,12 +18,24 @@
     
 }
   </style>
+    <style type="text/css">
+  .RadWindow .rwDialogPopup
+   {
+    color:Blue !important;// customizing popup window
+   }
+  .RadWindow .rwWindowContent .rwPopupButton .rwInnerSpan
+  {
+     color:Red !important;// customizing the text in popup window
+  }
+</style>
+    <script ></script>
+    
       <script type="text/javascript">
 
           function DisplayFunction() {
-              
-       
-                 
+
+
+
               document.getElementById('div2').style.display = "";
               document.getElementById('div1').style.display = "none";
               document.getElementById('Display').style.backgroundColor = "#00CDCD";
@@ -35,7 +47,7 @@
      <script type="text/javascript">
          function ADDFunction() {
 
-          
+
              document.getElementById('div1').style.display = "";
              document.getElementById('div2').style.display = "none";
              document.getElementById('ADD').style.backgroundColor = "#00CDCD";
@@ -43,9 +55,10 @@
              document.getElementById('ADD').style.color = "#FFFFFF";
              document.getElementById('Display').style.color = "";
              document.getElementById('<%=Button1.ClientID %>').style.visibility = "hidden";
-             
-         
-         
+             document.getElementById('<%=Button2.ClientID %>').style.visibility = "visible";
+             $("input:text").val('');
+
+
          }
     </script>
        <script type="text/javascript">
@@ -58,10 +71,11 @@
                document.getElementById('Display').style.backgroundColor = "";
                document.getElementById('ADD').style.color = "#FFFFFF";
                document.getElementById('Display').style.color = "";
-            
+
                document.getElementById('<%=Button2.ClientID %>').style.visibility = "hidden";
-               
- 
+               document.getElementById('<%=Button1.ClientID %>').style.visibility = "visible";
+
+
            }
     </script>
     
@@ -71,7 +85,8 @@
 
     <p>
         &nbsp;</p>
-    <div class="HomeBox2" style="width:70%;text-align:center;height:200px;vertical-align:middle" >
+    <%--class="HomeBox2"--%>
+    <div  style="width:70%;text-align:center;height:200px;vertical-align:middle" >
         <asp:Label ID="lblmasterName" runat="server" Text="Label" CssClass="title"></asp:Label>  Master
         <br/>
         <div align="left" >
@@ -83,7 +98,7 @@
             <br />
             <br />
             <div>
-                                 <asp:Button ID="Button2" runat="server" Text="Add"  style="background-color:#008B8B; color:white;"  OnClick="Button2_Click" ClientIDMode="Static" />
+                                 <asp:Button ID="Button2" runat="server" Text="Add"  style="background-color:#008B8B; color:white;"  OnClick="Button2_Click" ClientIDMode="Static" ValidationGroup="Submit" />
                                 <asp:Button ID="Button1" runat="server" Text="Update" style="background-color:#008B8B; color:white;"  OnClick="Button1_Click" ClientIDMode="Static" />
 
             </div>
@@ -94,16 +109,16 @@
 </asp:ScriptManager>
              <telerik:RadGrid ID="RadGrid1" runat="server" CellSpacing="0"
                  GridLines="None" OnNeedDataSource="RadGrid1_NeedDataSource1" AllowPaging="true" ItemStyle-HorizontalAlign="Left" AlternatingItemStyle-HorizontalAlign="Left"
-                 PageSize="10" AllowAutomaticDeletes="True" OnItemCommand="RadGrid1_ItemCommand"  AllowMultiRowEdit="true"  DataKeyNames="Code">
-<MasterTableView  DataKeyNames="Code" >
+                 PageSize="10" AllowAutomaticDeletes="True" OnItemCommand="RadGrid1_ItemCommand"  AllowMultiRowEdit="true"  DataKeyNames="Code"  CommandItemDisplay="Right">
+<MasterTableView   >
+     
     <Columns>
           <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData">
                     </telerik:GridButtonColumn>
-         <telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="Delete">
+         <telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure" >
                     </telerik:GridButtonColumn>
-     <%-- <telerik:GridClientDeleteColumn ConfirmText="Are you sure you want to delete the selected row?"
-        HeaderStyle-Width="35px" ButtonType="ImageButton"  CommandName="Delete" />--%>
-    </Columns>
+   
+    </Columns> 
   </MasterTableView>
 
         </telerik:RadGrid>     
