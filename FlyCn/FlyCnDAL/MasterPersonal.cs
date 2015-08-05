@@ -292,9 +292,10 @@ namespace FlyCn.FlyCnDAL
             SqlConnection con = null;
             try
             {     
-                DataSet dataset = new DataSet();               
-                con = Connection.GetCCMSDBConnection();
-                con.Open();
+                DataSet dataset = new DataSet();
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "InsertMasterPersonal";
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -366,10 +367,10 @@ namespace FlyCn.FlyCnDAL
             SqlConnection conObj = null;
             try
             {
-                
-                conObj = Connection.GetCCMSDBConnection();
-                conObj.Open();
-               
+                dbConnection dcon = new dbConnection();
+                conObj = dcon.GetDBConnection();
+
+
                 SqlCommand cmd = new SqlCommand("DELETEMASTERPERSONAL", conObj);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@code", code);
@@ -399,7 +400,7 @@ namespace FlyCn.FlyCnDAL
 
     
             SqlConnection con = null;
-           
+
             dbConnection dcon = new dbConnection();
             con = dcon.GetDBConnection();
 
@@ -436,8 +437,8 @@ namespace FlyCn.FlyCnDAL
             try
             {
                 DataSet dataset = new DataSet();
-                con = Connection.GetCCMSDBConnection();
-                con.Open();
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "UpdateMasterPersonalData";
                 cmd.CommandType = CommandType.StoredProcedure;
