@@ -27,8 +27,8 @@ namespace FlyCn.FlyCnDAL
                 string FieldParams = "";
                 SystemDefenitionDetails dbobj = new SystemDefenitionDetails();
                 dataset = dbobj.getDataToInsert(TableName);
-                con =Connection.GetCCMSDBConnection();
-                con.Open();
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "Insert";
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -151,8 +151,8 @@ namespace FlyCn.FlyCnDAL
             try
             {
                 string whereCondition;
-                conObj = Connection.GetCCMSDBConnection();
-                conObj.Open();
+                dbConnection dcon = new dbConnection();
+                conObj = dcon.GetDBConnection();
                 whereCondition = Id + "=" + "'" + code + "'";
                 SqlCommand cmd = new SqlCommand("DeleteMaster", conObj);
                 cmd.CommandType = CommandType.StoredProcedure;            
