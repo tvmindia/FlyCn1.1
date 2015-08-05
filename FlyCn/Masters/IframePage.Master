@@ -9,14 +9,58 @@
      
     </asp:ContentPlaceHolder>
        <link href="../Content/FlyCnMain.css" rel="stylesheet" />
+       <style type="text/css">
+        .auto-style3 {
+            width: 173px;
+        }
+        .auto-style4 {
+            width: 201px;
+        }
+        #btnOk {
+            height: 33px;
+            width: 55px;
+        }
+    </style>
+   <script>
+       function hideMe() {
+           document.getElementById("Errorbox").style.display = "none";
+           var divId = document.getElementById("masterDiv");
+           divId.style.opacity = "1";
+           }
+    </script>
 </head>
 <body>
-    <form id="form1" runat="server">
+ 
     <div>
+    
+      </div>
+            <div  id="Errorbox" style="width: 100%; display: none;" runat="server" align="left" >
+            <table style="width: 90%; height: 80px; border: groove; border-radius: 5px 6px; background-color: lightgrey">
+                <tr>
+                    <td style="color: black; font: bold">Error</td>
+                    <td></td>
+                    <td style="text-align: left; height: 0.8px; width: 2px">
+
+                        <img src="Images/Close.png" style="padding-right: 1px; margin-left: 1px; margin-right: 1px; width: 15px; height: 15px" onclick="hideMe();" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblErrorInfo" runat="server" Style="font-size: large; color: red"></asp:Label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+   
+     <div id="masterDiv" runat="server"> 
+
+
+    <form id="form1" runat="server">
+   
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
-    </div>
-    </form>
+        </form>
+       </div>
 </body>
 </html>
