@@ -477,12 +477,14 @@
     </Compile>
     <Compile Include="FlyCnMasters\Personal.aspx.cs">
       <DependentUpon>Personal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FlyCnMasters\Personal.aspx.designer.cs">
       <DependentUpon>Personal.aspx</DependentUpon>
     </Compile>
     <Compile Include="FlyCnMasters\PersonnelQualification.aspx.cs">
       <DependentUpon>PersonnelQualification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FlyCnMasters\PersonnelQualification.aspx.designer.cs">
       <DependentUpon>PersonnelQualification.aspx</DependentUpon>
