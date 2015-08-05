@@ -1,47 +1,107 @@
 ﻿<%@ Master Language="C#" MasterPageFile="~/Masters/Landing.Master" AutoEventWireup="true" CodeBehind="inputPages.master.cs" Inherits="FlyCn.Masters.inputPages" %>
-<%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-      <style type="text/css">  
-        
 
- 
-    </style>  
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        /*.auto-style3 {
+        width: 173px;
+    }*/
+
+        .auto-style4 {
+            width: 201px;
+        }
+
+        #btnOk {
+            height: 33px;
+            width: 55px;
+        }
+    </style>
+    <script>
+        function hideMe() {
+            document.getElementById("Errorbox").style.display = "none";
+            var divId = document.getElementById("masterDiv");
+            divId.style.opacity = "1";
+        }
+    </script>
+
+
+    <%--<div>
+</div>--%>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainBody" runat="server">
-  
+    
+        <div  id="Errorbox" style="width: 100%; display: none;" runat="server" align="left" >
+            <table style="width: 90%; height: 80px; border: groove; border-radius: 5px 6px; background-color: lightgrey">
+                <tr>
+                    <td style="color: black; font: bold">Error</td>
+                    <td></td>
+                    <td style="text-align: left; height: 0.8px; width: 2px">
+
+                        <img src="Images/Close.png" style="padding-right: 1px; margin-left: 1px; margin-right: 1px; width: 15px; height: 15px" onclick="hideMe();" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblErrorInfo" runat="server" Style="font-size: large; color: red"></asp:Label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="masterDiv" runat="server">
+    </div>
 
     <div class="RadSplitterDiv">
         <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
-      
-        <telerik:RadSplitter ID="RadSplitter1" runat="server" Height="100%"  >
-             <telerik:RadPane ID="RadPane1" runat="server" Width="150"  CssClass="AutoHeight">
-                 <telerik:RadTreeView ID="rtvLeftMenu" runat="server">
-                     <Nodes >
-                         <telerik:RadTreeNode   CssClass="Desc"   >
-                            <%-- <NodeTemplate>
-                                 <a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
-                             </NodeTemplate>
-                         </telerik:RadTreeNode>
-                          <telerik:RadTreeNode   CssClass="Desc"  >
-                             <NodeTemplate>
-                                 <a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Company" target="contentPane">Company</a>
-                             </NodeTemplate>--%>
-                         </telerik:RadTreeNode>
-                     </Nodes>
-                     <DataBindings>
-                         <telerik:RadTreeNodeBinding Target="contentPane" />
-                     </DataBindings>
-                 </telerik:RadTreeView>
-                    
+
+        <telerik:RadSplitter ID="RadSplitter1" runat="server">
+            <telerik:RadPane ID="RadPane1" runat="server" Width="150">
+                <telerik:RadTreeView ID="rtvLeftMenu" runat="server">
+                    <Nodes>
+                        <telerik:RadTreeNode CssClass="Desc">
+                            <NodeTemplate>
+                                <a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
+                            </NodeTemplate>
+                        </telerik:RadTreeNode>
+                        <telerik:RadTreeNode CssClass="Desc">
+                            <NodeTemplate>
+                                <a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Company" target="contentPane">Company</a>
+                            </NodeTemplate>
+                        </telerik:RadTreeNode>
+                         <telerik:RadTreeNode CssClass="Desc">
+                            <NodeTemplate>
+                                <a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Department" target="contentPane">Department</a>
+                            </NodeTemplate>
+                        </telerik:RadTreeNode>
+                           <telerik:RadTreeNode CssClass="Desc">
+                            <NodeTemplate>
+                                <a href="../FlyCnMasters/DynamicMaster.aspx?Mode=WeldersRegister" target="contentPane">WeldersRegister</a>
+                            </NodeTemplate>
+                          </telerik:RadTreeNode>
+                         <telerik:RadTreeNode CssClass="Desc">
+                            <NodeTemplate>
+                                <a href="../FlyCnMasters/Personal.aspx" target="contentPane">Personnel</a>
+                            </NodeTemplate>
+                        </telerik:RadTreeNode>
+                    </Nodes>
+                    <DataBindings>
+                        <telerik:RadTreeNodeBinding Target="contentPane" />
+                    </DataBindings>
+                </telerik:RadTreeView>
+
             </telerik:RadPane>
-            <telerik:RadSplitBar ID="RadSplitbar1" runat="server" CollapseMode="Forward"   >
+            <telerik:RadSplitBar ID="RadSplitbar1" runat="server" CollapseMode="Forward">
             </telerik:RadSplitBar>
-            <telerik:RadPane ID="contentPane" runat="server"   Width="1241px" ClientIDMode="Static"  ContentUrl="~/General/UnderConstruction.aspx">
+            <telerik:RadPane ID="contentPane" runat="server" Height="261px" Width="1241px" ClientIDMode="Static" ContentUrl="~/General/UnderConstruction.aspx">
             </telerik:RadPane>
         </telerik:RadSplitter>
     </div>
+     
+
+    
 
 
 </asp:Content>
 
-<%--//-------%>
+
