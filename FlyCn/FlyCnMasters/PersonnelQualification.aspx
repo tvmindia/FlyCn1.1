@@ -31,10 +31,10 @@
              document.getElementById('Display').style.color = "";
              document.getElementById('<%=Button1.ClientID %>').style.visibility = "hidden";
              document.getElementById('<%=Button2.ClientID %>').style.visibility = "visible";
-         
              $("input:text").val('');
-
              $('textarea').empty()
+
+            
            
 
 
