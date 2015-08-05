@@ -1,23 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="DynamicMaster.aspx.cs" Inherits="FlyCn.FlyCnMasters.DynamicMaster" %>
 <%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+  
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-  <style>
-      .table.itemsOne
-{
-	font-family:"Segoe UI", "Segoe UI Light", "Segoe UI Semibold";
-	align-content:flex-end;
-    background-color:black;
-    
-}
-           .table.itemsOne1 
-           {
-	align-content:flex-end;
-    align:left;
-    
-}
-  </style>
+
     <style type="text/css">
   .RadWindow .rwDialogPopup
    {
