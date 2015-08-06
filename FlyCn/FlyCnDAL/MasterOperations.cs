@@ -32,7 +32,7 @@ namespace FlyCn.FlyCnDAL
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "Insert";
+                cmd.CommandText = "InsertDynamicMaster";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
                 cmd.Parameters.AddWithValue("@TableName", TableName);
@@ -247,7 +247,7 @@ namespace FlyCn.FlyCnDAL
                 con = dcon.GetDBConnection();
 
 
-                SqlCommand cmd = new SqlCommand("Update", con);
+                SqlCommand cmd = new SqlCommand("UpdateMaster", con);
                 cmd.Connection = con;
                 cmd.Parameters.AddWithValue("@TableName", Table);
                 int totalrows = dsTest.Rows.Count;
