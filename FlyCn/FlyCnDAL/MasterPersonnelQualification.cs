@@ -210,7 +210,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@code", code);
                 cmd.Parameters.AddWithValue("@Qualification", Qualification);
-                cmd.Parameters.AddWithValue("@ProjNo", ProjNo);
+                cmd.Parameters.AddWithValue("@ProjectNo", ProjNo);
                 cmd.ExecuteScalar();
                 return 1;
             }

@@ -212,10 +212,6 @@ namespace FlyCn.FlyCnDAL
            
             SqlCommand cmd = new SqlCommand("GetMasterPersonalData", con);
             cmd.CommandType = CommandType.StoredProcedure;
-          
-             
-             
-           
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = cmd;
             dt = new DataTable();
