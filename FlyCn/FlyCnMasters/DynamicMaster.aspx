@@ -2,9 +2,6 @@
 <%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
   
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
     <style type="text/css">
   .RadWindow .rwDialogPopup
    {
@@ -17,7 +14,7 @@
 </style>
     <script ></script>
     
-      <script type="text/javascript">
+      <%--<script type="text/javascript">
 
           function DisplayFunction() {
 
@@ -30,8 +27,8 @@
               document.getElementById('ADD').style.backgroundColor = "";
               document.getElementById('ADD').style.color = "";
           }
-    </script>
-     <script type="text/javascript">
+    </script>--%>
+     <%--<script type="text/javascript">
          function ADDFunction() {
 
 
@@ -47,24 +44,52 @@
 
 
          }
-    </script>
+    </script>--%>
+
+    <script type="text/javascript">
+        function onClientTabSelected(sender, args) {
+            var tab = args.get_tab();
+            if (tab.get_text() == "New") {
+                document.getElementById('div1').style.display = "";
+                document.getElementById('div2').style.display = "none";
+                document.getElementById('<%=Button1.ClientID %>').style.visibility = "hidden";
+                document.getElementById('<%=Button2.ClientID %>').style.visibility = "visible";
+               // document.getElementsByTagName('input').style.display = "none";
+                $("input:text").val('');
+                //$('input[type=text]').each(function () {
+                //    $(this).val('');
+                //});
+              <%--  $find("<%="input:text" %>").val('');--%>
+
+
+            }
+            else if (tab.get_text() == "View") {
+
+                document.getElementById('div2').style.display = "";
+                document.getElementById('div1').style.display = "none";
+            }
+
+        }
+
+
+        </script>
+
        <script type="text/javascript">
            function UpdateFunction() {
 
 
                document.getElementById('div1').style.display = "";
                document.getElementById('div2').style.display = "none";
-               document.getElementById('ADD').style.backgroundColor = "#00CDCD";
-               document.getElementById('Display').style.backgroundColor = "";
-               document.getElementById('ADD').style.color = "#FFFFFF";
-               document.getElementById('Display').style.color = "";
-
                document.getElementById('<%=Button2.ClientID %>').style.visibility = "hidden";
                document.getElementById('<%=Button1.ClientID %>').style.visibility = "visible";
 
 
            }
     </script>
+    
+
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
     <p>
         <br />
@@ -73,13 +98,20 @@
     <p>
         &nbsp;</p>
     <%--class="HomeBox2"--%>
-    <div  style="width:70%;text-align:center;height:200px;vertical-align:middle" >
+    <div  class="inputMainContainer" style="width:70%;text-align:center;height:200px;vertical-align:middle"  >
         <asp:Label ID="lblmasterName" runat="server" Text="Label" CssClass="title"></asp:Label>  Master
         <br/>
-        <div align="left" >
+        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
+             CausesValidation="false"   SelectedIndex="0" >
+            <Tabs>
+                <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png"  ></telerik:RadTab>
+                 <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
+            </Tabs>
+        </telerik:RadTabStrip>
+     <%--   <div align="left" >
            <input id="Display" type="button" value="List" style="background-color:#00CDCD; color:white;" align="left" onclick="DisplayFunction()"/>
            <input id="ADD" type="button" value="New"  align="left"  onclick="ADDFunction()"/>
-        </div>
+        </div>--%>
         <div  id="div1" style ="display:none;">
         <div id="placeholder" runat="server" style="text-align:left"></div>
             <br />

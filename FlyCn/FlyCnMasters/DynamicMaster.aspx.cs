@@ -216,8 +216,27 @@ namespace FlyCn.FlyCnMasters
 
 
 
+        //protected void RadTabStrip1_TabClick(object sender, RadTabStripEventArgs e)
+        //{
+        //    RadTab tab = (RadTab)RadTabStrip1.FindTabByText("New");
+        //    if (tab.Text == "New")
+        //    {
+        //        ClearInputs(Page.Controls);
+        //    }
 
+          
+        //    //your code to perform an operation on click goes ere 
+        //}
 
+      public  void ClearInputs(ControlCollection ctrls)
+        {
+            foreach (Control ctrl in ctrls)
+            {
+                if (ctrl is TextBox)
+                    ((TextBox)ctrl).Text = string.Empty;
+                ClearInputs(ctrl.Controls);
+            }
+        }
         protected void Button2_Click(object sender, EventArgs e)
         {
 
