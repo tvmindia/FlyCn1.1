@@ -13,5 +13,22 @@ namespace FlyCn.UIClasses
                 return "LoginDetails";
             }
         }
+
+
+        public string HomePage
+        {
+            get
+            {
+                return "Home.aspx";
+            }
+        }
+
+        public string HomePageURL
+        {
+            get
+            {
+                return "~/Home.aspx";
+            }
+        }
     }
 }

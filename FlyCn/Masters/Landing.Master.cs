@@ -14,8 +14,19 @@ namespace FlyCn.Masters
         protected void Page_Init(object sender, EventArgs e)
         {
             if (Session[Const.LoginSession] == null) {
-                imgMenu.Visible = false;
-                lnkLoginLogout.Attributes.Add("onclick", "return openLogin('slow')");
+                if (GetCurrentPageName() == Const.HomePage)
+                {
+
+                    imgMenu.Visible = false;
+                    lnkLoginLogout.Attributes.Add("onclick", "return openLogin('slow')");
+                
+                }
+                else {
+
+                    Response.Redirect(Const.HomePageURL);
+                }
+
+              
             }
             else {
                 FlyCnDAL.Security.UserAuthendication UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
@@ -25,6 +36,16 @@ namespace FlyCn.Masters
             }
 
         }
+
+
+        public string GetCurrentPageName()
+        {
+            string sPath = Request.Url.AbsolutePath;
+            System.IO.FileInfo oInfo = new System.IO.FileInfo(sPath);
+            string sRet = oInfo.Name;
+            return sRet;
+        }
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
