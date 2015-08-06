@@ -238,6 +238,8 @@
     <Content Include="favicon.ico" />
     <Content Include="FlyCnMasters\DynamicMaster.aspx" />
     <Content Include="FlyCnMasters\GeneralMasters.aspx" />
+    <Content Include="FlyCnMasters\Personal.aspx" />
+    <Content Include="FlyCnMasters\PersonnelQualification.aspx" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Images\accent.png" />
@@ -447,13 +449,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FlyCnDAL\dbConnection.cs" />
+    <Compile Include="FlyCnDAL\ErrorHandling.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
     <Compile Include="FlyCnDAL\MasterData.cs" />
+    <Compile Include="FlyCnDAL\MasterOperations.cs" />
+    <Compile Include="FlyCnDAL\MasterPersonal.cs" />
+    <Compile Include="FlyCnDAL\MasterPersonnelQualification.cs" />
     <Compile Include="FlyCnDAL\Modules.cs" />
     <Compile Include="FlyCnDAL\PunchList.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FlyCnDAL\Security.cs" />
+    <Compile Include="FlyCnDAL\SystemDefenitionDetails.cs" />
     <Compile Include="FlyCnMasters\DynamicMaster.aspx.cs">
       <DependentUpon>DynamicMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -467,6 +474,20 @@
     </Compile>
     <Compile Include="FlyCnMasters\GeneralMasters.aspx.designer.cs">
       <DependentUpon>GeneralMasters.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FlyCnMasters\Personal.aspx.cs">
+      <DependentUpon>Personal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlyCnMasters\Personal.aspx.designer.cs">
+      <DependentUpon>Personal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FlyCnMasters\PersonnelQualification.aspx.cs">
+      <DependentUpon>PersonnelQualification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlyCnMasters\PersonnelQualification.aspx.designer.cs">
+      <DependentUpon>PersonnelQualification.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
