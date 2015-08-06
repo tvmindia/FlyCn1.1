@@ -17,7 +17,8 @@ namespace FlyCn.FlyCnMasters
         protected void Page_Load(object sender, EventArgs e)
         {
           _id1 = Request.QueryString["id"];
-          txtEmpCode.Text = _id1;
+          //txtEmpCode.Text = _id1;
+          HiddenField.Value = _id1;
 
         }
         protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)

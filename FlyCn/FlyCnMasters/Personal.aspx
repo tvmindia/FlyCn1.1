@@ -3,46 +3,39 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-       <script type="text/javascript">
+    <script type="text/javascript">
+        function onClientTabSelected(sender, args) {
+            var tab = args.get_tab();
+            if (tab.get_text() == "New") {
+                document.getElementById('divGeneral').style.display = "";
+                document.getElementById('divCompanyDetails').style.display = "";
+                document.getElementById('divQualification').style.display = "none";
+                document.getElementById('<%=Button1.ClientID %>').style.display = "none";
+                document.getElementById('<%=Button2.ClientID %>').style.display = "";
+                document.getElementById('<%=framediv.ClientID %>').style.display = "none";
+                document.getElementById('<%=txtCode.ClientID %>').readOnly = false;
+                // document.getElementsByTagName('input').style.display = "none";
+                //$("input:text").val('');
+                $('input[type=text]').each(function () {
+                    $(this).val('');
+                });
+                $('textarea').empty();
 
-           function DisplayFunction()
-           {
+            }
+            else if (tab.get_text() == "View") {
+
+                document.getElementById('divQualification').style.display = "";
+                document.getElementById('divGeneral').style.display = "none";
+                document.getElementById('divCompanyDetails').style.display = "none";
+                document.getElementById('<%=Button2.ClientID %>').style.display = "none";
+
+            }
+
+    }
 
 
+        </script>
 
-               document.getElementById('divQualification').style.display = "";
-               document.getElementById('divGeneral').style.display = "none";
-               document.getElementById('divCompanyDetails').style.display = "none";
-               document.getElementById('Button2').style.display = "none";
-               document.getElementById('Display').style.backgroundColor = "#00CDCD";
-               document.getElementById('Display').style.color = "#FFFFFF";
-               document.getElementById('ADD').style.backgroundColor = "";
-               document.getElementById('ADD').style.color = "";
-           }
-    </script>
-     <script type="text/javascript">
-         function ADDFunction()
-         {
-
-             document.getElementById('divGeneral').style.display = "";
-             document.getElementById('divCompanyDetails').style.display = "";
-             document.getElementById('divQualification').style.display = "none";
-             document.getElementById('Button1').style.display = "none";
-             document.getElementById('Button2').style.display = "";
-             document.getElementById('ADD').style.backgroundColor = "#00CDCD";
-             document.getElementById('Display').style.backgroundColor = "";
-             document.getElementById('ADD').style.color = "#FFFFFF";
-             document.getElementById('Display').style.color = "";
-             document.getElementById('<%=Button1.ClientID %>').style.visibility = "hidden";
-             document.getElementById('<%=Button2.ClientID %>').style.visibility = "visible";
-             document.getElementById('<%=framediv.ClientID %>').style.visibility = "hidden";
-             document.getElementById('<%=txtCode.ClientID %>').readOnly = false;
-             $("input:text").val('');
-            
-             $('textarea').empty()
-
-         }
-    </script>
        <script type="text/javascript">
            function UpdateFunction()
            {
@@ -50,17 +43,18 @@
                document.getElementById('divGeneral').style.display = "";
                document.getElementById('divCompanyDetails').style.display = "";
                document.getElementById('divQualification').style.display = "none";
-               document.getElementById('ADD').style.backgroundColor = "#00CDCD";
-               document.getElementById('Display').style.backgroundColor = "";
-               document.getElementById('ADD').style.color = "#FFFFFF";
-               document.getElementById('Display').style.color = "";
-               document.getElementById('Button1').style.display = "";
-               document.getElementById('<%=Button2.ClientID %>').style.visibility = "hidden";
-               document.getElementById('<%=Button1.ClientID %>').style.visibility = "visible";
+               //document.getElementById('ADD').style.backgroundColor = "#00CDCD";
+               //document.getElementById('Display').style.backgroundColor = "";
+               //document.getElementById('ADD').style.color = "#FFFFFF";
+               //document.getElementById('Display').style.color = "";
+               //document.getElementById('Button1').style.display = "";
+               document.getElementById('<%=Button2.ClientID %>').style.display = "none";
+               document.getElementById('<%=Button1.ClientID %>').style.display = "";
              //  document.getElementById("ContentIframe").src = "PersonnelQualification.aspx?id=" + strId;
 
            }
     </script>
+
     <script type="text/javascript">
         function validate() {
             var Code = document.getElementById('<%=txtCode.ClientID %>').value;
@@ -93,6 +87,7 @@
            
         }
 </script>
+
     <style>
       table
     {
@@ -114,21 +109,28 @@
   
 </style>
 
-
+    
    
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div>
+    <%--<div>
         <input id="Display" type="button" value="List" style="background-color: #00CDCD; color: white;" align="left" onclick="DisplayFunction()" />
         <input id="ADD" type="button" value="New" align="left" onclick="ADDFunction()" />
-    </div>
+    </div>--%>
+    <div class="inputMainContainer">
 
+    <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
+             CausesValidation="false"   SelectedIndex="0" >
+            <Tabs>
+                <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png"  ></telerik:RadTab>
+                 <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
+            </Tabs>
+        </telerik:RadTabStrip>
     <div>
     </div>
-
-    <div id="divGeneral" style="display: none; width: 100%;">
+    <div id="divGeneral"  style="display: none; width: 100%;">
         <div>
             <asp:Label ID="lblGenaral" runat="server" Text="Genaral" ForeColor="SpringGreen"></asp:Label>
         </div>
@@ -337,16 +339,16 @@
             </tr>
         </table>
     </div>
-
+    
     <div>
-        <asp:Button ID="Button2" runat="server" Text="Add" Style="background-color: #008B8B; color: white; display: none;" OnClick="Button2_Click" ClientIDMode="Static" ValidationGroup="Group" OnClientClick="return validate();" />
-        <asp:Button ID="Button1" runat="server" Text="Update" Style="background-color: #008B8B; color: white; display: none;" OnClick="Button1_Click" ClientIDMode="Static" ValidationGroup="Group" />
+        <asp:Button ID="Button2" runat="server" Text="Add" Style="background-color: #008B8B; color: white; display:none" OnClick="Button2_Click" ValidationGroup="Group"  ClientIDMode="Static" OnClientClick="return validate();" />
+        <asp:Button ID="Button1" runat="server" Text="Update" Style="background-color: #008B8B; color: white; display:none" OnClick="Button1_Click"  ValidationGroup="Group"  ClientIDMode="Static" />
 
     </div>
 
-    <div id="divQualification">
+    <div id="divQualification" style="visibility:visible">
 
-        <div>
+      
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
             </asp:ScriptManager>
 
@@ -363,7 +365,7 @@
                 </MasterTableView>
 
             </telerik:RadGrid>
-        </div>
+       
 
     </div>
 
@@ -372,6 +374,6 @@
         <iframe id="ContentIframe" runat="server"
             name="PQualification" width="100%" height="100%" />
     </div>
-
+    </div>
 </asp:Content>
 

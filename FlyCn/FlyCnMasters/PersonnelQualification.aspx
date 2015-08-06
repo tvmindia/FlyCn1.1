@@ -2,7 +2,35 @@
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-         <script type="text/javascript">
+    <script src="../Scripts/jquery-1.8.2.min.js"></script>
+
+    <script type="text/javascript">
+        function onClientTabSelected(sender, args) {
+            var tab = args.get_tab();
+            if (tab.get_text() == "New") {
+                document.getElementById('divQualificationedit').style.display = "";
+                document.getElementById('divQualification').style.display = "none";
+                document.getElementById('<%=Button1.ClientID %>').style.display = "none";
+                document.getElementById('<%=Button2.ClientID %>').style.display = "";
+                $("input:text").val('');
+                $('textarea').empty()
+                var hiddenStatusFlag = document.getElementById('<%= HiddenField.ClientID%>').value;   
+             
+                document.getElementById('<%=txtEmpCode.ClientID %>').value = hiddenStatusFlag;
+            }
+            else if (tab.get_text() == "View") {
+
+
+                document.getElementById('divQualification').style.display = "";
+                document.getElementById('divQualificationedit').style.display = "none";
+                document.getElementById('<%=Button2.ClientID %>').style.display = "none";
+            }
+
+        }
+
+
+        </script>
+         <%--<script type="text/javascript">
 
              function DisplayFunction() {
 
@@ -16,8 +44,8 @@
                  document.getElementById('ADD').style.backgroundColor = "";
                  document.getElementById('ADD').style.color = "";
              }
-    </script>
-     <script type="text/javascript">
+    </script>--%>
+     <%--<script type="text/javascript">
          function ADDFunction()
          {
 
@@ -39,45 +67,54 @@
 
 
          }
-    </script>
+    </script>--%>
        <script type="text/javascript">
            function UpdateFunction() {
 
                document.getElementById('divQualificationedit').style.display = "";
                document.getElementById('divQualification').style.display = "none";
-               document.getElementById('ADD').style.backgroundColor = "#00CDCD";
-               document.getElementById('Display').style.backgroundColor = "";
-               document.getElementById('ADD').style.color = "#FFFFFF";
-               document.getElementById('Display').style.color = "";
-               document.getElementById('Button1').style.display = "";
-               document.getElementById('<%=Button2.ClientID %>').style.visibility = "hidden";
-               document.getElementById('<%=Button1.ClientID %>').style.visibility = "visible";
-
-
+               document.getElementById('<%=Button2.ClientID %>').style.display="none"
+               document.getElementById('<%=Button1.ClientID %>').style.display = "";
            }
     </script>
 
         <script type="text/javascript">
             function validate()
             {
-                var Code = document.getElementById('<%=txtQualification.ClientID %>').value;
+                var Qualification = document.getElementById('<%=txtQualification.ClientID %>').value;
+
+                if (Qualification == "") {
+                    alert("Enter Your Qualification");
+                    return false;
+                }
+
             }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
   
-    <div>
+  <%--  <div>
         <input id="Display" type="button" value="List" style="background-color: #00CDCD; color: white;" align="left" onclick="DisplayFunction()" />
         <input id="ADD" type="button" value="New" align="left" onclick="ADDFunction()" />
-    </div>
+    </div>--%>
+
+    <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
+             CausesValidation="false"   SelectedIndex="0" >
+            <Tabs>
+                <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png"  ></telerik:RadTab>
+                 <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
+            </Tabs>
+        </telerik:RadTabStrip>
+
     <div id="divQualificationedit" style="display: none">
         <table style="width: 100%;">
             <tr>
                 <td>
+                       <asp:HiddenField ID="HiddenField" runat="server" />
                     <asp:Label ID="lblEmpCode" runat="server" Text="EmployeeCode"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtEmpCode" runat="server" ReadOnly="true"></asp:TextBox>
+                    <asp:TextBox ID="txtEmpCode" runat="server"  enabled="false" ></asp:TextBox>
 
 
                 </td>

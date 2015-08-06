@@ -98,7 +98,7 @@
     <p>
         &nbsp;</p>
     <%--class="HomeBox2"--%>
-    <div  class="inputMainContainer" style="width:70%;text-align:center;height:200px;vertical-align:middle"  >
+    <div  class="inputMainContainer" style="width:100%;text-align:center;vertical-align:middle"  >
         <asp:Label ID="lblmasterName" runat="server" Text="Label" CssClass="title"></asp:Label>  Master
         <br/>
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"

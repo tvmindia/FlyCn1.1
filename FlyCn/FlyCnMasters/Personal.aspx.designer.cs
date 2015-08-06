@@ -13,6 +13,15 @@ namespace FlyCn {
     public partial class Personal {
         
         /// <summary>
+        /// RadTabStrip1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
+        
+        /// <summary>
         /// lblGenaral control.
         /// </summary>
         /// <remarks>
