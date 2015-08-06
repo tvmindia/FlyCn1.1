@@ -122,7 +122,7 @@ namespace FlyCn.FlyCnDAL
                 FieldValue = "ProjNo";
                 for (int i = 1; i < totalrows; i++)
                 {
-                    FieldValue = FieldValue + "," + da.Tables[0].Rows[i]["Field_Name"];
+                    FieldValue = FieldValue + "," + dt.Rows[i]["Field_Name"];
                 }
                 FieldValue = FieldValue + "";
                 cmd.Parameters.AddWithValue("@p_selectedFields", FieldValue);
