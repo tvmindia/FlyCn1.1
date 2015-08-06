@@ -10,7 +10,7 @@ namespace FlyCn.FlyCnDAL
 {
     public class dbConnection
     {
-       public SqlConnection SQLCon = new SqlConnection(ConfigurationManager.ConnectionStrings["FLYCNConnectionString"].ConnectionString.Replace("sa@2015","sqlserver"));
+       public SqlConnection SQLCon = new SqlConnection(ConfigurationManager.ConnectionStrings["FLYCNConnectionString"].ConnectionString);//.Replace("sa@2015","sqlserver"));
        public SqlTransaction DBTrans; 
 
         public int ConnectDB() {
