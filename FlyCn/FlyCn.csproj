@@ -340,6 +340,7 @@
     <Content Include="General\UnderConstruction.aspx" />
     <Content Include="SubMenu.aspx" />
     <Content Include="test1.aspx" />
+    <Content Include="UserControls\ToolBar.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -588,6 +589,12 @@
     <Compile Include="UIClasses\DynamicIcons.cs" />
     <Compile Include="UIClasses\InputPages.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UserControls\ToolBar.ascx.cs">
+      <DependentUpon>ToolBar.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ToolBar.ascx.designer.cs">
+      <DependentUpon>ToolBar.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
