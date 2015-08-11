@@ -250,14 +250,22 @@
     <Content Include="Images\bullet.png" />
     <Content Include="Images\close.png" />
     <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\Icons\addToolbarIcon.png" />
+    <Content Include="Images\Icons\addToolbarIconDisabled.png" />
     <Content Include="Images\Icons\approval.png" />
     <Content Include="Images\Icons\dashboard.png" />
+    <Content Include="Images\Icons\deleteToolBarIcon.png" />
+    <Content Include="Images\Icons\deleteToolBarIconDisabled.png" />
     <Content Include="Images\Icons\editIcon.png" />
+    <Content Include="Images\Icons\editToolBarIcon.png" />
+    <Content Include="Images\Icons\editToolBarIconDisabled.png" />
     <Content Include="Images\Icons\graphs.png" />
     <Content Include="Images\Icons\ListIcon.png" />
     <Content Include="Images\Icons\MileStones.png" />
     <Content Include="Images\Icons\NewIcon.png" />
     <Content Include="Images\Icons\Reports.png" />
+    <Content Include="Images\Icons\saveToolBarIcon.png" />
+    <Content Include="Images\Icons\saveToolBarIconDisabled.png" />
     <Content Include="Images\Icons\tilesIcon.png" />
     <Content Include="Images\Landing\7.jpg" />
     <Content Include="Images\Landing\a21.png" />
@@ -340,6 +348,7 @@
     <Content Include="General\UnderConstruction.aspx" />
     <Content Include="SubMenu.aspx" />
     <Content Include="test1.aspx" />
+    <Content Include="UserControls\ToolBar.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -588,6 +597,12 @@
     <Compile Include="UIClasses\DynamicIcons.cs" />
     <Compile Include="UIClasses\InputPages.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UserControls\ToolBar.ascx.cs">
+      <DependentUpon>ToolBar.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ToolBar.ascx.designer.cs">
+      <DependentUpon>ToolBar.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
