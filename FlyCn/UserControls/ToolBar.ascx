@@ -1,7 +1,30 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ToolBar.ascx.cs" Inherits="FlyCn.UserControls.ToolBar" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <script type="text/javascript">
+    function confirmation(control) {
+        try{
+            var tool = $find(control.id);
+            var items = tool.get_items();
+            var btn = items.getItem(6);
+            var cID = control.id.replace("CommonToolBar", "DeleteCancel");
+            if (btn.get_enabled()) {
+                var result = confirm("Do you want to delete ?");
+                if (result) {
+                    document.getElementById(cID).value = "";
+                    return true
 
+                }
+                else {
+
+                    document.getElementById(cID).value = "DeleteCancel";
+                    return false
+                }
+            }}
+        catch (x) {
+            alert("toolbar error : " + x.message);
+
+        }
+    }
 </script>
 
 <style type="text/css">
@@ -47,4 +70,5 @@ div.RadToolBar_Metro .rtbMiddle
         </telerik:RadToolBarButton>
     </Items>
 </telerik:RadToolBar>
+    <asp:HiddenField ID="DeleteCancel" runat="server" />
     </div>
