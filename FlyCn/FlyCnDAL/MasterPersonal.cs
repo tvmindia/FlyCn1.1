@@ -323,7 +323,7 @@ namespace FlyCn.FlyCnDAL
                 if (DateStarted!=null)
                 {
                     cmd.Parameters.AddWithValue("@DateStarted",Convert.ToDateTime(DateStarted));
-
+                  
                 }
                 if (DateFinished != null)
                 {

@@ -23,8 +23,9 @@ namespace FlyCn.FlyCnMasters
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.Params["Mode"] == null) { } else {
-                lblmasterName.Text = Request.Params["Mode"].ToString();
+              //  lblmasterName.Text = Request.Params["Mode"].ToString();
             }
+
             PlaceControls();
         }
      
@@ -47,7 +48,9 @@ namespace FlyCn.FlyCnMasters
 
                 StringBuilder html = new StringBuilder();
                 dt = sd.GetComboBoxDetails(_mode);
+                lblmasterName.Text = dt.Rows[0]["Table_Description"].ToString();
                 int totalrows = dt.Rows.Count;
+
                 if (totalrows < 6)
                 {
 
@@ -216,18 +219,7 @@ namespace FlyCn.FlyCnMasters
 
 
 
-        //protected void RadTabStrip1_TabClick(object sender, RadTabStripEventArgs e)
-        //{
-        //    RadTab tab = (RadTab)RadTabStrip1.FindTabByText("New");
-        //    if (tab.Text == "New")
-        //    {
-        //        ClearInputs(Page.Controls);
-        //    }
-
-          
-        //    //your code to perform an operation on click goes ere 
-        //}
-
+  
       public  void ClearInputs(ControlCollection ctrls)
         {
             foreach (Control ctrl in ctrls)
@@ -248,8 +240,10 @@ namespace FlyCn.FlyCnMasters
         protected void Button1_Click(object sender, EventArgs e)
         {
 
-
-
+            //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("Edit");
+            ////  tab.Selected = false;
+            //tab.Text = "New";
+            //RadTabStrip1.SelectedIndex = 0;
             UpdateData();
 
 
@@ -286,7 +280,11 @@ namespace FlyCn.FlyCnMasters
 
             }
             int result = dl.InsertMasterData(dt, ProjNo, _mode);
+        
             RadGrid1.Rebind();
+            RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+            tab.Selected = true;
+            RadMultiPage1.SelectedIndex = 0;
             //if (result == 1)
             //{
             //    ScriptManager.RegisterStartupScript(this, GetType(), "showAlert", "alert('Data Inserted Succesfully');", true);
@@ -338,6 +336,12 @@ namespace FlyCn.FlyCnMasters
             }
             else if (e.CommandName == "EditData")
             {
+
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tab.Selected = true;
+                tab.Text = "Edit";
+                RadMultiPage1.SelectedIndex = 1;
+            
                 DataTable dst = new DataTable();
 
 
@@ -449,6 +453,11 @@ namespace FlyCn.FlyCnMasters
             if (result == 1)
             {
                 RadGrid1.Rebind();
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+                tab.Selected = true;
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
+                tab1.Text = "New";
+                RadMultiPage1.SelectedIndex = 0;
             }
 
 

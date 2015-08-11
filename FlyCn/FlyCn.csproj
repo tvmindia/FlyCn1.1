@@ -257,6 +257,8 @@
     <Content Include="Images\Icons\ListIcon.png" />
     <Content Include="Images\Icons\MileStones.png" />
     <Content Include="Images\Icons\NewIcon.png" />
+    <Content Include="Images\Icons\Pencil-01.png" />
+    <Content Include="Images\Icons\pencil.png" />
     <Content Include="Images\Icons\Reports.png" />
     <Content Include="Images\Icons\tilesIcon.png" />
     <Content Include="Images\Landing\7.jpg" />

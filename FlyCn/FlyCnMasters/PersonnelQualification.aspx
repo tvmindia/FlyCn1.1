@@ -7,72 +7,45 @@
     <script type="text/javascript">
         function onClientTabSelected(sender, args) {
             var tab = args.get_tab();
-            if (tab.get_text() == "New") {
-                document.getElementById('divQualificationedit').style.display = "";
-                document.getElementById('divQualification').style.display = "none";
+            if (tab.get_text() == "View") {
+
+                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+                var tab = tabStrip.findTabByText("View");
+                tab.select();
+                var tab1 = tabStrip.findTabByText("Edit");
+                tab1.set_text("New");
+                //$('input[type=text]').each(function () {
+                //    $(this).val('');
+                //});
+                //$('textarea').empty();
+       
+                document.getElementById('<%=Button2.ClientID %>').style.display = "none";
                 document.getElementById('<%=Button1.ClientID %>').style.display = "none";
+            }
+
+            else if (tab.get_text() == "Edit") {
+                document.getElementById('<%=Button2.ClientID %>').style.display = "none";
+                document.getElementById('<%=Button1.ClientID %>').style.display = "";
+            }
+            else if (tab.get_text() == "New") {
                 document.getElementById('<%=Button2.ClientID %>').style.display = "";
-                $("input:text").val('');
-                $('textarea').empty()
-                var hiddenStatusFlag = document.getElementById('<%= HiddenField.ClientID%>').value;   
-             
+                document.getElementById('<%=Button1.ClientID %>').style.display = "none";
+                $('input[type=text]').each(function () {
+                    $(this).val('');
+                });
+                $('textarea').empty();
+                var hiddenStatusFlag = document.getElementById('<%= HiddenField.ClientID%>').value;
+
                 document.getElementById('<%=txtEmpCode.ClientID %>').value = hiddenStatusFlag;
             }
-            else if (tab.get_text() == "View") {
-
-
-                document.getElementById('divQualification').style.display = "";
-                document.getElementById('divQualificationedit').style.display = "none";
-                document.getElementById('<%=Button2.ClientID %>').style.display = "none";
-            }
-
         }
 
 
         </script>
-         <%--<script type="text/javascript">
-
-             function DisplayFunction() {
-
-
-
-                 document.getElementById('divQualification').style.display = "";
-                 document.getElementById('divQualificationedit').style.display = "none";
-                 document.getElementById('<%=Button2.ClientID %>').style.visibility = "hidden";
-                 document.getElementById('Display').style.backgroundColor = "#00CDCD";
-                 document.getElementById('Display').style.color = "#FFFFFF";
-                 document.getElementById('ADD').style.backgroundColor = "";
-                 document.getElementById('ADD').style.color = "";
-             }
-    </script>--%>
-     <%--<script type="text/javascript">
-         function ADDFunction()
-         {
-
-             document.getElementById('divQualificationedit').style.display = "";
-             document.getElementById('divQualification').style.display = "none";
-             document.getElementById('Button1').style.display = "none";
-             document.getElementById('Button2').style.display = "";
-             document.getElementById('ADD').style.backgroundColor = "#00CDCD";
-             document.getElementById('Display').style.backgroundColor = "";
-             document.getElementById('ADD').style.color = "#FFFFFF";
-             document.getElementById('Display').style.color = "";
-             document.getElementById('<%=Button1.ClientID %>').style.visibility = "hidden";
-             document.getElementById('<%=Button2.ClientID %>').style.visibility = "visible";
-             $("input:text").val('');
-             $('textarea').empty()
-
-            
-           
-
-
-         }
-    </script>--%>
+    
        <script type="text/javascript">
            function UpdateFunction() {
 
-               document.getElementById('divQualificationedit').style.display = "";
-               document.getElementById('divQualification').style.display = "none";
                document.getElementById('<%=Button2.ClientID %>').style.display="none"
                document.getElementById('<%=Button1.ClientID %>').style.display = "";
            }
@@ -92,21 +65,49 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-  
-  <%--  <div>
-        <input id="Display" type="button" value="List" style="background-color: #00CDCD; color: white;" align="left" onclick="DisplayFunction()" />
-        <input id="ADD" type="button" value="New" align="left" onclick="ADDFunction()" />
-    </div>--%>
 
     <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
-             CausesValidation="false"   SelectedIndex="0" >
+             CausesValidation="false"   SelectedIndex="0" Skin="Silk" >
             <Tabs>
                 <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png"  ></telerik:RadTab>
                  <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
             </Tabs>
         </telerik:RadTabStrip>
+    
+           <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
 
-    <div id="divQualificationedit" style="display: none">
+               <telerik:RadPageView ID="rpList" runat="server"  >
+               
+      <div id="divQualification">
+        Qualification
+
+        <br />
+        <br />
+
+    
+    <div>
+       <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" >
+</asp:ScriptManager>
+
+<telerik:RadGrid ID="RadGrid1" runat="server"  OnNeedDataSource="RadGrid1_NeedDataSource" OnItemCommand="RadGrid1_ItemCommand" Skin="Silk">
+   <MasterTableView DataKeyNames="EmpCode,Qualification">
+     
+    <Columns>
+          <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData">
+                    </telerik:GridButtonColumn>
+         <telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure" >
+                    </telerik:GridButtonColumn>
+   
+    </Columns> 
+  </MasterTableView>
+
+   </telerik:RadGrid>
+</div>
+          </div>
+                       
+                             </telerik:RadPageView>
+                   <telerik:RadPageView ID="rpAddEdit" runat="server">
+    <div id="divQualificationedit" >
         <table style="width: 100%;">
             <tr>
                 <td>
@@ -190,35 +191,15 @@
             </tr>
         </table>
     </div>
-      <div>
-                                 <asp:Button ID="Button2" runat="server" Text="Add"  style="background-color:#008B8B; color:white; display:none;"  OnClick="Button2_Click" ClientIDMode="Static" ValidationGroup="Submit" OnClientClick="return validate();" />
-                                <asp:Button ID="Button1" runat="server" Text="Update" style="background-color:#008B8B; color:white; display:none;"  OnClick="Button1_Click" ClientIDMode="Static" />
+
+                       <div>
+                                 <asp:Button ID="Button2" runat="server" Text="Add"  style="background-color:#008B8B; color:white;"  OnClick="Button2_Click" ClientIDMode="Static" ValidationGroup="Submit" OnClientClick="return validate();" />
+                                <asp:Button ID="Button1" runat="server" Text="Update" style="background-color:#008B8B; color:white;"  OnClick="Button1_Click" ClientIDMode="Static" />
 
             </div>
-      <div id="divQualification">
-        Qualification
-
-        <br />
-        <br />
-
-    
-    <div>
-       <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" >
-</asp:ScriptManager>
-
-<telerik:RadGrid ID="RadGrid1" runat="server"  OnNeedDataSource="RadGrid1_NeedDataSource" OnItemCommand="RadGrid1_ItemCommand">
-   <MasterTableView DataKeyNames="EmpCode,Qualification">
-     
-    <Columns>
-          <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData">
-                    </telerik:GridButtonColumn>
-         <telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure" >
-                    </telerik:GridButtonColumn>
-   
-    </Columns> 
-  </MasterTableView>
-
-   </telerik:RadGrid>
-</div>
-          </div>
+                   </telerik:RadPageView>
+            
+      
+            
+                       </telerik:RadMultiPage>
 </asp:Content>

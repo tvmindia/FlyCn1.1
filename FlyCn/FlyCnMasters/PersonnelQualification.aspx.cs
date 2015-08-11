@@ -41,6 +41,10 @@ namespace FlyCn.FlyCnMasters
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("Edit");
+            ////  tab.Selected = false;
+            //tab.Text = "New";
+            //RadTabStrip1.SelectedIndex = 0;
             UpdateData();
         }
 
@@ -68,6 +72,9 @@ namespace FlyCn.FlyCnMasters
             string ProjNo = "C00001";
             int result = pq.InsertMasterPersonalQualificationData(ProjNo);
             RadGrid1.Rebind();
+            RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+            tab.Selected = true;
+            RadMultiPage1.SelectedIndex = 0;
 
         }
     
@@ -92,7 +99,10 @@ namespace FlyCn.FlyCnMasters
             else if (e.CommandName == "EditData")
             {
 
-                
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tab.Selected = true;
+                tab.Text = "Edit";
+                RadMultiPage1.SelectedIndex = 1;
 
                 dtable = pq.FillMasterData(strId, Qualification,ProjNo);
                 txtEmpCode.Text = dtable.Rows[0]["EmpCode"].ToString();
@@ -150,6 +160,11 @@ pq.EmpCode=txtEmpCode.Text;
            if (result == 1)
            {
                RadGrid1.Rebind();
+               RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+               tab.Selected = true;
+               RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
+               tab1.Text = "New";
+               RadMultiPage1.SelectedIndex = 0;
 
            }
 

@@ -50,11 +50,11 @@
         function onClientTabSelected(sender, args) {
             var tab = args.get_tab();
             if (tab.get_text() == "New") {
-                document.getElementById('div1').style.display = "";
-                document.getElementById('div2').style.display = "none";
-                document.getElementById('<%=Button1.ClientID %>').style.visibility = "hidden";
-                document.getElementById('<%=Button2.ClientID %>').style.visibility = "visible";
-               // document.getElementsByTagName('input').style.display = "none";
+                document.getElementById('<%=Button2.ClientID %>').style.display = "";
+                document.getElementById('<%=Button1.ClientID %>').style.display = "none";
+              
+                $('textarea').empty();
+          
                 $("input:text").val('');
                 //$('input[type=text]').each(function () {
                 //    $(this).val('');
@@ -65,10 +65,22 @@
             }
             else if (tab.get_text() == "View") {
 
-                document.getElementById('div2').style.display = "";
-                document.getElementById('div1').style.display = "none";
+                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+                var tab = tabStrip.findTabByText("View");
+                tab.select();
+                var tab1 = tabStrip.findTabByText("Edit");
+                tab1.set_text("New");
+                $('input[type=text]').each(function () {
+                    $(this).val('');
+                });
+                $('textarea').empty();
             }
 
+            else if (tab.get_text() == "Edit") {
+
+                document.getElementById('<%=Button2.ClientID %>').style.display = "none";
+                document.getElementById('<%=Button1.ClientID %>').style.display = "";
+            }
         }
 
 
@@ -78,12 +90,10 @@
            function UpdateFunction() {
 
 
-               document.getElementById('div1').style.display = "";
-               document.getElementById('div2').style.display = "none";
-               document.getElementById('<%=Button2.ClientID %>').style.visibility = "hidden";
-               document.getElementById('<%=Button1.ClientID %>').style.visibility = "visible";
-
-
+               document.getElementById('<%=Button2.ClientID %>').style.display = "none";
+               document.getElementById('<%=Button1.ClientID %>').style.display = "";
+             
+       
            }
     </script>
     
@@ -98,37 +108,24 @@
     <p>
         &nbsp;</p>
     <%--class="HomeBox2"--%>
-    <div  class="inputMainContainer" style="width:100%;text-align:center;vertical-align:middle"  >
-        <asp:Label ID="lblmasterName" runat="server" Text="Label" CssClass="title"></asp:Label>  Master
-        <br/>
-        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
-             CausesValidation="false"   SelectedIndex="0" >
+<%--    <div  class="inputMainContainer" style="width:100%;text-align:center;vertical-align:middle"  >--%>
+        <div class="inputMainContainer">
+        <div  class="innerDiv">
+            <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
+             CausesValidation="False"   SelectedIndex="1" Skin="Silk" >
             <Tabs>
-                <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png"  ></telerik:RadTab>
-                 <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
+                <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"  TabIndex="0"  ></telerik:RadTab>
+                 <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  TabIndex="1"  ></telerik:RadTab>
             </Tabs>
         </telerik:RadTabStrip>
-     <%--   <div align="left" >
-           <input id="Display" type="button" value="List" style="background-color:#00CDCD; color:white;" align="left" onclick="DisplayFunction()"/>
-           <input id="ADD" type="button" value="New"  align="left"  onclick="ADDFunction()"/>
-        </div>--%>
-        <div  id="div1" style ="display:none;">
-        <div id="placeholder" runat="server" style="text-align:left"></div>
-            <br />
-            <br />
-            <div>
-                                 <asp:Button ID="Button2" runat="server" Text="Add"  style="background-color:#008B8B; color:white;"  OnClick="Button2_Click" ClientIDMode="Static" ValidationGroup="Submit" />
-                                <asp:Button ID="Button1" runat="server" Text="Update" style="background-color:#008B8B; color:white;"  OnClick="Button1_Click" ClientIDMode="Static" />
-
-            </div>
-            </div>
-    <!-- here is where the dinamically created elements will be placed -->
-         <div id="div2" >
+                 <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
+                                    <telerik:RadPageView ID="rpList" runat="server"  >
+                                        <div id="div2" >
          <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
 </asp:ScriptManager>
              <telerik:RadGrid ID="RadGrid1" runat="server" CellSpacing="0"
                  GridLines="None" OnNeedDataSource="RadGrid1_NeedDataSource1" AllowPaging="true" ItemStyle-HorizontalAlign="Left" AlternatingItemStyle-HorizontalAlign="Left"
-                 PageSize="10" AllowAutomaticDeletes="True" OnItemCommand="RadGrid1_ItemCommand"  AllowMultiRowEdit="true"  DataKeyNames="Code"  CommandItemDisplay="Right">
+                 PageSize="10" AllowAutomaticDeletes="True" OnItemCommand="RadGrid1_ItemCommand"  AllowMultiRowEdit="true"  DataKeyNames="Code"  CommandItemDisplay="Right" Skin="Silk">
 <MasterTableView   >
      
     <Columns>
@@ -141,8 +138,48 @@
   </MasterTableView>
 
         </telerik:RadGrid>     
-    </div> 
     </div>
+                                             </telerik:RadPageView>
+                          <telerik:RadPageView ID="rpAddEdit" runat="server">
+                     <table style="width: 100%">
+                         <tr>
+                             <td>&nbsp
+                             </td>
+                             <td>
+                                 <div>
+
+
+                                     <div>
+                                     </div>
+                                     <asp:Label ID="lblmasterName" runat="server" CssClass="title"></asp:Label>
+                                    
+        <br />
+
+                                     <%--   <div align="left" >
+           <input id="Display" type="button" value="List" style="background-color:#00CDCD; color:white;" align="left" onclick="DisplayFunction()"/>
+           <input id="ADD" type="button" value="New"  align="left"  onclick="ADDFunction()"/>
+        </div>--%>
+                                     <div id="div1" >
+                                         <div id="placeholder" runat="server" style="text-align: left"></div>
+                                         <br />
+                                         <br />
+                                         <div>
+                                             <asp:Button ID="Button2" runat="server" Text="Add" Style="background-color: #008B8B; color: white;" OnClick="Button2_Click" ClientIDMode="Static" ValidationGroup="Submit" />
+                                             <asp:Button ID="Button1" runat="server" Text="Update" Style="background-color: #008B8B; color: white;" OnClick="Button1_Click" ClientIDMode="Static" />
+
+                                         </div>
+                                     </div>
+                                     <!-- here is where the dinamically created elements will be placed -->
+
+                                 </div>
+                             </td>
+                         </tr>
+                     </table>
+
+                                </telerik:RadPageView>
+                     </telerik:RadMultiPage>
+            </div>
+            </div>
     <p>
     </p>
     <p>

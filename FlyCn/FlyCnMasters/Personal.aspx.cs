@@ -61,6 +61,10 @@ namespace FlyCn
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("Edit");
+            ////  tab.Selected = false;
+            //tab.Text = "New";
+            //RadTabStrip1.SelectedIndex = 0;
             UpdateData();
         }
         public void InsertData()
@@ -103,6 +107,9 @@ namespace FlyCn
                 string ProjNo = "C00001";
                 int result = mp.InsertMasterData(ProjNo);
                 RadGrid1.Rebind();
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+                tab.Selected = true;
+                RadMultiPage1.SelectedIndex = 0;
 
             }
             catch(Exception ex)
@@ -126,7 +133,11 @@ namespace FlyCn
             }
             else if (e.CommandName == "EditData")
             {
-                
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tab.Selected = true;
+                tab.Text = "Edit";
+                RadMultiPage1.SelectedIndex = 1;
+              
                 try
                 {
 
@@ -178,6 +189,23 @@ namespace FlyCn
        
             }         
         }
+    
+        protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            {
+                GridEditFormItem item = (GridEditFormItem)e.Item;
+
+                string dateformat = (RadGrid1.MasterTableView.GetColumn("DateStarted") as GridDateTimeColumn).DataFormatString;
+                RadDatePicker1.DateInput.DateFormat = dateformat;
+
+            }
+        }
+        //protected void RadDatePicker1_SelectedDateChanged1(object sender, Telerik.Web.UI.Calendar.SelectedDateChangedEventArgs e)
+        //{
+        //    DateTime dt = Convert.ToDateTime(RadDatePicker1.SelectedDate);
+        //    string temp = dt.ToShortDateString();
+        //}
 
         public void UpdateData()
         {
@@ -221,6 +249,11 @@ namespace FlyCn
                 if (result == 1)
                 {
                     RadGrid1.Rebind();
+                    RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+                    tab.Selected = true;
+                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
+                    tab1.Text = "New";
+                    RadMultiPage1.SelectedIndex = 0;
 
                 }
                 ContentIframe.Visible = false;
