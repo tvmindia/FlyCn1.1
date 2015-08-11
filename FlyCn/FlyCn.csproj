@@ -249,10 +249,17 @@
     <Content Include="Images\bg3.jpg" />
     <Content Include="Images\bullet.png" />
     <Content Include="Images\close.png" />
+    <Content Include="Images\Download.png" />
     <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\Icons\addToolbarIcon.png" />
+    <Content Include="Images\Icons\addToolbarIconDisabled.png" />
     <Content Include="Images\Icons\approval.png" />
     <Content Include="Images\Icons\dashboard.png" />
+    <Content Include="Images\Icons\deleteToolBarIcon.png" />
+    <Content Include="Images\Icons\deleteToolBarIconDisabled.png" />
     <Content Include="Images\Icons\editIcon.png" />
+    <Content Include="Images\Icons\editToolBarIcon.png" />
+    <Content Include="Images\Icons\editToolBarIconDisabled.png" />
     <Content Include="Images\Icons\graphs.png" />
     <Content Include="Images\Icons\ListIcon.png" />
     <Content Include="Images\Icons\MileStones.png" />
@@ -260,6 +267,8 @@
     <Content Include="Images\Icons\Pencil-01.png" />
     <Content Include="Images\Icons\pencil.png" />
     <Content Include="Images\Icons\Reports.png" />
+    <Content Include="Images\Icons\saveToolBarIcon.png" />
+    <Content Include="Images\Icons\saveToolBarIconDisabled.png" />
     <Content Include="Images\Icons\tilesIcon.png" />
     <Content Include="Images\Landing\7.jpg" />
     <Content Include="Images\Landing\a21.png" />
@@ -302,6 +311,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\screw.png" />
     <Content Include="Images\tilesIcon.png" />
+    <Content Include="Images\Trash can - 04.png" />
     <Content Include="Login.aspx" />
     <Content Include="Masters\inputPages.master" />
     <Content Include="Menu.aspx" />
@@ -342,6 +352,7 @@
     <Content Include="General\UnderConstruction.aspx" />
     <Content Include="SubMenu.aspx" />
     <Content Include="test1.aspx" />
+    <Content Include="UserControls\ToolBar.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -591,6 +602,12 @@
     <Compile Include="UIClasses\InputPages.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UserControls\ToolBar.ascx.cs">
+      <DependentUpon>ToolBar.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ToolBar.ascx.designer.cs">
+      <DependentUpon>ToolBar.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -601,6 +618,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Fileupload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
@@ -624,7 +642,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2112/</IISUrl>
+          <IISUrl>http://localhost:7717/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
