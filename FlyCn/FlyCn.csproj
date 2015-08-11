@@ -249,6 +249,7 @@
     <Content Include="Images\bg3.jpg" />
     <Content Include="Images\bullet.png" />
     <Content Include="Images\close.png" />
+    <Content Include="Images\Download.png" />
     <Content Include="Images\heroAccent.png" />
     <Content Include="Images\Icons\addToolbarIcon.png" />
     <Content Include="Images\Icons\addToolbarIconDisabled.png" />
@@ -308,6 +309,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\screw.png" />
     <Content Include="Images\tilesIcon.png" />
+    <Content Include="Images\Trash can - 04.png" />
     <Content Include="Login.aspx" />
     <Content Include="Masters\inputPages.master" />
     <Content Include="Menu.aspx" />
