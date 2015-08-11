@@ -173,6 +173,37 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+    public string OpenBy
+    {
+        get;
+        set;
+    }
+    public string EnteredBy
+    {
+        get;
+        set;
+    }
+    public string RequestedBy
+    {
+        get;
+        set;
+    }
+    public string Inspector
+    {
+        get;
+        set;
+    }
+    public string ResponsiblePerson
+    {
+        get;
+        set;
+    }
+    public string SignedBy
+    {
+        get;
+        set;
+    }
+
         #endregion PersonalProperties
 
      #region MasterPersonalConstructor
@@ -489,5 +520,38 @@ namespace FlyCn.FlyCnDAL
             }
         }
         #endregion UpdateMasterPersonel
+        public DataTable GetDEtailsFromPersonal()
+        {
+            DataTable dt = new DataTable();
+            SqlConnection con = null;
+            SqlDataAdapter daObj;
+            try
+            {
+
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                UIClasses.Const Const = new UIClasses.Const();
+                FlyCnDAL.Security.UserAuthendication UA;
+
+                HttpContext context = HttpContext.Current;
+                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                string selectQuery = "select Code,Name from M_Personnel where ProjectNo=@projno";
+                SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.Parameters.AddWithValue("@projno", UA.projectNo);
+                daObj = new SqlDataAdapter(cmdSelect);
+                daObj.Fill(dt);
+
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return dt;
+
+        }
     }
 }
