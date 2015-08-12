@@ -70,7 +70,7 @@ namespace FlyCn.FlyCnDAL
         EmpCode = null;
         Qualification = null;
         QualificationType = null;
-    //    DBNull.Value
+   
         FirstQualifiedDate = null;
         ExpiryDate = null;
         RenewedDate = null;
@@ -127,7 +127,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@EmpCode", EmpCode);
                 cmd.Parameters.AddWithValue("@Qualification", Qualification);
                
-                    cmd.Parameters.AddWithValue("@QualificationType", QualificationType);
+                cmd.Parameters.AddWithValue("@QualificationType", QualificationType);
        
 
                     if (FirstQualifiedDate != null)
