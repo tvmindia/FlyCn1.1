@@ -10,6 +10,26 @@
         <script type="text/javascript">
             function onClientTabSelected(sender,args) {
                 var tab = args.get_tab();
+                if (tab.get_value() == '2') {
+                    //new clicked 
+                     
+                    try{
+                        <%=ToolBar.ClientID %>_SetAddVisible(false);
+                        <%=ToolBar.ClientID %>_SetSaveVisible(true);
+                        <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                        <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                    } catch (x) { alert(x.message);}
+
+                }
+
+                if (tab.get_value() == "1") {
+
+                    var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+                    var tab = tabStrip.findTabByValue("1");
+                    tab.select();
+                    var tab1 = tabStrip.findTabByValue("2");
+                    tab1.set_text("New");
+                }
 
             }
 
@@ -61,11 +81,15 @@
                         <td style="width:1%"></td>
                          <td>
                              
-                <telerik:RadGrid ID="rgActList" runat="server" OnNeedDataSource="rgActList_NeedDataSource" Skin="Silk">
+                <telerik:RadGrid ID="rgActList" runat="server" OnNeedDataSource="rgActList_NeedDataSource" Skin="Silk" OnItemCommand="rgActList_ItemCommand">
                       <MasterTableView DataKeyNames="ModuleID,ModuleActID"   AutoGenerateColumns="False" HeaderStyle-HorizontalAlign="Center">
                          
                           <PagerStyle Mode="NumericPages" />
                 <Columns>
+                     <telerik:GridButtonColumn CommandName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" 
+                            
+                          Text="Edit" UniqueName="EditData" ></telerik:GridButtonColumn>
+
                     <telerik:GridBoundColumn DataField="ModuleID" HeaderText="ModuleID" Display="false">
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn DataField="ModuleActID" HeaderText="Act ID"  >
@@ -94,7 +118,7 @@
                   
                    <uc1:ToolBar runat="server" ID="ToolBar" />
 
-
+                  <asp:Label ID="msg" runat="server" Text=""></asp:Label>
 
               </telerik:RadPageView>
         </telerik:RadMultiPage>

@@ -3,10 +3,10 @@
 <script type="text/javascript">
     function confirmation(control) {
         try{
-            var tool = $find(control.id);
+            var tool = $find(control);
             var items = tool.get_items();
             var btn = items.getItem(6);
-            var cID = control.id.replace("CommonToolBar", "DeleteCancel");
+            var cID = "<%= DeleteCancel.ClientID %>";
             if (btn.get_enabled()) {
                 var result = confirm("Do you want to delete ?");
                 if (result) {
@@ -25,6 +25,103 @@
 
         }
     }
+
+
+    function <%=ClientID%>_SetAddVisible(s) {
+
+        <%= ClientID%>_SetVisibleButton('Add', s);
+
+    }
+
+    function <%=ClientID%>_SetSaveVisible(s) {
+
+        <%= ClientID%>_SetVisibleButton('Save', s);
+
+    }
+
+    function <%=ClientID%>_SetUpdateVisible(s) {
+
+        <%= ClientID%>_SetVisibleButton('Update', s);
+
+    }
+
+    function <%=ClientID%>_SetDeleteVisible(s) {
+
+        <%= ClientID%>_SetVisibleButton('Delete', s);
+
+    }
+
+
+
+    function <%= ClientID%>_SetVisibleButton(id, value) {
+        //debugger;
+        var toolBar = $find("<%= CommonToolBar.ClientID %>");
+        var btnItems = toolBar.get_items();
+        if (id == 'Add') {
+            var btn = btnItems.getItem(0);
+            var sep = btnItems.getItem(1);
+            if (value) {             
+                btn.set_visible(true);
+                sep.set_visible(true);
+            }
+            else {
+                btn.set_visible(false);
+                sep.set_visible(false);
+
+            }
+
+        }
+
+
+        if (id == 'Save') {
+            var btn = btnItems.getItem(2);
+            var sep = btnItems.getItem(3);
+            if (value) {
+                btn.set_visible(true);
+                sep.set_visible(true);
+            }
+            else {
+                btn.set_visible(false);
+                sep.set_visible(false);
+
+            }
+
+        }
+
+        if (id == 'Update') {
+            var btn = btnItems.getItem(4);
+            var sep = btnItems.getItem(5);
+            if (value) {
+                btn.set_visible(true);
+                sep.set_visible(true);
+            }
+            else {
+                btn.set_visible(false);
+                sep.set_visible(false);
+
+            }
+
+        }
+
+        if (id == 'Delete') {
+            var btn = btnItems.getItem(6);
+           // var sep = btnItems.getItem[5];
+            if (value) {
+                btn.set_visible(true);
+               // sep.set_visible(true);
+            }
+            else {
+                btn.set_visible(false);
+                //sep.set_visible(false);
+
+            }
+
+        }
+
+
+    }
+
+
 </script>
 
 <style type="text/css">
@@ -46,8 +143,8 @@ div.RadToolBar_Metro .rtbMiddle
     </style>
 
 
-<div style="text-align:right;vertical-align:top;margin:30px">
-<telerik:RadToolBar ID="CommonToolBar" runat="server" Font-Size="X-Small" Skin="Metro" BorderStyle="None" BorderWidth="0" CssClass="template" >
+<div style="text-align:right;vertical-align:top;margin:30px;border-bottom:inset;border-bottom-color:gray;border-bottom-width:thin">
+<telerik:RadToolBar ID="CommonToolBar" runat="server" Font-Size="X-Small" Skin="Metro" BorderStyle="None" BorderWidth="0" CssClass="template" OnButtonClick="CommonToolBar_ButtonClick" >
     <Items>
         <telerik:RadToolBarButton runat="server" Text="Add" Value="Add" PostBack="false"  ImagePosition="Left"  
             ImageUrl="~/Images/Icons/addToolbarIcon.png" DisabledImageUrl="~/Images/Icons/addToolbarIconDisabled.png" >

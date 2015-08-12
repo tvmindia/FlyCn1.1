@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Telerik.Web.UI;
 
 namespace FlyCn.Activities
 {
@@ -12,6 +13,7 @@ namespace FlyCn.Activities
         FlyCnDAL.Security.UserAuthendication UA;
         protected void Page_Load(object sender, EventArgs e)
         {
+            ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             UIClasses.Const c = new UIClasses.Const();
             UA = (FlyCnDAL.Security.UserAuthendication)Session[c.LoginSession];
             if (!IsPostBack) {
@@ -36,6 +38,34 @@ namespace FlyCn.Activities
             FlyCnDAL.Activities obj = new FlyCnDAL.Activities();
             rgActList.DataSource = obj.GetActivities(UA.projectNo);
         }
+
+        protected void rgActList_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            if (e.CommandName == "EditData") {
+
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tab.Selected = true;
+                tab.Text = "Edit";
+                RadMultiPage1.SelectedIndex = 1;
+
+                ToolBar.isAddVisible = false;
+                ToolBar.isSaveVisible=false;
+                ToolBar.isUpdateVisible = true;
+                ToolBar.isDeleteVisible = true;
+            }
+        
+        }
+
+
+
+        protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
+        {
+
+            msg.Text = e.Item.Value + " clicked !";
+        }
+
+        
+
 
     }
 }
