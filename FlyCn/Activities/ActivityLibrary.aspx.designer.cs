@@ -83,5 +83,14 @@ namespace FlyCn.Activities {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView rpAddEdit;
+        
+        /// <summary>
+        /// ToolBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::FlyCn.UserControls.ToolBar ToolBar;
     }
 }
