@@ -69,7 +69,11 @@
                 var tab = tabStrip.findTabByText("View");
                 tab.select();
                 var tab1 = tabStrip.findTabByText("Edit");
+
                 tab1.set_text("New");
+                tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
+
+                tab1.set_imageUrl('../Images/Icons/NewIcon.png');
                 $('input[type=text]').each(function () {
                     $(this).val('');
                 });

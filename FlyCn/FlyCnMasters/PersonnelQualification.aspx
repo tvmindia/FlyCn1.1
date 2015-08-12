@@ -14,6 +14,8 @@
                 tab.select();
                 var tab1 = tabStrip.findTabByText("Edit");
                 tab1.set_text("New");
+               
+                tab1.set_imageUrl('../Images/Icons/NewIcon.png');
                 document.getElementById('<%=Button2.ClientID %>').style.display = "none";
                 document.getElementById('<%=Button1.ClientID %>').style.display = "none";
             }

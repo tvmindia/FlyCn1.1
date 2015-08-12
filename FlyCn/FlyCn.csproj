@@ -258,6 +258,7 @@
     <Content Include="Images\Icons\deleteToolBarIcon.png" />
     <Content Include="Images\Icons\deleteToolBarIconDisabled.png" />
     <Content Include="Images\Icons\editIcon.png" />
+    <Content Include="Images\Icons\EditNew.png" />
     <Content Include="Images\Icons\editToolBarIcon.png" />
     <Content Include="Images\Icons\editToolBarIconDisabled.png" />
     <Content Include="Images\Icons\graphs.png" />
