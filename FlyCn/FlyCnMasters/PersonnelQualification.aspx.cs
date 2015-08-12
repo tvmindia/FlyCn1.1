@@ -157,8 +157,8 @@ pq.EmpCode=txtEmpCode.Text;
     }
            string ProjNo = "C00001";
            int result = pq.UpdateMasterPersonelQualificationData(ProjNo);
-           if (result == 1)
-           {
+           //if (result == 1)
+           //{
                RadGrid1.Rebind();
                RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
                tab.Selected = true;
@@ -166,7 +166,7 @@ pq.EmpCode=txtEmpCode.Text;
                tab1.Text = "New";
                RadMultiPage1.SelectedIndex = 0;
 
-           }
+           //}
 
        }
     }

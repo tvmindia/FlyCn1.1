@@ -207,7 +207,7 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
             </asp:ScriptManager>
 
-            <telerik:RadGrid ID="RadGrid1" runat="server" OnNeedDataSource="RadGrid1_NeedDataSource" OnItemCommand="RadGrid1_ItemCommand" Skin="Silk"  CssClass="outerMultiPage" OnItemDataBound="RadGrid1_ItemDataBound">
+            <telerik:RadGrid ID="RadGrid1" runat="server" OnNeedDataSource="RadGrid1_NeedDataSource" OnItemCommand="RadGrid1_ItemCommand" Skin="Silk"  CssClass="outerMultiPage" OnItemDataBound="RadGrid1_ItemDataBound" OnColumnCreating="RadGrid1_ColumnCreating" >
                 <MasterTableView DataKeyNames="Code">
 
                     <Columns>
@@ -439,7 +439,12 @@
 
     </div>
 
-        <hr />        
+        <hr />  
+                    
+ <div>
+            <asp:Label ID="lblQualification" runat="server" Text="Qualification" ForeColor="Brown"></asp:Label>
+        </div>
+      
     <div id="framediv" runat="server">
 
         <iframe id="ContentIframe" runat="server"
