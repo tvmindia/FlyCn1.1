@@ -50,9 +50,10 @@ namespace FlyCn.FlyCnMasters
 
         public void InsertData()
         {
+           
             string val = null;
             // mp.ProjectNo      = txt
-            pq.EmpCode = txtEmpCode.Text;
+            pq.EmpCode = _id1;
             pq.Qualification = txtQualification.Text;
             pq.QualificationType = txtQualificationType.Text;
             if (RadFirstQualifiedDate.SelectedDate != null)
@@ -74,9 +75,11 @@ namespace FlyCn.FlyCnMasters
             RadGrid1.Rebind();
             RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
             tab.Selected = true;
+            //RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
+            //tab1.Text = "New";
             RadMultiPage1.SelectedIndex = 0;
-
-        }
+            }
+      
     
        protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
         {

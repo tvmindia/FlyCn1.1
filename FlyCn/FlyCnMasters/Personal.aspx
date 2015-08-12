@@ -142,6 +142,8 @@
                else if (tab.get_text() == "New") {
                    document.getElementById('<%=Button2.ClientID %>').style.display = "";
                    document.getElementById('<%=Button1.ClientID %>').style.display = "none";
+                   document.getElementById('<%=txtCode.ClientID %>').readOnly = false;
+
                    $('input[type=text]').each(function () {
                        $(this).val('');
                    });
@@ -441,9 +443,7 @@
 
         <hr />  
                     
- <div>
-            <asp:Label ID="lblQualification" runat="server" Text="Qualification" ForeColor="Brown"></asp:Label>
-        </div>
+ 
       
     <div id="framediv" runat="server">
 
