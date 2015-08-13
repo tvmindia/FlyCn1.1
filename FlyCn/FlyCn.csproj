@@ -248,6 +248,7 @@
     <Content Include="Images\bg1.jpg" />
     <Content Include="Images\bg3.jpg" />
     <Content Include="Images\bullet.png" />
+    <Content Include="Images\Cancel.png" />
     <Content Include="Images\close.png" />
     <Content Include="Images\Download.png" />
     <Content Include="Images\heroAccent.png" />
@@ -458,6 +459,7 @@
     <Compile Include="FlyCnDAL\Activities.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FlyCnDAL\Connection.cs" />
     <Compile Include="FlyCnDAL\DALConstants.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -604,6 +606,7 @@
     </Compile>
     <Compile Include="UserControls\ToolBar.ascx.cs">
       <DependentUpon>ToolBar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControls\ToolBar.ascx.designer.cs">
       <DependentUpon>ToolBar.ascx</DependentUpon>

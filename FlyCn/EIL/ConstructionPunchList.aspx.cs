@@ -138,6 +138,9 @@ namespace FlyCn.EIL
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+            tab.Selected = true;
+            RadMultiPage1.SelectedIndex = 0;
             try
             {
              
@@ -330,8 +333,7 @@ namespace FlyCn.EIL
 
                 }
                 pObj.EILType=Request.QueryString["Mode"];
-                result = pObj.AddtoPunchList(mObj);
-             
+                result = pObj.AddtoPunchList(mObj); 
                 RadGrid1.Rebind();
                 //Cleartextboxes();
                 if (fuAttach.HasFile)
@@ -394,7 +396,11 @@ namespace FlyCn.EIL
            // string type = Request.QueryString["Mode"];
             if (e.CommandName == "EditData")
             {
-                
+                btnUpload.Enabled = true;
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tab.Selected = true;
+                tab.Text = "Edit";
+                RadMultiPage1.SelectedIndex = 1;
                 string ID = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["IDNo"].ToString();
                 string projno = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ProjectNo"].ToString();
            
@@ -585,6 +591,7 @@ namespace FlyCn.EIL
                     ddlActionBy.SelectedIndex = ddlActionBy.Items.IndexOf(ddlActionBy.Items.FindByText("-Select-"));
                 }
                // grdFileUpload.Visible = true;
+
                 DataTable dtt;
                 dtt = pObj.GetFileFromEILAttachByProjectNoRefEILType(ID);
                 grdFileUpload.DataSource = dtt;
@@ -592,14 +599,17 @@ namespace FlyCn.EIL
 
                 btnUpdate.Visible = true;
                 btnSave.Visible = false;
-                ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
+             //   ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
+
+                ScriptManager.RegisterStartupScript(this, GetType(), "EditData", "UpdateFunction();", true);
+                 
            
             }
             if (e.CommandName == "DeleteColumn")
             {
                 string ID = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["IDNo"].ToString();
                 string projno = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ProjectNo"].ToString();
-                string type=Request.QueryString["Mode"];
+                string type=e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["EILType"].ToString();
                 int val=0;
                 val = pObj.DeleteEILAttach(ID, type);
                 int result;
@@ -613,7 +623,7 @@ namespace FlyCn.EIL
         {
             try
             {
-                int result;
+                int result=0;
                 pObj.Idno = Convert.ToInt32(txtIDno.Text);
                 if (ddlOpenBy.SelectedItem.Text != "-Select-")
                 {
@@ -799,7 +809,17 @@ namespace FlyCn.EIL
                
                 result = pObj.EditPunchListItems(pObj.Idno, mObj);
                 Response.Redirect("ConstructionPunchList.aspx");
-                RadGrid1.Rebind();
+                if (result == 1)
+                {
+                    RadGrid1.Rebind();
+                    RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+                    tab.Selected = true;
+                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
+                    tab1.Text = "New";
+                    RadMultiPage1.SelectedIndex = 0;
+
+                }
+               
                 //Cleartextboxes();  
             }
             catch (SqlException ex)
@@ -830,18 +850,18 @@ namespace FlyCn.EIL
 
         protected void txtIDno_TextChanged(object sender, EventArgs e)
         {
-            string id = txtIDno.Text;
-            if (id.Trim() == "") return;
-            for (int i = 0; i <id.Length; i++)
-            {
-                if (!char.IsNumber(id[i]))
-                {
-                    lblError.Text="Please enter a valid number";
-                    txtIDno.Text = "";
-                    return;
-                }
+        //    string id = txtIDno.Text;
+        //    if (id.Trim() == "") return;
+        //    for (int i = 0; i <id.Length; i++)
+        //    {
+        //        if (!char.IsNumber(id[i]))
+        //        {
+        //            lblError.Text="Please enter a valid number";
+        //            txtIDno.Text = "";
+        //            return;
+        //        }
 
-            }
+        //    }
 
         }
 
@@ -864,7 +884,7 @@ namespace FlyCn.EIL
                     GridViewRow row = grdFileUpload.Rows[index];
                     HiddenField hdnField = (HiddenField)row.FindControl("hdnField");
                     int slno = Convert.ToInt32(hdnField.Value);
-                    pObj.fileUpload = row.Cells[2].Text;
+                    pObj.fileUpload = row.Cells[3].Text;
                     result = pObj.DeleteEilAttachByProjectNoRefNoEILTypeSlNo(pObj.Idno, type, slno);
                     // Response.Redirect("PunchList.aspx");
                   
@@ -881,8 +901,9 @@ namespace FlyCn.EIL
                     btnUpdate.Visible = true;
                     btnSave.Visible = false;
                     grdFileUpload.Visible = true;
-                    grdFileUpload.DataBind();
-                    ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
+                    string id = Convert.ToString(pObj.Idno);
+                    BindFileuploadGrid(id);
+                  //  ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
 
                 }
             }
@@ -896,6 +917,7 @@ namespace FlyCn.EIL
         {
 
         }
+
         //protected void OnRowCreated(object sender, GridViewRowEventArgs e)
         //{
         //    if (e.Row.RowType == DataControlRowType.DataRow)
@@ -925,32 +947,36 @@ namespace FlyCn.EIL
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
+
             if (fuAttach.HasFile)
             {
                 try
                 {
+               
                     pObj.Idno = Convert.ToInt32(txtIDno.Text);
                     //pObj.EILType = "WEIL";
                        
                        // HiddenField hidden1 = (HiddenField)grdFileUpload.Rows..FindControl("hdnType");
                      //   string text = Convert.ToString((HiddenField)row.Cells[2].FindControl("hdnType"));
-                    if (grdFileUpload.Rows.Count > 0)
+                     if (grdFileUpload.Rows.Count > 0)
                     {
                         HiddenField hdf = (HiddenField)grdFileUpload.Rows[0].FindControl("hdnType");
                         pObj.EILType = hdf.Value;
                     }
                     else
                     {
-                        pObj.EILType = Request.QueryString["Mode"];
+                        pObj.EILType = "WEIL";
                     }
                     
                     string id = txtIDno.Text;
+                 
                     pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
                     DataTable dt;
                     dt = pObj.GetEIL_AttachDetails(id, pObj.fileUpload, pObj.EILType);
                    
                     if ((dt.Rows.Count >0))
                     {
+                        btnUpload.Enabled = true;
                         foreach (DataRow rows in dt.Rows)
                         {
                             string name = rows["FileName"].ToString();
@@ -964,29 +990,34 @@ namespace FlyCn.EIL
                             }
                             btnUpdate.Visible = true;
                             btnSave.Visible = false;
-
-
+      
                         }
                     }
-                                           
                     else
+                    
                     {
-                       
-                                string save = Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
-                                fuAttach.SaveAs(save);
-                                StatusLabel.Text = "Upload status: File uploaded!";
-                                int idno = Convert.ToInt32(txtIDno.Text);
-                                int value;
-                                value = pObj.InsertEILAttachment(idno);
-                               // grdFileUpload.Visible = true;
-                              //  grdFileUpload.DataBind();
-                                //pObj.slno = Convert.ToInt32(dt.Rows[0]["SlNo"].ToString());
-                                //int sl = pObj.slno + 1;
-                            
-                        }
+                      
+                        try     
+                        {
+                        pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
+                        string save=Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
+                        fuAttach.SaveAs(save);
+                        StatusLabel.Text = "Upload status: File uploaded!";
+                        pObj.Idno = Convert.ToInt32(txtIDno.Text); ;
+                        int value;
+                        value = pObj.InsertEILAttachment(pObj.Idno);
+                    }
+                    catch (Exception ex)
+                    {
+                        StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+                    }
+                    }
+                                           
+                  
+                
                     grdFileUpload.Visible = true;
                     BindFileuploadGrid(id);
-                     ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
+                    ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
                    
                 }
 

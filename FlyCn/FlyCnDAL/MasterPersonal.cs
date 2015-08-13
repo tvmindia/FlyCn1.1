@@ -11,6 +11,7 @@ namespace FlyCn.FlyCnDAL
     public class MasterPersonal
     {
         ErrorHandling eObj = new ErrorHandling();
+
         #region PersonalProperties
     public string ProjectNo
         {
@@ -206,7 +207,7 @@ namespace FlyCn.FlyCnDAL
 
         #endregion PersonalProperties
 
-     #region MasterPersonalConstructor
+        #region MasterPersonalConstructor
     public MasterPersonal()
     {
         Code = null;
@@ -282,6 +283,7 @@ namespace FlyCn.FlyCnDAL
 
         }
         #endregion GetComboBoxDetails
+
         #region GetComboBoxDetailsById
         public DataTable GetComboBoxDetailsById(string Code)
         {
@@ -520,6 +522,8 @@ namespace FlyCn.FlyCnDAL
             }
         }
         #endregion UpdateMasterPersonel
+
+        #region GetDEtailsFromPersonal
         public DataTable GetDEtailsFromPersonal()
         {
             DataTable dt = new DataTable();
@@ -553,5 +557,6 @@ namespace FlyCn.FlyCnDAL
             return dt;
 
         }
+        #endregion GetDEtailsFromPersonal
     }
 }

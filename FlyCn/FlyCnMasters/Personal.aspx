@@ -211,9 +211,7 @@
                 <MasterTableView DataKeyNames="Code">
 
                     <Columns>
-                        <telerik:GridButtonColumn CommandName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" 
-                            
-                          Text="Edit" UniqueName="EditData" >   
+                        <telerik:GridButtonColumn CommandName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData" >   
                         </telerik:GridButtonColumn>
                         <telerik:GridButtonColumn CommandName="Delete"  ButtonType="ImageButton" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
                         </telerik:GridButtonColumn>
