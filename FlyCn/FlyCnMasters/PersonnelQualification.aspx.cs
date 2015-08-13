@@ -32,7 +32,7 @@ namespace FlyCn.FlyCnMasters
         protected void Button2_Click(object sender, EventArgs e)
         {
 
-          InsertData();
+          InsertData(); 
             // Add
 
           //Server.Transfer("Personal.aspx");
@@ -141,14 +141,12 @@ namespace FlyCn.FlyCnMasters
        public void UpdateData()
        {
            string val = null;
-pq.EmpCode=txtEmpCode.Text;
+    pq.EmpCode=txtEmpCode.Text;
     pq.Qualification=txtQualification.Text;
     pq.QualificationType=txtQualificationType.Text;
-  
-
     pq.Remarks = txtRemarks.Text;
-
     if (RadFirstQualifiedDate.SelectedDate != null)
+
             {
                 pq.FirstQualifiedDate = Convert.ToString(RadFirstQualifiedDate.SelectedDate);
             }
