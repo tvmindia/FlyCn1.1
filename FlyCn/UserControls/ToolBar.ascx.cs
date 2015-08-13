@@ -10,23 +10,34 @@ namespace FlyCn.UserControls
     public partial class ToolBar : System.Web.UI.UserControl
     {
         public event Telerik.Web.UI.RadToolBarEventHandler onClick;
-        public AddBtn AddButton = new AddBtn();
-        public SaveBtn SaveButton = new SaveBtn();
-        public UpdateBtn UpdateButton = new UpdateBtn();
-        public DeleteBtn DeleteButton = new DeleteBtn();
+        public AddBtn AddButton ;
+        public SaveBtn SaveButton ;
+        public UpdateBtn UpdateButton  ;
+        public DeleteBtn DeleteButton  ;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            AddButton.CommonToolBar = CommonToolBar;
-            SaveButton.CommonToolBar = CommonToolBar;
-            UpdateButton.CommonToolBar = CommonToolBar;
-            DeleteButton.CommonToolBar = CommonToolBar;
+          
         }
 
+        protected void Page_Init(object sender, EventArgs e)
+        {
+               AddButton = new AddBtn(CommonToolBar);
+               SaveButton = new SaveBtn(CommonToolBar);
+               UpdateButton = new UpdateBtn(CommonToolBar);
+               DeleteButton = new DeleteBtn(CommonToolBar);
+        }
         public class AddBtn
         {
 
             public RadToolBar CommonToolBar;
+
+            public AddBtn(RadToolBar ToolBar)
+            {
+                this.CommonToolBar = ToolBar;            
+            }
+
+           
 
             //------------------ADD -----------------------------------------------
             public bool Visible
@@ -67,6 +78,11 @@ namespace FlyCn.UserControls
 
 
             }
+
+            public void registerScript_onClientClick(string JavaScriptFunction) {
+
+                CommonToolBar.FindItemByValue("Add").Attributes.Add("OnClick", JavaScriptFunction);
+            }
         
         }
 
@@ -87,7 +103,11 @@ namespace FlyCn.UserControls
 
 
         public class SaveBtn {
-
+            public SaveBtn(RadToolBar ToolBar)
+            {
+                this.CommonToolBar = ToolBar;
+            
+            }
             public RadToolBar CommonToolBar;
 
             //------------------Save -----------------------------------------------
@@ -130,11 +150,20 @@ namespace FlyCn.UserControls
 
             }
 
+            public void registerScript_onClientClick(string JavaScriptFunction)
+            {
+
+                CommonToolBar.FindItemByValue("Save").Attributes.Add("OnClick", JavaScriptFunction);
+            }
+
         }
 
         public class UpdateBtn {
             public RadToolBar CommonToolBar;
-
+            public UpdateBtn(RadToolBar ToolBar)
+            {
+                this.CommonToolBar = ToolBar;            
+            }
             //------------------ update -----------------------------------------------
             public bool Visible
             {
@@ -174,11 +203,23 @@ namespace FlyCn.UserControls
 
 
             }
+            public void registerScript_onClientClick(string JavaScriptFunction)
+            {
+
+                CommonToolBar.FindItemByValue("Update").Attributes.Add("OnClick", JavaScriptFunction);
+            }
         
         }
 
         public class DeleteBtn {
             public RadToolBar CommonToolBar;
+
+            public DeleteBtn(RadToolBar ToolBar)
+            {
+                this.CommonToolBar = ToolBar;            
+            }
+
+
             //------------------ Delete  -----------------------------------------------
             public bool  Visible
             {
@@ -218,12 +259,22 @@ namespace FlyCn.UserControls
 
 
             }
+            public void registerScript_onClientClick(string JavaScriptFunction)
+            {
 
+                CommonToolBar.FindItemByValue("Delete").Attributes.Add("OnClick", JavaScriptFunction);
+            }
         
         
         }
-      
 
+        public string  OnClientButtonClicking
+        {
+           set{
+           CommonToolBar.OnClientButtonClicking = value;
+           
+           } 
+        }
 
 
         public bool VisibleAll { 
@@ -241,7 +292,16 @@ namespace FlyCn.UserControls
 
         protected override void OnPreRender(EventArgs e)
         {
-          //  CommonToolBar.FindItemByValue("Delete").Attributes.Add("OnClick", "return confirmation('" +  CommonToolBar.ClientID + "');");
+            try
+            {
+              //  CommonToolBar.FindItemByValue("Delete").Attributes.Add("OnClick", "return confirmation('" + CommonToolBar.ClientID + "');");
+            }
+            catch (Exception)
+            {
+                
+               // throw;
+            }
+         
         }
     }
 

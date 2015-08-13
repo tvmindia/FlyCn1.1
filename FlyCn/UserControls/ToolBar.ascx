@@ -144,25 +144,25 @@ div.RadToolBar_Metro .rtbMiddle
 
 
 <div style="text-align:right;vertical-align:top;margin:30px;border-bottom:inset;border-bottom-color:gray;border-bottom-width:thin">
-<telerik:RadToolBar AutoPostBack="true" ID="CommonToolBar" runat="server" Font-Size="X-Small" Skin="Metro" BorderStyle="None" BorderWidth="0" CssClass="template" OnButtonClick="CommonToolBar_ButtonClick"  >
+<telerik:RadToolBar   ID="CommonToolBar" runat="server" Font-Size="X-Small" Skin="Metro" BorderStyle="None" BorderWidth="0" CssClass="template" OnButtonClick="CommonToolBar_ButtonClick"  >
    <CollapseAnimation Type="OutQuint" Duration="200" />
      <Items>
-        <telerik:RadToolBarButton runat="server" Text="Add" Value="Add" PostBack="true"  ImagePosition="Left"  
+        <telerik:RadToolBarButton runat="server" Text="Add" Value="Add"    ImagePosition="Left"  
             ImageUrl="~/Images/Icons/addToolbarIcon.png" DisabledImageUrl="~/Images/Icons/addToolbarIconDisabled.png" >
            
         </telerik:RadToolBarButton>
         <telerik:RadToolBarButton Value="addSaveSeperator" IsSeparator="true" runat="server"   > </telerik:RadToolBarButton>
-         <telerik:RadToolBarButton runat="server" Text="Save" Value="Save" PostBack="true"  ImagePosition="Left"  
+         <telerik:RadToolBarButton runat="server" Text="Save" Value="Save"   ImagePosition="Left"  
             ImageUrl="~/Images/Icons/saveToolbarIcon.png" DisabledImageUrl="~/Images/Icons/saveToolbarIconDisabled.png" >
            
         </telerik:RadToolBarButton>
          <telerik:RadToolBarButton Value="SaveUpdateSeperator" IsSeparator="true" runat="server"  > </telerik:RadToolBarButton>
-         <telerik:RadToolBarButton runat="server" Text="Update" Value="Update" PostBack="true"  ImagePosition="Left"   
+         <telerik:RadToolBarButton runat="server" Text="Update" Value="Update"    ImagePosition="Left"   
             ImageUrl="~/Images/Icons/saveToolbarIcon.png" DisabledImageUrl="~/Images/Icons/saveToolbarIconDisabled.png" >
            
         </telerik:RadToolBarButton>
          <telerik:RadToolBarButton Value="UpdateDeleteSeperator" IsSeparator="true" runat="server"  > </telerik:RadToolBarButton>
-         <telerik:RadToolBarButton runat="server" Text="Delete" Value="Delete" PostBack="true"  ImagePosition="Left"   
+         <telerik:RadToolBarButton runat="server" Text="Delete" Value="Delete"    ImagePosition="Left"   
             ImageUrl="~/Images/Icons/deleteToolbarIcon.png" DisabledImageUrl="~/Images/Icons/deleteToolbarIconDisabled.png" >
            
         </telerik:RadToolBarButton>

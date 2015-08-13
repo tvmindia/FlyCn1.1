@@ -13,12 +13,21 @@ namespace FlyCn.Activities
         FlyCnDAL.Security.UserAuthendication UA;
         protected void Page_Load(object sender, EventArgs e)
         {
+
+
+            //----------- Register Toolbar Server & Client side events ----------------//
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
+            ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
+            //-------------------------------------------------------------------------//
+
+
             UIClasses.Const c = new UIClasses.Const();
             UA = (FlyCnDAL.Security.UserAuthendication)Session[c.LoginSession];
             if (!IsPostBack) {
                 loadModules();
             }
+
+           
         }
 
 

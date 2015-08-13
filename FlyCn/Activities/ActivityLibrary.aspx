@@ -34,6 +34,20 @@
             }
 
 
+        
+
+
+            function OnClientButtonClicking(sender, args) {
+                
+                var btn = args.get_item();
+                if (btn.get_value() == 'Delete') {
+
+                    args.set_cancel(!confirm('Do you want to delete ?'));
+                }
+              
+
+            }
+
         </script>
  <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server"></asp:ScriptManagerProxy>
     <div style="width: 100%; text-align: center" class="baseStyles">
