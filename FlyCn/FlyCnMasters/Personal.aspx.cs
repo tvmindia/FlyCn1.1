@@ -27,7 +27,13 @@ namespace FlyCn
         {
 
             DataTable dt = new DataTable();
+          //  GridViewDateTimeColumn dateColumn = (GridViewDateTimeColumn)grid.Columns["date"];
+            //this will set the format of the date displayed in the cells
+           //dateColumn.FormatString = "{0:dd.MM.yyyy}";
             dt = mp.BindMastersPersonal();
+           // string data= dtable.Rows[0]["DateStarted"].ToString();
+            //string s=data.ToShortDateString();
+            //data.DataType=System.DateTime;
             RadGrid1.DataSource = dt;
 
         }
@@ -191,15 +197,24 @@ namespace FlyCn
        
             }         
         }
-    
+
         protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
         {
+
+            //foreach (GridColumn col in RadGrid1.Columns)
+            //{
+            //    string value = col.UniqueName.ToString();
+
+            //}
+
+            //RadGrid1.Items["DateStarted"] = string.Format("{0:dd/MM/yyyy}");
+            //  .Rows[rowNum].Cells[colName].Value = string.Format("{0:dd/MM/yyyy}",29/04/2012 12:00:00 AM);
             //if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
             //{
-              //  GridEditFormItem item = (GridEditFormItem)e.Item;
-             //   BoundField someField = new BoundField();
-                //someField.DataField = "Price";
-                //someField.DataFormatString = "{0:c}"; 
+            //  GridEditFormItem item = (GridEditFormItem)e.Item;
+            //   BoundField someField = new BoundField();
+            //someField.DataField = "Price";
+            //someField.DataFormatString = "{0:c}"; 
             //e.Item.bo
 
             //if (e.Item is GridDataItem && e.Item.OwnerTableView.DataSourceID == "dsNotes")
@@ -213,28 +228,47 @@ namespace FlyCn
             //       TableCell cell =dataItem["DateStarted"];
             //       //string dateformat = (RadGrid1.MasterTableView.GetColumn("DateStarted") as GridDateTimeColumn).DataFormatString;
             //       //cell = "dd/MMM/yyyy";
-               
+
             //}
             //if (e.Item is GridDataItem)
             //{
             //    GridDataItem item = (GridDataItem)e.Item;
             //   // string dateformat = (RadGrid1.MasterTableView.GetColumn("DateStarted") as GridDateTimeColumn).DataFormatString;
             //   //var value = DataBinder.Eval(item.DataItem, dateformat, "dd/MMM/yyyy");
-                
+
             //}
 
-            if (e.Item is GridDataItem)
-            {
-                //Get the instance of the right type
-                GridDataItem dataBoundItem = e.Item as GridDataItem;
-                dataBoundItem["DateStarted"].Style.Add("DisplayDateFormat", "dd/MMM/yyyy");
+            //if (e.Item is GridDataItem)
+            //{
+            //    //Get the instance of the right type
+            //    //GridDataItem dataBoundItem = e.Item as GridDataItem;
+            //    GridDateTimeColumn dateColumn = new GridDateTimeColumn();
+            //    //  dataBoundItem["DateStarted"].Style.Add("DisplayDateFormat", "dd/MMM/yyyy");
+            //    dateColumn.DataFormatString = "{0:MM/dd/yy}";
 
-            }
-                //string dateformat = (RadGrid1.MasterTableView.GetColumn("DateStarted") as GridDateTimeColumn).DataFormatString;
-                //RadDatePicker1.DateInput.DateFormat = "dd/MMM/yyyy";
+            //}
+            //string dateformat = (RadGrid1.MasterTableView.GetColumn("DateStarted") as GridDateTimeColumn).DataFormatString;
+            //RadDatePicker1.DateInput.DateFormat = "dd/MMM/yyyy";
 
             //}
         }
+
+        protected void RadGrid1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                // This would be the datetime column
+        //        e.Row.Cells[4].Text = e.Row.Cells[4].Text.ToString("MM/dd/yyyy");
+//
+
+            }
+        }
+        //protected void RadGrid1_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        //{
+
+        //    string name = RadGrid1.MasterTableView.Items[e.Item.ItemIndex]["DateStarted"].Text;
+           
+        //}
         protected void RadGrid1_ColumnCreating(object sender, GridColumnCreatingEventArgs e)
         {
             if (e.Column.UniqueName == null)
@@ -257,7 +291,12 @@ namespace FlyCn
         //    DateTime dt = Convert.ToDateTime(RadDatePicker1.SelectedDate);
         //    string temp = dt.ToShortDateString();
         //}
-
+        protected void RadGrid1_PreRender(object sender, EventArgs e)
+        {
+            GridTableView masterTable = ((RadGrid)sender).MasterTableView;
+            GridDateTimeColumnEditor editor = masterTable.GetBatchColumnEditor("DateStarted") as GridDateTimeColumnEditor;
+          //  editor.FindControl(DateStarted);
+        }
         public void UpdateData()
         {
             try

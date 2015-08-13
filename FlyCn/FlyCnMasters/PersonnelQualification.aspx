@@ -59,9 +59,19 @@
 
             }
     </script>
+<%--    <script>
+        function setSize() {
+            var iframeElement = parent.document.getElementById('ContentIframe');
+            var height = document.documentElement.clientHeight - 100;
+            iframeElement.style.height = height + "px";
+        }
+    </script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    <div>
+            <asp:Label ID="Label1" runat="server" Text="Qualification" ForeColor="Brown"></asp:Label>
+        </div>    
+    <br /> 
     <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="200px"    OnClientTabSelected="onClientTabSelected"
              CausesValidation="false"   SelectedIndex="0" Skin="Silk" >
             <Tabs>
@@ -74,15 +84,12 @@
                          <tr>
                              <td>&nbsp
                              </td>
-                             <td>--%>
-    <br />
- 
+                             <td>
+   --%>
            <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
 
                <telerik:RadPageView ID="rpList" runat="server"  >
-            <div>
-            <asp:Label ID="Label1" runat="server" Text="Qualification" ForeColor="Brown"></asp:Label>
-        </div>     
+            
       <div id="divQualification">
        
     
@@ -205,6 +212,10 @@
       
             
                        </telerik:RadMultiPage>
+                               <%--   </td>
+    </tr>
+</table>--%>
+        
      <%--                              </td>
     </tr>
 </table>--%>

@@ -95,8 +95,6 @@ namespace FlyCn.FlyCnMasters
                     TableRow row = new TableRow();
                     for (int f = 0; f < dt.Rows.Count; f++)
                     {
-
-
                         TableCell cell = new TableCell();
                         TableCell cell1 = new TableCell();
                         TableCell cell2 = new TableCell();
@@ -108,7 +106,6 @@ namespace FlyCn.FlyCnMasters
                         box.ID = "txt" + dt.Rows[f]["Field_Name"].ToString();
                         string ValidationGroup = "Submit";
                         //  string ErrorMessage = "This Field is Required";
-
                         RequiredFieldValidator rfv = new RequiredFieldValidator();
                         rfv.ControlToValidate = box.ID;
                         //  rfv.ErrorMessage = ErrorMessage;
@@ -118,14 +115,11 @@ namespace FlyCn.FlyCnMasters
                         rfv.EnableClientScript = false;
                         rfv.ValidationGroup = ValidationGroup;
                         rfv.ForeColor = System.Drawing.Color.Red;
-
                         rfv.SetFocusOnError = true;
                         rfv.ErrorMessage = "*Comments field is mandatory";
-                        rfv.Enabled = true;
+                        rfv.Enabled = true;                       
                         if (dt.Rows[f]["Field_DataType"].ToString() == "S" | dt.Rows[f]["Field_DataType"].ToString() == "A" )
-
                         {
-
                             cell.Controls.Add(lbl);
                             cell1.Controls.Add(box);
                             cell2.Controls.Add(rfv);
@@ -343,38 +337,23 @@ namespace FlyCn.FlyCnMasters
                 tab.ImageUrl = "~/Images/Icons/editIcon.png";
 
                 RadMultiPage1.SelectedIndex = 1;
-            
                 DataTable dst = new DataTable();
-
-
                 string ID = (e.Item as GridDataItem).GetDataKeyValue(sdw).ToString();
-                //  _rowId= (e.Item as GridDataItem).GetDataKeyValue("WelderID").ToString();
-                //string ID2 = (e.Item as GridDataItem).GetDataKeyValue("ProjectNo").ToString();
                 dst = dl.FillMasterData(ID, _mode, UA.projectNo, sdw);
-
-
                 FlyCnDAL.SystemDefenitionDetails sm = new FlyCnDAL.SystemDefenitionDetails();
-
-
                 dt.Columns.Add("Values", typeof(String));
                 for (int f = 0; f < dst.Columns.Count; f++)
                 {
-
                     if (dt.Rows[f]["Field_DataType"].ToString() == "S" | dt.Rows[f]["Field_DataType"].ToString() == "A")
                     {
                         string boxname = dt.Rows[f]["Field_Name"].ToString();
                         TextBox box = (TextBox)placeholder.FindControl("txt" + dt.Rows[f]["Field_Name"]);
-
-                        //dt.Rows[f]["Values"] = box.Text;
                         box.Text = dst.Rows[0][boxname].ToString();
                     }
-
                     else if (dt.Rows[f]["Field_DataType"].ToString() == "C" | dt.Rows[f]["Field_DataType"].ToString() == "N")
                     {
                         string boxname = dt.Rows[f]["Field_Name"].ToString();
                         RadComboBox combo = (RadComboBox)placeholder.FindControl("cmb" + dt.Rows[f]["Field_Name"]);
-                        //  dt.Rows[f]["Values"] = combo.SelectedValue;
-                        //combo.Text = dst.Rows[0][boxname].ToString();
                         string TableName = dt.Rows[f]["Ref_TableName"].ToString();
                         string Name = dt.Rows[f]["Ref_SelectField"].ToString();
                         string Code = dt.Rows[f]["Ref_JoinField"].ToString();
@@ -385,15 +364,7 @@ namespace FlyCn.FlyCnMasters
                 }
 
                 ScriptManager.RegisterStartupScript(this, GetType(), "EditData", "UpdateFunction();", true);
-                //result = dl.UpdateMaster(dt);
-
-                //if(result==1)
-                //{
-
-                //}
-
             }
-
         }
 
         protected void Page_Init(object sender, System.EventArgs e)

@@ -125,8 +125,8 @@
             
                      <table style="width: 100%">
                          <tr>
-                             <td>&nbsp
-                             </td>
+                        <%--     <td>&nbsp
+                             </td>--%>
                              <td>
                  <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
                                     <telerik:RadPageView ID="rpList" runat="server"  >

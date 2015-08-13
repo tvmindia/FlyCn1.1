@@ -155,6 +155,13 @@
 
 
   </script>
+    <script>
+        function setSize() {
+            var iframeElement = parent.document.getElementById('ContentIframe');
+            var height = document.documentElement.clientHeight - 100;
+            iframeElement.style.height = height + "px";
+        }
+    </script>
     <style>
       table
     {
@@ -183,11 +190,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
  
-    
+     
     <div class="inputMainContainer">
         <div class="innerDiv">
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
-             CausesValidation="false"   SelectedIndex="0" Skin="Silk" >
+             CausesValidation="false"   SelectedIndex="0" Skin="Silk"  >
             <Tabs>
                 <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True" ></telerik:RadTab>
                  <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
@@ -211,7 +218,9 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
             </asp:ScriptManager>
 
-            <telerik:RadGrid ID="RadGrid1" runat="server" OnNeedDataSource="RadGrid1_NeedDataSource" OnItemCommand="RadGrid1_ItemCommand" Skin="Silk"  CssClass="outerMultiPage" OnItemDataBound="RadGrid1_ItemDataBound" OnColumnCreating="RadGrid1_ColumnCreating" >
+            <telerik:RadGrid ID="RadGrid1" runat="server" OnNeedDataSource="RadGrid1_NeedDataSource" 
+                OnItemCommand="RadGrid1_ItemCommand" Skin="Silk"  CssClass="outerMultiPage" OnItemDataBound="RadGrid1_ItemDataBound"
+                 OnColumnCreating="RadGrid1_ColumnCreating" >
                 <MasterTableView DataKeyNames="Code">
 
                     <Columns>
@@ -445,14 +454,14 @@
                     
  
       
-    <div id="framediv" runat="server">
+    <div id="framediv" runat="server" >
 
-        <iframe id="ContentIframe" runat="server"
-            name="PQualification" width="100%" height="100%" />
+        <iframe id="ContentIframe" runat="server" 
+            name="PQualification" width="100%"  height="100%" scrolling="yes"  ></iframe>
     </div>
 
       </telerik:RadPageView>
-  
+<%--  onload="javascript: setSize();"--%>
 
                     </telerik:RadMultiPage>
     </div>
