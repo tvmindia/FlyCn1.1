@@ -48,10 +48,10 @@ namespace FlyCn.Activities
                 tab.Text = "Edit";
                 RadMultiPage1.SelectedIndex = 1;
 
-                ToolBar.isAddVisible = false;
-                ToolBar.isSaveVisible=false;
-                ToolBar.isUpdateVisible = true;
-                ToolBar.isDeleteVisible = true;
+                ToolBar.AddButton.Visible = false;
+                ToolBar.SaveButton.Visible=false;
+                ToolBar.UpdateButton.Visible = true;
+                ToolBar.DeleteButton.Visible = true;
             }
         
         }

@@ -10,9 +10,64 @@ namespace FlyCn.UserControls
     public partial class ToolBar : System.Web.UI.UserControl
     {
         public event Telerik.Web.UI.RadToolBarEventHandler onClick;
+        public AddBtn AddButton = new AddBtn();
+        public SaveBtn SaveButton = new SaveBtn();
+        public UpdateBtn UpdateButton = new UpdateBtn();
+        public DeleteBtn DeleteButton = new DeleteBtn();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            AddButton.CommonToolBar = CommonToolBar;
+            SaveButton.CommonToolBar = CommonToolBar;
+            UpdateButton.CommonToolBar = CommonToolBar;
+            DeleteButton.CommonToolBar = CommonToolBar;
+        }
 
+        public class AddBtn
+        {
+
+            public RadToolBar CommonToolBar;
+
+            //------------------ADD -----------------------------------------------
+            public bool Visible
+            {
+
+                get
+                {
+                    if (CommonToolBar.FindItemByValue("Add").Style["display"] == "block" || CommonToolBar.FindItemByValue("Add").Style["display"] == "")
+                    {
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+
+
+
+                set
+                {
+
+                    if (value)
+                    {
+                        CommonToolBar.FindItemByValue("Add").Style["display"] = "";
+                        CommonToolBar.FindItemByValue("addSaveSeperator").Style["display"] = "";
+                    }
+                    else
+                    {
+                        CommonToolBar.FindItemByValue("Add").Style["display"] = "none";
+                        CommonToolBar.FindItemByValue("addSaveSeperator").Style["display"] = "none";
+                    }
+
+
+                }
+
+
+            }
+        
         }
 
         protected void CommonToolBar_ButtonClick(object sender, RadToolBarEventArgs e)
@@ -30,171 +85,154 @@ namespace FlyCn.UserControls
             this.onClick(sender, e);
         }
 
-//------------------ADD -----------------------------------------------
-        public bool isAddVisible{
 
-            get {
-                if (CommonToolBar.FindItemByValue("Add").Style["display"] == "block" || CommonToolBar.FindItemByValue("Add").Style["display"] == "") {
-                
-                return true;
+        public class SaveBtn {
+
+            public RadToolBar CommonToolBar;
+
+            //------------------Save -----------------------------------------------
+            public bool  Visible
+            {
+
+                get
+                {
+                    if (CommonToolBar.FindItemByValue("Save").Style["display"] == "block" || CommonToolBar.FindItemByValue("Save").Style["display"] == "")
+                    {
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
                 }
-                else {
-                    return false;
+
+
+
+                set
+                {
+
+                    if (value)
+                    {
+                        CommonToolBar.FindItemByValue("Save").Style["display"] = "";
+                        CommonToolBar.FindItemByValue("SaveUpdateSeperator").Style["display"] = "";
+                    }
+                    else
+                    {
+                        CommonToolBar.FindItemByValue("Save").Style["display"] = "none";
+                        CommonToolBar.FindItemByValue("SaveUpdateSeperator").Style["display"] = "none";
+                    }
+
+
                 }
-            
+
+
             }
-
-
-
-            set {
-
-                if (value) {
-                    CommonToolBar.FindItemByValue("Add").Style["display"] = "";
-                    CommonToolBar.FindItemByValue("addSaveSeperator").Style["display"] = "";
-                }
-                else {
-                    CommonToolBar.FindItemByValue("Add").Style["display"] = "none";
-                    CommonToolBar.FindItemByValue("addSaveSeperator").Style["display"] = "none";
-                }
-            
-            
-            }
-
 
         }
 
+        public class UpdateBtn {
+            public RadToolBar CommonToolBar;
 
-        //------------------Save -----------------------------------------------
-        public bool isSaveVisible
-        {
-
-            get
-            {
-                if (CommonToolBar.FindItemByValue("Save").Style["display"] == "block" || CommonToolBar.FindItemByValue("Save").Style["display"] == "")
-                {
-
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            }
-
-
-
-            set
+            //------------------ update -----------------------------------------------
+            public bool Visible
             {
 
-                if (value)
+                get
                 {
-                    CommonToolBar.FindItemByValue("Save").Style["display"] = "";
-                    CommonToolBar.FindItemByValue("SaveUpdateSeperator").Style["display"] = "";
+                    if (CommonToolBar.FindItemByValue("Update").Style["display"] == "block" || CommonToolBar.FindItemByValue("Update").Style["display"] == "")
+                    {
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
                 }
-                else
+
+
+
+                set
                 {
-                    CommonToolBar.FindItemByValue("Save").Style["display"] = "none";
-                    CommonToolBar.FindItemByValue("SaveUpdateSeperator").Style["display"] = "none";
+
+                    if (value)
+                    {
+                        CommonToolBar.FindItemByValue("Update").Style["display"] = "";
+                        CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "";
+                    }
+                    else
+                    {
+                        CommonToolBar.FindItemByValue("Update").Style["display"] = "none";
+                        CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "none";
+                    }
+
+
                 }
 
 
             }
-
-
+        
         }
 
-
-        //------------------ update -----------------------------------------------
-        public bool isUpdateVisible
-        {
-
-            get
+        public class DeleteBtn {
+            public RadToolBar CommonToolBar;
+            //------------------ Delete  -----------------------------------------------
+            public bool  Visible
             {
-                if (CommonToolBar.FindItemByValue("Update").Style["display"] == "block" || CommonToolBar.FindItemByValue("Update").Style["display"] == "")
+
+                get
+                {
+                    if (CommonToolBar.FindItemByValue("Delete").Style["display"] == "block" || CommonToolBar.FindItemByValue("Delete").Style["display"] == "")
+                    {
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+
+
+
+                set
                 {
 
-                    return true;
+                    if (value)
+                    {
+                        CommonToolBar.FindItemByValue("Delete").Style["display"] = "";
+                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "";
+                    }
+                    else
+                    {
+                        CommonToolBar.FindItemByValue("Delete").Style["display"] = "none";
+                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "none";
+                    }
+
+
                 }
-                else
-                {
-                    return false;
-                }
+
 
             }
 
-
-
-            set
-            {
-
-                if (value)
-                {
-                    CommonToolBar.FindItemByValue("Update").Style["display"] = "";
-                    CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "";
-                }
-                else
-                {
-                    CommonToolBar.FindItemByValue("Update").Style["display"] = "none";
-                    CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "none";
-                }
-
-
-            }
-
-
+        
+        
         }
-
-        //------------------ Delete  -----------------------------------------------
-        public bool isDeleteVisible
-        {
-
-            get
-            {
-                if (CommonToolBar.FindItemByValue("Delete").Style["display"] == "block" || CommonToolBar.FindItemByValue("Delete").Style["display"] == "")
-                {
-
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            }
-
-
-
-            set
-            {
-
-                if (value)
-                {
-                    CommonToolBar.FindItemByValue("Delete").Style["display"] = "";
-                   // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "";
-                }
-                else
-                {
-                    CommonToolBar.FindItemByValue("Delete").Style["display"] = "none";
-                   // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "none";
-                }
-
-
-            }
-
-
-        }
-
+      
 
 
 
         public bool VisibleAll { 
 
            set {
-               this.isAddVisible = value;
-               this.isSaveVisible = value;
-               this.isUpdateVisible = value;
-               this.isDeleteVisible = value;
+               this.AddButton.Visible = value;
+               this.SaveButton.Visible = value;
+               this.UpdateButton.Visible = value;
+               this.DeleteButton.Visible = value;
            
            }
         
@@ -203,7 +241,7 @@ namespace FlyCn.UserControls
 
         protected override void OnPreRender(EventArgs e)
         {
-            CommonToolBar.FindItemByValue("Delete").Attributes.Add("OnClick", "return confirmation('" +  CommonToolBar.ClientID + "');");
+          //  CommonToolBar.FindItemByValue("Delete").Attributes.Add("OnClick", "return confirmation('" +  CommonToolBar.ClientID + "');");
         }
     }
 
