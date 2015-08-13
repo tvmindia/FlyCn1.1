@@ -14,11 +14,8 @@
                 tab.select();
                 var tab1 = tabStrip.findTabByText("Edit");
                 tab1.set_text("New");
-                //$('input[type=text]').each(function () {
-                //    $(this).val('');
-                //});
-                //$('textarea').empty();
-       
+               
+                tab1.set_imageUrl('../Images/Icons/NewIcon.png');
                 document.getElementById('<%=Button2.ClientID %>').style.display = "none";
                 document.getElementById('<%=Button1.ClientID %>').style.display = "none";
             }
@@ -28,19 +25,18 @@
                 document.getElementById('<%=Button1.ClientID %>').style.display = "";
             }
             else if (tab.get_text() == "New") {
+                $("input:text").val('');
+                $('textarea').empty();
+
                 document.getElementById('<%=Button2.ClientID %>').style.display = "";
                 document.getElementById('<%=Button1.ClientID %>').style.display = "none";
-                $('input[type=text]').each(function () {
-                    $(this).val('');
-                });
-                $('textarea').empty();
                 var hiddenStatusFlag = document.getElementById('<%= HiddenField.ClientID%>').value;
-
                 document.getElementById('<%=txtEmpCode.ClientID %>').value = hiddenStatusFlag;
+
+
             }
+
         }
-
-
         </script>
     
        <script type="text/javascript">
@@ -66,24 +62,29 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
+    <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="200px"    OnClientTabSelected="onClientTabSelected"
              CausesValidation="false"   SelectedIndex="0" Skin="Silk" >
             <Tabs>
-                <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png"  ></telerik:RadTab>
-                 <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
+                <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="100px" Height="20px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png"  ></telerik:RadTab>
+                 <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="100px" Height="20px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
             </Tabs>
         </telerik:RadTabStrip>
     
+                   <%--  <table style="width: 100% ; align-content:flex-start;" >
+                         <tr>
+                             <td>&nbsp
+                             </td>
+                             <td>--%>
+    <br />
+ 
            <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
 
                <telerik:RadPageView ID="rpList" runat="server"  >
-               
+            <div>
+            <asp:Label ID="Label1" runat="server" Text="Qualification" ForeColor="Brown"></asp:Label>
+        </div>     
       <div id="divQualification">
-        Qualification
-
-        <br />
-        <br />
-
+       
     
     <div>
        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" >
@@ -93,9 +94,9 @@
    <MasterTableView DataKeyNames="EmpCode,Qualification">
      
     <Columns>
-          <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData">
+          <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" >
                     </telerik:GridButtonColumn>
-         <telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure" >
+         <telerik:GridButtonColumn CommandName="Delete"  ButtonType="ImageButton"  Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure" >
                     </telerik:GridButtonColumn>
    
     </Columns> 
@@ -104,10 +105,12 @@
    </telerik:RadGrid>
 </div>
           </div>
+
                        
                              </telerik:RadPageView>
                    <telerik:RadPageView ID="rpAddEdit" runat="server">
     <div id="divQualificationedit" >
+      
         <table style="width: 100%;">
             <tr>
                 <td>
@@ -115,7 +118,7 @@
                     <asp:Label ID="lblEmpCode" runat="server" Text="EmployeeCode"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtEmpCode" runat="server"  enabled="false" ></asp:TextBox>
+                    <asp:TextBox ID="txtEmpCode" runat="server"  ReadOnly="true" ></asp:TextBox>
 
 
                 </td>
@@ -202,4 +205,8 @@
       
             
                        </telerik:RadMultiPage>
+     <%--                              </td>
+    </tr>
+</table>--%>
+        
 </asp:Content>

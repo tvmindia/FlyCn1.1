@@ -69,7 +69,11 @@
                 var tab = tabStrip.findTabByText("View");
                 tab.select();
                 var tab1 = tabStrip.findTabByText("Edit");
+
                 tab1.set_text("New");
+                tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
+
+                tab1.set_imageUrl('../Images/Icons/NewIcon.png');
                 $('input[type=text]').each(function () {
                     $(this).val('');
                 });
@@ -118,6 +122,12 @@
                  <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  TabIndex="1"  ></telerik:RadTab>
             </Tabs>
         </telerik:RadTabStrip>
+            
+                     <table style="width: 100%">
+                         <tr>
+                             <td>&nbsp
+                             </td>
+                             <td>
                  <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
                                     <telerik:RadPageView ID="rpList" runat="server"  >
                                         <div id="div2" >
@@ -129,9 +139,9 @@
 <MasterTableView   >
      
     <Columns>
-          <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData">
+          <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData"  ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" >
                     </telerik:GridButtonColumn>
-         <telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure" >
+         <telerik:GridButtonColumn CommandName="Delete"  ButtonType="ImageButton" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure" >
                     </telerik:GridButtonColumn>
    
     </Columns> 
@@ -141,11 +151,7 @@
     </div>
                                              </telerik:RadPageView>
                           <telerik:RadPageView ID="rpAddEdit" runat="server">
-                     <table style="width: 100%">
-                         <tr>
-                             <td>&nbsp
-                             </td>
-                             <td>
+
                                  <div>
 
 
@@ -172,12 +178,13 @@
                                      <!-- here is where the dinamically created elements will be placed -->
 
                                  </div>
-                             </td>
+                           
+                                </telerik:RadPageView>
+                     </telerik:RadMultiPage>
+                                   </td>
                          </tr>
                      </table>
 
-                                </telerik:RadPageView>
-                     </telerik:RadMultiPage>
             </div>
             </div>
     <p>

@@ -340,6 +340,8 @@ namespace FlyCn.FlyCnMasters
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                 tab.Selected = true;
                 tab.Text = "Edit";
+                tab.ImageUrl = "~/Images/Icons/editIcon.png";
+
                 RadMultiPage1.SelectedIndex = 1;
             
                 DataTable dst = new DataTable();
@@ -457,6 +459,8 @@ namespace FlyCn.FlyCnMasters
                 tab.Selected = true;
                 RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
                 tab1.Text = "New";
+                tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
+
                 RadMultiPage1.SelectedIndex = 0;
             }
 

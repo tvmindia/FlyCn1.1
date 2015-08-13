@@ -117,6 +117,8 @@
                    tab.select();
                    var tab1 = tabStrip.findTabByText("Edit");
                    tab1.set_text("New");
+                   tab1.set_imageUrl('../Images/Icons/NewIcon.png');
+              //     tab1.get_element().style.ImageUrl = '../Images/Icons/NewIcon.png';
                    $('input[type=text]').each(function () {
                        $(this).val('');
                    });
@@ -142,6 +144,8 @@
                else if (tab.get_text() == "New") {
                    document.getElementById('<%=Button2.ClientID %>').style.display = "";
                    document.getElementById('<%=Button1.ClientID %>').style.display = "none";
+                   document.getElementById('<%=txtCode.ClientID %>').readOnly = false;
+
                    $('input[type=text]').each(function () {
                        $(this).val('');
                    });
@@ -207,7 +211,7 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
             </asp:ScriptManager>
 
-            <telerik:RadGrid ID="RadGrid1" runat="server" OnNeedDataSource="RadGrid1_NeedDataSource" OnItemCommand="RadGrid1_ItemCommand" Skin="Silk"  CssClass="outerMultiPage" OnItemDataBound="RadGrid1_ItemDataBound">
+            <telerik:RadGrid ID="RadGrid1" runat="server" OnNeedDataSource="RadGrid1_NeedDataSource" OnItemCommand="RadGrid1_ItemCommand" Skin="Silk"  CssClass="outerMultiPage" OnItemDataBound="RadGrid1_ItemDataBound" OnColumnCreating="RadGrid1_ColumnCreating" >
                 <MasterTableView DataKeyNames="Code">
 
                     <Columns>
@@ -437,7 +441,10 @@
 
     </div>
 
-        <hr />        
+        <hr />  
+                    
+ 
+      
     <div id="framediv" runat="server">
 
         <iframe id="ContentIframe" runat="server"
