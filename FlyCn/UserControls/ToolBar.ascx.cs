@@ -9,7 +9,9 @@ namespace FlyCn.UserControls
 {
     public partial class ToolBar : System.Web.UI.UserControl
     {
-        public event Telerik.Web.UI.RadToolBarEventHandler onClick;
+        public event Telerik.Web.UI.RadToolBarEventHandler onClick; //for parent page click event
+
+        //------- buttons --------------
         public AddBtn AddButton ;
         public SaveBtn SaveButton ;
         public UpdateBtn UpdateButton  ;
@@ -22,11 +24,29 @@ namespace FlyCn.UserControls
 
         protected void Page_Init(object sender, EventArgs e)
         {
+            // assign each button wthin the tool bar
                AddButton = new AddBtn(CommonToolBar);
                SaveButton = new SaveBtn(CommonToolBar);
                UpdateButton = new UpdateBtn(CommonToolBar);
                DeleteButton = new DeleteBtn(CommonToolBar);
         }
+        
+
+        protected void CommonToolBar_ButtonClick(object sender, RadToolBarEventArgs e)
+        {
+            if (e.Item.Text == "Delete") {
+                if (DeleteCancel.Value == "DeleteCancel")
+                {
+                    e.Item.Value = "DeleteCancel";
+                }
+                else {
+
+                    e.Item.Value = "Delete";
+                }
+            }
+            this.onClick(sender, e);
+        }
+
         public class AddBtn
         {
 
@@ -34,10 +54,10 @@ namespace FlyCn.UserControls
 
             public AddBtn(RadToolBar ToolBar)
             {
-                this.CommonToolBar = ToolBar;            
+                this.CommonToolBar = ToolBar;
             }
 
-           
+
 
             //------------------ADD -----------------------------------------------
             public bool Visible
@@ -79,29 +99,13 @@ namespace FlyCn.UserControls
 
             }
 
-            public void registerScript_onClientClick(string JavaScriptFunction) {
+            public void registerScript_onClientClick(string JavaScriptFunction)
+            {
 
                 CommonToolBar.FindItemByValue("Add").Attributes.Add("OnClick", JavaScriptFunction);
             }
-        
+
         }
-
-        protected void CommonToolBar_ButtonClick(object sender, RadToolBarEventArgs e)
-        {
-            if (e.Item.Text == "Delete") {
-                if (DeleteCancel.Value == "DeleteCancel")
-                {
-                    e.Item.Value = "DeleteCancel";
-                }
-                else {
-
-                    e.Item.Value = "Delete";
-                }
-            }
-            this.onClick(sender, e);
-        }
-
-
         public class SaveBtn {
             public SaveBtn(RadToolBar ToolBar)
             {
@@ -268,6 +272,8 @@ namespace FlyCn.UserControls
         
         }
 
+
+        // register on client click javascript function
         public string  OnClientButtonClicking
         {
            set{
@@ -290,19 +296,6 @@ namespace FlyCn.UserControls
         }
 
 
-        protected override void OnPreRender(EventArgs e)
-        {
-            try
-            {
-              //  CommonToolBar.FindItemByValue("Delete").Attributes.Add("OnClick", "return confirmation('" + CommonToolBar.ClientID + "');");
-            }
-            catch (Exception)
-            {
-                
-               // throw;
-            }
-         
-        }
     }
 
 
