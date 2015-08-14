@@ -143,7 +143,7 @@ div.RadToolBar_Metro .rtbMiddle
     </style>
 
 
-<div style="text-align:right;vertical-align:top;margin:30px;border-bottom:inset;border-bottom-color:gray;border-bottom-width:thin">
+<div style="text-align:right;vertical-align:top;margin:30px;">
 <telerik:RadToolBar   ID="CommonToolBar" runat="server" Font-Size="X-Small" Skin="Metro" BorderStyle="None" BorderWidth="0" CssClass="template" OnButtonClick="CommonToolBar_ButtonClick"  >
    <CollapseAnimation Type="OutQuint" Duration="200" />
      <Items>
