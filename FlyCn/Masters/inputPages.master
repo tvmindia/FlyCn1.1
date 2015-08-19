@@ -16,6 +16,15 @@
             height: 33px;
             width: 55px;
         }
+        .div1{
+            position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+    width: 100%; 
+    display: none;
+    
+        }
     </style>
     <script>
         function hideMe() {
@@ -32,10 +41,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainBody" runat="server">
     
-        <div  id="Errorbox" style="width: 100%; display: none;" runat="server" align="left" >
-            <table style="width: 90%; height: 80px; border: groove; border-radius: 5px 6px; background-color: lightgrey">
+        <div  id="Errorbox" runat="server" class="div1">
+            <table style="width: 90%; height: 50px; border: groove; border-radius: 5px 6px; background-color: lightgrey">
                 <tr>
-                    <td style="color: black; font: bold">Error</td>
+              
                     <td></td>
                     <td style="text-align: left; height: 0.8px; width: 2px">
                   <img src="../Images/close.png" onclick="hideMe();" />
@@ -98,11 +107,6 @@
             </telerik:RadPane>
         </telerik:RadSplitter>
     </div>
-     
-
-    
-
-
 </asp:Content>
 
 
