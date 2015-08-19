@@ -17,6 +17,7 @@ namespace FlyCn.FlyCnDAL
         }
         public void ErrorData(Exception ex,Page pg)
         {
+
             //defn
             //1 accept page obj
             //2 find its master
@@ -31,12 +32,12 @@ namespace FlyCn.FlyCnDAL
             //ContentPlaceHolder myPlaceHolder = (ContentPlaceHolder)Master.FindControl("ContentPlaceHolder1");
             //ContentPlaceHolder myContent = (ContentPlaceHolder)pg.Master.FindControl("MainBody");
             //ContentPlaceHolder MainContent = pg.Master.FindControl("Content2") as ContentPlaceHolder;
-          //  var div = master.FindControl("Errorbox");   
+            // var div = master.FindControl("Errorbox");   
             //ContentPlaceHolder MainContent = Page..FindControl("MainContent") as ContentPlaceHolder;
             HtmlControl divMask = (HtmlControl)master.FindControl("Errorbox");
             //HtmlControl div1 = (HtmlControl)master.FindControl("masterDiv");
             //div1.Attributes.CssStyle.Add("opacity", "0.1");
-         //   div1.Attributes.Add("Disabled", "");   
+            //div1.Attributes.Add("Disabled", "");    
             //foreach (Control c in pg.Controls)
             //{ 
             //    if (c is TextBox)
@@ -47,13 +48,40 @@ namespace FlyCn.FlyCnDAL
             //        if(c is Button)
             //        ((Button)(c)).Enabled = false;
             //    }
-            //DisableAllControls(pg);
-
-      
+            //DisableAllControls(pg);      
             divMask.Style["display"] = "";
+            divMask.Attributes["class"] = "ErrormsgBoxes";
             Label error = (Label)master.FindControl("lblErrorInfo");
-            error.Text = ex.Message;     
+            error.Text = ex.Message;  
         }
+         public void InsertionSuccessData(Page pg)
+  
+            {
+                var master1 = pg.Master;
+                ContentPlaceHolder mpContentPlaceHolder1;
+                mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
+                HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
+                divMask1.Style["display"] = "";
+                
+                Label Success = (Label)master1.FindControl("lblErrorInfo");
+              //  Success.Style.Add("color", "green");
+                divMask1.Attributes["class"] = "Succesmsgboxes";
+                Success.Text = "Successfully Inserted";  
+            }
+        public void UpdationSuccessData(Page pg)
+         {
+             var master1 = pg.Master;
+             ContentPlaceHolder mpContentPlaceHolder1; 
+             mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
+             HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
+             divMask1.Style["display"] = "";
+
+             Label Success = (Label)master1.FindControl("lblErrorInfo");
+             //Success.Style.Add("color", "green");
+             divMask1.Attributes["class"] = "Succesmsgboxes";
+             Success.Text = "Successfully Updated";  
+         }
+        
         //private void DisableAllControls(Control Page)
         //{
         //    foreach (Control ctrl in Page.Controls)
@@ -72,8 +100,18 @@ namespace FlyCn.FlyCnDAL
         //        }
         //    }
         //}
+        public void DeleteSuccessData(Page pg)
+        {
+            var master1 = pg.Master;
+            ContentPlaceHolder mpContentPlaceHolder1;
+            mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
+            HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox"); 
+            divMask1.Style["display"] = "";
 
-
-        
+            Label Success = (Label)master1.FindControl("lblErrorInfo");
+           // Success.Style.Add("color", "green");
+            divMask1.Attributes["class"] = "Succesmsgboxes";
+            Success.Text = "Deleted Successfully";
+        }        
     }
 }
