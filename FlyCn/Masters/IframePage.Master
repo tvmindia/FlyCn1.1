@@ -31,37 +31,24 @@
     </script>
 </head>
 <body>
- 
-    <div>
-    
-      </div>
-            <div  id="Errorbox" style="width: 100%; display: none;" runat="server" align="left" >
-            <table style="width: 90%; height: 80px; border: groove; border-radius: 5px 6px; background-color: lightgrey">
+     <div id="masterDiv" runat="server"> 
+    <form id="form1" runat="server">  
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">        
+        </asp:ContentPlaceHolder> 
+        </form>
+       </div>
+    <div style="width:100%;text-align:right;right:0px;">
+       <div  id="Errorbox" style="width:50%;display: none;right:0px;float:right;padding-left:200px;margin-left:300px" runat="server" class="ErrormsgBoxes"  >
+            <table style="width: 100%;background-color: transparent;">                
                 <tr>
-                    <td style="color: black; font: bold">Error</td>
-                    <td></td>
-                    <td style="text-align: left; height: 0.8px; width: 2px">
-                        <img src="../Images/close.png" onclick="hideMe();" />
-<%--                        <img src="Images/Close.png" style="padding-right: 1px; margin-left: 1px; margin-right: 1px; width: 15px; height: 15px" onclick="hideMe();" />--%>
+                    <td style="text-align: right;width:90%">
+                        <asp:Label ID="lblErrorInfo" runat="server" Style="font-size:medium;"></asp:Label>
                     </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Label ID="lblErrorInfo" runat="server" Style="font-size: large; color: red"></asp:Label>
+                     <td style="text-align: right;width:10%">
+                        <img src="../Images/Close1.png" onclick="hideMe();" style="height:15px;width:15px"/>                   
                     </td>
                 </tr>
             </table>
-        </div>
-   
-     <div id="masterDiv" runat="server"> 
-
-
-    <form id="form1" runat="server">
-   
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-        
-        </asp:ContentPlaceHolder>
-        </form>
-       </div>
+        </div></div>
 </body>
 </html>
