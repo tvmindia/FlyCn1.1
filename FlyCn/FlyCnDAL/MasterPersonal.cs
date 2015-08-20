@@ -229,9 +229,14 @@ namespace FlyCn.FlyCnDAL
         Remarks = null;
     }
     #endregion MasterPersonalConstructor
-    
-        #region BindMasters
 
+    #region Methods
+
+        #region BindMasters
+        /// <summary>
+        /// bind Master Personnel data
+        /// </summary>
+        /// <returns>return data table</returns>
     public DataTable BindMastersPersonal()
         {
            
@@ -239,9 +244,7 @@ namespace FlyCn.FlyCnDAL
             DataTable dt = null;
 
             dbConnection dcon = new dbConnection();
-            con = dcon.GetDBConnection();
-
-           
+            con = dcon.GetDBConnection();           
             SqlCommand cmd = new SqlCommand("GetMasterPersonalData", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter adapter = new SqlDataAdapter();
@@ -251,11 +254,14 @@ namespace FlyCn.FlyCnDAL
             con.Close();
             return dt;
         }
-
         #endregion BindMasters
 
-        #region GetComboBoxDetails
-        public DataTable GetComboBoxDetails()
+        #region GetCompanyComboBoxData
+        /// <summary>
+        /// Get Company DropDown Data
+        /// </summary>
+        /// <returns>return datatable</returns>
+        public DataTable GetCompanyComboBoxData()
         {
             try
             {
@@ -282,10 +288,15 @@ namespace FlyCn.FlyCnDAL
 
 
         }
-        #endregion GetComboBoxDetails
+        #endregion GetCompanyComboBoxData
 
-        #region GetComboBoxDetailsById
-        public DataTable GetComboBoxDetailsById(string Code)
+        #region GetCompanyComboBoxDataById
+        /// <summary>
+        /// Get Combo box data by id to fill combo box when clicking edit button
+        /// </summary>
+        /// <param name="Code"></param>
+        /// <returns>return datatable </returns>
+        public DataTable GetCompanyComboBoxDataById(string Code)
         {
             try
             {
@@ -311,9 +322,14 @@ namespace FlyCn.FlyCnDAL
                 throw ex;
             }
         }
-        #endregion GetComboBoxDetailsById
+        #endregion GetCompanyComboBoxDataById
 
         #region InsertMasterData
+        /// <summary>
+        /// Insert Master Personnel data
+        /// </summary>
+        /// <param name="ProjNo"></param>
+        /// <returns>return integer value</returns>
         public int InsertMasterData(string ProjNo)
         {
             ErrorHandling eObj = new ErrorHandling();
@@ -371,9 +387,7 @@ namespace FlyCn.FlyCnDAL
             catch (Exception ex)
             {
                 //return 0;
-                var page = HttpContext.Current.CurrentHandler as Page;
-                var master = page.Master;
-                eObj.ErrorData(ex, page);
+                throw ex;
                
                
         
@@ -390,6 +404,11 @@ namespace FlyCn.FlyCnDAL
         #endregion InsertMasterData
 
         #region DeleteMasterPersonalData
+        /// <summary>
+        /// Delete Master Personnel Data 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns> return integer value</returns>
         public int DeleteMasterData(string code)
         {
 
@@ -419,6 +438,11 @@ namespace FlyCn.FlyCnDAL
           #endregion DeleteMasterPersonalData
 
         #region FillMasterPersonalData
+        /// <summary>
+        /// Fill text boxes when clicking edit button
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns>return data table</returns>
         public DataTable FillMasterData(string code)
         {
             try
@@ -458,6 +482,11 @@ namespace FlyCn.FlyCnDAL
         #endregion FillMasterPersonalData
 
         #region UpdateMasterPersonel
+        /// <summary>
+        /// update master personnel data
+        /// </summary>
+        /// <param name="ProjNo"></param>
+        /// <returns>return integer</returns>
         public int UpdateMasterPersonel(string ProjNo)
         {
 
@@ -558,5 +587,6 @@ namespace FlyCn.FlyCnDAL
 
         }
         #endregion GetDEtailsFromPersonal
+        #endregion Methods
     }
 }
