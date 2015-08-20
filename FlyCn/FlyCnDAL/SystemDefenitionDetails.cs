@@ -78,5 +78,22 @@ namespace FlyCn.FlyCnDAL
             con.Close();
             return dataset;
         }
+
+        public DataTable GetPrimarykeys(string TableName)
+        {
+            DataTable dt = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetPrimaryKeys", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@TableName", TableName);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            dt = new DataTable();
+            adapter.Fill(dt);
+            con.Close();
+            return dt;
+        }
     }
 }

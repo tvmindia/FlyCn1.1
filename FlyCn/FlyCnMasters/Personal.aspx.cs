@@ -12,67 +12,89 @@ namespace FlyCn
 {
     public partial class Personal : System.Web.UI.Page
     {
+        UIClasses.Const Const = new UIClasses.Const();
+        FlyCnDAL.Security.UserAuthendication UA;
         FlyCnDAL.MasterPersonal mp = new FlyCnDAL.MasterPersonal();
         DataTable dtable = new DataTable();
         ErrorHandling eObj = new ErrorHandling();
+
+        #region  Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
+            UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
+            ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
+            ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
         }
+     
+        #endregion  Page_Load
 
-        protected void TextBox2_TextChanged(object sender, EventArgs e)
+        #region  ToolBar_onClick
+        protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
+            string functionName = e.Item.Value;
+            if(functionName=="Save")
+            {
 
+
+            InsertData();
+            }
+            else if (functionName=="Update")
+            {
+                UpdateData();   
+            }
+         else if (functionName=="Delete")
+            {
+                string code = txtCode.Text;
+                int result = mp.DeleteMasterData(code);
+                if (result == 1)
+                {
+                    PersonnelGrid.Rebind();
+                    RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+                    tab.Selected = true;
+                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
+                    tab1.Text = "New";
+                    tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
+                    RadMultiPage1.SelectedIndex = 0;
+
+                }
+            }
+          
         }
-        protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+
+        #endregion  ToolBar_onClick
+
+        #region PersonnelGrid_NeedDataSource
+        protected void PersonnelGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
 
             DataTable dt = new DataTable();
-          //  GridViewDateTimeColumn dateColumn = (GridViewDateTimeColumn)grid.Columns["date"];
-            //this will set the format of the date displayed in the cells
-           //dateColumn.FormatString = "{0:dd.MM.yyyy}";
+      
             dt = mp.BindMastersPersonal();
-           // string data= dtable.Rows[0]["DateStarted"].ToString();
-            //string s=data.ToShortDateString();
-            //data.DataType=System.DateTime;
-            RadGrid1.DataSource = dt;
+        
+            PersonnelGrid.DataSource = dt;
 
         }
+       
+        #endregion PersonnelGrid_NeedDataSource
 
-        protected void RadComboBox2_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        #region  RadComboCompany_ItemsRequested
+        protected void RadComboCompany_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             DataTable dataTable = new DataTable();
-            dataTable = mp.GetComboBoxDetails();
+            dataTable = mp.GetCompanyComboBoxData();
             foreach (DataRow dataRow in dataTable.Rows)
             {
                 RadComboBoxItem item = new RadComboBoxItem();
-                item.Text = (string)dataRow["CompName"];
+                item.Text = dataRow["CompName"].ToString();
                 item.Value = dataRow["Code"].ToString();
-                RadComboBox2.Items.Add(item);
+                RadComboCompany.Items.Add(item);
                 item.DataBind();
             }
-        }     
-        protected void Button2_Click(object sender, EventArgs e)
-        {
-          
-            InsertData();
-            //foreach (GridDataItem item in RadGrid1.MasterTableView.Items)
-            //{
-
-            //    string value = item.GetDataKeyValue("Code").ToString();
-
-            //    ContentIframe.Attributes["src"] = "PersonnelQualification.aspx?id=" + value;
-
-            //}
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("Edit");
-            ////  tab.Selected = false;
-            //tab.Text = "New";
-            //RadTabStrip1.SelectedIndex = 0;
-            UpdateData();
-        }
+        #endregion  RadComboCompany_ItemsRequested
+
+        #region InsertData
         public void InsertData()
         {
             try
@@ -82,7 +104,7 @@ namespace FlyCn
                 string val = null;
                 mp.Code = txtCode.Text;
                 mp.Name = txtName.Text;
-                mp.Company = RadComboBox2.SelectedValue;
+                mp.Company = RadComboCompany.SelectedValue;
                 mp.Emp_No = txtEmpNo.Text;
                 mp.OTEligibleYN = Convert.ToByte(RadcomboSubcontract.SelectedValue);
                 mp.Generic_Position = txtGenericPosition.Text;
@@ -101,18 +123,18 @@ namespace FlyCn
                 {
                     mp.WorkHours = 0;
                 }
-                if (RadDatePicker1.SelectedDate != null)
+                if (RadStartDate.SelectedDate != null)
                 {
-                    mp.DateStarted = Convert.ToString(RadDatePicker1.SelectedDate);
+                    mp.DateStarted = Convert.ToString(RadStartDate.SelectedDate);
                 }
                 if (RadEndDate.SelectedDate != null)
                 {
                     mp.DateFinished = Convert.ToString(RadEndDate.SelectedDate);
                 }
                 mp.Remarks = txtRemarks.Text;
-                string ProjNo = "C00001";
+                string ProjNo = UA.projectNo;
                 int result = mp.InsertMasterData(ProjNo);
-                RadGrid1.Rebind();
+                PersonnelGrid.Rebind();
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
                 tab.Selected = true;
                 RadMultiPage1.SelectedIndex = 0;
@@ -120,12 +142,22 @@ namespace FlyCn
             }
             catch(Exception ex)
             {
+
+              
+                ToolBar.AddButton.Visible = false;
+                ToolBar.SaveButton.Visible = true;
+                ToolBar.UpdateButton.Visible = false;
+                ToolBar.DeleteButton.Visible = false;
                 var page = HttpContext.Current.CurrentHandler as Page;
                 var master = page.Master;
                 eObj.ErrorData(ex, page);
             }
         }
-        protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
+
+        #endregion InsertData
+
+        #region  PersonnelGrid_ItemCommand
+        protected void PersonnelGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
             GridDataItem item = e.Item as GridDataItem;
             string strId = item.GetDataKeyValue("Code").ToString();
@@ -139,17 +171,22 @@ namespace FlyCn
             }
             else if (e.CommandName == "EditData")
             {
+                //take tab name and change the tab text to Edit and change the New button icon to edit button icon
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                 tab.Selected = true;
                 tab.Text = "Edit";
                 tab.ImageUrl = "~/Images/Icons/editIcon.png";
 
                 RadMultiPage1.SelectedIndex = 1;
+
+                ToolBar.AddButton.Visible = false;
+                ToolBar.SaveButton.Visible = false;
+                ToolBar.UpdateButton.Visible = true;
+                ToolBar.DeleteButton.Visible = true;
               
                 try
-                {
-
-                    ContentIframe.Visible = true;
+                {                    
+                    ContentIframe.Style["display"] = "";
                     DataTable dataTable = new DataTable();
                     dtable = mp.FillMasterData(strId);
                     txtCode.Text = dtable.Rows[0]["Code"].ToString();
@@ -160,8 +197,8 @@ namespace FlyCn
                     string CompanyId = dtable.Rows[0]["Company"].ToString();
                     if (CompanyId != "")
                     {
-                        dataTable = mp.GetComboBoxDetailsById(CompanyId);
-                        RadComboBox2.Text = dataTable.Rows[0]["CompName"].ToString();
+                        dataTable = mp.GetCompanyComboBoxDataById(CompanyId);
+                        RadComboCompany.Text = dataTable.Rows[0]["CompName"].ToString();
                     }
                     txtGenericPosition.Text = dtable.Rows[0]["Generic_Position"].ToString();
                     txtContractPosition.Text = dtable.Rows[0]["Contract_Position"].ToString();
@@ -173,7 +210,7 @@ namespace FlyCn
                     string date = dtable.Rows[0]["DateStarted"].ToString();
                     if (date != "")
                     {
-                        RadDatePicker1.SelectedDate = Convert.ToDateTime(date);
+                        RadStartDate.SelectedDate = Convert.ToDateTime(date);
                     }
                     string enddate = dtable.Rows[0]["DateFinished"].ToString();
                     if (enddate != "")
@@ -182,10 +219,13 @@ namespace FlyCn
                     }
                     txtRemarks.Text = dtable.Rows[0]["Remarks"].ToString();
 
-                
+                   // lblQualificationframe.Visible = true;
+
+                    lblQualificationframe.Style["display"] = "";
+                   
                    ContentIframe.Attributes["src"] = "PersonnelQualification.aspx?id=" + strId;
 
-                    ScriptManager.RegisterStartupScript(this, GetType(), "EditData", "UpdateFunction();", true);
+                   // ScriptManager.RegisterStartupScript(this, GetType(), "EditData", "UpdateFunction();", true);
                 }
                 catch(Exception ex)
                 {
@@ -198,115 +238,28 @@ namespace FlyCn
             }         
         }
 
-        protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
+        #endregion  PersonnelGrid_ItemCommand
+
+        #region  PersonnelGrid_PreRender
+        protected void PersonnelGrid_PreRender(object sender, EventArgs e)
         {
-
-            //foreach (GridColumn col in RadGrid1.Columns)
-            //{
-            //    string value = col.UniqueName.ToString();
-
-            //}
-
-            //RadGrid1.Items["DateStarted"] = string.Format("{0:dd/MM/yyyy}");
-            //  .Rows[rowNum].Cells[colName].Value = string.Format("{0:dd/MM/yyyy}",29/04/2012 12:00:00 AM);
-            //if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
-            //{
-            //  GridEditFormItem item = (GridEditFormItem)e.Item;
-            //   BoundField someField = new BoundField();
-            //someField.DataField = "Price";
-            //someField.DataFormatString = "{0:c}"; 
-            //e.Item.bo
-
-            //if (e.Item is GridDataItem && e.Item.OwnerTableView.DataSourceID == "dsNotes")
-            //{
-            //    GridDataItem dataItem = e.Item as GridDataItem;
-            //    TableCell cell = dataItem["NoteText"];
-            //}
-            //if (e.Item is GridDataItem)
-            //{
-            //    GridDataItem dataItem = e.Item as GridDataItem;
-            //       TableCell cell =dataItem["DateStarted"];
-            //       //string dateformat = (RadGrid1.MasterTableView.GetColumn("DateStarted") as GridDateTimeColumn).DataFormatString;
-            //       //cell = "dd/MMM/yyyy";
-
-            //}
-            //if (e.Item is GridDataItem)
-            //{
-            //    GridDataItem item = (GridDataItem)e.Item;
-            //   // string dateformat = (RadGrid1.MasterTableView.GetColumn("DateStarted") as GridDateTimeColumn).DataFormatString;
-            //   //var value = DataBinder.Eval(item.DataItem, dateformat, "dd/MMM/yyyy");
-
-            //}
-
-            //if (e.Item is GridDataItem)
-            //{
-            //    //Get the instance of the right type
-            //    //GridDataItem dataBoundItem = e.Item as GridDataItem;
-            //    GridDateTimeColumn dateColumn = new GridDateTimeColumn();
-            //    //  dataBoundItem["DateStarted"].Style.Add("DisplayDateFormat", "dd/MMM/yyyy");
-            //    dateColumn.DataFormatString = "{0:MM/dd/yy}";
-
-            //}
-            //string dateformat = (RadGrid1.MasterTableView.GetColumn("DateStarted") as GridDateTimeColumn).DataFormatString;
-            //RadDatePicker1.DateInput.DateFormat = "dd/MMM/yyyy";
-
-            //}
-        }
-
-        protected void RadGrid1_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                // This would be the datetime column
-        //        e.Row.Cells[4].Text = e.Row.Cells[4].Text.ToString("MM/dd/yyyy");
-//
-
-            }
-        }
-        //protected void RadGrid1_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
-        //{
-
-        //    string name = RadGrid1.MasterTableView.Items[e.Item.ItemIndex]["DateStarted"].Text;
            
-        //}
-        protected void RadGrid1_ColumnCreating(object sender, GridColumnCreatingEventArgs e)
-        {
-            if (e.Column.UniqueName == null)
-            {
-               // e.Column = new MyCustomFilteringColumn();
-            }
+            PersonnelGrid.Rebind();
         }
-        protected void RadGrid1_DataBinding(object sender, EventArgs e)
-        {
-            foreach (GridColumn col in RadGrid1.MasterTableView.RenderColumns)
-            {
-                if (col is GridDateTimeColumn)
-                {
-                    ((GridDateTimeColumn)col).DataFormatString = "{0:yyyy MM}";
-                }
-            }
-        }
-        //protected void RadDatePicker1_SelectedDateChanged1(object sender, Telerik.Web.UI.Calendar.SelectedDateChangedEventArgs e)
-        //{
-        //    DateTime dt = Convert.ToDateTime(RadDatePicker1.SelectedDate);
-        //    string temp = dt.ToShortDateString();
-        //}
-        protected void RadGrid1_PreRender(object sender, EventArgs e)
-        {
-            GridTableView masterTable = ((RadGrid)sender).MasterTableView;
-            GridDateTimeColumnEditor editor = masterTable.GetBatchColumnEditor("DateStarted") as GridDateTimeColumnEditor;
-          //  editor.FindControl(DateStarted);
-        }
+
+        #endregion  PersonnelGrid_PreRender
+
+        #region  UpdateData
         public void UpdateData()
         {
             try
             {
 
 
-                string val = null;
+               
                 mp.Code = txtCode.Text;
                 mp.Name = txtName.Text;
-                mp.Company = RadComboBox2.SelectedValue;
+                mp.Company = RadComboCompany.SelectedValue;
                 mp.Emp_No = txtEmpNo.Text;
                 mp.OTEligibleYN = Convert.ToByte(RadcomboSubcontract.SelectedValue);
                 mp.Generic_Position = txtGenericPosition.Text;
@@ -325,28 +278,18 @@ namespace FlyCn
                 {
                     mp.WorkHours = 0;
                 }
-                if (RadDatePicker1.SelectedDate != null)
+                if (RadStartDate.SelectedDate != null)
                 {
-                    mp.DateStarted = Convert.ToString(RadDatePicker1.SelectedDate);
+                    mp.DateStarted = Convert.ToString(RadStartDate.SelectedDate);
                 }
                 if (RadEndDate.SelectedDate != null)
                 {
                     mp.DateFinished = Convert.ToString(RadEndDate.SelectedDate);
                 }
                 mp.Remarks = txtRemarks.Text;
-                string ProjNo = "C00001";
+                string ProjNo = UA.projectNo;
                 int result = mp.UpdateMasterPersonel(ProjNo);
-                if (result == 1)
-                {
-                    RadGrid1.Rebind();
-                    RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-                    tab.Selected = true;
-                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
-                    tab1.Text = "New";
-                    tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
-                    RadMultiPage1.SelectedIndex = 0;
-
-                }
+              
                 ContentIframe.Visible = false;
             }
             catch(Exception ex)
@@ -356,5 +299,8 @@ namespace FlyCn
                 eObj.ErrorData(ex, page);
             }
         }
+
+        #endregion  UpdateData
+
     }
 }

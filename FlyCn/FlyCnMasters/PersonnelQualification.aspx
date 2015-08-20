@@ -1,77 +1,74 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/Popup.Master" AutoEventWireup="true" CodeBehind="PersonnelQualification.aspx.cs" Inherits="FlyCn.FlyCnMasters.PersonnelQualification" %>
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="../Scripts/jquery-1.8.2.min.js"></script>
 
     <script type="text/javascript">
         function onClientTabSelected(sender, args) {
             var tab = args.get_tab();
-            if (tab.get_text() == "View") {
+            if (tab.get_value() == "2") {
+                //new clicked 
+                try {               
+                    $('input[type=text]').each(function () {
+                        $(this).val('');
+                    });
+                   
+                    $('textarea').empty();
+                    <%=ToolBarQualification.ClientID %>_SetAddVisible(false);
+                    <%=ToolBarQualification.ClientID %>_SetSaveVisible(true);
+                    <%=ToolBarQualification.ClientID %>_SetUpdateVisible(false);
+                    <%=ToolBarQualification.ClientID %>_SetDeleteVisible(false);           
+                }
+                catch (x)
+                {
+                    alert(x.message);
+                }
 
+            }
+            if (tab.get_value() == "1")
+            {
                 var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                var tab = tabStrip.findTabByText("View");
+                var tab = tabStrip.findTabByValue("1");
                 tab.select();
-                var tab1 = tabStrip.findTabByText("Edit");
+                var tab1 = tabStrip.findTabByValue("2");
                 tab1.set_text("New");
-               
                 tab1.set_imageUrl('../Images/Icons/NewIcon.png');
-                document.getElementById('<%=Button2.ClientID %>').style.display = "none";
-                document.getElementById('<%=Button1.ClientID %>').style.display = "none";
-            }
-
-            else if (tab.get_text() == "Edit") {
-                document.getElementById('<%=Button2.ClientID %>').style.display = "none";
-                document.getElementById('<%=Button1.ClientID %>').style.display = "";
-            }
-            else if (tab.get_text() == "New") {
-                $("input:text").val('');
-                $('textarea').empty();
-
-                document.getElementById('<%=Button2.ClientID %>').style.display = "";
-                document.getElementById('<%=Button1.ClientID %>').style.display = "none";
-                var hiddenStatusFlag = document.getElementById('<%= HiddenField.ClientID%>').value;
-                document.getElementById('<%=txtEmpCode.ClientID %>').value = hiddenStatusFlag;
-
-
             }
 
         }
+
+        function OnClientButtonClicking(sender, args)
+        {
+            var btn = args.get_item();
+            if (btn.get_value() == 'Delete')
+            {
+                args.set_cancel(!confirm('Do you want to delete ?'));
+            }        
+        }
         </script>
     
-       <script type="text/javascript">
-           function UpdateFunction() {
-
-               document.getElementById('<%=Button2.ClientID %>').style.display="none"
-               document.getElementById('<%=Button1.ClientID %>').style.display = "";
-           }
-    </script>
-
-        <script type="text/javascript">
+   
+     <script type="text/javascript">
             function validate()
             {
                 var Qualification = document.getElementById('<%=txtQualification.ClientID %>').value;
-
-                if (Qualification == "") {
+                if (Qualification == "")
+                {
                     alert("Enter Your Qualification");
                     return false;
                 }
 
             }
     </script>
-<%--    <script>
-        function setSize() {
-            var iframeElement = parent.document.getElementById('ContentIframe');
-            var height = document.documentElement.clientHeight - 100;
-            iframeElement.style.height = height + "px";
-        }
-    </script>--%>
+
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div>
-            <asp:Label ID="Label1" runat="server" Text="Qualification" ForeColor="Brown"></asp:Label>
-        </div>    
-    <br /> 
+     <div class="inputMainContainer"  >
+        <div class="innerDiv">
     <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="200px"    OnClientTabSelected="onClientTabSelected"
              CausesValidation="false"   SelectedIndex="0" Skin="Silk" >
             <Tabs>
@@ -80,12 +77,7 @@
             </Tabs>
         </telerik:RadTabStrip>
     
-                   <%--  <table style="width: 100% ; align-content:flex-start;" >
-                         <tr>
-                             <td>&nbsp
-                             </td>
-                             <td>
-   --%>
+               
            <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
 
                <telerik:RadPageView ID="rpList" runat="server"  >
@@ -97,7 +89,7 @@
        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" >
 </asp:ScriptManager>
 
-<telerik:RadGrid ID="RadGrid1" runat="server"  OnNeedDataSource="RadGrid1_NeedDataSource" OnItemCommand="RadGrid1_ItemCommand" Skin="Silk">
+<telerik:RadGrid ID="RadGrid1" runat="server"  OnNeedDataSource="RadGrid1_NeedDataSource" OnItemCommand="RadGrid1_ItemCommand" Skin="Silk" OnPreRender="RadGrid1_PreRender1">
    <MasterTableView DataKeyNames="EmpCode,Qualification">
      
     <Columns>
@@ -111,25 +103,45 @@
 
    </telerik:RadGrid>
 </div>
-          </div>
-
-                       
+          </div>                       
                              </telerik:RadPageView>
                    <telerik:RadPageView ID="rpAddEdit" runat="server">
+                       <uc1:ToolBar runat="server" ID="ToolBarQualification" />
     <div id="divQualificationedit" >
       
         <table style="width: 100%;">
             <tr>
-                <td>
-                       <asp:HiddenField ID="HiddenField" runat="server" />
-                    <asp:Label ID="lblEmpCode" runat="server" Text="EmployeeCode"></asp:Label>
+                 <td>
+                    <asp:Label ID="lblQualification" runat="server" Text="Qualification"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtEmpCode" runat="server"  ReadOnly="true" ></asp:TextBox>
-
-
+                    <asp:TextBox ID="txtQualification" runat="server"></asp:TextBox>
+                </td>
+                   <td>
+                    <asp:Label ID="lblQualificationType" runat="server" Text="QualificationType"></asp:Label>
                 </td>
                 <td>
+                    <asp:TextBox ID="txtQualificationType" runat="server"></asp:TextBox>
+                </td>
+            
+            </tr>
+            <tr>
+               
+                <td>
+                    <asp:Label ID="lblRenewedDate" runat="server" Text="RenewedDate"></asp:Label>
+                </td>
+                <td>
+                    <telerik:RadDatePicker ID="RadDRenewedDate" runat="server"
+                       Width="180px" TabIndex="2" AutoPostBack="false" MinDate="<%# DateTime.Now.Date %>">
+                        <DateInput DateFormat="dd/MM/yyyy" InvalidStyleDuration="100"
+                            runat="server">
+                        </DateInput>
+
+                        <Calendar runat="server">
+                        </Calendar>
+                    </telerik:RadDatePicker>
+                </td>
+                    <td>
                     <asp:Label ID="lblExpiryDate" runat="server" Text="ExpiryDate"></asp:Label>
 
                 </td>
@@ -146,43 +158,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    <asp:Label ID="lblQualification" runat="server" Text="Qualification"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="txtQualification" runat="server"></asp:TextBox>
-                </td>
-                <td>
-                    <asp:Label ID="lblRenewedDate" runat="server" Text="RenewedDate"></asp:Label>
-                </td>
-                <td>
-                    <telerik:RadDatePicker ID="RadDRenewedDate" runat="server"
-                       Width="180px" TabIndex="2" AutoPostBack="false" MinDate="<%# DateTime.Now.Date %>">
-                        <DateInput DateFormat="dd/MM/yyyy" InvalidStyleDuration="100"
-                            runat="server">
-                        </DateInput>
-
-                        <Calendar runat="server">
-                        </Calendar>
-                    </telerik:RadDatePicker>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="lblQualificationType" runat="server" Text="QualificationType"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="txtQualificationType" runat="server"></asp:TextBox>
-                </td>
-                <td>
-                    <asp:Label ID="lblRemarks" runat="server" Text="Remarks"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="txtRemarks" runat="server" TextMode="MultiLine" Width="170px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td>
+               <td>
                     <asp:Label ID="lblFirstQualifiedDate" runat="server" Text="FirstQualifiedDate"></asp:Label>
                 </td>
                 <td>
@@ -196,28 +172,37 @@
                         </Calendar>
                     </telerik:RadDatePicker>
                 </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td>
+                    <asp:Label ID="lblRemarks" runat="server" Text="Remarks"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtRemarks" runat="server" TextMode="MultiLine" Width="170px"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+              
+            <td>
+                       <asp:HiddenField ID="HiddenField" runat="server" />
+                    <asp:Label ID="lblEmpCode" runat="server" Text="EmployeeCode" Visible="false"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtEmpCode" runat="server"  ReadOnly="true"  Visible="false"></asp:TextBox>
+
+
+                </td>
             </tr>
         </table>
     </div>
 
-                       <div>
-                                 <asp:Button ID="Button2" runat="server" Text="Add"  style="background-color:#008B8B; color:white;"  OnClick="Button2_Click" ClientIDMode="Static" ValidationGroup="Submit" OnClientClick="return validate();" />
-                                <asp:Button ID="Button1" runat="server" Text="Update" style="background-color:#008B8B; color:white;"  OnClick="Button1_Click" ClientIDMode="Static" />
-
-            </div>
+                       
                    </telerik:RadPageView>
             
       
             
                        </telerik:RadMultiPage>
-                               <%--   </td>
-    </tr>
-</table>--%>
-        
-     <%--                              </td>
-    </tr>
-</table>--%>
-        
+                             
+  
+   
+        </div>
+         </div>
 </asp:Content>

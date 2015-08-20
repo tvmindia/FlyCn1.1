@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="DynamicMaster.aspx.cs" Inherits="FlyCn.FlyCnMasters.DynamicMaster" %>
 <%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
+<%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
   
     <style type="text/css">
@@ -14,105 +16,65 @@
 </style>
     <script ></script>
     
-      <%--<script type="text/javascript">
-
-          function DisplayFunction() {
-
-
-
-              document.getElementById('div2').style.display = "";
-              document.getElementById('div1').style.display = "none";
-              document.getElementById('Display').style.backgroundColor = "#00CDCD";
-              document.getElementById('Display').style.color = "#FFFFFF";
-              document.getElementById('ADD').style.backgroundColor = "";
-              document.getElementById('ADD').style.color = "";
-          }
-    </script>--%>
-     <%--<script type="text/javascript">
-         function ADDFunction() {
-
-
-             document.getElementById('div1').style.display = "";
-             document.getElementById('div2').style.display = "none";
-             document.getElementById('ADD').style.backgroundColor = "#00CDCD";
-             document.getElementById('Display').style.backgroundColor = "";
-             document.getElementById('ADD').style.color = "#FFFFFF";
-             document.getElementById('Display').style.color = "";
-             document.getElementById('<%=Button1.ClientID %>').style.visibility = "hidden";
-             document.getElementById('<%=Button2.ClientID %>').style.visibility = "visible";
-             $("input:text").val('');
-
-
-         }
-    </script>--%>
+      
+     
 
     <script type="text/javascript">
         function onClientTabSelected(sender, args) {
-            var tab = args.get_tab();
-            if (tab.get_text() == "New") {
-                document.getElementById('<%=Button2.ClientID %>').style.display = "";
-                document.getElementById('<%=Button1.ClientID %>').style.display = "none";
-              
-                $('textarea').empty();
-          
-                $("input:text").val('');
-                //$('input[type=text]').each(function () {
-                //    $(this).val('');
-                //});
-              <%--  $find("<%="input:text" %>").val('');--%>
+            var tab = args.get_tab();       
+            if (tab.get_value() == '2') {
+            
+                try {
+                    $('textarea').empty();
 
+                    $("input:text").val('');
+
+                    <%=ToolBar.ClientID %>_SetAddVisible(false);
+                    <%=ToolBar.ClientID %>_SetSaveVisible(true);
+                    <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                    <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                }
+                catch (x)
+                {
+                    alert(x.message);
+                }
 
             }
-            else if (tab.get_text() == "View") {
+
+            if (tab.get_value() == "1") {
 
                 var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                var tab = tabStrip.findTabByText("View");
+                var tab = tabStrip.findTabByValue("1");
                 tab.select();
-                var tab1 = tabStrip.findTabByText("Edit");
-
+                var tab1 = tabStrip.findTabByValue("2");
                 tab1.set_text("New");
-                tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
-
                 tab1.set_imageUrl('../Images/Icons/NewIcon.png');
-                $('input[type=text]').each(function () {
-                    $(this).val('');
-                });
-                $('textarea').empty();
             }
 
-            else if (tab.get_text() == "Edit") {
-
-                document.getElementById('<%=Button2.ClientID %>').style.display = "none";
-                document.getElementById('<%=Button1.ClientID %>').style.display = "";
-            }
         }
+
+        function OnClientButtonClicking(sender, args) {
+
+            var btn = args.get_item();
+            if (btn.get_value() == 'Delete') {
+
+                args.set_cancel(!confirm('Do you want to delete ?'));
+            }
+
+
+        }
+
+        
 
 
         </script>
 
-       <script type="text/javascript">
-           function UpdateFunction() {
-
-
-               document.getElementById('<%=Button2.ClientID %>').style.display = "none";
-               document.getElementById('<%=Button1.ClientID %>').style.display = "";
-             
-       
-           }
-    </script>
+  
     
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
-    <p>
-        <br />
-    </p>
 
-    <p>
-        &nbsp;</p>
-    <%--class="HomeBox2"--%>
-<%--    <div  class="inputMainContainer" style="width:100%;text-align:center;vertical-align:middle"  >--%>
         <div class="inputMainContainer">
         <div  class="innerDiv">
             <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
@@ -125,8 +87,7 @@
             
                      <table style="width: 100%">
                          <tr>
-                        <%--     <td>&nbsp
-                             </td>--%>
+                        
                              <td>
                  <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
                                     <telerik:RadPageView ID="rpList" runat="server"  >
@@ -135,7 +96,8 @@
 </asp:ScriptManager>
              <telerik:RadGrid ID="RadGrid1" runat="server" CellSpacing="0"
                  GridLines="None" OnNeedDataSource="RadGrid1_NeedDataSource1" AllowPaging="true" ItemStyle-HorizontalAlign="Left" AlternatingItemStyle-HorizontalAlign="Left"
-                 PageSize="10" AllowAutomaticDeletes="True" OnItemCommand="RadGrid1_ItemCommand"  AllowMultiRowEdit="true"  DataKeyNames="Code"  CommandItemDisplay="Right" Skin="Silk">
+                 PageSize="10" AllowAutomaticDeletes="True" OnItemCommand="RadGrid1_ItemCommand" 
+                  OnPreRender="RadGrid1_PreRender" AllowMultiRowEdit="true"  DataKeyNames="Code"  CommandItemDisplay="Right" Skin="Silk">
 <MasterTableView   >
      
     <Columns>
@@ -151,31 +113,26 @@
     </div>
                                              </telerik:RadPageView>
                           <telerik:RadPageView ID="rpAddEdit" runat="server">
-
+                              <uc1:ToolBar runat="server" ID="ToolBar" />
                                  <div>
 
 
                                      <div>
                                      </div>
                                      <asp:Label ID="lblmasterName" runat="server" CssClass="title"></asp:Label>
+                                              <asp:HiddenField ID="HiddenField" runat="server" />
+                                        <asp:HiddenField ID="HiddenField1" runat="server" />
                                     
         <br />
 
-                                     <%--   <div align="left" >
-           <input id="Display" type="button" value="List" style="background-color:#00CDCD; color:white;" align="left" onclick="DisplayFunction()"/>
-           <input id="ADD" type="button" value="New"  align="left"  onclick="ADDFunction()"/>
-        </div>--%>
+                                 
                                      <div id="div1" >
                                          <div id="placeholder" runat="server" style="text-align: left"></div>
                                          <br />
                                          <br />
-                                         <div>
-                                             <asp:Button ID="Button2" runat="server" Text="Add" Style="background-color: #008B8B; color: white;" OnClick="Button2_Click" ClientIDMode="Static" ValidationGroup="Submit" />
-                                             <asp:Button ID="Button1" runat="server" Text="Update" Style="background-color: #008B8B; color: white;" OnClick="Button1_Click" ClientIDMode="Static" />
-
-                                         </div>
+                                         
                                      </div>
-                                     <!-- here is where the dinamically created elements will be placed -->
+                                   
 
                                  </div>
                            

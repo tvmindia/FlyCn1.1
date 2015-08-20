@@ -65,6 +65,8 @@ namespace FlyCn.FlyCnDAL
       
         #endregion Properties
 
+
+        #region MasterPersonnelQualificationConstructor
         public MasterPersonnelQualification()
     {
         EmpCode = null;
@@ -78,9 +80,16 @@ namespace FlyCn.FlyCnDAL
         Remarks = null;
         
     }
+        #endregion MasterPersonnelQualificationConstructor
+
+        #region Methods
 
         #region BindMastersPersonalQualification
-
+        /// <summary>
+        /// BindMastersPersonalQualification
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>return datatable</returns>
         public DataTable BindMastersPersonalQualification(string id)
         {
 
@@ -108,10 +117,15 @@ namespace FlyCn.FlyCnDAL
         #endregion BindMastersPersonalQualification
 
         #region InsertMasterPersonalQualificationData
+        /// <summary>
+        /// InsertMasterPersonalQualificationData
+        /// </summary>
+        /// <param name="ProjNo"></param>
+        /// <returns>return integer</returns>
         public int InsertMasterPersonalQualificationData(string ProjNo)
         {
             ErrorHandling eObj = new ErrorHandling();
-            int result = 0;
+           
             SqlConnection con = null;
             try
             {
@@ -159,7 +173,7 @@ namespace FlyCn.FlyCnDAL
             catch (Exception ex)
             {
                 //return 0;
-                //throw ex;
+                throw ex;
 
             }
             finally
@@ -167,13 +181,17 @@ namespace FlyCn.FlyCnDAL
                 con.Close();
 
             }
-            return result;
+           
 
         }
 
         #endregion InsertMasterPersonalQualificationData
 
         #region GetMasterPersonnelComboBoxData
+        /// <summary>
+        /// GetMasterPersonnelComboBoxData from M_Personnel table
+        /// </summary>
+        /// <returns> return datatable</returns>
         public DataTable GetMasterPersonnelComboBoxData()
         {
             DataTable dt = null;
@@ -195,6 +213,13 @@ namespace FlyCn.FlyCnDAL
         #endregion GetMasterPersonnelComboBoxData
 
         #region DeleteMasterPersonnelQualificationData
+        /// <summary>
+        /// DeleteMasterPersonnelQualificationData
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="Qualification"></param>
+        /// <param name="ProjNo"></param>
+        /// <returns> return integer </returns>
         public int DeleteMasterPersonnelQualificationData(string code, string Qualification, string ProjNo)
         {
 
@@ -227,6 +252,13 @@ namespace FlyCn.FlyCnDAL
         #endregion DeleteMasterPersonnelQualificationData
 
         #region FillMasterPersonalData
+        /// <summary>
+        /// FillMasterData to text boxes when clicking edit button
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="Qualification"></param>
+        /// <param name="ProjNo"></param>
+        /// <returns>return datatable</returns>
         public DataTable FillMasterData(string code,string Qualification,string ProjNo)
         {
             DataTable dt = null;
@@ -256,6 +288,11 @@ namespace FlyCn.FlyCnDAL
         #endregion FillMasterPersonalData
 
         #region UpdateMasterPersonelQualificationData
+        /// <summary>
+        /// UpdateMasterPersonelQualificationData
+        /// </summary>
+        /// <param name="ProjNo"></param>
+        /// <returns>return integer</returns>
         public int UpdateMasterPersonelQualificationData(string ProjNo)
         {
 
@@ -306,7 +343,7 @@ namespace FlyCn.FlyCnDAL
             }
             catch (SqlException ex)
             {
-                return 0;
+               // return 0;
                 throw ex;
             }
             finally
@@ -316,5 +353,6 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion UpdateMasterPersonelQualificationData
 
+        #endregion Methods
     }
 }
