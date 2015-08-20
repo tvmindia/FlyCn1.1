@@ -49,13 +49,13 @@ namespace FlyCn {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// RadGrid1 control.
+        /// PersonnelGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid1;
+        protected global::Telerik.Web.UI.RadGrid PersonnelGrid;
         
         /// <summary>
         /// rpAddEdit control.
@@ -65,6 +65,15 @@ namespace FlyCn {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView rpAddEdit;
+        
+        /// <summary>
+        /// ToolBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::FlyCn.UserControls.ToolBar ToolBar;
         
         /// <summary>
         /// lblGenaral control.
@@ -112,13 +121,13 @@ namespace FlyCn {
         protected global::System.Web.UI.WebControls.Label lblStartDate;
         
         /// <summary>
-        /// RadDatePicker1 control.
+        /// RadStartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker RadDatePicker1;
+        protected global::Telerik.Web.UI.RadDatePicker RadStartDate;
         
         /// <summary>
         /// lblName control.
@@ -229,13 +238,13 @@ namespace FlyCn {
         protected global::System.Web.UI.WebControls.Label lblCompany;
         
         /// <summary>
-        /// RadComboBox2 control.
+        /// RadComboCompany control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox RadComboBox2;
+        protected global::Telerik.Web.UI.RadComboBox RadComboCompany;
         
         /// <summary>
         /// lblGenericPosition control.
@@ -400,22 +409,13 @@ namespace FlyCn {
         protected global::System.Web.UI.WebControls.TextBox txtDescipline;
         
         /// <summary>
-        /// Button2 control.
+        /// lblQualificationframe control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
-        
-        /// <summary>
-        /// Button1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Label lblQualificationframe;
         
         /// <summary>
         /// framediv control.

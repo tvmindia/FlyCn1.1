@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlyCn.FlyCnDAL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -11,16 +12,68 @@ namespace FlyCn.FlyCnMasters
 {
     public partial class PersonnelQualification : System.Web.UI.Page
     {
+        ErrorHandling eObj = new ErrorHandling();
+        UIClasses.Const Const = new UIClasses.Const();
+        FlyCnDAL.Security.UserAuthendication UA;
         FlyCnDAL.MasterPersonnelQualification pq = new FlyCnDAL.MasterPersonnelQualification();
         DataTable dtable = new DataTable();
-   string  _id1;
+        string  _id1;
+
+        #region  Page_Load
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
+
           _id1 = Request.QueryString["id"];
           //txtEmpCode.Text = _id1;
           HiddenField.Value = _id1;
-
+        
+          ToolBarQualification.onClick += new RadToolBarEventHandler(ToolBar_onClick);
+          ToolBarQualification.OnClientButtonClicking = "OnClientButtonClicking";
+          
         }
+
+        #endregion  Page_Load
+
+        #region  ToolBar_onClick
+        protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
+        {
+            string functionName = e.Item.Value;
+            if (functionName == "Save")
+            {
+
+
+                InsertData();
+            }
+            else if (functionName == "Update")
+            {
+                UpdateData();
+            }
+            else if (functionName == "Delete")
+            {
+                string code = HiddenField.Value;
+                string qualification = txtQualification.Text;
+                string ProjNo = UA.projectNo;
+                int result = pq.DeleteMasterPersonnelQualificationData(code, qualification, ProjNo);
+                if (result == 1)
+                {
+                    RadGrid1.Rebind();
+                    RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+                    tab.Selected = true;
+                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
+                    tab1.Text = "New";
+                    tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
+                    RadMultiPage1.SelectedIndex = 0;
+
+                }
+            }
+            //msg.Text = e.Item.Value + " clicked !";
+        }
+
+        #endregion  ToolBar_onClick
+
+        #region  RadGrid1_NeedDataSource
         protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dt = new DataTable();
@@ -29,61 +82,57 @@ namespace FlyCn.FlyCnMasters
 
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
-        {
+        #endregion  RadGrid1_NeedDataSource
 
-          InsertData(); 
-            // Add
-
-          //Server.Transfer("Personal.aspx");
-
-        }
-
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("Edit");
-            ////  tab.Selected = false;
-            //tab.Text = "New";
-            //RadTabStrip1.SelectedIndex = 0;
-            UpdateData();
-        }
-
+        #region  InsertData
         public void InsertData()
         {
-           
-            string val = null;
-            // mp.ProjectNo      = txt
-            pq.EmpCode = _id1;
-            pq.Qualification = txtQualification.Text;
-            pq.QualificationType = txtQualificationType.Text;
-            if (RadFirstQualifiedDate.SelectedDate != null)
+            try
             {
-                pq.FirstQualifiedDate = Convert.ToString(RadFirstQualifiedDate.SelectedDate);
+                string val = null;
+                // mp.ProjectNo      = txt
+                pq.EmpCode = _id1;
+                pq.Qualification = txtQualification.Text;
+                pq.QualificationType = txtQualificationType.Text;
+                if (RadFirstQualifiedDate.SelectedDate != null)
+                {
+                    pq.FirstQualifiedDate = Convert.ToString(RadFirstQualifiedDate.SelectedDate);
+                }
+                if (RadExpiryDate.SelectedDate != null)
+                {
+                    pq.ExpiryDate = Convert.ToString(RadExpiryDate.SelectedDate);
+                }
+
+                if (RadDRenewedDate.SelectedDate != null)
+                {
+                    pq.RenewedDate = Convert.ToString(RadDRenewedDate.SelectedDate);
+                }
+                pq.Remarks = txtRemarks.Text;
+                string ProjNo = UA.projectNo;
+                int result = pq.InsertMasterPersonalQualificationData(ProjNo);
+                RadGrid1.Rebind();
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+                tab.Selected = true;
+                //RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
+                //tab1.Text = "New";
+                RadMultiPage1.SelectedIndex = 0;
             }
-            if (RadExpiryDate.SelectedDate != null)
+           catch(Exception ex)
             {
-                pq.ExpiryDate = Convert.ToString(RadExpiryDate.SelectedDate);
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+               
+            }
+           
             }
 
-            if (RadDRenewedDate.SelectedDate != null)
-            {
-                pq.RenewedDate = Convert.ToString(RadDRenewedDate.SelectedDate);
-            }
-            pq.Remarks = txtRemarks.Text;
-            string ProjNo = "C00001";
-            int result = pq.InsertMasterPersonalQualificationData(ProjNo);
-            RadGrid1.Rebind();
-            RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-            tab.Selected = true;
-            //RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
-            //tab1.Text = "New";
-            RadMultiPage1.SelectedIndex = 0;
-            }
-      
-    
-       protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
+        #endregion  InsertData
+
+        #region  RadGrid1_ItemCommand
+        protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
         {
-            string ProjNo = "C00001";
+            string ProjNo = UA.projectNo;
 
             GridDataItem item = e.Item as GridDataItem;
             string strId = item.GetDataKeyValue("EmpCode").ToString();
@@ -109,6 +158,11 @@ namespace FlyCn.FlyCnMasters
 
                 RadMultiPage1.SelectedIndex = 1;
 
+                ToolBarQualification.AddButton.Visible = false;
+                ToolBarQualification.SaveButton.Visible = false;
+                ToolBarQualification.UpdateButton.Visible = true;
+                ToolBarQualification.DeleteButton.Visible = true;
+
                 dtable = pq.FillMasterData(strId, Qualification,ProjNo);
                 txtEmpCode.Text = dtable.Rows[0]["EmpCode"].ToString();
                 txtQualification.Text = dtable.Rows[0]["Qualification"].ToString();
@@ -132,16 +186,20 @@ namespace FlyCn.FlyCnMasters
                 }
                 txtRemarks.Text = dtable.Rows[0]["Remarks"].ToString(); ;
 
-                ScriptManager.RegisterStartupScript(this, GetType(), "EditData", "UpdateFunction();", true);
+             //   ScriptManager.RegisterStartupScript(this, GetType(), "EditData", "UpdateFunction();", true);
           
 
             }
         }
+   
+        #endregion  RadGrid1_ItemCommand
 
-       public void UpdateData()
+        #region  UpdateData
+
+        public void UpdateData()
        {
            string val = null;
-    pq.EmpCode=txtEmpCode.Text;
+           pq.EmpCode = HiddenField.Value;
     pq.Qualification=txtQualification.Text;
     pq.QualificationType=txtQualificationType.Text;
     pq.Remarks = txtRemarks.Text;
@@ -158,22 +216,36 @@ namespace FlyCn.FlyCnMasters
     {
         pq.RenewedDate= Convert.ToString(RadDRenewedDate.SelectedDate);
     }
-           string ProjNo = "C00001";
+    string ProjNo = UA.projectNo;
            int result = pq.UpdateMasterPersonelQualificationData(ProjNo);
            //if (result == 1)
            //{
-               RadGrid1.Rebind();
-               RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-               tab.Selected = true;
-               RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
-               tab1.Text = "New";
-               tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
+               //RadGrid1.Rebind();
+               //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+               //tab.Selected = true;
+               //RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
+               //tab1.Text = "New";
+               //tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
 
-               RadMultiPage1.SelectedIndex = 0;
+               //RadMultiPage1.SelectedIndex = 0;
 
            //}
 
        }
+
+        #endregion  UpdateData
+
+        #region  RadGrid1_PreRender1
+
+        protected void RadGrid1_PreRender1(object sender, EventArgs e)
+       {
+         RadGrid1.MasterTableView.GetColumn("EmpCode").Visible= false;
+           //gvCktMap.MasterTableView.GetColumn("sid").Visible = false;  
+           RadGrid1.Rebind();
+       }
+
+        #endregion  RadGrid1_PreRender1
+
     }
 
 }
