@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="ConstructionPunchList.aspx.cs" Inherits="FlyCn.EIL.ConstructionPunchList" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik"%>
+<%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style type="text/css">
@@ -74,18 +76,18 @@
               if (tab.get_text() == "View") {
 
                   var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                   var tab = tabStrip.findTabByText("View");
-                   tab.select();
-                   var tab1 = tabStrip.findTabByText("Edit");
-                   tab1.set_text("New");
-                   $('input[type=text]').each(function () {
-                       $(this).val('');
-                   });
-                   $('textarea').empty();
-                   //radTabStrip1.Tabs.Item(0).Selected = True;
-                   //radMultiPage1.SelectedIndex = 0;
+                  var tab = tabStrip.findTabByText("View");
+                  tab.select();
+                  var tab1 = tabStrip.findTabByText("Edit");
+                  tab1.set_text("New");
+                  $('input[type=text]').each(function () {
+                      $(this).val('');
+                  });
+                  $('textarea').empty();
+                  //radTabStrip1.Tabs.Item(0).Selected = True;
+                  //radMultiPage1.SelectedIndex = 0;
 
-                   //  alert(tabStrip.SelectedIndex);
+                  //  alert(tabStrip.SelectedIndex);
                   <%-- var pageView = multiPage.findPageViewByID("RadPageView1");
                    var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
                    var tab = tabStrip.findTabByText('Edit');
@@ -94,20 +96,55 @@
                    document.getElementById('<%=Button2.ClientID %>').style.display = "none";
                    document.getElementById('<%=Button1.ClientID %>').style.display = "none";--%>
 
-               }
-               else if (tab.get_text() == "Edit") {
-                   document.getElementById('<%=btnSave.ClientID %>').style.display = "none";
-                   document.getElementById('<%=btnUpdate.ClientID %>').style.display = "";
-               }
-               else if (tab.get_text() == "New") {
-                   document.getElementById('<%=btnSave.ClientID %>').style.display = "";
-                   document.getElementById('<%=btnUpdate.ClientID %>').style.display = "none";
-                   $('input[type=text]').each(function () {
-                       $(this).val('');
-                   });
-                   $('textarea').empty();
-               }
-   }
+              }
+            <%--  else if (tab.get_text() == "Edit") {
+                  document.getElementById('<%=btnSave.ClientID %>').style.display = "none";
+                  document.getElementById('<%=btnUpdate.ClientID %>').style.display = "";
+              }
+              else if (tab.get_text() == "New") {
+                  document.getElementById('<%=btnSave.ClientID %>').style.display = "";
+                  document.getElementById('<%=btnUpdate.ClientID %>').style.display = "none";--%>
+                  $('input[type=text]').each(function () {
+                      $(this).val('');
+                  });
+                  $('textarea').empty();
+              }
+          
+              function onClientTabSelected(sender, args) {
+                  var tab = args.get_tab();
+                  if (tab.get_value() == '2') {
+                      //new clicked 
+
+                      try {
+                          <%=ToolBar.ClientID %>_SetAddVisible(false);
+                          <%=ToolBar.ClientID %>_SetSaveVisible(true);
+                          <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                          <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                      } catch (x) { alert(x.message); }
+
+                  }
+
+                  if (tab.get_value() == "1") {
+
+                      var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+                      var tab = tabStrip.findTabByValue("1");
+                      tab.select();
+                      var tab1 = tabStrip.findTabByValue("2");
+                      tab1.set_text("New");
+                  }
+
+              }
+          function OnClientButtonClicking(sender, args) {
+
+              var btn = args.get_item();
+              if (btn.get_value() == 'Delete') {
+
+                  args.set_cancel(!confirm('Do you want to delete ?'));
+              }
+
+
+          }
+   
 
 
   </script>
@@ -139,17 +176,10 @@
     
    
 <%--</script>--%>
-    <p>
-        <br />
-    </p>
-    <p>
-    </p>
-    <p>
+    
+    <p class="">
         Construction Punch List</p>
-    <p>
-    </p>
-    <p>
-        +</p>
+     
      <hr />
   <%--  <div id="button">
         <input id="btnAdd" type="button" value="ADD" onclick="ShowCreate()" />
@@ -208,9 +238,10 @@
                     </telerik:RadPageView>
           
     <telerik:RadPageView ID="rpAddEdit" runat="server">
+        <uc1:ToolBar runat="server" ID="ToolBar" />
 
            <table style="width:100%;">
-          <tr><td>
+          <tr><td>    <asp:Label ID="msg" runat="server" Text=""></asp:Label>
           </td></tr>
   
               <tr><td colspan="5" class="tabletbody" style="border-bottom:2px">Tracking Details</td></tr>
@@ -287,8 +318,7 @@
             </td>
             <td class="tabletd">Entered Date</td>
             <td>
-                <%--  <asp:TextBox ID="txtEnteredDate" runat="server"></asp:TextBox>--%><%--<telerik:RadDatePicker ID="RadEnteredDate" runat="server" 
-             Width="100px"></telerik:RadDatePicker>--%>
+             
             </td>
         </tr>
         <tr>
@@ -859,11 +889,11 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
 
-            <td>
+           <%-- <td>
              <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Save" Width="46px" ValidationGroup="dummy"/>
               &nbsp;<asp:Button  ID="btnUpdate" runat="server" Text="Update"  Onclick="btnUpdate_Click"/>
 &nbsp;<asp:Button ID="btnCancel" runat="server" Text="Cancel" Height="27px" Width="49px" OnClick="btnCancel_Click" />
-            </td>
+            </td>--%>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>

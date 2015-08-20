@@ -1,4 +1,6 @@
-﻿using FlyCn.FlyCnDAL;
+﻿
+#region Namespaces
+using FlyCn.FlyCnDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,365 +11,73 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
+#endregion Namespaces
 
 namespace FlyCn.EIL
 {
     public partial class ConstructionPunchList : System.Web.UI.Page
     {
-        
+       
+        #region Global Variables
         ErrorHandling eObj = new ErrorHandling();
         DataTable dt = new DataTable();
-       // PunchList pObj=new PunchList();
         FlyCnDAL.PunchList pObj = new FlyCnDAL.PunchList();
         MasterPersonal mObj = new MasterPersonal();
+        #endregion Global Variables
+
+        #region Events
+
+        #region Page_Load
+        /// <summary>
+        /// Event for page load
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            //----------- Register Toolbar Server & Client side events ----------------//
+            ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
+            ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
+            //-------------------------------------------------------------------------//
           
             if (!IsPostBack)
             {
-                FlyCnDAL.PunchList pObj = new FlyCnDAL.PunchList();
 
-                dt = mObj.GetDEtailsFromPersonal();
+                LoadComboBox();
 
-                ddlOpenBy.DataSource = dt;
-                ddlOpenBy.DataTextField = "Name";
-                ddlOpenBy.DataValueField = "Code";
-                ddlOpenBy.DataBind();
-                ddlOpenBy.Items.Insert(0, new ListItem("-Select-", "NULL"));
-
-                ddlEnteredBy.DataSource = dt;
-                ddlEnteredBy.DataTextField = "Name";
-                ddlEnteredBy.DataValueField = "Code";
-                ddlEnteredBy.DataBind();
-                ddlEnteredBy.Items.Insert(0, new ListItem("-Select-", "NULL"));
-
-                ddlRequestedBy.DataSource = dt;
-                ddlRequestedBy.DataTextField = "Name";
-                ddlRequestedBy.DataValueField = "Code";
-                ddlRequestedBy.DataBind();
-                ddlRequestedBy.Items.Insert(0, new ListItem("-Select-", "NULL"));
-
-                ddlInspector.DataSource = dt;
-                ddlInspector.DataTextField = "Name";
-                ddlInspector.DataValueField = "Code";
-                ddlInspector.DataBind();
-                ddlInspector.Items.Insert(0, new ListItem("-Select-", "Null"));
-
-                ddlResponsiblePerson.DataSource = dt;
-                ddlResponsiblePerson.DataTextField = "Name";
-                ddlResponsiblePerson.DataValueField = "Code";
-                ddlResponsiblePerson.DataBind();
-                ddlResponsiblePerson.Items.Insert(0, new ListItem("-Select-", "Null"));
-
-
-                ddlSignedBy.DataSource = dt;
-                ddlSignedBy.DataTextField = "Name";
-                ddlSignedBy.DataValueField = "Code";
-                ddlSignedBy.DataBind();
-                ddlSignedBy.Items.Insert(0, new ListItem("-Select-", "Null"));
-                DataTable dtp = new DataTable();
-                dtp = pObj.GetPlatFromM_Plant();
-                ddlPlant.DataSource = dtp;
-                ddlPlant.DataTextField = "Description";
-                ddlPlant.DataValueField = "Code";
-                ddlPlant.DataBind();
-                ddlPlant.Items.Insert(0, new ListItem("-Select-", "Null"));
-
-                dt = pObj.GetAreaFromM_Area();
-                ddlArea.DataSource = dt;
-                ddlArea.DataTextField = "Description";
-                ddlArea.DataValueField = "Code";
-                ddlArea.DataBind();
-                ddlArea.Items.Insert(0, new ListItem("-Select-", "Null"));
-
-                dt = pObj.GetLocationFromM_Location();
-                ddlLocation.DataSource = dt;
-                ddlLocation.DataTextField = "Description";
-                ddlLocation.DataValueField = "Code";
-                ddlLocation.DataBind();
-                ddlLocation.Items.Insert(0, new ListItem("-Select-", "Null"));
-
-                dt = pObj.GetUnitFromM_Unit();
-                ddlUnit.DataSource = dt;
-                ddlUnit.DataTextField = "Description";
-                ddlUnit.DataValueField = "Code";
-                ddlUnit.DataBind();
-                ddlUnit.Items.Insert(0, new ListItem("-Select-", "Null"));
-
-                dt = pObj.GetUActionByFromM_Company();
-                ddlActionBy.DataSource = dt;
-                ddlActionBy.DataTextField = "CompName";
-                ddlActionBy.DataValueField = "Code";
-                ddlActionBy.DataBind();
-                ddlActionBy.Items.Insert(0, new ListItem("-Select-", "Null"));
-
-
-                dt = pObj.GetDisciplineFromM_Discipline();
-                ddlDiscipline.DataSource = dt;
-                ddlDiscipline.DataTextField = "Description";
-                ddlDiscipline.DataValueField = "Code";
-                ddlDiscipline.DataBind();
-                ddlDiscipline.Items.Insert(0, new ListItem("-Select-", "Null"));
-
-                dt = pObj.GetFailCategoryFromM_FailCategory();
-                ddlFailCategory.DataSource = dt;
-                ddlFailCategory.DataTextField = "Description";
-                ddlFailCategory.DataValueField = "Code";
-                ddlFailCategory.DataBind();
-                ddlFailCategory.Items.Insert(0, new ListItem("-Select-", "Null"));
-
-
-                dt = pObj.GetCategoryFromM_Category();
-                ddlCategoryList.DataSource = dt;
-                ddlCategoryList.DataTextField = "Description";
-                ddlCategoryList.DataValueField = "Code";
-                ddlCategoryList.DataBind();
-                ddlCategoryList.Items.Insert(0, new ListItem("-Select-", "NULL"));
-
-                dt = pObj.GetUActionByFromM_Company();
-                ddlOrganization.DataSource = dt;
-                ddlOrganization.DataTextField = "CompName";
-                ddlOrganization.DataValueField = "Code";
-                ddlOrganization.DataBind();
-                ddlOrganization.Items.Insert(0, new ListItem("-Select-", "NULL"));
-               
            }
 
 
         }
+        #endregion Page_Load
 
-        protected void btnSave_Click(object sender, EventArgs e)
+        #region ToolBar_OnClick
+        protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
-            RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-            tab.Selected = true;
-            RadMultiPage1.SelectedIndex = 0;
-            try
+            if ( e.Item.Value=="Save")
             {
-             
-                int result;
-                pObj.Idno = Convert.ToInt32(txtIDno.Text);
-                pObj.EILType = Request.QueryString["Mode"];
-                if (ddlOpenBy.SelectedItem.Text != "-Select-")
-                {
-                    mObj.OpenBy = Convert.ToString(ddlOpenBy.SelectedValue);
-                }
-                else
-                {
-                    mObj.OpenBy = null;
-                }
-                if (RadOpenDate.SelectedDate != null)
-                {
-                    pObj.OpenDate = Convert.ToString(RadOpenDate.SelectedDate);
-                }
-                if (ddlRequestedBy.SelectedItem.Text != "-Select-")
-                { 
-                    mObj.RequestedBy = Convert.ToString(ddlRequestedBy.SelectedValue); 
-                }
-                else
-                {
-                    mObj.RequestedBy = null;
-                }
-                if (ddlResponsiblePerson.SelectedItem.Text != "-Select-")
-                {
-                    mObj.ResponsiblePerson = Convert.ToString(ddlResponsiblePerson.SelectedValue);
-                }
-                else
-                {
-                    mObj.ResponsiblePerson = null;
-                }
-                if (ddlInspector.SelectedItem.Text != "-Select-")
-                {
-                    mObj.Inspector = Convert.ToString(ddlInspector.SelectedValue);
-                }
-                else
-                {
-                    mObj.Inspector = null;
-                }
-                if (ddlSignedBy.SelectedItem.Text != "-Select-")
-                {
-                    mObj.SignedBy = Convert.ToString(ddlSignedBy.SelectedValue);
-                }
-                else
-                {
-                    mObj.SignedBy = null;
-                }
-                if (ddlEnteredBy.SelectedItem.Text != "-Select-")
-                {
-                    mObj.EnteredBy = Convert.ToString(ddlEnteredBy.SelectedValue);
-
-                }
-                else
-                {
-                    mObj.EnteredBy = null;
-                }
-           
-                //if (RadEnteredDate.SelectedDate != null)
-                //{
-                //    pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
-                //}
-                if (ddlDiscipline.SelectedItem.Text != "-Select-")
-                {
-                    pObj.Discipline = Convert.ToString(ddlDiscipline.SelectedValue);
-                }
-                else
-                {
-                    pObj.Discipline = null;
-                }
-                pObj.ItemDescription = txtItemDescription.Text;
-                if (ddlLocation.SelectedItem.Text != "-Select-")
-                {
-                    pObj.Location = Convert.ToString(ddlLocation.SelectedValue);
-                }
-                else
-                {
-                    pObj.Location = null;
-                }
-                if (ddlArea.SelectedItem.Text != "-Select-")
-                {
-                    pObj.Area = Convert.ToString(ddlArea.SelectedValue);
-                }
-                else
-                {
-                    pObj.Area =null;
-                }
-                if (ddlUnit.SelectedItem.Text != "-Select-")
-                {
-                    pObj.Unit = Convert.ToString(ddlUnit.SelectedValue);
-                }
-                else
-                {
-                    pObj.Unit =null;
-                }
-                if (ddlPlant.SelectedItem.Text != "-Select-")
-                {
-                    pObj.Plant = Convert.ToString(ddlPlant.SelectedValue);
-                }
-                else
-                {
-                    pObj.Plant = null;
-                }
-                //if (RadScheduleCompletionDate != null)
-                //{
-                //    pObj.ScheduledDateCompletion = Convert.ToString(RadScheduleCompletionDate.SelectedDate);
-                //}
-                //if (RadRFINo.SelectedDate != null)
-                //{
-                //    pObj.RFIDate = Convert.ToString(RadRFINo.SelectedDate);
-                //}
-                pObj.RFINo = txtRFINo.Text;
-                pObj.Sheet = txtSheet.Text;
-                pObj.Drawing = txtDrawing.Text;
-                if (ddlFailCategory.SelectedItem.Text != "-Select-")
-                {
-                     
-                pObj.FailCategory = Convert.ToString(ddlFailCategory.SelectedValue);
-
-                }
-                else
-                {
-                    pObj.FailCategory=null;
-                }
-                //if (ddlCategory.SelectedItem.Text != "-Select-")
-                //{
-                //   pObj.Category = Convert.ToString(ddlCategoryList.SelectedValue);
-                //}
-                //else
-                //{
-                //    pObj.Category = null;
-                //}
-                if (txtSystem.Text != "") { pObj.System = txtSystem.Text; 
-                }
-                else
-                {
-                  pObj.System = null;
-                }
-              if(txtSubsystem.Text!="")
-              {
-                  pObj.Subsystem = txtSubsystem.Text;
-              }
-              else
-              {
-
-                  pObj.Subsystem = null;
-              }
-       
-                string val=null;
-                pObj.QueryRevision =string.IsNullOrEmpty(val)? '0' :Convert.ToInt32(txtQueryRevision.Text);
-                pObj.Reference = txtReference.Text;
-                //if (RadReferenceDate.SelectedDate != null)
-                //{
-                //    pObj.ReferenceDate = Convert.ToString(RadReferenceDate.SelectedDate);
-                //}
-                pObj.Revison = txtRevision.Text;
-                //if (RadCompletionDate.SelectedDate != null)
-                //{
-                //    pObj.CompletionDate = Convert.ToString(RadCompletionDate.SelectedDate);
-                //}
-                pObj.CompletionRemarks = txtCompletionRemarks.Text;
-                if (txtControlSystem.Text != "")
-                {
-                    pObj.ControlSystem = txtControlSystem.Text;
-                }
-                else
-                {
-                    pObj.ControlSystem = null;
-                }
-
-                if (ddlOrganization.SelectedItem.Text != "-Select-")
-                {
-                    pObj.Organization = Convert.ToString(ddlOrganization.SelectedValue);
-                }
-                else
-                {
-                    pObj.Organization = null;
-                }
-               // pObj.CoveredByProject=
-              // pObj.ChangeReq=
-                if (ddlActionBy.SelectedItem.Text != "-Select-")
-                {
-                    pObj.ActionBy = Convert.ToString(ddlActionBy.SelectedValue);
-                }
-                else
-                {
-                    pObj.ActionBy = null;
-
-                }
-                pObj.EILType=Request.QueryString["Mode"];
-                result = pObj.AddtoPunchList(mObj); 
-                RadGrid1.Rebind();
-                //Cleartextboxes();
-                if (fuAttach.HasFile)
-                {
-                    try
-                    {
-                        pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
-                        string save=Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
-                        fuAttach.SaveAs(save);
-                        StatusLabel.Text = "Upload status: File uploaded!";
-                        int id = Convert.ToInt32(txtIDno.Text);
-                        int value;
-                        value = pObj.InsertEILAttachment(id);
-                    }
-                    catch (Exception ex)
-                    {
-                        StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
-                    }
-                }
+                Insert();
             }
-            catch (SqlException ex)
+             if(e.Item.Value=="Update")
             {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                var master = page.Master;
-                eObj.ErrorData(ex, page);
+                Update();
+
             }
-            catch (FormatException ex)
+            if(e.Item.Value=="Delete")
             {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                var master = page.Master;
-                eObj.ErrorData(ex, page);
+                Delete();
             }
         }
+        #endregion ToolBar_OnClick
 
+        #region btnSave_Click
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            Insert(); 
+        }
+        #endregion btnSave_Click
+
+        #region RadGrid1_NeedDataSource1
         protected void RadGrid1_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dt;
@@ -377,7 +87,9 @@ namespace FlyCn.EIL
             //dts = mObj.GetDEtailsFromPersonal();
             //RadGrid1.DataSource = dts;
         }
+        #endregion RadGrid1_NeedDataSource1
 
+        #region RadGrid1_DeleteCommand
         private void RadGrid1_DeleteCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
         {
             string ID = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["IDNo"].ToString();
@@ -389,13 +101,19 @@ namespace FlyCn.EIL
                 Session["DataSource"] = dt;
             }
         }
+        #endregion RadGrid1_DeleteCommand
 
-
+        #region RadGrid1_ItemCommand
         protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
         {
            // string type = Request.QueryString["Mode"];
             if (e.CommandName == "EditData")
             {
+
+                ToolBar.AddButton.Visible = false;
+                ToolBar.SaveButton.Visible = false;
+                ToolBar.UpdateButton.Visible = true;
+                ToolBar.DeleteButton.Visible = true;
                 btnUpload.Enabled = true;
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                 tab.Selected = true;
@@ -403,27 +121,27 @@ namespace FlyCn.EIL
                 RadMultiPage1.SelectedIndex = 1;
                 string ID = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["IDNo"].ToString();
                 string projno = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ProjectNo"].ToString();
-           
-                dt = pObj.GetPunchListByProjNo(projno, ID);             
+
+                dt = pObj.GetPunchListByProjNo(projno, ID);
                 txtIDno.Text = dt.Rows[0]["IDNo"].ToString();
                 string opndate = dt.Rows[0]["OpenDt"].ToString();
-                
+
                 if (opndate != "")
                 {
-       
+
                     RadOpenDate.SelectedDate = Convert.ToDateTime(opndate);
                 }
-                string opnby=dt.Rows[0]["OpenBy"].ToString();
+                string opnby = dt.Rows[0]["OpenBy"].ToString();
                 if (opnby != "")
                 {
                     ddlOpenBy.SelectedValue = opnby;
-                   
+
                 }
                 else
                 {
                     ddlOpenBy.SelectedIndex = ddlOpenBy.Items.IndexOf(ddlOpenBy.Items.FindByText("-Select-"));
                 }
-                string reqby= dt.Rows[0]["ReqBy"].ToString();
+                string reqby = dt.Rows[0]["ReqBy"].ToString();
                 if (reqby != "")
                 {
                     ddlRequestedBy.SelectedValue = reqby;
@@ -432,8 +150,8 @@ namespace FlyCn.EIL
                 {
                     ddlRequestedBy.SelectedIndex = ddlRequestedBy.Items.IndexOf(ddlRequestedBy.Items.FindByText("-Select-"));
                 }
-                string resperson= dt.Rows[0]["ComplRespPerson"].ToString();
-                if (resperson!= "")
+                string resperson = dt.Rows[0]["ComplRespPerson"].ToString();
+                if (resperson != "")
                 {
                     ddlResponsiblePerson.SelectedValue = resperson;
                 }
@@ -441,7 +159,7 @@ namespace FlyCn.EIL
                 {
                     ddlResponsiblePerson.SelectedIndex = ddlResponsiblePerson.Items.IndexOf(ddlResponsiblePerson.Items.FindByText("-Select-"));
                 }
-                string inspector=dt.Rows[0]["Inspector"].ToString();
+                string inspector = dt.Rows[0]["Inspector"].ToString();
                 if (inspector != "")
                 {
                     ddlInspector.SelectedValue = inspector;
@@ -450,7 +168,7 @@ namespace FlyCn.EIL
                 {
                     ddlInspector.SelectedIndex = ddlInspector.Items.IndexOf(ddlInspector.Items.FindByText("-Select-"));
                 }
-                string signed= dt.Rows[0]["SignOffBy"].ToString();
+                string signed = dt.Rows[0]["SignOffBy"].ToString();
                 if (signed != "")
                 {
                     ddlSignedBy.SelectedValue = signed;
@@ -459,7 +177,7 @@ namespace FlyCn.EIL
                 {
                     ddlSignedBy.SelectedIndex = ddlSignedBy.Items.IndexOf(ddlSignedBy.Items.FindByText("-Select-"));
                 }
-                string entrdby= dt.Rows[0]["EnteredBy"].ToString();
+                string entrdby = dt.Rows[0]["EnteredBy"].ToString();
                 if (entrdby != "")
                 {
                     ddlEnteredBy.SelectedValue = entrdby;
@@ -468,11 +186,11 @@ namespace FlyCn.EIL
                 {
                     ddlEnteredBy.SelectedIndex = ddlEnteredBy.Items.IndexOf(ddlEnteredBy.Items.FindByText("-Select-"));
                 }
-               
+
                 string entrdDate = dt.Rows[0]["EnteredDt"].ToString();
                 //if (entrdDate != "")
                 //{
-                
+
                 //    RadEnteredDate.SelectedDate = Convert.ToDateTime(entrdDate);
                 //}
                 string displne = dt.Rows[0]["Discipline"].ToString();
@@ -484,10 +202,10 @@ namespace FlyCn.EIL
                 {
                     ddlDiscipline.SelectedIndex = ddlDiscipline.Items.IndexOf(ddlDiscipline.Items.FindByText("-Select-"));
                 }
-              
+
                 txtItemDescription.Text = dt.Rows[0]["Description"].ToString();
                 string location = dt.Rows[0]["Location"].ToString();
-                if(location!="")
+                if (location != "")
                 {
                     ddlLocation.SelectedValue = location;
                 }
@@ -496,7 +214,7 @@ namespace FlyCn.EIL
                     ddlLocation.SelectedIndex = ddlLocation.Items.IndexOf(ddlLocation.Items.FindByText("-Select-"));
                 }
                 string area = dt.Rows[0]["Area"].ToString();
-                if(area!="")
+                if (area != "")
 
                 { ddlArea.SelectedValue = area; }
                 else
@@ -504,7 +222,7 @@ namespace FlyCn.EIL
                     ddlArea.SelectedIndex = ddlArea.Items.IndexOf(ddlArea.Items.FindByText("-Select-"));
                 }
                 string unit = dt.Rows[0]["Unit"].ToString();
-                if(unit!="")
+                if (unit != "")
                 {
                     ddlUnit.SelectedValue = unit;
                 }
@@ -512,8 +230,9 @@ namespace FlyCn.EIL
                 {
                     ddlUnit.SelectedIndex = ddlUnit.Items.IndexOf(ddlUnit.Items.FindByText("-Select-"));
                 }
-                string plant= dt.Rows[0]["Plant"].ToString();
-                if(plant!=""){
+                string plant = dt.Rows[0]["Plant"].ToString();
+                if (plant != "")
+                {
                     ddlPlant.SelectedValue = plant;
                 }
                 else
@@ -523,20 +242,21 @@ namespace FlyCn.EIL
                 string schDate = dt.Rows[0]["SchComplDt"].ToString();
                 //if (schDate != null)
                 //{
-                  
+
                 //    RadScheduleCompletionDate.SelectedDate = Convert.ToDateTime(schDate );
                 //}
                 string rfiDate = dt.Rows[0]["RFIDate"].ToString();
                 //if (rfiDate != "")
                 //{
-                
+
                 //    RadRFINo.SelectedDate = Convert.ToDateTime(rfiDate);
                 //}
                 txtRFINo.Text = dt.Rows[0]["RFINo"].ToString();
                 txtSheet.Text = dt.Rows[0]["Sht"].ToString();
                 txtDrawing.Text = dt.Rows[0]["DwgNo"].ToString();
                 string failcategory = dt.Rows[0]["FailCategory"].ToString();
-                if (failcategory != "") {
+                if (failcategory != "")
+                {
                     ddlFailCategory.SelectedValue = failcategory;
                 }
                 else
@@ -544,7 +264,7 @@ namespace FlyCn.EIL
                     ddlFailCategory.SelectedIndex = ddlFailCategory.Items.IndexOf(ddlFailCategory.Items.FindByText("-Select-"));
                 }
                 string category = dt.Rows[0]["Category"].ToString();
-                if(category!="")
+                if (category != "")
                 {
                     ddlCategoryList.SelectedValue = category;
                 }
@@ -581,8 +301,8 @@ namespace FlyCn.EIL
                 {
                     ddlOrganization.SelectedIndex = ddlOrganization.Items.IndexOf(ddlOrganization.Items.FindByText("-Select-"));
                 }
-                string actionby=dt.Rows[0]["ActionBy"].ToString();   
-                if(actionby!="")
+                string actionby = dt.Rows[0]["ActionBy"].ToString();
+                if (actionby != "")
                 {
                     ddlActionBy.SelectedValue = actionby;
                 }
@@ -590,19 +310,18 @@ namespace FlyCn.EIL
                 {
                     ddlActionBy.SelectedIndex = ddlActionBy.Items.IndexOf(ddlActionBy.Items.FindByText("-Select-"));
                 }
-               // grdFileUpload.Visible = true;
+                // grdFileUpload.Visible = true;
 
                 DataTable dtt;
                 dtt = pObj.GetFileFromEILAttachByProjectNoRefEILType(ID);
                 grdFileUpload.DataSource = dtt;
                 grdFileUpload.DataBind();
 
-                btnUpdate.Visible = true;
-                btnSave.Visible = false;
-             //   ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
 
-                ScriptManager.RegisterStartupScript(this, GetType(), "EditData", "UpdateFunction();", true);
-                 
+                //   ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
+
+                //  ScriptManager.RegisterStartupScript(this, GetType(), "EditData", "UpdateFunction();", true);
+
            
             }
             if (e.CommandName == "DeleteColumn")
@@ -612,18 +331,333 @@ namespace FlyCn.EIL
                 string type=e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["EILType"].ToString();
                 int val=0;
                 val = pObj.DeleteEILAttach(ID, type);
-                int result;
+                int result=0;
                 result = pObj.DeleteEIL(projno, ID);
+                if(result==1)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    var master = page.Master;
+                    eObj.DeleteSuccessData(page );
+
+                }
                 RadGrid1.Rebind();        
             }
 
         }
+        #endregion RadGrid1_ItemCommand
 
+        #region btnUpdate_Click
         protected void btnUpdate_Click(object sender, EventArgs e)
+        {
+          
+        }
+        #endregion btnUpdate_Click
+
+        #region DropDownList3_SelectedIndexChanged
+        protected void DropDownList3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        #endregion DropDownList3_SelectedIndexChanged
+
+        #region txtIDno_TextChanged
+        protected void txtIDno_TextChanged(object sender, EventArgs e)
+        {
+        //    string id = txtIDno.Text;
+        //    if (id.Trim() == "") return;
+        //    for (int i = 0; i <id.Length; i++)
+        //    {
+        //        if (!char.IsNumber(id[i]))
+        //        {
+        //            lblError.Text="Please enter a valid number";
+        //            txtIDno.Text = "";
+        //            return;
+        //        }
+
+        //    }
+
+        }
+        #endregion txtIDno_TextChanged
+
+        #region btnCancel_Click
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ConstructionPunchList.aspx");
+        }
+        #endregion btnCancel_Click
+
+        #region grdFileUpload_RowCommand
+        protected void grdFileUpload_RowCommand(object sender, GridViewCommandEventArgs e)
+             
         {
             try
             {
-                int result=0;
+                if (e.CommandName == "Delete")
+                {
+                    int index = Convert.ToInt32(e.CommandArgument);
+                    int result;
+                    pObj.Idno = Convert.ToInt32(txtIDno.Text);
+                    string type = Request.QueryString["Mode"];
+                    GridViewRow row = grdFileUpload.Rows[index];
+                    HiddenField hdnField = (HiddenField)row.FindControl("hdnField");
+                    int slno = Convert.ToInt32(hdnField.Value);
+                    pObj.fileUpload = row.Cells[3].Text;
+                    result = pObj.DeleteEilAttachByProjectNoRefNoEILTypeSlNo(pObj.Idno, type, slno);
+                    FileUploadDelete();
+
+                }
+            }
+            catch(Exception)
+            {
+
+            }
+           
+        }
+        #endregion grdFileUpload_RowCommand
+
+        #region grdFileUpload_RowDeleting
+        public void grdFileUpload_RowDeleting(Object sender, GridViewDeleteEventArgs e)
+        {
+
+        }
+        #endregion grdFileUpload_RowDeleting
+
+        #region grdFileUpload_RowDataBound
+        protected void grdFileUpload_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            e.Row.Cells[1].Visible = false;
+   
+        }
+        #endregion grdFileUpload_RowDataBound
+
+        #region btnUpload_Click
+        protected void btnUpload_Click(object sender, EventArgs e)
+        {
+            Upload();
+        }
+        #endregion btnUpload_Click
+
+        #region imageButtonDownload_Click
+        protected void imageButtonDownload_Click(object sender, ImageClickEventArgs e)
+        {
+            ImageButton imgbtn = sender as ImageButton;
+            GridViewRow gvrow = imgbtn.NamingContainer as GridViewRow;
+            string filePath = grdFileUpload.DataKeys[gvrow.RowIndex].Value.ToString();
+            Download(filePath);
+        }
+        #endregion imageButtonDownload_Click
+
+        #endregion Events
+
+        #region Methods
+
+        #region ChangeFileName
+        public void ChangeFileName(string id, string name, string type, int sl)
+        {
+            if (fuAttach.HasFile)
+            {
+
+
+                UIClasses.Const Const = new UIClasses.Const();
+
+                FlyCnDAL.Security.UserAuthendication UA;
+                HttpContext context = HttpContext.Current;
+                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                pObj.Projno = UA.projectNo;
+                string pNo = pObj.Projno;
+                string filename = Path.GetFileName(fuAttach.FileName);
+                string extension = Path.GetExtension(fuAttach.PostedFile.FileName);
+                string oldFileName = fuAttach.FileName;
+                
+                    int newsl = sl + 1;
+
+                    string newFileName = (pNo + id + type + (newsl) + name);
+
+            
+                    pObj.fileUpload = newFileName;
+                    fuAttach.SaveAs(Server.MapPath("~/Content/Fileupload/") + newFileName);
+      
+                int idno = Convert.ToInt32(id);
+                int value;
+                value = pObj.InsertEILAttachment(idno);
+            }
+        }
+        #endregion ChangeFileName
+
+        #region BindFileuploadGrid
+        /// <summary>
+        /// Method to Bind attachment files
+        /// </summary>
+        /// <param name="id"></param>
+        public void BindFileuploadGrid(string id)
+        {
+
+           // string ID = Convert.ToString(id);
+            
+            DataTable dtt;
+            dtt = pObj.GetFileFromEILAttachByProjectNoRefEILType(id);
+            grdFileUpload.DataSource = dtt;
+            grdFileUpload.DataBind();
+        }
+        #endregion BindFileuploadGrid
+
+        #region Upload
+        public void Upload()
+        {
+
+            if (fuAttach.HasFile)
+            {
+                try
+                {
+
+                    pObj.Idno = Convert.ToInt32(txtIDno.Text);
+                    //pObj.EILType = "WEIL";
+
+                    // HiddenField hidden1 = (HiddenField)grdFileUpload.Rows..FindControl("hdnType");
+                    //   string text = Convert.ToString((HiddenField)row.Cells[2].FindControl("hdnType"));
+                    if (grdFileUpload.Rows.Count > 0)
+                    {
+                        HiddenField hdf = (HiddenField)grdFileUpload.Rows[0].FindControl("hdnType");
+                        pObj.EILType = hdf.Value;
+                    }
+                    else
+                    {
+
+                        pObj.EILType = "WEIL";
+                    }
+
+                    //if (grdFileUpload.Rows.Count > 0)
+                    //{
+                    //    var dtable = new DataTable();
+                    //    dtable.Columns.Add("file", typeof(string));
+                    //    foreach (GridViewRow gvrow in grdFileUpload.Rows)
+                    //    {
+
+                    //        string filename = gvrow.Cells[3].Text;
+
+
+                    //        dtable.Rows.Add(filename);
+                    //    }
+                    //    foreach (DataRow dr in dtable.Rows)
+                    //    {
+                    //        pObj.fileUpload = dr["file"].ToString();
+
+                            string id = txtIDno.Text;
+                            pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
+                            
+                            dt = pObj.GetEIL_AttachDetails(id, pObj.fileUpload, pObj.EILType);
+
+                            string id1 = txtIDno.Text;
+ 
+
+                            // DataTable dt1;
+
+                            //  dt1 = pObj.GetEIL_AttachDetails(id, pObj.fileUpload, pObj.EILType);
+
+                            if ((dt.Rows.Count > 0))
+                            {
+                                btnUpload.Enabled = true;
+                                foreach (DataRow rows in dt.Rows)
+                                {
+                                    string name = rows["FileName"].ToString();
+                                    //  pObj.slno = Convert.ToInt32(dt.Rows[0]["SlNo"].ToString());
+                                    DataTable dt1;
+                                    dt1=pObj.GetSLNo_AttachDetails(id, pObj.fileUpload, pObj.EILType); 
+                                    pObj.slno = Convert.ToInt32(dt.Rows[0]["SlNo"].ToString());
+
+
+                                    if (pObj.fileUpload == name)
+                                    {
+                                        ChangeFileName(id1, pObj.fileUpload, pObj.EILType, pObj.slno);
+
+                                    }
+
+                                    ToolBar.AddButton.Visible = false;
+                                    ToolBar.SaveButton.Visible = false;
+                                    ToolBar.UpdateButton.Visible = true;
+                                    ToolBar.DeleteButton.Visible = true;
+
+                                }
+                            }
+
+
+
+                          // string id1 = txtIDno.Text;
+
+                          //  // pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
+
+                          // // DataTable dt1;
+
+                          ////  dt1 = pObj.GetEIL_AttachDetails(id, pObj.fileUpload, pObj.EILType);
+
+                          //  if ((dtt.Rows.Count > 0))
+                            //  {
+                            //      btnUpload.Enabled = true;
+                            //      foreach (DataRow rows in dtt.Rows)
+                            //      {
+                            //          string name = rows["FileName"].ToString();
+                            //          //  pObj.slno = Convert.ToInt32(dt.Rows[0]["SlNo"].ToString());
+                            //          pObj.slno = Convert.ToInt32(rows["SlNo"].ToString());
+
+
+                          //          if (pObj.fileUpload == name)
+                            //          {
+                            //              ChangeFileName(id1, pObj.fileUpload, pObj.EILType, pObj.slno);
+
+                          //          }
+
+                          //          ToolBar.AddButton.Visible = false;
+                            //          ToolBar.SaveButton.Visible = false;
+                            //          ToolBar.UpdateButton.Visible = true;
+                            //          ToolBar.DeleteButton.Visible = true;
+
+                          //      }
+                            //  }
+                            else
+                            {
+
+                                try
+                                {
+                                    pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
+                                    string save = Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
+                                    fuAttach.SaveAs(save);
+                                    StatusLabel.Text = "Upload status: File uploaded!";
+                                    pObj.Idno = Convert.ToInt32(txtIDno.Text);
+                                    string idno = Convert.ToString(pObj.Idno);
+                                    int value;
+                                    value = pObj.InsertEILAttachment(pObj.Idno);
+                                }
+                            
+                
+                                catch (Exception ex)
+                                {
+                                    StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+                                }
+                            }
+                        
+
+                        pObj.Idno = Convert.ToInt32(txtIDno.Text);
+                        string idno1 = Convert.ToString(pObj.Idno);
+                        grdFileUpload.Visible = true;
+                        BindFileuploadGrid(idno1);
+                        ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
+                    }
+                catch (Exception ex)
+                {
+                    StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+                }
+            }
+        }
+        
+        
+        #endregion Upload
+
+        #region Update
+        public void Update()
+        {
+            try
+            {
+                int result = 0;
                 pObj.Idno = Convert.ToInt32(txtIDno.Text);
                 if (ddlOpenBy.SelectedItem.Text != "-Select-")
                 {
@@ -677,7 +711,7 @@ namespace FlyCn.EIL
                 {
                     mObj.EnteredBy = null;
                 }
-                
+
                 //if (RadEnteredDate.SelectedDate != null)
                 //{
                 //    pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
@@ -723,7 +757,7 @@ namespace FlyCn.EIL
                 {
                     pObj.Unit = null;
                 }
-                
+
                 //if (RadScheduleCompletionDate.SelectedDate!=null)
                 //{
                 //    pObj.ScheduledDateCompletion = Convert.ToString(RadScheduleCompletionDate.SelectedDate);
@@ -743,9 +777,9 @@ namespace FlyCn.EIL
                 {
                     pObj.FailCategory = null;
                 }
-             
-               // pObj.Category = Convert.ToString(ddlCategoryList.SelectedValue);
-                if (txtSystem.Text!= "")
+
+                // pObj.Category = Convert.ToString(ddlCategoryList.SelectedValue);
+                if (txtSystem.Text != "")
                 {
                     pObj.System = txtSystem.Text;
                 }
@@ -761,7 +795,7 @@ namespace FlyCn.EIL
                 {
                     pObj.Subsystem = null;
                 }
-              
+
                 string val = null;
                 pObj.QueryRevision = string.IsNullOrEmpty(val) ? 0 : Convert.ToInt32(txtQueryRevision.Text);
                 pObj.Reference = txtReference.Text;
@@ -769,7 +803,7 @@ namespace FlyCn.EIL
                 //{
                 //    pObj.ReferenceDate = Convert.ToString(RadReferenceDate.SelectedDate);
                 //}
-      
+
                 //pObj.Revison = txtRevision.Text;
                 //if (RadCompletionDate.SelectedDate!=null)
                 //{
@@ -784,7 +818,7 @@ namespace FlyCn.EIL
                 {
                     pObj.ControlSystem = null;
                 }
-          
+
                 if (ddlOrganization.SelectedItem.Text != "-Select-")
                 {
                     pObj.Organization = Convert.ToString(ddlOrganization.SelectedValue);
@@ -805,21 +839,26 @@ namespace FlyCn.EIL
                 }
                 pObj.Idno = Convert.ToInt32(txtIDno.Text);
                 pObj.EILType = Request.QueryString["Mode"];
-              
-               
+
+
                 result = pObj.EditPunchListItems(pObj.Idno, mObj);
-                Response.Redirect("ConstructionPunchList.aspx");
+               // Response.Redirect("ConstructionPunchList.aspx");
                 if (result == 1)
                 {
-                    RadGrid1.Rebind();
-                    RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-                    tab.Selected = true;
-                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
-                    tab1.Text = "New";
-                    RadMultiPage1.SelectedIndex = 0;
-
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    var master = page.Master;
+                    eObj.UpdationSuccessData(page);
+                    //RadGrid1.Rebind();
+                    //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("Edit");
+                    //tab.Selected = true;
+                    ////RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
+                    ////tab1.Text = "New";
+                    //RadMultiPage1.SelectedIndex = 1;
+                   
+                                       
+                    
                 }
-               
+                RadGrid1.Rebind();
                 //Cleartextboxes();  
             }
             catch (SqlException ex)
@@ -836,271 +875,487 @@ namespace FlyCn.EIL
             }
              
         }
+        #endregion Update
 
-
-        //public void Cleartextboxes()
-        //{
-         
-        //}
-
-        protected void DropDownList3_SelectedIndexChanged(object sender, EventArgs e)
+        #region Insert
+        public void Insert()
         {
-
-        }
-
-        protected void txtIDno_TextChanged(object sender, EventArgs e)
-        {
-        //    string id = txtIDno.Text;
-        //    if (id.Trim() == "") return;
-        //    for (int i = 0; i <id.Length; i++)
-        //    {
-        //        if (!char.IsNumber(id[i]))
-        //        {
-        //            lblError.Text="Please enter a valid number";
-        //            txtIDno.Text = "";
-        //            return;
-        //        }
-
-        //    }
-
-        }
-
-        protected void btnCancel_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("ConstructionPunchList.aspx");
-        }
-
-        protected void grdFileUpload_RowCommand(object sender, GridViewCommandEventArgs e)
-             
-        {
+            RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+            tab.Selected = true;
+            RadMultiPage1.SelectedIndex = 0;
             try
             {
-                if (e.CommandName == "Delete")
-                {
-                    int index = Convert.ToInt32(e.CommandArgument);
-                    int result;
-                    pObj.Idno = Convert.ToInt32(txtIDno.Text);
-                    string type = Request.QueryString["Mode"];
-                    GridViewRow row = grdFileUpload.Rows[index];
-                    HiddenField hdnField = (HiddenField)row.FindControl("hdnField");
-                    int slno = Convert.ToInt32(hdnField.Value);
-                    pObj.fileUpload = row.Cells[3].Text;
-                    result = pObj.DeleteEilAttachByProjectNoRefNoEILTypeSlNo(pObj.Idno, type, slno);
-                    // Response.Redirect("PunchList.aspx");
-                  
-                        string save = Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
-                       
 
-                        if (File.Exists(save))
-                        {
-                            bool deleteSuccess = false;
-                            File.Delete(save);
-                            deleteSuccess = true;
-                        }
-                    
-                    btnUpdate.Visible = true;
-                    btnSave.Visible = false;
-                    grdFileUpload.Visible = true;
-                    string id = Convert.ToString(pObj.Idno);
-                    BindFileuploadGrid(id);
-                  //  ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
+                int result=0;
+                pObj.Idno = Convert.ToInt32(txtIDno.Text);
+                pObj.EILType = Request.QueryString["Mode"];
+                if (ddlOpenBy.SelectedItem.Text != "-Select-")
+                {
+                    mObj.OpenBy = Convert.ToString(ddlOpenBy.SelectedValue);
+                }
+                else
+                {
+                    mObj.OpenBy = null;
+                }
+                if (RadOpenDate.SelectedDate != null)
+                {
+                    pObj.OpenDate = Convert.ToString(RadOpenDate.SelectedDate);
+                }
+                if (ddlRequestedBy.SelectedItem.Text != "-Select-")
+                {
+                    mObj.RequestedBy = Convert.ToString(ddlRequestedBy.SelectedValue);
+                }
+                else
+                {
+                    mObj.RequestedBy = null;
+                }
+                if (ddlResponsiblePerson.SelectedItem.Text != "-Select-")
+                {
+                    mObj.ResponsiblePerson = Convert.ToString(ddlResponsiblePerson.SelectedValue);
+                }
+                else
+                {
+                    mObj.ResponsiblePerson = null;
+                }
+                if (ddlInspector.SelectedItem.Text != "-Select-")
+                {
+                    mObj.Inspector = Convert.ToString(ddlInspector.SelectedValue);
+                }
+                else
+                {
+                    mObj.Inspector = null;
+                }
+                if (ddlSignedBy.SelectedItem.Text != "-Select-")
+                {
+                    mObj.SignedBy = Convert.ToString(ddlSignedBy.SelectedValue);
+                }
+                else
+                {
+                    mObj.SignedBy = null;
+                }
+                if (ddlEnteredBy.SelectedItem.Text != "-Select-")
+                {
+                    mObj.EnteredBy = Convert.ToString(ddlEnteredBy.SelectedValue);
 
                 }
-            }
-            catch(Exception)
-            {
+                else
+                {
+                    mObj.EnteredBy = null;
+                }
 
-            }
-           
-        }
-        public void grdFileUpload_RowDeleting(Object sender, GridViewDeleteEventArgs e)
-        {
+                //if (RadEnteredDate.SelectedDate != null)
+                //{
+                //    pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
+                //}
+                if (ddlDiscipline.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Discipline = Convert.ToString(ddlDiscipline.SelectedValue);
+                }
+                else
+                {
+                    pObj.Discipline = null;
+                }
+                pObj.ItemDescription = txtItemDescription.Text;
+                if (ddlLocation.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Location = Convert.ToString(ddlLocation.SelectedValue);
+                }
+                else
+                {
+                    pObj.Location = null;
+                }
+                if (ddlArea.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Area = Convert.ToString(ddlArea.SelectedValue);
+                }
+                else
+                {
+                    pObj.Area = null;
+                }
+                if (ddlUnit.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Unit = Convert.ToString(ddlUnit.SelectedValue);
+                }
+                else
+                {
+                    pObj.Unit = null;
+                }
+                if (ddlPlant.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Plant = Convert.ToString(ddlPlant.SelectedValue);
+                }
+                else
+                {
+                    pObj.Plant = null;
+                }
+                //if (RadScheduleCompletionDate != null)
+                //{
+                //    pObj.ScheduledDateCompletion = Convert.ToString(RadScheduleCompletionDate.SelectedDate);
+                //}
+                //if (RadRFINo.SelectedDate != null)
+                //{
+                //    pObj.RFIDate = Convert.ToString(RadRFINo.SelectedDate);
+                //}
+                pObj.RFINo = txtRFINo.Text;
+                pObj.Sheet = txtSheet.Text;
+                pObj.Drawing = txtDrawing.Text;
+                if (ddlFailCategory.SelectedItem.Text != "-Select-")
+                {
 
-        }
+                    pObj.FailCategory = Convert.ToString(ddlFailCategory.SelectedValue);
 
-        //protected void OnRowCreated(object sender, GridViewRowEventArgs e)
-        //{
-        //    if (e.Row.RowType == DataControlRowType.DataRow)
-        //    {
-        //        e.Row.Cells[1].CssClass = "hdnField";
-        //    }
-        //    else if (e.Row.RowType == DataControlRowType.Header)
-        //    {
-        //        e.Row.Cells[1].CssClass = "hdnField";
-        //    }
-        //}
+                }
+                else
+                {
+                    pObj.FailCategory = null;
+                }
+                //if (ddlCategory.SelectedItem.Text != "-Select-")
+                //{
+                //   pObj.Category = Convert.ToString(ddlCategoryList.SelectedValue);
+                //}
+                //else
+                //{
+                //    pObj.Category = null;
+                //}
+                if (txtSystem.Text != "")
+                {
+                    pObj.System = txtSystem.Text;
+                }
+                else
+                {
+                    pObj.System = null;
+                }
+                if (txtSubsystem.Text != "")
+                {
+                    pObj.Subsystem = txtSubsystem.Text;
+                }
+                else
+                {
 
-        //protected void UploadButton_Click(object sender, EventArgs e)
-        //{
-           
-        //}
-        protected void grdFileUpload_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            e.Row.Cells[1].Visible = false;
-   
-        }
+                    pObj.Subsystem = null;
+                }
 
-        //protected void btnUpdate_Click1(object sender, EventArgs e)
-        //{
+                string val = null;
+                pObj.QueryRevision = string.IsNullOrEmpty(val) ? '0' : Convert.ToInt32(txtQueryRevision.Text);
+                pObj.Reference = txtReference.Text;
+                //if (RadReferenceDate.SelectedDate != null)
+                //{
+                //    pObj.ReferenceDate = Convert.ToString(RadReferenceDate.SelectedDate);
+                //}
+                pObj.Revison = txtRevision.Text;
+                //if (RadCompletionDate.SelectedDate != null)
+                //{
+                //    pObj.CompletionDate = Convert.ToString(RadCompletionDate.SelectedDate);
+                //}
+                pObj.CompletionRemarks = txtCompletionRemarks.Text;
+                if (txtControlSystem.Text != "")
+                {
+                    pObj.ControlSystem = txtControlSystem.Text;
+                }
+                else
+                {
+                    pObj.ControlSystem = null;
+                }
 
-        //}
+                if (ddlOrganization.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Organization = Convert.ToString(ddlOrganization.SelectedValue);
+                }
+                else
+                {
+                    pObj.Organization = null;
+                }
+                // pObj.CoveredByProject=
+                // pObj.ChangeReq=
+                if (ddlActionBy.SelectedItem.Text != "-Select-")
+                {
+                    pObj.ActionBy = Convert.ToString(ddlActionBy.SelectedValue);
+                }
+                else
+                {
+                    pObj.ActionBy = null;
 
-        protected void btnUpload_Click(object sender, EventArgs e)
-        {
-
-            if (fuAttach.HasFile)
-            {
+                }
+                pObj.EILType = Request.QueryString["Mode"];
                 try
                 {
-               
-                    pObj.Idno = Convert.ToInt32(txtIDno.Text);
-                    //pObj.EILType = "WEIL";
-                       
-                       // HiddenField hidden1 = (HiddenField)grdFileUpload.Rows..FindControl("hdnType");
-                     //   string text = Convert.ToString((HiddenField)row.Cells[2].FindControl("hdnType"));
-                     if (grdFileUpload.Rows.Count > 0)
+                    result = pObj.AddtoPunchList(mObj);
+                    if (result == 1)
                     {
-                        HiddenField hdf = (HiddenField)grdFileUpload.Rows[0].FindControl("hdnType");
-                        pObj.EILType = hdf.Value;
+                        var page = HttpContext.Current.CurrentHandler as Page;
+                        var master = page.Master;
+                        eObj.InsertionSuccessData(page);
+                        RadGrid1.Rebind();
                     }
-                    else
+                }
+            
+                      catch (SqlException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            catch (FormatException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+        
+             
+                //Cleartextboxes();
+                if (fuAttach.HasFile)
+                {
+                    try
                     {
-                        pObj.EILType = "WEIL";
-                    }
-                    
-                    string id = txtIDno.Text;
-                 
-                    pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
-                    DataTable dt;
-                    dt = pObj.GetEIL_AttachDetails(id, pObj.fileUpload, pObj.EILType);
-                   
-                    if ((dt.Rows.Count >0))
-                    {
-                        btnUpload.Enabled = true;
-                        foreach (DataRow rows in dt.Rows)
-                        {
-                            string name = rows["FileName"].ToString();
-                            //  pObj.slno = Convert.ToInt32(dt.Rows[0]["SlNo"].ToString());
-                            int sl = pObj.slno + 1;
-
-                            if (pObj.fileUpload == name)
-                            {
-                                ChangeFileName(id, pObj.fileUpload, pObj.EILType, pObj.slno);
-
-                            }
-                            btnUpdate.Visible = true;
-                            btnSave.Visible = false;
-      
-                        }
-                    }
-                    else
-                    
-                    {
-                      
-                        try     
-                        {
                         pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
-                        string save=Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
+                        string save = Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
                         fuAttach.SaveAs(save);
                         StatusLabel.Text = "Upload status: File uploaded!";
-                        pObj.Idno = Convert.ToInt32(txtIDno.Text); ;
-                        int value;
-                        value = pObj.InsertEILAttachment(pObj.Idno);
+                        int id = Convert.ToInt32(txtIDno.Text);
+                        int value = 0;
+                        value = pObj.InsertEILAttachment(id);
                     }
                     catch (Exception ex)
                     {
                         StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
                     }
-                    }
-                                           
-                  
-                
-                    grdFileUpload.Visible = true;
-                    BindFileuploadGrid(id);
-                    ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
-                   
-                }
-
-        
-                catch (Exception ex)
-                {
-                    StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
                 }
             }
-        }
-        public void ChangeFileName(string id, string name, string type,int sl)
-        {
-            if (fuAttach.HasFile)
+            catch (SqlException ex)
             {
-
-
-                 UIClasses.Const Const = new UIClasses.Const();
-
-                 FlyCnDAL.Security.UserAuthendication UA;
-                 HttpContext context = HttpContext.Current;
-                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
-                 pObj.Projno= UA.projectNo;
-                 string pNo = pObj.Projno;
-                 string filename = Path.GetFileName(fuAttach.FileName);
-                 string extension = Path.GetExtension(fuAttach.PostedFile.FileName);
-                 string oldFileName = fuAttach.FileName;
-                 string newFileName = (pNo+ id + type + (sl+1) + name);
-                 int idno = Convert.ToInt32(id);
-                 pObj.fileUpload = newFileName;
-                 fuAttach.SaveAs(Server.MapPath("~/Content/Fileupload/") + newFileName);
-                 int value;
-                 value = pObj.InsertEILAttachment(idno);
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            catch (FormatException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
             }
         }
+        #endregion Insert
 
-        protected void imageButtonDownload_Click(object sender, ImageClickEventArgs e)
+        #region LoadComboBox
+        /// <summary>
+        /// Method to fill in all comboboxes
+        /// </summary>
+        public void LoadComboBox()
         {
-            ImageButton imgbtn = sender as ImageButton;
 
-            GridViewRow gvrow = imgbtn.NamingContainer as GridViewRow;
-            string filePath = grdFileUpload.DataKeys[gvrow.RowIndex].Value.ToString();
+            FlyCnDAL.PunchList pObj = new FlyCnDAL.PunchList();
+
+            dt = mObj.GetDEtailsFromPersonal();
+
+            ddlOpenBy.DataSource = dt;
+            ddlOpenBy.DataTextField = "Name";
+            ddlOpenBy.DataValueField = "Code";
+            ddlOpenBy.DataBind();
+            ddlOpenBy.Items.Insert(0, new ListItem("-Select-", "NULL"));
+
+            ddlEnteredBy.DataSource = dt;
+            ddlEnteredBy.DataTextField = "Name";
+            ddlEnteredBy.DataValueField = "Code";
+            ddlEnteredBy.DataBind();
+            ddlEnteredBy.Items.Insert(0, new ListItem("-Select-", "NULL"));
+
+            ddlRequestedBy.DataSource = dt;
+            ddlRequestedBy.DataTextField = "Name";
+            ddlRequestedBy.DataValueField = "Code";
+            ddlRequestedBy.DataBind();
+            ddlRequestedBy.Items.Insert(0, new ListItem("-Select-", "NULL"));
+
+            ddlInspector.DataSource = dt;
+            ddlInspector.DataTextField = "Name";
+            ddlInspector.DataValueField = "Code";
+            ddlInspector.DataBind();
+            ddlInspector.Items.Insert(0, new ListItem("-Select-", "Null"));
+
+            ddlResponsiblePerson.DataSource = dt;
+            ddlResponsiblePerson.DataTextField = "Name";
+            ddlResponsiblePerson.DataValueField = "Code";
+            ddlResponsiblePerson.DataBind();
+            ddlResponsiblePerson.Items.Insert(0, new ListItem("-Select-", "Null"));
+
+
+            ddlSignedBy.DataSource = dt;
+            ddlSignedBy.DataTextField = "Name";
+            ddlSignedBy.DataValueField = "Code";
+            ddlSignedBy.DataBind();
+            ddlSignedBy.Items.Insert(0, new ListItem("-Select-", "Null"));
+            DataTable dtp = new DataTable();
+            dtp = pObj.GetPlatFromM_Plant();
+            ddlPlant.DataSource = dtp;
+            ddlPlant.DataTextField = "Description";
+            ddlPlant.DataValueField = "Code";
+            ddlPlant.DataBind();
+            ddlPlant.Items.Insert(0, new ListItem("-Select-", "Null"));
+
+            dt = pObj.GetAreaFromM_Area();
+            ddlArea.DataSource = dt;
+            ddlArea.DataTextField = "Description";
+            ddlArea.DataValueField = "Code";
+            ddlArea.DataBind();
+            ddlArea.Items.Insert(0, new ListItem("-Select-", "Null"));
+
+            dt = pObj.GetLocationFromM_Location();
+            ddlLocation.DataSource = dt;
+            ddlLocation.DataTextField = "Description";
+            ddlLocation.DataValueField = "Code";
+            ddlLocation.DataBind();
+            ddlLocation.Items.Insert(0, new ListItem("-Select-", "Null"));
+
+            dt = pObj.GetUnitFromM_Unit();
+            ddlUnit.DataSource = dt;
+            ddlUnit.DataTextField = "Description";
+            ddlUnit.DataValueField = "Code";
+            ddlUnit.DataBind();
+            ddlUnit.Items.Insert(0, new ListItem("-Select-", "Null"));
+
+            dt = pObj.GetUActionByFromM_Company();
+            ddlActionBy.DataSource = dt;
+            ddlActionBy.DataTextField = "CompName";
+            ddlActionBy.DataValueField = "Code";
+            ddlActionBy.DataBind();
+            ddlActionBy.Items.Insert(0, new ListItem("-Select-", "Null"));
+
+
+            dt = pObj.GetDisciplineFromM_Discipline();
+            ddlDiscipline.DataSource = dt;
+            ddlDiscipline.DataTextField = "Description";
+            ddlDiscipline.DataValueField = "Code";
+            ddlDiscipline.DataBind();
+            ddlDiscipline.Items.Insert(0, new ListItem("-Select-", "Null"));
+
+            dt = pObj.GetFailCategoryFromM_FailCategory();
+            ddlFailCategory.DataSource = dt;
+            ddlFailCategory.DataTextField = "Description";
+            ddlFailCategory.DataValueField = "Code";
+            ddlFailCategory.DataBind();
+            ddlFailCategory.Items.Insert(0, new ListItem("-Select-", "Null"));
+
+
+            dt = pObj.GetCategoryFromM_Category();
+            ddlCategoryList.DataSource = dt;
+            ddlCategoryList.DataTextField = "Description";
+            ddlCategoryList.DataValueField = "Code";
+            ddlCategoryList.DataBind();
+            ddlCategoryList.Items.Insert(0, new ListItem("-Select-", "NULL"));
+
+            dt = pObj.GetUActionByFromM_Company();
+            ddlOrganization.DataSource = dt;
+            ddlOrganization.DataTextField = "CompName";
+            ddlOrganization.DataValueField = "Code";
+            ddlOrganization.DataBind();
+            ddlOrganization.Items.Insert(0, new ListItem("-Select-", "NULL"));
+               
+        }
+        #endregion LoadComboBox
+
+        #region Delete
+        /// <summary>
+        /// Method to do dellete functionality based on Projectno,id,type
+        /// </summary>
+        public void Delete()
+        {
+            string ID = Convert.ToString(txtIDno.Text);
+            UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+            string projno = UA.projectNo;
+            string type = Request.QueryString["Mode"];
+            int val = 0;
+            val = pObj.DeleteEILAttach(ID, type);
+            int result;
+            result = pObj.DeleteEIL(projno, ID);
+            RadGrid1.Rebind();
+            RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+            tab.Selected = true;
+            RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
+            tab1.Text = "New";
+            //tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
+
+            RadMultiPage1.SelectedIndex = 0;
+        }
+        #endregion Delete
+
+        #region EditDataCommand
+        /// <summary>
+        /// Method called during EditData command from grid.
+        /// </summary>
+        public void EditDataCommand()
+        {
             
-            string strExtenstion = Path.GetExtension(filePath);
-            string File = Path.GetFileNameWithoutExtension(filePath);
+            
+        }
+        #endregion EditDataCommand
+
+        #region FileUploadDelete
+        /// <summary>
+        /// Method to delelte the file attachment
+        /// </summary>
+        public void FileUploadDelete()
+        {
+  
+            string save = Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
+
+
+            if (File.Exists(save))
+            {
+                bool deleteSuccess = false;
+                File.Delete(save);
+                deleteSuccess = true;
+            }
+
+
+            ToolBar.AddButton.Visible = false;
+            ToolBar.SaveButton.Visible = false;
+            ToolBar.UpdateButton.Visible = true;
+            ToolBar.DeleteButton.Visible = true;
+            grdFileUpload.Visible = true;
+            string id = Convert.ToString(pObj.Idno);
+            BindFileuploadGrid(id);
+        }
+        #endregion FileUploadDelete
+
+        #region Download
+        /// <summary>
+        /// Method to download a file 
+        /// </summary>
+        /// <param name="file"></param>
+        public void Download(string file)
+        {
+            string strExtenstion = Path.GetExtension(file);
+            string File = Path.GetFileNameWithoutExtension(file);
             string path = ("~/Content/Fileupload/");
-           if (strExtenstion ==".doc" || strExtenstion == ".docx")
-                {
-                        Response.ContentType = "application/vnd.ms-word";
-                        Response.AddHeader("content-disposition",
-                                                          "attachment;filename=" + filePath);
-                }
-                else if (strExtenstion == ".xls" || strExtenstion == ".xlsx")
-                {
-                         Response.ContentType = "application/vnd.ms-excel";
-                         Response.AddHeader("content-disposition",
-                                                         "attachment;filename=" + filePath);
-                }
-                else if (strExtenstion == ".txt")
-                {
-                         Response.ContentType = "application/pdf";
-                         Response.AddHeader("content-disposition", 
-                                                        "attachment;filename="+filePath);
-                }
-          //  Response.ContentType = "text/plain";
-          //  Response.AddHeader("Content-Disposition", "attachment;filename=\"" + filePath);
-           string filepath = path + filePath;
+            if (strExtenstion == ".doc" || strExtenstion == ".docx")
+            {
+                Response.ContentType = "application/vnd.ms-word";
+                Response.AddHeader("content-disposition",
+                                                  "attachment;filename=" + file);
+            }
+            else if (strExtenstion == ".xls" || strExtenstion == ".xlsx")
+            {
+                Response.ContentType = "application/vnd.ms-excel";
+                Response.AddHeader("content-disposition",
+                                                "attachment;filename=" + file);
+            }
+            else if (strExtenstion == ".txt")
+            {
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition",
+                                               "attachment;filename=" + file);
+            }
+
+            string filepath = path + file;
             Response.TransmitFile(Server.MapPath(filepath));
-           //Response.WriteFile(path);
             Response.End();
         }
-        public void BindFileuploadGrid(string id)
-        {
+        #endregion Download
 
-           // string ID = Convert.ToString(id);
-            
-            DataTable dtt;
-            dtt = pObj.GetFileFromEILAttachByProjectNoRefEILType(id);
-            grdFileUpload.DataSource = dtt;
-            grdFileUpload.DataBind();
-
-        }
-
-
+        #endregion Methods
     }
 }
         

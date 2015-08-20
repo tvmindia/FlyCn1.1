@@ -250,6 +250,7 @@
     <Content Include="Images\bullet.png" />
     <Content Include="Images\Cancel.png" />
     <Content Include="Images\close.png" />
+    <Content Include="Images\Close1.png" />
     <Content Include="Images\Download.png" />
     <Content Include="Images\heroAccent.png" />
     <Content Include="Images\Icons\addToolbarIcon.png" />
