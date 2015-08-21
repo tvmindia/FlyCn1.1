@@ -256,6 +256,7 @@
     <Content Include="Images\Icons\addToolbarIcon.png" />
     <Content Include="Images\Icons\addToolbarIconDisabled.png" />
     <Content Include="Images\Icons\approval.png" />
+    <Content Include="Images\Icons\cap.ico" />
     <Content Include="Images\Icons\dashboard.png" />
     <Content Include="Images\Icons\deleteToolBarIcon.png" />
     <Content Include="Images\Icons\deleteToolBarIconDisabled.png" />
