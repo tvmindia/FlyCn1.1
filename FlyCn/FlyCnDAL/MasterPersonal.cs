@@ -382,6 +382,8 @@ namespace FlyCn.FlyCnDAL
                  cmd.Parameters.AddWithValue("@Remarks", Remarks);
                
                 cmd.ExecuteScalar();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.InsertionSuccessData(page);
                 return 1;
             }
             catch (Exception ex)
@@ -423,17 +425,21 @@ namespace FlyCn.FlyCnDAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@code", code);
                 cmd.ExecuteScalar();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.DeleteSuccessData(page);
                 return 1;
             }
             catch (SqlException ex)
             {
-                return 0;
-                throw ex;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
             }
             finally
             {
                 conObj.Close();
             }
+            return 0;
         }
           #endregion DeleteMasterPersonalData
 
@@ -538,17 +544,21 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@Remarks", Remarks);
 
                 cmd.ExecuteScalar();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.UpdationSuccessData(page);
                 return 1;
             }
             catch (SqlException ex)
             {
-                return 0;
-                throw ex;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
             }
             finally
             {
                 con.Close();
             }
+            return 0;
         }
         #endregion UpdateMasterPersonel
 

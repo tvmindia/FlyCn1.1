@@ -256,6 +256,7 @@
     <Content Include="Images\Icons\addToolbarIcon.png" />
     <Content Include="Images\Icons\addToolbarIconDisabled.png" />
     <Content Include="Images\Icons\approval.png" />
+    <Content Include="Images\Icons\cap.ico" />
     <Content Include="Images\Icons\dashboard.png" />
     <Content Include="Images\Icons\deleteToolBarIcon.png" />
     <Content Include="Images\Icons\deleteToolBarIconDisabled.png" />
@@ -463,7 +464,6 @@
     <Compile Include="FlyCnDAL\Activities.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FlyCnDAL\Connection.cs" />
     <Compile Include="FlyCnDAL\DALConstants.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -623,6 +623,7 @@
     <Compile Include="UIClasses\InputPages.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UIClasses\TabAddEditSettings.cs" />
     <Compile Include="UserControls\ToolBar.ascx.cs">
       <DependentUpon>ToolBar.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
