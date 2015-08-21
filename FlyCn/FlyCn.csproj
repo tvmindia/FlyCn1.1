@@ -461,7 +461,6 @@
     <Compile Include="FlyCnDAL\Activities.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FlyCnDAL\Connection.cs" />
     <Compile Include="FlyCnDAL\DALConstants.cs">
       <SubType>Code</SubType>
     </Compile>
