@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace FlyCn.ProjectParameters
 {
-    public partial class ProjectList : System.Web.UI.Page
+    public partial class ManageProject : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

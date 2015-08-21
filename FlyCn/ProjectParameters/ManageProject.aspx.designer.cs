@@ -11,7 +11,7 @@ namespace FlyCn.ProjectParameters
 {
 
 
-    public partial class ProjectList
+    public partial class ManageProject
     {
     }
 }

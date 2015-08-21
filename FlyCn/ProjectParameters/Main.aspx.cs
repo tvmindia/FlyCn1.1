@@ -18,7 +18,7 @@ namespace FlyCn.ProjectParameters
         public void LoadLeftMenu()
         {
             UIClasses.InputPages ip = new UIClasses.InputPages();
-            FlyCnDAL.Activities Activity = new FlyCnDAL.Activities();
+            FlyCnDAL.ProjectParameters Activity = new FlyCnDAL.ProjectParameters();
             RadTreeView tview = ip.FindLeftTree(this);
             Activity.BindTree(tview);
         }
