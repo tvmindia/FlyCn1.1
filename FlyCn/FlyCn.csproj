@@ -606,6 +606,7 @@
     <Compile Include="UIClasses\InputPages.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UIClasses\TabAddEditSettings.cs" />
     <Compile Include="UserControls\ToolBar.ascx.cs">
       <DependentUpon>ToolBar.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

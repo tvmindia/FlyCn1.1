@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
 using Telerik.Web.UI;
 
 namespace FlyCn.FlyCnDAL
@@ -11,6 +12,8 @@ namespace FlyCn.FlyCnDAL
     
     public class MasterPersonnelQualification
     {
+        ErrorHandling eObj = new ErrorHandling();
+
 
         #region Properties
 
@@ -168,6 +171,8 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@Updated_By","Amrutha");
          
                 cmd.ExecuteScalar();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.InsertionSuccessData(page);
                 return 1;
             }
             catch (Exception ex)
@@ -237,17 +242,21 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@Qualification", Qualification);
                 cmd.Parameters.AddWithValue("@ProjectNo", ProjNo);
                 cmd.ExecuteScalar();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.DeleteSuccessData(page);
                 return 1;
             }
             catch (SqlException ex)
             {
-                return 0;
-                throw ex;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
             }
             finally
             {
                 conObj.Close();
             }
+            return 0;
         }
         #endregion DeleteMasterPersonnelQualificationData
 
@@ -339,17 +348,21 @@ namespace FlyCn.FlyCnDAL
          
 
                 cmd.ExecuteScalar();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.UpdationSuccessData(page);
                 return 1;
             }
             catch (SqlException ex)
             {
-               // return 0;
-                throw ex;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
             }
             finally
             {
                 con.Close();
             }
+            return 0;
         }
         #endregion UpdateMasterPersonelQualificationData
 

@@ -255,6 +255,7 @@ namespace FlyCn.FlyCnMasters
             tab.Selected = true;
             RadMultiPage1.SelectedIndex = 0;
        
+       
             }
             catch(Exception ex)
             {
@@ -263,7 +264,15 @@ namespace FlyCn.FlyCnMasters
                 ToolBar.SaveButton.Visible = true;
                 ToolBar.UpdateButton.Visible = false;
                 ToolBar.DeleteButton.Visible = false;
-                throw ex;
+
+
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+                tab.Selected = true;
+                RadMultiPage1.SelectedIndex = 0;
+
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
               
             }
         } 

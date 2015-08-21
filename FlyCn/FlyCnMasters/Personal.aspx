@@ -53,18 +53,23 @@
                           $(this).val('');
                       });
                       $('textarea').empty();
-                      document.getElementById('<%=txtCode.ClientID %>').readOnly = false;
-                      document.getElementById('<%=ContentIframe.ClientID %>').style.display = "none";
-                      document.getElementById('<%=lblQualificationframe.ClientID %>').style.display = "none";
-
                       <%=ToolBar.ClientID %>_SetAddVisible(false);
                       <%=ToolBar.ClientID %>_SetSaveVisible(true);
                       <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                       <%=ToolBar.ClientID %>_SetDeleteVisible(false);
 
+                      document.getElementById('<%=txtCode.ClientID %>').readOnly = false;
+                      //var divs = document.getElementById('ContentIframe');
+                      //alert(divs);
+                      document.getElementById('<%=ContentIframe.ClientID%>').style.display = "none";
+
+                      document.getElementById('<%=lblQualificationframe.ClientID%>').style.display = "none";
+
+                   
                   }
                   catch (x)
                   {
+                    
                       alert(x.message);
                   }
 

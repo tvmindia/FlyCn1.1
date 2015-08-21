@@ -1,4 +1,5 @@
 ﻿using FlyCn.FlyCnDAL;
+using FlyCn.UIClasses;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -135,6 +136,7 @@ namespace FlyCn
                 string ProjNo = UA.projectNo;
                 int result = mp.InsertMasterData(ProjNo);
                 PersonnelGrid.Rebind();
+
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
                 tab.Selected = true;
                 RadMultiPage1.SelectedIndex = 0;
@@ -164,19 +166,24 @@ namespace FlyCn
             if (e.CommandName == "Delete")
             {
              int result = mp.DeleteMasterData(strId);
-                if (result == 1)
-                {
-
-                }
+            
+             //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+             //tab.Selected = true;
+             //RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
+             //tab1.Text = "New";
+             //tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
+             //RadMultiPage1.SelectedIndex = 0;
             }
             else if (e.CommandName == "EditData")
             {
                 //take tab name and change the tab text to Edit and change the New button icon to edit button icon
+                TabAddEditSettings tabs = new TabAddEditSettings();
+             //   tabs.EditTab(tabs);
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                 tab.Selected = true;
                 tab.Text = "Edit";
                 tab.ImageUrl = "~/Images/Icons/editIcon.png";
-
+                
                 RadMultiPage1.SelectedIndex = 1;
 
                 ToolBar.AddButton.Visible = false;

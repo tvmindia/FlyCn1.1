@@ -94,15 +94,14 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@p_selectedFields",FieldValue);
                 cmd.Parameters.AddWithValue("@p_selectedFieldsParameters", FieldParams);
                 cmd.ExecuteScalar();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.InsertionSuccessData(page);
                 return 1;
             }
             catch (Exception ex)
             {
                // return 0;
-                var page = HttpContext.Current.CurrentHandler as Page;
-                var master = page.Master;
-                eObj.ErrorData(ex, page);
-               
+                throw ex;
             }
             finally
             {
@@ -211,6 +210,8 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@TableName", TableName);
                 cmd.Parameters.AddWithValue("@p_whereCondition", whereCondition);
                 cmd.ExecuteScalar();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.DeleteSuccessData(page);
                 return 1;
             }
             catch (SqlException ex)  
@@ -372,6 +373,8 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@p_UpdateString", FieldValue);
                 cmd.Parameters.AddWithValue("@p_whereCondition", whereCondition);
                 cmd.ExecuteScalar();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.UpdationSuccessData(page);
                 return 1;
             }
             catch (SqlException ex)
