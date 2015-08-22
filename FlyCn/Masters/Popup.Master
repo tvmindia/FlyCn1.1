@@ -8,35 +8,74 @@
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-     <script>
-         function hideMe() {
-             document.getElementById("Errorbox").style.display = "none";
-             var divId = document.getElementById("masterDiv");
-             divId.style.opacity = "1";
-         }
+   <%--     <link href="../Content/FlyCnMain.css" rel="stylesheet" />--%>
+    <script src="../Scripts/jquery-1.8.2.min.js"></script>
+       <style type="text/css">
+       .Succesmsgboxes{
+background: -moz-linear-gradient(top,  rgba(97,196,25,0.35) 0%, rgba(97,196,25,0.35) 2%, rgba(104,199,35,0.35) 10%, rgba(180,227,145,0.35) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(97,196,25,0.35)), color-stop(2%,rgba(97,196,25,0.35)), color-stop(10%,rgba(104,199,35,0.35)), color-stop(100%,rgba(180,227,145,0.35))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(97,196,25,0.35) 0%,rgba(97,196,25,0.35) 2%,rgba(104,199,35,0.35) 10%,rgba(180,227,145,0.35) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(97,196,25,0.35) 0%,rgba(97,196,25,0.35) 2%,rgba(104,199,35,0.35) 10%,rgba(180,227,145,0.35) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(97,196,25,0.35) 0%,rgba(97,196,25,0.35) 2%,rgba(104,199,35,0.35) 10%,rgba(180,227,145,0.35) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(97,196,25,0.35) 0%,rgba(97,196,25,0.35) 2%,rgba(104,199,35,0.35) 10%,rgba(180,227,145,0.35) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5961c419', endColorstr='#59b4e391',GradientType=0 ); /* IE6-9 */
+
+
+
+
+border:thin;border-color:transparent;
+border-radius:5px;
+color:#003333;
+ z-index:2;position:fixed;left:0px;top:0px;text-align:right
+
+    }
+    .ErrormsgBoxes{
+
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff1a00+0,ff1a00+100&amp;0.42+0,0.22+5,0.3+100 */
+background: -moz-linear-gradient(top,  rgba(255,26,0,0.42) 0%, rgba(255,26,0,0.22) 5%, rgba(255,26,0,0.3) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,26,0,0.42)), color-stop(5%,rgba(255,26,0,0.22)), color-stop(100%,rgba(255,26,0,0.3))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(255,26,0,0.42) 0%,rgba(255,26,0,0.22) 5%,rgba(255,26,0,0.3) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(255,26,0,0.42) 0%,rgba(255,26,0,0.22) 5%,rgba(255,26,0,0.3) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(255,26,0,0.42) 0%,rgba(255,26,0,0.22) 5%,rgba(255,26,0,0.3) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(255,26,0,0.42) 0%,rgba(255,26,0,0.22) 5%,rgba(255,26,0,0.3) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6bff1a00', endColorstr='#4dff1a00',GradientType=0 ); /* IE6-9 */
+
+
+
+
+border:thin;border-color:#febbbb;
+border-radius:5px;
+color:#B00000;
+ z-index:2;position:fixed;left:0px;top:0px;text-align:right
+
+    }
+    </style>
+   <script>
+       function hideMe() {
+           document.getElementById("Errorbox").style.display = "none";
+           var divId = document.getElementById("masterDiv");
+           divId.style.opacity = "1";
+       }
     </script>
 </head>
 <body>
-    <div  id="Errorbox" style="width: 100%; display: none;" runat="server" align="left" >
-            <table style="width: 90%; height: 80px; border: groove; border-radius: 5px 6px; background-color: lightgrey">
+   
+
+    <div style="width:100%;text-align:right;right:0px;">
+       <div  id="Errorbox" style="width:50%;display: none;right:0px;float:right;padding-left:200px;margin-left:300px" runat="server" class="ErrormsgBoxes"  >
+            <table style="width: 100%;background-color: transparent;">                
                 <tr>
-                    <td style="color: black; font: bold">Error</td>
-                    <td></td>
-                    <td style="text-align: left; height: 0.8px; width: 2px">
-                        <img src="../Images/close.png" onclick="hideMe();" />
-<%--                        <img src="Images/Close.png" style="padding-right: 1px; margin-left: 1px; margin-right: 1px; width: 15px; height: 15px" onclick="hideMe();" />--%>
+                    <td style="text-align: right;width:90%">
+                        <asp:Label ID="lblErrorInfo" runat="server" Style="font-size:medium;"></asp:Label>
                     </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Label ID="lblErrorInfo" runat="server" Style="font-size: large; color: red"></asp:Label>
+                     <td style="text-align: right;width:10%">
+                        <img src="../Images/Close1.png" onclick="hideMe();" style="height:15px;width:15px"/>                   
                     </td>
                 </tr>
             </table>
-        </div>
-    <div id="masterDiv" runat="server">
-  
-    <form id="form1" runat="server">
+        </div></div>
+    <div id="masterDiv" runat="server"> 
+   <form id="form1" runat="server">
     <div>
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             <script src="../Scripts/jquery-1.8.2.min.js"></script>
@@ -44,6 +83,8 @@
         </asp:ContentPlaceHolder>
     </div>
     </form>
-          </div>
+       </div>
+  
+         
 </body>
 </html>

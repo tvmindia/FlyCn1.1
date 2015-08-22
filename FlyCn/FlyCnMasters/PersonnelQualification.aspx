@@ -5,7 +5,16 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="../Scripts/jquery-1.8.2.min.js"></script>
+      <script type="text/javascript">
+          function validate() {
+              var Qualification = document.getElementById('<%=txtQualification.ClientID %>').value;
+                if (Qualification == "") {
+                    alert("Enter Your Qualification");
+                    return false;
+                }
 
+            }
+    </script>
     <script type="text/javascript">
         function onClientTabSelected(sender, args) {
             var tab = args.get_tab();
@@ -51,18 +60,7 @@
         </script>
     
    
-     <script type="text/javascript">
-            function validate()
-            {
-                var Qualification = document.getElementById('<%=txtQualification.ClientID %>').value;
-                if (Qualification == "")
-                {
-                    alert("Enter Your Qualification");
-                    return false;
-                }
-
-            }
-    </script>
+   
 
 </asp:Content>
 

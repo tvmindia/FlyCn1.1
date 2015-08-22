@@ -1,4 +1,5 @@
 ﻿using FlyCn.FlyCnDAL;
+using FlyCn.UIClasses;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +13,7 @@ namespace FlyCn.FlyCnMasters
 {
     public partial class PersonnelQualification : System.Web.UI.Page
     {
+        TabAddEditSettings tabs = new TabAddEditSettings();
         ErrorHandling eObj = new ErrorHandling();
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
@@ -59,11 +61,10 @@ namespace FlyCn.FlyCnMasters
                 if (result == 1)
                 {
                     RadGrid1.Rebind();
-                    RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-                    tab.Selected = true;
-                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
-                    tab1.Text = "New";
-                    tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
+                    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                    TabAddEditSettings tabs = new TabAddEditSettings();
+                    tabs.Addtab(tab, tab1);
                     RadMultiPage1.SelectedIndex = 0;
 
                 }
@@ -111,14 +112,21 @@ namespace FlyCn.FlyCnMasters
                 string ProjNo = UA.projectNo;
                 int result = pq.InsertMasterPersonalQualificationData(ProjNo);
                 RadGrid1.Rebind();
-                RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-                tab.Selected = true;
-                //RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
-                //tab1.Text = "New";
+
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tabs.ListTab(tab, tab1);
+                //tab.Selected = true;
                 RadMultiPage1.SelectedIndex = 0;
+              
             }
            catch(Exception ex)
             {
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                // TabAddEditSettings tabs = new TabAddEditSettings();
+                tabs.ListTab(tab, tab1);
+                RadMultiPage1.SelectedIndex = 0;
                 var page = HttpContext.Current.CurrentHandler as Page;
                 var master = page.Master;
                 eObj.ErrorData(ex, page);
@@ -150,12 +158,9 @@ namespace FlyCn.FlyCnMasters
             }
             else if (e.CommandName == "EditData")
             {
-
+                TabAddEditSettings tabs = new TabAddEditSettings();
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
-                tab.Selected = true;
-                tab.Text = "Edit";
-                tab.ImageUrl = "~/Images/Icons/editIcon.png";
-
+                tabs.EditTab(tab);
                 RadMultiPage1.SelectedIndex = 1;
 
                 ToolBarQualification.AddButton.Visible = false;
