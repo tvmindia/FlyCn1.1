@@ -114,13 +114,28 @@
                   var tab = args.get_tab();
                   if (tab.get_value() == '2') {
                       //new clicked 
-
+                      $('input[type=text]').each(function () {
+                          $(this).val('');
+                      });
+                      $('textarea').empty();
+                      debugger;
                       try {
                           <%=ToolBar.ClientID %>_SetAddVisible(false);
                           <%=ToolBar.ClientID %>_SetSaveVisible(true);
                           <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                           <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                        
                       } catch (x) { alert(x.message); }
+
+                      try
+                      {
+
+                          if(document.getElementById("<%= grdFileUpload.ClientID %>")!=null)
+                          document.getElementById("<%= grdFileUpload.ClientID %>").style.display = "none";
+                      }
+                      catch(x){
+
+                      }
 
                   }
 

@@ -390,6 +390,10 @@ namespace FlyCn.EIL
         protected void grdFileUpload_RowCommand(object sender, GridViewCommandEventArgs e)
              
         {
+            ToolBar.AddButton.Visible = false;
+            ToolBar.SaveButton.Visible = false;
+            ToolBar.UpdateButton.Visible = true;
+            ToolBar.DeleteButton.Visible = true;
             try
             {
                 if (e.CommandName == "Delete")
@@ -433,6 +437,10 @@ namespace FlyCn.EIL
         #region btnUpload_Click
         protected void btnUpload_Click(object sender, EventArgs e)
         {
+            ToolBar.AddButton.Visible = false;
+            ToolBar.SaveButton.Visible = false;
+            ToolBar.UpdateButton.Visible = true;
+            ToolBar.DeleteButton.Visible = true;
             Upload();
         }
         #endregion btnUpload_Click
@@ -469,7 +477,7 @@ namespace FlyCn.EIL
                 string extension = Path.GetExtension(fuAttach.PostedFile.FileName);
                 string oldFileName = fuAttach.FileName;
                 
-                    int newsl = sl + 1;
+                    int newsl = sl;
 
                     string newFileName = (pNo + id + type + (newsl) + name);
 
@@ -493,7 +501,10 @@ namespace FlyCn.EIL
         {
 
            // string ID = Convert.ToString(id);
-            
+            ToolBar.AddButton.Visible = false;
+            ToolBar.SaveButton.Visible = false;
+            ToolBar.UpdateButton.Visible = true;
+            ToolBar.DeleteButton.Visible = true;
             DataTable dtt;
             dtt = pObj.GetFileFromEILAttachByProjectNoRefEILType(id);
             grdFileUpload.DataSource = dtt;
@@ -504,6 +515,10 @@ namespace FlyCn.EIL
         #region Upload
         public void Upload()
         {
+            ToolBar.AddButton.Visible = false;
+            ToolBar.SaveButton.Visible = false;
+            ToolBar.UpdateButton.Visible = true;
+            ToolBar.DeleteButton.Visible = true;
 
             if (fuAttach.HasFile)
             {
@@ -563,7 +578,7 @@ namespace FlyCn.EIL
                                     //  pObj.slno = Convert.ToInt32(dt.Rows[0]["SlNo"].ToString());
                                     DataTable dt1;
                                     dt1=pObj.GetSLNo_AttachDetails(id, pObj.fileUpload, pObj.EILType); 
-                                    pObj.slno = Convert.ToInt32(dt.Rows[0]["SlNo"].ToString());
+                                    pObj.slno = Convert.ToInt32(dt1.Rows[0]["SlNo"].ToString());
 
 
                                     if (pObj.fileUpload == name)
@@ -572,10 +587,7 @@ namespace FlyCn.EIL
 
                                     }
 
-                                    ToolBar.AddButton.Visible = false;
-                                    ToolBar.SaveButton.Visible = false;
-                                    ToolBar.UpdateButton.Visible = true;
-                                    ToolBar.DeleteButton.Visible = true;
+                           
 
                                 }
                             }
@@ -880,6 +892,7 @@ namespace FlyCn.EIL
         #region Insert
         public void Insert()
         {
+            txtIDno.Text = ""; 
             RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
             tab.Selected = true;
             RadMultiPage1.SelectedIndex = 0;

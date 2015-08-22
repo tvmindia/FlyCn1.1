@@ -25,9 +25,13 @@
     </style>
    <script>
        function hideMe() {
+           debugger;
+           var s = document.getElementById("Errorbox");
            document.getElementById("Errorbox").style.display = "none";
            var divId = document.getElementById("masterDiv");
-           divId.style.opacity = "1";
+           // divId.style.opacity = "1";
+           
+           document.getElementById("lblErrorInfo").innerHTML="";
            }
     </script>
 </head>

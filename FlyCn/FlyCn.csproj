@@ -256,6 +256,7 @@
     <Content Include="Images\Icons\addToolbarIcon.png" />
     <Content Include="Images\Icons\addToolbarIconDisabled.png" />
     <Content Include="Images\Icons\approval.png" />
+    <Content Include="Images\Icons\cap.ico" />
     <Content Include="Images\Icons\dashboard.png" />
     <Content Include="Images\Icons\deleteToolBarIcon.png" />
     <Content Include="Images\Icons\deleteToolBarIconDisabled.png" />
@@ -323,6 +324,8 @@
     <Content Include="Masters\Popup.Master" />
     <Content Include="Masters\IframePage.Master" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="ProjectParameters\Main.aspx" />
+    <Content Include="ProjectParameters\ManageProject.aspx" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
@@ -472,6 +475,7 @@
     <Compile Include="FlyCnDAL\MasterPersonal.cs" />
     <Compile Include="FlyCnDAL\MasterPersonnelQualification.cs" />
     <Compile Include="FlyCnDAL\Modules.cs" />
+    <Compile Include="FlyCnDAL\ProjectParameters.cs" />
     <Compile Include="FlyCnDAL\PunchList.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -563,6 +567,20 @@
     </Compile>
     <Compile Include="Menu.aspx.designer.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectParameters\Main.aspx.cs">
+      <DependentUpon>Main.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectParameters\Main.aspx.designer.cs">
+      <DependentUpon>Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectParameters\ManageProject.aspx.cs">
+      <DependentUpon>ManageProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectParameters\ManageProject.aspx.designer.cs">
+      <DependentUpon>ManageProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
