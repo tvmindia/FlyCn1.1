@@ -13,6 +13,7 @@ namespace FlyCn
 {
     public partial class Personal : System.Web.UI.Page
     {
+        TabAddEditSettings tabs = new TabAddEditSettings();
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
         FlyCnDAL.MasterPersonal mp = new FlyCnDAL.MasterPersonal();
@@ -58,6 +59,17 @@ namespace FlyCn
                     RadMultiPage1.SelectedIndex = 0;
 
                 }
+             else
+                {
+                    ToolBar.DeleteButton.Visible = false;
+                    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                    // TabAddEditSettings tabs = new TabAddEditSettings();
+                    tabs.ListTab(tab, tab1);
+                    RadMultiPage1.SelectedIndex = 0;
+
+                }
+
             }
           
         }
@@ -150,6 +162,11 @@ namespace FlyCn
                 ToolBar.SaveButton.Visible = true;
                 ToolBar.UpdateButton.Visible = false;
                 ToolBar.DeleteButton.Visible = false;
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                // TabAddEditSettings tabs = new TabAddEditSettings();
+                tabs.ListTab(tab, tab1);
+                RadMultiPage1.SelectedIndex = 0;
                 var page = HttpContext.Current.CurrentHandler as Page;
                 var master = page.Master;
                 eObj.ErrorData(ex, page);
@@ -178,12 +195,10 @@ namespace FlyCn
             {
                 //take tab name and change the tab text to Edit and change the New button icon to edit button icon
                 TabAddEditSettings tabs = new TabAddEditSettings();
-             //   tabs.EditTab(tabs);
+           
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
-                tab.Selected = true;
-                tab.Text = "Edit";
-                tab.ImageUrl = "~/Images/Icons/editIcon.png";
-                
+                tabs.EditTab(tab);
+               
                 RadMultiPage1.SelectedIndex = 1;
 
                 ToolBar.AddButton.Visible = false;
@@ -229,7 +244,7 @@ namespace FlyCn
                    // lblQualificationframe.Visible = true;
 
                     lblQualificationframe.Style["display"] = "";
-                   
+                    ContentIframe.Style["display"] = "";
                    ContentIframe.Attributes["src"] = "PersonnelQualification.aspx?id=" + strId;
 
                    // ScriptManager.RegisterStartupScript(this, GetType(), "EditData", "UpdateFunction();", true);

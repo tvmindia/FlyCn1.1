@@ -103,28 +103,7 @@
         
         }
   </script>
-    <script>
-        function setSize() {
-            var iframeElement = parent.document.getElementById('ContentIframe');
-            var height = document.documentElement.clientHeight - 100;
-            iframeElement.style.height = height + "px";
-        }
-    </script>
-    <script>
-        function autoResize(id) {
-            var newheight;
-            var newwidth;
-
-            if (document.getElementById) {
-                newheight = document.getElementById(id).contentWindow.document.body.scrollHeight;
-                newwidth = document.getElementById(id).contentWindow.document.body.scrollWidth;
-            }
-
-            document.getElementById(id).height = (newheight) + "px";
-            document.getElementById(id).width = (newwidth) + "px";
-        }
-</script>
-    
+ 
     <style>
       table
     {
