@@ -12,10 +12,8 @@ namespace FlyCn.FlyCnDAL
         public void BindTree(RadTreeView myTree)
         {
             myTree.Nodes.Clear();
-
-
             RadTreeNode rtn = new RadTreeNode("Project List", "Project Creation"); //<a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
-            rtn.NavigateUrl = "../ProjectParameters/ProjectList.aspx";
+            rtn.NavigateUrl = "../ProjectParameters/ManageProject.aspx";
             rtn.Target = "contentPane";
             myTree.Nodes.Add(rtn);
 
