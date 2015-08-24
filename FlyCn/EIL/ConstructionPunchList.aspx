@@ -118,6 +118,7 @@
                           $(this).val('');
                       });
                       $('textarea').empty();
+                      
                       debugger;
                       try {
                           <%=ToolBar.ClientID %>_SetAddVisible(false);

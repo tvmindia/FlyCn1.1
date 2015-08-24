@@ -892,7 +892,7 @@ namespace FlyCn.EIL
         #region Insert
         public void Insert()
         {
-            txtIDno.Text = ""; 
+        
             RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
             tab.Selected = true;
             RadMultiPage1.SelectedIndex = 0;
