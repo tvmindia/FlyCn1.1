@@ -1,4 +1,5 @@
 ﻿using FlyCn.FlyCnDAL;
+using FlyCn.UIClasses;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,6 +16,8 @@ namespace FlyCn.FlyCnMasters
     {
         string _mode;
         string _rowId;
+
+        TabAddEditSettings tabs = new TabAddEditSettings();
         ErrorHandling eObj = new ErrorHandling();
         DataTable dt = new DataTable();
         UIClasses.Const Const = new UIClasses.Const();
@@ -61,11 +64,10 @@ namespace FlyCn.FlyCnMasters
           if (result == 1)
           {
               RadGrid1.Rebind();
-              RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-              tab.Selected = true;
-              RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
-              tab1.Text = "New";
-              tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
+              RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+              RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+              TabAddEditSettings tabs = new TabAddEditSettings();
+              tabs.Addtab(tab,tab1);          
               RadMultiPage1.SelectedIndex = 0;
 
           }
@@ -251,8 +253,10 @@ namespace FlyCn.FlyCnMasters
             }
             int result = dl.InsertMasterData(dt, ProjNo, _mode);     
             RadGrid1.Rebind();
-            RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-            tab.Selected = true;
+            RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+            RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+            tabs.ListTab(tab,tab1);
+            //tab.Selected = true;
             RadMultiPage1.SelectedIndex = 0;
        
        
@@ -266,8 +270,11 @@ namespace FlyCn.FlyCnMasters
                 ToolBar.DeleteButton.Visible = false;
 
 
-                RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-                tab.Selected = true;
+                //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+               // TabAddEditSettings tabs = new TabAddEditSettings();
+                tabs.ListTab(tab, tab1);          
                 RadMultiPage1.SelectedIndex = 0;
 
                 var page = HttpContext.Current.CurrentHandler as Page;
@@ -335,38 +342,26 @@ namespace FlyCn.FlyCnMasters
             if (e.CommandName == "Delete")
             {
                 result = dl.DeleteMasterData(primarykeys, _mode,KeyValue);
-              //  string _strId = strId;
-                if (result == 1)
-                {
-                    //RadGrid1.Rebind();
-
-                }
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                TabAddEditSettings tabs = new TabAddEditSettings();
+                tabs.Addtab(tab, tab1);
+                RadMultiPage1.SelectedIndex = 0;
 
             }
             else if (e.CommandName == "EditData")
             {
 
+                TabAddEditSettings tabs = new TabAddEditSettings();
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
-                tab.Selected = true;
-                tab.Text = "Edit";
-                tab.ImageUrl = "~/Images/Icons/editIcon.png";
-
+                tabs.EditTab(tab);
                 RadMultiPage1.SelectedIndex = 1;
                 ToolBar.AddButton.Visible = false;
                 ToolBar.SaveButton.Visible = false;
                 ToolBar.UpdateButton.Visible = true;
                 ToolBar.DeleteButton.Visible = true;
                 DataTable dst = new DataTable();
-                //DataTable datatbl = new DataTable();
-                //datatbl = sd.GetPrimarykeys(_mode);
-        //        string key="";
-        //        string  Id="";
-        //for(int i=0;i<dt.Rows.Count;i++)
-        // {
-        //     key = dt.Rows[i]["Field_Name"].ToString();
-        //     Id = dt.Rows[i]["Field_Name"].ToString() + "id";
-        //     Id= RadGrid1.Items[0].GetDataKeyValue(key).ToString();//(e.Item as GridDataItem).GetDataKeyValue(sdw).ToString();
-        //    }
+              
                  dst = dl.FillMasterData(primarykeys, _mode, UA.projectNo, KeyValue);
                 FlyCnDAL.SystemDefenitionDetails sm = new FlyCnDAL.SystemDefenitionDetails();
                 dt.Columns.Add("Values", typeof(String));
@@ -471,6 +466,10 @@ namespace FlyCn.FlyCnMasters
                 }
             }
             int result = dl.UpdateMaster(dt, _mode, sdw);
+            //RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+            //RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+            //TabAddEditSettings tabs = new TabAddEditSettings();
+            //tabs.Addtab(tab, tab1);          
                   }
             catch(Exception ex)
              {
@@ -504,5 +503,14 @@ namespace FlyCn.FlyCnMasters
 
         #endregion RadGrid1_PreRender
 
+
+        //protected void RadTabStrip1_TabClick(object sender, RadTabStripEventArgs e)
+        //{
+ //    RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+            //    tab.Selected = true;
+            //    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
+            //    tab1.Text = "New";
+            //    tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
+        //}
     }
 }

@@ -75,8 +75,6 @@ namespace FlyCn.ProjectParameters
                 txtClient1.Text = dt.Rows[0]["Weld_Client1Caption"].ToString();
                 txtClient2.Text = dt.Rows[0]["Weld_Client2Caption"].ToString();
                 txtThirdParty.Text = dt.Rows[0]["Weld_ThirdPartyCaption"].ToString();
-                
-
             }
         }
     }
