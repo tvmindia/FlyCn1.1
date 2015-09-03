@@ -352,6 +352,7 @@ namespace FlyCn.FlyCnDAL
         #region Methods
 
         #region BindTree
+      
         public void BindTree(RadTreeView myTree)
         {
 
@@ -673,6 +674,111 @@ namespace FlyCn.FlyCnDAL
             return dt;
         }
         #endregion GetPunchListByProjNo
+
+        #region GetSystemDetails
+        public DataTable GetSystemDetails(string ProjNo)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection con = null;
+            SqlDataAdapter daObj;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                UIClasses.Const Const = new UIClasses.Const();
+                FlyCnDAL.Security.UserAuthendication UA;
+                HttpContext context = HttpContext.Current;
+                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                string selectQuery = "SelectCodeDescriptionFromSystem";
+                SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
+                cmdSelect.Parameters.AddWithValue("@projectno", UA.projectNo);
+                
+                daObj = new SqlDataAdapter(cmdSelect);
+                daObj.Fill(dt);
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+
+            }
+            finally
+            {
+                con.Close();
+            }
+            return dt;
+        }
+        #endregion GetSystemDetails
+
+        #region GetSubSystemDetails
+        public DataTable GetSubSystemDetails(string ProjNo)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection con = null;
+            SqlDataAdapter daObj;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                UIClasses.Const Const = new UIClasses.Const();
+                FlyCnDAL.Security.UserAuthendication UA;
+                HttpContext context = HttpContext.Current;
+                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                string selectQuery = "SelectCodeDescriptionFromSubSystem";
+                SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
+                cmdSelect.Parameters.AddWithValue("@projectno", UA.projectNo);
+
+                daObj = new SqlDataAdapter(cmdSelect);
+                daObj.Fill(dt);
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+
+            }
+            finally
+            {
+                con.Close();
+            }
+            return dt;
+        }
+        #endregion GetSubSystemDetails
+
+        #region GetCTRLSystemDetails
+        public DataTable GetCTRLSystemDetails(string ProjNo)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection con = null;
+            SqlDataAdapter daObj;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                UIClasses.Const Const = new UIClasses.Const();
+                FlyCnDAL.Security.UserAuthendication UA;
+                HttpContext context = HttpContext.Current;
+                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                string selectQuery = "SelectCodeDescriptionFromCNTRLSystem";
+                SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
+                cmdSelect.Parameters.AddWithValue("@projectno", UA.projectNo);
+
+                daObj = new SqlDataAdapter(cmdSelect);
+                daObj.Fill(dt);
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+
+            }
+            finally
+            {
+                con.Close();
+            }
+            return dt;
+        }
+        #endregion GetCTRLSystemDetails
 
         #region DeleteEIL
         public int DeleteEIL(string projno, string Id)

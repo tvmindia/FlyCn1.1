@@ -32,8 +32,7 @@ namespace FlyCn.FlyCnMasters
           HiddenField.Value = _id1;
         
           ToolBarQualification.onClick += new RadToolBarEventHandler(ToolBar_onClick);
-          ToolBarQualification.OnClientButtonClicking = "OnClientButtonClicking";
-          
+          ToolBarQualification.OnClientButtonClicking = "OnClientButtonClicking";         
         }
 
         #endregion  Page_Load

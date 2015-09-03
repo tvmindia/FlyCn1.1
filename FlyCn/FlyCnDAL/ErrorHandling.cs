@@ -26,33 +26,13 @@ namespace FlyCn.FlyCnDAL
             //5 show div
             var master = pg.Master;
             ContentPlaceHolder mpContentPlaceHolder;
-
-            //Set ContentPlaceHolder = to specific ContentPlaceHolder on your .aspx page
+            Label error = (Label)master.FindControl("lblErrorInfo");
             mpContentPlaceHolder = (ContentPlaceHolder)master.FindControl("MainBody");
-            //ContentPlaceHolder myPlaceHolder = (ContentPlaceHolder)Master.FindControl("ContentPlaceHolder1");
-            //ContentPlaceHolder myContent = (ContentPlaceHolder)pg.Master.FindControl("MainBody");
-            //ContentPlaceHolder MainContent = pg.Master.FindControl("Content2") as ContentPlaceHolder;
-            // var div = master.FindControl("Errorbox");   
-            //ContentPlaceHolder MainContent = Page..FindControl("MainContent") as ContentPlaceHolder;
-            HtmlControl divMask = (HtmlControl)master.FindControl("Errorbox");
-            //HtmlControl div1 = (HtmlControl)master.FindControl("masterDiv");
-            //div1.Attributes.CssStyle.Add("opacity", "0.1");
-            //div1.Attributes.Add("Disabled", "");    
-            //foreach (Control c in pg.Controls)
-            //{ 
-            //    if (c is TextBox)
-                
-            //        ((TextBox)(c)).Enabled = false;
-                
-            //    else
-            //        if(c is Button)
-            //        ((Button)(c)).Enabled = false;
-            //    }
-            //DisableAllControls(pg);      
+            HtmlControl divMask = (HtmlControl)master.FindControl("Errorbox");     
             divMask.Style["display"] = "";
             divMask.Attributes["class"] = "ErrormsgBoxes";
-            Label error = (Label)master.FindControl("lblErrorInfo");
             error.Text = ex.Message;  
+
         }
          public void InsertionSuccessData(Page pg)
   
@@ -61,10 +41,8 @@ namespace FlyCn.FlyCnDAL
                 ContentPlaceHolder mpContentPlaceHolder1;
                 mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
                 HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
-                divMask1.Style["display"] = "";
-                
+                divMask1.Style["display"] = "";              
                 Label Success = (Label)master1.FindControl("lblErrorInfo");
-              //  Success.Style.Add("color", "green");
                 divMask1.Attributes["class"] = "Succesmsgboxes";
                 Success.Text = "Successfully Inserted";  
             }
@@ -75,9 +53,7 @@ namespace FlyCn.FlyCnDAL
              mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
              HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
              divMask1.Style["display"] = "";
-
              Label Success = (Label)master1.FindControl("lblErrorInfo");
-             //Success.Style.Add("color", "green");
              divMask1.Attributes["class"] = "Succesmsgboxes";
              Success.Text = "Successfully Updated";  
          }
@@ -107,9 +83,7 @@ namespace FlyCn.FlyCnDAL
             mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
             HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox"); 
             divMask1.Style["display"] = "";
-
             Label Success = (Label)master1.FindControl("lblErrorInfo");
-           // Success.Style.Add("color", "green");
             divMask1.Attributes["class"] = "Succesmsgboxes";
             Success.Text = "Deleted Successfully";
         }        
