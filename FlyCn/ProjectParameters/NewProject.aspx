@@ -25,7 +25,7 @@
 
                         </div>
                         </telerik:RadPageView>
-                    <telerik:RadPageView ID="rpCompany&ClientDetails" runat="server"  >
+                    <telerik:RadPageView ID="RadPageView1" runat="server"  >
                         <div>
 
                         </div>
