@@ -31,42 +31,6 @@ namespace FlyCn.ProjectParameters {
         protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
         
         /// <summary>
-        /// RadMultiPage1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadMultiPage RadMultiPage1;
-        
-        /// <summary>
-        /// rpBaseDetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView rpBaseDetails;
-        
-        /// <summary>
-        /// rpCompany&ClientDetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView rpCompany&ClientDetails;
-        
-        /// <summary>
-        /// rpAdvancedInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView rpAdvancedInfo;
-        
-        /// <summary>
         /// ToolBar control.
         /// </summary>
         /// <remarks>

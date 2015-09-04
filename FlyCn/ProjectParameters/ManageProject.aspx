@@ -4,6 +4,64 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+      <script type="text/javascript">
+          function onClientTabSelected(sender, args) {
+              debugger;
+              var tab = args.get_tab();
+              if (tab.get_text() == "View") {
+
+                  var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+                  var tab = tabStrip.findTabByText("View");
+                  tab.select();
+                  var tab1 = tabStrip.findTabByText("Edit");
+                  tab1.set_text("New");
+                  $('input[type=text]').each(function () {
+                      $(this).val('');
+                  });
+                  $('textarea').empty();
+
+                  $('input[type=text]').each(function () {
+                      $(this).val('');
+                  });
+                  $('textarea').empty();
+              }
+
+              function onClientTabSelected(sender, args) {
+                  var tab = args.get_tab();
+                  if (tab.get_value() == '2') {
+                      //new clicked 
+                      $('input[type=text]').each(function () {
+                          $(this).val('');
+                      });
+                      $('textarea').empty();
+
+                      debugger;
+                      try
+                      {
+                          <%=ToolBar.ClientID %>_SetAddVisible(false);
+                          <%=ToolBar.ClientID %>_SetSaveVisible(true);
+                          <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                          <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+
+                      }
+                      catch (x) { alert(x.message); }
+
+
+
+                  }
+
+                  if (tab.get_value() == "1") {
+
+                      var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+                      var tab = tabStrip.findTabByValue("1");
+                      tab.select();
+                      var tab1 = tabStrip.findTabByValue("2");
+                      tab1.set_text("New");
+                  }
+
+              }
+          }
+         </script>
        <p>
         Manage Project</p>
      
@@ -16,7 +74,7 @@
             
             <Tabs>
                 <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True" ></telerik:RadTab>
-                 <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
+                 <telerik:RadTab Text="New" PageViewID="EditData" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
             </Tabs>
         </telerik:RadTabStrip>
         
@@ -56,7 +114,9 @@
             </table>
             </div>
             </div>
-   <div id="editdata">
+       <telerik:RadPageView ID="EditData" runat="server">
+  
+         <uc1:ToolBar runat="server" ID="ToolBar" />
        <table>
            <tr><td>
                Project No
@@ -277,7 +337,7 @@
                    Caption For Project Fields
                </td>
              
-           </tr>
+           </tr>            
            <tr>
                <td>Plant</td>
            <td>
@@ -436,5 +496,6 @@
            </tr>
        </table>
        
-   </div>
+
+           </telerik:RadPageView>
 </asp:Content>

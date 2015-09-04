@@ -28,22 +28,177 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public string baseProject
+        public string BaseProject
         {
             get;
             set;
         }
-        public int Active
-        {
-            get;
-            set;
-
-        }
-        public string CompanyName
+        public byte Active
         {
             get;
             set;
         }
+        public string CompName
+        {
+            get;
+            set;
+        }
+        public string CompAdd1
+        {
+            get;
+            set;
+        }
+        public string CompAdd2
+        {
+            get;
+            set;
+        }
+        public string CompTeleNo
+        {
+            get;
+            set;
+        }
+        public string CompFaxNo
+        {
+            get;
+            set;
+        }
+        public string CompEmailAdd
+        {
+            get;
+            set;
+        }
+        public string CompWebSite
+        {
+            get;
+            set;
+        }
+        public string ClientName
+        {
+            get;
+            set;
+        }
+        public string ContractNo
+        {
+            get;
+            set;
+        }
+        public string FromCompCode
+        {
+            get;
+            set;
+        }
+        public string ToCompCode
+        {
+            get;
+            set;
+        }
+        public string Plant_Caption
+        {
+            get;
+            set;
+        }
+        public string Area_Caption
+        {
+            get;
+            set;
+        }
+        public string Location_Caption
+        {
+            get;
+            set;
+        }
+        public string TO_System_Caption
+        {
+            get;
+            set;
+        }
+        public string TO_SubSystem_Caption
+        {
+            get;
+            set;
+        }
+        public string SchCaptionLevel1
+        {
+            get;
+            set;
+        }
+        public string SchCaptionLevel2
+        {
+            get;
+            set;
+        }
+        public string SchCaptionLevel3
+        {
+            get;
+            set;
+        }
+        public string CaptionForOtherCost1
+        {
+            get;
+            set;
+        }
+        public string CaptionForOtherCost2
+        {
+            get;
+            set;
+        }
+        public string CaptionForOtherCost3
+        {
+            get;
+            set;
+        }
+        public string PaymentCurrency
+        {
+            get;
+            set;
+        }
+        public string Regional_ImplEngineer
+        {
+            get;
+            set;
+        }
+        public string Project_Administrator
+        {
+            get;
+            set;
+        }
+        public string Weld_Client1Caption
+        {
+            get;
+            set;
+        }
+        public string Weld_Client2Caption
+        {
+            get;
+            set;
+        }
+        public string Weld_ThirdPartyCaption
+        {
+            get;
+            set;
+        }
+        public string Company_Logo
+        {
+            get;
+            set;
+        }
+        public string Client_Logo
+        {
+            get;
+            set;
+        }
+        public string MiscManpowerTracking_Caption
+        {
+            get;
+            set;
+        }
+        public decimal LunchBreak_Minutes
+        {
+            get;
+            set;
+        }
+     
         #endregion Properties
 
         #region BindTree
@@ -96,16 +251,16 @@ namespace FlyCn.FlyCnDAL
             {
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
-                string editQuery = "";
+                string editQuery = "UpdateProjectNoSYS_Projects";
                 SqlCommand cmdEdit = new SqlCommand(editQuery, con);
                 cmdEdit.CommandType = CommandType.StoredProcedure;
                 cmdEdit.Parameters.AddWithValue("@ProjectNo", ProjectNum);
                 cmdEdit.Parameters.AddWithValue("@ProjectName", ProjectName);
                 cmdEdit.Parameters.AddWithValue("@ProjectLocation", ProjectLocation);
-                //cmdEdit.Parameters.AddWithValue("@BaseProject", BaseProject);
+                cmdEdit.Parameters.AddWithValue("@BaseProject", BaseProject);
                 cmdEdit.Parameters.AddWithValue("@Active", Active);
-                cmdEdit.Parameters.AddWithValue("@CompName", CompanyName);
-                cmdEdit.Parameters.AddWithValue("@CompAdd1", );
+                cmdEdit.Parameters.AddWithValue("@CompName", CompName);
+                cmdEdit.Parameters.AddWithValue("@CompAdd1", CompAdd2);
                 cmdEdit.Parameters.AddWithValue("@CompAdd2", CompAdd2);
                 cmdEdit.Parameters.AddWithValue("@CompTeleNo", CompTeleNo);
                 cmdEdit.Parameters.AddWithValue("@CompFaxNo", CompFaxNo);
@@ -138,14 +293,15 @@ namespace FlyCn.FlyCnDAL
                 cmdEdit.Parameters.AddWithValue("@MiscManpowerTracking_Caption", MiscManpowerTracking_Caption);
                 result = cmdEdit.ExecuteNonQuery();
 
-             }
+            }
             catch (SqlException ex)
             {
                 throw ex;
             }
             return result;
-        #endregion EditProjectParameters 
         }
+        #endregion EditProjectParameters 
+        
         #region GetProjectParameters
         public DataTable GetProjectParameters(string ProjNo)
         {

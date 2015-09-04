@@ -19,23 +19,7 @@
            
                  </Tabs>
         </telerik:RadTabStrip>
-               <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
-                    <telerik:RadPageView ID="rpBaseDetails" runat="server">
-                        <div>
-
-                        </div>
-                        </telerik:RadPageView>
-                    <telerik:RadPageView ID="rpCompany&ClientDetails" runat="server"  >
-                        <div>
-
-                        </div>
-                        </telerik:RadPageView>
-                    <telerik:RadPageView ID="rpAdvancedInfo" runat="server"  >
-                        <div>
-
-                        </div>
-                        </telerik:RadPageView>
-                   </telerik:RadMultiPage>
+               
     <uc1:ToolBar runat="server" ID="ToolBar" />
 
             </div>
