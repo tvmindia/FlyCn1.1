@@ -359,7 +359,6 @@
     <Content Include="General\UnderConstruction.aspx" />
     <Content Include="SubMenu.aspx" />
     <Content Include="test1.aspx" />
-    <Content Include="try.aspx" />
     <Content Include="UserControls\ToolBar.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
@@ -626,13 +625,6 @@
     </Compile>
     <Compile Include="test1.aspx.designer.cs">
       <DependentUpon>test1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="try.aspx.cs">
-      <DependentUpon>try.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="try.aspx.designer.cs">
-      <DependentUpon>try.aspx</DependentUpon>
     </Compile>
     <Compile Include="UIClasses\Const.cs" />
     <Compile Include="UIClasses\DynamicIcons.cs" />
