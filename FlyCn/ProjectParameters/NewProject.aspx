@@ -235,7 +235,7 @@ th, td {
     <form id="form1" runat="server" >   
         <%--<asp:Button ID="btnPopup" runat="server" Text="Show Popup" />--%>
   <asp:ScriptManager ID="ScriptManager1" runat="server">
-</asp:ScriptManager>
+             </asp:ScriptManager>
 
         
 <div id="bodyDiv">
@@ -595,7 +595,7 @@ th, td {
         </div>
 <hr />
                     <asp:Label ID="lblCaptionforProjectFields" runat="server"   CssClass="headings" Text="Caption for Project Fields" ForeColor="#CC3300"></asp:Label>
- 	
+           
         <div>
             <table style="width: 100%;">
             <tr>
@@ -662,7 +662,7 @@ th, td {
         </div>
                                <hr />
 <div>
-           
+
     <asp:Label ID="lblManHoursRelatedCaption" runat="server"  CssClass="headings" Text=" Man Hours Related Captions" ForeColor="#CC3300"></asp:Label>
 
             <table style="width: 100%;">
@@ -822,8 +822,8 @@ th, td {
                  </asp:UpdatePanel>
      
 
-         
-        </div>
+
+            </div>
         
           
            <%--  //<input id="Button1" type="button" value="button" onclick="nexttab()" />--%>
@@ -839,7 +839,7 @@ th, td {
             </tr>
         </table>
       
-    </div>  
+        </div>
 </form>    
     
 </body>

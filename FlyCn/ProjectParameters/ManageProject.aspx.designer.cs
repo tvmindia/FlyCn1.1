@@ -58,7 +58,25 @@ namespace FlyCn.ProjectParameters {
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
         
         /// <summary>
-        /// rpAddEdit control.
+        /// EditData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadPageView EditData;
+        
+        /// <summary>
+        /// ToolBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::FlyCn.UserControls.ToolBar ToolBar;
+        
+        /// <summary>
+        /// txtProjNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
