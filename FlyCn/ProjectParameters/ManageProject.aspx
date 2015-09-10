@@ -87,7 +87,9 @@ try {
                     $("#modal_dialog").dialog({
                     
                      
-                        width: 780, buttons: {}, modal: true
+                        width: 780,
+                       height:680,
+                        buttons: {}, modal: true
                        
 
                        
@@ -571,10 +573,10 @@ try {
          </telerik:RadPageView>
     
             </telerik:RadMultiPage>
-            <div id="modal_dialog"    style="display: none; width:1000px!important; height:600px!important; border-radius:30px; overflow:hidden; overflow-x:hidden; 
+            <div id="modal_dialog"    style="display: none; width:1000px!important; height:700px!important; border-radius:30px; overflow:hidden; overflow-x:hidden; 
 ">
    
-                   <iframe src="NewProject.aspx" style="width:1300px;  height:500px;">
+                   <iframe src="NewProject.aspx" style="width:1300px;  height:700px;">
 
     </iframe>
                     
