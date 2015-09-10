@@ -211,13 +211,13 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.Label lblActive;
         
         /// <summary>
-        /// txtActive control.
+        /// chkActive control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtActive;
+        protected global::System.Web.UI.WebControls.CheckBox chkActive;
         
         /// <summary>
         /// lblActiveCaption control.

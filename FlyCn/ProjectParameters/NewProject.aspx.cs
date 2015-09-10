@@ -28,7 +28,20 @@ namespace FlyCn.ProjectParameters
         {
             InsertData();
         }
+        //protected void CheckBox1_CheckChanged(object sender, System.EventArgs e)
+        //{
 
+        //    if (chkActive.Checked == true)
+        //    {
+        //        //Label1.Text = "WOW! You are a member of an asp.net user group.";
+        //        //Label1.ForeColor = System.Drawing.Color.Green;
+        //    }
+        //    else
+        //    {
+        //        Label1.Text = "You are not a member of any asp.net user group.";
+        //        Label1.ForeColor = System.Drawing.Color.Crimson;
+        //    }
+        //}
         public void InsertData()
         {
             FlyCn.FlyCnDAL.ProjectParameters pp = new FlyCnDAL.ProjectParameters();
@@ -36,8 +49,11 @@ namespace FlyCn.ProjectParameters
             pp.ProjectName = txtProjectName.Text;
             pp.ProjectLocation = lblProjectLocation.Text;
             pp.BaseProject = txtBaseProject.Text;
-
-            //   pp.Active=txtActive.Text;
+            if (chkActive.Checked == true)
+            {
+                pp.Active =Convert.ToByte(true);
+            }
+           
             pp.CompName = txtCompanyName.Text;
             pp.CompAdd1 = txtCmpnyAddress1.Text;
             pp.CompAdd2 = txtCmpnyAddress2.Text;
@@ -73,6 +89,8 @@ namespace FlyCn.ProjectParameters
             pp.Weld_Client1Caption = txtClient1.Text;
             pp.Weld_Client2Caption = txtClient2.Text;
             pp.Weld_ThirdPartyCaption = txt3rdParty.Text;
+            if(FileUploadCompanyLogo.FileName!="")
+            {           
               string[] validFileTypes = { "bmp", "gif", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx","pdf"};
                     int size = 10;
                     string ext = System.IO.Path.GetExtension(FileUploadCompanyLogo.FileName);
@@ -111,22 +129,24 @@ namespace FlyCn.ProjectParameters
                           
                         }
                     }
-            
+            }
+            if(FileUploadClientLogo.FileName!="")
+            { 
                   string[] validFileTypes1 = { "bmp", "gif", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx","pdf"};
                     int size1 = 10;
                     string ext1 = System.IO.Path.GetExtension(FileUploadClientLogo.FileName);
                     bool isValidFile1 = false;
                     bool largerSize1 = false;
-                    for (int i = 0; i < validFileTypes.Length; i++)
+                    for (int i = 0; i < validFileTypes1.Length; i++)
                     {
-                        if (ext == "." + validFileTypes[i])
+                        if (ext1 == "." + validFileTypes1[i])
                         {
                             isValidFile1 = true;
                             break;
                         }
                     }
                     int fileSize1 = Convert.ToInt32(FileUploadClientLogo.PostedFile.ContentLength);
-                    int fileCal1=fileSize/1000000 ;//Converting byte into megabyte
+                    int fileCal1=fileSize1/1000000 ;//Converting byte into megabyte
                     if (fileCal1 > size1)
                     {
 
@@ -137,7 +157,7 @@ namespace FlyCn.ProjectParameters
 
                         lblmsg1.ForeColor = System.Drawing.Color.Red;
                         lblmsg1.Text = "Invalid File. Please upload a File with extension " +
-                                       string.Join(",", validFileTypes);
+                                       string.Join(",", validFileTypes1);
                     }
                     else
                     {
@@ -152,10 +172,11 @@ namespace FlyCn.ProjectParameters
                         }
                     }
             
+          
+        }
             pp.MiscManpowerTracking_Caption = txtMiscManpowerTracking.Text;
             int result = pp.InsertSYSProjectsData();
         }
-
         protected void btnSkipFinish_Click(object sender, EventArgs e)
         {
             InsertData();

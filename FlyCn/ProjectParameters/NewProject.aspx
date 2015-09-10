@@ -379,7 +379,15 @@ th, tr{
                     <asp:Label ID="lblActive" runat="server" Text="Active"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtActive" runat="server"></asp:TextBox>
+                   <%-- <asp:TextBox ID="txtActive" runat="server"></asp:TextBox>--%>
+                       <asp:CheckBox 
+            ID="chkActive" 
+            runat="server" 
+      
+          
+            AutoPostBack="true"
+          
+            />
                 </td>
               
             </tr>
