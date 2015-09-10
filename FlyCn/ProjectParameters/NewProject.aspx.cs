@@ -39,12 +39,12 @@ namespace FlyCn.ProjectParameters
 
             //   pp.Active=txtActive.Text;
             pp.CompName = txtCompanyName.Text;
-            pp.CompAdd1 = txtAddress1.Text;
-            pp.CompAdd2 = txtAddress2.Text;
-            pp.CompTeleNo = txtTelephone.Text;
-            pp.CompFaxNo = txtFax.Text;
-            pp.CompEmailAdd = txtEmail.Text;
-            pp.CompWebSite = txtWebsite.Text;
+            pp.CompAdd1 = txtCmpnyAddress1.Text;
+            pp.CompAdd2 = txtCmpnyAddress2.Text;
+            pp.CompTeleNo = txtCmpnyTelephone.Text;
+            pp.CompFaxNo = txtCmpnyFax.Text;
+            pp.CompEmailAdd = txtCmpnyEmail.Text;
+            pp.CompWebSite = txtCmpnyWebsite.Text;
             pp.ClientName = txtClientName.Text;
             pp.ContractNo = txtContractDetails.Text;
 
@@ -73,10 +73,92 @@ namespace FlyCn.ProjectParameters
             pp.Weld_Client1Caption = txtClient1.Text;
             pp.Weld_Client2Caption = txtClient2.Text;
             pp.Weld_ThirdPartyCaption = txt3rdParty.Text;
-            pp.Company_Logo = txtCompanyLogo.Text;
-            pp.Client_Logo = txtClientLogo.Text;
+              string[] validFileTypes = { "bmp", "gif", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx","pdf"};
+                    int size = 10;
+                    string ext = System.IO.Path.GetExtension(FileUploadCompanyLogo.FileName);
+                    bool isValidFile = false;
+                    bool largerSize = false;
+                    for (int i = 0; i < validFileTypes.Length; i++)
+                    {
+                        if (ext == "." + validFileTypes[i])
+                        {
+                            isValidFile = true;
+                            break;
+                        }
+                    }
+                    int fileSize = Convert.ToInt32(FileUploadCompanyLogo.PostedFile.ContentLength);
+                    int fileCal=fileSize/1000000 ;//Converting byte into megabyte
+                    if (fileCal > size)
+                    {
+
+                        largerSize = true;
+                    }
+                    if (!isValidFile)
+                    {
+                        lblmsg.ForeColor = System.Drawing.Color.Red;
+                        lblmsg.Text = "Invalid File. Please upload a File with extension " +
+                                       string.Join(",", validFileTypes);
+                    }
+                    else
+                    {
+
+                        if ((FileUploadCompanyLogo.HasFile) && (largerSize == false))
+                        {
+                            //System.IO.Stream mystream;
+                            //mystream=ImageUpload.FileContent;
+                          //  mystream.Read(pp.Company_Logo,0,ImageUpload.PostedFile.ContentLength);
+                            pp.Company_Logo = FileUploadCompanyLogo.FileContent;
+                          
+                        }
+                    }
+            
+                  string[] validFileTypes1 = { "bmp", "gif", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx","pdf"};
+                    int size1 = 10;
+                    string ext1 = System.IO.Path.GetExtension(FileUploadClientLogo.FileName);
+                    bool isValidFile1 = false;
+                    bool largerSize1 = false;
+                    for (int i = 0; i < validFileTypes.Length; i++)
+                    {
+                        if (ext == "." + validFileTypes[i])
+                        {
+                            isValidFile1 = true;
+                            break;
+                        }
+                    }
+                    int fileSize1 = Convert.ToInt32(FileUploadClientLogo.PostedFile.ContentLength);
+                    int fileCal1=fileSize/1000000 ;//Converting byte into megabyte
+                    if (fileCal1 > size1)
+                    {
+
+                        largerSize1 = true;
+                    }
+                    if (!isValidFile1)
+                    {
+
+                        lblmsg1.ForeColor = System.Drawing.Color.Red;
+                        lblmsg1.Text = "Invalid File. Please upload a File with extension " +
+                                       string.Join(",", validFileTypes);
+                    }
+                    else
+                    {
+
+                        if ((FileUploadClientLogo.HasFile) && (largerSize1 == false))
+                        {
+                            //System.IO.Stream mystream;
+                            //mystream=ImageUpload.FileContent;
+                          //  mystream.Read(pp.Company_Logo,0,ImageUpload.PostedFile.ContentLength);
+                            pp.Client_Logo = FileUploadClientLogo.FileContent;
+                          
+                        }
+                    }
+            
             pp.MiscManpowerTracking_Caption = txtMiscManpowerTracking.Text;
             int result = pp.InsertSYSProjectsData();
+        }
+
+        protected void btnSkipFinish_Click(object sender, EventArgs e)
+        {
+            InsertData();
         }
     }
 }

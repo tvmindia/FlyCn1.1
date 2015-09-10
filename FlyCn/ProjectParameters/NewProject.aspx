@@ -125,30 +125,8 @@
     </style>
   
      <style type="text/css">
-.Initial
-{
-  display: block;
-  padding: 4px 18px 4px 18px;
-  float: left;
-  background-color:#197575;
-  color: Black;
-  font-weight: bold;
-}
-.Initial:hover
-{
-  color: White;
- background-color:#75ACAC;
-}
-.Clicked
-{
-  float: left;
-  display: block;
-  background-color:#B2CCCC;
-  padding: 4px 18px 4px 18px;
-  color: Black;
-  font-weight: bold;
-  color: White;
-}
+
+
 
 .input_text
    {
@@ -158,15 +136,7 @@
        color:#000000;
         background-color:#ffffff;
    }
-.table tr  td
-{
-  
-    font-family: 'segoe UI' , Tahoma, Geneva, Verdana, sans-serif;  
-font-size: 11px;
-font-weight: normal;
-color: #333333;
 
-}
 table {
   border-collapse: collapse;
   width: 100%;
@@ -176,25 +146,39 @@ table {
 th, td {
  
   text-align: left;
-  height:50px;
+ 
   padding-left:2em;
-
-
+}
+th, tr{
+    height:40px;
+    text-align:left;
+  vertical-align:middle;
 }
   td, label 
   { 
-        height: 40px;
+        
         min-height: 100%;                
        font-family: 'segoe UI' , Tahoma, Geneva, Verdana, sans-serif;  
+       color:white;
+      
  }
 
   td.myclass
 {
   text-align:left;
-  vertical-align:middle;
-  width:300px;
+ 
+  
+ 
 }
-
+  tr.label
+  {
+     
+      font-size:10px;
+      border-bottom:thin;
+      border-bottom-style:dotted;
+      border-bottom-color:silver;
+   
+  }
   #tdbuttonclass{
       width:50px;
   }
@@ -203,24 +187,26 @@ th, td {
 {
  
   border-radius:5px;
+    float: left;
+  display: block;
+  background-color:#B2CCCC;
+  padding: 4px 18px 4px 18px;
+  
+  font-weight: bold;
+  color: White;
     
 }
-.Initial 
-{   
-              background: rgba(34,34,34,0.75);
-}
+
 .headings
 {
    font-family:'segoe UI' , Tahoma, Geneva, Verdana, sans-serif;  
    font-size:18px;
    font-style:normal;
+   color:#990000;
 }
-.selectedmenustyle
-{
-    background-color:transparent;
-    color:#CC3300
-}
-#Menu1 {
+
+#Menu1
+ {
     text-align: center;
     margin-right:auto;
     margin-left: auto;
@@ -239,31 +225,26 @@ th, td {
 
         
 <div id="bodyDiv">
-<div>
-        <asp:Menu ID="Menu1" runat="server" CssClass="" OnMenuItemClick="Menu1_MenuItemClick" Orientation="Horizontal" 
-        style="left: 0px; position: relative; top: 22px" Height="48px" Width="800px"  >
-            <StaticMenuStyle HorizontalPadding="0px" VerticalPadding="0px"   />
-            <StaticSelectedStyle BackColor="#C0C0C0"   BorderStyle="Solid" ForeColor="#CC3300" BorderColor="#669999" BorderWidth="1px" /><%--BorderColor="#C0C0FF"--%>
-           <StaticMenuItemStyle Width="240px" Height="18px"  BackColor="#808080" BorderStyle="Solid" BorderWidth="1px"
-                BorderColor="#148BB3"  ForeColor="White"  CssClass="Clicked" /><%--BorderWidth="20px"--%>
-            <DynamicMenuItemStyle BorderColor="Red" BorderStyle="Solid"/>
+    <div>
+        <asp:Menu ID="Menu1" runat="server" CssClass="" OnMenuItemClick="Menu1_MenuItemClick" Orientation="Horizontal"
+            Style="left: 0px; position: relative; top: 22px" Height="80px" Width="800px">
+            <StaticMenuStyle HorizontalPadding="0px" VerticalPadding="0px" />
+            <StaticSelectedStyle BackColor="#C0C0C0" BorderStyle="Solid" ForeColor="#CC3300" BorderColor="#669999" BorderWidth="1px" />
+            <%--BorderColor="#C0C0FF"--%>
+            <StaticMenuItemStyle Width="240px" Height="18px" BackColor="#808080" BorderStyle="Solid" BorderWidth="1px"
+                BorderColor="#148BB3" ForeColor="White" CssClass="Clicked" />
+            <%--BorderWidth="20px"--%>
             <Items>
                 <asp:MenuItem Text="Base Details" Value="0" Selected="True"></asp:MenuItem>
                 <asp:MenuItem Text="Company & Client Details" Value="1"></asp:MenuItem>
                 <asp:MenuItem Text="Advanced Info" Value="2"></asp:MenuItem>
             </Items>
-            <StaticHoverStyle BackColor="Silver" />           
-          <%--  <StaticMenuItemStyle  BorderColor="#C0C0FF" BorderStyle="Solid" BorderWidth="1px" /> --%>
+            <StaticHoverStyle BackColor="Silver" />
+            <%--  <StaticMenuItemStyle  BorderColor="#C0C0FF" BorderStyle="Solid" BorderWidth="1px" /> --%>
         </asp:Menu>
-    <%--  <asp:Button Text="Tab 1" BorderStyle="None" ID="Tab1" CssClass="Initial" runat="server"
-              OnClick="Tab1_Click" />
-          <asp:Button Text="Tab 2" BorderStyle="None" ID="Tab2" CssClass="Initial" runat="server"
-              OnClick="Tab2_Click" />
-          <asp:Button Text="Tab 3" BorderStyle="None" ID="Tab3" CssClass="Initial" runat="server"
-              OnClick="Tab3_Click" />
-               </td>--%>    
-         </div>      
-      <div style="width:750px; height:400px; background-color:#DCDCCA; overflow:scroll; background:transparent; overflow-x:hidden; scrollbar-base-color:seagreen" >
+
+    </div>      
+      <div style="width:750px; height:400px;background-color:transparent; overflow:scroll;overflow-x:hidden; scrollbar-base-color:seagreen" >
 
              <asp:UpdatePanel ID="UpdatePanel1" runat="server">
   <ContentTemplate>
@@ -287,6 +268,15 @@ th, td {
                 </td>
                
             </tr>
+                                        <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblProjectNoCaption" runat="server" Text="This project number will be reffered through out the application"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
             <tr>
                 <td>
                     <asp:Label ID="lblProjectName" runat="server" Text="Project Name"></asp:Label>
@@ -296,6 +286,15 @@ th, td {
                 </td>
               
             </tr>
+                                           <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblProjectNameCaption" runat="server" Text="Proect name will be used for display and reporting purposes"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
             <tr>
                 <td>
                     <asp:Label ID="lblProjectLocation" runat="server" Text="Project Location"></asp:Label>
@@ -305,6 +304,15 @@ th, td {
                 </td>
               
             </tr>
+                                           <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblProjectLocationCaption" runat="server" Text="The geo location of the project"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
             <tr>
                 <td>
                     <asp:Label ID="lblProjectManager" runat="server" Text="Project Manager"></asp:Label>
@@ -314,6 +322,15 @@ th, td {
                 </td>
              
             </tr>
+                                         <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblProjectManagerCaption" runat="server" Text="Project manager name"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
             <tr>
                 <td>
                     <asp:Label ID="lblBaseProject" runat="server" Text="Base Project" ForeColor="Gray"></asp:Label>
@@ -323,15 +340,33 @@ th, td {
                 </td>
                 
             </tr>
+                                          <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblBaseProjectCaption" runat="server" Text="To inherit data from existing project/sample data from config project."></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblAct" runat="server" Text="Active"></asp:Label>
+                    <asp:Label ID="lblActive" runat="server" Text="Active"></asp:Label>
                 </td>
                 <td>
                     <asp:TextBox ID="txtActive" runat="server"></asp:TextBox>
                 </td>
               
             </tr>
+                                          <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblActiveCaption" runat="server" Text="check to activate this project."></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
             <tr>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
@@ -354,7 +389,10 @@ th, td {
 
                                </td>
                                <td>
-                                  <asp:Label ID="lblCmpnyDetails" CssClass="headings" runat="server" Text="Company Details"  ForeColor="#CC3300"></asp:Label>
+                                
+
+                                  <asp:Label ID="lblCmpnyDetails" CssClass="headings" runat="server" Text="Company Details" ></asp:Label>
+                                      <br />
                                    <table style="width:100%;">
                                        
         <tr>
@@ -366,75 +404,129 @@ th, td {
             </td>
          
         </tr>
+                                        <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblCompanyNameCaption" runat="server" Text="company name for display and reporting purpose"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
         <tr>
             <td>
-                <asp:Label ID="lblAddress1" runat="server" Text="Address 1"></asp:Label>
+                <asp:Label ID="lblCmpnyAddress1" runat="server" Text="Address 1"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtAddress1" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCmpnyAddress1" runat="server"></asp:TextBox>
             </td>
             
         </tr>
+                                           <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblCmpnyAddress1Caption" runat="server" Text="company adress details 1"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
         <tr>
             <td>
-                <asp:Label ID="lblAddress2" runat="server" Text="Address 2"></asp:Label>
+                <asp:Label ID="lblCmpnyAddress2" runat="server" Text="Address 2"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtAddress2" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCmpnyAddress2" runat="server"></asp:TextBox>
             </td>
           
         </tr>
+                                          <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblCmpnyAddress2Caption" runat="server" Text="company adress details 2"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
         <tr>
             <td>
-                <asp:Label ID="lblTelephone" runat="server" Text="Telephone"></asp:Label>
+                <asp:Label ID="lblCmpnyTelephone" runat="server" Text="Telephone"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtTelephone" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCmpnyTelephone" runat="server"></asp:TextBox>
             </td>
 
         </tr>
+                                           <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblCmpnyTelephoneCaption" runat="server" Text="company telephone number"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
         <tr>
             <td>
-                <asp:Label ID="lblFax" runat="server" Text="Fax"></asp:Label>
+                <asp:Label ID="lblCmpnyFax" runat="server" Text="Fax"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtFax" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCmpnyFax" runat="server"></asp:TextBox>
             </td>
            
         </tr>
+                                        <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblCmpnyFaxCaption" runat="server" Text="company fax details"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
         <tr>
             <td>
-                <asp:Label ID="lblEmail" runat="server" Text="Email"></asp:Label>
+                <asp:Label ID="lblCmpnyEmail" runat="server" Text="Email"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCmpnyEmail" runat="server"></asp:TextBox>
             </td>
           
         </tr>
+                                          <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblCmpnyEmailCaption" runat="server" Text="company/responsible email id"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
         <tr>
             <td>
-                <asp:Label ID="lblWebsite" runat="server" Text="Website"></asp:Label>
+                <asp:Label ID="lblCmpnyWebsite" runat="server" Text="Website"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtWebsite" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCmpnyWebsite" runat="server"></asp:TextBox>
             </td>
            
         </tr>
-        <tr>
-            <td>
-                <asp:Label ID="lblCompanyLogo" runat="server" Text="Company Logo"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtCompanyLogo" runat="server"></asp:TextBox>
-            </td>
-           
-        </tr>
+                                          <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblCmpnyWebsiteCaption" runat="server" Text="company wesite URLs"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
         
     </table>
                                    <div>
-<hr />
-                                  <asp:Label ID="lblClientDetails" runat="server"   CssClass="headings" Text="Client Details"  ForeColor="#CC3300"></asp:Label>
+<br />
 
+                                  <asp:Label ID="lblClientDetails" runat="server"   CssClass="headings" Text="Client Details" ></asp:Label>
             <table style="width:100%;">
                 <tr>
                     <td>&nbsp;</td>
@@ -450,6 +542,15 @@ th, td {
             </td>
            
                 </tr>
+                  <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblClientNameCaption" runat="server" Text="sample description for this fields"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
             <td>
                 <asp:Label ID="lblContractDetails" runat="server" Text="Contract Details"></asp:Label>
@@ -459,6 +560,16 @@ th, td {
             </td>
            
                 </tr>
+                  <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblContractDetailsCaption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+              <%--  <tr>--%>
                 <tr>
             <td>
                 <asp:Label ID="lblClientTelephone" runat="server" Text="Telephone"></asp:Label>
@@ -468,6 +579,15 @@ th, td {
             </td>
          
                 </tr>
+                  <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblClientTelephoneCaption" runat="server" Text="Client Telephone Number"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
             <td>
                 <asp:Label ID="lblClientFax" runat="server" Text="Fax"></asp:Label>
@@ -477,6 +597,15 @@ th, td {
             </td>
           
                 </tr>
+                <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblClientFaxCaption" runat="server" Text="Client Fax Details"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
             <td>
                 <asp:Label ID="lblClientEmail" runat="server" Text="Email"></asp:Label>
@@ -486,6 +615,15 @@ th, td {
             </td>
             
                 </tr>
+                  <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblClientEmailCaption" runat="server" Text="Client Email Id"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
             <td>
                 <asp:Label ID="lblClientWebsite" runat="server" Text="Website"></asp:Label>
@@ -495,15 +633,16 @@ th, td {
             </td>
           
                 </tr>
-                <tr>
-            <td>
-                <asp:Label ID="lblClientLogo" runat="server" Text="Client Logo"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtClientLogo" runat="server"></asp:TextBox>
-            </td>
-          
-                </tr>
+                   <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblClientWebsiteCaption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+         
                 <tr>
                     <td class="auto-style2"></td>
                     <td class="auto-style2"></td>
@@ -526,7 +665,7 @@ th, td {
 
                            </td>
                            <td>
-    <asp:Label ID="lblAdminHeading" runat="server"  CssClass="headings" Text="Admin Details" ForeColor="#CC3300"></asp:Label>
+    <asp:Label ID="lblAdminHeading" runat="server"  CssClass="headings" Text="Admin Details"></asp:Label>
                                        <div>
    <table style="width: 100%;">
         
@@ -539,6 +678,15 @@ th, td {
             </td>
        
                 </tr>
+        <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblImplimentationEngineerCaption" runat="server" Text="Person who implements the system for the complany"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
         <tr>
             <td >
                 <asp:Label ID="lblProjectAdmin" runat="server" Text="Project Admin"></asp:Label>
@@ -548,6 +696,16 @@ th, td {
             </td>
            
                 </tr>
+           <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblProjectAdminCaption" runat="server" Text="Person to controll the project ,manage acces etc"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+       
         <tr>
             <td >
                 <asp:Label ID="lblPunchListFromCompany" runat="server" Text="PunchList From Company"></asp:Label>
@@ -557,6 +715,15 @@ th, td {
             </td>
         
                 </tr>
+        <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblPunchListFromCompanyCaption" runat="server" Text="In case of any punch list item ,sent behalf of this company"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
         <tr>
             <td >
                 <asp:Label ID="lblPunchListFromPerson" runat="server" Text="PunchList From Person"></asp:Label>
@@ -566,6 +733,16 @@ th, td {
             </td>
       
                 </tr>
+          <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblPunchListFromPersonCaption" runat="server" Text="In case of any punch list item ,the default sender will be this person"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+       
         <tr>
             <td >
                 <asp:Label ID="lblPunchListToCompany" runat="server" Text="PunchList To Company"></asp:Label>
@@ -575,6 +752,15 @@ th, td {
             </td>
 
                 </tr>
+         <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblPunchListToCompanyCaption" runat="server" Text="Punch list will be sent to this company by default"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
         <tr>
             <td >
                 <asp:Label ID="lblPunchListToPerson" runat="server" Text="PunchList To Person"></asp:Label>
@@ -584,6 +770,15 @@ th, td {
             </td>
            
                 </tr>
+         <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblPunchListToPersonCaption" runat="server" Text="Punch list will be sent to this person by default"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
         <tr>
             <td  colspan="2"></td>
         </tr>
@@ -593,10 +788,11 @@ th, td {
         </tr>
     </table>
         </div>
-<hr />
-                    <asp:Label ID="lblCaptionforProjectFields" runat="server"   CssClass="headings" Text="Caption for Project Fields" ForeColor="#CC3300"></asp:Label>
+<%--<hr />--%>
+                                <div>
+                    <asp:Label ID="lblCaptionforProjectFields" runat="server"   CssClass="headings" Text="Caption for Project Fields"></asp:Label>
            
-        <div>
+       
             <table style="width: 100%;">
             <tr>
                 <td class="myclass">
@@ -607,6 +803,15 @@ th, td {
                 </td>
                
             </tr>
+                   <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblPlantCaption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
                 <td >
                     <asp:Label ID="lblArea" runat="server" Text="Area"></asp:Label>
@@ -616,15 +821,31 @@ th, td {
                     </td>
                
                 </tr>
+                <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblAreaCaption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
-                <td >
-                    <asp:Label ID="lblLocation" runat="server" Text="Location"></asp:Label>
+                    <td>
+                        <asp:Label ID="lblLocation" runat="server" Text="Location"></asp:Label>
                     </td>
-                <td >
-                    <asp:TextBox ID="txtLocation" runat="server"></asp:TextBox>
+                    <td>
+                        <asp:TextBox ID="txtLocation" runat="server"></asp:TextBox>
                     </td>
-               
-                </tr>
+                       <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblLocationCaption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
                 <td >
                     <asp:Label ID="lblSystem" runat="server" Text="System"></asp:Label>
@@ -634,6 +855,16 @@ th, td {
                     </td>
                
                 </tr>
+ <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblSystemCaption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+
                 <tr>
                 <td >
                     <asp:Label ID="lblSubSystem" runat="server" Text="Sub System"></asp:Label>
@@ -643,6 +874,15 @@ th, td {
                     </td>
                
                 </tr>
+                     <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblSubSystemCaption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
                 <td >
                     <asp:Label ID="lblMiscManpowerTracking" runat="server" Text="Misc Manpower Tracking"></asp:Label>
@@ -652,6 +892,15 @@ th, td {
                     </td>
                
                 </tr>
+                     <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblMiscManpowerTrackingCaption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
             <tr>
                 <td>
                 </td>
@@ -660,10 +909,10 @@ th, td {
             
         </table>
         </div>
-                               <hr />
+                          <%--     <hr />--%>
 <div>
 
-    <asp:Label ID="lblManHoursRelatedCaption" runat="server"  CssClass="headings" Text=" Man Hours Related Captions" ForeColor="#CC3300"></asp:Label>
+    <asp:Label ID="lblManHoursRelatedCaption" runat="server"  CssClass="headings" Text=" Man Hours Related Captions" ></asp:Label>
 
             <table style="width: 100%;">
     
@@ -676,6 +925,15 @@ th, td {
                     </td>
                
                 </tr>
+                <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblOtherCost1Caption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
                 <td >
                     <asp:Label ID="lblOtherCost2" runat="server" Text="Other Cost2"></asp:Label>
@@ -685,6 +943,15 @@ th, td {
                     </td>
                
                 </tr>
+                 <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblOtherCost2Caption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
                 <td >
                     <asp:Label ID="lblOtherCost3" runat="server" Text="Other Cost3"></asp:Label>
@@ -694,23 +961,50 @@ th, td {
                     </td>
                
                 </tr>
+                    <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblOtherCost3Caption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
                 <td >
-                    <asp:Label ID="lblPaymentsettings" runat="server" Text="Payment Settings "></asp:Label>
+                    <asp:Label ID="lblPaymentsettings" CssClass="headings" runat="server" Text="Payment Settings "></asp:Label>
                     </td>
                 <td >
                     &nbsp;</td>
                
                 </tr>
+                  <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblPaymentsettingsCaption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
                 <td >
-                    <asp:Label ID="lblPaymentCurrency" runat="server" Text="Payment Currency" ForeColor="#CC3300"></asp:Label>
+                    <asp:Label ID="lblPaymentCurrency" runat="server" Text="Payment Currency" ></asp:Label>
                     </td>
                 <td >
                     <asp:TextBox ID="txtPaymentCurrency" runat="server"></asp:TextBox>
                     </td>
                
                 </tr>
+                  <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblPaymentCurrencyCaption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
                 <td >
                     <asp:Label ID="lblLunchBreakMinutes" runat="server" Text="Lunch Break Minutes"></asp:Label>
@@ -720,6 +1014,15 @@ th, td {
                     </td>
                
                 </tr>
+                <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblLunchBreakMinutesCaption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
     <tr>
         <td colspan="2">&nbsp;</td>
       
@@ -727,12 +1030,12 @@ th, td {
     
 </table>
         </div>
-                               <hr />
+                             <%--  <hr />--%>
                     <div>
             <table  style="width: 100%;">
         <tr>
             <td class="myclass">		
-            <asp:Label ID="lblHierarchyCaptions" runat="server"  CssClass="headings" Text="Hierarchy Captions" ForeColor="#CC3300"></asp:Label>
+            <asp:Label ID="lblHierarchyCaptions" runat="server"  CssClass="headings" Text="Hierarchy Captions" ></asp:Label>
 </td>
        
         </tr>
@@ -745,6 +1048,15 @@ th, td {
                     </td>
                
                 </tr>
+                   <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblLevel1Caption" runat="server" Text="superintendent --- sample description for this field if any"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
                 <td >
                     <asp:Label ID="lblLevel2" runat="server" Text="Level 2"></asp:Label>
@@ -754,6 +1066,15 @@ th, td {
                     </td>
                
                 </tr>
+                   <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblLevel2Caption" runat="server" Text="supervisor--sample description for this field if any"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
                 <td >
                     <asp:Label ID="lblLevel3" runat="server" Text="Level 3"></asp:Label>
@@ -763,15 +1084,25 @@ th, td {
                     </td>
                
                 </tr>
+                    <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblLevel3Caption" runat="server" Text="foreman --- sample description for this field if any"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
                 <td >
-                    <asp:Label ID="lblClientRealatedCaption" runat="server"  CssClass="headings" Text="Client Related Captions" ForeColor="#CC3300"></asp:Label>
+                    <asp:Label ID="lblClientRealatedCaption" runat="server"  CssClass="headings" Text="Client Related Captions" ></asp:Label>
 
                     </td>
                 <td >
                     &nbsp;</td>
                
                 </tr>
+
                 <tr>
                 <td >
                     <asp:Label ID="lblClient1" runat="server" Text="Client 1"></asp:Label>
@@ -781,15 +1112,31 @@ th, td {
                     </td>
                
                 </tr>
+                 <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblClient1Caption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
                 <tr>
-                <td >
-                    <asp:Label ID="lblClient2" runat="server" Text="Client 2"></asp:Label>
+                    <td>
+                        <asp:Label ID="lblClient2" runat="server" Text="Client 2"></asp:Label>
                     </td>
-                <td >
-                    <asp:TextBox ID="txtClient2" runat="server"></asp:TextBox>
+                    <td>
+                        <asp:TextBox ID="txtClient2" runat="server"></asp:TextBox>
                     </td>
-               
-                </tr>
+                    <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblClient2Caption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>  
                 <tr>
                 <td >
                     <asp:Label ID="lbl3rdParty" runat="server" Text="3rd Party"></asp:Label>
@@ -799,6 +1146,15 @@ th, td {
                     </td>
                
                 </tr>
+                       <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lbl3rdPartyCaption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>  
         
         <tr>
             <td>&nbsp;</td>
@@ -807,6 +1163,52 @@ th, td {
         </tr>
     </table>
         </div>
+
+<div>
+     <asp:Label ID="lblLogos" runat="server"   CssClass="headings" Text="Logos" ></asp:Label>
+    <table>
+
+            <tr>
+            <td>
+                <asp:Label ID="lblCompanyLogo" runat="server" Text="Company Logo"></asp:Label>
+            </td>
+            <td>
+                <asp:FileUpload ID="FileUploadCompanyLogo" runat="server" />
+            <asp:Label ID="lblmsg" runat="server" Text=""></asp:Label>
+            </td>
+           
+        </tr>
+           <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblCompanyLogoCaption" runat="server" Text="This logo will be displayed in various screens and reports as per settings"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+       <tr>
+            <td>
+                <asp:Label ID="lblClientLogo" runat="server" Text="Client Logo"></asp:Label>
+            </td>
+            <td>
+                               <asp:FileUpload ID="FileUploadClientLogo" runat="server" />
+                 <asp:Label ID="lblmsg1" runat="server" Text=""></asp:Label>
+
+            </td>
+          
+                </tr>
+                   <tr class="label" >
+                                            <td  >
+                                                                    <asp:Label ID="lblClientLogoCaption" runat="server" Text="sample description for this field"></asp:Label>
+                                                 
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+    </table>
+</div>
                            </td>
                        </tr>
                    </table>
@@ -830,9 +1232,9 @@ th, td {
         <table  >
             <tr>
                 <td>
-         <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" Height="40px" Width="80px" />
-                    <asp:Button ID="btnSkipFinish" runat="server" Text="Skip And Finish" Height="40px" />
-          <asp:Button ID="btnFinish" runat="server" Text="Finish" OnClick="btnFinish_Click" Width="80px" Height="40px"  />
+         <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" Height="35px" Width="80px" />
+                    <asp:Button ID="btnSkipFinish" runat="server" Text="Skip And Finish" Height="35px" OnClick="btnSkipFinish_Click" />
+          <asp:Button ID="btnFinish" runat="server" Text="Finish" OnClick="btnFinish_Click" Width="80px" Height="35px" style="margin-top: 7px"  />
 
                 </td>
                
