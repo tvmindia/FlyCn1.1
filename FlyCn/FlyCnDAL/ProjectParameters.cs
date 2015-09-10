@@ -17,11 +17,7 @@ namespace FlyCn.FlyCnDAL
 
                 #region Properties
 
-        public DateTime Updated_Date
-        {
-            get;
-            set;
-        }
+       
         public string ProjectNo
         {
             get;
