@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -187,12 +188,13 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public string Company_Logo
+
+        public object  Company_Logo
         {
             get;
             set;
         }
-        public string Client_Logo
+        public object Client_Logo
         {
             get;
             set;
@@ -462,6 +464,7 @@ namespace FlyCn.FlyCnDAL
                 cmdEdit.Parameters.AddWithValue("@CompEmailAdd", CompEmailAdd);
                 cmdEdit.Parameters.AddWithValue("@CompWebSite", CompWebSite);
                 cmdEdit.Parameters.AddWithValue("@ClientName", ClientName);
+             
                 cmdEdit.Parameters.AddWithValue("@ContractNo", ContractNo);
                 cmdEdit.Parameters.AddWithValue("@FromCompCode", FromCompCode);
                 cmdEdit.Parameters.AddWithValue("@ToCompCode", ToCompCode);
@@ -514,6 +517,7 @@ namespace FlyCn.FlyCnDAL
                 cmdSelect.Parameters.AddWithValue("@projectno", ProjNo);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(dt);
+                return dt;
             }
             catch (SqlException ex)
             {
@@ -552,7 +556,11 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@CompEmailAdd", CompEmailAdd);
                 cmd.Parameters.AddWithValue("@CompWebSite", CompWebSite);
                 cmd.Parameters.AddWithValue("@ClientName", ClientName);
-                cmd.Parameters.AddWithValue("@ContractNo",ContractNo);
+                if (ContractNo != "")
+                {
+                    cmd.Parameters.AddWithValue("@ContractNo", ContractNo);
+
+                }
                 cmd.Parameters.AddWithValue("@FromCompCode", FromCompCode);
                 cmd.Parameters.AddWithValue("@ToCompCode", ToCompCode);           
                     cmd.Parameters.AddWithValue("@Plant_Caption",Plant_Caption);
@@ -573,8 +581,11 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@Weld_Client1Caption", Weld_Client1Caption);
                 cmd.Parameters.AddWithValue("@Weld_Client2Caption", Weld_Client2Caption);
                 cmd.Parameters.AddWithValue("@Weld_ThirdPartyCaption",Weld_ThirdPartyCaption);
-                cmd.Parameters.AddWithValue("@Company_Logo",Company_Logo);
-                cmd.Parameters.AddWithValue("@Client_Logo",Client_Logo);
+               // cmd.Parameters.AddWithValue("@Company_Logo",s).Value=Company_Logo
+                //cmd.Parameters.AddWithValue("@Company_Logo",Company_Logo);
+                cmd.Parameters.Add("@Company_Logo", SqlDbType.VarBinary).Value = Company_Logo;
+                cmd.Parameters.Add("@Client_Logo", SqlDbType.VarBinary).Value = Client_Logo;
+              /// cmd.Parameters.AddWithValue("@Client_Logo",DBNull.Value);
                 cmd.Parameters.AddWithValue("@MiscManpowerTracking_Caption", MiscManpowerTracking_Caption);
                 cmd.ExecuteScalar();
                 //var page = HttpContext.Current.CurrentHandler as Page;
