@@ -118,11 +118,7 @@
 
 <head runat="server">
     <title></title>
-    <style type="text/css">
-        .auto-style1 {
-            height: 45px;
-        }
-    </style>
+  
   
      <style type="text/css">
 
@@ -146,13 +142,13 @@ table {
 th, td {
  
   text-align: left;
- 
-  padding-left:2em;
+  /*padding-left:2em;*/
+  padding-right:2em;
 }
 th, tr{
-    height:40px;
+    height:50px;
     text-align:left;
-  vertical-align:middle;
+  vertical-align:bottom;
 }
   td, label 
   { 
@@ -167,7 +163,7 @@ th, tr{
 {
   text-align:left;
  
-  
+  width:410px;
  
 }
   tr.label
@@ -176,7 +172,8 @@ th, tr{
       font-size:10px;
       border-bottom:thin;
       border-bottom-style:dotted;
-      border-bottom-color:silver;
+      border-bottom-color:gray;
+      height:1px;
    
   }
   #tdbuttonclass{
@@ -192,9 +189,6 @@ th, tr{
   background-color:#B2CCCC;
   padding: 4px 18px 4px 18px;
   
-  font-weight: bold;
-  color: White;
-    
 }
 
 .headings
@@ -202,7 +196,7 @@ th, tr{
    font-family:'segoe UI' , Tahoma, Geneva, Verdana, sans-serif;  
    font-size:18px;
    font-style:normal;
-   color:#990000;
+   color:#660033;
 }
 
 #Menu1
@@ -210,7 +204,8 @@ th, tr{
     text-align: center;
     margin-right:auto;
     margin-left: auto;
- 
+  font-family: 'segoe UI' , Tahoma, Geneva, Verdana, sans-serif;  
+  font-size:17px;   
 }
 </style>
 
@@ -225,26 +220,25 @@ th, tr{
 
         
 <div id="bodyDiv">
-    <div>
-        <asp:Menu ID="Menu1" runat="server" CssClass="" OnMenuItemClick="Menu1_MenuItemClick" Orientation="Horizontal"
-            Style="left: 0px; position: relative; top: 22px" Height="80px" Width="800px">
-            <StaticMenuStyle HorizontalPadding="0px" VerticalPadding="0px" />
-            <StaticSelectedStyle BackColor="#C0C0C0" BorderStyle="Solid" ForeColor="#CC3300" BorderColor="#669999" BorderWidth="1px" />
-            <%--BorderColor="#C0C0FF"--%>
-            <StaticMenuItemStyle Width="240px" Height="18px" BackColor="#808080" BorderStyle="Solid" BorderWidth="1px"
-                BorderColor="#148BB3" ForeColor="White" CssClass="Clicked" />
-            <%--BorderWidth="20px"--%>
+<div>
+        <asp:Menu ID="Menu1" runat="server" CssClass="" OnMenuItemClick="Menu1_MenuItemClick" Orientation="Horizontal" 
+        style="left: 0px; position: relative; top: 22px" Height="80px" Width="800px"  >
+            <StaticMenuStyle HorizontalPadding="0px" VerticalPadding="0px"   />
+            <StaticSelectedStyle BackColor="#C0C0C0"   BorderStyle="Solid"  ForeColor="#006666" BorderColor="#669999" BorderWidth="1px" /><%--BorderColor="#C0C0FF"--%>
+           <StaticMenuItemStyle Width="240px" Height="18px"  BackColor="#808080" BorderStyle="Solid" BorderWidth="1px"
+                BorderColor="#148BB3"  ForeColor="White"  CssClass="Clicked" /><%--BorderWidth="20px"--%>
+           
             <Items>
                 <asp:MenuItem Text="Base Details" Value="0" Selected="True"></asp:MenuItem>
                 <asp:MenuItem Text="Company & Client Details" Value="1"></asp:MenuItem>
                 <asp:MenuItem Text="Advanced Info" Value="2"></asp:MenuItem>
             </Items>
-            <StaticHoverStyle BackColor="Silver" />
-            <%--  <StaticMenuItemStyle  BorderColor="#C0C0FF" BorderStyle="Solid" BorderWidth="1px" /> --%>
+            <StaticHoverStyle BackColor="Silver" />           
+          <%--  <StaticMenuItemStyle  BorderColor="#C0C0FF" BorderStyle="Solid" BorderWidth="1px" /> --%>
         </asp:Menu>
-
-    </div>      
-      <div style="width:750px; height:400px;background-color:transparent; overflow:scroll;overflow-x:hidden; scrollbar-base-color:seagreen" >
+  
+         </div>      
+      <div style="width:750px; height:500px;background-color:transparent; overflow-y:auto; scrollbar-base-color:seagreen" >
 
              <asp:UpdatePanel ID="UpdatePanel1" runat="server">
   <ContentTemplate>
@@ -524,15 +518,9 @@ th, tr{
         
     </table>
                                    <div>
-<br />
-
                                   <asp:Label ID="lblClientDetails" runat="server"   CssClass="headings" Text="Client Details" ></asp:Label>
             <table style="width:100%;">
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                   
-                </tr>
+                
                 <tr>
             <td class="myclass">
                 <asp:Label ID="lblClientName" runat="server" Text="Client Name"></asp:Label>
@@ -1227,9 +1215,8 @@ th, tr{
 
             </div>
         
-          
-           <%--  //<input id="Button1" type="button" value="button" onclick="nexttab()" />--%>
-        <table  >
+
+            <table >
             <tr>
                 <td>
          <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" Height="35px" Width="80px" />
