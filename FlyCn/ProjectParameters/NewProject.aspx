@@ -6,6 +6,36 @@
    
 
 </script>
+<script type="text/javascript">
+    function validate() {
+        var ProjectNo = document.getElementById("<%=txtProjectNo.ClientID %>").value;
+     //   document.getElementById("txtProjectNo");
+        var ProjectName = document.getElementById("<%=txtProjectName.ClientID %>").value;
+        var ProjectLocation = document.getElementById("<%=txtProjectLocation.ClientID %>").value;
+        var ProjectManager = document.getElementById("<%=txtProjectManager.ClientID %>").value;
+
+            if (ProjectNo == "") {
+                alert("Enter Your ProjectNo");
+                return false;
+            }
+
+            if (ProjectName == "") {
+                alert("Please enter your ProjectName");
+                return false;
+            }
+
+            if (ProjectLocation == "") {
+                alert("please enter your ProjectLocation");
+                return false;
+            }
+
+            if (ProjectManager == "") {
+                alert("Please select your ProjectManager");
+                return false;
+            }
+
+        }
+</script>
 <script>
     function nexttab()
     {
@@ -114,6 +144,7 @@
     }
  
 </script>
+   
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head runat="server">
@@ -208,7 +239,7 @@ th, tr{
   font-size:17px;   
 }
 </style>
-
+    
  
 </head>
 <body>
@@ -238,7 +269,7 @@ th, tr{
         </asp:Menu>
   
          </div>      
-      <div style="width:750px; height:500px;background-color:transparent; overflow-y:auto; scrollbar-base-color:seagreen" >
+      <div style="width:750px; height:500px;background-color:transparent; overflow-y:auto; scrollbar-base-color:rgba(36,85,99,.9)" >
 
              <asp:UpdatePanel ID="UpdatePanel1" runat="server">
   <ContentTemplate>
@@ -1219,7 +1250,7 @@ th, tr{
             <table >
             <tr>
                 <td>
-         <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" Height="35px" Width="80px" />
+         <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" Height="35px" Width="80px" OnClientClick=" return validate()" />
                     <asp:Button ID="btnSkipFinish" runat="server" Text="Skip And Finish" Height="35px" OnClick="btnSkipFinish_Click" />
           <asp:Button ID="btnFinish" runat="server" Text="Finish" OnClick="btnFinish_Click" Width="80px" Height="35px" style="margin-top: 7px"  />
 
