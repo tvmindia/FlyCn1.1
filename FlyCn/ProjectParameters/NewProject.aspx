@@ -8,7 +8,12 @@
 </script>
 <script type="text/javascript">
     function validate() {
-        var ProjectNo = document.getElementById("<%=txtProjectNo.ClientID %>").value;
+        try{
+
+       
+            var ProjectNo = document.getElementById("<%=txtProjectNo.ClientID %>").value;
+       
+      <%--  document.getElementById("<%=txtProjectNo.ClientID %>").value;--%>
      //   document.getElementById("txtProjectNo");
         var ProjectName = document.getElementById("<%=txtProjectName.ClientID %>").value;
         var ProjectLocation = document.getElementById("<%=txtProjectLocation.ClientID %>").value;
@@ -30,10 +35,14 @@
             }
 
             if (ProjectManager == "") {
-                alert("Please select your ProjectManager");
+                alert("");
                 return false;
             }
-
+        }
+        catch(X)
+        {
+            alert(X.message);
+        }
         }
 </script>
 <script>
@@ -66,7 +75,7 @@
                 btnSkipFinish.Visible = false;
                 btnFinish.Visible=false;
                 btnNext.Visible = true;
-             
+               
              
             }
             else if(index==1)
@@ -93,12 +102,16 @@
      <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
+        MultiView1.EnableViewState = true;
+        
+
         if (!IsPostBack)
             //MultiView1.ActiveViewIndex = 0;
             //Tab1.CssClass = "Clicked";
         MultiView1.ActiveViewIndex = 0;
         btnSkipFinish.Visible = false;
         btnFinish.Visible = false;
+  
         
     }
    </script>
@@ -135,6 +148,16 @@
 
     
 </script>
+ <%--<script runat="server">
+
+     protected void btnSkipFinish_Click(object sender, EventArgs e)
+     {
+         MultiView1.ActiveViewIndex = 0;
+     }
+     
+     </script>--%>
+
+    
 <script runat="server">
     private void ShowViewBtn()
     {
@@ -1258,9 +1281,9 @@ th, tr{
             <table >
             <tr>
                 <td>
-         <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" Height="35px" Width="80px" OnClientClick=" return validate()" />
-                    <asp:Button ID="btnSkipFinish" runat="server" Text="Skip And Finish" Height="35px" OnClick="btnSkipFinish_Click" />
-          <asp:Button ID="btnFinish" runat="server" Text="Finish" OnClick="btnFinish_Click" Width="80px" Height="35px" style="margin-top: 7px"  />
+         <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" Height="35px" Width="80px"   OnClientClick="return validate()" />
+         <asp:Button ID="btnSkipFinish" runat="server" Text="Skip And Finish" Height="35px" OnClick="btnSkipFinish_Click"  OnClientClick="return validate()"/>
+          <asp:Button ID="btnFinish" runat="server" Text="Finish" OnClick="btnFinish_Click" Width="80px" Height="35px" style="margin-top: 7px" OnClientClick="return validate()"  />
 
                 </td>
                
