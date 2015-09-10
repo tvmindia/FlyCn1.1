@@ -67,6 +67,7 @@
 
         protected void Menu1_MenuItemClick(object sender, MenuEventArgs e)
         {
+           
         int index = Int32.Parse(e.Item.Value);
             
         MultiView1.ActiveViewIndex = index;
@@ -121,6 +122,14 @@
 
      protected void btnNext_Click(object sender, EventArgs e)
      {
+         if (Page.IsValid)
+         {
+             lblvalmsg.Text = "Required field is filled!";
+         }
+         else
+         {
+             lblvalmsg.Text = "Required field is empty!";
+         }
       //   MultiView1.ActiveViewIndex++;
          
       //var i= Convert.ToString(  Menu1.TabIndex);
@@ -152,7 +161,7 @@
 
      protected void btnSkipFinish_Click(object sender, EventArgs e)
      {
-         MultiView1.ActiveViewIndex = 0;
+        
      }
      
      </script>--%>
@@ -312,7 +321,11 @@ th, tr{
                     <asp:Label ID="lblProjectNo" runat="server" Text="Project No"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtProjectNo" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtProjectNo" runat="server" CausesValidation="True" Enabled="False"></asp:TextBox>
+                   <asp:RequiredFieldValidator id="valProjectNo" runat="server"
+  ControlToValidate="txtProjectNo"
+  ErrorMessage="Last name is a required field."
+  ForeColor="Red" ValidationGroup="submit" ></asp:RequiredFieldValidator>
                 </td>
                
             </tr>
@@ -1281,9 +1294,11 @@ th, tr{
             <table >
             <tr>
                 <td>
-         <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" Height="35px" Width="80px"   OnClientClick="return validate()" />
-         <asp:Button ID="btnSkipFinish" runat="server" Text="Skip And Finish" Height="35px" OnClick="btnSkipFinish_Click"  OnClientClick="return validate()"/>
-          <asp:Button ID="btnFinish" runat="server" Text="Finish" OnClick="btnFinish_Click" Width="80px" Height="35px" style="margin-top: 7px" OnClientClick="return validate()"  />
+                    <asp:Label ID="lblvalmsg" runat="server" Text="" ForeColor="Red"></asp:Label>
+                  
+         <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" Height="35px" Width="80px" CausesValidation="true" ValidationGroup="submit"  />
+         <asp:Button ID="btnSkipFinish" runat="server" Text="Skip And Finish" Height="35px" OnClick="btnSkipFinish_Click" CausesValidation="true" ValidationGroup="submit" />
+          <asp:Button ID="btnFinish" runat="server" Text="Finish" OnClick="btnFinish_Click" Width="80px" Height="35px" style="margin-top: 7px" OnClientClick="return validate()" CausesValidation="true"  />
 
                 </td>
                

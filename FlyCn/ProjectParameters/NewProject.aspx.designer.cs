@@ -85,6 +85,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtProjectNo;
         
         /// <summary>
+        /// valProjectNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator valProjectNo;
+        
+        /// <summary>
         /// lblProjectNoCaption control.
         /// </summary>
         /// <remarks>
@@ -1379,6 +1388,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblClientLogoCaption;
+        
+        /// <summary>
+        /// lblvalmsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblvalmsg;
         
         /// <summary>
         /// btnNext control.
