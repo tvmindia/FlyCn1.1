@@ -35,8 +35,8 @@ namespace FlyCn.ProjectParameters
             dt = pObj.GetProjectDetails();
             RadGrid1.DataSource = dt;
             DataTable dts;
-            dts = mObj.GetDEtailsFromPersonal();
-            RadGrid1.DataSource = dts;
+        //    dts = mObj.GetDEtailsFromPersonal();
+         //   RadGrid1.DataSource = dts;
         }
         #endregion RadGrid1_NeedDataSource1
 

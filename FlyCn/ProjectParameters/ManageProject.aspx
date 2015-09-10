@@ -4,8 +4,53 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+       <script src="../Scripts/jquery-1.8.2.min.js"></script>
+    <script src="../Scripts/jquery-ui-1.8.24.js"></script>
+    <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<script type="text/javascript">
+    //$("[id*=btnModalPopup]").live("click", function () {
+    function PopUp()
+    {
+       
+    }
+</script>
+    <style type="text/css">
+        .ui-dialog-title {
+    display:none;
+}
+
+.ui-dialog-titlebar {
+    background:transparent;
+    border:none;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    right:0;
+}
+.ui-dialog{
+box-shadow: 0px 2px 7px #292929;
+-moz-box-shadow: 0px 2px 7px #292929;
+		-webkit-box-shadow: 0px 2px 7px #292929;
+		border-radius:15px;
+		-moz-border-radius:15px;
+		-webkit-border-radius:15px;
+		background: #f2f2f2;
+		z-index:50;
+       /*background:transparent;*/
+        /*background: rgba(34,34,34,0.75);*/
+ 
+   
+  background: rgba(36,85,99,.9); 
+       
+       	border:1px solid #fff;
+
+
+}
+
+
+    </style>
       <script type="text/javascript">
-          function onClientTabSelected(sender, args) {
+         <%-- function onClientTabSelected(sender, args) {
               debugger;
               var tab = args.get_tab();
               if (tab.get_text() == "View") {
@@ -24,18 +69,48 @@
                       $(this).val('');
                   });
                   $('textarea').empty();
-              }
+              }--%>
+function OnClientTabSelecting(sender, eventArgs)
+{
+   var tab = eventArgs.get_tab();
+                  if (tab.get_value() == '2') {
+                  
+    eventArgs.set_cancel(true);
+     OpenNewProjectWizard();
+}
 
+}   
+
+function OpenNewProjectWizard()
+{
+try {
+                    $("#modal_dialog").dialog({
+                    
+                     
+                        width: 780, buttons: {}, modal: true
+                       
+
+                       
+                    });
+                 //   $(".ui-dialog-titlebar").hide();
+                  //  $("#modal_dialog").dialog('widget').find(".ui-dialog-titlebar-close").show();
+                    return false;
+                }
+                catch (X) {
+                    alert(X.message);
+                }
+}       
               function onClientTabSelected(sender, args) {
                   var tab = args.get_tab();
                   if (tab.get_value() == '2') {
+                  
                       //new clicked 
                       $('input[type=text]').each(function () {
                           $(this).val('');
                       });
                       $('textarea').empty();
 
-                      debugger;
+                     // debugger;
                       try
                       {
                           <%=ToolBar.ClientID %>_SetAddVisible(false);
@@ -58,9 +133,13 @@
                       var tab1 = tabStrip.findTabByValue("2");
                       tab1.set_text("New");
                   }
+                  if (tab.get_value() == '3') {
+
+                
+            }
 
               }
-          }
+      
          </script>
        <p>
         Manage Project</p>
@@ -69,23 +148,19 @@
 
         <div class="inputMainContainer">
         <div class="innerDiv">
-        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
+        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelecting="OnClientTabSelecting" OnClientTabSelected="onClientTabSelected"
              CausesValidation="false"   SelectedIndex="0" Skin="Silk" >
             
             <Tabs>
                 <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True" ></telerik:RadTab>
                  <telerik:RadTab Text="New" PageViewID="EditData" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
-            </Tabs>
+           
+                 </Tabs>
         </telerik:RadTabStrip>
-        
-            <table style="width:100%">
-    <tr>
-        <td>
-            &nbsp
-        </td>
-        <td>
-
-        <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
+       
+ 
+  <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
+       
             <telerik:RadPageView ID="rpList" runat="server">
                
     <div id="divList" style="width:100%">
@@ -109,11 +184,7 @@
     
         </div>
                     </telerik:RadPageView>
-            </telerik:RadMultiPage>
-            </td></tr>
-            </table>
-            </div>
-            </div>
+          
        <telerik:RadPageView ID="EditData" runat="server">
   
          <uc1:ToolBar runat="server" ID="ToolBar" />
@@ -497,5 +568,17 @@
        </table>
        
 
-           </telerik:RadPageView>
+         </telerik:RadPageView>
+    
+            </telerik:RadMultiPage>
+            <div id="modal_dialog"    style="display: none; width:1000px!important; height:600px!important; border-radius:30px; overflow:hidden; overflow-x:hidden; 
+">
+   
+                   <iframe src="NewProject.aspx" style="width:1300px;  height:500px;">
+
+    </iframe>
+                    
+</div>
+            </div>
+            </div>
 </asp:Content>
