@@ -176,6 +176,18 @@ namespace FlyCn.ProjectParameters
         }
             pp.MiscManpowerTracking_Caption = txtMiscManpowerTracking.Text;
             int result = pp.InsertSYSProjectsData();
+            if(result==1)
+            {
+                lblsuccessmsg.Text = "Data Inserted successfully";
+                lblsuccessmsg.ForeColor = System.Drawing.Color.Green;
+               
+            }
+            else
+            {
+                lblsuccessmsg.Text = "Data Not Inserted";
+                lblsuccessmsg.ForeColor = System.Drawing.Color.Red;
+            }
+
         }
         protected void btnSkipFinish_Click(object sender, EventArgs e)
         {

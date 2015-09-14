@@ -16,12 +16,14 @@
 </script>
     <style type="text/css">
         .ui-dialog-title {
-    display:none;
+ padding-left:15em;
+ color:white;
 }
 
 .ui-dialog-titlebar {
     background:transparent;
     border:none;
+    
 }
 
 .ui-dialog .ui-dialog-titlebar-close {
@@ -50,26 +52,7 @@ box-shadow: 0px 2px 7px #292929;
 
     </style>
       <script type="text/javascript">
-         <%-- function onClientTabSelected(sender, args) {
-              debugger;
-              var tab = args.get_tab();
-              if (tab.get_text() == "View") {
-
-                  var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                  var tab = tabStrip.findTabByText("View");
-                  tab.select();
-                  var tab1 = tabStrip.findTabByText("Edit");
-                  tab1.set_text("New");
-                  $('input[type=text]').each(function () {
-                      $(this).val('');
-                  });
-                  $('textarea').empty();
-
-                  $('input[type=text]').each(function () {
-                      $(this).val('');
-                  });
-                  $('textarea').empty();
-              }--%>
+ 
 function OnClientTabSelecting(sender, eventArgs)
 {
    var tab = eventArgs.get_tab();
@@ -86,7 +69,7 @@ function OpenNewProjectWizard()
 try {
                     $("#modal_dialog").dialog({
                     
-                     
+                        title: "Project Wizard",
                         width: 780,
                        height:680,
                         buttons: {}, modal: true
@@ -94,7 +77,7 @@ try {
 
                        
                     });
-                 //   $(".ui-dialog-titlebar").hide();
+                    //$(".ui-dialog-titlebar").hide();
                   //  $("#modal_dialog").dialog('widget').find(".ui-dialog-titlebar-close").show();
                     return false;
                 }

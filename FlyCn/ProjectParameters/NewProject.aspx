@@ -8,7 +8,7 @@
 </script>
 <script type="text/javascript">
     function validate() {
-        try{
+        //try{
 
        
             var ProjectNo = document.getElementById("<%=txtProjectNo.ClientID %>").value;
@@ -19,31 +19,39 @@
         var ProjectLocation = document.getElementById("<%=txtProjectLocation.ClientID %>").value;
         var ProjectManager = document.getElementById("<%=txtProjectManager.ClientID %>").value;
 
-            if (ProjectNo == "") {
-                alert("Enter Your ProjectNo");
+            if (ProjectNo == "" ||ProjectName == ""||ProjectLocation == ""|| ProjectManager == "") {
+                
+                document.getElementById("<%=lblerrormsg.ClientID %>").innerHTML = 'Fill all the fields';
                 return false;
+            }
+            else
+            {
+                document.getElementById("<%=lblerrormsg.ClientID %>").value="";
+                return true;
             }
 
-            if (ProjectName == "") {
-                alert("Please enter your ProjectName");
-                return false;
-            }
-
-            if (ProjectLocation == "") {
-                alert("please enter your ProjectLocation");
-                return false;
-            }
-
-            if (ProjectManager == "") {
-                alert("");
-                return false;
-            }
+           
+        //}
+        //catch(X)
+        //{
+        //    alert(X.message);
+        //}
         }
-        catch(X)
+</script>
+<script>
+    function Finalvalidate() {
+        var lblerror = document.getElementById("<%=lblerrormsg.ClientID %>");
+        if (lblerror.innerHTML == "")
         {
-            alert(X.message);
+            return true;
         }
+        else
+        {
+            return false;
         }
+            
+
+    }
 </script>
 <script>
     function nexttab()
@@ -67,7 +75,14 @@
 
         protected void Menu1_MenuItemClick(object sender, MenuEventArgs e)
         {
-           
+           if((txtProjectNo.Text!="") && (txtProjectName.Text!="")&&(txtProjectManager.Text!="") && (txtProjectLocation.Text!=""))
+           {
+               
+           }
+            else
+           {
+               lblerrormsg.Text = "Fill All The Fields";
+           }
         int index = Int32.Parse(e.Item.Value);
             
         MultiView1.ActiveViewIndex = index;
@@ -122,14 +137,14 @@
 
      protected void btnNext_Click(object sender, EventArgs e)
      {
-         if (Page.IsValid)
-         {
-             lblvalmsg.Text = "Required field is filled!";
-         }
-         else
-         {
-             lblvalmsg.Text = "Required field is empty!";
-         }
+         //if (Page.IsValid)
+         //{
+         //    lblvalmsg.Text = "Required field is filled!";
+         //}
+         //else
+         //{
+         //    lblvalmsg.Text = "Required field is empty!";
+         //}
       //   MultiView1.ActiveViewIndex++;
          
       //var i= Convert.ToString(  Menu1.TabIndex);
@@ -139,12 +154,14 @@
              btnSkipFinish.Visible = true;
            //  ((Menu)Master.FindControl("NavigationMenu")).Items[0].Selected = true;
              Menu1.Items[1].Selected = true;
+             lblerrormsg.Text = "";
            
          }
          if (MultiView1.ActiveViewIndex == 2)
          {
              btnFinish.Visible = true;
              Menu1.Items[2].Selected = true;
+             lblerrormsg.Text = "";
              
          }
       ShowViewBtn();
@@ -270,6 +287,9 @@ th, tr{
   font-family: 'segoe UI' , Tahoma, Geneva, Verdana, sans-serif;  
   font-size:17px;   
 }
+.Successmsg{
+    vertical-align:top;
+}
 </style>
     
  
@@ -292,7 +312,7 @@ th, tr{
                 BorderColor="#148BB3"  ForeColor="White"  CssClass="Clicked" /><%--BorderWidth="20px"--%>
            
             <Items>
-                <asp:MenuItem Text="Base Details" Value="0" Selected="True"></asp:MenuItem>
+                <asp:MenuItem Text="Base Details" Value="0" Selected="True" ></asp:MenuItem>
                 <asp:MenuItem Text="Company & Client Details" Value="1"></asp:MenuItem>
                 <asp:MenuItem Text="Advanced Info" Value="2"></asp:MenuItem>
             </Items>
@@ -321,11 +341,16 @@ th, tr{
                     <asp:Label ID="lblProjectNo" runat="server" Text="Project No"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtProjectNo" runat="server" CausesValidation="True" Enabled="False"></asp:TextBox>
-                   <asp:RequiredFieldValidator id="valProjectNo" runat="server"
-  ControlToValidate="txtProjectNo"
-  ErrorMessage="Last name is a required field."
-  ForeColor="Red" ValidationGroup="submit" ></asp:RequiredFieldValidator>
+                    <asp:TextBox ID="txtProjectNo" runat="server"  ></asp:TextBox>
+                    
+    <%-- <asp:RequiredFieldValidator
+                             id="RequiredFieldValidator2"
+                             ControlToValidate="txtProjectNo" 
+                            
+                             Display="Static"
+                             Width="100%"
+                             Text="*" 
+                             runat="server" />--%>
                 </td>
                
             </tr>
@@ -523,7 +548,7 @@ th, tr{
                 <asp:Label ID="lblCmpnyTelephone" runat="server" Text="Telephone"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtCmpnyTelephone" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCmpnyTelephone" runat="server" TextMode="Phone"></asp:TextBox>
             </td>
 
         </tr>
@@ -559,7 +584,7 @@ th, tr{
                 <asp:Label ID="lblCmpnyEmail" runat="server" Text="Email"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtCmpnyEmail" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCmpnyEmail" runat="server" TextMode="Email"></asp:TextBox>
             </td>
           
         </tr>
@@ -638,7 +663,7 @@ th, tr{
                 <asp:Label ID="lblClientTelephone" runat="server" Text="Telephone"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtClientTelephone" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtClientTelephone" runat="server" TextMode="Phone"></asp:TextBox>
             </td>
          
                 </tr>
@@ -674,7 +699,7 @@ th, tr{
                 <asp:Label ID="lblClientEmail" runat="server" Text="Email"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtClientEmail" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtClientEmail" runat="server" TextMode="Email"></asp:TextBox>
             </td>
             
                 </tr>
@@ -1232,7 +1257,7 @@ th, tr{
     <table>
 
             <tr>
-            <td>
+            <td class="myclass">
                 <asp:Label ID="lblCompanyLogo" runat="server" Text="Company Logo"></asp:Label>
             </td>
             <td>
@@ -1292,16 +1317,26 @@ th, tr{
         
 
             <table >
-            <tr>
-                <td>
-                    <asp:Label ID="lblvalmsg" runat="server" Text="" ForeColor="Red"></asp:Label>
-                  
-         <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" Height="35px" Width="80px" CausesValidation="true" ValidationGroup="submit"  />
-         <asp:Button ID="btnSkipFinish" runat="server" Text="Skip And Finish" Height="35px" OnClick="btnSkipFinish_Click" CausesValidation="true" ValidationGroup="submit" />
-          <asp:Button ID="btnFinish" runat="server" Text="Finish" OnClick="btnFinish_Click" Width="80px" Height="35px" style="margin-top: 7px" OnClientClick="return validate()" CausesValidation="true"  />
-
-                </td>
                
+            <tr>
+               
+                <td>
+                   <%-- <asp:ValidationSummary id="valSum" 
+                             DisplayMode="BulletList"
+                             EnableClientScript="true"
+                             HeaderText="You must enter a value in the following fields:"
+                        ForeColor="Red"
+                             runat="server"
+                               
+                        />--%>
+                    <asp:Label ID="lblerrormsg" CssClass="Successmsg" runat="server" Text="" ForeColor="Red" ></asp:Label>
+                    
+         <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" Height="35px" Width="80px"  OnClientClick="return validate()"  />
+         <asp:Button ID="btnSkipFinish" runat="server" Text="Skip And Finish" Height="35px" OnClick="btnSkipFinish_Click" OnClientClick="return Finalvalidate()" />
+          <asp:Button ID="btnFinish" runat="server" Text="Finish" OnClick="btnFinish_Click" Width="80px" Height="35px" style="margin-top: 7px"  OnClientClick="return Finalvalidate()"  />
+                    <asp:Label ID="lblsuccessmsg" runat="server" Text=""></asp:Label>
+                </td>
+              
             </tr>
         </table>
       
