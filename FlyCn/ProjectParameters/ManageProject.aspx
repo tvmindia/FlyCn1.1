@@ -71,7 +71,7 @@ try {
                     
                         title: "Project Wizard",
                         width: 780,
-                       height:680,
+                       height:700,
                         buttons: {}, modal: true
                        
 

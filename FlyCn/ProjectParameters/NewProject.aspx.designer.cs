@@ -40,6 +40,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.Menu Menu1;
         
         /// <summary>
+        /// lblerrormsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblerrormsg;
+        
+        /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
@@ -85,6 +94,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtProjectNo;
         
         /// <summary>
+        /// span2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span2;
+        
+        /// <summary>
         /// lblProjectNoCaption control.
         /// </summary>
         /// <remarks>
@@ -110,6 +128,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtProjectName;
+        
+        /// <summary>
+        /// span1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span1;
         
         /// <summary>
         /// lblProjectNameCaption control.
@@ -139,6 +166,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtProjectLocation;
         
         /// <summary>
+        /// span3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span3;
+        
+        /// <summary>
         /// lblProjectLocationCaption control.
         /// </summary>
         /// <remarks>
@@ -164,6 +200,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtProjectManager;
+        
+        /// <summary>
+        /// span4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span4;
         
         /// <summary>
         /// lblProjectManagerCaption control.
@@ -346,6 +391,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtCmpnyTelephone;
         
         /// <summary>
+        /// FilteredCmpnyTelephone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender FilteredCmpnyTelephone;
+        
+        /// <summary>
         /// lblCmpnyTelephoneCaption control.
         /// </summary>
         /// <remarks>
@@ -515,6 +569,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtClientTelephone;
+        
+        /// <summary>
+        /// FilteredClientTelephone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender FilteredClientTelephone;
         
         /// <summary>
         /// lblClientTelephoneCaption control.
@@ -1379,15 +1442,6 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblClientLogoCaption;
-        
-        /// <summary>
-        /// lblerrormsg control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblerrormsg;
         
         /// <summary>
         /// btnNext control.

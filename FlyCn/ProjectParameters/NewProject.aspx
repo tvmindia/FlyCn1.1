@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="NewProject.aspx.cs" Inherits="FlyCn.ProjectParameters.NewProject" %>
 
 <!DOCTYPE html>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <script type="text/javascript">
    
 
@@ -19,16 +19,18 @@
         var ProjectLocation = document.getElementById("<%=txtProjectLocation.ClientID %>").value;
         var ProjectManager = document.getElementById("<%=txtProjectManager.ClientID %>").value;
 
-            if (ProjectNo == "" ||ProjectName == ""||ProjectLocation == ""|| ProjectManager == "") {
-                
-                document.getElementById("<%=lblerrormsg.ClientID %>").innerHTML = 'Fill all the fields';
-                return false;
+        if (ProjectNo == "" || ProjectName == "" || ProjectLocation == "" || ProjectManager == "") {
+
+            document.getElementById("<%=lblerrormsg.ClientID %>").innerHTML = 'Please Fill all the Mandatory fields';
+        }
+                //document.getElementById(<%--"<%=lblerrormsg.ClientID %--%>>").style.display="none"
+          <%--      return false;
             }
             else
             {
                 document.getElementById("<%=lblerrormsg.ClientID %>").value="";
                 return true;
-            }
+            }--%>
 
            
         //}
@@ -41,8 +43,10 @@
 <script>
     function Finalvalidate() {
         var lblerror = document.getElementById("<%=lblerrormsg.ClientID %>");
+        alert(lblerror.innerHTML);
         if (lblerror.innerHTML == "")
         {
+
             return true;
         }
         else
@@ -75,14 +79,15 @@
 
         protected void Menu1_MenuItemClick(object sender, MenuEventArgs e)
         {
-           if((txtProjectNo.Text!="") && (txtProjectName.Text!="")&&(txtProjectManager.Text!="") && (txtProjectLocation.Text!=""))
-           {
+           //if((txtProjectNo.Text!="") && (txtProjectName.Text!="")&&(txtProjectManager.Text!="") && (txtProjectLocation.Text!=""))
+           //{
                
-           }
-            else
-           {
-               lblerrormsg.Text = "Fill All The Fields";
-           }
+           //}
+           // else
+           //{
+           //    lblerrormsg.Text = "Please Fill all the Mandatory fields";
+               
+           //}
         int index = Int32.Parse(e.Item.Value);
             
         MultiView1.ActiveViewIndex = index;
@@ -289,6 +294,7 @@ th, tr{
 }
 .Successmsg{
     vertical-align:top;
+   
 }
 </style>
     
@@ -320,7 +326,9 @@ th, tr{
           <%--  <StaticMenuItemStyle  BorderColor="#C0C0FF" BorderStyle="Solid" BorderWidth="1px" /> --%>
         </asp:Menu>
   
-         </div>      
+         </div>    
+                    <asp:Label ID="lblerrormsg" CssClass="Successmsg" runat="server" Text="" ForeColor="Red"  ></asp:Label>
+      
       <div style="width:750px; height:500px;background-color:transparent; overflow-y:auto; scrollbar-base-color:rgba(36,85,99,.9)" >
 
              <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -342,7 +350,8 @@ th, tr{
                 </td>
                 <td>
                     <asp:TextBox ID="txtProjectNo" runat="server"  ></asp:TextBox>
-                    
+                    <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500;
+font-family: Trebuchet MS;">*</span>
     <%-- <asp:RequiredFieldValidator
                              id="RequiredFieldValidator2"
                              ControlToValidate="txtProjectNo" 
@@ -369,6 +378,8 @@ th, tr{
                 </td>
                 <td>
                     <asp:TextBox ID="txtProjectName" runat="server"></asp:TextBox>
+                    <span id="span1" runat="server" style="color: red; font-size: 15px; font-weight: 500;
+font-family: Trebuchet MS;">*</span>
                 </td>
               
             </tr>
@@ -387,6 +398,8 @@ th, tr{
                 </td>
                 <td>
                     <asp:TextBox ID="txtProjectLocation" runat="server"></asp:TextBox>
+                    <span id="span3" runat="server" style="color: red; font-size: 15px; font-weight: 500;
+font-family: Trebuchet MS;">*</span>
                 </td>
               
             </tr>
@@ -405,6 +418,8 @@ th, tr{
                 </td>
                 <td>
                     <asp:TextBox ID="txtProjectManager" runat="server"></asp:TextBox>
+                    <span id="span4" runat="server" style="color: red; font-size: 15px; font-weight: 500;
+font-family: Trebuchet MS;">*</span>
                 </td>
              
             </tr>
@@ -423,6 +438,7 @@ th, tr{
                 </td>
                 <td>
                     <asp:TextBox ID="txtBaseProject" runat="server" Enabled="false"></asp:TextBox>
+                  
                 </td>
                 
             </tr>
@@ -549,6 +565,11 @@ th, tr{
             </td>
             <td>
                 <asp:TextBox ID="txtCmpnyTelephone" runat="server" TextMode="Phone"></asp:TextBox>
+                <cc1:FilteredTextBoxExtender ID="FilteredCmpnyTelephone" runat="server" Enabled="True" TargetControlID="txtCmpnyTelephone" FilterType="Numbers" FilterMode="ValidChars">
+</cc1:FilteredTextBoxExtender>
+              <%--  <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtCmpnyTelephone" runat="server"
+                     ErrorMessage="Only Numbers allowed" ValidationExpression="\d+"
+                    ValidationGroup="Mama"></asp:RegularExpressionValidator>--%>
             </td>
 
         </tr>
@@ -618,7 +639,7 @@ th, tr{
         
     </table>
                                    <div>
-                                  <asp:Label ID="lblClientDetails" runat="server"   CssClass="headings" Text="Client Details" ></asp:Label>
+                                  <asp:Label ID="lblClientDetails" runat="server"   CssClass="headings" Text="Client Details"  ></asp:Label>
             <table style="width:100%;">
                 
                 <tr>
@@ -664,6 +685,8 @@ th, tr{
             </td>
             <td>
                 <asp:TextBox ID="txtClientTelephone" runat="server" TextMode="Phone"></asp:TextBox>
+                  <cc1:FilteredTextBoxExtender ID="FilteredClientTelephone" runat="server" Enabled="True" TargetControlID="txtClientTelephone" FilterType="Numbers" FilterMode="ValidChars">
+</cc1:FilteredTextBoxExtender>
             </td>
          
                 </tr>
@@ -1329,10 +1352,9 @@ th, tr{
                              runat="server"
                                
                         />--%>
-                    <asp:Label ID="lblerrormsg" CssClass="Successmsg" runat="server" Text="" ForeColor="Red" ></asp:Label>
                     
-         <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" Height="35px" Width="80px"  OnClientClick="return validate()"  />
-         <asp:Button ID="btnSkipFinish" runat="server" Text="Skip And Finish" Height="35px" OnClick="btnSkipFinish_Click" OnClientClick="return Finalvalidate()" />
+         <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" Height="35px" Width="80px"  OnClientClick="validate()"  />
+         <asp:Button ID="btnSkipFinish" runat="server" Text="Skip And Finish" Height="35px" OnClick="btnSkipFinish_Click"  OnClientClick="return Finalvalidate()" />
           <asp:Button ID="btnFinish" runat="server" Text="Finish" OnClick="btnFinish_Click" Width="80px" Height="35px" style="margin-top: 7px"  OnClientClick="return Finalvalidate()"  />
                     <asp:Label ID="lblsuccessmsg" runat="server" Text=""></asp:Label>
                 </td>
