@@ -19,18 +19,20 @@
         var ProjectLocation = document.getElementById("<%=txtProjectLocation.ClientID %>").value;
         var ProjectManager = document.getElementById("<%=txtProjectManager.ClientID %>").value;
 
-        if (ProjectNo == "" || ProjectName == "" || ProjectLocation == "" || ProjectManager == "") {
+        if (ProjectNo == "" || ProjectName == "" || ProjectLocation == "" || ProjectManager == "") 
+        {
 
-            document.getElementById("<%=lblerrormsg.ClientID %>").innerHTML = 'Please Fill all the Mandatory fields';
+            document.getElementById("<%=hidddenErrormsg.ClientID %>").value = "Please Fill all the Mandatory fields";
+           
         }
                 //document.getElementById(<%--"<%=lblerrormsg.ClientID %--%>>").style.display="none"
           <%--      return false;
-            }
+            }--%>
             else
             {
-                document.getElementById("<%=lblerrormsg.ClientID %>").value="";
-                return true;
-            }--%>
+            document.getElementById("<%=hidddenErrormsg.ClientID %>").value = "";
+               
+            }
 
            
         //}
@@ -42,9 +44,11 @@
 </script>
 <script>
     function Finalvalidate() {
-        var lblerror = document.getElementById("<%=lblerrormsg.ClientID %>");
-        alert(lblerror.innerHTML);
-        if (lblerror.innerHTML == "")
+        document.getElementById("<%=lblerrormsg.ClientID %>").innerHTML = document.getElementById("<%=hidddenErrormsg.ClientID %>").value;
+      
+        var lblerror = document.getElementById("<%=lblerrormsg.ClientID %>").innerHTML;
+        alert(lblerror);
+        if (lblerror == "")
         {
 
             return true;
@@ -159,15 +163,14 @@
              btnSkipFinish.Visible = true;
            //  ((Menu)Master.FindControl("NavigationMenu")).Items[0].Selected = true;
              Menu1.Items[1].Selected = true;
-             lblerrormsg.Text = "";
+          
            
          }
          if (MultiView1.ActiveViewIndex == 2)
          {
              btnFinish.Visible = true;
              Menu1.Items[2].Selected = true;
-             lblerrormsg.Text = "";
-             
+            
          }
       ShowViewBtn();
          
@@ -328,7 +331,8 @@ th, tr{
   
          </div>    
                     <asp:Label ID="lblerrormsg" CssClass="Successmsg" runat="server" Text="" ForeColor="Red"  ></asp:Label>
-      
+    <asp:HiddenField ID="hidddenErrormsg" runat="server" />
+ 
       <div style="width:750px; height:500px;background-color:transparent; overflow-y:auto; scrollbar-base-color:rgba(36,85,99,.9)" >
 
              <asp:UpdatePanel ID="UpdatePanel1" runat="server">
