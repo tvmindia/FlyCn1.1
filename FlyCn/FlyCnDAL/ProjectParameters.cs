@@ -559,8 +559,8 @@ namespace FlyCn.FlyCnDAL
                 }
                 cmd.Parameters.AddWithValue("@FromCompCode", FromCompCode);
                 cmd.Parameters.AddWithValue("@ToCompCode", ToCompCode);           
-                    cmd.Parameters.AddWithValue("@Plant_Caption",Plant_Caption);
-                    cmd.Parameters.AddWithValue("@Area_Caption", Area_Caption);            
+                cmd.Parameters.AddWithValue("@Plant_Caption",Plant_Caption);
+                cmd.Parameters.AddWithValue("@Area_Caption", Area_Caption);            
                 cmd.Parameters.AddWithValue("@Location_Caption", Location_Caption);
                 cmd.Parameters.AddWithValue("@TO_System_Caption",TO_System_Caption);
                 cmd.Parameters.AddWithValue("@TO_SubSystem_Caption", TO_SubSystem_Caption);
@@ -591,7 +591,7 @@ namespace FlyCn.FlyCnDAL
             catch (Exception ex)
             {
                 //return 0;
-                throw ex;
+                //throw ex;
 
 
 
