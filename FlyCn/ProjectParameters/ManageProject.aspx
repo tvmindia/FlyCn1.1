@@ -197,7 +197,7 @@ try {
                    <asp:TextBox ID="txtProjName" runat="server"></asp:TextBox>
                     </td>
                <td>
-
+&nbsp
                </td>
            <td>
                Project Location
