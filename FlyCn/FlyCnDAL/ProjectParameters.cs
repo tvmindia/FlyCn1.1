@@ -400,14 +400,26 @@ namespace FlyCn.FlyCnDAL
         #endregion Properties
 
         #region BindTree
+        //public void BindTree(RadTreeView myTree)
+        //{
+        //    myTree.Nodes.Clear();
+        //    RadTreeNode rtn = new RadTreeNode("Project List", "Project Creation");//<a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
+        //    rtn.NavigateUrl = "../ProjectParameters/ManageProject.aspx";
+        //    rtn.Target = "contentPane";
+        //    myTree.Nodes.Add(rtn);
+
+        //}
+
+
+
+
         public void BindTree(RadTreeView myTree)
         {
             myTree.Nodes.Clear();
-            RadTreeNode rtn = new RadTreeNode("Project List", "Project Creation");//<a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
-            rtn.NavigateUrl = "../ProjectParameters/ManageProject.aspx";
-            rtn.Target = "contentPane";
-            myTree.Nodes.Add(rtn);
-
+        }
+        public void LoadInputScreen(RadPane myContentPane)
+        {
+            myContentPane.ContentUrl = "../ProjectParameters/ManageProject.aspx";
         }
         #endregion BindTree
 
