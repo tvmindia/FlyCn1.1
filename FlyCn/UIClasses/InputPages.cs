@@ -18,5 +18,16 @@ namespace FlyCn.UIClasses
 
             return tview;
         }
+
+        public RadPane FindContentPane(System.Web.UI.Page pg)
+        {
+
+            var master = pg.Master.Master;
+            var cnt = master.FindControl("MainBody");
+            FlyCnDAL.MasterData masters = new FlyCnDAL.MasterData();
+            RadPane contenpane = (RadPane)cnt.FindControl("contentPane");
+
+            return contenpane;
+        }
     }
 }
