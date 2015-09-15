@@ -98,9 +98,6 @@
 
                   args.set_cancel(!confirm('Do you want to delete ?'));
               }
-
-
-        
         }
   </script>
  

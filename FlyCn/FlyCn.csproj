@@ -41,6 +41,7 @@
     <Reference Include="AjaxControlToolkit, Version=15.1.3.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\amrutha.sunny\Documents\ASP.NET AJAX Control Toolkit\Bin\AjaxControlToolkit.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -177,6 +178,8 @@
     <Content Include="bin\Telerik.Web.UI.Skins.dll" />
     <Content Include="bin\Telerik.Web.UI.XML" />
     <Content Include="bin\WebGrease.dll" />
+    <Content Include="BOQ\BOQ.aspx" />
+    <Content Include="BOQ\BOQHeader.aspx" />
     <Content Include="Content\FlyCnMain.css" />
     <Content Include="Content\Home.css" />
     <Content Include="Content\Site.css" />
@@ -454,6 +457,20 @@
       <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BOQ\BOQ.aspx.cs">
+      <DependentUpon>BOQ.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BOQ\BOQ.aspx.designer.cs">
+      <DependentUpon>BOQ.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BOQ\BOQHeader.aspx.cs">
+      <DependentUpon>BOQHeader.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BOQ\BOQHeader.aspx.designer.cs">
+      <DependentUpon>BOQHeader.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -492,6 +509,7 @@
     <Compile Include="FlyCnDAL\Activities.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FlyCnDAL\BOQ.cs" />
     <Compile Include="FlyCnDAL\DALConstants.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -677,6 +695,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Fileupload\" />
+    <Folder Include="Images\ProjectImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />

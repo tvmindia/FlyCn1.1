@@ -14,7 +14,7 @@ namespace FlyCn.FlyCnDAL
 
     public class ProjectParameters
     {
-
+        ErrorHandling eObj = new ErrorHandling();
                 #region Properties
 
        
@@ -30,6 +30,11 @@ namespace FlyCn.FlyCnDAL
             set;
         }
         public string ProjectLocation
+        {
+            get;
+            set;
+        }
+        public string ProjectManager
         {
             get;
             set;
@@ -395,14 +400,26 @@ namespace FlyCn.FlyCnDAL
         #endregion Properties
 
         #region BindTree
+        //public void BindTree(RadTreeView myTree)
+        //{
+        //    myTree.Nodes.Clear();
+        //    RadTreeNode rtn = new RadTreeNode("Project List", "Project Creation");//<a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
+        //    rtn.NavigateUrl = "../ProjectParameters/ManageProject.aspx";
+        //    rtn.Target = "contentPane";
+        //    myTree.Nodes.Add(rtn);
+
+        //}
+
+
+
+
         public void BindTree(RadTreeView myTree)
         {
             myTree.Nodes.Clear();
-            RadTreeNode rtn = new RadTreeNode("Project List", "Project Creation");//<a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
-            rtn.NavigateUrl = "../ProjectParameters/ManageProject.aspx";
-            rtn.Target = "contentPane";
-            myTree.Nodes.Add(rtn);
-
+        }
+        public void LoadInputScreen(RadPane myContentPane)
+        {
+            myContentPane.ContentUrl = "../ProjectParameters/ManageProject.aspx";
         }
         #endregion BindTree
 
@@ -449,7 +466,7 @@ namespace FlyCn.FlyCnDAL
                 cmdEdit.CommandType = CommandType.StoredProcedure;
                 cmdEdit.Parameters.AddWithValue("@ProjectNo",ProjectNo);
                 cmdEdit.Parameters.AddWithValue("@ProjectName", ProjectName);
-                cmdEdit.Parameters.AddWithValue("@ProjectLocation", ProjectLocation);
+                cmdEdit.Parameters.AddWithValue("@ProjectLocation",ProjectLocation);
                 cmdEdit.Parameters.AddWithValue("@BaseProject", BaseProject);
                 cmdEdit.Parameters.AddWithValue("@Active", Active);
                 cmdEdit.Parameters.AddWithValue("@CompName", CompName);
@@ -460,8 +477,12 @@ namespace FlyCn.FlyCnDAL
                 cmdEdit.Parameters.AddWithValue("@CompEmailAdd", CompEmailAdd);
                 cmdEdit.Parameters.AddWithValue("@CompWebSite", CompWebSite);
                 cmdEdit.Parameters.AddWithValue("@ClientName", ClientName);
-             
-                cmdEdit.Parameters.AddWithValue("@ContractNo", ContractNo);
+                if (ContractNo != "")
+                {
+                    cmdEdit.Parameters.AddWithValue("@ContractNo", ContractNo);
+
+                }
+              
                 cmdEdit.Parameters.AddWithValue("@FromCompCode", FromCompCode);
                 cmdEdit.Parameters.AddWithValue("@ToCompCode", ToCompCode);
                 cmdEdit.Parameters.AddWithValue("@Plant_Caption", Plant_Caption);
@@ -524,6 +545,8 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion GetProjectParameters
 
+
+        #region InsertSYSProjectsData
         public int InsertSYSProjectsData()
         {
             ErrorHandling eObj = new ErrorHandling();
@@ -604,5 +627,46 @@ namespace FlyCn.FlyCnDAL
             return result;
 
         }
+
+        #endregion InsertSYSProjectsData
+
+
+        #region DeleteSYSProjectsData
+        /// <summary>
+        /// Delete SYSProjectsData Data 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns> return integer value</returns>
+        public int DeleteSYSProjectsData(string ProjectNo)
+        {
+
+            SqlConnection conObj = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                conObj = dcon.GetDBConnection();
+
+
+                SqlCommand cmd = new SqlCommand("DeleteSysProjects", conObj);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ProjectNo", ProjectNo);
+                cmd.ExecuteScalar();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.DeleteSuccessData(page);
+                return 1;
+            }
+            catch (SqlException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            finally
+            {
+                conObj.Close();
+            }
+            return 0;
+        }
+        #endregion DeleteSYSProjectsData
     }
 }

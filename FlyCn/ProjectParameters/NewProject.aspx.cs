@@ -47,7 +47,7 @@ namespace FlyCn.ProjectParameters
             FlyCn.FlyCnDAL.ProjectParameters pp = new FlyCnDAL.ProjectParameters();
             pp.ProjectNo = txtProjectNo.Text;
             pp.ProjectName = txtProjectName.Text;
-            pp.ProjectLocation = lblProjectLocation.Text;
+            pp.ProjectLocation = txtProjectLocation.Text;
             pp.BaseProject = txtBaseProject.Text;
             if (chkActive.Checked == true)
             {
@@ -91,7 +91,7 @@ namespace FlyCn.ProjectParameters
             pp.Weld_ThirdPartyCaption = txt3rdParty.Text;
             if(FileUploadCompanyLogo.FileName!="")
             {           
-              string[] validFileTypes = { "bmp", "gif", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx","pdf"};
+              string[] validFileTypes = { "bmp", "gif", "png", "jpg", "jpeg"};
                     int size = 10;
                     string ext = System.IO.Path.GetExtension(FileUploadCompanyLogo.FileName);
                     bool isValidFile = false;

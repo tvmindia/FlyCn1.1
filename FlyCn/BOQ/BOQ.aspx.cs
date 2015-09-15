@@ -6,24 +6,23 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 
-
-namespace FlyCn.ProjectParameters
+namespace FlyCn.BOQ
 {
-    public partial class Main : System.Web.UI.Page
+    public partial class BOQ : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadLeftMenu();
-        }
-        public void LoadLeftMenu()
-        {
             UIClasses.InputPages ip = new UIClasses.InputPages();
-            FlyCnDAL.ProjectParameters ObjectProject = new FlyCnDAL.ProjectParameters();
+            FlyCnDAL.BOQ objBOQ = new FlyCnDAL.BOQ();
+
             RadTreeView tview = ip.FindLeftTree(this);
-            ObjectProject.BindTree(tview);
+            objBOQ.BindTree(tview);
 
             RadPane radpane = ip.FindContentPane(this);
-            ObjectProject.LoadInputScreen(radpane);
+            objBOQ.LoadInputScreen(radpane);
+
+
+
         }
     }
 }
