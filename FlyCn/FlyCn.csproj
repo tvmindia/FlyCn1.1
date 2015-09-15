@@ -672,6 +672,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Fileupload\" />
+    <Folder Include="Images\ProjectImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />

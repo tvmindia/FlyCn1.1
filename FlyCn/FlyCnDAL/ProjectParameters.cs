@@ -34,6 +34,11 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+        public string ProjectManager
+        {
+            get;
+            set;
+        }
         public string BaseProject
         {
             get;
@@ -449,7 +454,7 @@ namespace FlyCn.FlyCnDAL
                 cmdEdit.CommandType = CommandType.StoredProcedure;
                 cmdEdit.Parameters.AddWithValue("@ProjectNo",ProjectNo);
                 cmdEdit.Parameters.AddWithValue("@ProjectName", ProjectName);
-                cmdEdit.Parameters.AddWithValue("@ProjectLocation", ProjectLocation);
+                cmdEdit.Parameters.AddWithValue("@ProjectLocation",ProjectLocation);
                 cmdEdit.Parameters.AddWithValue("@BaseProject", BaseProject);
                 cmdEdit.Parameters.AddWithValue("@Active", Active);
                 cmdEdit.Parameters.AddWithValue("@CompName", CompName);
@@ -460,8 +465,12 @@ namespace FlyCn.FlyCnDAL
                 cmdEdit.Parameters.AddWithValue("@CompEmailAdd", CompEmailAdd);
                 cmdEdit.Parameters.AddWithValue("@CompWebSite", CompWebSite);
                 cmdEdit.Parameters.AddWithValue("@ClientName", ClientName);
-             
-                cmdEdit.Parameters.AddWithValue("@ContractNo", ContractNo);
+                if (ContractNo != "")
+                {
+                    cmdEdit.Parameters.AddWithValue("@ContractNo", ContractNo);
+
+                }
+              
                 cmdEdit.Parameters.AddWithValue("@FromCompCode", FromCompCode);
                 cmdEdit.Parameters.AddWithValue("@ToCompCode", ToCompCode);
                 cmdEdit.Parameters.AddWithValue("@Plant_Caption", Plant_Caption);
