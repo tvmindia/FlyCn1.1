@@ -41,7 +41,17 @@ namespace FlyCn.FlyCnDAL
             }
             catch (Exception)
             {
-                throw;
+                try
+                { 
+                    HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=dbDown", true);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+                return null;
+
             }
         }
 
