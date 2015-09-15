@@ -121,6 +121,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtBaseProject;
         
         /// <summary>
+        /// CheckboxActive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckboxActive;
+        
+        /// <summary>
         /// txtCompanyName control.
         /// </summary>
         /// <remarks>

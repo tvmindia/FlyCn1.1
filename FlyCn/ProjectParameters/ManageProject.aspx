@@ -87,17 +87,11 @@ try {
 }       
               function onClientTabSelected(sender, args) {
                   var tab = args.get_tab();
+                 
                   if (tab.get_value() == '2') {
-                  
-                      //new clicked 
-                      $('input[type=text]').each(function () {
-                          $(this).val('');
-                      });
-                      $('textarea').empty();
 
-                     // debugger;
-                      try
-                      {
+                    
+                      try {
                           <%=ToolBar.ClientID %>_SetAddVisible(false);
                           <%=ToolBar.ClientID %>_SetSaveVisible(true);
                           <%=ToolBar.ClientID %>_SetUpdateVisible(false);
@@ -109,7 +103,7 @@ try {
 
 
                   }
-
+                  
                   if (tab.get_value() == "1") {
 
                       var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
@@ -117,15 +111,28 @@ try {
                       tab.select();
                       var tab1 = tabStrip.findTabByValue("2");
                       tab1.set_text("New");
-                  }
-                  if (tab.get_value() == '3') {
+                      tab1.set_imageUrl('../Images/Icons/NewIcon.png');
 
-                
-            }
+                  }
+                 
 
               }
       
          </script>
+    <script>
+
+        function OnClientButtonClicking(sender, args) {
+
+            var btn = args.get_item();
+            if (btn.get_value() == 'Delete') {
+
+                args.set_cancel(!confirm('Do you want to delete ?'));
+            }
+
+
+
+        }
+    </script>
        <p>
         Manage Project</p>
      
@@ -207,7 +214,12 @@ try {
                    Active
                </td>
                <td>
-
+                   <asp:CheckBox 
+            ID="CheckboxActive" 
+            runat="server"          
+            AutoPostBack="true"
+          
+            />
                </td>
            </tr>
      <tr><td>
@@ -556,7 +568,7 @@ try {
          </telerik:RadPageView>
     
             </telerik:RadMultiPage>
-            <div id="modal_dialog"    style="display: none; width:1000px!important; height:700px!important; border-radius:30px; overflow:hidden; overflow-x:hidden; 
+            <div id="modal_dialog"  style="display: none; width:1000px!important; height:700px!important; border-radius:30px; overflow:hidden; overflow-x:hidden; 
 ">
    
                    <iframe src="NewProject.aspx" style="width:1300px;  height:700px;">
