@@ -14,7 +14,7 @@ namespace FlyCn.FlyCnDAL
 
     public class ProjectParameters
     {
-
+        ErrorHandling eObj = new ErrorHandling();
                 #region Properties
 
        
@@ -533,6 +533,8 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion GetProjectParameters
 
+
+        #region InsertSYSProjectsData
         public int InsertSYSProjectsData()
         {
             ErrorHandling eObj = new ErrorHandling();
@@ -613,5 +615,46 @@ namespace FlyCn.FlyCnDAL
             return result;
 
         }
+
+        #endregion InsertSYSProjectsData
+
+
+        #region DeleteSYSProjectsData
+        /// <summary>
+        /// Delete SYSProjectsData Data 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns> return integer value</returns>
+        public int DeleteSYSProjectsData(string ProjectNo)
+        {
+
+            SqlConnection conObj = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                conObj = dcon.GetDBConnection();
+
+
+                SqlCommand cmd = new SqlCommand("DeleteSysProjects", conObj);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ProjectNo", ProjectNo);
+                cmd.ExecuteScalar();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.DeleteSuccessData(page);
+                return 1;
+            }
+            catch (SqlException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            finally
+            {
+                conObj.Close();
+            }
+            return 0;
+        }
+        #endregion DeleteSYSProjectsData
     }
 }
