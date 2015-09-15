@@ -486,6 +486,7 @@
     <Compile Include="FlyCnDAL\Activities.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FlyCnDAL\BOQ.cs" />
     <Compile Include="FlyCnDAL\DALConstants.cs">
       <SubType>Code</SubType>
     </Compile>
