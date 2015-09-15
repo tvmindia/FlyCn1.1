@@ -1,0 +1,196 @@
+body {
+	background: rgba(124,201,246,1);
+	background: -moz-linear-gradient(top, rgba(124,201,246,1) 0%, rgba(231,247,255,1) 28%, rgba(255,255,255,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(124,201,246,1)), color-stop(28%, rgba(231,247,255,1)), color-stop(100%, rgba(255,255,255,1)));
+	background: -webkit-linear-gradient(top, rgba(124,201,246,1) 0%, rgba(231,247,255,1) 28%, rgba(255,255,255,1) 100%);
+	background: -o-linear-gradient(top, rgba(124,201,246,1) 0%, rgba(231,247,255,1) 28%, rgba(255,255,255,1) 100%);
+	background: -ms-linear-gradient(top, rgba(124,201,246,1) 0%, rgba(231,247,255,1) 28%, rgba(255,255,255,1) 100%);
+	background: linear-gradient(to bottom, rgba(124,201,246,1) 0%, rgba(231,247,255,1) 28%, rgba(255,255,255,1) 100%);
+ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7cc9f6', endColorstr='#ffffff', GradientType=0 );
+	background-repeat: repeat-x;
+	font-family: 'Roboto', sans-serif;
+}
+.icon_box {
+	width: auto;
+	height: auto;
+	float: left;
+	padding: 0px 12px 0px 12px;
+}
+.box_100 {
+	width: 100%;
+	height: auto;
+	float: left;
+	padding: 37px 0;
+}
+.line {
+	width: 1px;
+	height: 23px;
+	float: left;
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #acacac;
+}
+.form-horizontal .control-label {
+	font-size: 13px;
+	margin-bottom: 0;
+	padding-top: 0;
+	text-align: left;
+}
+#comment {
+	height: 79px;
+}
+.Span-One {
+	border-bottom: 2px dotted #b7b7b7;
+	margin: 10px 0 0;
+}
+.btn-primary {
+	background-color: #fff;
+	border-color: #ccc;
+	color: #838181;
+	width: 100%;
+	text-align: left;
+}
+.open > .dropdown-menu {
+	width: 100%;
+}
+.btn .caret {
+	margin-left: 264px;
+}
+.has-success .form-control {
+	border-color: #ccc;
+}
+.has-success .form-control:focus {
+	box-shadow: none;
+	background: none;
+	border-color: #ccc;
+}
+#datepicker > span:hover {
+	cursor: pointer;
+}
+#comment2 {
+	height: 139px;
+	margin: 0 0 0 -47px;
+	width: 108%;
+}
+#comment3 {
+	height: 139px;
+	margin: 0;
+	width: 100%;
+}
+.btn .caret1 {
+	margin-left: 241px;
+}
+/*-----------TAB SECTION------*/
+#tabs {
+	overflow: hidden;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#tabs li {
+	float: left;
+	margin: 0 .5em 0 0;
+}
+#tabs a {
+	position: relative;
+	background: #ddd;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#8dc2d9), to(#8dc2d9));
+	background-image: -webkit-linear-gradient(top, #8dc2d9, #8dc2d9);
+	background-image: -moz-linear-gradient(top, #8dc2d9, #8dc2d9);
+	background-image: -ms-linear-gradient(top, #8dc2d9, #8dc2d9);
+	background-image: -o-linear-gradient(top, #8dc2d9, #8dc2d9);
+	background-image: linear-gradient(to bottom, #8dc2d9, #8dc2d9);
+	padding: .7em 2.5em;
+	float: left;
+	text-decoration: none;
+	color: #FFF;
+	text-shadow: 0 1px 0 rgba(255,255,255,.8);
+	-webkit-border-radius: 5px 0 0 0;
+	-moz-border-radius: 5px 0 0 0;
+	border-radius: 5px 0 0 0;
+	-moz-box-shadow: 0 2px 2px rgba(0,0,0,.4);
+	-webkit-box-shadow: 0 2px 2px rgba(0,0,0,.4);
+	box-shadow: 0 2px 2px rgba(0,0,0,.4);
+}
+#tabs a:hover, #tabs a:hover::after, #tabs a:focus, #tabs a:focus::after {
+	background: #689cb1;
+}
+#tabs a:focus {
+	outline: 0;
+}
+#tabs a:active {
+	outline: 0;
+	background: #689cb1;
+}
+#tabs a::after {
+	content: '';
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: -.5em;
+	bottom: 0;
+	width: 1em;
+	background: #ddd;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#8dc2d9), to(#8dc2d9));
+	background-image: -webkit-linear-gradient(top, #8dc2d9, #8dc2d9);
+	background-image: -moz-linear-gradient(top, #8dc2d9, #8dc2d9);
+	background-image: -ms-linear-gradient(top, #8dc2d9, #8dc2d9);
+	background-image: -o-linear-gradient(top, #8dc2d9, #8dc2d9);
+	background-image: linear-gradient(to bottom, #8dc2d9, #8dc2d9);
+	-moz-box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+	-webkit-box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+	box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+	-webkit-transform: skew(10deg);
+	-moz-transform: skew(10deg);
+	-ms-transform: skew(10deg);
+	-o-transform: skew(10deg);
+	transform: skew(10deg);
+	-webkit-border-radius: 0 5px 0 0;
+	-moz-border-radius: 0 5px 0 0;
+	border-radius: 0 5px 0 0;
+}
+#tabs #current a {
+	background: #689cb1;
+	z-index: 3;
+}
+#tabs #current a::after {
+	background: #689cb1;
+	z-index: 3;
+}
+/* ------------------------------------------------- */
+
+#content {
+	background: #689cb1;
+	padding: 2em;
+	height: 365px;
+	position: relative;
+	z-index: 2;
+	-moz-border-radius: 0 5px 5px 5px;
+	-webkit-border-radius: 0 5px 5px 5px;
+	border-radius: 0 5px 5px 5px;
+	-moz-box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);
+	-webkit-box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);
+	box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);
+}
+/* ------------------------------------------------- */
+
+#about {
+	color: #999;
+}
+#about a {
+	color: #eee;
+}
+/*-----------TAB SECTION------*/
+.table {
+	border: 1px solid #a4c4d0;
+}
+.table > thead > tr > th {
+	border-bottom: 1px solid #ddd;
+	vertical-align: bottom;
+	border-right: 1px solid #a4c4d0;
+}
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+	border-right: 1px solid #a4c4d0;
+	color: #ffffff;
+}
