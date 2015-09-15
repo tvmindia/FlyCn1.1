@@ -193,6 +193,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtWebsite;
         
         /// <summary>
+        /// lblComapnyLogo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblComapnyLogo;
+        
+        /// <summary>
         /// fuLogo control.
         /// </summary>
         /// <remarks>
@@ -200,6 +209,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload fuLogo;
+        
+        /// <summary>
+        /// imbCompany control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imbCompany;
         
         /// <summary>
         /// txtClientName control.
@@ -256,6 +274,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtClientWebsite;
         
         /// <summary>
+        /// lblClientLogo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClientLogo;
+        
+        /// <summary>
         /// fuClientLogo control.
         /// </summary>
         /// <remarks>
@@ -263,6 +290,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload fuClientLogo;
+        
+        /// <summary>
+        /// imbClientLogo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imbClientLogo;
         
         /// <summary>
         /// txtImplementation control.

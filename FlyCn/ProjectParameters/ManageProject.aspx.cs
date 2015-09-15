@@ -31,9 +31,24 @@ namespace FlyCn.ProjectParameters
 
                 Update();
             }
+            else if (e.Item.Value == "Delete")
+            {
+                string ProjectNo = txtProjNo.Text;
+                int result = pObj.DeleteSYSProjectsData(ProjectNo);
+                if (result == 1)
+                {
+                    RadGrid1.Rebind();
+                    //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+                    //tab.Selected = true;
+                    //RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
+                    //tab1.Text = "New";
+                    //tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
+                    //RadMultiPage1.SelectedIndex = 0;
 
+                }
+
+            }
         }
-
         #endregion  ToolBar_onClick
         #region RadGrid1_NeedDataSource1
         protected void RadGrid1_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -57,6 +72,10 @@ namespace FlyCn.ProjectParameters
                 tabs.EditTab(tab);
 
                 RadMultiPage1.SelectedIndex = 1;
+                ToolBar.AddButton.Visible = false;
+                ToolBar.SaveButton.Visible = false;
+                ToolBar.UpdateButton.Visible = true;
+                ToolBar.DeleteButton.Visible = true;
                 string projno = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ProjectNo"].ToString();
                 DataTable dt;
                 dt = pObj.GetProjectParameters(projno);
@@ -106,12 +125,25 @@ namespace FlyCn.ProjectParameters
 
 
                 /*-------------image loading-------------------------*/
-if( dt.Rows[0]["Company_Logo"]!=null)
+if( dt.Rows[0]["Company_Logo"]!=DBNull.Value)
 {
-    //MakeFile(dt.Rows[0]);
+    string CompanyLogofileName = txtProjNo.Text + lblComapnyLogo.Text + ".png";
+    string type = "Company_Logo";
+    //fuLogo.FileContent=
+    MakeFile(dt.Rows[0], CompanyLogofileName,type);
+    imbCompany.ImageUrl = "/Images/ProjectImages/" + CompanyLogofileName;
+  
 }
-                
-               
+
+if (dt.Rows[0]["Client_Logo"] != DBNull.Value)
+{
+    string ClientLogofileName = txtProjNo.Text + lblClientLogo.Text + ".png";
+    string type = "Client_Logo";
+    MakeFile(dt.Rows[0], ClientLogofileName,type);
+
+    imbClientLogo.ImageUrl = "/Images/ProjectImages/" + ClientLogofileName;
+}
+  
 
 
                 /*---------------------------------------------------*/
@@ -126,18 +158,16 @@ if( dt.Rows[0]["Company_Logo"]!=null)
         }
 
 
-        //public void MakeFile(DataRow dr)
-        //{
-        // using (Bitmap productImage = new Bitmap(bytes.Stream))
-        //                         {
-        //                          string[] validFileTypes = { "bmp", "gif", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx", "pdf" };
-        //                             fileName = filePath + photoName;
-        //                             productImage.Save(fileName);
-        //                             lblmsg.Text = string.Format("Successfully created {0}.", fileName);
-        //                             Image1.ImageUrl = "~/Pix/" + photoName;
-        //                         }
+        public void MakeFile(DataRow dr, string filename, string type)
+        {
+            string filePath = Server.MapPath("/Images/ProjectImages/");
 
-        //}
+          
+            byte[] buffer;
+            buffer = (byte[])dr[type];
+            System.IO.File.WriteAllBytes(filePath + filename, buffer);
+
+        }
 
         public void Update()
         {
@@ -190,5 +220,14 @@ if( dt.Rows[0]["Company_Logo"]!=null)
                 eObj.ErrorData(ex, page);
             }
         }
+
+        #region  RadGrid1_PreRender
+        protected void RadGrid1_PreRender(object sender, EventArgs e)
+        {
+
+            RadGrid1.Rebind();
+        }
+
+        #endregion  RadGrid1_PreRender
     }
 }

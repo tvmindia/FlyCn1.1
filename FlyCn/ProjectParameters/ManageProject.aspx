@@ -133,6 +133,9 @@ try {
 
         }
     </script>
+
+    
+
        <p>
         Manage Project</p>
      
@@ -160,7 +163,7 @@ try {
             </asp:ScriptManager>
              <telerik:RadGrid ID="RadGrid1" runat="server"  CellSpacing="0"
     GridLines="None" OnNeedDataSource="RadGrid1_NeedDataSource1" OnItemCommand="RadGrid1_ItemCommand" AllowPaging="true" 
-    PageSize="10" Width="984px" Skin="Silk">
+    PageSize="10" Width="984px" Skin="Silk"  OnPreRender="RadGrid1_PreRender">
                     <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo">
     <Columns>
      <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo"></telerik:GridBoundColumn> 
@@ -192,8 +195,11 @@ try {
                Project Name
                </td><td>
                    <asp:TextBox ID="txtProjName" runat="server"></asp:TextBox>
-                    </td></tr>
-           <tr><td>
+                    </td>
+               <td>
+
+               </td>
+           <td>
                Project Location
                </td><td>
                    <asp:TextBox ID="txtLocation" runat="server"></asp:TextBox>
@@ -280,11 +286,18 @@ try {
            </tr>
            <tr>
                <td>
-                   Company Logo
+               <asp:Label ID="lblComapnyLogo" runat="server" Text="Company Logo"></asp:Label>
+
                </td>
                <td>
-                   <asp:FileUpload ID="fuLogo" runat="server" />
+                   <asp:FileUpload ID="fuLogo" runat="server" Height="22px" Width="175px" />
+
+                  
+                   <asp:ImageButton ID="imbCompany" runat="server" Width="16px" Height="16px" />
+
+                  
                </td>
+                <td >&nbsp;</td>
            </tr>
            <tr>
                <td>
@@ -341,10 +354,13 @@ try {
            </tr>
            <tr>
                <td>
-                   Client Logo
+               <asp:Label ID="lblClientLogo" runat="server" Text="Client Logo"></asp:Label>
+                
                </td>
                <td>
-                   <asp:FileUpload ID="fuClientLogo" runat="server" />
+                   <asp:FileUpload ID="fuClientLogo" runat="server" Height="22px"  Width="175px" />
+                   <asp:ImageButton ID="imbClientLogo" runat="server" Width="16px" Height="16px" />
+
                </td>
            </tr>
            <tr>
@@ -562,6 +578,7 @@ try {
                    <asp:TextBox ID="txtThirdParty" runat="server"></asp:TextBox>
                </td>
            </tr>
+             
        </table>
        
 
