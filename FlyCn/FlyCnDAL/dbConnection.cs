@@ -11,7 +11,7 @@ namespace FlyCn.FlyCnDAL
     public class dbConnection
     {
         public SqlConnection SQLCon = new SqlConnection(ConfigurationManager.ConnectionStrings["FLYCNConnectionString"].ConnectionString);
-       public SqlTransaction DBTrans; 
+        public SqlTransaction DBTrans; 
 
         public int ConnectDB() {
             try
