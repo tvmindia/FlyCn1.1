@@ -242,7 +242,7 @@
     <Content Include="Content\themes\FlyCnBlue\css\datepicker.css" />
     <Content Include="Content\themes\FlyCnBlue\fonts\font-awesome.min.css" />
     <Content Include="Content\themes\FlyCnBlue\fonts\fontawesome-webfont.svg" />
-    <Content Include="htmlTemplate.html" />
+    <Content Include="Templates\htmlTemplate.html" />
     <Content Include="Content\themes\FlyCnBlue\css\selectize.css" />
     <Content Include="Content\themes\FlyCnBlue\css\style.css" />
     <Content Include="Content\themes\FlyCnBlue\css\stylesheet.css" />
