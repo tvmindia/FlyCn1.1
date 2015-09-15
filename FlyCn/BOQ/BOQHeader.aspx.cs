@@ -11,7 +11,7 @@ namespace FlyCn.BOQ
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //txtDocumentno.Text = "--no--";
         }
     }
 }
