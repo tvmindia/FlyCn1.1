@@ -388,6 +388,7 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="General\UnderConstruction.aspx" />
     <Content Include="SubMenu.aspx" />
+    <Content Include="Templates\InputTemplate.aspx" />
     <Content Include="test1.aspx" />
     <Content Include="UserControls\ToolBar.ascx" />
     <Content Include="ViewSwitcher.ascx" />
@@ -663,6 +664,13 @@
     </Compile>
     <Compile Include="SubMenu.aspx.designer.cs">
       <DependentUpon>SubMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\InputTemplate.aspx.cs">
+      <DependentUpon>InputTemplate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Templates\InputTemplate.aspx.designer.cs">
+      <DependentUpon>InputTemplate.aspx</DependentUpon>
     </Compile>
     <Compile Include="test1.aspx.cs">
       <DependentUpon>test1.aspx</DependentUpon>
