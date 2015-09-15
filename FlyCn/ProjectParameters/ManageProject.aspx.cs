@@ -10,6 +10,7 @@ using FlyCn.UIClasses;
 using Telerik.Web.UI;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 
 namespace FlyCn.ProjectParameters
 {
@@ -76,6 +77,7 @@ namespace FlyCn.ProjectParameters
                 ToolBar.SaveButton.Visible = false;
                 ToolBar.UpdateButton.Visible = true;
                 ToolBar.DeleteButton.Visible = true;
+                txtProjNo.Enabled = false;
                 string projno = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ProjectNo"].ToString();
                 DataTable dt;
                 dt = pObj.GetProjectParameters(projno);
@@ -211,6 +213,104 @@ if (dt.Rows[0]["Client_Logo"] != DBNull.Value)
                 pObj.Weld_Client1Caption = txtClient1.Text;
                 pObj.Weld_Client2Caption = txtClient2.Text;
                 pObj.Weld_ThirdPartyCaption = txtThirdParty.Text;
+
+                string name = fuLogo.FileName;
+            //    System.IO.FileInfo file = new System.IO.FileInfo(fuLogo.PostedFile.FileName);
+                if (fuLogo.FileName != "")
+                {
+                  
+                    string filenameCheck = fuLogo.FileName;
+                    fuLogo.PostedFile.Equals(Server.MapPath("~\\Images\\ProjectImages\\" + filenameCheck));
+                    string path = "~\\Images\\ProjectImages\\" + filenameCheck;
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+
+                    }
+ 
+                    string[] validFileTypes = {  "png" };
+                    int size = 10;
+                    string ext = System.IO.Path.GetExtension(fuLogo.FileName);
+                    bool isValidFile = false;
+                    bool largerSize = false;
+                    for (int i = 0; i < validFileTypes.Length; i++)
+                    {
+                        if (ext == "." + validFileTypes[i])
+                        {
+                            isValidFile = true;
+                            break;
+                        }
+                    }
+                    int fileSize = Convert.ToInt32(fuLogo.PostedFile.ContentLength);
+                    int fileCal = fileSize / 1000000;//Converting byte into megabyte
+                    if (fileCal > size)
+                    {
+
+                        largerSize = true;
+                    }
+                    if (!isValidFile)
+                    {
+                        lblmsg.ForeColor = System.Drawing.Color.Red;
+                        lblmsg.Text = "Invalid File. Please upload a File with extension " +
+                                       string.Join(",", validFileTypes);
+                    }
+                    else
+                    {
+
+                        if ((fuLogo.HasFile) && (largerSize == false))
+                        {
+                            //System.IO.Stream mystream;
+                            //mystream=ImageUpload.FileContent;
+                            //  mystream.Read(pp.Company_Logo,0,ImageUpload.PostedFile.ContentLength);
+                            pObj.Company_Logo = fuLogo.FileContent;
+
+                        }
+                    }
+                }
+                if (fuClientLogo.FileName != "")
+                {
+                    string[] validFileTypes1 = { "png"};
+                    int size1 = 10;
+                    string ext1 = System.IO.Path.GetExtension(fuClientLogo.FileName);
+                    bool isValidFile1 = false;
+                    bool largerSize1 = false;
+                    for (int i = 0; i < validFileTypes1.Length; i++)
+                    {
+                        if (ext1 == "." + validFileTypes1[i])
+                        {
+                            isValidFile1 = true;
+                            break;
+                        }
+                    }
+                    int fileSize1 = Convert.ToInt32(fuClientLogo.PostedFile.ContentLength);
+                    int fileCal1 = fileSize1 / 1000000;//Converting byte into megabyte
+                    if (fileCal1 > size1)
+                    {
+
+                        largerSize1 = true;
+                    }
+                    if (!isValidFile1)
+                    {
+
+                        lblmsg1.ForeColor = System.Drawing.Color.Red;
+                        lblmsg1.Text = "Invalid File. Please upload a File with extension " +
+                                       string.Join(",", validFileTypes1);
+                    }
+                    else
+                    {
+
+                        if ((fuClientLogo.HasFile) && (largerSize1 == false))
+                        {
+                            //System.IO.Stream mystream;
+                            //mystream=ImageUpload.FileContent;
+                            //  mystream.Read(pp.Company_Logo,0,ImageUpload.PostedFile.ContentLength);
+                            pObj.Client_Logo = fuClientLogo.FileContent;
+
+                        }
+                    }
+
+
+                }
                 result = pObj.EditProjectParameters(pObj.ProjectNo);
             }
             catch (Exception ex)

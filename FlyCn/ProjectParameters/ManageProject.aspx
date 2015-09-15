@@ -48,7 +48,28 @@ box-shadow: 0px 2px 7px #292929;
 
 
 }
-
+.headings
+{
+   font-family:'segoe UI' , Tahoma, Geneva, Verdana, sans-serif;  
+   font-size:15px;
+   font-style:normal;
+   color:#009933;
+}
+  td.myclass
+{
+  text-align:left;
+ 
+  width:100px;
+ 
+}
+   td.size
+{
+  text-align:left;
+ 
+  width:200px;
+ 
+}
+   
 
     </style>
       <script type="text/javascript">
@@ -158,428 +179,353 @@ try {
        
             <telerik:RadPageView ID="rpList" runat="server">
                
-    <div id="divList" style="width:100%">
-            <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
-            </asp:ScriptManager>
-             <telerik:RadGrid ID="RadGrid1" runat="server"  CellSpacing="0"
-    GridLines="None" OnNeedDataSource="RadGrid1_NeedDataSource1" OnItemCommand="RadGrid1_ItemCommand" AllowPaging="true" 
-    PageSize="10" Width="984px" Skin="Silk"  OnPreRender="RadGrid1_PreRender">
-                    <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo">
-    <Columns>
-     <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo"></telerik:GridBoundColumn> 
-     <telerik:GridBoundColumn HeaderText="Project Name" DataField="ProjectName" UniqueName="ProjectName"></telerik:GridBoundColumn>
-     <telerik:GridBoundColumn HeaderText="Location" DataField="ProjectLocation" UniqueName="ProjectLocation"></telerik:GridBoundColumn> 
-     <telerik:GridBoundColumn HeaderText="Active" DataField="Active" UniqueName="Active"></telerik:GridBoundColumn> 
-     <telerik:GridBoundColumn HeaderText="Company Name" DataField="CompName" UniqueName="CompName"></telerik:GridBoundColumn> 
-     <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png"></telerik:GridButtonColumn>     
-    </Columns>
-  </MasterTableView>            
-             </telerik:RadGrid>
-     
-    
-        </div>
+                <div id="divList" style="width:100%">
+                    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
+                    </asp:ScriptManager>
+                    <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="true" CellSpacing="0" GridLines="None" OnItemCommand="RadGrid1_ItemCommand" OnNeedDataSource="RadGrid1_NeedDataSource1" OnPreRender="RadGrid1_PreRender" PageSize="10" Skin="Silk" Width="984px"><mastertableview autogeneratecolumns="False" datakeynames="ProjectNo"><Columns><telerik:GridBoundColumn DataField="ProjectNo" HeaderText="Project No" UniqueName="ProjectNo"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="ProjectName" HeaderText="Project Name" UniqueName="ProjectName"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="ProjectLocation" HeaderText="Location" UniqueName="ProjectLocation"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="Active" HeaderText="Active" UniqueName="Active"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="CompName" HeaderText="Company Name" UniqueName="CompName"></telerik:GridBoundColumn><telerik:GridButtonColumn ButtonType="ImageButton" CommandName="EditData" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData"></telerik:GridButtonColumn>
+                    </Columns>
+                    </mastertableview>
+                    </telerik:RadGrid>
+                </div>
                     </telerik:RadPageView>
           
        <telerik:RadPageView ID="EditData" runat="server">
   
          <uc1:ToolBar runat="server" ID="ToolBar" />
-       <table>
-           <tr><td>
-               Project No
-               </td>
-               <td>
-                   <asp:TextBox ID="txtProjNo" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr><td>
-               Project Name
-               </td><td>
-                   <asp:TextBox ID="txtProjName" runat="server"></asp:TextBox>
-                    </td>
-               <td>
-&nbsp
-               </td>
-           <td>
-               Project Location
-               </td><td>
-                   <asp:TextBox ID="txtLocation" runat="server"></asp:TextBox>
-                    </td></tr>
-           <tr><td>
-               Project Manager
-               </td><td>
-                   <asp:TextBox ID="txtManager" runat="server"></asp:TextBox>
-                    </td></tr>
-           <tr><td>
-               Base Project
-               </td>
-               <td>
-                   <asp:TextBox ID="txtBaseProject" runat="server"></asp:TextBox></td>
-           </tr>
-           <tr>
-               <td>
-                   Active
-               </td>
-               <td>
-                   <asp:CheckBox 
-            ID="CheckboxActive" 
-            runat="server"          
-            AutoPostBack="true"
-          
-            />
-               </td>
-           </tr>
-     <tr><td>
-         Company Details
-         </td></tr>
-           <tr><td>
-               Company Name
-               </td><td>
-                   <asp:TextBox ID="txtCompanyName" runat="server"></asp:TextBox>
-                    </td></tr>
-           <tr>
-               <td>
-                   Address1
-               </td>
-               <td>
-                   <asp:TextBox ID="txtAddress1" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Address2
-               </td>
-               <td>
-                   <asp:TextBox ID="txtAddress2" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Telephone
-               </td>
-               <td>
-                   <asp:TextBox ID="txtTelephone" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-            <td>
-                Fax
-            </td>
-               <td>
-                   <asp:TextBox ID="txtFax" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Email
-               </td>
-               <td>
-                   <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Website
-               </td>
-               <td>
-                   <asp:TextBox ID="txtWebsite" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-               <asp:Label ID="lblComapnyLogo" runat="server" Text="Company Logo"></asp:Label>
-
-               </td>
-               <td>
-                   <asp:FileUpload ID="fuLogo" runat="server" Height="22px" Width="175px" />
-
-                  
-                   <asp:ImageButton ID="imbCompany" runat="server" Width="16px" Height="16px" />
-
-                  
-               </td>
-                <td >&nbsp;</td>
-           </tr>
-           <tr>
-               <td>
-                   Client Details
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Client Name
-               </td>
-               <td>
-                   <asp:TextBox ID="txtClientName" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Contract Details
-               </td>
-               <td>
-                   <asp:TextBox ID="txtContractDetails" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Telephone
-               </td>
-               <td>
-                   <asp:TextBox ID="txtClientTelephone" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Fax
-               </td>
-               <td>
-                   <asp:TextBox ID="txtClientFax" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Email
-               </td>
-               <td>
-                   <asp:TextBox ID="txtClientEmail" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Website
-               </td>
-               <td>
-                   <asp:TextBox ID="txtClientWebsite" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-               <asp:Label ID="lblClientLogo" runat="server" Text="Client Logo"></asp:Label>
-                
-               </td>
-               <td>
-                   <asp:FileUpload ID="fuClientLogo" runat="server" Height="22px"  Width="175px" />
-                   <asp:ImageButton ID="imbClientLogo" runat="server" Width="16px" Height="16px" />
-
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Admin Details
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Implementation Engineer
-               </td>
-               <td>
-                   <asp:TextBox ID="txtImplementation" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Project Admin
-               </td>
-               <td>
-                   <asp:TextBox ID="txtProjectAdmin" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Punch List From Company
-               </td>
-               <td>
-                   <asp:TextBox ID="txtPunchList" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Punch List From Person
-               </td>
-               <td>
-                   <asp:TextBox ID="txtPunchListPerson" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Punch List To Company
-               </td>
-               <td>
-                   <asp:TextBox ID="txtPunchListToCompany" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Punch List TO Person
-               </td>
-               <td>
-                   <asp:TextBox ID="txtPunchListToPerson" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Caption For Project Fields
-               </td>
-             
-           </tr>            
-           <tr>
-               <td>Plant</td>
-           <td>
-               <asp:TextBox ID="txtPlant" runat="server"></asp:TextBox>
-           </td></tr>
-           <tr>
-               <td>
-                   Area
-               </td>
-               <td>
-                   <asp:TextBox ID="txtArea" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Location
-               </td>
-               <td>
-                   <asp:TextBox ID="txtCaptionLocation" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   System
-               </td>
-               <td>
-                   <asp:TextBox ID="txtSystem" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   SubSystem
-               </td>
-               <td>
-                   <asp:TextBox ID="txtsubsystem" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Misc Manpower Tracking
-               </td>
-               <td>
-                   <asp:TextBox ID="txtManPower" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Man Hours Related Captions 
-               </td>
-
-           </tr>
-           <tr>
-               <td>
-                   Other Cost1
-               </td>
-               <td>
-                   <asp:TextBox ID="txtOtherCost1" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Other Cost2
-               </td>
-               <td>
-                   <asp:TextBox ID="txtOtherCost2" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Other Cost3
-               </td>
-               <td>
-                   <asp:TextBox ID="txtOtherCost3" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Payment Settings
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Payment Currency
-               </td>
-               <td>
-                   <asp:TextBox ID="txtPaymentCurrency" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Lunch Break Minutes
-               </td>
-               <td>
-                   <asp:TextBox ID="txtLunchBreakMinutes" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Hierarchy Captions
-               </td>
-              
-           </tr>
-           <tr>
-               <td>
-                   Level 1
-               </td>
-               <td>
-                   <asp:TextBox ID="txtLevel1" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-                   <tr>
-               <td>
-                   Level 2
-               </td>
-                       <td>
-                           <asp:TextBox ID="txtLevel2" runat="server"></asp:TextBox>
-                       </td>
-           </tr>
-                   <tr>
-               <td>
-                   Level 3
-               </td>
-                       <td>
-                           <asp:TextBox ID="txtLevel3" runat="server"></asp:TextBox>
-                       </td>
-           </tr>
-           <tr>
-               <td>
-                   Client Related Captions
-               </td>
-               
-           </tr>
-           <tr>
-               <td>
-                   Client 1
-               </td>
-               <td>
-                   <asp:TextBox ID="txtClient1" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Client 2
-               </td>
-               <td>
-                   <asp:TextBox ID="txtClient2" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   Third Party
-               </td>
-               <td>
-                   <asp:TextBox ID="txtThirdParty" runat="server"></asp:TextBox>
-               </td>
-           </tr>
-             
-       </table>
+           <table>
+               <tr>
+                   <td >&nbsp&nbsp</td><td>
+                       <div>
+                       <table>
+               <tr>
+                   <td class="size">Project No </td>
+                   <td class="size">
+                       <asp:TextBox ID="txtProjNo" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>Project Name </td>
+                   <td>
+                       <asp:TextBox ID="txtProjName" runat="server"></asp:TextBox>
+                   </td>
+                   <td  class="myclass">&nbsp;&nbsp;</td>
+                   <td class="size">Project Location </td>
+                   <td class="size">
+                       <asp:TextBox ID="txtLocation" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>Project Manager </td>
+                   <td>
+                       <asp:TextBox ID="txtManager" runat="server"></asp:TextBox>
+                   </td>
+                <td>&nbsp;&nbsp;</td>
+                   <td>Base Project </td>
+                   <td>
+                       <asp:TextBox ID="txtBaseProject" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td  >Active </td>
+                   <td>
+                       <asp:CheckBox ID="CheckboxActive" runat="server" AutoPostBack="true" />
+                   </td>
+               </tr>
+                           
+                           </table>
+</div>
+ <br />    
+                <hr />  
+                       <br />     
+                    <div>   <table>
+               <tr>
+                   <td class="headings">Company Details </td>
+               </tr>
+               <tr>
+                   <td class="size">Company Name </td>
+                   <td class="size">
+                       <asp:TextBox ID="txtCompanyName" runat="server"></asp:TextBox>
+                   </td>
+                 <td class="myclass">&nbsp;&nbsp;</td>
+                   <td class="size">Address1 </td>
+                   <td class="size">
+                       <asp:TextBox ID="txtAddress1" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>Address2 </td>
+                   <td>
+                       <asp:TextBox ID="txtAddress2" runat="server"></asp:TextBox>
+                   </td>
+                <td>&nbsp;&nbsp;</td>
+                   <td>Telephone </td>
+                   <td>
+                       <asp:TextBox ID="txtTelephone" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>Fax </td>
+                   <td>
+                       <asp:TextBox ID="txtFax" runat="server"></asp:TextBox>
+                   </td>
+              <td>&nbsp;&nbsp;</td>
+                   <td>Email </td>
+                   <td>
+                       <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>Website </td>
+                   <td>
+                       <asp:TextBox ID="txtWebsite" runat="server"></asp:TextBox>
+                   </td>
+              <td>&nbsp;&nbsp;</td>
+                   <td>
+                       <asp:Label ID="lblComapnyLogo" runat="server" Text="Company Logo"></asp:Label>
+                   </td>
+                   <td>
+                       <asp:FileUpload ID="fuLogo" runat="server" Height="22px" Width="175px" />
+                       <asp:ImageButton ID="imbCompany" runat="server" Height="20px" Width="20px" />
+                       <asp:Label ID="lblmsg" runat="server" Text=""></asp:Label>
+                   </td>
+                   <td>&nbsp;</td>
+               </tr>
+                               </table>
+                        </div>
+                        <br />    
+                       <hr />
+                       <br />
+                     <div>  <table>
+               <tr>
+                   <td class="headings">Client Details </td>
+               </tr>
+               <tr>
+                   <td class="size">Client Name </td>
+                   <td class="size">
+                       <asp:TextBox ID="txtClientName" runat="server"></asp:TextBox>
+                   </td>
+              <td class="myclass">&nbsp;&nbsp;</td>
+                   <td class="size">Contract Details </td>
+                   <td class="size">
+                       <asp:TextBox ID="txtContractDetails" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>Telephone </td>
+                   <td>
+                       <asp:TextBox ID="txtClientTelephone" runat="server"></asp:TextBox>
+                   </td>
+             <td>&nbsp;&nbsp;</td>
+                   <td>Fax </td>
+                   <td>
+                       <asp:TextBox ID="txtClientFax" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>Email </td>
+                   <td>
+                       <asp:TextBox ID="txtClientEmail" runat="server"></asp:TextBox>
+                   </td>
+               <td>&nbsp;&nbsp;</td>
+                   <td>Website </td>
+                   <td>
+                       <asp:TextBox ID="txtClientWebsite" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                       <asp:Label ID="lblClientLogo" runat="server" Text="Client Logo"></asp:Label>
+                   </td>
+                   <td>
+                       <asp:FileUpload ID="fuClientLogo" runat="server" Height="22px" Width="175px" />
+                       <asp:ImageButton ID="imbClientLogo" runat="server" Height="20px" Width="20px" />
+                        <asp:Label ID="lblmsg1" runat="server" Text=""></asp:Label>
+                   </td>
+               </tr>
+                         </table>
+                     </div> 
+                        <br />    
+                       <hr />
+                       <br />
+                    <div>   <table>   
+               <tr>
+                   <td class="headings">Admin Details </td>
+               </tr>
+               <tr>
+                   <td class="size">Implementation Engineer </td>
+                   <td class="size">
+                       <asp:TextBox ID="txtImplementation" runat="server"></asp:TextBox>
+                   </td>
+              <td class="myclass">&nbsp;&nbsp;</td>
+                   <td  class="size">Project Admin </td>
+                   <td class="size">
+                       <asp:TextBox ID="txtProjectAdmin" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>Punch List From Company </td>
+                   <td>
+                       <asp:TextBox ID="txtPunchList" runat="server"></asp:TextBox>
+                   </td>
+               <td>&nbsp;&nbsp;</td>
+                   <td>Punch List From Person </td>
+                   <td>
+                       <asp:TextBox ID="txtPunchListPerson" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>Punch List To Company </td>
+                   <td>
+                       <asp:TextBox ID="txtPunchListToCompany" runat="server"></asp:TextBox>
+                   </td>
+              <td>&nbsp;&nbsp;</td>
+                   <td>Punch List TO Person </td>
+                   <td>
+                       <asp:TextBox ID="txtPunchListToPerson" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+                        </table>
+                        </div>
+                        <br />    
+                 <hr />
+                       <br />
+                       <div>
+                           <table>
+               <tr>
+                   <td class="headings">Caption For Project Fields </td>
+               </tr>
+               <tr>
+                   <td class="size">Plant</td>
+                   <td class="size">
+                       <asp:TextBox ID="txtPlant" runat="server"></asp:TextBox>
+                   </td>
+              <td class="myclass">&nbsp;&nbsp;</td>
+                   <td class="size">Area </td>
+                   <td  class="size">
+                       <asp:TextBox ID="txtArea" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>Location </td>
+                   <td>
+                       <asp:TextBox ID="txtCaptionLocation" runat="server"></asp:TextBox>
+                   </td>
+              <td>&nbsp;&nbsp;</td>
+                   <td>System </td>
+                   <td>
+                       <asp:TextBox ID="txtSystem" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>SubSystem </td>
+                   <td>
+                       <asp:TextBox ID="txtsubsystem" runat="server"></asp:TextBox>
+                   </td>
+              <td>&nbsp;&nbsp;</td>
+                   <td>Misc Manpower Tracking </td>
+                   <td>
+                       <asp:TextBox ID="txtManPower" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+                               </table>
+                       </div>   
+                        <br />    
+                       <hr />
+                       <br />
+                       <div>
+                           <table>
+               <tr>
+                   <td class="headings">Man Hours Related Captions </td>
+               </tr>
+               <tr>
+                   <td class="size">Other Cost1 </td>
+                   <td class="size">
+                       <asp:TextBox ID="txtOtherCost1" runat="server"></asp:TextBox>
+                   </td>
+              <td class="myclass">&nbsp;&nbsp;</td>
+                   <td class="size">Other Cost2 </td>
+                   <td class="size">
+                       <asp:TextBox ID="txtOtherCost2" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>Other Cost3 </td>
+                   <td>
+                       <asp:TextBox ID="txtOtherCost3" runat="server"></asp:TextBox>
+                   </td>
+               <td>&nbsp;&nbsp;</td>
+                   <td>Payment Settings </td>
+               </tr>
+               <tr>
+                   <td >Payment Currency </td>
+                   <td>
+                       <asp:TextBox ID="txtPaymentCurrency" runat="server"></asp:TextBox>
+                   </td>
+              <td>&nbsp;&nbsp;</td>
+                   <td>Lunch Break Minutes </td>
+                   <td>
+                       <asp:TextBox ID="txtLunchBreakMinutes" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+                               </table>
+                       </div>
+                        <br />    
+                       <hr />
+                       <br />
+                       <div>
+                           <table>
+               <tr>
+                   <td class="headings">Hierarchy Captions </td>
+               </tr>
+               <tr>
+                   <td class="size">Level 1 </td>
+                   <td class="size">
+                       <asp:TextBox ID="txtLevel1" runat="server"></asp:TextBox>
+                   </td>
+               <td class="myclass">&nbsp;&nbsp;</td>
+                   <td class="size">Level 2 </td>
+                   <td class="size">
+                       <asp:TextBox ID="txtLevel2" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>Level 3 </td>
+                   <td>
+                       <asp:TextBox ID="txtLevel3" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+                               </table>
+                       </div>
+                        <br />    
+                       <hr />
+                       <br />
+                      <div>
+                          <table>
+               <tr>
+                   <td class="headings">Client Related Captions </td>
+               </tr>
+               <tr>
+                   <td class="size">Client 1 </td>
+                   <td class="size">
+                       <asp:TextBox ID="txtClient1" runat="server"></asp:TextBox>
+                   </td>
+              <td class="myclass">&nbsp;&nbsp;</td>
+                   <td class="size">Client 2 </td>
+                   <td class="size">
+                       <asp:TextBox ID="txtClient2" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+               <tr>
+                   <td>Third Party </td>
+                   <td>
+                       <asp:TextBox ID="txtThirdParty" runat="server"></asp:TextBox>
+                   </td>
+               </tr>
+                              </table>
+                      </div>
+                  </td>        
+               </tr>
+           </table>
        
 
          </telerik:RadPageView>

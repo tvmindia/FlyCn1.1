@@ -220,6 +220,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.ImageButton imbCompany;
         
         /// <summary>
+        /// lblmsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblmsg;
+        
+        /// <summary>
         /// txtClientName control.
         /// </summary>
         /// <remarks>
@@ -299,6 +308,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imbClientLogo;
+        
+        /// <summary>
+        /// lblmsg1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblmsg1;
         
         /// <summary>
         /// txtImplementation control.
