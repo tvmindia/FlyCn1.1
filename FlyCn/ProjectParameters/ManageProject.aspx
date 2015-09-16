@@ -565,7 +565,7 @@ try {
             <div id="modal_dialog"  style="display: none; width:1000px!important; height:700px!important; border-radius:30px; overflow:hidden; overflow-x:hidden; 
 ">
    
-                   <iframe src="NewProject.aspx" style="width:1300px;  height:700px;">
+                   <iframe src="AddNewProject.aspx" style="width:1300px;  height:700px;">
 
     </iframe>
                     
