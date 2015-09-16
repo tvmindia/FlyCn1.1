@@ -621,8 +621,9 @@ namespace FlyCn.FlyCnDAL
             }
             catch (Exception ex)
             {
-                
-
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
             }
             finally
             {
