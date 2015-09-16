@@ -94,10 +94,10 @@
                                         <div id="div2" >
          <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
 </asp:ScriptManager>
-             <telerik:RadGrid ID="RadGrid1" runat="server" CellSpacing="0"
-                 GridLines="None" OnNeedDataSource="RadGrid1_NeedDataSource1" AllowPaging="true" ItemStyle-HorizontalAlign="Left" AlternatingItemStyle-HorizontalAlign="Left"
-                 PageSize="10" AllowAutomaticDeletes="True" OnItemCommand="RadGrid1_ItemCommand" 
-                  OnPreRender="RadGrid1_PreRender" AllowMultiRowEdit="true"  DataKeyNames="Code"  CommandItemDisplay="Right" Skin="Silk">
+             <telerik:RadGrid ID="DynamicMasterGrid" runat="server" CellSpacing="0"
+                 GridLines="None" OnNeedDataSource="DynamicMasterGrid_NeedDataSource1" AllowPaging="true" ItemStyle-HorizontalAlign="Left" AlternatingItemStyle-HorizontalAlign="Left"
+                 PageSize="10" AllowAutomaticDeletes="True" OnItemCommand="DynamicMasterGrid_ItemCommand" 
+                  OnPreRender="DynamicMasterGrid_PreRender" AllowMultiRowEdit="true"  DataKeyNames="Code"  CommandItemDisplay="Right" Skin="Silk">
 <MasterTableView   >
      
     <Columns>
