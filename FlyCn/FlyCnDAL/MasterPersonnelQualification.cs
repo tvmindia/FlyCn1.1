@@ -95,26 +95,42 @@ namespace FlyCn.FlyCnDAL
         /// <returns>return datatable</returns>
         public DataTable BindMastersPersonalQualification(string id)
         {
-
+            
             SqlConnection con = null;
             DataTable dt = null;
-
-            dbConnection dcon = new dbConnection();
-            con = dcon.GetDBConnection();
-
-
-            SqlCommand cmd = new SqlCommand("GetMasterPersonalQualificationData", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@code", id);
+            try
+            {
 
 
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = cmd;
-            dt = new DataTable();
-            adapter.Fill(dt);
-            con.Close();
-            return dt;
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+
+
+                SqlCommand cmd = new SqlCommand("GetMasterPersonalQualificationData", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@code", id);
+
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                dt = new DataTable();
+                adapter.Fill(dt);
+                con.Close();
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                //return 0;
+                throw ex;
+
+            }
+            finally
+            {
+                con.Close();
+
+            }
+           
         }
 
         #endregion BindMastersPersonalQualification
@@ -201,18 +217,34 @@ namespace FlyCn.FlyCnDAL
         {
             DataTable dt = null;
             SqlConnection con = null;
-            dbConnection dcon = new dbConnection();
-            con = dcon.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("GetMasterPersonnelComboBoxData", con);
-            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
 
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = cmd;
-            dt = new DataTable();
-            adapter.Fill(dt);
-            con.Close();
-            return dt;
 
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("GetMasterPersonnelComboBoxData", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                dt = new DataTable();
+                adapter.Fill(dt);
+                con.Close();
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                //return 0;
+                throw ex;
+
+            }
+            finally
+            {
+                con.Close();
+
+            }
+           
 
         }
         #endregion GetMasterPersonnelComboBoxData
@@ -274,6 +306,10 @@ namespace FlyCn.FlyCnDAL
 
 
             SqlConnection con = null;
+            try
+            {
+
+      
 
             dbConnection dcon = new dbConnection();
             con = dcon.GetDBConnection();
@@ -293,6 +329,19 @@ namespace FlyCn.FlyCnDAL
             adapter.Fill(dt);
             con.Close();
             return dt;
+                      }
+            catch (Exception ex)
+            {
+                //return 0;
+                throw ex;
+
+            }
+            finally
+            {
+                con.Close();
+
+            }
+           
         }
         #endregion FillMasterPersonalData
 

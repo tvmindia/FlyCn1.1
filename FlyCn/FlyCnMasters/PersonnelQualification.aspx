@@ -87,7 +87,7 @@
        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" >
 </asp:ScriptManager>
 
-<telerik:RadGrid ID="RadGrid1" runat="server"  OnNeedDataSource="RadGrid1_NeedDataSource" OnItemCommand="RadGrid1_ItemCommand" Skin="Silk" OnPreRender="RadGrid1_PreRender1">
+<telerik:RadGrid ID="PersonnelQualificationGrid" runat="server"  OnNeedDataSource="PersonnelQualificationGrid_NeedDataSource" OnItemCommand="PersonnelQualificationGrid_ItemCommand" Skin="Silk" OnPreRender="PersonnelQualificationGrid_PreRender1">
    <MasterTableView DataKeyNames="EmpCode,Qualification">
      
     <Columns>

@@ -72,6 +72,31 @@ box-shadow: 0px 2px 7px #292929;
    
 
     </style>
+    <script  type="text/javascript">
+     
+        function validate() {
+            //try{
+
+            debugger;
+            var ProjectNo = document.getElementById("<%=txtProjNo.ClientID %>").value;
+            var ProjectName = document.getElementById("<%=txtProjName.ClientID %>").value;
+            var ProjectLocation = document.getElementById("<%=txtLocation.ClientID %>").value;
+            var ProjectManager = document.getElementById("<%=txtManager.ClientID %>").value; 
+
+            if (ProjectNo == "" || ProjectName == "" || ProjectLocation == "" || ProjectManager == "") {
+
+                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+                return false;
+
+            }
+            else {
+                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "";
+                return true;
+            }
+
+        }
+</script>
+   
       <script type="text/javascript">
  
 function OnClientTabSelecting(sender, eventArgs)
@@ -149,12 +174,15 @@ try {
 
                 args.set_cancel(!confirm('Do you want to delete ?'));
             }
+            if (btn.get_value() == 'Update') {
 
+                args.set_cancel(!validate());
+            }
 
 
         }
     </script>
-
+    
     
 
        <p>
@@ -182,6 +210,7 @@ try {
                 <div id="divList" style="width:100%">
                     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
                     </asp:ScriptManager>
+
                     <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="true" CellSpacing="0" GridLines="None" OnItemCommand="RadGrid1_ItemCommand" OnNeedDataSource="RadGrid1_NeedDataSource1" OnPreRender="RadGrid1_PreRender" PageSize="10" Skin="Silk" Width="984px"><mastertableview autogeneratecolumns="False" datakeynames="ProjectNo"><Columns><telerik:GridBoundColumn DataField="ProjectNo" HeaderText="Project No" UniqueName="ProjectNo"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="ProjectName" HeaderText="Project Name" UniqueName="ProjectName"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="ProjectLocation" HeaderText="Location" UniqueName="ProjectLocation"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="Active" HeaderText="Active" UniqueName="Active"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="CompName" HeaderText="Company Name" UniqueName="CompName"></telerik:GridBoundColumn><telerik:GridButtonColumn ButtonType="ImageButton" CommandName="EditData" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData"></telerik:GridButtonColumn>
                     </Columns>
                     </mastertableview>
@@ -190,8 +219,10 @@ try {
                     </telerik:RadPageView>
           
        <telerik:RadPageView ID="EditData" runat="server">
-  
+           <asp:Label ID="lblerror" runat="server" Text="" ForeColor="Red"></asp:Label>
+           
          <uc1:ToolBar runat="server" ID="ToolBar" />
+
            <table>
                <tr>
                    <td >&nbsp&nbsp</td><td>
@@ -534,7 +565,7 @@ try {
             <div id="modal_dialog"  style="display: none; width:1000px!important; height:700px!important; border-radius:30px; overflow:hidden; overflow-x:hidden; 
 ">
    
-                   <iframe src="NewProject.aspx" style="width:1300px;  height:700px;">
+                   <iframe src="AddNewProject.aspx" style="width:1300px;  height:700px;">
 
     </iframe>
                     

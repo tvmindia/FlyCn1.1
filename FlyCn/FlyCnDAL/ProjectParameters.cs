@@ -468,6 +468,8 @@ namespace FlyCn.FlyCnDAL
                 cmdEdit.Parameters.AddWithValue("@ProjectName", ProjectName);
                 cmdEdit.Parameters.AddWithValue("@ProjectLocation",ProjectLocation);
                 cmdEdit.Parameters.AddWithValue("@BaseProject", BaseProject);
+                cmdEdit.Parameters.AddWithValue("@Project_Manager", ProjectManager); 
+
                 cmdEdit.Parameters.AddWithValue("@Active", Active);
                 cmdEdit.Parameters.AddWithValue("@CompName", CompName);
                 cmdEdit.Parameters.AddWithValue("@CompAdd1", CompAdd2);
@@ -507,11 +509,15 @@ namespace FlyCn.FlyCnDAL
                 cmdEdit.Parameters.AddWithValue("@Client_Logo", Client_Logo);
                 cmdEdit.Parameters.AddWithValue("@MiscManpowerTracking_Caption", MiscManpowerTracking_Caption);
                 result = cmdEdit.ExecuteNonQuery();
-
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.UpdationSuccessData(page);
+                return 1;
             }
             catch (SqlException ex)
             {
-                throw ex;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
             }
             return result;
         }
@@ -564,8 +570,10 @@ namespace FlyCn.FlyCnDAL
                 cmd.Connection = con;
                 cmd.Parameters.AddWithValue("@ProjectNo", ProjectNo);
                 cmd.Parameters.AddWithValue("@ProjectName", ProjectName);
-                cmd.Parameters.AddWithValue("@ProjectLocation", ProjectLocation); 
+                cmd.Parameters.AddWithValue("@ProjectLocation", ProjectLocation);
                     cmd.Parameters.AddWithValue("@BaseProject", BaseProject);
+                    cmd.Parameters.AddWithValue("@Project_Manager", ProjectManager); 
+
                 cmd.Parameters.AddWithValue("@Active",Active);
                 cmd.Parameters.AddWithValue("@CompName", CompName);
                 cmd.Parameters.AddWithValue("@CompAdd1", CompAdd1);
@@ -607,17 +615,15 @@ namespace FlyCn.FlyCnDAL
               /// cmd.Parameters.AddWithValue("@Client_Logo",DBNull.Value);
                 cmd.Parameters.AddWithValue("@MiscManpowerTracking_Caption", MiscManpowerTracking_Caption);
                 cmd.ExecuteScalar();
-                //var page = HttpContext.Current.CurrentHandler as Page;
-                //eObj.InsertionSuccessData(page);
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.InsertionSuccessData(page);
                 return 1;
             }
             catch (Exception ex)
             {
-                //return 0;
-                //throw ex;
-
-
-
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
             }
             finally
             {
