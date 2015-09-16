@@ -59,7 +59,7 @@ namespace FlyCn.FlyCnMasters
                 int result = pq.DeleteMasterPersonnelQualificationData(code, qualification, ProjNo);
                 if (result == 1)
                 {
-                    RadGrid1.Rebind();
+                    PersonnelQualificationGrid.Rebind();
                     RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
                     RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
                     TabAddEditSettings tabs = new TabAddEditSettings();
@@ -73,16 +73,16 @@ namespace FlyCn.FlyCnMasters
 
         #endregion  ToolBar_onClick
 
-        #region  RadGrid1_NeedDataSource
-        protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        #region  PersonnelQualificationGrid_NeedDataSource
+        protected void PersonnelQualificationGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dt = new DataTable();
             dt = pq.BindMastersPersonalQualification(_id1);
-            RadGrid1.DataSource = dt;
+            PersonnelQualificationGrid.DataSource = dt;
 
         }
 
-        #endregion  RadGrid1_NeedDataSource
+        #endregion  PersonnelQualificationGrid_NeedDataSource
 
         #region  InsertData
         public void InsertData()
@@ -110,7 +110,7 @@ namespace FlyCn.FlyCnMasters
                 pq.Remarks = txtRemarks.Text;
                 string ProjNo = UA.projectNo;
                 int result = pq.InsertMasterPersonalQualificationData(ProjNo);
-                RadGrid1.Rebind();
+                PersonnelQualificationGrid.Rebind();
 
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
                 RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
@@ -136,8 +136,8 @@ namespace FlyCn.FlyCnMasters
 
         #endregion  InsertData
 
-        #region  RadGrid1_ItemCommand
-        protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
+        #region  PersonnelQualificationGrid_ItemCommand
+        protected void PersonnelQualificationGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
             string ProjNo = UA.projectNo;
 
@@ -196,7 +196,7 @@ namespace FlyCn.FlyCnMasters
             }
         }
    
-        #endregion  RadGrid1_ItemCommand
+        #endregion  PersonnelQualificationGrid_ItemCommand
 
         #region  UpdateData
 
@@ -224,7 +224,7 @@ namespace FlyCn.FlyCnMasters
            int result = pq.UpdateMasterPersonelQualificationData(ProjNo);
            //if (result == 1)
            //{
-               //RadGrid1.Rebind();
+               //PersonnelQualificationGrid.Rebind();
                //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
                //tab.Selected = true;
                //RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
@@ -239,16 +239,16 @@ namespace FlyCn.FlyCnMasters
 
         #endregion  UpdateData
 
-        #region  RadGrid1_PreRender1
+        #region  PersonnelQualificationGrid_PreRender1
 
-        protected void RadGrid1_PreRender1(object sender, EventArgs e)
+        protected void PersonnelQualificationGrid_PreRender1(object sender, EventArgs e)
        {
-         RadGrid1.MasterTableView.GetColumn("EmpCode").Visible= false;
+         PersonnelQualificationGrid.MasterTableView.GetColumn("EmpCode").Visible= false;
            //gvCktMap.MasterTableView.GetColumn("sid").Visible = false;  
-           RadGrid1.Rebind();
+           PersonnelQualificationGrid.Rebind();
        }
 
-        #endregion  RadGrid1_PreRender1
+        #endregion  PersonnelQualificationGrid_PreRender1
 
     }
 
