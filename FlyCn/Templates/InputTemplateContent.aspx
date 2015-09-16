@@ -1,4 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="InputTemplateContent.aspx.cs" Inherits="FlyCn.Templates.InputTemplateContent" %>
+
+<%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -20,22 +23,12 @@
 <!-----main css--->
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
+           <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
+</asp:ScriptManager>
 <div class="container">
-  <div class="box_100">
-    <div class="col-lg-3">
-      <div class="icon_box">
-          <img src="../Images/Icons/icon01.png"  width="25" height="21"></div>
-      <div class="line"></div>
-      <div class="icon_box"><img src="../Images/Icons/icon02.png" width="25" height="21"></div>
-      <div class="line"></div>
-      <div class="icon_box"><img src="../Images/Icons/icon03.png" width="25" height="21"></div>
-      <div class="line"></div>
-      <div class="icon_box"><img src="../Images/Icons/icon04.png" width="25" height="21"></div>
-      <div class="line"></div>
-      <div class="icon_box"><img src="../Images/Icons/icon05.png" width="25" height="21"></div>
-    </div>
-  </div>
+  
+
+    <uc1:ToolBar runat="server" ID="ToolBar" />
   <!-----FORM SECTION----> 
   <!---SECTION ONE--->
   <div class="col-lg-12 Span-One">
