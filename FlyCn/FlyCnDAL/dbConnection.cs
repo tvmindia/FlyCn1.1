@@ -11,7 +11,7 @@ namespace FlyCn.FlyCnDAL
     public class dbConnection
     {
         public SqlConnection SQLCon = new SqlConnection(ConfigurationManager.ConnectionStrings["FLYCNConnectionString"].ConnectionString);
-        public SqlTransaction DBTrans; 
+       public SqlTransaction DBTrans; 
 
         public int ConnectDB() {
             try
@@ -41,7 +41,17 @@ namespace FlyCn.FlyCnDAL
             }
             catch (Exception)
             {
-                throw;
+                try
+                { 
+                    HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=dbDown", true);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+                return null;
+
             }
         }
 

@@ -85,6 +85,7 @@
                   $('input[type=text]').each(function () {
                       $(this).val('');
                   });
+                
                   $('textarea').empty();
                  
 
@@ -103,6 +104,8 @@
                       $('input[type=text]').each(function () {
                           $(this).val('');
                       });
+                     
+                     
                       $('textarea').empty();
                       
                       debugger;
@@ -114,15 +117,7 @@
                         
                       } catch (x) { alert(x.message); }
 
-                      try
-                      {
-
-                          if(document.getElementById("<%= grdFileUpload.ClientID %>")!=null)
-                          document.getElementById("<%= grdFileUpload.ClientID %>").style.display = "none";
-                      }
-                      catch(x){
-
-                      }
+                     
 
                   }
 
@@ -149,14 +144,14 @@
    </script>
     <%-- Html starts here --%>
 
-     <p class="">Construction Punch List</p>
+     <p class="">Bills of Quantity</p>
       <hr/>
     <%-- Top div starts here --%>
     <div class="inputMainContainer">
     <div class="innerDiv">
         <%-- inner div starts here --%>
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
-             CausesValidation="false"   SelectedIndex="0" Skin="Silk" >
+             CausesValidation="false"   SelectedIndex="0" Skin="Silk">
             
             <Tabs>
                  <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True" ></telerik:RadTab>
@@ -198,8 +193,8 @@
   </MasterTableView>            
              </telerik:RadGrid>
      
-        </div>
-                    </telerik:RadPageView>
+</div>
+</telerik:RadPageView>
           
     <telerik:RadPageView ID="rpAddEdit" runat="server">
         <uc1:ToolBar runat="server" ID="ToolBar" />
@@ -212,32 +207,25 @@
                
               <tr>
                   <td class="tabletbody">
-                      Module
+                      Document No
                   </td>
                   <td class="tabletbody">
-                      <asp:DropDownList ID="ddlModule" runat="server" CssClass="selectbox"></asp:DropDownList>
+                       <asp:TextBox ID="txtDocumentno" runat="server" CssClass="textbox"></asp:TextBox>
                        </td>
                   <td class="tabletbody">
-                      Category
+                      Client Document No
                   </td>
                   <td class="tabletbody">
-                      <asp:DropDownList ID="ddlCategory" runat="server" CssClass="selectbox"></asp:DropDownList>
+                     <asp:TextBox ID="txtClientdocno" runat="server" CssClass="textbox" ></asp:TextBox>
                   </td>
                  
               </tr>
               <tr>
-                   <td class="tabletbody">Tag</td>
+                   <td class="tabletbody">Revision No</td>
                   <td class="tabletbody">
-                      <asp:DropDownList ID="ddlTag" runat="server" CssClass="selectbox"></asp:DropDownList>
+                      <asp:TextBox ID="txtRevisionno" runat="server" CssClass="textbox" ></asp:TextBox>
                   </td>
-                  <td class="tabletbody">
-                      Activity
-                      
-                  </td>
-                  <td class="tabletbody">
-                      <asp:DropDownList ID="ddlActivity" runat="server" CssClass="selectbox"></asp:DropDownList>
-                      
-                  </td>
+                 
               </tr>
               <tr>
                    <td></td>
@@ -258,624 +246,50 @@
               </tr>
         <tr>
             <td class="tabletd">
-                ID No
+                Document Date
             </td>
           
             <td class="tabletd">
 
-                <asp:TextBox ID="txtIDno" runat="server" CssClass="textbox" ></asp:TextBox>
+                <asp:TextBox ID="txtIDocumentdate" runat="server" CssClass="textbox" ></asp:TextBox>
               
-               <%-- <br />
-                  <asp:RequiredFieldValidator ID="ReqIdNo" runat="server" ControlToValidate="txtIDno" ErrorMessage="Please enter Id no" ValidationGroup="dummy" ></asp:RequiredFieldValidator>
-                <br />--%>
-                <%--<asp:Label ID="lblError" runat="server"></asp:Label>--%>
-            </td>
+             </td>
             
         </tr>
         <tr >
             <td class="tabletd">
-             <asp:Label ID="Label5" runat="server" Text="Open By"></asp:Label>
+             <asp:Label ID="Label5" runat="server" Text="Document Title"></asp:Label>
             </td>
             <td class="tabletd">
-                <asp:DropDownList ID="ddlOpenBy" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-            <td class="tabletd">Entered Date</td>
-            <td>
-             
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Entered By</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlEnteredBy" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-            <td class="tabletd">
-                <asp:Label ID="Label6" runat="server" Text="OpenDate"></asp:Label>
-            </td>
-            <td class="tabletd">
-              
-                      <telerik:RadDatePicker ID="RadOpenDate" runat="server"  
-             Width="100px" TabIndex="2" AutoPostBack="false" >
-            <DateInput DateFormat="dd/MM/yyyy" InvalidStyleDuration="100" LabelCssClass="radLabelCss_Office2007" 
-                 runat="server">
                 
-            </DateInput>
-             
-           
-        </telerik:RadDatePicker>
+                 <asp:TextBox ID="txtDocumenttitle" runat="server" CssClass="textbox" ></asp:TextBox>               
             </td>
-        </tr>
-        <tr>
+            <td class="tabletd">Remarks</td>
             <td>
-               </td>
-            <td>
-               </td>
-            <td></td>
-            <td></td>
-        </tr>
-            </table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td  colspan="3" class="sectionHeader">
-                Location Details</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Plant</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlPlant" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
+              <asp:TextBox ID="txtRemarks" runat="server" CssClass="textbox" ></asp:TextBox>  
             </td>
         </tr>
-        <tr>
-            <td class="tabletd">
-                Area</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlArea" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Location</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlLocation" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Unit</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlUnit" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td >
-                </td>
-            <td>
-                </td>
-            <td></td>
-        </tr></table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td  colspan="5" class="tabletd">
-                System</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                System</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtSystem" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td class="tabletd">Control System</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtControlSystem" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Sub System</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtSubsystem" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-
-             </table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td  colspan="5" class="tabletd">
-                Item Details</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Requested By</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlRequestedBy" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-            <td class="tabletd">Inspector</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlInspector" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Action By</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlActionBy" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-            <td class="tabletd">Discipline</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlDiscipline" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Fail Category</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlFailCategory" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-            <td class="tabletd">Category</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlCategoryList" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                RFI No</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtRFINo" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td class="tabletd">RFI Date</td>
-            <td class="tabletd">
-               
-                
-                  <%--       <telerik:RadDatePicker ID="RadRFINo" runat="server" 
-             Width="100px" TabIndex="2" AutoPostBack="false" >
-            <DateInput DateFormat="dd/MMM/yyyy" InvalidStyleDuration="100" LabelCssClass="radLabelCss_Office2007" 
-                 runat="server">
-                
-            </DateInput>
-             
-            
-        </telerik:RadDatePicker>--%>
-            </td>
-        </tr>
-        <tr>
-            <td >
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr></table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td class="tabletd">
-                Covered By Project</td>
        
-            <td class="tabletd" >
-                <asp:RadioButton ID="rdbCoveredByYes" runat="server" Text="Yes" />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:RadioButton ID="rdbCoveredByNo" runat="server" Text="No" />
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Item Description</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtItemDescription" runat="server" TextMode="MultiLine" Height="60px" Width="200px"></asp:TextBox>
-                <br />
-            </td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td >
-            </td>
-            <td >
-            </td>
-            <td>
-            </td>
-            <td></td>
-            <td></td>
-        </tr></table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td  colspan="5" class="tabletd">
-                Change Request Details</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Reference</td>
-            <td class="tabletd" >
-                <asp:TextBox ID="txtReference" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Reference Date</td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Change Request</td>
-            <td class="tabletd">
-                <asp:RadioButtonList ID="rbChangeRequest" runat="server">
-                </asp:RadioButtonList>
-                <asp:RadioButtonList ID="RadioButtonList2" runat="server">
-                </asp:RadioButtonList>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-            <td></td>
-            <td></td>
-        </tr>
         <tr>
             <td>
-                &nbsp;</td>
+               </td>
             <td>
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-            </table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td  colspan="5" class="tabletd">
-                Drawing Details</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Drawing</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtDrawing" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Sheet</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtSheet" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Revision</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtRevision" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td >
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr></table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td colspan="5" class="tabletd">
-                Query Details</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Query</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtQuery" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Query Status</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtQueryStatus" runat="server" ReadOnly="True" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Query Revision</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtQueryRevision" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td >
-            </td> 
-            <td >
-            </td>
-            <td>
-            </td>
+               </td>
             <td></td>
             <td></td>
         </tr>
             </table>
         <hr />
-        <table style="width:100%;">
-        <tr>
-            <td colspan="5" class="tabletd">
-                Completion Details</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Responsible Person</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlResponsiblePerson" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-            <td class="tabletd">Organization</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlOrganization" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Signed By</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlSignedBy" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-            <td class="tabletd">Completion Date</td>
-            <td class="tabletd">
-                
-                       <%--  <telerik:RadDatePicker ID="RadCompletionDate" runat="server" Culture="Portuguese (Brazil)"
-             Width="100px" TabIndex="2" AutoPostBack="false" >
-            <DateInput DateFormat="dd/MM/yyyy" InvalidStyleDuration="100" LabelCssClass="radLabelCss_Office2007" 
-                 runat="server">
-                
-            </DateInput>
-             
-            <Calendar runat="server">
-                    </Calendar>
-        </telerik:RadDatePicker>--%>
-            </td>
-        </tr>
-        <tr class="tabletd">
-            <td>
-                Scheduled Completion Date</td>
-            <td class="tabletd">
-               
-                   <%--      <telerik:RadDatePicker ID="RadScheduleCompletionDate" runat="server" Culture="Portuguese (Brazil)"
-             Width="100px" TabIndex="2" AutoPostBack="false" >
-            <DateInput DateFormat="dd/MM/yyyy" InvalidStyleDuration="100" LabelCssClass="radLabelCss_Office2007" 
-                 runat="server">
-                
-            </DateInput>
-             
-            <Calendar runat="server">
-                    </Calendar>
-        </telerik:RadDatePicker>--%>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Completion Remarks</td>
-            <td >
-                <asp:TextBox ID="txtCompletionRemarks" runat="server" TextMode="MultiLine" Height="60px" Width="200px" ></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td >
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr></table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td  colspan="5" class="tabletd">
-                Attach Document</td>
-        </tr>
-        <tr>
-            <td>
-                <asp:FileUpload ID="fuAttach" runat="server" AllowMultiple="true" />
- 
-              &nbsp;
-                <asp:Button ID="btnUpload" runat="server" Text="Upload" Enabled="False"/>
-                   <br /><br />
-    <asp:Label runat="server" id="StatusLabel" text="Upload status: " />
-            </td>
-            <td>
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr></table>
-
-        <table style="width:100%;">
-          <tr><td class="tabletd">
-              <asp:GridView ID="grdFileUpload" DataKeyNames="FileName"  runat ="server" AutoGenerateColumns="false" style="width:100%"">
-                      <Columns>
-                       <asp:TemplateField>
-            <HeaderTemplate>
-            Serial No.</HeaderTemplate>
-            <ItemTemplate>
-            <asp:Label ID="lblSRNO" runat="server" 
-                Text='<%#Container.DataItemIndex+1 %>'></asp:Label>
-            </ItemTemplate>
-                           </asp:TemplateField>
-                     <asp:TemplateField >              
-                           <ItemTemplate>
-     <asp:HiddenField ID="hdnField" runat="server" Value='<%# Bind("SlNo") %>' />
- </ItemTemplate></asp:TemplateField>
-                         <asp:TemplateField >              
-                           <ItemTemplate>
-     <asp:HiddenField ID="hdnType" runat="server" Value='<%# Bind("EILType") %>' />
- </ItemTemplate></asp:TemplateField>
-                          <asp:BoundField HeaderText="FileName" DataField="FileName" />
-                      
-<%--<ItemTemplate>--%>
-<%--<asp:ImageButton ID="imageButtonDelete" ImageUrl="~/Images/Trash can - 04.png" 
-Text="Delete" CommandName="Delete" runat="server" />--%>
-    <asp:ButtonField ButtonType="Image" ImageUrl="~/Images/Cancel.png" CommandName="Delete" Text="Delete" Visible="True" />
-                          <asp:TemplateField>
-<ItemTemplate>
-  <asp:ImageButton ID="imageButtonDownload" ImageUrl="~/Images/Download.png"  Text="Download" Visible="True" runat="server"/>
-    </ItemTemplate></asp:TemplateField>
-                      </Columns>
-              </asp:GridView>
-          </td></tr>
-            </table>
-
-        <table style="width:100%;">
-        <tr>
-            <td >
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td >
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td >
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-
-           <%-- <td>
-             <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Save" Width="46px" ValidationGroup="dummy"/>
-              &nbsp;<asp:Button  ID="btnUpdate" runat="server" Text="Update"  Onclick="btnUpdate_Click"/>
-&nbsp;<asp:Button ID="btnCancel" runat="server" Text="Cancel" Height="27px" Width="49px" OnClick="btnCancel_Click" />
-            </td>--%>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-                </table>
 
       
- </telerik:RadPageView>  
+</telerik:RadPageView>  
        
          
-                </telerik:RadMultiPage>
-             </td>
-    </tr>
+</telerik:RadMultiPage>
+</td>
+</tr>
 </table>
-
-
-
-
-    
+   
     </div>
         <%-- inner div ends here --%>
     </div>

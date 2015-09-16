@@ -17,7 +17,8 @@
     <form id="form1" runat="server">
      <div class="underConstructionLogo">
          
-        <p class="underConstructionTitle">Oops ! Sorry ,this page is under construction !!</p>
+        <p class="underConstructionTitle">
+            <asp:Label ID="lblmsg" runat="server" Text="Oops ! Sorry ,this page is under construction !!"></asp:Label></p>
     </div>
     </form>
 </body>

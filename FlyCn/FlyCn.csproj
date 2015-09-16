@@ -237,6 +237,20 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\FlyCnBlue\css\accodin.css" />
+    <Content Include="Content\themes\FlyCnBlue\css\bootstrap.min.css" />
+    <Content Include="Content\themes\FlyCnBlue\css\datepicker.css" />
+    <Content Include="Content\themes\FlyCnBlue\fonts\font-awesome.min.css" />
+    <Content Include="Content\themes\FlyCnBlue\fonts\fontawesome-webfont.svg" />
+    <Content Include="Templates\htmlTemplate.html" />
+    <Content Include="Content\themes\FlyCnBlue\css\selectize.css" />
+    <Content Include="Content\themes\FlyCnBlue\css\style.css" />
+    <Content Include="Content\themes\FlyCnBlue\css\stylesheet.css" />
+    <Content Include="Content\themes\FlyCnBlue\js\bootstrap-datepicker.js" />
+    <Content Include="Content\themes\FlyCnBlue\js\bootstrap.min.js" />
+    <Content Include="Content\themes\FlyCnBlue\js\index.js" />
+    <Content Include="Content\themes\FlyCnBlue\js\jquery.js" />
+    <Content Include="Content\themes\FlyCnBlue\js\selectize.js" />
     <Content Include="Default.aspx" />
     <Content Include="EIL\ClientPunchList.aspx" />
     <Content Include="EIL\ConstructionPunchList.aspx" />
@@ -272,6 +286,11 @@
     <Content Include="Images\Icons\editToolBarIcon.png" />
     <Content Include="Images\Icons\editToolBarIconDisabled.png" />
     <Content Include="Images\Icons\graphs.png" />
+    <Content Include="Images\Icons\icon01.png" />
+    <Content Include="Images\Icons\icon02.png" />
+    <Content Include="Images\Icons\icon03.png" />
+    <Content Include="Images\Icons\icon04.png" />
+    <Content Include="Images\Icons\icon05.png" />
     <Content Include="Images\Icons\ListIcon.png" />
     <Content Include="Images\Icons\MileStones.png" />
     <Content Include="Images\Icons\NewIcon.png" />
@@ -330,6 +349,10 @@
     <Content Include="Masters\Landing.Master" />
     <Content Include="Masters\Popup.Master" />
     <Content Include="Masters\IframePage.Master" />
+    <Content Include="Content\themes\FlyCnBlue\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\themes\FlyCnBlue\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\themes\FlyCnBlue\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\themes\FlyCnBlue\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="ProjectParameters\AddNewProject.aspx" />
     <Content Include="ProjectParameters\Main.aspx" />
@@ -366,6 +389,8 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="General\UnderConstruction.aspx" />
     <Content Include="SubMenu.aspx" />
+    <Content Include="Templates\InputTemplate.aspx" />
+    <Content Include="Templates\InputTemplateContent.aspx" />
     <Content Include="test1.aspx" />
     <Content Include="UserControls\ToolBar.ascx" />
     <Content Include="ViewSwitcher.ascx" />
@@ -505,6 +530,7 @@
     </Compile>
     <Compile Include="FlyCnDAL\Security.cs" />
     <Compile Include="FlyCnDAL\SystemDefenitionDetails.cs" />
+    <Compile Include="FlyCnDAL\Template.cs" />
     <Compile Include="FlyCnMasters\DynamicMaster.aspx.cs">
       <DependentUpon>DynamicMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -648,6 +674,20 @@
     </Compile>
     <Compile Include="SubMenu.aspx.designer.cs">
       <DependentUpon>SubMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\InputTemplate.aspx.cs">
+      <DependentUpon>InputTemplate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Templates\InputTemplate.aspx.designer.cs">
+      <DependentUpon>InputTemplate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\InputTemplateContent.aspx.cs">
+      <DependentUpon>InputTemplateContent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Templates\InputTemplateContent.aspx.designer.cs">
+      <DependentUpon>InputTemplateContent.aspx</DependentUpon>
     </Compile>
     <Compile Include="test1.aspx.cs">
       <DependentUpon>test1.aspx</DependentUpon>

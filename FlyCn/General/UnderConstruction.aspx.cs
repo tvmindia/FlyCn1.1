@@ -11,7 +11,13 @@ namespace FlyCn
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            try {
+                if (Request.Params["cause"] != null || Request.Params["cause"].ToString() == "dbDown")
+                {
+                    lblmsg.Text = "Oh ...  It looks the Database is Down......... !!           Contact DB Admin";
+                }
+            }
+            catch (Exception) { }
         }
     }
 }
