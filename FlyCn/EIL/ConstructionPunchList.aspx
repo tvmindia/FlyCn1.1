@@ -157,13 +157,41 @@
 
                   args.set_cancel(!confirm('Do you want to delete ?'));
               }
+              if (btn.get_value() == 'Update') {
 
+                  args.set_cancel(!validate());
+              }
+              if (btn.get_value() == 'Save') {
+
+                  args.set_cancel(!validate());
+              }
 
           }
    
 
 
   </script>
+    <script  type="text/javascript">
+
+        function validate() {
+            //try{
+
+            debugger;
+            var IdNo = document.getElementById("<%=txtIDno.ClientID %>").value;
+            
+            if (IdNo == "" ) {
+
+                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+                return false;
+
+            }
+            else {
+                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "";
+                return true;
+            }
+
+        }
+</script>
    
      <%--<script>
         function ShowCreate() {
@@ -254,6 +282,8 @@
                     </telerik:RadPageView>
           
     <telerik:RadPageView ID="rpAddEdit" runat="server">
+           <asp:Label ID="lblerror" runat="server" Text="" ForeColor="Red"></asp:Label>
+
         <uc1:ToolBar runat="server" ID="ToolBar" />
 
            <table style="width:100%;">
@@ -316,7 +346,8 @@
             <td class="tabletd">
 
                 <asp:TextBox ID="txtIDno" runat="server" CssClass="textbox" ></asp:TextBox>
-              
+                <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 800;
+font-family: Trebuchet MS;">*</span>
                <%-- <br />
                   <asp:RequiredFieldValidator ID="ReqIdNo" runat="server" ControlToValidate="txtIDno" ErrorMessage="Please enter Id no" ValidationGroup="dummy" ></asp:RequiredFieldValidator>
                 <br />--%>
