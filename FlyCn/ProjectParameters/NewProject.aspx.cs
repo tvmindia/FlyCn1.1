@@ -115,6 +115,7 @@ namespace FlyCn.ProjectParameters
 
         public void CompanyFileInsertion()
         {
+            FlyCn.FlyCnDAL.ProjectParameters pp = new FlyCnDAL.ProjectParameters();
             string[] validFileTypes = { "bmp", "gif", "png", "jpg", "jpeg" };
             int size = 10;
             string ext = System.IO.Path.GetExtension(FileUploadCompanyLogo.FileName);
@@ -157,8 +158,9 @@ namespace FlyCn.ProjectParameters
 
         public void ClientFileInsertion()
         {
+            FlyCn.FlyCnDAL.ProjectParameters pp = new FlyCnDAL.ProjectParameters();
             
-                  string[] validFileTypes1 = { "bmp", "gif", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx","pdf"};
+                  string[] validFileTypes1 = {  "png"};
                     int size1 = 10;
                     string ext1 = System.IO.Path.GetExtension(FileUploadClientLogo.FileName);
                     bool isValidFile1 = false;
@@ -200,7 +202,7 @@ namespace FlyCn.ProjectParameters
             
           
         }
-        }
+        
         protected void btnSkipFinish_Click(object sender, EventArgs e)
         {
             InsertData();
