@@ -517,6 +517,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FlyCnDAL\dbConnection.cs" />
+    <Compile Include="FlyCnDAL\DocumentMaster.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
     <Compile Include="FlyCnDAL\MasterData.cs" />
@@ -528,6 +529,7 @@
     <Compile Include="FlyCnDAL\PunchList.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FlyCnDAL\RevisionMaster.cs" />
     <Compile Include="FlyCnDAL\Security.cs" />
     <Compile Include="FlyCnDAL\SystemDefenitionDetails.cs" />
     <Compile Include="FlyCnDAL\Template.cs" />
