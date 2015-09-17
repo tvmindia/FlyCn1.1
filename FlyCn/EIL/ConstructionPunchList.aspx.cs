@@ -1,6 +1,7 @@
 ﻿
 #region Namespaces
 using FlyCn.FlyCnDAL;
+using FlyCn.UIClasses;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,6 +18,7 @@ namespace FlyCn.EIL
 {
     public partial class ConstructionPunchList : System.Web.UI.Page
     {
+        TabAddEditSettings tabs = new TabAddEditSettings();
        
         #region Global Variables
         ErrorHandling eObj = new ErrorHandling();
@@ -1143,9 +1145,14 @@ namespace FlyCn.EIL
             }
             catch (FormatException ex)
             {
+               
                 var page = HttpContext.Current.CurrentHandler as Page;
                 var master = page.Master;
                 eObj.ErrorData(ex, page);
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("1");
+                RadTab tab2 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tabs.ListTab(tab1, tab2);
+                RadMultiPage1.SelectedIndex = 0;
             }
         }
         #endregion Insert

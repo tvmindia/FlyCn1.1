@@ -461,9 +461,15 @@ namespace FlyCn.FlyCnMasters
                 if (dt.Rows[f]["Field_DataType"].ToString() == "C" | dt.Rows[f]["Field_DataType"].ToString() == "N")
                 {
                     RadComboBox combo = (RadComboBox)placeholder.FindControl("cmb" + dt.Rows[f]["Field_Name"]);
+                    if(combo.SelectedValue!="")
+                    { 
                     dt.Rows[f]["Values"] = combo.SelectedValue;
 
-
+                    }
+                    else
+                    {
+                        dt.Rows[f]["Values"] = string.Empty;
+                    }
                 }
             }
             int result = dl.UpdateMaster(dt, _mode, sdw);

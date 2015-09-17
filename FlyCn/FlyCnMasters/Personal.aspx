@@ -49,7 +49,7 @@
                       <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                       <%=ToolBar.ClientID %>_SetDeleteVisible(false);
 
-                      document.getElementById('<%=txtCode.ClientID %>').readOnly = false;
+                document.getElementById('<%=txtCode.ClientID %>').disabled = false;
                       //var divs = document.getElementById('ContentIframe');
                       //alert(divs);
                       document.getElementById('<%=ContentIframe.ClientID%>').style.display = "none";
@@ -79,8 +79,8 @@
           }
 
 </script>
-    <script>
-
+  
+      <script>
 
           function OnClientButtonClicking(sender, args) {
 
@@ -129,6 +129,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">    
     <div class="inputMainContainer">
         <div class="innerDiv">
+
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
              CausesValidation="false"   SelectedIndex="0" Skin="Silk"  >
             <Tabs>
@@ -136,6 +137,7 @@
                  <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
             </Tabs>
         </telerik:RadTabStrip>
+
 <table style="width:100%">
     <tr>
         <td>

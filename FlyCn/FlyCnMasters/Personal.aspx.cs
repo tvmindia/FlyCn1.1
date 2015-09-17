@@ -37,8 +37,14 @@ namespace FlyCn
             if(functionName=="Save")
             {
 
-
+                
             InsertData();
+            RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+            RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+            // TabAddEditSettings tabs = new TabAddEditSettings();
+            tabs.ListTab(tab, tab1);
+            RadMultiPage1.SelectedIndex = 0;
+
             }
             else if (functionName=="Update")
             {
@@ -51,11 +57,10 @@ namespace FlyCn
                 if (result == 1)
                 {
                     PersonnelGrid.Rebind();
-                    RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-                    tab.Selected = true;
-                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
-                    tab1.Text = "New";
-                    tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
+                    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                  
+                    tabs.ListTab(tab, tab1);
                     RadMultiPage1.SelectedIndex = 0;
 
                 }
@@ -64,7 +69,7 @@ namespace FlyCn
                     ToolBar.DeleteButton.Visible = false;
                     RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
                     RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                    // TabAddEditSettings tabs = new TabAddEditSettings();
+                 
                     tabs.ListTab(tab, tab1);
                     RadMultiPage1.SelectedIndex = 0;
 
@@ -164,8 +169,7 @@ namespace FlyCn
                 ToolBar.UpdateButton.Visible = false;
                 ToolBar.DeleteButton.Visible = false;
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
-                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                // TabAddEditSettings tabs = new TabAddEditSettings();
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");              
                 tabs.ListTab(tab, tab1);
                 RadMultiPage1.SelectedIndex = 0;
                 var page = HttpContext.Current.CurrentHandler as Page;
@@ -185,12 +189,7 @@ namespace FlyCn
             {
              int result = mp.DeleteMasterData(strId);
             
-             //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-             //tab.Selected = true;
-             //RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
-             //tab1.Text = "New";
-             //tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
-             //RadMultiPage1.SelectedIndex = 0;
+           
             }
             else if (e.CommandName == "EditData")
             {
@@ -213,7 +212,8 @@ namespace FlyCn
                     DataTable dataTable = new DataTable();
                     dtable = mp.FillMasterData(strId);
                     txtCode.Text = dtable.Rows[0]["Code"].ToString();
-                    txtCode.ReadOnly = true;
+                    //txtCode.ReadOnly = true;
+                    txtCode.Enabled = false;
                     txtName.Text = dtable.Rows[0]["Name"].ToString();
                     RadComboOTEligible.Text = dtable.Rows[0]["OTEligibleYN"].ToString();
                     txtEmpNo.Text = dtable.Rows[0]["Emp_No"].ToString();
