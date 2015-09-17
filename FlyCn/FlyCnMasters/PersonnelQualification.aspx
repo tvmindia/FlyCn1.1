@@ -9,8 +9,15 @@
           function validate() {
               var Qualification = document.getElementById('<%=txtQualification.ClientID %>').value;
                 if (Qualification == "") {
-                    alert("Enter Your Qualification");
+
+                    document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
                     return false;
+
+                }
+                
+                else {
+                    document.getElementById("<%=lblerror.ClientID %>").innerHTML = "";
+                    return true;
                 }
 
             }
@@ -55,7 +62,16 @@
             if (btn.get_value() == 'Delete')
             {
                 args.set_cancel(!confirm('Do you want to delete ?'));
-            }        
+            }
+            if (btn.get_value() == 'Save') {
+
+                args.set_cancel(!validate());
+            }
+            if (btn.get_value() == 'Update') {
+
+                args.set_cancel(!validate());
+            }
+
         }
         </script>
     
@@ -104,8 +120,10 @@
           </div>                       
                              </telerik:RadPageView>
                    <telerik:RadPageView ID="rpAddEdit" runat="server">
+           <asp:Label ID="lblerror" runat="server" Text="" ForeColor="Red"></asp:Label>
+
                        <uc1:ToolBar runat="server" ID="ToolBarQualification" />
-    <div id="divQualificationedit" >
+    <div id="divQualificationedit" style="overflow-y:hidden" >
       
         <table style="width: 100%;">
             <tr>
@@ -114,6 +132,8 @@
                 </td>
                 <td>
                     <asp:TextBox ID="txtQualification" runat="server"></asp:TextBox>
+                     <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500;
+font-family: Trebuchet MS;">*</span>
                 </td>
                    <td>
                     <asp:Label ID="lblQualificationType" runat="server" Text="QualificationType"></asp:Label>

@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="Personal.aspx.cs" Inherits="FlyCn.Personal" %>
 <%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
-
+ <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
      
@@ -14,27 +14,18 @@
              var Name = document.getElementById('<%=txtName.ClientID %>').value;
             var Nationality = document.getElementById('<%=txtNationality.ClientID %>').value;
             var Company = document.getElementById('<%=RadComboCompany.ClientID %>').value;
-       
-            if (Code == "") {
-                alert("Enter Your Code");
-                return false;
-            }
+            if (Code == "" || Name == "" || Nationality == "" || Company == "") {
 
-            if (Name == "") {
-                alert("Please enter your name");
+                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
                 return false;
-            }
 
-            if (Nationality == "") {
-                alert("please enter your nationality");
-                return false;
             }
-
-            if (Company == "") {
-                alert("Please select your company");
-                return false;
+        
+            else
+            {
+                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "";
+                return true;
             }
-           
         }
 </script>
 
@@ -98,6 +89,15 @@
 
                   args.set_cancel(!confirm('Do you want to delete ?'));
               }
+              if (btn.get_value() == 'Save') {
+
+                  args.set_cancel(!validate());
+              }
+              if (btn.get_value() == 'Update') {
+
+                  args.set_cancel(!validate());
+              }
+
         }
   </script>
  
@@ -172,6 +172,7 @@
 
         </telerik:RadPageView>
         <telerik:RadPageView ID="rpAddEdit" runat="server">
+           <asp:Label ID="lblerror" runat="server" Text="" ForeColor="Red"></asp:Label>
 
             <uc1:ToolBar runat="server" ID="ToolBar" />
 
@@ -188,7 +189,8 @@
                         </td>
                         <td class="tabletbody">
                             <asp:TextBox ID="txtCode" runat="server"></asp:TextBox>
-
+                             <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500;
+font-family: Trebuchet MS;">*</span>
                             <asp:RequiredFieldValidator ID="rfv" runat="server" ErrorMessage="Enter code."
                                 Display="Dynamic" SetFocusOnError="true"
                                 ForeColor="Red"
@@ -217,6 +219,8 @@
                         </td>
                         <td class="tabletbody">
                             <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
+                             <span id="span1" runat="server" style="color: red; font-size: 15px; font-weight: 500;
+font-family: Trebuchet MS;">*</span>
                         </td>
                         <td class="tabletbody">
                             <asp:Label ID="lblEndDate" runat="server" Text="End Date"></asp:Label>
@@ -238,6 +242,8 @@
                         </td>
                         <td class="tabletbody">
                             <asp:TextBox ID="txtNationality" runat="server"></asp:TextBox>
+                             <span id="span3" runat="server" style="color: red; font-size: 15px; font-weight: 500;
+font-family: Trebuchet MS;">*</span>
                         </td>
                         <td class="tabletbody">&nbsp;</td>
                         <td class="tabletbody">&nbsp;</td>
@@ -289,6 +295,8 @@
                                 EmptyMessage="Select a Company" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
                                 EnableVirtualScrolling="true" OnItemsRequested="RadComboCompany_ItemsRequested">
                             </telerik:RadComboBox>
+                             <span id="span4" runat="server" style="color: red; font-size: 15px; font-weight: 500;
+font-family: Trebuchet MS;">*</span>
                         </td>
                         <td class="tabletd">
                             <asp:Label ID="lblGenericPosition" runat="server" Text="Generic Position"></asp:Label>
@@ -338,6 +346,12 @@
                         </td>
                         <td class="tabletd">
                             <asp:TextBox ID="txtWorkHours" runat="server"></asp:TextBox>
+                            <asp:RegularExpressionValidator
+    ID="RegularExpressionValidator6"
+    runat="server"
+    ControlToValidate="txtWorkHours"
+    ValidationExpression="([0-9])[0-9]*[.]?[0-9]*"
+    ErrorMessage="Invalid Entry" ForeColor="Red"></asp:RegularExpressionValidator>
                         </td>
                         <td class="tabletd">
                             <asp:Label ID="lblCategory" runat="server" Text="Category"></asp:Label>
@@ -383,10 +397,10 @@
             </div>
             <hr />
 
-            <div id="framediv" runat="server">
+            <div id="framediv" runat="server" style="overflow: hidden;">
 
                 <iframe id="ContentIframe"
-                    name="PQualification" style="height: 300px; width: 100%; display: none;"
+                    name="PQualification" style="height: 300px; width: 100%; display: none; overflow: hidden;"
                     runat="server"></iframe>
             </div>
 

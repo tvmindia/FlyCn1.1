@@ -372,6 +372,7 @@ namespace FlyCn.FlyCnMasters
                         string boxname = dt.Rows[f]["Field_Name"].ToString();
                         TextBox box = (TextBox)placeholder.FindControl("txt" + dt.Rows[f]["Field_Name"]);
                         box.Text = dst.Rows[0][boxname].ToString();
+                        
                     }
                     else if (dt.Rows[f]["Field_DataType"].ToString() == "C" | dt.Rows[f]["Field_DataType"].ToString() == "N")
                     {

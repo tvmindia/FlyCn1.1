@@ -67,6 +67,15 @@ namespace FlyCn.FlyCnMasters {
         protected global::Telerik.Web.UI.RadPageView rpAddEdit;
         
         /// <summary>
+        /// lblerror control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblerror;
+        
+        /// <summary>
         /// ToolBarQualification control.
         /// </summary>
         /// <remarks>
@@ -92,6 +101,15 @@ namespace FlyCn.FlyCnMasters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtQualification;
+        
+        /// <summary>
+        /// span2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span2;
         
         /// <summary>
         /// lblQualificationType control.
