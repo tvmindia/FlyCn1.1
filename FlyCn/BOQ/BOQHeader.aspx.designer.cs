@@ -13,6 +13,15 @@ namespace FlyCn.BOQ {
     public partial class BOQHeader {
         
         /// <summary>
+        /// ScriptManager2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager2;
+        
+        /// <summary>
         /// RadTabStrip1 control.
         /// </summary>
         /// <remarks>
@@ -38,15 +47,6 @@ namespace FlyCn.BOQ {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView rpList;
-        
-        /// <summary>
-        /// ScriptManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
         /// RadGrid1 control.
@@ -76,13 +76,13 @@ namespace FlyCn.BOQ {
         protected global::FlyCn.UserControls.ToolBar ToolBar;
         
         /// <summary>
-        /// msg control.
+        /// lblDocumentno control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label msg;
+        protected global::System.Web.UI.WebControls.Label lblDocumentno;
         
         /// <summary>
         /// txtDocumentno control.
@@ -94,13 +94,31 @@ namespace FlyCn.BOQ {
         protected global::System.Web.UI.WebControls.TextBox txtDocumentno;
         
         /// <summary>
-        /// txtClientdocno control.
+        /// lblClientdocumentnot control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtClientdocno;
+        protected global::System.Web.UI.WebControls.Label lblClientdocumentnot;
+        
+        /// <summary>
+        /// txtClientdocumentno control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtClientdocumentno;
+        
+        /// <summary>
+        /// lblRevisionno control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRevisionno;
         
         /// <summary>
         /// txtRevisionno control.
@@ -112,22 +130,31 @@ namespace FlyCn.BOQ {
         protected global::System.Web.UI.WebControls.TextBox txtRevisionno;
         
         /// <summary>
-        /// txtIDocumentdate control.
+        /// lblDocumentdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtIDocumentdate;
+        protected global::System.Web.UI.WebControls.Label lblDocumentdate;
         
         /// <summary>
-        /// Label5 control.
+        /// txtDocumentdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
+        protected global::System.Web.UI.WebControls.TextBox txtDocumentdate;
+        
+        /// <summary>
+        /// lblDocumenttitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocumenttitle;
         
         /// <summary>
         /// txtDocumenttitle control.
@@ -137,6 +164,15 @@ namespace FlyCn.BOQ {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDocumenttitle;
+        
+        /// <summary>
+        /// lblRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRemarks;
         
         /// <summary>
         /// txtRemarks control.

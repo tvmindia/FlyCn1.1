@@ -16,5 +16,6 @@ namespace FlyCn.FlyCnDAL
        {
            myContentPane.ContentUrl = "BOQHeader.aspx";
        }
+        
     }
 }
