@@ -232,23 +232,31 @@ try {
                    <td class="size">Project No </td>
                    <td class="size">
                        <asp:TextBox ID="txtProjNo" runat="server"></asp:TextBox>
+                         <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500;
+font-family: Trebuchet MS;">*</span>
                    </td>
                </tr>
                <tr>
                    <td>Project Name </td>
                    <td>
                        <asp:TextBox ID="txtProjName" runat="server"></asp:TextBox>
+                         <span id="span1" runat="server" style="color: red; font-size: 15px; font-weight: 500;
+font-family: Trebuchet MS;">*</span>
                    </td>
                    <td  class="myclass">&nbsp;&nbsp;</td>
                    <td class="size">Project Location </td>
                    <td class="size">
                        <asp:TextBox ID="txtLocation" runat="server"></asp:TextBox>
+                         <span id="span3" runat="server" style="color: red; font-size: 15px; font-weight: 500;
+font-family: Trebuchet MS;">*</span>
                    </td>
                </tr>
                <tr>
                    <td>Project Manager </td>
                    <td>
                        <asp:TextBox ID="txtManager" runat="server"></asp:TextBox>
+                         <span id="span4" runat="server" style="color: red; font-size: 15px; font-weight: 500;
+font-family: Trebuchet MS;">*</span>
                    </td>
                 <td>&nbsp;&nbsp;</td>
                    <td>Base Project </td>
