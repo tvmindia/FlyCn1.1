@@ -67,6 +67,15 @@ namespace FlyCn {
         protected global::Telerik.Web.UI.RadPageView rpAddEdit;
         
         /// <summary>
+        /// lblerror control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblerror;
+        
+        /// <summary>
         /// ToolBar control.
         /// </summary>
         /// <remarks>
@@ -101,6 +110,15 @@ namespace FlyCn {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCode;
+        
+        /// <summary>
+        /// span2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span2;
         
         /// <summary>
         /// rfv control.
@@ -148,6 +166,15 @@ namespace FlyCn {
         protected global::System.Web.UI.WebControls.TextBox txtName;
         
         /// <summary>
+        /// span1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span1;
+        
+        /// <summary>
         /// lblEndDate control.
         /// </summary>
         /// <remarks>
@@ -182,6 +209,15 @@ namespace FlyCn {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNationality;
+        
+        /// <summary>
+        /// span3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span3;
         
         /// <summary>
         /// lblPassportNo control.
@@ -245,6 +281,15 @@ namespace FlyCn {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox RadComboCompany;
+        
+        /// <summary>
+        /// span4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span4;
         
         /// <summary>
         /// lblGenericPosition control.
@@ -353,6 +398,15 @@ namespace FlyCn {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtWorkHours;
+        
+        /// <summary>
+        /// RegularExpressionValidator6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator6;
         
         /// <summary>
         /// lblCategory control.
