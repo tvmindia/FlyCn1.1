@@ -18,11 +18,15 @@ namespace FlyCn.ProjectParameters
     {
         ErrorHandling eObj = new ErrorHandling();
         FlyCnDAL.ProjectParameters pObj = new FlyCnDAL.ProjectParameters();
+
+        #region  pageload
         protected void Page_Load(object sender, EventArgs e)
         {
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
         }
+        #endregion  pageload
+
         #region  ToolBar_onClick
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
@@ -38,7 +42,7 @@ namespace FlyCn.ProjectParameters
                 int result = pObj.DeleteSYSProjectsData(ProjectNo);
                 if (result == 1)
                 {
-                    RadGrid1.Rebind();
+                    dtgManageProjectGrid.Rebind();
                     //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
                     //tab.Selected = true;
                     //RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
@@ -51,19 +55,21 @@ namespace FlyCn.ProjectParameters
             }
         }
         #endregion  ToolBar_onClick
-        #region RadGrid1_NeedDataSource1
-        protected void RadGrid1_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+
+        #region dtgManageProjectGrid_NeedDataSource1
+        protected void dtgManageProjectGrid_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dt;
             dt = pObj.GetProjectDetails();
-            RadGrid1.DataSource = dt;
+            dtgManageProjectGrid.DataSource = dt;
             DataTable dts;
         //    dts = mObj.GetDEtailsFromPersonal();
-         //   RadGrid1.DataSource = dts;
+         //   dtgManageProjectGrid.DataSource = dts;
         }
-        #endregion RadGrid1_NeedDataSource1
+        #endregion dtgManageProjectGrid_NeedDataSource1
 
-        protected void RadGrid1_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        #region  dtgManageProjectGrid_ItemCommand
+        protected void dtgManageProjectGrid_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             if(e.CommandName=="EditData")
             {
@@ -88,7 +94,9 @@ namespace FlyCn.ProjectParameters
 
             }
         }
+        #endregion  dtgManageProjectGrid_ItemCommand
 
+        #region EditDataMethod
         public void EditDataMethod(string projno)
         {
             txtProjNo.Enabled = false;
@@ -97,7 +105,16 @@ namespace FlyCn.ProjectParameters
             dt = pObj.GetProjectParameters(projno);
             txtProjName.Text = dt.Rows[0]["ProjectName"].ToString();
             txtProjNo.Text = dt.Rows[0]["ProjectNo"].ToString();
-
+            if (dt.Rows[0]["Active"].ToString() == "True")
+            {
+                CheckboxActive.Checked = true;
+            
+                
+            }
+            else
+            {
+                CheckboxActive.Checked = false;
+            }
             txtLocation.Text = dt.Rows[0]["ProjectLocation"].ToString();
             txtManager.Text = dt.Rows[0]["Project_Manager"].ToString();
             txtCompanyName.Text = dt.Rows[0]["CompName"].ToString();
@@ -164,6 +181,9 @@ namespace FlyCn.ProjectParameters
 
         }
 
+        #endregion EditDataMethod
+
+        #region MakeFile
         public void MakeFile(DataRow dr, string filename, string type)
         {
             string filePath = Server.MapPath("/Images/ProjectImages/");
@@ -175,6 +195,9 @@ namespace FlyCn.ProjectParameters
 
         }
 
+        #endregion MakeFile
+
+        #region Update
         public void Update()
         {
            
@@ -242,8 +265,9 @@ namespace FlyCn.ProjectParameters
                 eObj.ErrorData(ex, page);
             }
         }
+        #endregion Update
 
-
+        #region CompanyLogoUpdate
         public void CompanyLogoUpdate()
         {
             string CompanyLogofname = txtProjNo.Text + lblComapnyLogo.Text + ".png";
@@ -302,6 +326,9 @@ namespace FlyCn.ProjectParameters
             }
         }
 
+        #endregion CompanyLogoUpdate
+
+        #region ClientLogoUpdate
         public void ClientLogoUpdate()
         {
 
@@ -358,13 +385,15 @@ namespace FlyCn.ProjectParameters
             }
         }
 
-        #region  RadGrid1_PreRender
-        protected void RadGrid1_PreRender(object sender, EventArgs e)
+        #endregion ClientLogoUpdate
+
+        #region  dtgManageProjectGrid_PreRender
+        protected void dtgManageProjectGrid_PreRender(object sender, EventArgs e)
         {
 
-            RadGrid1.Rebind();
+            dtgManageProjectGrid.Rebind();
         }
 
-        #endregion  RadGrid1_PreRender
+        #endregion  dtgManageProjectGrid_PreRender
     }
 }

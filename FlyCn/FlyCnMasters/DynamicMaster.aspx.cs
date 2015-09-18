@@ -63,7 +63,7 @@ namespace FlyCn.FlyCnMasters
           int   result = dl.DeleteMasterData(primarykeys, _mode, KeyValue);
           if (result == 1)
           {
-              DynamicMasterGrid.Rebind();
+              dtgDynamicMasterGrid.Rebind();
               RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
               RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
               TabAddEditSettings tabs = new TabAddEditSettings();
@@ -252,7 +252,7 @@ namespace FlyCn.FlyCnMasters
                 }
             }
             int result = dl.InsertMasterData(dt, ProjNo, _mode);     
-            DynamicMasterGrid.Rebind();
+            dtgDynamicMasterGrid.Rebind();
             RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
             RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
             tabs.ListTab(tab,tab1);
@@ -286,29 +286,29 @@ namespace FlyCn.FlyCnMasters
 
         #endregion  InsertData
 
-        #region  DynamicMasterGrid_NeedDataSource1
-        protected void DynamicMasterGrid_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        #region  dtgDynamicMasterGrid_NeedDataSource1
+        protected void dtgDynamicMasterGrid_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
 
             dt = dl.BindMasters(_mode, UA.projectNo);
-            DynamicMasterGrid.DataSource = dt;
+            dtgDynamicMasterGrid.DataSource = dt;
 
         }
-        #endregion  DynamicMasterGrid_NeedDataSource1
+        #endregion  dtgDynamicMasterGrid_NeedDataSource1
 
-        #region  DynamicMasterGrid_DeleteCommand
-        protected void DynamicMasterGrid_DeleteCommand(object source, GridCommandEventArgs e)
+        #region  dtgDynamicMasterGrid_DeleteCommand
+        protected void dtgDynamicMasterGrid_DeleteCommand(object source, GridCommandEventArgs e)
         {
             string ID = (e.Item as GridDataItem).GetDataKeyValue("ID").ToString();
             //delete query
         }
 
-        #endregion  DynamicMasterGrid_DeleteCommand
+        #endregion  dtgDynamicMasterGrid_DeleteCommand
 
 
-        #region  DynamicMasterGrid_ItemCommand
+        #region  dtgDynamicMasterGrid_ItemCommand
 
-        protected void DynamicMasterGrid_ItemCommand(object source, GridCommandEventArgs e)
+        protected void dtgDynamicMasterGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
             dt = sd.GetComboBoxDetails(_mode);
 
@@ -341,13 +341,28 @@ namespace FlyCn.FlyCnMasters
             int result;
             if (e.CommandName == "Delete")
             {
-                result = dl.DeleteMasterData(primarykeys, _mode,KeyValue);
-                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
-                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                TabAddEditSettings tabs = new TabAddEditSettings();
-                tabs.Addtab(tab, tab1);
-                RadMultiPage1.SelectedIndex = 0;
+              
 
+
+
+                    result = dl.DeleteMasterData(primarykeys, _mode, KeyValue);
+                    if (result == 1)
+                    {
+                        RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                        RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                        TabAddEditSettings tabs = new TabAddEditSettings();
+                        tabs.Addtab(tab, tab1);
+                        RadMultiPage1.SelectedIndex = 0;
+                    }
+                else
+                    {
+                   
+                    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                    TabAddEditSettings tabs = new TabAddEditSettings();
+                    tabs.Addtab(tab, tab1);
+                    RadMultiPage1.SelectedIndex = 0;
+                }
             }
             else if (e.CommandName == "EditData")
             {
@@ -403,7 +418,7 @@ namespace FlyCn.FlyCnMasters
                
             }
         }
-        #endregion  DynamicMasterGrid_ItemCommand
+        #endregion  dtgDynamicMasterGrid_ItemCommand
 
         #region  Page_Init
 
@@ -429,7 +444,7 @@ namespace FlyCn.FlyCnMasters
            sdw =primarykeys.TrimEnd(',', ' ');
          }
            // string[] test = sdw.Split(",");
-        DynamicMasterGrid.MasterTableView.DataKeyNames = sdw.Split(',').ToArray();// new string[] { sdw };
+        dtgDynamicMasterGrid.MasterTableView.DataKeyNames = sdw.Split(',').ToArray();// new string[] { sdw };
         }
 
         #endregion  Page_Init
@@ -468,7 +483,8 @@ namespace FlyCn.FlyCnMasters
                     }
                     else
                     {
-                        dt.Rows[f]["Values"] = string.Empty;
+
+                        dt.Rows[f]["Values"] = null;
                     }
                 }
             }
@@ -486,7 +502,7 @@ namespace FlyCn.FlyCnMasters
              }
             //if (result == 1)
             //{
-            //    DynamicMasterGrid.Rebind();
+            //    dtgDynamicMasterGrid.Rebind();
             //    RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
             //    tab.Selected = true;
             //    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
@@ -501,14 +517,14 @@ namespace FlyCn.FlyCnMasters
 
         #endregion  UpdateData
 
-        #region DynamicMasterGrid_PreRender
-        protected void DynamicMasterGrid_PreRender(object sender, EventArgs e)
+        #region dtgDynamicMasterGrid_PreRender
+        protected void dtgDynamicMasterGrid_PreRender(object sender, EventArgs e)
         {
 
-            DynamicMasterGrid.Rebind();
+            dtgDynamicMasterGrid.Rebind();
         }
 
-        #endregion DynamicMasterGrid_PreRender
+        #endregion dtgDynamicMasterGrid_PreRender
 
 
         //protected void RadTabStrip1_TabClick(object sender, RadTabStripEventArgs e)

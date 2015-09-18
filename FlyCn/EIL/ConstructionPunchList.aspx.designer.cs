@@ -49,13 +49,13 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// RadGrid1 control.
+        /// dtgManageProjectGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid1;
+        protected global::Telerik.Web.UI.RadGrid dtgManageProjectGrid;
         
         /// <summary>
         /// rpAddEdit control.
@@ -164,6 +164,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlOpenBy;
+        
+        /// <summary>
+        /// RadEnteredDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker RadEnteredDate;
         
         /// <summary>
         /// ddlEnteredBy control.
@@ -319,6 +328,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.TextBox txtRFINo;
         
         /// <summary>
+        /// RadRFIDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker RadRFIDate;
+        
+        /// <summary>
         /// rdbCoveredByYes control.
         /// </summary>
         /// <remarks>
@@ -353,6 +371,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtReference;
+        
+        /// <summary>
+        /// RadReferenceDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker RadReferenceDate;
         
         /// <summary>
         /// rbChangeRequest control.
@@ -452,6 +479,24 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSignedBy;
+        
+        /// <summary>
+        /// RadCompletionDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker RadCompletionDate;
+        
+        /// <summary>
+        /// RadScheduleCompletionDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker RadScheduleCompletionDate;
         
         /// <summary>
         /// txtCompletionRemarks control.

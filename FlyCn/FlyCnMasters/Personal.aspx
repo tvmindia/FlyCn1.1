@@ -3,7 +3,7 @@
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
  <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="phdPersonalHead" ContentPlaceHolderID="head" runat="server">
      
    
  
@@ -52,9 +52,9 @@
                 document.getElementById('<%=txtCode.ClientID %>').disabled = false;
                       //var divs = document.getElementById('ContentIframe');
                       //alert(divs);
-                      document.getElementById('<%=ContentIframe.ClientID%>').style.display = "none";
+                   <%--   document.getElementById('<%=ContentIframe.ClientID%>').Style.display = "none";
 
-                      document.getElementById('<%=lblQualificationframe.ClientID%>').style.display = "none";
+                      document.getElementById('<%=lblQualificationframe.ClientID%>').Style.display = "none";--%>
 
                    
                   }
@@ -126,7 +126,7 @@
    
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">    
+<asp:Content ID="phdPersonalContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">    
     <div class="inputMainContainer">
         <div class="innerDiv">
 
@@ -153,9 +153,9 @@
                 <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
                 </asp:ScriptManager>
 
-                <telerik:RadGrid ID="PersonnelGrid" runat="server" OnNeedDataSource="PersonnelGrid_NeedDataSource" OnItemCommand="PersonnelGrid_ItemCommand"
+                <telerik:RadGrid ID="dtgPersonnelGrid" runat="server" OnNeedDataSource="dtgPersonnelGrid_NeedDataSource" OnItemCommand="dtgPersonnelGrid_ItemCommand"
                     Skin="Silk" CssClass="outerMultiPage"
-                    OnPreRender="PersonnelGrid_PreRender">
+                    OnPreRender="dtgPersonnelGrid_PreRender">
                     <MasterTableView DataKeyNames="Code">
 
                         <Columns>
@@ -395,14 +395,14 @@ font-family: Trebuchet MS;">*</span>
             <br />
 
             <div>
-                <asp:Label ID="lblQualificationframe" runat="server" Text="Qualification" ForeColor="Brown" Style="display: none"></asp:Label>
+                <asp:Label ID="lblQualificationframe" runat="server" Text="Qualification" ForeColor="Brown"   Style="display: none"></asp:Label>
             </div>
             <hr />
 
             <div id="framediv" runat="server" style="overflow: hidden;">
 
                 <iframe id="ContentIframe"
-                    name="PQualification" style="height: 300px; width: 100%; display: none; overflow: hidden;"
+                    name="PQualification" style ="height: 300px; width: 100%; display: none; overflow: hidden;"
                     runat="server"></iframe>
             </div>
 

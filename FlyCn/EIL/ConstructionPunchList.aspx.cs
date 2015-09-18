@@ -79,20 +79,20 @@ namespace FlyCn.EIL
         }
         #endregion btnSave_Click
 
-        #region RadGrid1_NeedDataSource1
-        protected void RadGrid1_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        #region dtgManageProjectGrid_NeedDataSource1
+        protected void dtgManageProjectGrid_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dt;
             dt = pObj.GetPunchList();
-            RadGrid1.DataSource = dt;
+            dtgManageProjectGrid.DataSource = dt;
            // DataTable dts;
             //dts = mObj.GetDEtailsFromPersonal();
-            //RadGrid1.DataSource = dts;
+            //dtgManageProjectGrid.DataSource = dts;
         }
-        #endregion RadGrid1_NeedDataSource1
+        #endregion dtgManageProjectGrid_NeedDataSource1
 
-        #region RadGrid1_DeleteCommand
-        private void RadGrid1_DeleteCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
+        #region dtgManageProjectGrid_DeleteCommand
+        private void dtgManageProjectGrid_DeleteCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
         {
             string ID = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["IDNo"].ToString();
             DataTable table = (DataTable)Session["DataSource"];
@@ -103,10 +103,10 @@ namespace FlyCn.EIL
                 Session["DataSource"] = dt;
             }
         }
-        #endregion RadGrid1_DeleteCommand
+        #endregion dtgManageProjectGrid_DeleteCommand
 
-        #region RadGrid1_ItemCommand
-        protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
+        #region dtgManageProjectGrid_ItemCommand
+        protected void dtgManageProjectGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
            // string type = Request.QueryString["Mode"];
             if (e.CommandName == "EditData")
@@ -189,7 +189,13 @@ namespace FlyCn.EIL
                     ddlEnteredBy.SelectedIndex = ddlEnteredBy.Items.IndexOf(ddlEnteredBy.Items.FindByText("-Select-"));
                 }
 
+               // string entrdDate = dt.Rows[0]["EnteredDt"].ToString();
+
                 string entrdDate = dt.Rows[0]["EnteredDt"].ToString();
+                      if (entrdDate != "")
+                    {
+                        RadEnteredDate.SelectedDate = Convert.ToDateTime(entrdDate);
+                    }
                 //if (entrdDate != "")
                 //{
 
@@ -242,17 +248,17 @@ namespace FlyCn.EIL
                     ddlPlant.SelectedIndex = ddlPlant.Items.IndexOf(ddlPlant.Items.FindByText("-Select-"));
                 }
                 string schDate = dt.Rows[0]["SchComplDt"].ToString();
-                //if (schDate != null)
-                //{
+                if (schDate != "")
+                {
 
-                //    RadScheduleCompletionDate.SelectedDate = Convert.ToDateTime(schDate );
-                //}
+                    RadScheduleCompletionDate.SelectedDate = Convert.ToDateTime(schDate);
+                }
                 string rfiDate = dt.Rows[0]["RFIDate"].ToString();
-                //if (rfiDate != "")
-                //{
+                if (rfiDate != "")
+                {
 
-                //    RadRFINo.SelectedDate = Convert.ToDateTime(rfiDate);
-                //}
+                    RadRFIDate.SelectedDate = Convert.ToDateTime(rfiDate);
+                }
                 txtRFINo.Text = dt.Rows[0]["RFINo"].ToString();
                 txtSheet.Text = dt.Rows[0]["Sht"].ToString();
                 txtDrawing.Text = dt.Rows[0]["DwgNo"].ToString();
@@ -281,17 +287,17 @@ namespace FlyCn.EIL
                 txtReference.Text = dt.Rows[0]["ChangeReqRef"].ToString();
 
                 string refDate = dt.Rows[0]["ChangeReqDt"].ToString();
-                //if (refDate != "")
-                //{
-                //    RadReferenceDate.SelectedDate = Convert.ToDateTime(refDate);
-                //}
+                if (refDate != "")
+                {
+                    RadReferenceDate.SelectedDate = Convert.ToDateTime(refDate);
+                }
                 txtRevision.Text = dt.Rows[0]["Rev"].ToString();
 
                 string compDate = dt.Rows[0]["ComplDt"].ToString();
-                //if (compDate !="")
-                //{
-                //    RadCompletionDate.SelectedDate = Convert.ToDateTime(compDate);
-                //}
+                if (compDate != "")
+                {
+                    RadCompletionDate.SelectedDate = Convert.ToDateTime(compDate);
+                }
                 txtCompletionRemarks.Text = dt.Rows[0]["ComplRemarks"].ToString();
                 txtControlSystem.Text = dt.Rows[0]["CTRL_System"].ToString();
                 string organization = dt.Rows[0]["ComplRespOrg"].ToString();
@@ -342,11 +348,11 @@ namespace FlyCn.EIL
                     eObj.DeleteSuccessData(page );
 
                 }
-                RadGrid1.Rebind();        
+                dtgManageProjectGrid.Rebind();        
             }
 
         }
-        #endregion RadGrid1_ItemCommand
+        #endregion dtgManageProjectGrid_ItemCommand
 
         #region btnUpdate_Click
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -730,6 +736,10 @@ namespace FlyCn.EIL
                 //{
                 //    pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
                 //}
+                if (RadEnteredDate.SelectedDate != null)
+                {
+                    pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
+                }
                 if (ddlDiscipline.SelectedItem.Text != "-Select-")
                 {
                     pObj.Discipline = Convert.ToString(ddlDiscipline.SelectedValue);
@@ -772,14 +782,14 @@ namespace FlyCn.EIL
                     pObj.Unit = null;
                 }
 
-                //if (RadScheduleCompletionDate.SelectedDate!=null)
-                //{
-                //    pObj.ScheduledDateCompletion = Convert.ToString(RadScheduleCompletionDate.SelectedDate);
-                //}
-                //if (RadRFINo.SelectedDate != null)
-                //{
-                //    pObj.RFIDate = Convert.ToString(RadRFINo.SelectedDate);
-                //}
+                if (RadScheduleCompletionDate.SelectedDate != null)
+                {
+                    pObj.ScheduledDateCompletion = Convert.ToString(RadScheduleCompletionDate.SelectedDate);
+                }
+                if (RadRFIDate.SelectedDate != null)
+                {
+                    pObj.RFIDate = Convert.ToString(RadRFIDate.SelectedDate);
+                }
                 pObj.RFINo = txtRFINo.Text;
                 pObj.Sheet = txtSheet.Text;
                 pObj.Drawing = txtDrawing.Text;
@@ -813,16 +823,16 @@ namespace FlyCn.EIL
                 string val = null;
                 pObj.QueryRevision = string.IsNullOrEmpty(val) ? 0 : Convert.ToInt32(txtQueryRevision.Text);
                 pObj.Reference = txtReference.Text;
-                //if (RadReferenceDate.SelectedDate!=null)
-                //{
-                //    pObj.ReferenceDate = Convert.ToString(RadReferenceDate.SelectedDate);
-                //}
+                if (RadReferenceDate.SelectedDate != null)
+                {
+                    pObj.ReferenceDate = Convert.ToString(RadReferenceDate.SelectedDate);
+                }
 
                 //pObj.Revison = txtRevision.Text;
-                //if (RadCompletionDate.SelectedDate!=null)
-                //{
-                //    pObj.CompletionDate = Convert.ToString(RadCompletionDate.SelectedDate);
-                //}
+                if (RadCompletionDate.SelectedDate != null)
+                {
+                    pObj.CompletionDate = Convert.ToString(RadCompletionDate.SelectedDate);
+                }
                 pObj.CompletionRemarks = txtCompletionRemarks.Text;
                 if (txtControlSystem.Text != "")
                 {
@@ -862,7 +872,7 @@ namespace FlyCn.EIL
                     var page = HttpContext.Current.CurrentHandler as Page;
                     var master = page.Master;
                     eObj.UpdationSuccessData(page);
-                    //RadGrid1.Rebind();
+                    //dtgManageProjectGrid.Rebind();
                     //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("Edit");
                     //tab.Selected = true;
                     ////RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
@@ -872,7 +882,7 @@ namespace FlyCn.EIL
                                        
                     
                 }
-                RadGrid1.Rebind();
+                dtgManageProjectGrid.Rebind();
                 //Cleartextboxes();  
             }
             catch (SqlException ex)
@@ -958,10 +968,10 @@ namespace FlyCn.EIL
                     mObj.EnteredBy = null;
                 }
 
-                //if (RadEnteredDate.SelectedDate != null)
-                //{
-                //    pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
-                //}
+                if (RadEnteredDate.SelectedDate != null)
+                {
+                    pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
+                }
                 if (ddlDiscipline.SelectedItem.Text != "-Select-")
                 {
                     pObj.Discipline = Convert.ToString(ddlDiscipline.SelectedValue);
@@ -1003,14 +1013,15 @@ namespace FlyCn.EIL
                 {
                     pObj.Plant = null;
                 }
-                //if (RadScheduleCompletionDate != null)
-                //{
-                //    pObj.ScheduledDateCompletion = Convert.ToString(RadScheduleCompletionDate.SelectedDate);
-                //}
-                //if (RadRFINo.SelectedDate != null)
-                //{
-                //    pObj.RFIDate = Convert.ToString(RadRFINo.SelectedDate);
-                //}
+                if (RadScheduleCompletionDate != null)
+                {
+                    pObj.ScheduledDateCompletion = Convert.ToString(RadScheduleCompletionDate.SelectedDate);
+                }
+                if (RadRFIDate.SelectedDate != null)
+                {
+                    pObj.RFIDate = Convert.ToString(RadRFIDate.SelectedDate);
+                }
+                
                 pObj.RFINo = txtRFINo.Text;
                 pObj.Sheet = txtSheet.Text;
                 pObj.Drawing = txtDrawing.Text;
@@ -1053,15 +1064,15 @@ namespace FlyCn.EIL
                 string val = null;
                 pObj.QueryRevision = string.IsNullOrEmpty(val) ? '0' : Convert.ToInt32(txtQueryRevision.Text);
                 pObj.Reference = txtReference.Text;
-                //if (RadReferenceDate.SelectedDate != null)
-                //{
-                //    pObj.ReferenceDate = Convert.ToString(RadReferenceDate.SelectedDate);
-                //}
+                if (RadReferenceDate.SelectedDate != null)
+                {
+                    pObj.ReferenceDate = Convert.ToString(RadReferenceDate.SelectedDate);
+                }
                 pObj.Revison = txtRevision.Text;
-                //if (RadCompletionDate.SelectedDate != null)
-                //{
-                //    pObj.CompletionDate = Convert.ToString(RadCompletionDate.SelectedDate);
-                //}
+                if (RadCompletionDate.SelectedDate != null)
+                {
+                    pObj.CompletionDate = Convert.ToString(RadCompletionDate.SelectedDate);
+                }
                 pObj.CompletionRemarks = txtCompletionRemarks.Text;
                 if (txtControlSystem.Text != "")
                 {
@@ -1100,7 +1111,7 @@ namespace FlyCn.EIL
                         var page = HttpContext.Current.CurrentHandler as Page;
                         var master = page.Master;
                         eObj.InsertionSuccessData(page);
-                        RadGrid1.Rebind();
+                        dtgManageProjectGrid.Rebind();
                     }
                 }
             
@@ -1290,7 +1301,7 @@ namespace FlyCn.EIL
             val = pObj.DeleteEILAttach(ID, type);
             int result;
             result = pObj.DeleteEIL(projno, ID);
-            RadGrid1.Rebind();
+            dtgManageProjectGrid.Rebind();
             RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
             tab.Selected = true;
             RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");

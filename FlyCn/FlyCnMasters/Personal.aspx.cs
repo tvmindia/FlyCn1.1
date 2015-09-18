@@ -56,7 +56,7 @@ namespace FlyCn
                 int result = mp.DeleteMasterData(code);
                 if (result == 1)
                 {
-                    PersonnelGrid.Rebind();
+                    dtgPersonnelGrid.Rebind();
                     RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
                     RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
                   
@@ -81,20 +81,20 @@ namespace FlyCn
 
         #endregion  ToolBar_onClick
 
-        #region PersonnelGrid_NeedDataSource
+        #region dtgPersonnelGrid_NeedDataSource
 
-        protected void PersonnelGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        protected void dtgPersonnelGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
 
             DataTable dt = new DataTable();
       
             dt = mp.BindMastersPersonal();
         
-            PersonnelGrid.DataSource = dt;
+            dtgPersonnelGrid.DataSource = dt;
 
         }
        
-        #endregion PersonnelGrid_NeedDataSource
+        #endregion dtgPersonnelGrid_NeedDataSource
 
         #region  RadComboCompany_ItemsRequested
         protected void RadComboCompany_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
@@ -153,7 +153,7 @@ namespace FlyCn
                 mp.Remarks = txtRemarks.Text;
                 string ProjNo = UA.projectNo;
                 int result = mp.InsertMasterData(ProjNo);
-                PersonnelGrid.Rebind();
+                dtgPersonnelGrid.Rebind();
 
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
                 tab.Selected = true;
@@ -180,8 +180,8 @@ namespace FlyCn
 
         #endregion InsertData
 
-        #region  PersonnelGrid_ItemCommand
-        protected void PersonnelGrid_ItemCommand(object source, GridCommandEventArgs e)
+        #region  dtgPersonnelGrid_ItemCommand
+        protected void dtgPersonnelGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
             GridDataItem item = e.Item as GridDataItem;
             string strId = item.GetDataKeyValue("Code").ToString();
@@ -242,9 +242,9 @@ namespace FlyCn
                     }
                     txtRemarks.Text = dtable.Rows[0]["Remarks"].ToString();
 
-                   // lblQualificationframe.Visible = true;
+                   //lblQualificationframe.Visible = true;
 
-                    lblQualificationframe.Style["display"] = "";
+                  lblQualificationframe.Style["display"] = "";
                     ContentIframe.Style["display"] = "";
                    ContentIframe.Attributes["src"] = "PersonnelQualification.aspx?id=" + strId;
 
@@ -261,16 +261,16 @@ namespace FlyCn
             }         
         }
 
-        #endregion  PersonnelGrid_ItemCommand
+        #endregion  dtgPersonnelGrid_ItemCommand
 
-        #region  PersonnelGrid_PreRender
-        protected void PersonnelGrid_PreRender(object sender, EventArgs e)
+        #region  dtgPersonnelGrid_PreRender
+        protected void dtgPersonnelGrid_PreRender(object sender, EventArgs e)
         {
            
-            PersonnelGrid.Rebind();
+            dtgPersonnelGrid.Rebind();
         }
 
-        #endregion  PersonnelGrid_PreRender
+        #endregion  dtgPersonnelGrid_PreRender
 
         #region  UpdateData
         public void UpdateData()
@@ -312,8 +312,9 @@ namespace FlyCn
                 mp.Remarks = txtRemarks.Text;
                 string ProjNo = UA.projectNo;
                 int result = mp.UpdateMasterPersonel(ProjNo);
-              
-                ContentIframe.Visible = false;
+
+                ContentIframe.Style["display"] ="none";
+                lblQualificationframe.Style["display"] = "none";
             }
             catch(Exception ex)
             {

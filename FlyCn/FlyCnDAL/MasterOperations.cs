@@ -182,13 +182,7 @@ namespace FlyCn.FlyCnDAL
         /// <returns>return integer</returns>
         public int DeleteMasterData(string keys, string TableName, string KeyValue)
         {
-           
-//for(i=0;strArr.Length;i++)
-//{
-//strSQl='insert into tablename(datet,textvalue) values ('"+strDate+"','"+ strArr[i].Tostring() +"');'   
- 
-//}
-            SqlConnection conObj = null;
+         SqlConnection conObj = null;
             try
             {
                 string whereCondition="";
@@ -217,10 +211,11 @@ namespace FlyCn.FlyCnDAL
             catch (SqlException ex)  
             {
                
-                //throw ex;
+              // throw ex;
                 var page = HttpContext.Current.CurrentHandler as Page;
                 var master = page.Master;
                 eObj.ErrorData(ex, page);
+               
             }
             finally
             {
