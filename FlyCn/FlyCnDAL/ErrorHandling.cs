@@ -28,8 +28,8 @@ namespace FlyCn.FlyCnDAL
             ContentPlaceHolder mpContentPlaceHolder;
             Label error = (Label)master.FindControl("lblErrorInfo");
             mpContentPlaceHolder = (ContentPlaceHolder)master.FindControl("MainBody");
-            HtmlControl divMask = (HtmlControl)master.FindControl("Errorbox");     
-            divMask.Style["display"] = "";
+            HtmlControl divMask = (HtmlControl)master.FindControl("Errorbox");
+            divMask.Style["visibility"] = "visible";
             divMask.Attributes["class"] = "ErrormsgBoxes";
             error.Text = ex.Message;  
 
@@ -41,7 +41,7 @@ namespace FlyCn.FlyCnDAL
                 ContentPlaceHolder mpContentPlaceHolder1;
                 mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
                 HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
-                divMask1.Style["display"] = "";              
+                divMask1.Style["visibility"] = "visible";// divMask1.Style["display"] = "";              
                 Label Success = (Label)master1.FindControl("lblErrorInfo");
                 divMask1.Attributes["class"] = "Succesmsgboxes";
                 Success.Text = "Successfully Inserted";  
@@ -52,7 +52,7 @@ namespace FlyCn.FlyCnDAL
              ContentPlaceHolder mpContentPlaceHolder1; 
              mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
              HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
-             divMask1.Style["display"] = "";
+             divMask1.Style["visibility"] = "visible";// divMask1.Style["display"] = "";
              Label Success = (Label)master1.FindControl("lblErrorInfo");
              divMask1.Attributes["class"] = "Succesmsgboxes";
              Success.Text = "Successfully Updated";  
@@ -81,8 +81,8 @@ namespace FlyCn.FlyCnDAL
             var master1 = pg.Master;
             ContentPlaceHolder mpContentPlaceHolder1;
             mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
-            HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox"); 
-            divMask1.Style["display"] = "";
+            HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
+            divMask1.Style["visibility"] = "visible"; //divMask1.Style["display"] = "";
             Label Success = (Label)master1.FindControl("lblErrorInfo");
             divMask1.Attributes["class"] = "Succesmsgboxes";
             Success.Text = "Deleted Successfully";
