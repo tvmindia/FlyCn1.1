@@ -41,7 +41,7 @@
             <table style="width: 100%;background-color: transparent;">                
                 <tr>
                     <td style="text-align: right;width:90%">
-                        <asp:Label ID="lblErrorInfo" runat="server" Style="font-size:medium;"></asp:Label>
+                        <asp:Label ID="lblErrorInfo" runat="server"  ></asp:Label>
                     </td>
                      <td style="text-align: center;width:10%">
                         <img src="../Images/Close1.png" onclick="hideMe();" style="height:15px;width:15px"/>                   

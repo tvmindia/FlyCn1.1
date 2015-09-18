@@ -276,7 +276,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c4e5f5', end
     text-align: right;
     position: fixed;
     font-family: 'Segoe UI Light';
-    font-size: 5px;
+    font-size: 12px;
     z-index: 2;
 }
     .ErrormsgBoxes {
@@ -298,7 +298,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c4e5f5', end
     text-align: right;
     position: fixed;
     font-family: 'Segoe UI Light';
-    font-size: 3px;
+    font-size: 12px;
     border-color: transparent transparent #E10000 transparent;
     z-index: 2;
 }
