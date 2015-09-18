@@ -15,7 +15,7 @@ namespace FlyCn.FlyCnMasters
     public partial class DynamicMaster : System.Web.UI.Page
     {
         string _mode;
-        string _rowId;
+      //  string _rowId;
 
         TabAddEditSettings tabs = new TabAddEditSettings();
         ErrorHandling eObj = new ErrorHandling();
@@ -29,12 +29,11 @@ namespace FlyCn.FlyCnMasters
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.Params["Mode"] == null) { } else {
-              //  lblmasterName.Text = Request.Params["Mode"].ToString();
-            }
-
+           
+            //--------------------------------------------------------
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
+            //---------------------------------------------------------
 
             PlaceControls();
         }
@@ -63,7 +62,7 @@ namespace FlyCn.FlyCnMasters
           int   result = dl.DeleteMasterData(primarykeys, _mode, KeyValue);
           if (result == 1)
           {
-              DynamicMasterGrid.Rebind();
+              dtgDynamicMasterGrid.Rebind();
               RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
               RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
               TabAddEditSettings tabs = new TabAddEditSettings();
@@ -193,15 +192,16 @@ namespace FlyCn.FlyCnMasters
             string TableName;
             RadComboBox combo = (RadComboBox)sender;
             dt = sd.GetComboBoxDetails(_mode);
+
+            //--- generate sql for drop down based on system table defenition
             for (int f = 0; f < dt.Rows.Count; f++)
             {
                 if (dt.Rows[f]["Field_DataType"].ToString() == "C"| dt.Rows[f]["Field_DataType"].ToString() == "N")
                 {
                     TableName = dt.Rows[f]["Ref_TableName"].ToString();
                     string FieldName = combo.ID;
-                    FieldName = FieldName.TrimStart('c');
-                    FieldName = FieldName.TrimStart('m');
-                    FieldName = FieldName.TrimStart('b');
+                    FieldName = FieldName.Substring(3);//remove cmb from combo id
+
                     if (FieldName == dt.Rows[f]["Field_Name"].ToString())
                     {
                         JoinField = dt.Rows[f]["Ref_JoinField"].ToString();
@@ -230,7 +230,7 @@ namespace FlyCn.FlyCnMasters
         {
             try
             {
-                  string ProjNo = UA.projectNo;
+            string ProjNo = UA.projectNo;
             dt = sd.GetComboBoxDetails(_mode);
             dt.Columns.Add("Values", typeof(String));
 
@@ -238,24 +238,26 @@ namespace FlyCn.FlyCnMasters
             for (int f = 0; f < dt.Rows.Count; f++)
             {
 
-           if (dt.Rows[f]["Field_DataType"].ToString() == "S" | dt.Rows[f]["Field_DataType"].ToString() == "A"  )
+                    if (dt.Rows[f]["Field_DataType"].ToString() == "S" | dt.Rows[f]["Field_DataType"].ToString() == "A"  )
 
-                {
-                    TextBox box = (TextBox)placeholder.FindControl("txt" + dt.Rows[f]["Field_Name"]);
+                    {
+                        TextBox box = (TextBox)placeholder.FindControl("txt" + dt.Rows[f]["Field_Name"]);
 
-                    dt.Rows[f]["Values"] = box.Text;
-                }
-           else if (dt.Rows[f]["Field_DataType"].ToString() == "C" | dt.Rows[f]["Field_DataType"].ToString() == "N")
-                {
-                    RadComboBox combo = (RadComboBox)placeholder.FindControl("cmb" + dt.Rows[f]["Field_Name"]);
-                    dt.Rows[f]["Values"] = combo.SelectedValue;
-                }
+                        dt.Rows[f]["Values"] = box.Text;
+                    }
+                    else if (dt.Rows[f]["Field_DataType"].ToString() == "C" | dt.Rows[f]["Field_DataType"].ToString() == "N")
+                    {
+                        RadComboBox combo = (RadComboBox)placeholder.FindControl("cmb" + dt.Rows[f]["Field_Name"]);
+                        dt.Rows[f]["Values"] = combo.SelectedValue;
+                    }
             }
-            int result = dl.InsertMasterData(dt, ProjNo, _mode);     
-            DynamicMasterGrid.Rebind();
+
+            int result = dl.InsertMasterData(dt, ProjNo, _mode);   
+  
+            dtgDynamicMasterGrid.Rebind();
             RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
             RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-            tabs.ListTab(tab,tab1);
+            tabs.ResetTabCaptions(tab, tab1);
             //tab.Selected = true;
             RadMultiPage1.SelectedIndex = 0;
        
@@ -274,7 +276,7 @@ namespace FlyCn.FlyCnMasters
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
                 RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
                // TabAddEditSettings tabs = new TabAddEditSettings();
-                tabs.ListTab(tab, tab1);          
+                tabs.ResetTabCaptions(tab, tab1);          
                 RadMultiPage1.SelectedIndex = 0;
 
                 var page = HttpContext.Current.CurrentHandler as Page;
@@ -286,29 +288,29 @@ namespace FlyCn.FlyCnMasters
 
         #endregion  InsertData
 
-        #region  DynamicMasterGrid_NeedDataSource1
-        protected void DynamicMasterGrid_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        #region  dtgDynamicMasterGrid_NeedDataSource1
+        protected void dtgDynamicMasterGrid_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
 
             dt = dl.BindMasters(_mode, UA.projectNo);
-            DynamicMasterGrid.DataSource = dt;
+            dtgDynamicMasterGrid.DataSource = dt;
 
         }
-        #endregion  DynamicMasterGrid_NeedDataSource1
+        #endregion  dtgDynamicMasterGrid_NeedDataSource1
 
-        #region  DynamicMasterGrid_DeleteCommand
-        protected void DynamicMasterGrid_DeleteCommand(object source, GridCommandEventArgs e)
+        #region  dtgDynamicMasterGrid_DeleteCommand
+        protected void dtgDynamicMasterGrid_DeleteCommand(object source, GridCommandEventArgs e)
         {
             string ID = (e.Item as GridDataItem).GetDataKeyValue("ID").ToString();
             //delete query
         }
 
-        #endregion  DynamicMasterGrid_DeleteCommand
+        #endregion  dtgDynamicMasterGrid_DeleteCommand
 
 
-        #region  DynamicMasterGrid_ItemCommand
+        #region  dtgDynamicMasterGrid_ItemCommand
 
-        protected void DynamicMasterGrid_ItemCommand(object source, GridCommandEventArgs e)
+        protected void dtgDynamicMasterGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
             dt = sd.GetComboBoxDetails(_mode);
 
@@ -341,13 +343,28 @@ namespace FlyCn.FlyCnMasters
             int result;
             if (e.CommandName == "Delete")
             {
-                result = dl.DeleteMasterData(primarykeys, _mode,KeyValue);
-                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
-                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                TabAddEditSettings tabs = new TabAddEditSettings();
-                tabs.Addtab(tab, tab1);
-                RadMultiPage1.SelectedIndex = 0;
+              
 
+
+
+                    result = dl.DeleteMasterData(primarykeys, _mode, KeyValue);
+                    if (result == 1)
+                    {
+                        RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                        RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                        TabAddEditSettings tabs = new TabAddEditSettings();
+                        tabs.Addtab(tab, tab1);
+                        RadMultiPage1.SelectedIndex = 0;
+                    }
+                else
+                    {
+                   
+                    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                    TabAddEditSettings tabs = new TabAddEditSettings();
+                    tabs.Addtab(tab, tab1);
+                    RadMultiPage1.SelectedIndex = 0;
+                }
             }
             else if (e.CommandName == "EditData")
             {
@@ -403,7 +420,7 @@ namespace FlyCn.FlyCnMasters
                
             }
         }
-        #endregion  DynamicMasterGrid_ItemCommand
+        #endregion  dtgDynamicMasterGrid_ItemCommand
 
         #region  Page_Init
 
@@ -429,7 +446,7 @@ namespace FlyCn.FlyCnMasters
            sdw =primarykeys.TrimEnd(',', ' ');
          }
            // string[] test = sdw.Split(",");
-        DynamicMasterGrid.MasterTableView.DataKeyNames = sdw.Split(',').ToArray();// new string[] { sdw };
+        dtgDynamicMasterGrid.MasterTableView.DataKeyNames = sdw.Split(',').ToArray();// new string[] { sdw };
         }
 
         #endregion  Page_Init
@@ -468,7 +485,8 @@ namespace FlyCn.FlyCnMasters
                     }
                     else
                     {
-                        dt.Rows[f]["Values"] = string.Empty;
+
+                        dt.Rows[f]["Values"] = null;
                     }
                 }
             }
@@ -486,7 +504,7 @@ namespace FlyCn.FlyCnMasters
              }
             //if (result == 1)
             //{
-            //    DynamicMasterGrid.Rebind();
+            //    dtgDynamicMasterGrid.Rebind();
             //    RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
             //    tab.Selected = true;
             //    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
@@ -501,14 +519,14 @@ namespace FlyCn.FlyCnMasters
 
         #endregion  UpdateData
 
-        #region DynamicMasterGrid_PreRender
-        protected void DynamicMasterGrid_PreRender(object sender, EventArgs e)
+        #region dtgDynamicMasterGrid_PreRender
+        protected void dtgDynamicMasterGrid_PreRender(object sender, EventArgs e)
         {
 
-            DynamicMasterGrid.Rebind();
+            dtgDynamicMasterGrid.Rebind();
         }
 
-        #endregion DynamicMasterGrid_PreRender
+        #endregion dtgDynamicMasterGrid_PreRender
 
 
         //protected void RadTabStrip1_TabClick(object sender, RadTabStripEventArgs e)

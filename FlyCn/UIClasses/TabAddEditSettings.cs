@@ -24,7 +24,7 @@ namespace FlyCn.UIClasses
          
         }
 
-        public void ListTab(RadTab tabid1, RadTab tabid2)
+        public void  ResetTabCaptions(RadTab tabid1, RadTab tabid2)
         {
             //RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
             tabid1.Selected = true;

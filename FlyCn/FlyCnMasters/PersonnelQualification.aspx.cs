@@ -59,7 +59,7 @@ namespace FlyCn.FlyCnMasters
                 int result = pq.DeleteMasterPersonnelQualificationData(code, qualification, ProjNo);
                 if (result == 1)
                 {
-                    PersonnelQualificationGrid.Rebind();
+                    dtgPersonnelQualificationGrid.Rebind();
                     RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
                     RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
                     TabAddEditSettings tabs = new TabAddEditSettings();
@@ -73,16 +73,16 @@ namespace FlyCn.FlyCnMasters
 
         #endregion  ToolBar_onClick
 
-        #region  PersonnelQualificationGrid_NeedDataSource
-        protected void PersonnelQualificationGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        #region  dtgPersonnelQualificationGrid_NeedDataSource
+        protected void dtgPersonnelQualificationGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dt = new DataTable();
             dt = pq.BindMastersPersonalQualification(_id1);
-            PersonnelQualificationGrid.DataSource = dt;
+            dtgPersonnelQualificationGrid.DataSource = dt;
 
         }
 
-        #endregion  PersonnelQualificationGrid_NeedDataSource
+        #endregion  dtgPersonnelQualificationGrid_NeedDataSource
 
         #region  InsertData
         public void InsertData()
@@ -110,11 +110,11 @@ namespace FlyCn.FlyCnMasters
                 pq.Remarks = txtRemarks.Text;
                 string ProjNo = UA.projectNo;
                 int result = pq.InsertMasterPersonalQualificationData(ProjNo);
-                PersonnelQualificationGrid.Rebind();
+                dtgPersonnelQualificationGrid.Rebind();
 
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
                 RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                tabs.ListTab(tab, tab1);
+                tabs.ResetTabCaptions(tab, tab1);
                 //tab.Selected = true;
                 RadMultiPage1.SelectedIndex = 0;
               
@@ -124,7 +124,7 @@ namespace FlyCn.FlyCnMasters
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
                 RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
                 // TabAddEditSettings tabs = new TabAddEditSettings();
-                tabs.ListTab(tab, tab1);
+                tabs.ResetTabCaptions(tab, tab1);
                 RadMultiPage1.SelectedIndex = 0;
                 var page = HttpContext.Current.CurrentHandler as Page;
                 var master = page.Master;
@@ -136,8 +136,8 @@ namespace FlyCn.FlyCnMasters
 
         #endregion  InsertData
 
-        #region  PersonnelQualificationGrid_ItemCommand
-        protected void PersonnelQualificationGrid_ItemCommand(object source, GridCommandEventArgs e)
+        #region  dtgPersonnelQualificationGrid_ItemCommand
+        protected void dtgPersonnelQualificationGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
             string ProjNo = UA.projectNo;
 
@@ -176,12 +176,15 @@ namespace FlyCn.FlyCnMasters
                 {
                     RadFirstQualifiedDate.SelectedDate = Convert.ToDateTime(FirstQualifiedDate);
                 }
+                RadFirstQualifiedDate.SelectedDate = null;
                 string ExpiryDate =  dtable.Rows[0]["ExpiryDate"].ToString();
 
                 if (ExpiryDate != "")
                 {
                     RadExpiryDate.SelectedDate = Convert.ToDateTime(ExpiryDate);
+
                 }
+                RadExpiryDate.SelectedDate = null;
                 string RenewedDate = dtable.Rows[0]["RenewedDate"].ToString();
 
                 if (RenewedDate != "")
@@ -196,7 +199,7 @@ namespace FlyCn.FlyCnMasters
             }
         }
    
-        #endregion  PersonnelQualificationGrid_ItemCommand
+        #endregion  dtgPersonnelQualificationGrid_ItemCommand
 
         #region  UpdateData
 
@@ -224,7 +227,7 @@ namespace FlyCn.FlyCnMasters
            int result = pq.UpdateMasterPersonelQualificationData(ProjNo);
            //if (result == 1)
            //{
-               //PersonnelQualificationGrid.Rebind();
+               //dtgPersonnelQualificationGrid.Rebind();
                //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
                //tab.Selected = true;
                //RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
@@ -239,16 +242,16 @@ namespace FlyCn.FlyCnMasters
 
         #endregion  UpdateData
 
-        #region  PersonnelQualificationGrid_PreRender1
+        #region  dtgPersonnelQualificationGrid_PreRender1
 
-        protected void PersonnelQualificationGrid_PreRender1(object sender, EventArgs e)
+        protected void dtgPersonnelQualificationGrid_PreRender1(object sender, EventArgs e)
        {
-         PersonnelQualificationGrid.MasterTableView.GetColumn("EmpCode").Visible= false;
+         dtgPersonnelQualificationGrid.MasterTableView.GetColumn("EmpCode").Visible= false;
            //gvCktMap.MasterTableView.GetColumn("sid").Visible = false;  
-           PersonnelQualificationGrid.Rebind();
+           dtgPersonnelQualificationGrid.Rebind();
        }
 
-        #endregion  PersonnelQualificationGrid_PreRender1
+        #endregion  dtgPersonnelQualificationGrid_PreRender1
 
     }
 

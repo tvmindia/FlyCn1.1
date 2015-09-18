@@ -3,7 +3,7 @@
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="phdPersonnelQualificationMasterHead" ContentPlaceHolderID="head" runat="server">
     <script src="../Scripts/jquery-1.8.2.min.js"></script>
       <script type="text/javascript">
           function validate() {
@@ -22,6 +22,7 @@
 
             }
     </script>
+
     <script type="text/javascript">
         function onClientTabSelected(sender, args) {
             var tab = args.get_tab();
@@ -80,7 +81,7 @@
 
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<asp:Content ID="phdPersonnelQualificationMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <div class="inputMainContainer"  >
         <div class="innerDiv">
     <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="200px"    OnClientTabSelected="onClientTabSelected"
@@ -103,7 +104,7 @@
        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" >
 </asp:ScriptManager>
 
-<telerik:RadGrid ID="PersonnelQualificationGrid" runat="server"  OnNeedDataSource="PersonnelQualificationGrid_NeedDataSource" OnItemCommand="PersonnelQualificationGrid_ItemCommand" Skin="Silk" OnPreRender="PersonnelQualificationGrid_PreRender1">
+<telerik:RadGrid ID="dtgPersonnelQualificationGrid" runat="server"  OnNeedDataSource="dtgPersonnelQualificationGrid_NeedDataSource" OnItemCommand="dtgPersonnelQualificationGrid_ItemCommand" Skin="Silk" OnPreRender="dtgPersonnelQualificationGrid_PreRender1">
    <MasterTableView DataKeyNames="EmpCode,Qualification">
      
     <Columns>

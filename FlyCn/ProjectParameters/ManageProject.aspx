@@ -211,7 +211,7 @@ try {
                     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
                     </asp:ScriptManager>
 
-                    <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="true" CellSpacing="0" GridLines="None" OnItemCommand="RadGrid1_ItemCommand" OnNeedDataSource="RadGrid1_NeedDataSource1" OnPreRender="RadGrid1_PreRender" PageSize="10" Skin="Silk" Width="984px"><mastertableview autogeneratecolumns="False" datakeynames="ProjectNo"><Columns><telerik:GridBoundColumn DataField="ProjectNo" HeaderText="Project No" UniqueName="ProjectNo"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="ProjectName" HeaderText="Project Name" UniqueName="ProjectName"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="ProjectLocation" HeaderText="Location" UniqueName="ProjectLocation"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="Active" HeaderText="Active" UniqueName="Active"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="CompName" HeaderText="Company Name" UniqueName="CompName"></telerik:GridBoundColumn><telerik:GridButtonColumn ButtonType="ImageButton" CommandName="EditData" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData"></telerik:GridButtonColumn>
+                    <telerik:RadGrid ID="dtgManageProjectGrid" runat="server" AllowPaging="true" CellSpacing="0" GridLines="None" OnItemCommand="dtgManageProjectGrid_ItemCommand" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" OnPreRender="dtgManageProjectGrid_PreRender" PageSize="10" Skin="Silk" Width="984px"><mastertableview autogeneratecolumns="False" datakeynames="ProjectNo"><Columns><telerik:GridBoundColumn DataField="ProjectNo" HeaderText="Project No" UniqueName="ProjectNo"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="ProjectName" HeaderText="Project Name" UniqueName="ProjectName"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="ProjectLocation" HeaderText="Location" UniqueName="ProjectLocation"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="Active" HeaderText="Active" UniqueName="Active"></telerik:GridBoundColumn><telerik:GridBoundColumn DataField="CompName" HeaderText="Company Name" UniqueName="CompName"></telerik:GridBoundColumn><telerik:GridButtonColumn ButtonType="ImageButton" CommandName="EditData" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData"></telerik:GridButtonColumn>
                     </Columns>
                     </mastertableview>
                     </telerik:RadGrid>
@@ -267,7 +267,7 @@ font-family: Trebuchet MS;">*</span>
                <tr>
                    <td  >Active </td>
                    <td>
-                       <asp:CheckBox ID="CheckboxActive" runat="server" AutoPostBack="true" />
+                       <asp:CheckBox ID="CheckboxActive" runat="server" AutoPostBack="false" />
                    </td>
                </tr>
                            

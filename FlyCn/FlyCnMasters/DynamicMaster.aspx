@@ -2,7 +2,7 @@
 <%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="phdDynamicMasterHead" ContentPlaceHolderID="head" runat="server">
   
     <style type="text/css">
   .RadWindow .rwDialogPopup
@@ -20,19 +20,47 @@
      
 
     <script type="text/javascript">
+        function ClearTextBox()
+        {
+            $('textarea').empty();
+
+            $("input:text").val('');
+        }
+
+
+        function  EnableButtonsForNew()
+        {
+            <%=ToolBar.ClientID %>_SetAddVisible(false);
+            <%=ToolBar.ClientID %>_SetSaveVisible(true);
+            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+            <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+        }
+
+        function SelectTabList()
+        {
+            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+            var tab = tabStrip.findTabByValue("1");
+            tab.select();
+        }
+
+
+        function SetTabNewTextAndIcon()
+        {
+            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+            var tab1 = tabStrip.findTabByValue("2");
+            tab1.set_text("New");
+            tab1.set_imageUrl('../Images/Icons/NewIcon.png');
+        }
+
+
         function onClientTabSelected(sender, args) {
             var tab = args.get_tab();       
-            if (tab.get_value() == '2') {
+            if (tab.get_value() == '2') {//New tab selected
             
                 try {
-                    $('textarea').empty();
-
-                    $("input:text").val('');
-
-                    <%=ToolBar.ClientID %>_SetAddVisible(false);
-                    <%=ToolBar.ClientID %>_SetSaveVisible(true);
-                    <%=ToolBar.ClientID %>_SetUpdateVisible(false);
-                    <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                 
+                    ClearTextBox();
+                    EnableButtonsForNew();
                 }
                 catch (x)
                 {
@@ -41,14 +69,11 @@
 
             }
 
-            if (tab.get_value() == "1") {
+            if (tab.get_value() == "1") {//List tab selected
 
-                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                var tab = tabStrip.findTabByValue("1");
-                tab.select();
-                var tab1 = tabStrip.findTabByValue("2");
-                tab1.set_text("New");
-                tab1.set_imageUrl('../Images/Icons/NewIcon.png');
+                SelectTabList();
+                SetTabNewTextAndIcon();
+              
             }
 
         }
@@ -73,7 +98,7 @@
     
 
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<asp:Content ID="phdDynamicMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
         <div class="inputMainContainer">
         <div  class="innerDiv">
@@ -94,10 +119,10 @@
                                         <div id="div2" >
          <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
 </asp:ScriptManager>
-             <telerik:RadGrid ID="DynamicMasterGrid" runat="server" CellSpacing="0"
-                 GridLines="None" OnNeedDataSource="DynamicMasterGrid_NeedDataSource1" AllowPaging="true" ItemStyle-HorizontalAlign="Left" AlternatingItemStyle-HorizontalAlign="Left"
-                 PageSize="10" AllowAutomaticDeletes="True" OnItemCommand="DynamicMasterGrid_ItemCommand" 
-                  OnPreRender="DynamicMasterGrid_PreRender" AllowMultiRowEdit="true"  DataKeyNames="Code"  CommandItemDisplay="Right" Skin="Silk">
+             <telerik:RadGrid ID="dtgDynamicMasterGrid" runat="server" CellSpacing="0"
+                 GridLines="None" OnNeedDataSource="dtgDynamicMasterGrid_NeedDataSource1" AllowPaging="true" ItemStyle-HorizontalAlign="Left" AlternatingItemStyle-HorizontalAlign="Left"
+                 PageSize="10" AllowAutomaticDeletes="True" OnItemCommand="dtgDynamicMasterGrid_ItemCommand" 
+                  OnPreRender="dtgDynamicMasterGrid_PreRender" AllowMultiRowEdit="true"  DataKeyNames="Code"  CommandItemDisplay="Right" Skin="Silk">
 <MasterTableView   >
      
     <Columns>

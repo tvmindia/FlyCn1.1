@@ -49,13 +49,13 @@ namespace FlyCn.FlyCnMasters {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// PersonnelQualificationGrid control.
+        /// dtgPersonnelQualificationGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid PersonnelQualificationGrid;
+        protected global::Telerik.Web.UI.RadGrid dtgPersonnelQualificationGrid;
         
         /// <summary>
         /// rpAddEdit control.

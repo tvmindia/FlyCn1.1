@@ -2,7 +2,7 @@
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik"%>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="phdConstructionPunchListHead" ContentPlaceHolderID="head" runat="server">
 
     <style type="text/css">
         .selectbox {
@@ -68,47 +68,9 @@
     </style>
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<asp:Content ID="phdConstructionPunchListMaster" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
       <script type="text/javascript">
-          function onClientTabSelected(sender, args) {
-              debugger;
-              var tab = args.get_tab();
-              if (tab.get_text() == "View") {
-
-                  var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                  var tab = tabStrip.findTabByText("View");
-                  tab.select();
-                  var tab1 = tabStrip.findTabByText("Edit");
-                  tab1.set_text("New");
-                  $('input[type=text]').each(function () {
-                      $(this).val('');
-                  });
-                  $('textarea').empty();
-                  //radTabStrip1.Tabs.Item(0).Selected = True;
-                  //radMultiPage1.SelectedIndex = 0;
-
-                  //  alert(tabStrip.SelectedIndex);
-                  <%-- var pageView = multiPage.findPageViewByID("RadPageView1");
-                   var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                   var tab = tabStrip.findTabByText('Edit');
-                   tab.set_text("New");
-                   tabStrip.commitChanges();
-                   document.getElementById('<%=Button2.ClientID %>').style.display = "none";
-                   document.getElementById('<%=Button1.ClientID %>').style.display = "none";--%>
-
-              }
-            <%--  else if (tab.get_text() == "Edit") {
-                  document.getElementById('<%=btnSave.ClientID %>').style.display = "none";
-                  document.getElementById('<%=btnUpdate.ClientID %>').style.display = "";
-              }
-              else if (tab.get_text() == "New") {
-                  document.getElementById('<%=btnSave.ClientID %>').style.display = "";
-                  document.getElementById('<%=btnUpdate.ClientID %>').style.display = "none";--%>
-                  $('input[type=text]').each(function () {
-                      $(this).val('');
-                  });
-                  $('textarea').empty();
-              }
+       
           
               function onClientTabSelected(sender, args) {
                   var tab = args.get_tab();
@@ -260,8 +222,8 @@
 
             
     
-             <telerik:RadGrid ID="RadGrid1" runat="server"  CellSpacing="0"
-    GridLines="None" OnNeedDataSource="RadGrid1_NeedDataSource1" AllowPaging="true" OnItemCommand="RadGrid1_ItemCommand"
+             <telerik:RadGrid ID="dtgManageProjectGrid" runat="server"  CellSpacing="0"
+    GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true" OnItemCommand="dtgManageProjectGrid_ItemCommand"
     PageSize="10" Width="984px" Skin="Silk" >
                     <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType">
     <Columns>
@@ -365,7 +327,14 @@ font-family: Trebuchet MS;">*</span>
             </td>
             <td class="tabletd">Entered Date</td>
             <td>
-             
+                 <telerik:RadDatePicker ID="RadEnteredDate" runat="server"
+                                Width="170px" TabIndex="2" AutoPostBack="false" MinDate="<%# DateTime.Now.Date %>">
+                                <DateInput DateFormat="dd/MMM/yyyy" DisplayDateFormat="dd/MMM/yyyy" InvalidStyleDuration="100"
+                                    runat="server">
+                                </DateInput>
+                                <Calendar runat="server">
+                                </Calendar>
+                            </telerik:RadDatePicker>
             </td>
         </tr>
         <tr>
@@ -538,7 +507,7 @@ font-family: Trebuchet MS;">*</span>
             <td class="tabletd">
                
                 
-                  <%--       <telerik:RadDatePicker ID="RadRFINo" runat="server" 
+                         <telerik:RadDatePicker ID="RadRFIDate" runat="server" 
              Width="100px" TabIndex="2" AutoPostBack="false" >
             <DateInput DateFormat="dd/MMM/yyyy" InvalidStyleDuration="100" LabelCssClass="radLabelCss_Office2007" 
                  runat="server">
@@ -546,7 +515,7 @@ font-family: Trebuchet MS;">*</span>
             </DateInput>
              
             
-        </telerik:RadDatePicker>--%>
+        </telerik:RadDatePicker>
             </td>
         </tr>
         <tr>
@@ -609,7 +578,17 @@ font-family: Trebuchet MS;">*</span>
         <tr>
             <td class="tabletd">
                 Reference Date</td>
-            <td></td>
+            <td>
+<telerik:RadDatePicker ID="RadReferenceDate" runat="server" 
+             Width="100px" TabIndex="2" AutoPostBack="false" >
+            <DateInput DateFormat="dd/MMM/yyyy" InvalidStyleDuration="100" LabelCssClass="radLabelCss_Office2007" 
+                 runat="server">
+                
+            </DateInput>
+             
+            
+        </telerik:RadDatePicker>
+            </td>
             <td></td>
         </tr>
         <tr>
@@ -752,7 +731,7 @@ font-family: Trebuchet MS;">*</span>
             <td class="tabletd">Completion Date</td>
             <td class="tabletd">
                 
-                       <%--  <telerik:RadDatePicker ID="RadCompletionDate" runat="server" Culture="Portuguese (Brazil)"
+                         <telerik:RadDatePicker ID="RadCompletionDate" runat="server" Culture="Portuguese (Brazil)"
              Width="100px" TabIndex="2" AutoPostBack="false" >
             <DateInput DateFormat="dd/MM/yyyy" InvalidStyleDuration="100" LabelCssClass="radLabelCss_Office2007" 
                  runat="server">
@@ -761,7 +740,7 @@ font-family: Trebuchet MS;">*</span>
              
             <Calendar runat="server">
                     </Calendar>
-        </telerik:RadDatePicker>--%>
+        </telerik:RadDatePicker>
             </td>
         </tr>
         <tr class="tabletd">
@@ -769,7 +748,7 @@ font-family: Trebuchet MS;">*</span>
                 Scheduled Completion Date</td>
             <td class="tabletd">
                
-                   <%--      <telerik:RadDatePicker ID="RadScheduleCompletionDate" runat="server" Culture="Portuguese (Brazil)"
+                         <telerik:RadDatePicker ID="RadScheduleCompletionDate" runat="server" Culture="Portuguese (Brazil)"
              Width="100px" TabIndex="2" AutoPostBack="false" >
             <DateInput DateFormat="dd/MM/yyyy" InvalidStyleDuration="100" LabelCssClass="radLabelCss_Office2007" 
                  runat="server">
@@ -778,7 +757,7 @@ font-family: Trebuchet MS;">*</span>
              
             <Calendar runat="server">
                     </Calendar>
-        </telerik:RadDatePicker>--%>
+        </telerik:RadDatePicker>
             </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
