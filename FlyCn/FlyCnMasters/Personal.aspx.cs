@@ -42,7 +42,7 @@ namespace FlyCn
             RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
             RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
             // TabAddEditSettings tabs = new TabAddEditSettings();
-            tabs.ListTab(tab, tab1);
+            tabs.ResetTabCaptions(tab, tab1);
             RadMultiPage1.SelectedIndex = 0;
 
             }
@@ -59,8 +59,8 @@ namespace FlyCn
                     dtgPersonnelGrid.Rebind();
                     RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
                     RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                  
-                    tabs.ListTab(tab, tab1);
+
+                    tabs.ResetTabCaptions(tab, tab1);
                     RadMultiPage1.SelectedIndex = 0;
 
                 }
@@ -69,8 +69,8 @@ namespace FlyCn
                     ToolBar.DeleteButton.Visible = false;
                     RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
                     RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                 
-                    tabs.ListTab(tab, tab1);
+
+                    tabs.ResetTabCaptions(tab, tab1);
                     RadMultiPage1.SelectedIndex = 0;
 
                 }
@@ -169,8 +169,8 @@ namespace FlyCn
                 ToolBar.UpdateButton.Visible = false;
                 ToolBar.DeleteButton.Visible = false;
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
-                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");              
-                tabs.ListTab(tab, tab1);
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tabs.ResetTabCaptions(tab, tab1);
                 RadMultiPage1.SelectedIndex = 0;
                 var page = HttpContext.Current.CurrentHandler as Page;
                 var master = page.Master;

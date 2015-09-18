@@ -15,7 +15,7 @@ namespace FlyCn.FlyCnMasters
     public partial class DynamicMaster : System.Web.UI.Page
     {
         string _mode;
-        string _rowId;
+      //  string _rowId;
 
         TabAddEditSettings tabs = new TabAddEditSettings();
         ErrorHandling eObj = new ErrorHandling();
@@ -29,12 +29,11 @@ namespace FlyCn.FlyCnMasters
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.Params["Mode"] == null) { } else {
-              //  lblmasterName.Text = Request.Params["Mode"].ToString();
-            }
-
+           
+            //--------------------------------------------------------
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
+            //---------------------------------------------------------
 
             PlaceControls();
         }
@@ -193,15 +192,16 @@ namespace FlyCn.FlyCnMasters
             string TableName;
             RadComboBox combo = (RadComboBox)sender;
             dt = sd.GetComboBoxDetails(_mode);
+
+            //--- generate sql for drop down based on system table defenition
             for (int f = 0; f < dt.Rows.Count; f++)
             {
                 if (dt.Rows[f]["Field_DataType"].ToString() == "C"| dt.Rows[f]["Field_DataType"].ToString() == "N")
                 {
                     TableName = dt.Rows[f]["Ref_TableName"].ToString();
                     string FieldName = combo.ID;
-                    FieldName = FieldName.TrimStart('c');
-                    FieldName = FieldName.TrimStart('m');
-                    FieldName = FieldName.TrimStart('b');
+                    FieldName = FieldName.Substring(3);//remove cmb from combo id
+
                     if (FieldName == dt.Rows[f]["Field_Name"].ToString())
                     {
                         JoinField = dt.Rows[f]["Ref_JoinField"].ToString();
@@ -230,7 +230,7 @@ namespace FlyCn.FlyCnMasters
         {
             try
             {
-                  string ProjNo = UA.projectNo;
+            string ProjNo = UA.projectNo;
             dt = sd.GetComboBoxDetails(_mode);
             dt.Columns.Add("Values", typeof(String));
 
@@ -238,24 +238,26 @@ namespace FlyCn.FlyCnMasters
             for (int f = 0; f < dt.Rows.Count; f++)
             {
 
-           if (dt.Rows[f]["Field_DataType"].ToString() == "S" | dt.Rows[f]["Field_DataType"].ToString() == "A"  )
+                    if (dt.Rows[f]["Field_DataType"].ToString() == "S" | dt.Rows[f]["Field_DataType"].ToString() == "A"  )
 
-                {
-                    TextBox box = (TextBox)placeholder.FindControl("txt" + dt.Rows[f]["Field_Name"]);
+                    {
+                        TextBox box = (TextBox)placeholder.FindControl("txt" + dt.Rows[f]["Field_Name"]);
 
-                    dt.Rows[f]["Values"] = box.Text;
-                }
-           else if (dt.Rows[f]["Field_DataType"].ToString() == "C" | dt.Rows[f]["Field_DataType"].ToString() == "N")
-                {
-                    RadComboBox combo = (RadComboBox)placeholder.FindControl("cmb" + dt.Rows[f]["Field_Name"]);
-                    dt.Rows[f]["Values"] = combo.SelectedValue;
-                }
+                        dt.Rows[f]["Values"] = box.Text;
+                    }
+                    else if (dt.Rows[f]["Field_DataType"].ToString() == "C" | dt.Rows[f]["Field_DataType"].ToString() == "N")
+                    {
+                        RadComboBox combo = (RadComboBox)placeholder.FindControl("cmb" + dt.Rows[f]["Field_Name"]);
+                        dt.Rows[f]["Values"] = combo.SelectedValue;
+                    }
             }
-            int result = dl.InsertMasterData(dt, ProjNo, _mode);     
+
+            int result = dl.InsertMasterData(dt, ProjNo, _mode);   
+  
             dtgDynamicMasterGrid.Rebind();
             RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
             RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-            tabs.ListTab(tab,tab1);
+            tabs.ResetTabCaptions(tab, tab1);
             //tab.Selected = true;
             RadMultiPage1.SelectedIndex = 0;
        
@@ -274,7 +276,7 @@ namespace FlyCn.FlyCnMasters
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
                 RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
                // TabAddEditSettings tabs = new TabAddEditSettings();
-                tabs.ListTab(tab, tab1);          
+                tabs.ResetTabCaptions(tab, tab1);          
                 RadMultiPage1.SelectedIndex = 0;
 
                 var page = HttpContext.Current.CurrentHandler as Page;

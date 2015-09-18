@@ -1162,7 +1162,7 @@ namespace FlyCn.EIL
                 eObj.ErrorData(ex, page);
                 RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("1");
                 RadTab tab2 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                tabs.ListTab(tab1, tab2);
+                tabs.ResetTabCaptions(tab1, tab2);
                 RadMultiPage1.SelectedIndex = 0;
             }
         }

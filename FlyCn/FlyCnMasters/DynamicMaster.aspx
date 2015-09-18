@@ -20,19 +20,47 @@
      
 
     <script type="text/javascript">
+        function ClearTextBox()
+        {
+            $('textarea').empty();
+
+            $("input:text").val('');
+        }
+
+
+        function  EnableButtonsForNew()
+        {
+            <%=ToolBar.ClientID %>_SetAddVisible(false);
+            <%=ToolBar.ClientID %>_SetSaveVisible(true);
+            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+            <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+        }
+
+        function SelectTabList()
+        {
+            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+            var tab = tabStrip.findTabByValue("1");
+            tab.select();
+        }
+
+
+        function SetTabNewTextAndIcon()
+        {
+            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+            var tab1 = tabStrip.findTabByValue("2");
+            tab1.set_text("New");
+            tab1.set_imageUrl('../Images/Icons/NewIcon.png');
+        }
+
+
         function onClientTabSelected(sender, args) {
             var tab = args.get_tab();       
-            if (tab.get_value() == '2') {
+            if (tab.get_value() == '2') {//New tab selected
             
                 try {
-                    $('textarea').empty();
-
-                    $("input:text").val('');
-
-                    <%=ToolBar.ClientID %>_SetAddVisible(false);
-                    <%=ToolBar.ClientID %>_SetSaveVisible(true);
-                    <%=ToolBar.ClientID %>_SetUpdateVisible(false);
-                    <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                 
+                    ClearTextBox();
+                    EnableButtonsForNew();
                 }
                 catch (x)
                 {
@@ -41,14 +69,11 @@
 
             }
 
-            if (tab.get_value() == "1") {
+            if (tab.get_value() == "1") {//List tab selected
 
-                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                var tab = tabStrip.findTabByValue("1");
-                tab.select();
-                var tab1 = tabStrip.findTabByValue("2");
-                tab1.set_text("New");
-                tab1.set_imageUrl('../Images/Icons/NewIcon.png');
+                SelectTabList();
+                SetTabNewTextAndIcon();
+              
             }
 
         }
