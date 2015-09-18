@@ -50,11 +50,7 @@
                       <%=ToolBar.ClientID %>_SetDeleteVisible(false);
 
                 document.getElementById('<%=txtCode.ClientID %>').disabled = false;
-                      //var divs = document.getElementById('ContentIframe');
-                      //alert(divs);
-                   <%--   document.getElementById('<%=ContentIframe.ClientID%>').Style.display = "none";
-
-                      document.getElementById('<%=lblQualificationframe.ClientID%>').Style.display = "none";--%>
+               
 
                    
                   }

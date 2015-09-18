@@ -17,6 +17,8 @@ namespace FlyCn.BOQ
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             string ding = UA.projectNo;
             //txtDocumentno.Text = "--no--";
+            //ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
+           // ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
         }
         protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
