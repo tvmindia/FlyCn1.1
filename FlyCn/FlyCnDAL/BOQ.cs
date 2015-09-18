@@ -4,12 +4,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using Telerik.Web.UI;
-
+using System.Data;
 namespace FlyCn.FlyCnDAL
 {
     public class BOQ
     {
-    #region Billofquantityproperties
+        DocumentMaster documentMaster;
+        #region Billofquantityproperties
 
          #region Boqheaderproperty
         public string RevisionNo
@@ -171,43 +172,49 @@ namespace FlyCn.FlyCnDAL
         /// </summary>
         public void Insertboq()
         {
+            SqlConnection con = null;
             try
             {
-                SqlConnection con = null;
+                documentMaster = new DocumentMaster();
+                documentMaster.Addnewdocument();
+                
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand boqcmd = new SqlCommand();
                 boqcmd.Connection = con;
                 boqcmd.CommandType = System.Data.CommandType.StoredProcedure;
-                boqcmd.CommandText = "";
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
-                boqcmd.Parameters.Add("");
+                boqcmd.CommandText = "InsertBoqHeader";
+                boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = documentMaster.RevisionID;
+                boqcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = documentMaster.ProjectNo;
+                boqcmd.Parameters.Add("@RevisionNo", SqlDbType.NVarChar, 10).Value = RevisionNo;
+                boqcmd.Parameters.Add("@DocumentDate", SqlDbType.SmallDateTime).Value = DocumentDate;
+                boqcmd.Parameters.Add("@DocumentTitle", SqlDbType.NVarChar, 250).Value = DocumentTitle;
+                boqcmd.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = Remarks;
+                SqlParameter OutparamId= boqcmd.Parameters.Add("@OutparamId", SqlDbType.SmallInt);
+                OutparamId.Direction = ParameterDirection.Output;
 
+                boqcmd.ExecuteNonQuery();
+                if((int)OutparamId.Value!=0)
+                {
+                    //not successfull
+                }
+                else
+                {
+                    //successfull
+                }
+                
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
             finally
             {
+                if(con!=null)
+                {
+                    con.Dispose();
+                }
 
             }
         }

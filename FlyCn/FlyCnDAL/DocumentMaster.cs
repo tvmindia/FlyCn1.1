@@ -141,30 +141,36 @@ namespace FlyCn.FlyCnDAL
                 con = dcon.GetDBConnection();
                 cmd.Connection = con;
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "sp";
+                cmd.CommandText = "[InsertDocumentMasterRevision]";
 
                 cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = ProjectNo;
-                cmd.Parameters.Add("@DocumentNo", SqlDbType.NVarChar, 50).Value = DocumentNo;
+                //cmd.Parameters.Add("@DocumentNo", SqlDbType.NVarChar, 50).Value = DocumentNo;
                 cmd.Parameters.Add("@ClientDocNo",SqlDbType.NVarChar,50).Value=ClientDocNo;
                 cmd.Parameters.Add("@DocumentType",SqlDbType.NVarChar,3).Value=DocumentType;
                 cmd.Parameters.Add("@DocumentOwner",SqlDbType.NVarChar,50).Value=DocumentOwner;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 50).Value = CreatedBy;
-                cmd.Parameters.Add("@CreatedDate",SqlDbType.SmallDateTime).Value=CreatedDate;
-                cmd.Parameters.Add("@CreatedDateGMT",SqlDbType.SmallDateTime).Value=CreatedDateGMT;
-                cmd.Parameters.Add("@LatestRevisionID", SqlDbType.UniqueIdentifier).Value = LatestRevisionID;
-                cmd.Parameters.Add("@LatestStatus", SqlDbType.SmallInt).Value = LatestStatus;
-                cmd.Parameters.Add("@LatestApprovedRevID", SqlDbType.UniqueIdentifier).Value = LatestApprovedRevID;
+                //cmd.Parameters.Add("@CreatedDate",SqlDbType.SmallDateTime).Value=CreatedDate;
+                //cmd.Parameters.Add("@CreatedDateGMT",SqlDbType.SmallDateTime).Value=CreatedDateGMT;
+                //cmd.Parameters.Add("@LatestRevisionID", SqlDbType.UniqueIdentifier).Value = LatestRevisionID;
+                //cmd.Parameters.Add("@LatestStatus", SqlDbType.SmallInt).Value = LatestStatus;
+                //cmd.Parameters.Add("@LatestApprovedRevID", SqlDbType.UniqueIdentifier).Value = "NULL";
                 //into revisiontable
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 50).Value = UpdatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.NVarChar, 50).Value = UpdatedDate;
-                cmd.Parameters.Add("@UpdatedDateGMT", SqlDbType.SmallDateTime).Value = UpdatedDateGMT;
-                cmd.Parameters.Add("@RevisionStatus", SqlDbType.SmallInt).Value = RevisionStatus;
-                cmd.Parameters.Add("@ApprovedDate", SqlDbType.SmallDateTime).Value = ApprovedDate;
+                //cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 50).Value = UpdatedBy;
+                //cmd.Parameters.Add("@UpdatedDate", SqlDbType.NVarChar, 50).Value = UpdatedDate;
+                //cmd.Parameters.Add("@UpdatedDateGMT", SqlDbType.SmallDateTime).Value = UpdatedDateGMT;
+                //cmd.Parameters.Add("@RevisionStatus", SqlDbType.SmallInt).Value = "NULL";
+                //cmd.Parameters.Add("@ApprovedDate", SqlDbType.SmallDateTime).Value = ApprovedDate;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 255).Value = Description;
-                cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = Remarks;
+                //cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = Remarks;
+                
+	            
+               
+                cmd.Parameters.Add("@outDocumentID", SqlDbType.UniqueIdentifier).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("@outRevisionID", SqlDbType.UniqueIdentifier).Direction = ParameterDirection.Output;
 
                 cmd.ExecuteNonQuery();
-
+                DocumentID= (Guid)cmd.Parameters["@outDocumentID"].Value;
+                RevisionID = (Guid)cmd.Parameters["@outRevisionID"].Value;         
             }
             catch(Exception ex)
             {
