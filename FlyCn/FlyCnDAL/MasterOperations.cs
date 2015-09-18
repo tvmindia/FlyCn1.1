@@ -356,7 +356,13 @@ namespace FlyCn.FlyCnDAL
                     for (int i = 1; i <= totalrows; i++)
                     {
                         //updatestring = list2[i - 1].ToString() + "='" + list[i - 1].ToString() + "'";
+                        if (dsTest.Rows[i - 1]["Values"].ToString()==""){
+                            updatestring = dsTest.Rows[i - 1]["Field_Name"] + "=NULL";
+                        }
+                        else
+                        {
                         updatestring = dsTest.Rows[i-1]["Field_Name"] + "='" + dsTest.Rows[i-1]["Values"] + "'";
+                        }
 
                         //cmd.Parameters.AddWithValue("@p_UpdateString", updatestring + ",");
                         FieldValue = FieldValue + updatestring + ",";
