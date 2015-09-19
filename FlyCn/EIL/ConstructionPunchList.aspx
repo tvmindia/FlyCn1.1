@@ -143,7 +143,8 @@
             
             if (IdNo == "" ) {
 
-                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+                //   document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+                displayMessage('ERROR', 'Please Fill all the Mandatory fields (*)');
                 return false;
 
             }

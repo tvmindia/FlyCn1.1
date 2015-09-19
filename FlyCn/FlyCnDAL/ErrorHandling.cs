@@ -10,6 +10,7 @@ namespace FlyCn.FlyCnDAL
 {
     public class ErrorHandling
     {
+
           public int ErrorNumber
         {
             get;
@@ -43,6 +44,14 @@ namespace FlyCn.FlyCnDAL
             HtmlControl divMask = (HtmlControl)master.FindControl("Errorbox");
             divMask.Style["visibility"] = "hidden";
             error.Text = ""; 
+        }
+
+        public void ClearMessage(MasterPage master)
+        {            
+            Label error = (Label)master.FindControl("lblErrorInfo");
+            HtmlControl divMask = (HtmlControl)master.FindControl("Errorbox");
+            divMask.Style["visibility"] = "hidden";
+            error.Text = "";
         }
 
          public void InsertionSuccessData(Page pg)

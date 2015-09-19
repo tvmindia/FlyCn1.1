@@ -52,8 +52,7 @@ namespace FlyCn.EIL
                     hdnMode.Value = Request.QueryString["Mode"].ToString();
                 }
            }
-
-            eObj.ClearMessage(this);
+                     
             SetTitle();
 
         }
