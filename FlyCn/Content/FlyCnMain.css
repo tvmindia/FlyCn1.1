@@ -209,7 +209,10 @@ iframe {
     
     font-size: medium;
 }
-
+.PageHeading {
+    font-family: 'Segoe UI';
+    font-size: large;
+}
 
 .InputDate {
 

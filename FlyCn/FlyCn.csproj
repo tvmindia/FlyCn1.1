@@ -252,10 +252,8 @@
     <Content Include="Content\themes\FlyCnBlue\js\jquery.js" />
     <Content Include="Content\themes\FlyCnBlue\js\selectize.js" />
     <Content Include="Default.aspx" />
-    <Content Include="EIL\ClientPunchList.aspx" />
     <Content Include="EIL\ConstructionPunchList.aspx" />
     <Content Include="EIL\PunchList.aspx" />
-    <Content Include="EIL\QCPunchList.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="FlyCnMasters\DynamicMaster.aspx" />
     <Content Include="FlyCnMasters\GeneralMasters.aspx" />
@@ -481,13 +479,6 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EIL\ClientPunchList.aspx.cs">
-      <DependentUpon>ClientPunchList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="EIL\ClientPunchList.aspx.designer.cs">
-      <DependentUpon>ClientPunchList.aspx</DependentUpon>
-    </Compile>
     <Compile Include="EIL\ConstructionPunchList.aspx.cs">
       <DependentUpon>ConstructionPunchList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -501,13 +492,6 @@
     </Compile>
     <Compile Include="EIL\PunchList.aspx.designer.cs">
       <DependentUpon>PunchList.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="EIL\QCPunchList.aspx.cs">
-      <DependentUpon>QCPunchList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="EIL\QCPunchList.aspx.designer.cs">
-      <DependentUpon>QCPunchList.aspx</DependentUpon>
     </Compile>
     <Compile Include="FlyCnDAL\Activities.cs">
       <SubType>Code</SubType>

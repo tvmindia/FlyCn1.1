@@ -183,8 +183,7 @@
    
 <%--</script>--%>
     
-    <p class="">
-        Construction Punch List</p>
+    <asp:Label ID="lblTitle" runat="server" Text="" CssClass="PageHeading"></asp:Label>
      
      <hr />
   <%--  <div id="button">
@@ -938,7 +937,7 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
          </div>
             </div>
            
-     
+    <asp:HiddenField ID="hdnMode" runat="server" />
 </asp:Content>
 
 
