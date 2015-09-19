@@ -7,9 +7,9 @@ using Telerik.Web.UI;
 using System.Data;
 namespace FlyCn.FlyCnDAL
 {
-    public class BOQ
+    public class BoqHeaderDetails
     {
-        DocumentMaster documentMaster;
+        public DocumentMaster documentMaster = new DocumentMaster();
         #region Billofquantityproperties
 
          #region Boqheaderproperty
@@ -18,7 +18,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public DateTime DocumentDate
+        public DateTime? DocumentDate
         {
             get;
             set;
@@ -175,7 +175,7 @@ namespace FlyCn.FlyCnDAL
             SqlConnection con = null;
             try
             {
-                documentMaster = new DocumentMaster();
+               
                 documentMaster.Addnewdocument();
                 
                 dbConnection dcon = new dbConnection();

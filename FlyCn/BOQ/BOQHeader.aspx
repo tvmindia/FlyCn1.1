@@ -97,10 +97,10 @@
             <asp:TextBox ID="txtDocumentno" Enabled="false" runat="server" CssClass="form-control" BackColor="Gray"></asp:TextBox>
           </div>
         </div>
-      </form>
+     <%-- </form>--%>
     </div>
     <div class="col-lg-6">
-      <form class="form-horizontal" role="form">
+  <%--    <form class="form-horizontal" role="form">--%>
         <div class="form-group">
        
           
@@ -110,7 +110,7 @@
               <asp:TextBox ID="txtClientdocumentno" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
         </div>
-      </form>
+     <%-- </form>--%>
     </div>
   </div>
   <!---SECTION ONE---> 
@@ -118,7 +118,7 @@
   <!---SECTION TWO--->
   <div class="col-lg-12 Span-One">
     <div class="col-lg-6">
-      <form class="form-horizontal" role="form">
+     <%-- <form class="form-horizontal" role="form">--%>
         <div class="form-group">
          
             <asp:Label ID="lblRevisionno" CssClass="control-label col-lg-3" runat="server" Text="Revision No"></asp:Label>
@@ -127,12 +127,12 @@
               <asp:TextBox ID="txtRevisionno" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
         </div>
-      </form>
+     <%-- </form>--%>
     </div>
 
 
     <div class="col-lg-6">
-      <form class="form-horizontal" role="form">
+     <%-- <form class="form-horizontal" role="form">--%>
         <div class="form-group">
           
             <asp:Label ID="lblDocumentdate" CssClass="control-label col-lg-3" runat="server" Text="Document Date"></asp:Label>
@@ -141,13 +141,13 @@
               <asp:TextBox ID="txtDocumentdate" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
         </div>
-      </form>
+     <%-- </form>--%>
     </div>
 
 
 
     <div class="col-lg-6">
-      <form class="form-horizontal" role="form">
+      <%--<form class="form-horizontal" role="form">--%>
         <div class="form-group">
          
             <asp:Label ID="lblDocumenttitle" CssClass="control-label col-lg-3" runat="server" Text="Document Title"></asp:Label>
@@ -156,11 +156,11 @@
               <asp:TextBox ID="txtDocumenttitle" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
         </div>
-      </form>
+     <%-- </form>--%>
     </div>
 
     <div class="col-lg-6">
-      <form class="form-horizontal" role="form">
+     <%-- <form class="form-horizontal" role="form">--%>
         <div class="form-group">
          
            
@@ -188,78 +188,50 @@
 
 <!--<JavaScrict>-->
 <script type="text/javascript">
-        function onClientTabSelected(sender, args) {
-           
-            var tab = args.get_tab();
-            if (tab.get_text() == "View") {
-
-                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                  var tab = tabStrip.findTabByText("View");
-                  tab.select();
-                  var tab1 = tabStrip.findTabByText("Edit");
-                  tab1.set_text("New");
-                  $('input[type=text]').each(function () {
-                      $(this).val('');
-                  });
-
-                  $('textarea').empty();
-
-
-              }
-
-              $('input[type=text]').each(function () {
-                  $(this).val('');
-              });
-
-              $('textarea').empty();
-          }
-
     function onClientTabSelected(sender, args) {
 
-              var tab = args.get_tab();
-              if (tab.get_value() == '2') {
-                  //new clicked 
-                  $('input[type=text]').each(function () {
-                      $(this).val('');
-                  });
+        var tab = args.get_tab();
+        if (tab.get_value() == '2') {
+            //new clicked 
+            /*   $('input[type=text]').each(function () {
+                   $(this).val('');
+               });*/
 
 
-                  document.getElementById('<%=txtDocumentno.ClientID %>').value = "-------System Code-------";
-                      $('textarea').empty();
+            document.getElementById('<%=txtDocumentno.ClientID %>').value = "-------System Code-------";
+           
 
-                      debugger;
-                      try {
-                          <%=ToolBar.ClientID %>_SetAddVisible(false);
-                          <%=ToolBar.ClientID %>_SetSaveVisible(true);
-                          <%=ToolBar.ClientID %>_SetUpdateVisible(false);
-                          <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+           
+            try {
+                <%=ToolBar.ClientID %>_SetAddVisible(false);
+                <%=ToolBar.ClientID %>_SetSaveVisible(true);
+                <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                <%=ToolBar.ClientID %>_SetDeleteVisible(false);
 
-                      } catch (x) { alert(x.message); }
-
-
-
-                  }
-
-                  if (tab.get_value() == "1") {
-
-                      var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                      var tab = tabStrip.findTabByValue("1");
-                      tab.select();
-                      var tab1 = tabStrip.findTabByValue("2");
-                      tab1.set_text("New");
-                  }
-
-              }
-              function OnClientButtonClicking(sender, args) {
-
-                  var btn = args.get_item();
-                  if (btn.get_value() == 'Delete') {
-
-                      args.set_cancel(!confirm('Do you want to delete ?'));
-                  }
+            } catch (x) { alert(x.message); }
 
 
-              }
+
+        }
+
+        if (tab.get_value() == "1") {
+
+            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+            var tab = tabStrip.findTabByValue("1");
+            tab.select();
+            var tab1 = tabStrip.findTabByValue("2");
+            tab1.set_text("New");
+        }
+
+    }
+       
+    function OnClientButtonClicking(sender, args)
+    {
+
+              
+                
+    }
+    
    </script>
 
 <!--<JavaScrict ends here>-->
