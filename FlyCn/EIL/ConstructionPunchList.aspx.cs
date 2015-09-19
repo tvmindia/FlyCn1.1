@@ -49,7 +49,7 @@ namespace FlyCn.EIL
 
            }
 
-
+            eObj.ClearMessage(this);
         }
         #endregion Page_Load
 

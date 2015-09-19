@@ -34,6 +34,17 @@ namespace FlyCn.FlyCnDAL
             error.Text = ex.Message;  
 
         }
+
+
+        public void ClearMessage( Page pg) {
+
+            var master = pg.Master;             
+            Label error = (Label)master.FindControl("lblErrorInfo");            
+            HtmlControl divMask = (HtmlControl)master.FindControl("Errorbox");
+            divMask.Style["visibility"] = "hidden";
+            error.Text = ""; 
+        }
+
          public void InsertionSuccessData(Page pg)
   
             {
