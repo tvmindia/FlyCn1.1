@@ -91,9 +91,7 @@ namespace FlyCn.EIL
             DataTable dt;
             dt = pObj.GetPunchList(hdnMode.Value);
             dtgManageProjectGrid.DataSource = dt;
-           // DataTable dts;
-            //dts = mObj.GetDEtailsFromPersonal();
-            //dtgManageProjectGrid.DataSource = dts;
+            
         }
         #endregion dtgManageProjectGrid_NeedDataSource1
 
