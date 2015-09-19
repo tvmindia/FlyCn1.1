@@ -117,7 +117,7 @@
               var btn = args.get_item();
               if (btn.get_value() == 'Delete') {
 
-                  args.set_cancel(!confirm('Do you want to delete ?'));
+                  args.set_cancel(!confirm(messages.DeleteAlertGeneral));
               }
               if (btn.get_value() == 'Update') {
 
@@ -144,7 +144,7 @@
             if (IdNo == "" ) {
 
                 //   document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
-                displayMessage('ERROR', 'Please Fill all the Mandatory fields (*)');
+                displayMessage(messageType.Error,messages.MandatoryFieldsGeneral);
                 return false;
 
             }
