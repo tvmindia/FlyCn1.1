@@ -143,7 +143,8 @@
             
             if (IdNo == "" ) {
 
-                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+                //   document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+                displayMessage('ERROR', 'Please Fill all the Mandatory fields (*)');
                 return false;
 
             }
@@ -183,8 +184,7 @@
    
 <%--</script>--%>
     
-    <p class="">
-        Construction Punch List</p>
+    <asp:Label ID="lblTitle" runat="server" Text="" CssClass="PageHeading"></asp:Label>
      
      <hr />
   <%--  <div id="button">
@@ -938,7 +938,7 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
          </div>
             </div>
            
-     
+    <asp:HiddenField ID="hdnMode" runat="server" />
 </asp:Content>
 
 

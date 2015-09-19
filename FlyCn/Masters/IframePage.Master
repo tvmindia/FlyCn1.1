@@ -24,6 +24,21 @@
         }
     </style>
    <script>
+       function displayMessage(type, msg) {
+
+           var s = document.getElementById("Errorbox");
+           document.getElementById("Errorbox").style.visibility = "visible";
+           var divId = document.getElementById("masterDiv");
+           document.getElementById("lblErrorInfo").innerHTML = msg;
+           if (type == 'SUCCESS') {
+               document.getElementById("Errorbox").className = "Succesmsgboxes";
+           }
+           else {
+               document.getElementById("Errorbox").className = "ErrormsgBoxes";
+           }
+
+       }
+
        function hideMe() {
            debugger;
            var s = document.getElementById("Errorbox");

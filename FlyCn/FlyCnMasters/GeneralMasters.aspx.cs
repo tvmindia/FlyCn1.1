@@ -23,7 +23,7 @@ namespace FlyCn.FlyCnMasters
 
             RadTreeView tview = ip.FindLeftTree(this);
             Masters.BindTree(tview);
-            
+            ip.DefaultTreeNode(this, 0);
 
         }
     }
