@@ -22,7 +22,7 @@ namespace FlyCn.FlyCnMasters
         DataTable dt = new DataTable();
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
-        FlyCnDAL.SystemDefenitionDetails sd = new FlyCnDAL.SystemDefenitionDetails();
+        FlyCnDAL.SystemDefenitionDetails object_sysdef = new FlyCnDAL.SystemDefenitionDetails();
         FlyCnDAL.MasterOperations dl = new FlyCnDAL.MasterOperations();
 
         #region  Page_Load
@@ -84,7 +84,7 @@ namespace FlyCn.FlyCnMasters
             {
                 Table table = new Table();
                 StringBuilder html = new StringBuilder();
-                dt = sd.GetComboBoxDetails(_mode);
+                dt = object_sysdef.GetComboBoxDetails(_mode);
                 lblmasterName.Text = dt.Rows[0]["Table_Description"].ToString();
                 int totalrows = dt.Rows.Count;
                 if (totalrows < 6)
@@ -191,7 +191,7 @@ namespace FlyCn.FlyCnMasters
             string SelectField;
             string TableName;
             RadComboBox combo = (RadComboBox)sender;
-            dt = sd.GetComboBoxDetails(_mode);
+            dt = object_sysdef.GetComboBoxDetails(_mode);
 
             //--- generate sql for drop down based on system table defenition
             for (int f = 0; f < dt.Rows.Count; f++)
@@ -231,7 +231,7 @@ namespace FlyCn.FlyCnMasters
             try
             {
             string ProjNo = UA.projectNo;
-            dt = sd.GetComboBoxDetails(_mode);
+            dt = object_sysdef.GetComboBoxDetails(_mode);
             dt.Columns.Add("Values", typeof(String));
 
 
@@ -312,7 +312,7 @@ namespace FlyCn.FlyCnMasters
 
         protected void dtgDynamicMasterGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
-            dt = sd.GetComboBoxDetails(_mode);
+            dt = object_sysdef.GetComboBoxDetails(_mode);
 
             //string sdw = dt.Rows[0][0].ToString();
             GridDataItem item = e.Item as GridDataItem;
@@ -324,7 +324,7 @@ namespace FlyCn.FlyCnMasters
              string ID = "";
              string KeyValue = "";
              string sdw="";
-             datatbl = sd.GetPrimarykeys(_mode);
+             datatbl = object_sysdef.GetPrimarykeys(_mode);
              for (int i = 0; i < datatbl.Rows.Count; i++)
             {
                 Key = datatbl.Rows[i]["Field_Name"].ToString();
@@ -437,7 +437,7 @@ namespace FlyCn.FlyCnMasters
             string Key = "";
              string primarykeys="";
              string sdw="";
-            dt = sd.GetPrimarykeys(_mode);
+            dt = object_sysdef.GetPrimarykeys(_mode);
         for(int i=0;i<dt.Rows.Count;i++)
          {
              Key = dt.Rows[i]["Field_Name"].ToString();
