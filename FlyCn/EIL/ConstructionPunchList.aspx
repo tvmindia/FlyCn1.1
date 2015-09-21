@@ -196,7 +196,8 @@
         <div class="inputMainContainer">
         <div class="innerDiv">
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
-             CausesValidation="false"   SelectedIndex="0" Skin="Silk" >            
+             CausesValidation="false"   SelectedIndex="0" Skin="Silk" >
+            
             <Tabs>
                 <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True" ></telerik:RadTab>
                  <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>

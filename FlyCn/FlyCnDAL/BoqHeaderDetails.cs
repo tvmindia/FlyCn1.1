@@ -170,31 +170,31 @@ namespace FlyCn.FlyCnDAL
         /// <summary>
         /// inserting Boq header and details
         /// </summary>
-        public void Insertboq()
+        public void AddNewBOQ()
         {
             SqlConnection con = null;
             try
             {
                
-                documentMaster.Addnewdocument();
+                documentMaster.AddNewDocument();
                 
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand boqcmd = new SqlCommand();
                 boqcmd.Connection = con;
                 boqcmd.CommandType = System.Data.CommandType.StoredProcedure;
-                boqcmd.CommandText = "InsertBoqHeader";
+                boqcmd.CommandText = "InsertBOQHeader";
                 boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = documentMaster.RevisionID;
                 boqcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = documentMaster.ProjectNo;
                 boqcmd.Parameters.Add("@RevisionNo", SqlDbType.NVarChar, 10).Value = RevisionNo;
                 boqcmd.Parameters.Add("@DocumentDate", SqlDbType.SmallDateTime).Value = DocumentDate;
                 boqcmd.Parameters.Add("@DocumentTitle", SqlDbType.NVarChar, 250).Value = DocumentTitle;
-                boqcmd.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = Remarks;
+                boqcmd.Parameters.AddWithValue("@Remarks",Remarks);
                 SqlParameter OutparamId= boqcmd.Parameters.Add("@OutparamId", SqlDbType.SmallInt);
                 OutparamId.Direction = ParameterDirection.Output;
 
                 boqcmd.ExecuteNonQuery();
-                if((int)OutparamId.Value!=0)
+                if(int.Parse(OutparamId.Value.ToString())!=0)
                 {
                     //not successfull
                 }

@@ -127,13 +127,14 @@ namespace FlyCn.FlyCnDAL
         #endregion RevisionMasterproperties
 
         #region Documentmastermethods
+        #region AddNewDocument
         /// <summary>
         /// inserting new document with revision details
         /// </summary>
-        public void Addnewdocument()
+        public void AddNewDocument()
         {
             SqlCommand cmd = null; ;
-            SqlConnection con=null;
+            SqlConnection con = null;
             try
             {
                 cmd = new SqlCommand();
@@ -142,12 +143,11 @@ namespace FlyCn.FlyCnDAL
                 cmd.Connection = con;
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertDocumentMasterRevision]";
-
                 cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = ProjectNo;
                 //cmd.Parameters.Add("@DocumentNo", SqlDbType.NVarChar, 50).Value = DocumentNo;
-                cmd.Parameters.Add("@ClientDocNo",SqlDbType.NVarChar,50).Value=ClientDocNo;
-                cmd.Parameters.Add("@DocumentType",SqlDbType.NVarChar,3).Value=DocumentType;
-                cmd.Parameters.Add("@DocumentOwner",SqlDbType.NVarChar,50).Value=DocumentOwner;
+                cmd.Parameters.Add("@ClientDocNo", SqlDbType.NVarChar, 50).Value = ClientDocNo;
+                cmd.Parameters.Add("@DocumentType", SqlDbType.NVarChar, 3).Value = DocumentType;
+                cmd.Parameters.Add("@DocumentOwner", SqlDbType.NVarChar, 50).Value = DocumentOwner;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 50).Value = CreatedBy;
                 //cmd.Parameters.Add("@CreatedDate",SqlDbType.SmallDateTime).Value=CreatedDate;
                 //cmd.Parameters.Add("@CreatedDateGMT",SqlDbType.SmallDateTime).Value=CreatedDateGMT;
@@ -160,32 +160,72 @@ namespace FlyCn.FlyCnDAL
                 //cmd.Parameters.Add("@UpdatedDateGMT", SqlDbType.SmallDateTime).Value = UpdatedDateGMT;
                 //cmd.Parameters.Add("@RevisionStatus", SqlDbType.SmallInt).Value = "NULL";
                 //cmd.Parameters.Add("@ApprovedDate", SqlDbType.SmallDateTime).Value = ApprovedDate;
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 255).Value = Description;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 255).Value = "Static value from code behind";
                 //cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = Remarks;
-                
-	            
-               
                 cmd.Parameters.Add("@outDocumentID", SqlDbType.UniqueIdentifier).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("@outRevisionID", SqlDbType.UniqueIdentifier).Direction = ParameterDirection.Output;
-
                 cmd.ExecuteNonQuery();
-                DocumentID= (Guid)cmd.Parameters["@outDocumentID"].Value;
-                RevisionID = (Guid)cmd.Parameters["@outRevisionID"].Value;         
+                DocumentID = (Guid)cmd.Parameters["@outDocumentID"].Value;
+                RevisionID = (Guid)cmd.Parameters["@outRevisionID"].Value;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
             finally
             {
-                if(con!=null)
+                if (con != null)
                 {
                     con.Dispose();
                 }
             }
-
-
         }
+        #endregion AddNewDocument
+
+        #region BindBOQ
+        public DataTable BindBOQ(string projectno,string documenttype)
+        {
+            SqlConnection con = null;
+            DataTable dt = null;
+            SqlDataAdapter sda=null;
+            try
+            {
+                
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllDocuments]";
+                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 10).Value = projectno;
+                cmd.Parameters.Add("@documentType", SqlDbType.NVarChar, 3).Value = documenttype;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+                return dt;
+               
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally 
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+           
+           
+            
+        }
+
+        #endregion BindBOQ
+        #region
+        #endregion
+
 
 
 

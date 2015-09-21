@@ -61,21 +61,31 @@
       
                      
     
-<telerik:RadGrid ID="RadGrid1" runat="server"  CellSpacing="0" GridLines="None" AllowPaging="true" OnNeedDataSource="RadGrid1_NeedDataSource" PageSize="10" Width="984px" Skin="Silk" >
-<MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType">
-    <Columns>
-     <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo"></telerik:GridBoundColumn> 
-     <telerik:GridBoundColumn HeaderText="ID No" DataField="IDNo" UniqueName="IDNo"></telerik:GridBoundColumn>
-     <telerik:GridBoundColumn HeaderText="LinkIDNo" DataField="LinkIDNo" UniqueName="LinkIDNo"></telerik:GridBoundColumn> 
-     <telerik:GridBoundColumn HeaderText="EILType" DataField="EILType" UniqueName="EILType"></telerik:GridBoundColumn> 
-     <telerik:GridBoundColumn HeaderText="OpenBy" DataField="OpenBy" UniqueName="OpenBy"></telerik:GridBoundColumn> 
-     <telerik:GridBoundColumn HeaderText="OpenDt" DataField="OpenDt" UniqueName="OpenDt" DataType="System.DateTime"  DataFormatString="{0:M/d/yyyy}"></telerik:GridBoundColumn> 
-     <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png"></telerik:GridButtonColumn>     
-     <telerik:GridButtonColumn CommandName="DeleteColumn" Text="Delete" UniqueName="DeleteColumn" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" ConfirmDialogType="RadWindow" ConfirmText="Are you sure, you want to delete this item ?">
-      </telerik:GridButtonColumn>
-     </Columns>
- </MasterTableView>            
- </telerik:RadGrid>
+
+ <telerik:RadGrid ID="dtgBOQGrid" runat="server" OnNeedDataSource="dtgBOQGrid_NeedDataSource" OnItemCommand="dtgBOQGrid_ItemCommand" Skin="Silk" CssClass="outerMultiPage" OnPreRender="dtgBOQGrid_PreRender">
+                    <MasterTableView DataKeyNames="DocumentID">
+
+                        <Columns>
+                            <telerik:GridButtonColumn CommandName="Edit" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
+                            </telerik:GridButtonColumn>
+                            <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
+                            </telerik:GridButtonColumn>
+                            <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo" Display="false"></telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn HeaderText="DocumentID" DataField="DocumentID" UniqueName="DocumentID" Display="false"></telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn HeaderText="Document No" DataField="DocumentNo" UniqueName="DocumentNo"></telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn HeaderText="Document Title" DataField="DocumentTitle" UniqueName="DocumentTitle"></telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn HeaderText="ClientDoc No" DataField="ClientDocNo" UniqueName="ClientDocNo"></telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn HeaderText="Revision No" DataField="RevisionNo" UniqueName="RevisionNo"></telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn HeaderText="Document Date" DataField="DocumentDate" UniqueName="DocumentDate" DataType="System.DateTime"  DataFormatString="{0:M/d/yyyy}"></telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn HeaderText="Document Owner" DataField="DocumentOwner" UniqueName="DocumentOwner"></telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn HeaderText="Created Date" DataField="CreatedDate" UniqueName="CreatedDate"></telerik:GridBoundColumn> 
+                           
+                            
+                        </Columns>
+                    </MasterTableView>
+
+  </telerik:RadGrid>          
+
      
 </div>
 </telerik:RadPageView>
@@ -137,8 +147,8 @@
           
             <asp:Label ID="lblDocumentdate" CssClass="control-label col-lg-3" runat="server" Text="Document Date"></asp:Label>
           <div class="col-lg-9">
-          
-              <asp:TextBox ID="txtDocumentdate" CssClass="form-control" runat="server"></asp:TextBox>
+              <telerik:RadDatePicker ID="RadDocumentDate" runat="server"></telerik:RadDatePicker>
+             <%-- <asp:TextBox ID="txtDocumentdate" CssClass="form-control" runat="server"></asp:TextBox>--%>
           </div>
         </div>
      <%-- </form>--%>
@@ -208,7 +218,8 @@
                 <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                 <%=ToolBar.ClientID %>_SetDeleteVisible(false);
 
-            } catch (x) { alert(x.message); }
+            }
+            catch (x) { alert(x.message); }
 
 
 
