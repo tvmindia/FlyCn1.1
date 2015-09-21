@@ -244,9 +244,10 @@ namespace FlyCn
 
                    //lblQualificationframe.Visible = true;
 
-                  lblQualificationframe.Style["display"] = "";
+                 // lblQualificationframe.Style["display"] = "";
                     ContentIframe.Style["display"] = "";
                    ContentIframe.Attributes["src"] = "PersonnelQualification.aspx?id=" + strId;
+                 
 
                    // ScriptManager.RegisterStartupScript(this, GetType(), "EditData", "UpdateFunction();", true);
                 }
@@ -314,7 +315,8 @@ namespace FlyCn
                 int result = mp.UpdateMasterPersonel(ProjNo);
 
                 ContentIframe.Style["display"] ="none";
-                lblQualificationframe.Style["display"] = "none";
+             //   ContentIframe.Style["width"] = "2500px";
+              // lblQualificationframe.Style["display"] = "none";
             }
             catch(Exception ex)
             {

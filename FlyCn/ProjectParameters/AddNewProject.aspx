@@ -5,6 +5,7 @@
    
 
 </script>
+     <script src="../Scripts/Messages.js"></script>
 <script type="text/javascript">
     function validate() {
         //try{
@@ -20,17 +21,19 @@
 
         if (ProjectNo == "" || ProjectName == "" || ProjectLocation == "" || ProjectManager == "") 
         {
+            displayMessageForPopUp(messageType.Error, messages.MandatoryFieldsGeneral);
 
-            document.getElementById("<%=hidddenErrormsg.ClientID %>").value = "Please Fill all the Mandatory fields";
-           
+          
+            document.getElementById("<%=hidddenErrormsg.ClientID %>").value = messages.MandatoryFieldsGeneral;
+            
         }
                 //document.getElementById(<%--"<%=lblerrormsg.ClientID %--%>>").style.display="none"
-          <%--      return false;
+          <%--     
             }--%>
             else
             {
             document.getElementById("<%=hidddenErrormsg.ClientID %>").value = "";
-               
+          
             }
 
            
@@ -43,9 +46,9 @@
 </script>
 <script>
     function Finalvalidate() {
-        document.getElementById("<%=lblerrormsg.ClientID %>").innerHTML = document.getElementById("<%=hidddenErrormsg.ClientID %>").value;
-      
-        var lblerror = document.getElementById("<%=lblerrormsg.ClientID %>").innerHTML;
+      //  document.getElementById("<%=lblerrormsg.ClientID %>").innerHTML = document.getElementById("<%=hidddenErrormsg.ClientID %>").value;
+     
+        var lblerror = document.getElementById("<%=hidddenErrormsg.ClientID %>").value;
         
         if (lblerror == "")
         {
@@ -54,6 +57,7 @@
         }
         else
         {
+            displayMessageForPopUp(messageType.Error, messages.MandatoryFieldsGeneral);
             return false;
         }
             
@@ -200,6 +204,32 @@
     }
  
 </script>
+     
+    <script>
+        function displayMessageForPopUp(type, msg) {
+
+            var s = document.getElementById("<%=PopWindowErrorbox.ClientID %>");
+            document.getElementById("<%=PopWindowErrorbox.ClientID %>").style.visibility = "visible";
+            var divId = document.getElementById("bodyDiv");
+            document.getElementById("<%=PopWindowlblErrorInfo.ClientID %>").innerHTML = msg;
+            if (type == 'SUCCESS') {
+                document.getElementById("<%=PopWindowErrorbox.ClientID %>").className = "Succesmsgboxes";
+            }
+            else {
+                document.getElementById("<%=PopWindowErrorbox.ClientID %>").className = "ErrormsgBoxes";
+            }
+
+        }
+
+        function hideMeForPopUp() {
+            //debugger;
+            var s = document.getElementById("<%=PopWindowErrorbox.ClientID %>");
+            document.getElementById("<%=PopWindowErrorbox.ClientID %>").style.visibility = "hidden";
+            var divId = document.getElementById("bodyDiv");
+
+            document.getElementById("<%=PopWindowlblErrorInfo.ClientID %>").innerHTML = "";
+        }
+    </script>
        <style type="text/css">
 
 
@@ -256,7 +286,8 @@ th, tr{
       height:1px;
    
   }
-  #tdbuttonclass{
+  #tdbuttonclass
+  {
       width:50px;
   }
 
@@ -303,6 +334,20 @@ th, tr{
 
         
 <div id="bodyDiv">
+    <div  id="PopWindowErrorbox" style="visibility:hidden; height:20px; " runat="server" class="ErrormsgBoxes"  >
+            <table style="width: 700px; height:7px; background-color: transparent;  ">                
+                <tr>
+                    <td style="text-align:right;  vertical-align:top;
+   width:90%">
+                        <asp:Label ID="PopWindowlblErrorInfo" runat="server"  ForeColor="#B00000" ></asp:Label>
+                    </td>
+                     <td style="text-align:right;vertical-align:top; color:#B00000;
+   width:10%">
+                        <img src="../Images/Close1.png" onclick="hideMeForPopUp();" style="height:15px;width:15px; color:#B00000; text-align:right"/>                   
+                    </td>
+                </tr>
+            </table>
+        </div>
 <div>
         <asp:Menu ID="Menu1" runat="server" CssClass="" OnMenuItemClick="Menu1_MenuItemClick" Orientation="Horizontal" 
         style="left: 0px; position: relative; top: 22px" Height="80px" Width="800px"  >

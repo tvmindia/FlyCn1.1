@@ -297,6 +297,7 @@ namespace FlyCn.FlyCnMasters
             dtgDynamicMasterGrid.DataSource = dt;
 
         }
+
         #endregion  dtgDynamicMasterGrid_NeedDataSource1
 
         #region  dtgDynamicMasterGrid_DeleteCommand

@@ -85,15 +85,6 @@ namespace FlyCn {
         protected global::FlyCn.UserControls.ToolBar ToolBar;
         
         /// <summary>
-        /// lblGenaral control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGenaral;
-        
-        /// <summary>
         /// lblCode control.
         /// </summary>
         /// <remarks>
@@ -254,15 +245,6 @@ namespace FlyCn {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRemarks;
-        
-        /// <summary>
-        /// lblCompanyDetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCompanyDetails;
         
         /// <summary>
         /// lblCompany control.
@@ -461,24 +443,6 @@ namespace FlyCn {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDescipline;
-        
-        /// <summary>
-        /// lblQualificationframe control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQualificationframe;
-        
-        /// <summary>
-        /// framediv control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl framediv;
         
         /// <summary>
         /// ContentIframe control.

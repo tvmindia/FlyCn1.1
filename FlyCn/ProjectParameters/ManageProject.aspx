@@ -30,8 +30,8 @@
     right:0;
 }
 .ui-dialog{
-box-shadow: 0px 2px 7px #292929;
--moz-box-shadow: 0px 2px 7px #292929;
+    box-shadow: 0px 2px 7px #292929;
+    -moz-box-shadow: 0px 2px 7px #292929;
 		-webkit-box-shadow: 0px 2px 7px #292929;
 		border-radius:15px;
 		-moz-border-radius:15px;
@@ -85,7 +85,8 @@ box-shadow: 0px 2px 7px #292929;
 
             if (ProjectNo == "" || ProjectName == "" || ProjectLocation == "" || ProjectManager == "") {
 
-                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+                displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+                //document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
                 return false;
 
             }
