@@ -13,7 +13,7 @@ namespace FlyCn.BOQ
         protected void Page_Load(object sender, EventArgs e)
         {
             UIClasses.InputPages ip = new UIClasses.InputPages();
-            FlyCnDAL.BOQ objBOQ = new FlyCnDAL.BOQ();
+            FlyCnDAL.BoqHeaderDetails objBOQ = new FlyCnDAL.BoqHeaderDetails();
 
             RadTreeView tview = ip.FindLeftTree(this);
             objBOQ.BindTree(tview);

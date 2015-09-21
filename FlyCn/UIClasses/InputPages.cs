@@ -29,5 +29,12 @@ namespace FlyCn.UIClasses
 
             return contenpane;
         }
+
+        public void DefaultTreeNode(System.Web.UI.Page pg,int node) {
+            RadTreeView tree = FindLeftTree(pg);
+            tree.Nodes[node].Selected = true;
+            RadPane radpane = FindContentPane(pg);
+            radpane.ContentUrl = tree.Nodes[node].NavigateUrl;
+        }
     }
 }

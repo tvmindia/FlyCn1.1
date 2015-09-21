@@ -22,7 +22,7 @@ namespace FlyCn.EIL
 
             RadTreeView tview = ip.FindLeftTree(this);
             PL.BindTree(tview);
-
+            ip.DefaultTreeNode(this, 0);
 
         }
     }

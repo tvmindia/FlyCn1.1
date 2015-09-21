@@ -36,6 +36,7 @@ namespace FlyCn.FlyCnMasters
             //---------------------------------------------------------
 
             PlaceControls();
+            eObj.ClearMessage(this);
         }
 
         #endregion  Page_Load

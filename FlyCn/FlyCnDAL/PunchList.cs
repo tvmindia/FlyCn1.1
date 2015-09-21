@@ -365,12 +365,12 @@ namespace FlyCn.FlyCnDAL
 
 
                 rtn = new RadTreeNode("Client", "CEIL");
-                rtn.NavigateUrl = cnst.ClientPunchListURL + "?Mode=" + rtn.Value;
+                rtn.NavigateUrl = cnst.ConstructionPunchListURL + "?Mode=" + rtn.Value;
                 rtn.Target = "contentPane";
                 myTree.Nodes.Add(rtn);
 
             rtn = new RadTreeNode("QC", "QEIL");
-                rtn.NavigateUrl = cnst.QCPunchListURL + "?Mode=" + rtn.Value;
+            rtn.NavigateUrl = cnst.ConstructionPunchListURL + "?Mode=" + rtn.Value;
                 rtn.Target = "contentPane";
                 myTree.Nodes.Add(rtn);
         }
@@ -381,7 +381,7 @@ namespace FlyCn.FlyCnDAL
         /// To get desatils from EIL table
         /// </summary>
         /// <returns>Datatable with details from table</returns>
-        public DataTable GetPunchList()
+        public DataTable GetPunchList(string EILType)
         {
             DataTable dt = new DataTable();
             SqlConnection con = null;
@@ -392,7 +392,7 @@ namespace FlyCn.FlyCnDAL
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
 
-                string selectQuery = "select ProjectNo,IDNo,LinkIDNo,EILType,OpenBy,OpenDt from EIL";
+                string selectQuery = "select ProjectNo,IDNo,LinkIDNo,EILType,OpenBy,OpenDt from EIL where EILType= '" + EILType +"'";
                 daObj = new SqlDataAdapter(selectQuery, con);
                 daObj.Fill(dt);
 

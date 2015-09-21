@@ -185,7 +185,7 @@ try {
     
     
 
-       <p>
+       <p class="PageHeading">
         Manage Project</p>
      
      <hr />

@@ -117,7 +117,7 @@
               var btn = args.get_item();
               if (btn.get_value() == 'Delete') {
 
-                  args.set_cancel(!confirm('Do you want to delete ?'));
+                  args.set_cancel(!confirm(messages.DeleteAlertGeneral));
               }
               if (btn.get_value() == 'Update') {
 
@@ -143,7 +143,8 @@
             
             if (IdNo == "" ) {
 
-                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+                //   document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+                displayMessage(messageType.Error,messages.MandatoryFieldsGeneral);
                 return false;
 
             }
@@ -183,8 +184,7 @@
    
 <%--</script>--%>
     
-    <p class="">
-        Construction Punch List</p>
+    <asp:Label ID="lblTitle" runat="server" Text="" CssClass="PageHeading"></asp:Label>
      
      <hr />
   <%--  <div id="button">
@@ -938,7 +938,7 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
          </div>
             </div>
            
-     
+    <asp:HiddenField ID="hdnMode" runat="server" />
 </asp:Content>
 
 

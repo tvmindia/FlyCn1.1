@@ -25,6 +25,7 @@ namespace FlyCn.EIL
         DataTable dt = new DataTable();
         FlyCnDAL.PunchList pObj = new FlyCnDAL.PunchList();
         MasterPersonal mObj = new MasterPersonal();
+         
         #endregion Global Variables
 
         #region Events
@@ -46,9 +47,13 @@ namespace FlyCn.EIL
             {
 
                 LoadComboBox();
+                if (Request.QueryString["Mode"] != null) {
 
+                    hdnMode.Value = Request.QueryString["Mode"].ToString();
+                }
            }
-
+                     
+            SetTitle();
 
         }
         #endregion Page_Load
@@ -83,11 +88,9 @@ namespace FlyCn.EIL
         protected void dtgManageProjectGrid_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dt;
-            dt = pObj.GetPunchList();
+            dt = pObj.GetPunchList(hdnMode.Value);
             dtgManageProjectGrid.DataSource = dt;
-           // DataTable dts;
-            //dts = mObj.GetDEtailsFromPersonal();
-            //dtgManageProjectGrid.DataSource = dts;
+            
         }
         #endregion dtgManageProjectGrid_NeedDataSource1
 
@@ -409,7 +412,7 @@ namespace FlyCn.EIL
                     int index = Convert.ToInt32(e.CommandArgument);
                     int result;
                     pObj.Idno = Convert.ToInt32(txtIDno.Text);
-                    string type = Request.QueryString["Mode"];
+                    string type = hdnMode.Value;
                     GridViewRow row = grdFileUpload.Rows[index];
                     HiddenField hdnField = (HiddenField)row.FindControl("hdnField");
                     int slno = Convert.ToInt32(hdnField.Value);
@@ -862,7 +865,7 @@ namespace FlyCn.EIL
                     pObj.ActionBy = null;
                 }
                 pObj.Idno = Convert.ToInt32(txtIDno.Text);
-                pObj.EILType = Request.QueryString["Mode"];
+                pObj.EILType = hdnMode.Value;
 
 
                 result = pObj.EditPunchListItems(pObj.Idno, mObj);
@@ -913,7 +916,7 @@ namespace FlyCn.EIL
 
                 int result=0;
                 pObj.Idno = Convert.ToInt32(txtIDno.Text);
-                pObj.EILType = Request.QueryString["Mode"];
+                pObj.EILType = hdnMode.Value;
                 if (ddlOpenBy.SelectedItem.Text != "-Select-")
                 {
                     mObj.OpenBy = Convert.ToString(ddlOpenBy.SelectedValue);
@@ -1102,7 +1105,7 @@ namespace FlyCn.EIL
                     pObj.ActionBy = null;
 
                 }
-                pObj.EILType = Request.QueryString["Mode"];
+                pObj.EILType = hdnMode.Value;
                 try
                 {
                     result = pObj.AddtoPunchList(mObj);
@@ -1296,7 +1299,7 @@ namespace FlyCn.EIL
             HttpContext context = HttpContext.Current;
             UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
             string projno = UA.projectNo;
-            string type = Request.QueryString["Mode"];
+            string type = hdnMode.Value;
             int val = 0;
             val = pObj.DeleteEILAttach(ID, type);
             int result;
@@ -1386,6 +1389,33 @@ namespace FlyCn.EIL
         }
         #endregion Download
 
+        #region Title
+        void SetTitle() {
+
+            try
+            {
+
+                if (hdnMode.Value == "WEIL") {
+                    lblTitle.Text = "Construction Punch List";
+                }
+                else if (hdnMode.Value == "CEIL")
+                {
+                    lblTitle.Text = "Civil Punch List";
+                }
+                else if (hdnMode.Value == "QEIL")
+                {
+                    lblTitle.Text = "QC Punch List";
+                }
+
+            }
+            catch (Exception)
+            {
+                
+                 
+            }
+
+        }
+        #endregion Title
         #endregion Methods
     }
 }
