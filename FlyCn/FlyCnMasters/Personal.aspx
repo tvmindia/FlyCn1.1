@@ -9,6 +9,29 @@
  
    
     <script type="text/javascript">
+        function ClearTextBox() {
+            $('textarea').empty();
+
+            $("input:text").val('');
+        }
+        function EnableButtonsForNew() {
+            <%=ToolBar.ClientID %>_SetAddVisible(false);
+            <%=ToolBar.ClientID %>_SetSaveVisible(true);
+            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+            <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+        }
+        function SelectTabList() {
+            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+            var tab = tabStrip.findTabByValue("1");
+            tab.select();
+        }
+
+        function SetTabNewTextAndIcon() {
+            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+            var tab1 = tabStrip.findTabByValue("2");
+            tab1.set_text("New");
+            tab1.set_imageUrl('../Images/Icons/NewIcon.png');
+        }
         function validate() {
             var Code = document.getElementById('<%=txtCode.ClientID %>').value;
              var Name = document.getElementById('<%=txtName.ClientID %>').value;
@@ -16,7 +39,8 @@
             var Company = document.getElementById('<%=RadComboCompany.ClientID %>').value;
             if (Code == "" || Name == "" || Nationality == "" || Company == "") {
 
-                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+                displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+
                 return false;
 
             }
@@ -32,44 +56,25 @@
       <script type="text/javascript">
           function onClientTabSelected(sender, args) {
               //   debugger;
-              var tab = args.get_tab();
-         
-          
-      
+              var tab = args.get_tab();     
               if (tab.get_value() == '2') {
             
                   try {
 
-                      $('input[type=text]').each(function () {
-                          $(this).val('');
-                      });
-                      $('textarea').empty();
-                      <%=ToolBar.ClientID %>_SetAddVisible(false);
-                      <%=ToolBar.ClientID %>_SetSaveVisible(true);
-                      <%=ToolBar.ClientID %>_SetUpdateVisible(false);
-                      <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-
-                document.getElementById('<%=txtCode.ClientID %>').disabled = false;
-               
-
-                   
+                      ClearTextBox();
+                      EnableButtonsForNew();
                   }
                   catch (x)
                   {
-                    
                       alert(x.message);
                   }
 
               }
 
-              if (tab.get_value() == "1") {
+              if (tab.get_value() == "1") {//List tab selected
 
-                  var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                  var tab = tabStrip.findTabByValue("1");
-                  tab.select();
-                  var tab1 = tabStrip.findTabByValue("2");
-                  tab1.set_text("New");
-                  tab1.set_imageUrl('../Images/Icons/NewIcon.png');
+                  SelectTabList();
+                  SetTabNewTextAndIcon();
 
               }
           }

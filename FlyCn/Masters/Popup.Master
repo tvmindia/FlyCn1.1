@@ -9,6 +9,7 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
    <%--     <link href="../Content/FlyCnMain.css" rel="stylesheet" />--%>
+   
     <script src="../Scripts/jquery-1.8.2.min.js"></script>
        <style type="text/css">
     .Succesmsgboxes{
@@ -50,7 +51,24 @@ color:#B00000;
 
     }
     </style>
+      <script src="../Scripts/Messages.js"></script>
    <script>
+       function displayMessage(type, msg) {
+
+           var s = document.getElementById("Errorbox");
+           document.getElementById("Errorbox").style.visibility = "visible";
+           var divId = document.getElementById("masterDiv");
+           document.getElementById("lblErrorInfo").innerHTML = msg;
+           if (type == 'SUCCESS') {
+               document.getElementById("Errorbox").className = "Succesmsgboxes";
+           }
+           else {
+               document.getElementById("Errorbox").className = "ErrormsgBoxes";
+           }
+
+       }
+
+
        function hideMe() {
            document.getElementById("Errorbox").style.display = "none";
            var divId = document.getElementById("masterDiv");

@@ -5,12 +5,16 @@
 
 <asp:Content ID="phdPersonnelQualificationMasterHead" ContentPlaceHolderID="head" runat="server">
     <script src="../Scripts/jquery-1.8.2.min.js"></script>
+      <script src="../Scripts/Messages.js"></script>
       <script type="text/javascript">
+
           function validate() {
+
               var Qualification = document.getElementById('<%=txtQualification.ClientID %>').value;
                 if (Qualification == "") {
 
-                    document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+                  //  document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+                    displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
                     return false;
 
                 }
@@ -22,37 +26,55 @@
 
             }
     </script>
+    <script>
+        function ClearTextBox() {
+            $('textarea').empty();
 
+            $("input:text").val('');
+        }
+
+        function EnableButtonsForNew() {
+            <%=ToolBarQualification.ClientID %>_SetAddVisible(false);
+            <%=ToolBarQualification.ClientID %>_SetSaveVisible(true);
+            <%=ToolBarQualification.ClientID %>_SetUpdateVisible(false);
+            <%=ToolBarQualification.ClientID %>_SetDeleteVisible(false);          
+        }
+
+        function SelectTabList() {
+            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+            var tab = tabStrip.findTabByValue("1");
+            tab.select();
+        }
+
+
+        function SetTabNewTextAndIcon() {
+            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+            var tab1 = tabStrip.findTabByValue("2");
+            tab1.set_text("New");
+            tab1.set_imageUrl('../Images/Icons/NewIcon.png');
+        }
+
+    </script>
     <script type="text/javascript">
         function onClientTabSelected(sender, args) {
             var tab = args.get_tab();
             if (tab.get_value() == "2") {
-                //new clicked 
-                try {               
-                    $('input[type=text]').each(function () {
-                        $(this).val('');
-                    });
-                   
-                    $('textarea').empty();
-                    <%=ToolBarQualification.ClientID %>_SetAddVisible(false);
-                    <%=ToolBarQualification.ClientID %>_SetSaveVisible(true);
-                    <%=ToolBarQualification.ClientID %>_SetUpdateVisible(false);
-                    <%=ToolBarQualification.ClientID %>_SetDeleteVisible(false);           
+
+                try {
+
+                    ClearTextBox();
+                    EnableButtonsForNew();
                 }
-                catch (x)
-                {
+                catch (x) {
                     alert(x.message);
                 }
+
 
             }
             if (tab.get_value() == "1")
             {
-                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                var tab = tabStrip.findTabByValue("1");
-                tab.select();
-                var tab1 = tabStrip.findTabByValue("2");
-                tab1.set_text("New");
-                tab1.set_imageUrl('../Images/Icons/NewIcon.png');
+                SelectTabList();
+                SetTabNewTextAndIcon();
             }
 
         }
