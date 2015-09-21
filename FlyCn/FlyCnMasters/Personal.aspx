@@ -14,20 +14,20 @@
              var Name = document.getElementById('<%=txtName.ClientID %>').value;
             var Nationality = document.getElementById('<%=txtNationality.ClientID %>').value;
             var Company = document.getElementById('<%=RadComboCompany.ClientID %>').value;
-            if (Code == "" || Name == "" || Nationality == "" || Company == "") {
+            if (Code == "" || Name == "" || Nationality == "" || Company == "")
+            {
 
-                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
-                return false;
-
-            }
+             document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+             return false;
+             }
         
             else
             {
                 document.getElementById("<%=lblerror.ClientID %>").innerHTML = "";
                 return true;
             }
-        }
-</script>
+           }
+        </script>
 
       <script type="text/javascript">
           function onClientTabSelected(sender, args) {

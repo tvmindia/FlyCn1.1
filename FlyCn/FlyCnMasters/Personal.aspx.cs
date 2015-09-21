@@ -118,8 +118,6 @@ namespace FlyCn
         {
             try
             {
-
-
                 string val = null;
                 mp.Code = txtCode.Text;
                 mp.Name = txtName.Text;
@@ -158,12 +156,9 @@ namespace FlyCn
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
                 tab.Selected = true;
                 RadMultiPage1.SelectedIndex = 0;
-
             }
             catch(Exception ex)
             {
-
-              
                 ToolBar.AddButton.Visible = false;
                 ToolBar.SaveButton.Visible = true;
                 ToolBar.UpdateButton.Visible = false;
@@ -195,12 +190,9 @@ namespace FlyCn
             {
                 //take tab name and change the tab text to Edit and change the New button icon to edit button icon
                 TabAddEditSettings tabs = new TabAddEditSettings();
-           
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                 tabs.EditTab(tab);
-               
                 RadMultiPage1.SelectedIndex = 1;
-
                 ToolBar.AddButton.Visible = false;
                 ToolBar.SaveButton.Visible = false;
                 ToolBar.UpdateButton.Visible = true;

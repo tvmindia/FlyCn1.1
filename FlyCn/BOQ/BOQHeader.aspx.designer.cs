@@ -49,13 +49,13 @@ namespace FlyCn.BOQ {
         protected global::Telerik.Web.UI.RadPageView rpList;
         
         /// <summary>
-        /// RadGrid1 control.
+        /// dtgBOQGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid1;
+        protected global::Telerik.Web.UI.RadGrid dtgBOQGrid;
         
         /// <summary>
         /// rpAddEdit control.
@@ -139,13 +139,13 @@ namespace FlyCn.BOQ {
         protected global::System.Web.UI.WebControls.Label lblDocumentdate;
         
         /// <summary>
-        /// txtDocumentdate control.
+        /// RadDocumentDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDocumentdate;
+        protected global::Telerik.Web.UI.RadDatePicker RadDocumentDate;
         
         /// <summary>
         /// lblDocumenttitle control.
