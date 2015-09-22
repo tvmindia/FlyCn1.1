@@ -33,7 +33,21 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-
+        public string UpdatedBy
+        {
+            get;
+            set;
+        }
+        public string UpdatedDate
+        {
+            get;
+            set;
+        }
+        public DateTime UpdatedDateGMT
+        {
+            get;
+            set;
+        }
         #endregion Boqheaderproperty
         #region Boqdetailproperty
         public int ItemNo
@@ -212,6 +226,55 @@ namespace FlyCn.FlyCnDAL
             finally
             {
                 if(con!=null)
+                {
+                    con.Dispose();
+                }
+
+            }
+        }
+        public void UpdateBOQ()
+        {
+            SqlConnection con = null;
+            try
+            {
+                BoqHeaderDetails boqHeaderDetails = new BoqHeaderDetails();
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand boqcmd = new SqlCommand();
+                boqcmd.Connection = con;
+                boqcmd.CommandType = System.Data.CommandType.StoredProcedure;
+                boqcmd.CommandText = "UpdateDocumentMaster";
+                boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = documentMaster.RevisionID;
+                boqcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = documentMaster.ProjectNo;
+                boqcmd.Parameters.Add("@RevisionNo", SqlDbType.NVarChar, 10).Value = boqHeaderDetails.RevisionNo;
+                boqcmd.Parameters.Add("@DocumentDate", SqlDbType.SmallDateTime).Value = boqHeaderDetails.DocumentDate;
+                boqcmd.Parameters.Add("@DocumentTitle", SqlDbType.NVarChar, 250).Value = boqHeaderDetails.DocumentTitle;
+                boqcmd.Parameters.AddWithValue("@Remarks", boqHeaderDetails.Remarks);
+                boqcmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 50).Value = boqHeaderDetails.UpdatedBy;
+                boqcmd.Parameters.Add("@UpdatedDate", SqlDbType.SmallDateTime).Value = boqHeaderDetails.UpdatedDate;
+                boqcmd.Parameters.Add("@UpdatedDateGMT", SqlDbType.SmallDateTime).Value = boqHeaderDetails.UpdatedDateGMT;
+                SqlParameter OutparamId = boqcmd.Parameters.Add("@OutparamId", SqlDbType.SmallInt);
+                OutparamId.Direction = ParameterDirection.Output;
+
+                boqcmd.ExecuteNonQuery();
+                if (int.Parse(OutparamId.Value.ToString()) != 0)
+                {
+                    //not successfull
+                }
+                else
+                {
+                    //successfull
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
                 {
                     con.Dispose();
                 }
