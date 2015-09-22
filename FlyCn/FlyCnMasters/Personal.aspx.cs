@@ -91,6 +91,7 @@ namespace FlyCn
             dt = mp.BindMastersPersonal();
         
             dtgPersonnelGrid.DataSource = dt;
+          
 
         }
        
@@ -236,7 +237,7 @@ namespace FlyCn
 
                    //lblQualificationframe.Visible = true;
 
-                //  lblQualificationframe.Style["display"] = "";
+                lblQualificationframe.Style["display"] ="none";
                     ContentIframe.Style["display"] = "";
                    ContentIframe.Attributes["src"] = "PersonnelQualification.aspx?id=" + strId;
 

@@ -47,7 +47,7 @@
         
             else
             {
-                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "";
+                
                 return true;
             }
         }
@@ -63,6 +63,10 @@
 
                       ClearTextBox();
                       EnableButtonsForNew();
+                      document.getElementById("<%=ContentIframe.ClientID %>").style.display = "none";
+                      document.getElementById("<%=lblQualificationframe.ClientID %>").style.display = "";
+
+                     
                   }
                   catch (x)
                   {
@@ -101,6 +105,11 @@
 
         }
   </script>
+    <script>
+        $(document).ready(function () {
+            $('.accordion-content').show();
+        });
+    </script>
  
     <style>
       table
@@ -145,8 +154,7 @@
 </asp:Content>
 
 <asp:Content ID="phdPersonalContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">    
-    <div class="inputMainContainer">
-        <div class="innerDiv">
+  
 
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
              CausesValidation="false"   SelectedIndex="0" Skin="Silk"  >
@@ -166,7 +174,8 @@
                 <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
                 </asp:ScriptManager>
 
-                <telerik:RadGrid ID="dtgPersonnelGrid" runat="server" OnNeedDataSource="dtgPersonnelGrid_NeedDataSource" OnItemCommand="dtgPersonnelGrid_ItemCommand"
+                <telerik:RadGrid ID="dtgPersonnelGrid" runat="server"  AllowPaging="true" AllowSorting="true"
+                     OnNeedDataSource="dtgPersonnelGrid_NeedDataSource" OnItemCommand="dtgPersonnelGrid_ItemCommand"
                     Skin="Silk" CssClass="outerMultiPage"
                     OnPreRender="dtgPersonnelGrid_PreRender">
                     <MasterTableView DataKeyNames="Code">
@@ -187,14 +196,9 @@
 
         </telerik:RadPageView>
         <telerik:RadPageView ID="rpAddEdit" runat="server">
-           <asp:Label ID="lblerror" runat="server" Text="" ForeColor="Red"></asp:Label>
-
-            <uc1:ToolBar runat="server" ID="ToolBar" />
-
-
-   
-               <div class="col-lg-12" style="width:100%;">
-             
+         <%--  <asp:Label ID="lblerror" runat="server" Text="" ForeColor="Red"></asp:Label>--%>
+            <uc1:ToolBar runat="server" ID="ToolBar" />  
+               <div class="col-lg-12" style="width:100%;">            
       <div class="content white">
           <div class="accordion-container"> <a href="#" class="accordion-toggle">Lorem Ipsum is simply <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
           <div class="accordion-content">
@@ -344,11 +348,11 @@ font-family: Trebuchet MS;">*</span>
              
               </div>
                     </div>
-          <div class="accordion-container"> <a href="#" class="accordion-toggle">Company Details <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
-          <div class="accordion-content">
+          <div class="accordion-container" style="display:block"> <a href="#" class="accordion-toggle" >Company Details <span class="toggle-icon "><i class="fa fa-plus-circle"></i></span></a>
+          <div class="accordion-content ">
 
-              <div class="col-lg-12 Span-One">
-                <div class="col-lg-6">
+              <div class="col-lg-12 Span-One ">
+                <div class="col-lg-6 ">
     
         <div class="form-group">
         
@@ -561,6 +565,7 @@ font-family: Trebuchet MS;">*</span>
                 <iframe id="ContentIframe"
                     name="PQualification" style ="height: 300px; width:100%; display: none; overflow: hidden;"
                     runat="server"></iframe>
+              <asp:Label ID="lblQualificationframe" runat="server" Text="First Insert Personnel Information and Click Save Button " ForeColor="Tomato"></asp:Label>
             <%-- </div>--%>
                </div>
         </div>
@@ -568,7 +573,7 @@ font-family: Trebuchet MS;">*</span>
                   
                    </div>
             <hr />
-
+            
             
 
         </telerik:RadPageView>
@@ -577,9 +582,7 @@ font-family: Trebuchet MS;">*</span>
     </telerik:RadMultiPage>
     </div>
        
-        
-        </div>
-   </div>
+   
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
 <script>
     $(document).ready(function () {
