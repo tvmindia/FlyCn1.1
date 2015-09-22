@@ -64,8 +64,8 @@ iframe {
 .headerStrip {
     text-align: right; 
      
-    background: rgb(145,163,176); /* for IE */
-    background: rgba(145,163,176,0.95);
+    /*background: rgb(145,163,176);  
+    background: rgba(145,163,176,0.95);*/
     margin-left: -10px;
     margin-top: -10px;
     width: 102%;

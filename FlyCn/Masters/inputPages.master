@@ -65,7 +65,7 @@
     <div class="RadSplitterDiv">
         <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
 
-        <telerik:RadSplitter ID="RadSplitter1" runat="server" Height="100%">
+        <telerik:RadSplitter ID="RadSplitter1" runat="server" Height="100%" Skin="Metro">
             <telerik:RadPane ID="RadPane1" runat="server" Width="150" Height="100%">
                 <telerik:RadTreeView ID="rtvLeftMenu" runat="server">
                     <Nodes>
