@@ -4,6 +4,12 @@
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 
 <asp:Content ID="phdPersonnelQualificationMasterHead" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .myclass
+      {
+          width: 1050px;
+      }
+    </style>
     <script src="../Scripts/jquery-1.8.2.min.js"></script>
       <script type="text/javascript">
           function validate() {
@@ -104,8 +110,10 @@
        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" >
 </asp:ScriptManager>
 
-<telerik:RadGrid ID="dtgPersonnelQualificationGrid" runat="server"  OnNeedDataSource="dtgPersonnelQualificationGrid_NeedDataSource" OnItemCommand="dtgPersonnelQualificationGrid_ItemCommand" Skin="Silk" OnPreRender="dtgPersonnelQualificationGrid_PreRender1">
-   <MasterTableView DataKeyNames="EmpCode,Qualification">
+<telerik:RadGrid ID="dtgPersonnelQualificationGrid" runat="server" 
+     OnNeedDataSource="dtgPersonnelQualificationGrid_NeedDataSource" OnItemCommand="dtgPersonnelQualificationGrid_ItemCommand"
+     Skin="Silk" OnPreRender="dtgPersonnelQualificationGrid_PreRender1" CssClass="myclass" >
+   <MasterTableView DataKeyNames="EmpCode,Qualification"  CssClass="myclass">
      
     <Columns>
           <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" >
