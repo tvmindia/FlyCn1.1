@@ -32,8 +32,8 @@ iframe {
 
 .LogoText {
     vertical-align: top;
-    color: #E33735;
-    font-family: 'Segoe UI Light';
+    color: #E5E5E5;
+    font-family: Magneto;
     font-size: 22px;
     letter-spacing: 3px;
     font-weight: bold;
@@ -62,12 +62,10 @@ iframe {
 }
 
 .headerStrip {
-    text-align: right;
-    border-bottom-style: outset;
-    border-bottom-width: medium;
-    border-bottom-color: #003300;
-    background: rgb(34,34,34); /* for IE */
-    background: rgba(34,34,34,0.55);
+    text-align: right; 
+     
+    background: rgb(145,163,176); /* for IE */
+    background: rgba(145,163,176,0.95);
     margin-left: -10px;
     margin-top: -10px;
     width: 102%;
@@ -153,8 +151,9 @@ iframe {
 
 .HomeBox1 {
     width: 30%;
-    background-color: #3366FF;
-    color: #CCFFCC;
+    /*background-color: #3366FF;*/
+     background: rgb(153,102,102);
+    color: #FFFFFF;
     vertical-align: top;
     border-radius: 20px;
     padding: 10px;
