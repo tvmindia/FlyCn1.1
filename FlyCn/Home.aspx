@@ -13,8 +13,8 @@
      
     <style>
         body {
-            background-size: 100% ;
-            background-image: url('../Images/bg3.jpg');
+            /*background-size: 100% ;
+            background-image: url('../Images/bg3.jpg');*/
         }
     </style>
     <table style="width:100%">
