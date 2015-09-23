@@ -66,7 +66,7 @@
     <div class="RadSplitterDiv">
         <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
 
-        <telerik:RadSplitter ID="RadSplitter1" runat="server" Height="100%" Skin="FlyCnSplitter" EnableEmbeddedSkins="false">
+        <telerik:RadSplitter ID="RadSplitter1" runat="server" Height="105%" Width="98%" Skin="FlyCnSplitter" EnableEmbeddedSkins="false" style="overflow-x:hidden">
             <telerik:RadPane ID="RadPane1" runat="server" Width="150" Height="100%">
                 <telerik:RadTreeView ID="rtvLeftMenu" runat="server">
                     <Nodes>
@@ -104,7 +104,7 @@
             </telerik:RadPane>
             <telerik:RadSplitBar ID="RadSplitbar1" runat="server" CollapseMode="Forward">
             </telerik:RadSplitBar>
-            <telerik:RadPane ID="contentPane" runat="server" Height="261px" Width="1241px" ClientIDMode="Static" ContentUrl="~/General/UnderConstruction.aspx">
+            <telerik:RadPane ID="contentPane" runat="server" Height="261px" Width="90%"  ClientIDMode="Static" ContentUrl="~/General/UnderConstruction.aspx">
             </telerik:RadPane>
         </telerik:RadSplitter>
     </div>
