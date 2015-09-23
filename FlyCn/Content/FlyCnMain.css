@@ -195,13 +195,17 @@ iframe {
 .Tiles {
     color: white;
     border-radius: 25px;
-    background-color: #87A96B; /*#FF6666;*/
+    background-color: #E2656F; /*#FF6666;*/
     vertical-align: middle;
     text-align: center;
     width: 125px;
     height: 125px;
     cursor: pointer;
 }
+    .Tiles:hover {
+    background-color: #DC4753;
+}
+
 
 .TileIcon {
     width: 100%;
