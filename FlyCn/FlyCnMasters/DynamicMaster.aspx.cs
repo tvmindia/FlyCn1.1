@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 
@@ -83,6 +84,9 @@ namespace FlyCn.FlyCnMasters
         public void PlaceControls()
         {
             {
+                HtmlGenericControl divcontrol = new HtmlGenericControl();
+                divcontrol.Attributes["class"] = "col-lg-12 Span-One col-lg-6 form-group";
+                divcontrol.TagName = "div";
                 Table table = new Table();
                 StringBuilder html = new StringBuilder();
                 dt = sd.GetComboBoxDetails(_mode);
@@ -92,13 +96,17 @@ namespace FlyCn.FlyCnMasters
                 {
                     for (int f = 0; f < dt.Rows.Count; f++)
                     {
+                       
                         TableRow row = new TableRow();
                         TableCell cell = new TableCell();
                         TableCell cell1 = new TableCell();
                         Label lbl = new Label();
+                        lbl.Attributes.Add("class", "control-label col-lg-3");
+
                         lbl.Text = dt.Rows[f]["Field_Name"].ToString();
                         TextBox box = new TextBox();
-                        box.ID = "txt" + dt.Rows[f]["Field_Name"].ToString();
+                        box.Attributes.Add("class", "form-control");
+                        box.ID = "txt" + dt.Rows[f]["Field_Name"].ToString();                      
                         if (dt.Rows[f]["Field_DataType"].ToString() == "S" | dt.Rows[f]["Field_DataType"].ToString() == "A" )
                         {
                             cell.Controls.Add(lbl);
@@ -109,7 +117,9 @@ namespace FlyCn.FlyCnMasters
                         else if (dt.Rows[f]["Field_DataType"].ToString() == "C" | dt.Rows[f]["Field_DataType"].ToString() == "N")
                         {
                             RadComboBox combo = new RadComboBox();
+                            //combo.Attributes.Add("class", "span1 col-md-1 form-control");
                             combo.ID = "cmb" + dt.Rows[f]["Field_Name"].ToString();
+                            
                             combo.EnableLoadOnDemand = true;
                             combo.ItemsRequested += new RadComboBoxItemsRequestedEventHandler(combo_ItemsRequested);
                             cell.Controls.Add(lbl);
@@ -131,10 +141,14 @@ namespace FlyCn.FlyCnMasters
                         TableCell cell1 = new TableCell();
                         TableCell cell2 = new TableCell();
                         Label lbl = new Label();
+                        lbl.Attributes.Add("class", "control-label col-lg-3");
+
                         lbl.Text = dt.Rows[f]["Field_Name"].ToString();
                         lbl.ID = "lbl" + dt.Rows[f]["Field_Name"].ToString();
-                        lbl.Attributes.CssStyle.Add("text-align", "left");
+                       // lbl.Attributes.CssStyle.Add("text-align", "left");
                         TextBox box = new TextBox();
+                        box.Attributes.Add("class", "form-control");
+
                         box.ID = "txt" + dt.Rows[f]["Field_Name"].ToString();
                         string ValidationGroup = "Submit";
                         RequiredFieldValidator rfv = new RequiredFieldValidator();

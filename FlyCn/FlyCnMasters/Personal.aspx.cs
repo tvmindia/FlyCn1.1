@@ -306,7 +306,7 @@ namespace FlyCn
                 string ProjNo = UA.projectNo;
                 int result = mp.UpdateMasterPersonel(ProjNo);
 
-                ContentIframe.Style["display"] ="none";
+                ContentIframe.Style["display"] ="";
               //  lblQualificationframe.Style["display"] = "none";
             }
             catch(Exception ex)
