@@ -55,7 +55,7 @@
             <tr>
                 <td style="width: 50%;">
                    
-                        <div id="div1" runat="server" style="width:800px;height:500px;display:none" >
+                        <div id="div1" runat="server" style="width:800px;height:600px;display:none" >
                         </div>
                    
                         
@@ -63,7 +63,7 @@
                 </td>
                 <td style="">
                       <div id="div2" runat="server">
-                          <iframe id="iframesub1" style="width:800px;height:500px;display:none;"  frameborder="0"  ></iframe>
+                          <iframe id="iframesub1" style="width:800px;height:600px;display:none;"  frameborder="0"  ></iframe>
                         
                         </div>
                 </td>
