@@ -52,7 +52,7 @@
         <div class="header-cont">
         <div id="HeaderStrip">
             <table class="headerStrip"><tr><td style="width:10%"   >
-                <img src="../Images/FlyCnlogo.PNG" style="height:30px" /><span class="LogoText">FlyCn</span>   </td><td></td> <td style="width:10%" >
+                <img src="../Images/FlyCnlogo.PNG" style="height:30px" /><span class="LogoText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>   </td><td></td> <td style="width:10%" >
                    <asp:Image ID="imgMenu" runat="server" ImageUrl="~/Images/Icons/tilesIcon.png"  onclick="goMenu();" style="height:30px"/>
                      
                                                                                  </td>

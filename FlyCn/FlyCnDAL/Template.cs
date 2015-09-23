@@ -16,7 +16,7 @@ namespace FlyCn.FlyCnDAL
         }
         public void LoadInputScreen(RadPane myContentPane)
         {
-            myContentPane.ContentUrl = "InputTemplateContent.aspx";
+            myContentPane.ContentUrl = "InputTemplateContent1.aspx";
         }
     }
 }
