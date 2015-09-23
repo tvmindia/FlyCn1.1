@@ -391,6 +391,7 @@
     <Content Include="SubMenu.aspx" />
     <Content Include="Templates\InputTemplate.aspx" />
     <Content Include="Templates\InputTemplateContent.aspx" />
+    <Content Include="Templates\InputTemplateContent1.aspx" />
     <Content Include="test1.aspx" />
     <Content Include="UserControls\ToolBar.ascx" />
     <Content Include="ViewSwitcher.ascx" />
@@ -675,6 +676,13 @@
     </Compile>
     <Compile Include="Templates\InputTemplateContent.aspx.designer.cs">
       <DependentUpon>InputTemplateContent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\InputTemplateContent1.aspx.cs">
+      <DependentUpon>InputTemplateContent1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Templates\InputTemplateContent1.aspx.designer.cs">
+      <DependentUpon>InputTemplateContent1.aspx</DependentUpon>
     </Compile>
     <Compile Include="test1.aspx.cs">
       <DependentUpon>test1.aspx</DependentUpon>
