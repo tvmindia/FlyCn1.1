@@ -242,6 +242,10 @@
     <Content Include="Content\themes\FlyCnBlue\css\datepicker.css" />
     <Content Include="Content\themes\FlyCnBlue\fonts\font-awesome.min.css" />
     <Content Include="Content\themes\FlyCnBlue\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\themes\FlyCnRider\Common\loading.gif" />
+    <Content Include="Content\themes\FlyCnRider\Common\radActionsSprite.png" />
+    <Content Include="Content\themes\FlyCnRider\Splitter.FlyCnRider.css" />
+    <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="Images\flycnLogo.png" />
     <Content Include="Scripts\Messages.js" />
     <Content Include="Templates\htmlTemplate.html" />
