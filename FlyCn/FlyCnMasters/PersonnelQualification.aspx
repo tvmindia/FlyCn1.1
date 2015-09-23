@@ -4,10 +4,30 @@
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 
 <asp:Content ID="phdPersonnelQualificationMasterHead" ContentPlaceHolderID="head" runat="server">
+    
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Input</title>
+
+<!-----bootstrap css--->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,900' rel='stylesheet' type='text/css' />
+<link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
+<!-----bootstrap css--->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+<link href="../Content/themes/FlyCnBlue/css/stylesheet.css" rel="stylesheet" />
+
+<link href="../Content/themes/FlyCnBlue/css/selectize.css" rel="stylesheet" type="text/css" />
+<link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
+<!-----main css--->
+<link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
+<!-----main css--->
+
     <style>
         .myclass
       {
-          width: 1050px;
+          width:1000px;
       }
 
     </style>
@@ -89,8 +109,7 @@
 </asp:Content>
 
 <asp:Content ID="phdPersonnelQualificationMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <div class="inputMainContainer"  >
-        <div class="innerDiv">
+  <div class="container">
     <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="200px"    OnClientTabSelected="onClientTabSelected"
              CausesValidation="false"   SelectedIndex="0" Skin="Silk" >
             <Tabs>
@@ -134,33 +153,43 @@
            <asp:Label ID="lblerror" runat="server" Text="" ForeColor="Red"></asp:Label>
 
                        <uc1:ToolBar runat="server" ID="ToolBarQualification" />
-    <div id="divQualificationedit" style="overflow-y:hidden" >
-      
-        <table style="width: 100%;">
-            <tr>
-                 <td>
-                    <asp:Label ID="lblQualification" runat="server" Text="Qualification"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="txtQualification" runat="server"></asp:TextBox>
-                     <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500;
-font-family: Trebuchet MS;">*</span>
-                </td>
-                   <td>
-                    <asp:Label ID="lblQualificationType" runat="server" Text="QualificationType"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="txtQualificationType" runat="server"></asp:TextBox>
-                </td>
+  
+         <div class="col-lg-12 Span-One">
+    <div class="col-lg-6">
+        <div class="form-group">
             
-            </tr>
-            <tr>
-               
-                <td>
-                    <asp:Label ID="lblRenewedDate" runat="server" Text="RenewedDate"></asp:Label>
-                </td>
-                <td>
-                    <telerik:RadDatePicker ID="RadDRenewedDate" runat="server"
+            <asp:Label ID="lblQualification" CssClass="control-label col-lg-3" runat="server" Text="Qualification"></asp:Label>
+          <div class="col-lg-9">
+            
+            <asp:TextBox ID="txtQualification" CssClass="form-control"  runat="server" ></asp:TextBox>
+            <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500;
+font-family: Trebuchet MS;">*</span>
+
+          </div>
+        </div>
+        </div>
+         <div class="col-lg-6">
+           <div class="form-group">
+        
+            <asp:Label ID="lblQualificationType" CssClass="control-label col-lg-3" runat="server" Text="QualificationType"></asp:Label>
+          <div class="col-lg-9">
+            
+            <asp:TextBox ID="txtQualificationType"  runat="server" CssClass="form-control" ></asp:TextBox>
+           
+
+          </div>
+        </div>
+             </div>
+            </div>
+
+        <div class="col-lg-12 Span-One">
+         <div class="col-lg-6">
+           <div class="form-group">
+        
+            <asp:Label ID="lblRenewedDate" CssClass="control-label col-lg-3" runat="server" Text="RenewedDate"></asp:Label>
+          <div class="col-lg-9">
+            
+           <telerik:RadDatePicker ID="RadDRenewedDate" runat="server"
                        Width="180px" TabIndex="2" AutoPostBack="false" MinDate="<%# DateTime.Now.Date %>">
                         <DateInput DateFormat="dd/MM/yyyy" InvalidStyleDuration="100"
                             runat="server">
@@ -169,13 +198,17 @@ font-family: Trebuchet MS;">*</span>
                         <Calendar runat="server">
                         </Calendar>
                     </telerik:RadDatePicker>
-                </td>
-                    <td>
-                    <asp:Label ID="lblExpiryDate" runat="server" Text="ExpiryDate"></asp:Label>
+           
 
-                </td>
-                <td>
-                    <telerik:RadDatePicker ID="RadExpiryDate" runat="server"
+          </div>
+        </div>
+             </div>
+         <div class="col-lg-6">
+           <div class="form-group">
+        
+            <asp:Label ID="lblExpiryDate" CssClass="control-label col-lg-3" runat="server" Text="ExpiryDate"></asp:Label>
+          <div class="col-lg-9">
+           <telerik:RadDatePicker ID="RadExpiryDate" runat="server"
                         Width="180px" TabIndex="2" AutoPostBack="false" MinDate="<%# DateTime.Now.Date %>">
                         <DateInput DateFormat="dd/MM/yyyy" InvalidStyleDuration="100"
                             runat="server">
@@ -184,14 +217,19 @@ font-family: Trebuchet MS;">*</span>
                         <Calendar runat="server">
                         </Calendar>
                     </telerik:RadDatePicker>
-                </td>
-            </tr>
-            <tr>
-               <td>
-                    <asp:Label ID="lblFirstQualifiedDate" runat="server" Text="FirstQualifiedDate"></asp:Label>
-                </td>
-                <td>
-                    <telerik:RadDatePicker ID="RadFirstQualifiedDate" runat="server"
+
+          </div>
+        </div>
+             </div>
+            </div>
+        <div class="col-lg-12 Span-One">
+               <div class="col-lg-6">
+           <div class="form-group">
+        
+            <asp:Label ID="lblFirstQualifiedDate" CssClass="control-label col-lg-3" runat="server" Text="FirstQualifiedDate"></asp:Label>
+          <div class="col-lg-9">
+            
+           <telerik:RadDatePicker ID="RadFirstQualifiedDate" runat="server"
                         Width="180px" TabIndex="2" AutoPostBack="false" MinDate="<%# DateTime.Now.Date %>">
                         <DateInput DateFormat="dd/MM/yyyy" InvalidStyleDuration="100"
                             runat="server">
@@ -200,29 +238,46 @@ font-family: Trebuchet MS;">*</span>
                         <Calendar runat="server">
                         </Calendar>
                     </telerik:RadDatePicker>
-                </td>
-                <td>
-                    <asp:Label ID="lblRemarks" runat="server" Text="Remarks"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="txtRemarks" runat="server" TextMode="MultiLine" Width="170px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-              
-            <td>
-                       <asp:HiddenField ID="HiddenField" runat="server" />
-                    <asp:Label ID="lblEmpCode" runat="server" Text="EmployeeCode" Visible="false"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="txtEmpCode" runat="server"  ReadOnly="true"  Visible="false"></asp:TextBox>
+          </div>
+        </div>
+                   </div>
+         <div class="col-lg-6">
+           <div class="form-group">
+        
+            <asp:Label ID="lblRemarks" CssClass="control-label col-lg-3" runat="server" Text="Remarks"></asp:Label>
+          <div class="col-lg-9">
+            
+            <asp:TextBox ID="txtRemarks"  TextMode="MultiLine"  runat="server" CssClass="form-control" ></asp:TextBox>
+           
+
+          </div>
+        </div>
+             </div>
+
+            </div>
 
 
-                </td>
-            </tr>
-        </table>
-    </div>
+         <div class="col-lg-12 Span-One">
 
+         <div class="col-lg-6">
+
+           <div class="form-group">
+        <asp:HiddenField ID="HiddenField" runat="server" />
+                    <asp:Label ID="lblEmpCode" runat="server"  CssClass="control-label col-lg-3" Text="EmployeeCode" Visible="false"></asp:Label>
+          <div class="col-lg-9">
+            
+                    <asp:TextBox ID="txtEmpCode" runat="server"  CssClass="form-control"  ReadOnly="true"  Visible="false"></asp:TextBox>
+           
+
+          </div>
+        </div>
+             </div>       
+    
+          </div>
+     
+     
+           
+ 
                        
                    </telerik:RadPageView>
             
@@ -231,7 +286,6 @@ font-family: Trebuchet MS;">*</span>
                        </telerik:RadMultiPage>
                              
   
-   
-        </div>
-         </div>
+   </div>
+      
 </asp:Content>

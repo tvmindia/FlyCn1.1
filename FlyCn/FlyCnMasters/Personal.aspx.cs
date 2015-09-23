@@ -237,7 +237,7 @@ namespace FlyCn
 
                    //lblQualificationframe.Visible = true;
 
-                lblQualificationframe.Style["display"] ="none";
+                    lblQualificationframe.Style["display"] = "none";
                     ContentIframe.Style["display"] = "";
                    ContentIframe.Attributes["src"] = "PersonnelQualification.aspx?id=" + strId;
 
