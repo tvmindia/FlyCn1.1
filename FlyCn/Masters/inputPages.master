@@ -3,6 +3,7 @@
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
        <script src="../Scripts/jquery-1.8.2.min.js"></script>
+    <link href="../Content/themes/FlyCnRider/Splitter.FlyCnRider.css" rel="stylesheet" />
     <style type="text/css">
         /*.auto-style3 {
         width: 173px;
@@ -65,7 +66,7 @@
     <div class="RadSplitterDiv">
         <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
 
-        <telerik:RadSplitter ID="RadSplitter1" runat="server" Height="100%" Skin="Metro">
+        <telerik:RadSplitter ID="RadSplitter1" runat="server" Height="100%" Skin="FlyCnSplitter" EnableEmbeddedSkins="false">
             <telerik:RadPane ID="RadPane1" runat="server" Width="150" Height="100%">
                 <telerik:RadTreeView ID="rtvLeftMenu" runat="server">
                     <Nodes>
