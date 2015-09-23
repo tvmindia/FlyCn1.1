@@ -64,7 +64,7 @@
                     ClearTextBox();
                     EnableButtonsForNew();
                     document.getElementById("<%=ContentIframe.ClientID %>").style.display = "none";
-                      document.getElementById("<%=lblQualificationframe.ClientID %>").style.display = "";
+                  document.getElementById("<%=lblQualificationframe.ClientID %>").style.display = "";
 
 
                   }
@@ -111,7 +111,7 @@
         });
     </script>
 
-    <style>
+  <%--  <style>
         table {
         }
 
@@ -125,7 +125,7 @@
         .tabletbody {
             width: 900px;
         }
-    </style>
+    </style>--%>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -149,7 +149,7 @@
 </asp:Content>
 
 <asp:Content ID="phdPersonalContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    <div class="container">
 
     <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
         CausesValidation="false" SelectedIndex="0" Skin="Silk">
@@ -160,7 +160,7 @@
     </telerik:RadTabStrip>
 
 
-    <div>
+  
         <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
             <telerik:RadPageView ID="rpList" runat="server">
                 <div id="divList">
@@ -241,6 +241,9 @@
                         <%-- </form>--%>
                     </div>
                 </div>
+
+
+
                 <div class="col-lg-12 Span-One">
                     <div class="col-lg-6">
 
@@ -339,12 +342,14 @@
                 <%-- 
               </div>
                     </div>  --%>
-                <div class="col-lg-12" style="width: 100%;">
-                    <div class="content white">
+             <div class="col-lg-12">
 
-                        <div class="accordion-container">
-                            <a href="#" class="accordion-toggle" >Company Details <span class="toggle-icon  "><i class="fa fa-plus-circle"></i></span></a>
-                            <div class="accordion-content ">
+      <div class="content white">
+                          <div class="accordion-container"> <a href="#" class="accordion-toggle">Company Details  
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                      
 
                                 <div class="col-lg-12 Span-One ">
                                     <div class="col-lg-6 ">
@@ -552,21 +557,25 @@
                             </div>
                         </div>
 
-                        <div class="accordion-container" style="width: 100%;">
-                            <a href="#" class="accordion-toggle">Qualification <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
-                            <div class="accordion-content">
+                       <div class="accordion-container"> <a href="#" class="accordion-toggle">Qualification
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
                                 <%--    <div id="framediv" runat="server" style="overflow: hidden;">--%>
 
                                 <iframe id="ContentIframe"
                                     name="PQualification" style="height: 300px; width: 100%; display: none; overflow: hidden;"
                                     runat="server"></iframe>
-                                <asp:Label ID="lblQualificationframe" runat="server" Text="First Insert Personnel Information and Click Save Button " ForeColor="Tomato"></asp:Label>
+                                                             <asp:Label ID="lblQualificationframe" runat="server" Text="First Insert Personnel Information and Click Save Button " ForeColor="Tomato"></asp:Label>
+
                                 <%-- </div>--%>
                             </div>
                         </div>
                     </div>
 
-                </div>
+              
+                
+                 </div>
                 <hr />
 
 
@@ -574,130 +583,42 @@
             </telerik:RadPageView>
             <%--<%--  onload="javascript: setSize();" ,onload="autoResize('ContentIframe');"--%>
         </telerik:RadMultiPage>
-    </div>
+   
+        </div>
 
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.accordion-toggle').on('click', function (event) {
+            event.preventDefault();
+            // create accordion variables
+            var accordion = $(this);
+            var accordionContent = accordion.next('.accordion-content');
+            var accordionToggleIcon = $(this).children('.toggle-icon');
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#content").find("[id^='tab']").hide(); // Hide all content
-            $("#tabs li:first").attr("id", "current"); // Activate the first tab
-            $("#content #tab1").fadeIn(); // Show first tab's content
+            // toggle accordion link open class
+            accordion.toggleClass("open");
+            // toggle accordion content
+            accordionContent.slideToggle(250);
 
-            $('#tabs a').click(function (e) {
-                e.preventDefault();
-                if ($(this).closest("li").attr("id") == "current") { //detection for current tab
-                    return;
-                }
-                else {
-                    $("#content").find("[id^='tab']").hide(); // Hide all content
-                    $("#tabs li").attr("id", ""); //Reset id's
-                    $(this).parent().attr("id", "current"); // Activate this
-                    $('#' + $(this).attr('name')).fadeIn(); // Show content for the current tab
-                }
-            });
+            // change plus/minus icon
+            if (accordion.hasClass("open")) {
+                accordionToggleIcon.html("<i class='fa fa-minus-circle'></i>");
+            } else {
+                accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
+            }
         });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.accordion-toggle').on('click', function (event) {
-                event.preventDefault();
-                // create accordion variables
-                var accordion = $(this);
-                var accordionContent = accordion.next('.accordion-content');
-                var accordionToggleIcon = $(this).children('.toggle-icon');
-
-                // toggle accordion link open class
-                accordion.toggleClass("open");
-                // toggle accordion content
-                accordionContent.slideToggle(250);
-
-                // change plus/minus icon
-                if (accordion.hasClass("open")) {
-                    accordionToggleIcon.html("<i class='fa fa-minus-circle'></i>");
-                } else {
-                    accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
-                }
-
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('.accordion-toggle').click(function () {
-                $('.accordion-content').collapse('toggle'); // toggle collapse
-            });
-        });
+    });
 </script>
+   
     <script src="../Content/themes/FlyCnBlue/js/selectize.js"></script>
     <script src="../Content/themes/FlyCnBlue/js/index.js"></script>
-    <script>
-        var $select = $('#select-tools').selectize({
-            maxItems: null,
-            valueField: 'id',
-            labelField: 'title',
-            searchField: 'title',
-            options: [
-                { id: 1, title: 'Spectrometer', url: 'http://en.wikipedia.org/wiki/Spectrometers' },
-                { id: 2, title: 'Star Chart', url: 'http://en.wikipedia.org/wiki/Star_chart' },
-                { id: 3, title: 'Electrical Tape', url: 'http://en.wikipedia.org/wiki/Electrical_tape' }
-            ],
-            create: false
-        });
-
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        var control = $select[0].selectize;
-
-        $('#button-clear').on('click', function () {
-            control.clear();
-        });
-
-        $('#button-clearoptions').on('click', function () {
-            control.clearOptions();
-        });
-
-        $('#button-addoption').on('click', function () {
-            control.addOption({
-                id: 4,
-                title: 'Something New',
-                url: 'http://google.com'
-            });
-        });
-
-        $('#button-additem').on('click', function () {
-            control.addItem(2);
-        });
-
-        $('#button-setvalue').on('click', function () {
-            control.setValue([2, 3]);
-        });
-
-
-
-    </script>
+    
 
     <!-----bootstrap js--->
 
     <script src="../Content/themes/FlyCnBlue/js/bootstrap.min.js"></script>
     <script src="../Content/themes/FlyCnBlue/js/bootstrap-datepicker.js"></script>
-    <script>
-        $(function () {
-            $("#datepicker").datepicker({
-                autoclose: true,
-                todayHighlight: true
-            }).datepicker('update', new Date());;
-        });
-
-    </script>
-    <script>
-        $(function () {
-            $("#datepicker1").datepicker({
-                autoclose: true,
-                todayHighlight: true
-            }).datepicker('update', new Date());;
-        });
-
-    </script>
+   
 </asp:Content>
 
