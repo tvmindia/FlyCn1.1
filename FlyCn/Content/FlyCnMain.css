@@ -322,3 +322,12 @@ iframe {
     .closeButton:hover {
         cursor:pointer;
     }
+
+
+.ToolBarContainer {
+    text-align: right;
+    border-top-style: none;
+    border-bottom-style: inset;
+    border-bottom-width: thin;
+    border-bottom-color: #CCCCCC;
+}
