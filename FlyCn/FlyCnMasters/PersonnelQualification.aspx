@@ -9,6 +9,7 @@
       {
           width: 1050px;
       }
+
     </style>
     <script src="../Scripts/jquery-1.8.2.min.js"></script>
       <script type="text/javascript">
@@ -128,6 +129,7 @@
 </div>
           </div>                       
                              </telerik:RadPageView>
+
                    <telerik:RadPageView ID="rpAddEdit" runat="server">
            <asp:Label ID="lblerror" runat="server" Text="" ForeColor="Red"></asp:Label>
 

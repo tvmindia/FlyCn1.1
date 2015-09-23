@@ -1,13 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="Personal.aspx.cs" Inherits="FlyCn.Personal" %>
-<%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
+
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <asp:Content ID="phdPersonalHead" ContentPlaceHolderID="head" runat="server">
-     
-   
- 
-   
+
+
+
+
     <script type="text/javascript">
         function ClearTextBox() {
             $('textarea').empty();
@@ -34,7 +35,7 @@
         }
         function validate() {
             var Code = document.getElementById('<%=txtCode.ClientID %>').value;
-             var Name = document.getElementById('<%=txtName.ClientID %>').value;
+            var Name = document.getElementById('<%=txtName.ClientID %>').value;
             var Nationality = document.getElementById('<%=txtNationality.ClientID %>').value;
             var Company = document.getElementById('<%=RadComboCompany.ClientID %>').value;
             if (Code == "" || Name == "" || Nationality == "" || Company == "") {
@@ -44,32 +45,30 @@
                 return false;
 
             }
-        
-            else
-            {
-                
+
+            else {
+
                 return true;
             }
         }
-</script>
+    </script>
 
-      <script type="text/javascript">
-          function onClientTabSelected(sender, args) {
-              //   debugger;
-              var tab = args.get_tab();     
-              if (tab.get_value() == '2') {
-            
-                  try {
+    <script type="text/javascript">
+        function onClientTabSelected(sender, args) {
+            //   debugger;
+            var tab = args.get_tab();
+            if (tab.get_value() == '2') {
 
-                      ClearTextBox();
-                      EnableButtonsForNew();
-                      document.getElementById("<%=ContentIframe.ClientID %>").style.display = "none";
+                try {
+
+                    ClearTextBox();
+                    EnableButtonsForNew();
+                    document.getElementById("<%=ContentIframe.ClientID %>").style.display = "none";
                       document.getElementById("<%=lblQualificationframe.ClientID %>").style.display = "";
 
-                     
+
                   }
-                  catch (x)
-                  {
+                  catch (x) {
                       alert(x.message);
                   }
 
@@ -83,620 +82,622 @@
               }
           }
 
-</script>
-  
-      <script>
+    </script>
 
-          function OnClientButtonClicking(sender, args) {
+    <script>
 
-              var btn = args.get_item();
-              if (btn.get_value() == 'Delete') {
+        function OnClientButtonClicking(sender, args) {
 
-                  args.set_cancel(!confirm('Do you want to delete ?'));
-              }
-              if (btn.get_value() == 'Save') {
+            var btn = args.get_item();
+            if (btn.get_value() == 'Delete') {
 
-                  args.set_cancel(!validate());
-              }
-              if (btn.get_value() == 'Update') {
+                args.set_cancel(!confirm('Do you want to delete ?'));
+            }
+            if (btn.get_value() == 'Save') {
 
-                  args.set_cancel(!validate());
-              }
+                args.set_cancel(!validate());
+            }
+            if (btn.get_value() == 'Update') {
+
+                args.set_cancel(!validate());
+            }
 
         }
-  </script>
+    </script>
+
     <script>
         $(document).ready(function () {
             $('.accordion-content').show();
         });
     </script>
- 
+
     <style>
-      table
-    {
-    	
-    	
-    }
-    table tbody
-    {
-    	
-    }
-  .tabletd
-    {
-    	width:550px;
-    }
-   .tabletbody
-    {
-    	width:900px;
-    }
-  
-</style>
+        table {
+        }
 
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Input</title>
-<!-----bootstrap css--->
+            table tbody {
+            }
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,900' rel='stylesheet' type='text/css' />
-<link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
-<!-----bootstrap css--->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-<link href="../Content/themes/FlyCnBlue/css/stylesheet.css" rel="stylesheet" />
- 
-<link href="../Content/themes/FlyCnBlue/css/selectize.css" rel="stylesheet" type="text/css" />
-<link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
-<!-----main css--->
-<link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
-<!-----main css--->
-   
+        .tabletd {
+            width: 550px;
+        }
+
+        .tabletbody {
+            width: 900px;
+        }
+    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Input</title>
+    <!-----bootstrap css--->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,900' rel='stylesheet' type='text/css' />
+    <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
+    <!-----bootstrap css--->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link href="../Content/themes/FlyCnBlue/css/stylesheet.css" rel="stylesheet" />
+
+    <link href="../Content/themes/FlyCnBlue/css/selectize.css" rel="stylesheet" type="text/css" />
+    <link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
+    <!-----main css--->
+    <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
+    <!-----main css--->
+
 </asp:Content>
 
-<asp:Content ID="phdPersonalContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">    
-  
-
-        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
-             CausesValidation="false"   SelectedIndex="0" Skin="Silk"  >
-            <Tabs>
-                <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True" ></telerik:RadTab>
-                 <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
-            </Tabs>
-        </telerik:RadTabStrip>
+<asp:Content ID="phdPersonalContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
-<div>
-    <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
-        <telerik:RadPageView ID="rpList" runat="server">
-            <div id="divList">
+    <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
+        CausesValidation="false" SelectedIndex="0" Skin="Silk">
+        <Tabs>
+            <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
+            <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"></telerik:RadTab>
+        </Tabs>
+    </telerik:RadTabStrip>
 
 
-                <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
-                </asp:ScriptManager>
-
-                <telerik:RadGrid ID="dtgPersonnelGrid" runat="server"  AllowPaging="true" AllowSorting="true"
-                     OnNeedDataSource="dtgPersonnelGrid_NeedDataSource" OnItemCommand="dtgPersonnelGrid_ItemCommand"
-                    Skin="Silk" CssClass="outerMultiPage"
-                    OnPreRender="dtgPersonnelGrid_PreRender">
-                    <MasterTableView DataKeyNames="Code">
-
-                        <Columns>
-                            <telerik:GridButtonColumn CommandName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
-                            </telerik:GridButtonColumn>
-                            <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
-                            </telerik:GridButtonColumn>
-
-                        </Columns>
-                    </MasterTableView>
-
-                </telerik:RadGrid>
+    <div>
+        <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
+            <telerik:RadPageView ID="rpList" runat="server">
+                <div id="divList">
 
 
-            </div>
+                    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
+                    </asp:ScriptManager>
 
-        </telerik:RadPageView>
-        <telerik:RadPageView ID="rpAddEdit" runat="server">
-         <%--  <asp:Label ID="lblerror" runat="server" Text="" ForeColor="Red"></asp:Label>--%>
-            <uc1:ToolBar runat="server" ID="ToolBar" />  
-               <div class="col-lg-12" style="width:100%;">            
-      <div class="content white">
-          <div class="accordion-container"> <a href="#" class="accordion-toggle">Lorem Ipsum is simply <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                    <telerik:RadGrid ID="dtgPersonnelGrid" runat="server" AllowPaging="true" AllowSorting="true"
+                        OnNeedDataSource="dtgPersonnelGrid_NeedDataSource" OnItemCommand="dtgPersonnelGrid_ItemCommand"
+                        Skin="Silk" CssClass="outerMultiPage"
+                        OnPreRender="dtgPersonnelGrid_PreRender">
+                        <MasterTableView DataKeyNames="Code">
+
+                            <Columns>
+                                <telerik:GridButtonColumn CommandName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
+                                </telerik:GridButtonColumn>
+                                <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
+                                </telerik:GridButtonColumn>
+
+                            </Columns>
+                        </MasterTableView>
+
+                    </telerik:RadGrid>
+
+
+                </div>
+
+            </telerik:RadPageView>
+
+            <telerik:RadPageView ID="rpAddEdit" runat="server">
+                <%--  <asp:Label ID="lblerror" runat="server" Text="" ForeColor="Red"></asp:Label>--%>
+                <uc1:ToolBar runat="server" ID="ToolBar" />
+                <%--   <div class="accordion-container"> <a href="#" class="accordion-toggle">Lorem Ipsum is simply <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
           <div class="accordion-content">
-          
-       
-               
-                 <div class="col-lg-12 Span-One">
-                <div class="col-lg-6">
-    
-        <div class="form-group">
-        
-       <asp:Label ID="lblCode"  CssClass="control-label col-lg-3"  runat="server" Text="Code"></asp:Label>
-          <div class="col-lg-9">
-               <asp:TextBox ID="txtCode" CssClass="form-control" runat="server"></asp:TextBox>
-                  <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500;
-font-family: Trebuchet MS;">*</span>
-                            <asp:RequiredFieldValidator ID="rfv" runat="server" ErrorMessage="Enter code."
-                                Display="Dynamic" SetFocusOnError="true"
-                                ForeColor="Red"
-                                ValidationGroup="Group"
-                                ControlToValidate="txtCode">
-                            </asp:RequiredFieldValidator>
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                <div class="col-lg-6">
-  <%--    <form class="form-horizontal" role="form">--%>
-        <div class="form-group">
-       
-          
-                                       <asp:Label ID="lblStartDate" CssClass="control-label col-lg-3" runat="server" Text="Start Date"></asp:Label>
-
-          <div class="col-lg-9">
-           
-             
-                <telerik:RadDatePicker ID="RadStartDate" runat="server"
-                                Width="170px" TabIndex="2" AutoPostBack="false">
-                                <DateInput DateFormat="dd/MMM/yyyy" DisplayDateFormat="dd/MMM/yyyy" InvalidStyleDuration="100"
-                                    runat="server">
-                                </DateInput>
-                                <Calendar runat="server">
-                                </Calendar>
-                            </telerik:RadDatePicker>
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                     </div>
-              <div class="col-lg-12 Span-One">
-                <div class="col-lg-6">
-    
-        <div class="form-group">
-        
-
-            <asp:Label ID="lblName" CssClass="control-label col-lg-3" runat="server" Text="Name"></asp:Label>
-          <div class="col-lg-9">
-               
-                 <asp:TextBox ID="txtName"  CssClass="form-control" runat="server"></asp:TextBox>
-                             <span id="span1" runat="server" style="color: red; font-size: 15px; font-weight: 500;
-font-family: Trebuchet MS;">*</span>
-                
-                          
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                <div class="col-lg-6">
-  <%--    <form class="form-horizontal" role="form">--%>
-        <div class="form-group">
-       
-                            <asp:Label ID="lblEndDate"  CssClass="control-label col-lg-3" runat="server" Text="End Date"></asp:Label>
-          
-                                    
-
-          <div class="col-lg-9">
-           
-                <telerik:RadDatePicker ID="RadEndDate" runat="server"
-                                Width="170px" TabIndex="2" AutoPostBack="false" MinDate="<%# DateTime.Now.Date %>">
-                                <DateInput DateFormat="dd/MMM/yyyy" DisplayDateFormat="dd/MMM/yyyy" InvalidStyleDuration="100"
-                                    runat="server">
-                                </DateInput>
-                                <Calendar runat="server">
-                                </Calendar>
-                            </telerik:RadDatePicker>
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                     </div>
+                --%>
 
 
                 <div class="col-lg-12 Span-One">
-                <div class="col-lg-6">
-    
-        <div class="form-group">
-        
-      
+                    <div class="col-lg-6">
+
+                        <div class="form-group">
+
+                            <asp:Label ID="lblCode" CssClass="control-label col-lg-3" runat="server" Text="Code"></asp:Label>
+                            <div class="col-lg-9">
+                                <asp:TextBox ID="txtCode" CssClass="form-control" runat="server"></asp:TextBox>
+                                <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
+                                <asp:RequiredFieldValidator ID="rfv" runat="server" ErrorMessage="Enter code."
+                                    Display="Dynamic" SetFocusOnError="true"
+                                    ForeColor="Red"
+                                    ValidationGroup="Group"
+                                    ControlToValidate="txtCode">
+                                </asp:RequiredFieldValidator>
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                    <div class="col-lg-6">
+                        <%--    <form class="form-horizontal" role="form">--%>
+                        <div class="form-group">
+
+
+                            <asp:Label ID="lblStartDate" CssClass="control-label col-lg-3" runat="server" Text="Start Date"></asp:Label>
+
+                            <div class="col-lg-9">
+
+
+                                <telerik:RadDatePicker ID="RadStartDate" runat="server"
+                                    Width="170px" TabIndex="2" AutoPostBack="false">
+                                    <DateInput DateFormat="dd/MMM/yyyy" DisplayDateFormat="dd/MMM/yyyy" InvalidStyleDuration="100"
+                                        runat="server">
+                                    </DateInput>
+                                    <Calendar runat="server">
+                                    </Calendar>
+                                </telerik:RadDatePicker>
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+                <div class="col-lg-12 Span-One">
+                    <div class="col-lg-6">
+
+                        <div class="form-group">
+
+
+                            <asp:Label ID="lblName" CssClass="control-label col-lg-3" runat="server" Text="Name"></asp:Label>
+                            <div class="col-lg-9">
+
+                                <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
+                                <span id="span1" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
+
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                    <div class="col-lg-6">
+                        <%--    <form class="form-horizontal" role="form">--%>
+                        <div class="form-group">
+
+                            <asp:Label ID="lblEndDate" CssClass="control-label col-lg-3" runat="server" Text="End Date"></asp:Label>
+
+
+
+                            <div class="col-lg-9">
+
+                                <telerik:RadDatePicker ID="RadEndDate" runat="server"
+                                    Width="170px" TabIndex="2" AutoPostBack="false" MinDate="<%# DateTime.Now.Date %>">
+                                    <DateInput DateFormat="dd/MMM/yyyy" DisplayDateFormat="dd/MMM/yyyy" InvalidStyleDuration="100"
+                                        runat="server">
+                                    </DateInput>
+                                    <Calendar runat="server">
+                                    </Calendar>
+                                </telerik:RadDatePicker>
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-12 Span-One">
+                    <div class="col-lg-6">
+
+                        <div class="form-group">
+
+
                             <asp:Label ID="lblNationality" CssClass="control-label col-lg-3" runat="server" Text="Nationality"></asp:Label>
 
-          <div class="col-lg-9">
-           
-                    <asp:TextBox ID="txtNationality" CssClass="form-control" runat="server"></asp:TextBox>
-                        <span id="span3" runat="server" style="color: red; font-size: 15px; font-weight: 500;
-font-family: Trebuchet MS;">*</span>
-                            
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                <div class="col-lg-6">
-  <%--    <form class="form-horizontal" role="form">--%>
-        <div class="form-group">
-       
-                            <asp:Label ID="lblPassportNo"  CssClass="control-label col-lg-3"  runat="server" Text="Passport No"></asp:Label>
-          
-                                      
+                            <div class="col-lg-9">
 
-          <div class="col-lg-9">
-           
-                                        <asp:TextBox ID="txtPassportNo"  CssClass="form-control"  runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtNationality" CssClass="form-control" runat="server"></asp:TextBox>
+                                <span id="span3" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
 
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                     </div>
-                  <div class="col-lg-12 Span-One">
-                <div class="col-lg-6">
-  <%--    <form class="form-horizontal" role="form">--%>
-        <div class="form-group">
-                            <asp:Label ID="lblRemarks" CssClass="control-label col-lg-3" runat="server" Text="Remarks"></asp:Label>
-       
-                        
-          
-                                      
-
-          <div class="col-lg-9">
-                            <asp:TextBox ID="txtRemarks" runat="server"  CssClass="form-control" TextMode="MultiLine" Width="170px"></asp:TextBox>
-           
-                                       
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                      </div>
-             
-              </div>
+                            </div>
+                        </div>
+                        <%-- </form>--%>
                     </div>
-          <div class="accordion-container" style="display:block"> <a href="#" class="accordion-toggle" >Company Details <span class="toggle-icon "><i class="fa fa-plus-circle"></i></span></a>
-          <div class="accordion-content ">
+                    <div class="col-lg-6">
+                        <%--    <form class="form-horizontal" role="form">--%>
+                        <div class="form-group">
 
-              <div class="col-lg-12 Span-One ">
-                <div class="col-lg-6 ">
-    
-        <div class="form-group">
-        
-                            <asp:Label ID="lblCompany" CssClass="control-label col-lg-3" runat="server" Text="Company"></asp:Label>
-
-                         
-
-          <div class="col-lg-9">
-           
-                      <telerik:RadComboBox ID="RadComboCompany" runat="server" Width="170px"
-                                EmptyMessage="Select a Company" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
-                                EnableVirtualScrolling="true" OnItemsRequested="RadComboCompany_ItemsRequested">
-                            </telerik:RadComboBox>
-                             <span id="span4" runat="server" style="color: red; font-size: 15px; font-weight: 500;
-font-family: Trebuchet MS;">*</span>
-                            
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                <div class="col-lg-6">
-  <%--    <form class="form-horizontal" role="form">--%>
-        <div class="form-group">
-       
-                                                       <asp:Label ID="lblGenericPosition" CssClass="control-label col-lg-3" runat="server" Text="Generic Position"></asp:Label>
-
-          
-                                      
-
-          <div class="col-lg-9">
-           
-                  <asp:TextBox ID="txtGenericPosition"  CssClass="form-control" runat="server"></asp:TextBox>                  
-
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                     </div>
+                            <asp:Label ID="lblPassportNo" CssClass="control-label col-lg-3" runat="server" Text="Passport No"></asp:Label>
 
 
 
+                            <div class="col-lg-9">
+
+                                <asp:TextBox ID="txtPassportNo" CssClass="form-control" runat="server"></asp:TextBox>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
                 <div class="col-lg-12 Span-One">
-                <div class="col-lg-6">
-    
-        <div class="form-group">
-        
-            <asp:Label ID="lblIsSubcontract" CssClass="control-label col-lg-3" runat="server" Text="Is Subcontract"></asp:Label>
+                    <div class="col-lg-6">
+                        <%--    <form class="form-horizontal" role="form">--%>
+                        <div class="form-group">
+                            <asp:Label ID="lblRemarks" CssClass="control-label col-lg-3" runat="server" Text="Remarks"></asp:Label>
 
-                         
 
-          <div class="col-lg-9">
-           
-  <telerik:RadComboBox
-                                ID="RadcomboSubcontract"
-                                runat="server" Width="170px">
-                                <Items>
-                                    <telerik:RadComboBoxItem runat="server" Text="Yes" Value="1" />
-                                    <telerik:RadComboBoxItem runat="server" Text="No" Value="0" />
-                                </Items>
-                            </telerik:RadComboBox>
-                            
-          </div>
-        </div>
-     <%-- </form>--%>
+
+
+
+                            <div class="col-lg-9">
+                                <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" Width="170px"></asp:TextBox>
+
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+                <%-- 
+              </div>
+                    </div>  --%>
+                <div class="col-lg-12" style="width: 100%;">
+                    <div class="content white">
+
+                        <div class="accordion-container">
+                            <a href="#" class="accordion-toggle" >Company Details <span class="toggle-icon  "><i class="fa fa-plus-circle"></i></span></a>
+                            <div class="accordion-content ">
+
+                                <div class="col-lg-12 Span-One ">
+                                    <div class="col-lg-6 ">
+
+                                        <div class="form-group">
+
+                                            <asp:Label ID="lblCompany" CssClass="control-label col-lg-3" runat="server" Text="Company"></asp:Label>
+
+
+
+                                            <div class="col-lg-9">
+
+                                                <telerik:RadComboBox ID="RadComboCompany" runat="server" Width="170px"
+                                                    EmptyMessage="Select a Company" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
+                                                    EnableVirtualScrolling="true" OnItemsRequested="RadComboCompany_ItemsRequested">
+                                                </telerik:RadComboBox>
+                                                <span id="span4" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
+
+                                            </div>
+                                        </div>
+                                        <%-- </form>--%>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <%--    <form class="form-horizontal" role="form">--%>
+                                        <div class="form-group">
+
+                                            <asp:Label ID="lblGenericPosition" CssClass="control-label col-lg-3" runat="server" Text="Generic Position"></asp:Label>
+
+
+
+
+                                            <div class="col-lg-9">
+
+                                                <asp:TextBox ID="txtGenericPosition" CssClass="form-control" runat="server"></asp:TextBox>
+
+                                            </div>
+                                        </div>
+                                        <%-- </form>--%>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-lg-12 Span-One">
+                                    <div class="col-lg-6">
+
+                                        <div class="form-group">
+
+                                            <asp:Label ID="lblIsSubcontract" CssClass="control-label col-lg-3" runat="server" Text="Is Subcontract"></asp:Label>
+
+
+
+                                            <div class="col-lg-9">
+
+                                                <telerik:RadComboBox
+                                                    ID="RadcomboSubcontract"
+                                                    runat="server" Width="170px">
+                                                    <Items>
+                                                        <telerik:RadComboBoxItem runat="server" Text="Yes" Value="1" />
+                                                        <telerik:RadComboBoxItem runat="server" Text="No" Value="0" />
+                                                    </Items>
+                                                </telerik:RadComboBox>
+
+                                            </div>
+                                        </div>
+                                        <%-- </form>--%>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <%--    <form class="form-horizontal" role="form">--%>
+                                        <div class="form-group">
+
+                                            <asp:Label ID="lblContractPosition" CssClass="control-label col-lg-3" runat="server" Text="Contract Position"></asp:Label>
+
+
+
+
+                                            <div class="col-lg-9">
+
+                                                <asp:TextBox ID="txtContractPosition" CssClass="form-control" runat="server"></asp:TextBox>
+
+                                            </div>
+                                        </div>
+                                        <%-- </form>--%>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-lg-12 Span-One">
+                                    <div class="col-lg-6">
+
+                                        <div class="form-group">
+
+                                            <asp:Label ID="lblEmpNo" CssClass="control-label col-lg-3" runat="server" Text="Emp No"></asp:Label>
+
+
+                                            <div class="col-lg-9">
+
+                                                <asp:TextBox ID="txtEmpNo" CssClass="form-control" runat="server"></asp:TextBox>
+
+                                            </div>
+                                        </div>
+                                        <%-- </form>--%>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <%--    <form class="form-horizontal" role="form">--%>
+                                        <div class="form-group">
+
+                                            <asp:Label ID="lblHierarchyPosition" CssClass="control-label col-lg-3" runat="server" Text="Hierarchy Position"></asp:Label>
+
+
+
+
+                                            <div class="col-lg-9">
+
+                                                <asp:TextBox ID="txtHierarchyPosition" CssClass="form-control" runat="server"></asp:TextBox>
+
+                                            </div>
+                                        </div>
+                                        <%-- </form>--%>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-lg-12 Span-One">
+                                    <div class="col-lg-6">
+
+                                        <div class="form-group">
+
+                                            <asp:Label ID="lblWorkHours" CssClass="control-label col-lg-3" runat="server" Text="Work Hours"></asp:Label>
+
+
+
+                                            <div class="col-lg-9">
+
+                                                <asp:TextBox ID="txtWorkHours" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:RegularExpressionValidator
+                                                    ID="RegularExpressionValidator6"
+                                                    runat="server"
+                                                    ControlToValidate="txtWorkHours"
+                                                    ValidationExpression="([0-9])[0-9]*[.]?[0-9]*"
+                                                    ErrorMessage="Invalid Entry" ForeColor="Red"></asp:RegularExpressionValidator>
+
+                                            </div>
+                                        </div>
+                                        <%-- </form>--%>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <%--    <form class="form-horizontal" role="form">--%>
+                                        <div class="form-group">
+
+                                            <asp:Label ID="lblCategory" runat="server" CssClass="control-label col-lg-3" Text="Category"></asp:Label>
+
+
+
+
+                                            <div class="col-lg-9">
+
+                                                <asp:TextBox ID="txtCategory" CssClass="form-control" runat="server"></asp:TextBox>
+
+
+                                            </div>
+                                        </div>
+                                        <%-- </form>--%>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 Span-One">
+                                    <div class="col-lg-6">
+
+                                        <div class="form-group">
+                                            <asp:Label ID="lblOTEligible" CssClass="control-label col-lg-3" runat="server" Text="OT Eligible"></asp:Label>
+                                            <div class="col-lg-9">
+
+                                                <telerik:RadComboBox
+                                                    ID="RadComboOTEligible"
+                                                    runat="server" Width="170px">
+                                                    <Items>
+                                                        <telerik:RadComboBoxItem runat="server" Text="Yes" Value="1" />
+                                                        <telerik:RadComboBoxItem runat="server" Text="No" Value="0" />
+                                                    </Items>
+                                                </telerik:RadComboBox>
+
+                                            </div>
+                                        </div>
+                                        <%-- </form>--%>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <%--    <form class="form-horizontal" role="form">--%>
+                                        <div class="form-group">
+
+                                            <asp:Label ID="lblDescipline" CssClass="control-label col-lg-3" runat="server" Text="Descipline"></asp:Label>
+
+                                            <div class="col-lg-9">
+
+                                                <asp:TextBox ID="txtDescipline" CssClass="form-control" runat="server"></asp:TextBox>
+
+
+                                            </div>
+                                        </div>
+                                        <%-- </form>--%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-container" style="width: 100%;">
+                            <a href="#" class="accordion-toggle">Qualification <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                            <div class="accordion-content">
+                                <%--    <div id="framediv" runat="server" style="overflow: hidden;">--%>
+
+                                <iframe id="ContentIframe"
+                                    name="PQualification" style="height: 300px; width: 100%; display: none; overflow: hidden;"
+                                    runat="server"></iframe>
+                                <asp:Label ID="lblQualificationframe" runat="server" Text="First Insert Personnel Information and Click Save Button " ForeColor="Tomato"></asp:Label>
+                                <%-- </div>--%>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <hr />
+
+
+
+            </telerik:RadPageView>
+            <%--<%--  onload="javascript: setSize();" ,onload="autoResize('ContentIframe');"--%>
+        </telerik:RadMultiPage>
     </div>
-                <div class="col-lg-6">
-  <%--    <form class="form-horizontal" role="form">--%>
-        <div class="form-group">
-       
-                            <asp:Label ID="lblContractPosition"  CssClass="control-label col-lg-3" runat="server" Text="Contract Position"></asp:Label>
-                             
-          
-                                      
-
-          <div class="col-lg-9">
-           
-                                              <asp:TextBox ID="txtContractPosition"  CssClass="form-control"  runat="server"></asp:TextBox>
-
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                     </div>
 
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#content").find("[id^='tab']").hide(); // Hide all content
+            $("#tabs li:first").attr("id", "current"); // Activate the first tab
+            $("#content #tab1").fadeIn(); // Show first tab's content
 
-              <div class="col-lg-12 Span-One">
-                <div class="col-lg-6">
-    
-        <div class="form-group">
-        
-      <asp:Label ID="lblEmpNo" CssClass="control-label col-lg-3" runat="server" Text="Emp No"></asp:Label>
-
-
-          <div class="col-lg-9">
-           
-                                            <asp:TextBox ID="txtEmpNo" CssClass="form-control" runat="server"></asp:TextBox>
-
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                <div class="col-lg-6">
-  <%--    <form class="form-horizontal" role="form">--%>
-        <div class="form-group">
-       
-     <asp:Label ID="lblHierarchyPosition" CssClass="control-label col-lg-3" runat="server" Text="Hierarchy Position"></asp:Label>
-
-          
-                                      
-
-          <div class="col-lg-9">
-           
-  <asp:TextBox ID="txtHierarchyPosition" CssClass="form-control" runat="server"></asp:TextBox>
-
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                     </div>
-
-
-
-              <div class="col-lg-12 Span-One">
-                <div class="col-lg-6">
-    
-        <div class="form-group">
-        
-                                 <asp:Label ID="lblWorkHours" CssClass="control-label col-lg-3" runat="server" Text="Work Hours"></asp:Label>
-
-
-
-          <div class="col-lg-9">
-           
-               <asp:TextBox ID="txtWorkHours" CssClass="form-control" runat="server"></asp:TextBox>
-                            <asp:RegularExpressionValidator
-    ID="RegularExpressionValidator6"
-    runat="server"
-    ControlToValidate="txtWorkHours"
-    ValidationExpression="([0-9])[0-9]*[.]?[0-9]*"
-    ErrorMessage="Invalid Entry" ForeColor="Red"></asp:RegularExpressionValidator>
-
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                <div class="col-lg-6">
-  <%--    <form class="form-horizontal" role="form">--%>
-        <div class="form-group">
-       
-                               <asp:Label ID="lblCategory" runat="server" CssClass="control-label col-lg-3"  Text="Category"></asp:Label>
-
-          
-                                      
-
-          <div class="col-lg-9">
-           
-                            <asp:TextBox ID="txtCategory" CssClass="form-control" runat="server"></asp:TextBox>
-
-
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                     </div>
-
-              <div class="col-lg-12 Span-One">
-                <div class="col-lg-6">
-    
-        <div class="form-group">
-                                    <asp:Label ID="lblOTEligible" CssClass="control-label col-lg-3" runat="server" Text="OT Eligible"></asp:Label>
-          <div class="col-lg-9">
-           
-                <telerik:RadComboBox
-                                ID="RadComboOTEligible"
-                                runat="server" Width="170px">
-                                <Items>
-                                    <telerik:RadComboBoxItem runat="server" Text="Yes" Value="1" />
-                                    <telerik:RadComboBoxItem runat="server" Text="No" Value="0" />
-                                </Items>
-                            </telerik:RadComboBox>
-
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                <div class="col-lg-6">
-  <%--    <form class="form-horizontal" role="form">--%>
-        <div class="form-group">
-       
-                 <asp:Label ID="lblDescipline" CssClass="control-label col-lg-3" runat="server" Text="Descipline"></asp:Label>
-
-          <div class="col-lg-9">
-           
-                 <asp:TextBox ID="txtDescipline" CssClass="form-control" runat="server"></asp:TextBox>
-
-
-          </div>
-        </div>
-     <%-- </form>--%>
-    </div>
-                     </div>
-          </div>
-          </div>
-        
-            <div class="accordion-container" style="width:100%;"> <a href="#" class="accordion-toggle">Qualification <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
-          <div class="accordion-content">
-                    <%--    <div id="framediv" runat="server" style="overflow: hidden;">--%>
-
-                <iframe id="ContentIframe"
-                    name="PQualification" style ="height: 300px; width:100%; display: none; overflow: hidden;"
-                    runat="server"></iframe>
-              <asp:Label ID="lblQualificationframe" runat="server" Text="First Insert Personnel Information and Click Save Button " ForeColor="Tomato"></asp:Label>
-            <%-- </div>--%>
-               </div>
-        </div>
-          </div>
-                  
-                   </div>
-            <hr />
-            
-            
-
-        </telerik:RadPageView>
-        <%--<%--  onload="javascript: setSize();" ,onload="autoResize('ContentIframe');"--%>
-
-    </telerik:RadMultiPage>
-    </div>
-       
-   
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
-<script>
-    $(document).ready(function () {
-        $("#content").find("[id^='tab']").hide(); // Hide all content
-        $("#tabs li:first").attr("id", "current"); // Activate the first tab
-        $("#content #tab1").fadeIn(); // Show first tab's content
-
-        $('#tabs a').click(function (e) {
-            e.preventDefault();
-            if ($(this).closest("li").attr("id") == "current") { //detection for current tab
-                return;
-            }
-            else {
-                $("#content").find("[id^='tab']").hide(); // Hide all content
-                $("#tabs li").attr("id", ""); //Reset id's
-                $(this).parent().attr("id", "current"); // Activate this
-                $('#' + $(this).attr('name')).fadeIn(); // Show content for the current tab
-            }
+            $('#tabs a').click(function (e) {
+                e.preventDefault();
+                if ($(this).closest("li").attr("id") == "current") { //detection for current tab
+                    return;
+                }
+                else {
+                    $("#content").find("[id^='tab']").hide(); // Hide all content
+                    $("#tabs li").attr("id", ""); //Reset id's
+                    $(this).parent().attr("id", "current"); // Activate this
+                    $('#' + $(this).attr('name')).fadeIn(); // Show content for the current tab
+                }
+            });
         });
-    });
-</script> 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.accordion-toggle').on('click', function (event) {
-            event.preventDefault();
-            // create accordion variables
-            var accordion = $(this);
-            var accordionContent = accordion.next('.accordion-content');
-            var accordionToggleIcon = $(this).children('.toggle-icon');
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.accordion-toggle').on('click', function (event) {
+                event.preventDefault();
+                // create accordion variables
+                var accordion = $(this);
+                var accordionContent = accordion.next('.accordion-content');
+                var accordionToggleIcon = $(this).children('.toggle-icon');
 
-            // toggle accordion link open class
-            accordion.toggleClass("open");
-            // toggle accordion content
-            accordionContent.slideToggle(250);
+                // toggle accordion link open class
+                accordion.toggleClass("open");
+                // toggle accordion content
+                accordionContent.slideToggle(250);
 
-            // change plus/minus icon
-            if (accordion.hasClass("open")) {
-                accordionToggleIcon.html("<i class='fa fa-minus-circle'></i>");
-            } else {
-                accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
-            }
+                // change plus/minus icon
+                if (accordion.hasClass("open")) {
+                    accordionToggleIcon.html("<i class='fa fa-minus-circle'></i>");
+                } else {
+                    accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
+                }
 
+            });
         });
-    });
-</script>  
-<script src="../Content/themes/FlyCnBlue/js/selectize.js"></script> 
-<script src="../Content/themes/FlyCnBlue/js/index.js"></script> 
-<script>
-    var $select = $('#select-tools').selectize({
-        maxItems: null,
-        valueField: 'id',
-        labelField: 'title',
-        searchField: 'title',
-        options: [
-            { id: 1, title: 'Spectrometer', url: 'http://en.wikipedia.org/wiki/Spectrometers' },
-            { id: 2, title: 'Star Chart', url: 'http://en.wikipedia.org/wiki/Star_chart' },
-            { id: 3, title: 'Electrical Tape', url: 'http://en.wikipedia.org/wiki/Electrical_tape' }
-        ],
-        create: false
-    });
-
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    var control = $select[0].selectize;
-
-    $('#button-clear').on('click', function () {
-        control.clear();
-    });
-
-    $('#button-clearoptions').on('click', function () {
-        control.clearOptions();
-    });
-
-    $('#button-addoption').on('click', function () {
-        control.addOption({
-            id: 4,
-            title: 'Something New',
-            url: 'http://google.com'
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.accordion-toggle').click(function () {
+                $('.accordion-content').collapse('toggle'); // toggle collapse
+            });
         });
-    });
+</script>
+    <script src="../Content/themes/FlyCnBlue/js/selectize.js"></script>
+    <script src="../Content/themes/FlyCnBlue/js/index.js"></script>
+    <script>
+        var $select = $('#select-tools').selectize({
+            maxItems: null,
+            valueField: 'id',
+            labelField: 'title',
+            searchField: 'title',
+            options: [
+                { id: 1, title: 'Spectrometer', url: 'http://en.wikipedia.org/wiki/Spectrometers' },
+                { id: 2, title: 'Star Chart', url: 'http://en.wikipedia.org/wiki/Star_chart' },
+                { id: 3, title: 'Electrical Tape', url: 'http://en.wikipedia.org/wiki/Electrical_tape' }
+            ],
+            create: false
+        });
 
-    $('#button-additem').on('click', function () {
-        control.addItem(2);
-    });
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    $('#button-setvalue').on('click', function () {
-        control.setValue([2, 3]);
-    });
+        var control = $select[0].selectize;
+
+        $('#button-clear').on('click', function () {
+            control.clear();
+        });
+
+        $('#button-clearoptions').on('click', function () {
+            control.clearOptions();
+        });
+
+        $('#button-addoption').on('click', function () {
+            control.addOption({
+                id: 4,
+                title: 'Something New',
+                url: 'http://google.com'
+            });
+        });
+
+        $('#button-additem').on('click', function () {
+            control.addItem(2);
+        });
+
+        $('#button-setvalue').on('click', function () {
+            control.setValue([2, 3]);
+        });
 
 
 
-				</script> 
+    </script>
 
-<!-----bootstrap js---> 
+    <!-----bootstrap js--->
 
-<script src="../Content/themes/FlyCnBlue/js/bootstrap.min.js"></script> 
-<script src="../Content/themes/FlyCnBlue/js/bootstrap-datepicker.js"></script> 
-<script>
-    $(function () {
-        $("#datepicker").datepicker({
-            autoclose: true,
-            todayHighlight: true
-        }).datepicker('update', new Date());;
-    });
+    <script src="../Content/themes/FlyCnBlue/js/bootstrap.min.js"></script>
+    <script src="../Content/themes/FlyCnBlue/js/bootstrap-datepicker.js"></script>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                autoclose: true,
+                todayHighlight: true
+            }).datepicker('update', new Date());;
+        });
 
-</script> 
-<script>
-    $(function () {
-        $("#datepicker1").datepicker({
-            autoclose: true,
-            todayHighlight: true
-        }).datepicker('update', new Date());;
-    });
+    </script>
+    <script>
+        $(function () {
+            $("#datepicker1").datepicker({
+                autoclose: true,
+                todayHighlight: true
+            }).datepicker('update', new Date());;
+        });
 
-</script> 
+    </script>
 </asp:Content>
 
