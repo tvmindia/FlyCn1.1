@@ -94,15 +94,6 @@ namespace FlyCn.EIL {
         protected global::FlyCn.UserControls.ToolBar ToolBar;
         
         /// <summary>
-        /// msg control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label msg;
-        
-        /// <summary>
         /// ddlModule control.
         /// </summary>
         /// <remarks>
@@ -157,15 +148,6 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl span2;
         
         /// <summary>
-        /// Label5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
-        
-        /// <summary>
         /// ddlOpenBy control.
         /// </summary>
         /// <remarks>
@@ -191,15 +173,6 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEnteredBy;
-        
-        /// <summary>
-        /// Label6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label6;
         
         /// <summary>
         /// RadOpenDate control.
@@ -382,15 +355,6 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.TextBox txtReference;
         
         /// <summary>
-        /// RadReferenceDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker RadReferenceDate;
-        
-        /// <summary>
         /// rbChangeRequest control.
         /// </summary>
         /// <remarks>
@@ -434,6 +398,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRevision;
+        
+        /// <summary>
+        /// RadReferenceDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker RadReferenceDate;
         
         /// <summary>
         /// txtQuery control.
@@ -542,6 +515,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label StatusLabel;
+        
+        /// <summary>
+        /// TextBox1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox1;
         
         /// <summary>
         /// grdFileUpload control.
