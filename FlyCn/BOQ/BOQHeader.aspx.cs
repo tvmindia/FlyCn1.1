@@ -18,7 +18,7 @@ namespace FlyCn.BOQ
         #region Global Variables
         DocumentMaster documentMaster;
         BoqHeaderDetails boqHeaderDetails;
-        ErrorHandling eObj;
+        ErrorHandling eObj = new ErrorHandling(); 
         
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
@@ -42,7 +42,7 @@ namespace FlyCn.BOQ
             DataSet ds = new DataSet();
             documentMaster = new DocumentMaster();
 
-            ds = documentMaster.BindBOQ(UA.projectNo,"BOQ");
+            ds = documentMaster.GetAllBOQDocumentHeader(UA.projectNo, "BOQ");
             dtgBOQGrid.DataSource = ds;
 
         }
@@ -66,10 +66,19 @@ namespace FlyCn.BOQ
               tab.Text = "Edit";
               RadMultiPage1.SelectedIndex = 1;
               string ProjectNo = item.GetDataKeyValue("ProjectNo").ToString();
+
+              Guid DocumentID;
+              Guid.TryParse(item.GetDataKeyValue("DocumentID").ToString(), out DocumentID);
+
              
               DataSet ds = new DataSet();
               documentMaster = new DocumentMaster();
-              ds = documentMaster.BindBOQ(ProjectNo,"BOQ");
+              ds = documentMaster.BindBOQ(DocumentID, ProjectNo);
+              //hiddenfield
+              hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+              hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
+              hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+              //hiddenfield
               txtDocumentno.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
               txtClientdocumentno.Text = ds.Tables[0].Rows[0]["ClientDocNo"].ToString();
               txtRevisionno.Text = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
@@ -100,8 +109,10 @@ namespace FlyCn.BOQ
             }
             if (e.Item.Value == "Update")
             {
-                
+               
 
+                UpdateBOQ();
+                ToolBarVisibility(2);
             }
             if (e.Item.Value == "Delete")
             {
@@ -109,6 +120,7 @@ namespace FlyCn.BOQ
             }
         }
         #endregion ToolBar_onClick
+       
         #endregion Events
 
 
@@ -122,13 +134,13 @@ namespace FlyCn.BOQ
                     ToolBar.AddButton.Visible = false;
                     ToolBar.SaveButton.Visible = false;
                     ToolBar.UpdateButton.Visible = true;
-                    ToolBar.DeleteButton.Visible = true;
+                    ToolBar.DeleteButton.Visible = false;
                    break;
                    case 2:
                     ToolBar.AddButton.Visible = false;
                     ToolBar.SaveButton.Visible = false;
                     ToolBar.UpdateButton.Visible = true;
-                    ToolBar.DeleteButton.Visible = true;
+                    ToolBar.DeleteButton.Visible = false;
                    break;
                case 3:
                    break;
@@ -161,17 +173,26 @@ namespace FlyCn.BOQ
          }
         #endregion insert
         #region UpdateBOQ
-        public void UpdateBOQ(string projectNo)
+        public void UpdateBOQ()
         {
             boqHeaderDetails = new BoqHeaderDetails();
-            boqHeaderDetails.documentMaster.ProjectNo = projectNo;
+            boqHeaderDetails.documentMaster.ProjectNo = hiddenFiedldProjectno.Value;
+            Guid documentID;
+            Guid revisionID;
+            Guid.TryParse(hiddenFieldDocumentID.Value, out documentID);//converting string to guid
+            boqHeaderDetails.documentMaster.DocumentID = documentID;
+            Guid.TryParse(hiddenFieldRevisionID.Value, out revisionID);
+            boqHeaderDetails.documentMaster.RevisionID = revisionID;
             boqHeaderDetails.documentMaster.ClientDocNo = (txtClientdocumentno.Text.Trim() != "") ? txtClientdocumentno.Text.Trim().ToString() : null;
             boqHeaderDetails.documentMaster.DocumentOwner = UA.userName;
             boqHeaderDetails.documentMaster.UpdatedDate = System.DateTime.Now.ToString();
-            boqHeaderDetails.RevisionNo = (txtRevisionno.Text.Trim() != "") ? txtRevisionno.Text.Trim().ToString() : null;
+            boqHeaderDetails.RevisionNo = (txtRevisionno.Text!= "") ? txtRevisionno.Text.Trim().ToString() : null;
             boqHeaderDetails.DocumentDate = (RadDocumentDate.SelectedDate != null) ? Convert.ToDateTime(RadDocumentDate.SelectedDate) : Convert.ToDateTime(null);
-            boqHeaderDetails.DocumentTitle = (txtDocumenttitle.Text.Trim() != "") ? txtDocumenttitle.Text.Trim() : null;
-            boqHeaderDetails.Remarks = (txtRemarks.Text.Trim() != "") ? txtRemarks.Text.Trim() : null;
+            boqHeaderDetails.DocumentTitle = (txtDocumenttitle.Text!= "") ? txtDocumenttitle.Text.Trim() : null;
+            boqHeaderDetails.Remarks = (txtRemarks.Text!= "") ? txtRemarks.Text.Trim() : null;
+            boqHeaderDetails.UpdatedBy = UA.userName;
+            boqHeaderDetails.UpdatedDate = System.DateTime.Now.ToString();
+            boqHeaderDetails.UpdatedDateGMT = System.DateTime.Now;
             boqHeaderDetails.UpdateBOQ();
         }
 
