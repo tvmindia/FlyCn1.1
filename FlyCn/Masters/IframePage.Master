@@ -59,7 +59,7 @@
                         <asp:Label ID="lblErrorInfo" runat="server"  ></asp:Label>
                     </td>
                      <td style="text-align: center;width:10%">
-                        <img src="../Images/Close1.png" onclick="hideMe();" style="height:15px;width:15px"/>                   
+                        <span onclick="hideMe();" class="closeButton">X</span>  <%-- <img src="../Images/Close1.png" onclick="hideMe();" style="height:15px;width:15px"/>--%>                   
                     </td>
                 </tr>
             </table>

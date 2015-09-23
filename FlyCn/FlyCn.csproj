@@ -240,8 +240,10 @@
     <Content Include="Content\themes\FlyCnBlue\css\accodin.css" />
     <Content Include="Content\themes\FlyCnBlue\css\bootstrap.min.css" />
     <Content Include="Content\themes\FlyCnBlue\css\datepicker.css" />
+    <Content Include="Content\themes\FlyCnBlue\css\roboto_google_api.css" />
     <Content Include="Content\themes\FlyCnBlue\fonts\font-awesome.min.css" />
     <Content Include="Content\themes\FlyCnBlue\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\themes\FlyCnBlue\js\jquery.min.js" />
     <Content Include="Content\themes\FlyCnRider\Common\loading.gif" />
     <Content Include="Content\themes\FlyCnRider\Common\radActionsSprite.png" />
     <Content Include="Content\themes\FlyCnRider\Splitter.FlyCnRider.css" />
