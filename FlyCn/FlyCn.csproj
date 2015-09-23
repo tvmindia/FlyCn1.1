@@ -240,6 +240,7 @@
     <Content Include="Content\themes\FlyCnBlue\css\accodin.css" />
     <Content Include="Content\themes\FlyCnBlue\css\bootstrap.min.css" />
     <Content Include="Content\themes\FlyCnBlue\css\datepicker.css" />
+    <Content Include="Content\themes\FlyCnBlue\css\font-awesome.min.css" />
     <Content Include="Content\themes\FlyCnBlue\css\roboto_google_api.css" />
     <Content Include="Content\themes\FlyCnBlue\fonts\font-awesome.min.css" />
     <Content Include="Content\themes\FlyCnBlue\fonts\fontawesome-webfont.svg" />

@@ -143,26 +143,26 @@ div.RadToolBar_Metro .rtbMiddle
     </style>
 
 
-<div style="text-align:right;vertical-align:top;">
+<div class="ToolBarContainer">
 <telerik:RadToolBar   ID="CommonToolBar" runat="server" Font-Size="X-Small" Skin="Metro" BorderStyle="None" BorderWidth="0" CssClass="template" OnButtonClick="CommonToolBar_ButtonClick"  >
    <CollapseAnimation Type="OutQuint" Duration="200" />
      <Items>
-        <telerik:RadToolBarButton runat="server" Text="Add" Value="Add"    ImagePosition="Left"  
+        <telerik:RadToolBarButton runat="server" Text="" Value="Add"    ImagePosition="Left"  ToolTip="Add"
             ImageUrl="~/Images/Icons/addToolbarIcon.png" DisabledImageUrl="~/Images/Icons/addToolbarIconDisabled.png" >
            
         </telerik:RadToolBarButton>
         <telerik:RadToolBarButton Value="addSaveSeperator" IsSeparator="true" runat="server"   > </telerik:RadToolBarButton>
-         <telerik:RadToolBarButton runat="server" Text="Save" Value="Save"   ImagePosition="Left"  
+         <telerik:RadToolBarButton runat="server" Text="" Value="Save"   ImagePosition="Left"  ToolTip="Save"
             ImageUrl="~/Images/Icons/saveToolbarIcon.png" DisabledImageUrl="~/Images/Icons/saveToolbarIconDisabled.png" >
            
         </telerik:RadToolBarButton>
          <telerik:RadToolBarButton Value="SaveUpdateSeperator" IsSeparator="true" runat="server"  > </telerik:RadToolBarButton>
-         <telerik:RadToolBarButton runat="server" Text="Update" Value="Update"    ImagePosition="Left"   
+         <telerik:RadToolBarButton runat="server" Text="" Value="Update"    ImagePosition="Left"  ToolTip="Update" 
             ImageUrl="~/Images/Icons/saveToolbarIcon.png" DisabledImageUrl="~/Images/Icons/saveToolbarIconDisabled.png" >
            
         </telerik:RadToolBarButton>
          <telerik:RadToolBarButton Value="UpdateDeleteSeperator" IsSeparator="true" runat="server"  > </telerik:RadToolBarButton>
-         <telerik:RadToolBarButton runat="server" Text="Delete" Value="Delete"    ImagePosition="Left"   
+         <telerik:RadToolBarButton runat="server" Text="" Value="Delete"    ImagePosition="Left"   ToolTip="Delete"
             ImageUrl="~/Images/Icons/deleteToolbarIcon.png" DisabledImageUrl="~/Images/Icons/deleteToolbarIconDisabled.png" >
            
         </telerik:RadToolBarButton>
