@@ -53,7 +53,7 @@
         </td>
         <td>
 
-        <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
+        <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="95%" SelectedIndex="0" CssClass="outerMultiPage">
             <telerik:RadPageView ID="rpList" runat="server">
                
           <div id="divList" style="width:100%">
@@ -62,23 +62,24 @@
                      
     
 
- <telerik:RadGrid ID="dtgBOQGrid" runat="server" OnNeedDataSource="dtgBOQGrid_NeedDataSource" OnItemCommand="dtgBOQGrid_ItemCommand" Skin="Silk" CssClass="outerMultiPage" OnPreRender="dtgBOQGrid_PreRender">
-                    <MasterTableView DataKeyNames="DocumentID">
+ <telerik:RadGrid ID="dtgBOQGrid" runat="server"  CellSpacing="0" GridLines="None" OnNeedDataSource="dtgBOQGrid_NeedDataSource" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" OnItemCommand="dtgBOQGrid_ItemCommand"
+    PageSize="10" Width="984px" Skin="Silk" >
+                    <MasterTableView AutoGenerateColumns="False" DataKeyNames="DocumentID,ProjectNo">
 
                         <Columns>
-                            <telerik:GridButtonColumn CommandName="Edit" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
+                            <telerik:GridButtonColumn CommandName="EditDoc" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
                             </telerik:GridButtonColumn>
                             <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
                             </telerik:GridButtonColumn>
                             <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo" Display="false"></telerik:GridBoundColumn> 
                             <telerik:GridBoundColumn HeaderText="DocumentID" DataField="DocumentID" UniqueName="DocumentID" Display="false"></telerik:GridBoundColumn> 
                             <telerik:GridBoundColumn HeaderText="Document No" DataField="DocumentNo" UniqueName="DocumentNo"></telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn HeaderText="Document Title" DataField="DocumentTitle" UniqueName="DocumentTitle"></telerik:GridBoundColumn> 
-                            <telerik:GridBoundColumn HeaderText="ClientDoc No" DataField="ClientDocNo" UniqueName="ClientDocNo"></telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn HeaderText="Title" DataField="DocumentTitle" UniqueName="DocumentTitle"></telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn HeaderText="Client Doc No" DataField="ClientDocNo" UniqueName="ClientDocNo"></telerik:GridBoundColumn> 
                             <telerik:GridBoundColumn HeaderText="Revision No" DataField="RevisionNo" UniqueName="RevisionNo"></telerik:GridBoundColumn> 
-                            <telerik:GridBoundColumn HeaderText="Document Date" DataField="DocumentDate" UniqueName="DocumentDate" DataType="System.DateTime"  DataFormatString="{0:M/d/yyyy}"></telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn HeaderText="Document Date" DataField="DocumentDate" UniqueName="DocumentDate" DataType="System.DateTime"  DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn> 
                             <telerik:GridBoundColumn HeaderText="Document Owner" DataField="DocumentOwner" UniqueName="DocumentOwner"></telerik:GridBoundColumn> 
-                            <telerik:GridBoundColumn HeaderText="Created Date" DataField="CreatedDate" UniqueName="CreatedDate"></telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn HeaderText="Created Date" DataField="CreatedDate" UniqueName="CreatedDate" DataType="System.DateTime"  DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn> 
                            
                             
                         </Columns>
@@ -105,6 +106,8 @@
           <div class="col-lg-9">
             
             <asp:TextBox ID="txtDocumentno" Enabled="false" runat="server" CssClass="form-control" BackColor="Gray"></asp:TextBox>
+           
+
           </div>
         </div>
      <%-- </form>--%>

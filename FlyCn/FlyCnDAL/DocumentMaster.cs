@@ -183,10 +183,10 @@ namespace FlyCn.FlyCnDAL
         #endregion AddNewDocument
 
         #region BindBOQ
-        public DataTable BindBOQ(string projectno,string documenttype)
+        public DataSet BindBOQ(string projectno,string documenttype)
         {
             SqlConnection con = null;
-            DataTable dt = null;
+            DataSet ds = null;
             SqlDataAdapter sda=null;
             try
             {
@@ -196,14 +196,21 @@ namespace FlyCn.FlyCnDAL
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetAllDocuments]";
+                cmd.CommandText ="GetAllDocuments";
                 cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 10).Value = projectno;
                 cmd.Parameters.Add("@documentType", SqlDbType.NVarChar, 3).Value = documenttype;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
-                dt = new DataTable();
-                sda.Fill(dt);
-                return dt;
+                ds = new DataSet();
+                sda.Fill(ds);
+                if (ds.Tables[0].Rows.Count>0)
+                {
+                    return ds;
+                }
+                else
+                {
+                    return ds;
+                }
                
             }
             catch(Exception ex)
