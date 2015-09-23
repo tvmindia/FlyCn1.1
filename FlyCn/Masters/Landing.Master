@@ -65,13 +65,23 @@
          <asp:ContentPlaceHolder ID="MainBody" runat="server"  > 
         
         </asp:ContentPlaceHolder></div><br />
-       <div id="FooterStrips" class="footerStrip1">
-             <table style="width:100%"  >
-                 <tr ><td style="width:1%"></td><td>FlyCn 1.0 | RWDX | </td><td style="width:10%"></td><td style="width:1%"></td></tr>
- </table> <table style="width:100%" class="footerStrip2"><tr class="footerStrip2"><td style="width:1%"></td><td>Registered to : Company A </td><td style="width:10%"></td><td style="width:1%"></td></tr>
-             </table>
+        <div id="FooterStrips" class="footerStrip1">
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 1%"></td>
+                    <td>FlyCn 1.0 | RWDX | </td>
+                    <td style="width: 10%"></td>
+                    <td style="width: 1%"></td>
+                     
+                                <td style="width: 1%"></td>
+                                <td>Registered to : Company A </td>
+                                <td style="width: 10%"></td>
+                                <td style="width: 1%"></td>
+                             
+                </tr>
+            </table>
 
-       </div>
+        </div>
     </div>
 
 

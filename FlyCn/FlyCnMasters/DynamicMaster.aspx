@@ -91,14 +91,31 @@
 
     </script>
 
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Input</title>
+    <!-----bootstrap css--->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,900' rel='stylesheet' type='text/css' />
+    <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
+    <!-----bootstrap css--->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link href="../Content/themes/FlyCnBlue/css/stylesheet.css" rel="stylesheet" />
+
+    <link href="../Content/themes/FlyCnBlue/css/selectize.css" rel="stylesheet" type="text/css" />
+    <link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
+    <!-----main css--->
+    <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
+    <!-----main css--->
 
 
 
 </asp:Content>
 <asp:Content ID="phdDynamicMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="inputMainContainer">
-        <div class="innerDiv">
+   
             <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
                 CausesValidation="False" SelectedIndex="1" Skin="Silk">
                 <Tabs>
@@ -164,8 +181,7 @@
                 </tr>
             </table>
 
-        </div>
-    </div>
+    
     <p>
     </p>
     <p>

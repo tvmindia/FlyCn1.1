@@ -21,4 +21,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
 	font-family: 'Roboto', sans-serif;*/
     background-color: white;
 }
- 
+
+
+html {
+    overflow-x:hidden;
+}

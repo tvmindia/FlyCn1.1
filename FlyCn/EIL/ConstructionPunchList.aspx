@@ -66,6 +66,24 @@
             width: 400px;
         }
     </style>
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Input</title>
+    <!-----bootstrap css--->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,900' rel='stylesheet' type='text/css' />
+    <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
+    <!-----bootstrap css--->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link href="../Content/themes/FlyCnBlue/css/stylesheet.css" rel="stylesheet" />
+
+    <link href="../Content/themes/FlyCnBlue/css/selectize.css" rel="stylesheet" type="text/css" />
+    <link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
+    <!-----main css--->
+    <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
+    <!-----main css--->
 </asp:Content>
 
 <asp:Content ID="phdConstructionPunchListMaster" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -156,33 +174,10 @@
         }
 </script>
    
-     <%--<script>
-        function ShowCreate() {
-            document.getElementById("Create").style.display = "";
-            document.getElementById("display").style.display = "none";
-            document.getElementById("btnAdd").style.display = "none";
-            //document.getElementById("btnUpdate").style.visibility = "hidden";
-            document.getElementById('<%=btnUpdate.ClientID %>').style.visibility = "hidden";
-            debugger;
-
-        }
-        function ShowEdit() {
-            document.getElementById("Create").style.display = "";
-            document.getElementById("display").style.display = "none";
-            document.getElementById("btnUpdate").style.visibility = "visible";
-            document.getElementById("<%= grdFileUpload.ClientID %>").style.visibility = "visible";
-            document.getElementById("<%= grdFileUpload.ClientID %>").style.display = "";
-            debugger;
-        }
-        function Navigate()
-        {
-            window.location = "ConstructionPunchList.aspx";
-        }--%>
-     
+  
  
     
    
-<%--</script>--%>
     
     <asp:Label ID="lblTitle" runat="server" Text="" CssClass="PageHeading"></asp:Label>
      
@@ -247,87 +242,108 @@
            <asp:Label ID="lblerror" runat="server" Text="" ForeColor="Red"></asp:Label>
 
         <uc1:ToolBar runat="server" ID="ToolBar" />
+            <div class="col-lg-12 Span-One">
+        <div class="col-lg-6">
 
-           <table style="width:100%;">
-          <tr><td>    <asp:Label ID="msg" runat="server" Text=""></asp:Label>
-          </td></tr>
-  
-              <tr><td colspan="5" class="tabletbody" style="border-bottom:2px">Tracking Details</td></tr>
-               
-              <tr>
-                  <td class="tabletbody">
-                      Module
-                  </td>
-                  <td class="tabletbody">
-                      <asp:DropDownList ID="ddlModule" runat="server" CssClass="selectbox"></asp:DropDownList>
-                       </td>
-                  <td class="tabletbody">
-                      Category
-                  </td>
-                  <td class="tabletbody">
-                      <asp:DropDownList ID="ddlCategory" runat="server" CssClass="selectbox"></asp:DropDownList>
-                  </td>
-                 
-              </tr>
-              <tr>
-                   <td class="tabletbody">Tag</td>
-                  <td class="tabletbody">
-                      <asp:DropDownList ID="ddlTag" runat="server" CssClass="selectbox"></asp:DropDownList>
-                  </td>
-                  <td class="tabletbody">
-                      Activity
-                      
-                  </td>
-                  <td class="tabletbody">
-                      <asp:DropDownList ID="ddlActivity" runat="server" CssClass="selectbox"></asp:DropDownList>
-                      
-                  </td>
-              </tr>
-              <tr>
-                   <td></td>
-                  <td>
-                  </td>
-                  <td>
-                      
-                  </td>
-                  <td>
-                      
-                  </td>
-              </tr>
-             </table>
-        <hr />
-        <table style="width:100%;">
-              <tr>
-                   <td  colspan="5" class="sectionHeader" >General Details</td>
-              </tr>
-        <tr>
-            <td class="tabletd">
-                ID No
-            </td>
-          
-            <td class="tabletd">
+                        <div class="form-group">
+                            Tracking Details
+                         <label class="control-label col-lg-3" for="email3">Module
+            </label>
+                            <div class="col-lg-9">
+                                <asp:DropDownList ID="ddlModule" runat="server" CssClass="selectbox"></asp:DropDownList>
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
 
-                <asp:TextBox ID="txtIDno" runat="server" CssClass="textbox" ></asp:TextBox>
-                <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 800;
-font-family: Trebuchet MS;">*</span>
-               <%-- <br />
-                  <asp:RequiredFieldValidator ID="ReqIdNo" runat="server" ControlToValidate="txtIDno" ErrorMessage="Please enter Id no" ValidationGroup="dummy" ></asp:RequiredFieldValidator>
-                <br />--%>
-                <%--<asp:Label ID="lblError" runat="server"></asp:Label>--%>
-            </td>
-            
-        </tr>
-        <tr >
-            <td class="tabletd">
-             <asp:Label ID="Label5" runat="server" Text="Open By"></asp:Label>
-            </td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlOpenBy" runat="server" CssClass="selectbox">
+        <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3">Category
+            </label>
+                            <div class="col-lg-9">
+                     <asp:DropDownList ID="ddlCategory" runat="server" CssClass="selectbox"></asp:DropDownList>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+</div>
+            <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3">Tag
+            </label>
+                            <div class="col-lg-9">
+                                          <asp:DropDownList ID="ddlTag" runat="server" CssClass="selectbox"></asp:DropDownList>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3">Activity
+            </label>
+                            <div class="col-lg-9">
+                           <asp:DropDownList ID="ddlActivity" runat="server" CssClass="selectbox"></asp:DropDownList>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           General Details
+                         <label class="control-label col-lg-3" for="email3"> ID No
+            </label>
+                            <div class="col-lg-9">
+                                
+                                <asp:TextBox ID="txtIDno" CssClass="form-control" runat="server"></asp:TextBox>
+                                  <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 800;
+font-family: Trebuchet MS;">*</span>       
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3">Open By
+            </label>
+                            <div class="col-lg-9">
+                              <asp:DropDownList ID="ddlOpenBy" runat="server" CssClass="selectbox">
                 </asp:DropDownList>
-            </td>
-            <td class="tabletd">Entered Date</td>
-            <td>
-                 <telerik:RadDatePicker ID="RadEnteredDate" runat="server"
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+         
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+                         <label class="control-label col-lg-3" for="email3">Entered Date
+            </label>
+                            <div class="col-lg-9">
+                                
+                            <telerik:RadDatePicker ID="RadEnteredDate" runat="server"
                                 Width="170px" TabIndex="2" AutoPostBack="false" MinDate="<%# DateTime.Now.Date %>">
                                 <DateInput DateFormat="dd/MMM/yyyy" DisplayDateFormat="dd/MMM/yyyy" InvalidStyleDuration="100"
                                     runat="server">
@@ -335,21 +351,39 @@ font-family: Trebuchet MS;">*</span>
                                 <Calendar runat="server">
                                 </Calendar>
                             </telerik:RadDatePicker>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Entered By</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlEnteredBy" runat="server" CssClass="selectbox">
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3"> Entered By
+            </label>
+                            <div class="col-lg-9">
+                               <asp:DropDownList ID="ddlEnteredBy" runat="server" CssClass="selectbox">
                 </asp:DropDownList>
-            </td>
-            <td class="tabletd">
-                <asp:Label ID="Label6" runat="server" Text="OpenDate"></asp:Label>
-            </td>
-            <td class="tabletd">
-              
-                      <telerik:RadDatePicker ID="RadOpenDate" runat="server"  
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+                         <label class="control-label col-lg-3" for="email3">OpenDate
+            </label>
+                            <div class="col-lg-9">
+                                
+                           <telerik:RadDatePicker ID="RadOpenDate" runat="server"  
              Width="100px" TabIndex="2" AutoPostBack="false" >
             <DateInput DateFormat="dd/MM/yyyy" InvalidStyleDuration="100" LabelCssClass="radLabelCss_Office2007" 
                  runat="server">
@@ -358,156 +392,253 @@ font-family: Trebuchet MS;">*</span>
              
            
         </telerik:RadDatePicker>
-            </td>
-        </tr>
-        <tr>
-            <td>
-               </td>
-            <td>
-               </td>
-            <td></td>
-            <td></td>
-        </tr>
-            </table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td  colspan="3" class="sectionHeader">
-                Location Details</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Plant</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlPlant" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Area</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlArea" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Location</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlLocation" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Unit</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlUnit" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td >
-                </td>
-            <td>
-                </td>
-            <td></td>
-        </tr></table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td  colspan="5" class="tabletd">
-                System</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                System</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtSystem" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td class="tabletd">Control System</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtControlSystem" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Sub System</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtSubsystem" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
 
-             </table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td  colspan="5" class="tabletd">
-                Item Details</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Requested By</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlRequestedBy" runat="server" CssClass="selectbox">
+                
+                </div>
+
+       
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                         Location Details
+                         <label class="control-label col-lg-3" for="email3"> Plant
+            </label>
+                            <div class="col-lg-9">
+                                
+                                 <asp:DropDownList ID="ddlPlant" runat="server" CssClass="selectbox">
                 </asp:DropDownList>
-            </td>
-            <td class="tabletd">Inspector</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlInspector" runat="server" CssClass="selectbox">
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3">Area
+            </label>
+                            <div class="col-lg-9">
+                            <asp:DropDownList ID="ddlArea" runat="server" CssClass="selectbox">
                 </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Action By</td>
-            <td class="tabletd">
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+                         <label class="control-label col-lg-3" for="email3"> Location
+            </label>
+                            <div class="col-lg-9">
+                         <asp:DropDownList ID="ddlLocation" runat="server" CssClass="selectbox">
+                </asp:DropDownList>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3"> Unit
+            </label>
+                            <div class="col-lg-9">
+                              <asp:DropDownList ID="ddlUnit" runat="server" CssClass="selectbox">
+                </asp:DropDownList>
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+       
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                     System
+                         <label class="control-label col-lg-3" for="email3">  System
+            </label>
+                            <div class="col-lg-9">
+                                
+                                   <asp:TextBox ID="txtSystem" CssClass="form-control" runat="server"></asp:TextBox>
+                              
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3">Control System
+            </label>
+                            <div class="col-lg-9">
+                                
+                         
+                                   <asp:TextBox ID="txtControlSystem" CssClass="form-control" runat="server"></asp:TextBox>
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                 
+                         <label class="control-label col-lg-3" for="email3"> Sub System
+            </label>
+                            <div class="col-lg-9">
+                                
+                                   <asp:TextBox ID="txtSubsystem" CssClass="form-control" runat="server"></asp:TextBox>
+                              
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+              
+        </div>
+      <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+       Item Details    
+                         <label class="control-label col-lg-3" for="email3">   Requested By
+            </label>
+                            <div class="col-lg-9">
+                     <asp:DropDownList ID="ddlRequestedBy" runat="server" CssClass="selectbox">
+                </asp:DropDownList>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3">Inspector
+            </label>
+                            <div class="col-lg-9">
+                                
+      <asp:DropDownList ID="ddlInspector" runat="server" CssClass="selectbox">
+                </asp:DropDownList>
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+ 
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+      
+                         <label class="control-label col-lg-3" for="email3">Action By
+            </label>
+                            <div class="col-lg-9">
                 <asp:DropDownList ID="ddlActionBy" runat="server" CssClass="selectbox">
                 </asp:DropDownList>
-            </td>
-            <td class="tabletd">Discipline</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlDiscipline" runat="server" CssClass="selectbox">
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3">Discipline
+            </label>
+                            <div class="col-lg-9">
+                                
+       <asp:DropDownList ID="ddlDiscipline" runat="server" CssClass="selectbox">
                 </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Fail Category</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlFailCategory" runat="server" CssClass="selectbox">
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+      
+                         <label class="control-label col-lg-3" for="email3"> Fail Category
+            </label>
+                            <div class="col-lg-9">
+              <asp:DropDownList ID="ddlFailCategory" runat="server" CssClass="selectbox">
                 </asp:DropDownList>
-            </td>
-            <td class="tabletd">Category</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlCategoryList" runat="server" OnSelectedIndexChanged="DropDownList3_SelectedIndexChanged" CssClass="selectbox">
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3">Category
+            </label>
+                            <div class="col-lg-9">
+                                
+          <asp:DropDownList ID="ddlCategoryList" runat="server" OnSelectedIndexChanged="DropDownList3_SelectedIndexChanged" CssClass="selectbox">
                 </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                RFI No</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtRFINo" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td class="tabletd">RFI Date</td>
-            <td class="tabletd">
-               
-                
-                         <telerik:RadDatePicker ID="RadRFIDate" runat="server" 
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+      
+                         <label class="control-label col-lg-3" for="email3">RFI No
+            </label>
+                            <div class="col-lg-9">
+                                
+              <asp:TextBox ID="txtRFINo" CssClass="form-control" runat="server"></asp:TextBox>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3">RFI Date
+            </label>
+                            <div class="col-lg-9">
+           <telerik:RadDatePicker ID="RadRFIDate" runat="server" 
              Width="100px" TabIndex="2" AutoPostBack="false" >
             <DateInput DateFormat="dd/MMM/yyyy" InvalidStyleDuration="100" LabelCssClass="radLabelCss_Office2007" 
                  runat="server">
@@ -516,221 +647,265 @@ font-family: Trebuchet MS;">*</span>
              
             
         </telerik:RadDatePicker>
-            </td>
-        </tr>
-        <tr>
-            <td >
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr></table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td class="tabletd">
-                Covered By Project</td>
-       
-            <td class="tabletd" >
-                <asp:RadioButton ID="rdbCoveredByYes" runat="server" Text="Yes" />
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+      
+                         <label class="control-label col-lg-3" for="email3">Covered By Project
+            </label>
+                            <div class="col-lg-9">
+                                
+               <asp:RadioButton ID="rdbCoveredByYes" runat="server" Text="Yes" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:RadioButton ID="rdbCoveredByNo" runat="server" Text="No" />
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Item Description</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtItemDescription" runat="server" TextMode="MultiLine" Height="60px" Width="200px"></asp:TextBox>
-                <br />
-            </td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td >
-            </td>
-            <td >
-            </td>
-            <td>
-            </td>
-            <td></td>
-            <td></td>
-        </tr></table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td  colspan="5" class="tabletd">
-                Change Request Details</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Reference</td>
-            <td class="tabletd" >
-                <asp:TextBox ID="txtReference" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Reference Date</td>
-            <td>
-<telerik:RadDatePicker ID="RadReferenceDate" runat="server" 
-             Width="100px" TabIndex="2" AutoPostBack="false" >
-            <DateInput DateFormat="dd/MMM/yyyy" InvalidStyleDuration="100" LabelCssClass="radLabelCss_Office2007" 
-                 runat="server">
-                
-            </DateInput>
-             
-            
-        </telerik:RadDatePicker>
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Change Request</td>
-            <td class="tabletd">
-                <asp:RadioButtonList ID="rbChangeRequest" runat="server">
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3"> Item Description
+            </label>
+                            <div class="col-lg-9">
+                                
+                         <asp:TextBox ID="txtItemDescription" CssClass="form-control" runat="server"></asp:TextBox>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+      Change Request Details
+                         <label class="control-label col-lg-3" for="email3">Reference
+            </label>
+                            <div class="col-lg-9">
+                                
+                                      <asp:TextBox ID="txtReference" CssClass="form-control" runat="server"></asp:TextBox>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3"> Change Request
+            </label>
+                            <div class="col-lg-9">
+                  <asp:RadioButtonList ID="rbChangeRequest" runat="server">
                 </asp:RadioButtonList>
                 <asp:RadioButtonList ID="RadioButtonList2" runat="server">
                 </asp:RadioButtonList>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-            </table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td  colspan="5" class="tabletd">
-                Drawing Details</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Drawing</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtDrawing" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Sheet</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtSheet" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Revision</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtRevision" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td >
-                &nbsp;</td>
-            <td >
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr></table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td colspan="5" class="tabletd">
-                Query Details</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Query</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtQuery" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Query Status</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtQueryStatus" runat="server" ReadOnly="True" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Query Revision</td>
-            <td class="tabletd">
-                <asp:TextBox ID="txtQueryRevision" runat="server" CssClass="textbox"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td >
-            </td> 
-            <td >
-            </td>
-            <td>
-            </td>
-            <td></td>
-            <td></td>
-        </tr>
-            </table>
-        <hr />
-        <table style="width:100%;">
-        <tr>
-            <td colspan="5" class="tabletd">
-                Completion Details</td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Responsible Person</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlResponsiblePerson" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-            <td class="tabletd">Organization</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlOrganization" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="tabletd">
-                Signed By</td>
-            <td class="tabletd">
-                <asp:DropDownList ID="ddlSignedBy" runat="server" CssClass="selectbox">
-                </asp:DropDownList>
-            </td>
-            <td class="tabletd">Completion Date</td>
-            <td class="tabletd">
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+     Drawing Details
+                         <label class="control-label col-lg-3" for="email3">  Drawing
+            </label>
+                            <div class="col-lg-9">
+                                
+                                      <asp:TextBox ID="txtDrawing" CssClass="form-control" runat="server"></asp:TextBox>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3">Sheet
+            </label>
+                            <div class="col-lg-9">
+                                
+          <asp:TextBox ID="txtSheet" CssClass="form-control" runat="server"></asp:TextBox>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+   
+                         <label class="control-label col-lg-3" for="email3"> Revision
+            </label>
+                            <div class="col-lg-9">
+                                
+                                      <asp:TextBox ID="txtRevision" CssClass="form-control" runat="server"></asp:TextBox>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                             <label class="control-label col-lg-3" for="email3"> Sub System
+            </label>
+                               <div class="col-lg-9">
+                <telerik:RadDatePicker ID="RadReferenceDate" runat="server" 
+             Width="100px" TabIndex="2" AutoPostBack="false" >
+            <DateInput DateFormat="dd/MMM/yyyy" InvalidStyleDuration="100" LabelCssClass="radLabelCss_Office2007" 
+                 runat="server">
                 
+            </DateInput>
+             
+            
+        </telerik:RadDatePicker>
+                            </div>
+                  </div>
+                </div>
+                </div>
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+    Query Details
+                         <label class="control-label col-lg-3" for="email3"> Query
+            </label>
+                            <div class="col-lg-9">
+                                
+                                      <asp:TextBox ID="txtQuery" CssClass="form-control" runat="server"></asp:TextBox>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3"> Query Status
+            </label>
+                            <div class="col-lg-9">
+                                
+          <asp:TextBox ID="txtQueryStatus" CssClass="form-control" runat="server"></asp:TextBox>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+ 
+                         <label class="control-label col-lg-3" for="email3">  Query Revision
+            </label>
+                            <div class="col-lg-9">
+                                
+                                      <asp:TextBox ID="txtQueryRevision" CssClass="form-control" runat="server"></asp:TextBox>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                
+                </div>
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+    Completion Details
+                         <label class="control-label col-lg-3" for="email3">  Responsible Person
+            </label>
+                            <div class="col-lg-9">
+                             <asp:DropDownList ID="ddlResponsiblePerson" runat="server" CssClass="selectbox">
+                </asp:DropDownList>
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3">Organization
+            </label>
+                            <div class="col-lg-9">
+                                
+     <asp:DropDownList ID="ddlOrganization" runat="server" CssClass="selectbox">
+                </asp:DropDownList>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+ 
+                         <label class="control-label col-lg-3" for="email3"> Signed By
+            </label>
+                            <div class="col-lg-9">
+                                
+                              <asp:DropDownList ID="ddlSignedBy" runat="server" CssClass="selectbox">
+                </asp:DropDownList>
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3"> Completion Date
+            </label>
+                            <div class="col-lg-9">
+                                
+       
                          <telerik:RadDatePicker ID="RadCompletionDate" runat="server" Culture="Portuguese (Brazil)"
              Width="100px" TabIndex="2" AutoPostBack="false" >
             <DateInput DateFormat="dd/MM/yyyy" InvalidStyleDuration="100" LabelCssClass="radLabelCss_Office2007" 
@@ -741,14 +916,23 @@ font-family: Trebuchet MS;">*</span>
             <Calendar runat="server">
                     </Calendar>
         </telerik:RadDatePicker>
-            </td>
-        </tr>
-        <tr class="tabletd">
-            <td>
-                Scheduled Completion Date</td>
-            <td class="tabletd">
-               
-                         <telerik:RadDatePicker ID="RadScheduleCompletionDate" runat="server" Culture="Portuguese (Brazil)"
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+  
+                         <label class="control-label col-lg-3" for="email3">  Scheduled Completion Date
+            </label>
+                            <div class="col-lg-9">
+                                
+                           <telerik:RadDatePicker ID="RadScheduleCompletionDate" runat="server" Culture="Portuguese (Brazil)"
              Width="100px" TabIndex="2" AutoPostBack="false" >
             <DateInput DateFormat="dd/MM/yyyy" InvalidStyleDuration="100" LabelCssClass="radLabelCss_Office2007" 
                  runat="server">
@@ -758,15 +942,108 @@ font-family: Trebuchet MS;">*</span>
             <Calendar runat="server">
                     </Calendar>
         </telerik:RadDatePicker>
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3">  Completion Remarks
+            </label>
+                            <div class="col-lg-9">
+                                
+                         <asp:TextBox ID="txtCompletionRemarks" runat="server" TextMode="MultiLine" Height="60px" Width="200px" ></asp:TextBox>
+
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+
+        <div class="col-lg-12 Span-One">
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                        
+  
+                         <label class="control-label col-lg-3" for="email3">   Attach Document
+            </label>
+                            <div class="col-lg-9">
+                                
+                      <asp:FileUpload ID="fuAttach" runat="server" AllowMultiple="true" />
+ 
+              &nbsp;
+                <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClick="btnUpload_Click" Enabled="False"/>
+                   <br /><br />
+    <asp:Label runat="server" id="StatusLabel" class="control-label col-lg-3" text="Upload status: " />
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+
+                <div class="col-lg-6">
+
+                        <div class="form-group">
+                           
+                         <label class="control-label col-lg-3" for="email3">  Completion Remarks
+            </label>
+                            <div class="col-lg-9">
+                                
+                         <asp:TextBox ID="TextBox1" runat="server" TextMode="MultiLine" Height="60px" Width="200px" ></asp:TextBox>
+
+
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+                </div>
+       
+       
+        <table style="width:100%;">
+        <tr>
+            <td colspan="5" class="tabletd">
+               </td>
+        </tr>
+        <tr>
+            <td class="tabletd">
+               </td>
+            <td class="tabletd">
+              
+            </td>
+            <td class="tabletd"></td>
+            <td class="tabletd">
+               
+            </td>
+        </tr>
+        <tr>
+            <td class="tabletd">
+              </td>
+            <td class="tabletd">
+               
+            </td>
+            <td class="tabletd"></td>
+            <td class="tabletd">
+                
+            </td>
+        </tr>
+        <tr class="tabletd">
+            <td>
+              </td>
+            <td class="tabletd">
+               
+                         
             </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
             <td class="tabletd">
-                Completion Remarks</td>
+               </td>
             <td >
-                <asp:TextBox ID="txtCompletionRemarks" runat="server" TextMode="MultiLine" Height="60px" Width="200px" ></asp:TextBox>
             </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -785,16 +1062,11 @@ font-family: Trebuchet MS;">*</span>
         <table style="width:100%;">
         <tr>
             <td  colspan="5" class="tabletd">
-                Attach Document</td>
+               </td>
         </tr>
         <tr>
             <td>
-                <asp:FileUpload ID="fuAttach" runat="server" AllowMultiple="true" />
- 
-              &nbsp;
-                <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClick="btnUpload_Click" Enabled="False"/>
-                   <br /><br />
-    <asp:Label runat="server" id="StatusLabel" text="Upload status: " />
+              
             </td>
             <td>
                 &nbsp;</td>

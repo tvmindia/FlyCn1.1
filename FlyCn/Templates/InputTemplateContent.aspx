@@ -8,12 +8,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Input</title>
 <!-----bootstrap css--->
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,900' rel='stylesheet' type='text/css' />
+<link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" /> 
 <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
 <!-----bootstrap css--->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link href="../Content/themes/FlyCnBlue/css/bootstrap.min.css" rel="stylesheet" /> 
     <link href="../Content/themes/FlyCnBlue/css/stylesheet.css" rel="stylesheet" />
  
 <link href="../Content/themes/FlyCnBlue/css/selectize.css" rel="stylesheet" type="text/css" />
@@ -809,8 +807,8 @@
   <!-----FORM SECTION----> 
 </div>
 
-<!--<script src="js/jquery.js"></script>--> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+<!--<script src="js/jquery.js"></script>--> <script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>
+ 
 <script>
     $(document).ready(function () {
         $("#content").find("[id^='tab']").hide(); // Hide all content

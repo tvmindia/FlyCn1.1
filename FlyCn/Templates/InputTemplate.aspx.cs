@@ -18,8 +18,7 @@ namespace FlyCn.Templates
             RadTreeView tview = ip.FindLeftTree(this);
             objBOQ.BindTree(tview);
 
-            RadPane radpane = ip.FindContentPane(this);
-            objBOQ.LoadInputScreen(radpane);
+            ip.DefaultTreeNode(this,1);
         }
     }
 }

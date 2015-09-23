@@ -237,7 +237,7 @@ namespace FlyCn
 
                    //lblQualificationframe.Visible = true;
 
-                lblQualificationframe.Style["display"] ="none";
+                    lblQualificationframe.Style["display"] = "none";
                     ContentIframe.Style["display"] = "";
                    ContentIframe.Attributes["src"] = "PersonnelQualification.aspx?id=" + strId;
 
@@ -306,7 +306,7 @@ namespace FlyCn
                 string ProjNo = UA.projectNo;
                 int result = mp.UpdateMasterPersonel(ProjNo);
 
-                ContentIframe.Style["display"] ="none";
+                ContentIframe.Style["display"] ="";
               //  lblQualificationframe.Style["display"] = "none";
             }
             catch(Exception ex)
