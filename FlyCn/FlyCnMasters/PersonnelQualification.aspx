@@ -4,30 +4,23 @@
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 
 <asp:Content ID="phdPersonnelQualificationMasterHead" ContentPlaceHolderID="head" runat="server">
-    
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Input</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,900' rel='stylesheet' type='text/css' />
+    <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
+    <!-----bootstrap css--->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link href="../Content/themes/FlyCnBlue/css/stylesheet.css" rel="stylesheet" />
 
-<!-----bootstrap css--->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,900' rel='stylesheet' type='text/css' />
-<link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
-<!-----bootstrap css--->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-<link href="../Content/themes/FlyCnBlue/css/stylesheet.css" rel="stylesheet" />
-
-<link href="../Content/themes/FlyCnBlue/css/selectize.css" rel="stylesheet" type="text/css" />
-<link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
-<!-----main css--->
-<link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
-<!-----main css--->
+    <link href="../Content/themes/FlyCnBlue/css/selectize.css" rel="stylesheet" type="text/css" />
+    <link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
+    <!-----main css--->
+    <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
+    <!-----main css--->
 
     <style>
         .myclass
       {
-          width:1000px;
+          width: 1050px;
       }
 
     </style>
@@ -35,13 +28,13 @@
       <script type="text/javascript">
           function validate() {
               var Qualification = document.getElementById('<%=txtQualification.ClientID %>').value;
-                if (Qualification == "") {
+              if (Qualification == "") {
 
-                    document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+                  document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
                     return false;
 
                 }
-                
+
                 else {
                     document.getElementById("<%=lblerror.ClientID %>").innerHTML = "";
                     return true;
@@ -55,25 +48,23 @@
             var tab = args.get_tab();
             if (tab.get_value() == "2") {
                 //new clicked 
-                try {               
+                try {
                     $('input[type=text]').each(function () {
                         $(this).val('');
                     });
-                   
+
                     $('textarea').empty();
                     <%=ToolBarQualification.ClientID %>_SetAddVisible(false);
                     <%=ToolBarQualification.ClientID %>_SetSaveVisible(true);
                     <%=ToolBarQualification.ClientID %>_SetUpdateVisible(false);
-                    <%=ToolBarQualification.ClientID %>_SetDeleteVisible(false);           
+                    <%=ToolBarQualification.ClientID %>_SetDeleteVisible(false);
                 }
-                catch (x)
-                {
+                catch (x) {
                     alert(x.message);
                 }
 
             }
-            if (tab.get_value() == "1")
-            {
+            if (tab.get_value() == "1") {
                 var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
                 var tab = tabStrip.findTabByValue("1");
                 tab.select();
@@ -84,11 +75,9 @@
 
         }
 
-        function OnClientButtonClicking(sender, args)
-        {
+        function OnClientButtonClicking(sender, args) {
             var btn = args.get_item();
-            if (btn.get_value() == 'Delete')
-            {
+            if (btn.get_value() == 'Delete') {
                 args.set_cancel(!confirm('Do you want to delete ?'));
             }
             if (btn.get_value() == 'Save') {
@@ -106,10 +95,12 @@
    
    
 
+
 </asp:Content>
 
 <asp:Content ID="phdPersonnelQualificationMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-  <div class="container">
+     <div class="inputMainContainer"  >
+        <div class="innerDiv">
     <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="200px"    OnClientTabSelected="onClientTabSelected"
              CausesValidation="false"   SelectedIndex="0" Skin="Silk" >
             <Tabs>
@@ -153,7 +144,7 @@
            <asp:Label ID="lblerror" runat="server" Text="" ForeColor="Red"></asp:Label>
 
                        <uc1:ToolBar runat="server" ID="ToolBarQualification" />
-  
+    <div id="divQualificationedit" style="overflow-y:hidden" >     
          <div class="col-lg-12 Span-One">
     <div class="col-lg-6">
         <div class="form-group">
@@ -274,10 +265,8 @@ font-family: Trebuchet MS;">*</span>
              </div>       
     
           </div>
-     
-     
-           
- 
+    </div>
+
                        
                    </telerik:RadPageView>
             
@@ -286,6 +275,7 @@ font-family: Trebuchet MS;">*</span>
                        </telerik:RadMultiPage>
                              
   
-   </div>
-      
+   
+        </div>
+         </div>
 </asp:Content>
