@@ -775,7 +775,7 @@ font-family: Trebuchet MS;">*</span>
                 <div class="col-lg-6">
 
                         <div class="form-group">
-                             <label class="control-label col-lg-3" for="email3"> Sub System
+                             <label class="control-label col-lg-3" for="email3">Reference Date
             </label>
                                <div class="col-lg-9">
                 <telerik:RadDatePicker ID="RadReferenceDate" runat="server" 
