@@ -4,13 +4,14 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Data;
+using System.Web.UI;
 
 namespace FlyCn.FlyCnDAL
 {
     public class DocumentMaster
     {
         #region documentmasterproperties
-
+        ErrorHandling eObj = new ErrorHandling();
         public Guid DocumentID
         {
             get;
@@ -170,7 +171,8 @@ namespace FlyCn.FlyCnDAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
             }
             finally
             {
@@ -181,57 +183,89 @@ namespace FlyCn.FlyCnDAL
             }
         }
         #endregion AddNewDocument
-
-        #region BindBOQ
-        public DataSet BindBOQ(string projectno,string documenttype)
+#region GetAllDocuments
+        public DataSet GetAllBOQDocumentHeader(string projectno, string documenttype)
         {
             SqlConnection con = null;
             DataSet ds = null;
-            SqlDataAdapter sda=null;
+            SqlDataAdapter sda = null;
             try
             {
-                
+
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText ="GetAllDocuments";
+                cmd.CommandText = "[GetAllBOQDocumentHeader]";
                 cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 10).Value = projectno;
                 cmd.Parameters.Add("@documentType", SqlDbType.NVarChar, 3).Value = documenttype;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
-                if (ds.Tables[0].Rows.Count>0)
-                {
-                    return ds;
-                }
-                else
-                {
-                    return ds;
-                }
-               
+                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw ex;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
             }
-            finally 
+            finally
             {
                 if (con != null)
                 {
                     con.Close();
                 }
             }
-           
-           
-            
-        }
+            return ds;
 
-        #endregion BindBOQ
-        #region
-        #endregion
+
+
+        }
+       #endregion GetAllDocuments
+        #region BindBOQ
+        public DataSet BindBOQ(Guid documentID, string projectno)
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllBOQDocumentHeaderByDocumentID]";
+                cmd.Parameters.Add("@documentID", SqlDbType.UniqueIdentifier).Value = documentID;
+                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 10).Value = projectno;
+
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+                }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex,page);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+                
+            }
+            return ds;
+           
+
+         }
+         #endregion BindBOQ
+        
 
 
 
