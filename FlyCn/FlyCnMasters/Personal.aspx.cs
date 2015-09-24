@@ -13,12 +13,14 @@ namespace FlyCn
 {
     public partial class Personal : System.Web.UI.Page
     {
+        #region Global Variables
         TabAddEditSettings tabs = new TabAddEditSettings();
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
         FlyCnDAL.MasterPersonal materpersonnelobj = new FlyCnDAL.MasterPersonal();
         DataTable dtableobj = new DataTable();
         ErrorHandling eObj = new ErrorHandling();
+        #endregion Global Variables
 
         #region  Page_Load
         protected void Page_Load(object sender, EventArgs e)

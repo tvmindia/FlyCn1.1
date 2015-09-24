@@ -135,12 +135,12 @@
                             </asp:ScriptManager>
                             <telerik:RadGrid ID="dtgDynamicMasterGrid" runat="server" CellSpacing="0"
                                 GridLines="None" OnNeedDataSource="dtgDynamicMasterGrid_NeedDataSource1" AllowPaging="true" ItemStyle-HorizontalAlign="Left" AlternatingItemStyle-HorizontalAlign="Left"
-                                PageSize="10" AllowAutomaticDeletes="True" OnItemCommand="dtgDynamicMasterGrid_ItemCommand"
+                                PageSize="7" AllowAutomaticDeletes="True" OnItemCommand="dtgDynamicMasterGrid_ItemCommand" Width="984px"
                                 OnPreRender="dtgDynamicMasterGrid_PreRender" AllowMultiRowEdit="true" DataKeyNames="Code" CommandItemDisplay="Right" Skin="Silk">
                                 <MasterTableView>
 
                                     <Columns>
-                                        <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png">
+                                        <telerik:GridButtonColumn CommandName="EditData" ItemStyle-Width="10px" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png">
                                         </telerik:GridButtonColumn>
                                         <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
                                         </telerik:GridButtonColumn>

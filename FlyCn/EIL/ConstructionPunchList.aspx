@@ -87,34 +87,48 @@
 </asp:Content>
 
 <asp:Content ID="phdConstructionPunchListMaster" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <script>
+        function ClearTextBox() {
+            $('textarea').empty();
+
+            $("input:text").val('');
+        }
+        function EnableButtonsForNew() {
+            <%=ToolBar.ClientID %>_SetAddVisible(false);
+            <%=ToolBar.ClientID %>_SetSaveVisible(true);
+            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+            <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+        }
+        function SelectTabList() {
+            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+            var tab = tabStrip.findTabByValue("1");
+            tab.select();
+        }
+
+        function SetTabNewTextAndIcon() {
+            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+            var tab1 = tabStrip.findTabByValue("2");
+            tab1.set_text("New");
+            tab1.set_imageUrl('../Images/Icons/NewIcon.png');
+        }
+    </script>
       <script type="text/javascript">
        
           
               function onClientTabSelected(sender, args) {
                   var tab = args.get_tab();
                   if (tab.get_value() == '2') {
-                      //new clicked 
-                      $('input[type=text]').each(function () {
-                          $(this).val('');
-                      });
-                      $('textarea').empty();
-                      
-                      debugger;
-                      try {
-                          <%=ToolBar.ClientID %>_SetAddVisible(false);
-                          <%=ToolBar.ClientID %>_SetSaveVisible(true);
-                          <%=ToolBar.ClientID %>_SetUpdateVisible(false);
-                          <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-                        
-                      } catch (x) { alert(x.message); }
-
+                      ClearTextBox();
+                      EnableButtonsForNew();
+                
                       try
                       {
 
                           if(document.getElementById("<%= grdFileUpload.ClientID %>")!=null)
                           document.getElementById("<%= grdFileUpload.ClientID %>").style.display = "none";
                       }
-                      catch(x){
+                      catch (x)
+                      {
 
                       }
 
@@ -122,11 +136,8 @@
 
                   if (tab.get_value() == "1") {
 
-                      var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                      var tab = tabStrip.findTabByValue("1");
-                      tab.select();
-                      var tab1 = tabStrip.findTabByValue("2");
-                      tab1.set_text("New");
+                      SelectTabList();
+                      SetTabNewTextAndIcon();
                   }
 
               }
@@ -182,14 +193,8 @@
     <asp:Label ID="lblTitle" runat="server" Text="" CssClass="PageHeading"></asp:Label>
      
      <hr />
-  <%--  <div id="button">
-        <input id="btnAdd" type="button" value="ADD" onclick="ShowCreate()" />
-         <input id="btnList" type="button" value="List" onclick="Navigate()" /></div>
-    <div id="display">
-          <asp:ScriptManager ID="ScriptManager1" runat="server" >
-</asp:ScriptManager>--%>
-        <div class="inputMainContainer">
-        <div class="innerDiv">
+ 
+      <div class="container">
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
              CausesValidation="false"   SelectedIndex="0" Skin="Silk" >
             
@@ -222,15 +227,16 @@
     PageSize="10" Width="984px" Skin="Silk" >
                     <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType">
     <Columns>
+          <telerik:GridButtonColumn CommandName="EditData" ItemStyle-Width="10px" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png"></telerik:GridButtonColumn>     
+     <telerik:GridButtonColumn CommandName="DeleteColumn" Text="Delete" UniqueName="DeleteColumn" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" ConfirmDialogType="RadWindow" ConfirmText="Are you sure, you want to delete this item ?">
+      </telerik:GridButtonColumn>
      <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo"></telerik:GridBoundColumn> 
      <telerik:GridBoundColumn HeaderText="ID No" DataField="IDNo" UniqueName="IDNo"></telerik:GridBoundColumn>
      <telerik:GridBoundColumn HeaderText="LinkIDNo" DataField="LinkIDNo" UniqueName="LinkIDNo"></telerik:GridBoundColumn> 
      <telerik:GridBoundColumn HeaderText="EILType" DataField="EILType" UniqueName="EILType"></telerik:GridBoundColumn> 
      <telerik:GridBoundColumn HeaderText="OpenBy" DataField="OpenBy" UniqueName="OpenBy"></telerik:GridBoundColumn> 
      <telerik:GridBoundColumn HeaderText="OpenDt" DataField="OpenDt" UniqueName="OpenDt" DataType="System.DateTime"  DataFormatString="{0:M/d/yyyy}"></telerik:GridBoundColumn> 
-     <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png"></telerik:GridButtonColumn>     
-     <telerik:GridButtonColumn CommandName="DeleteColumn" Text="Delete" UniqueName="DeleteColumn" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" ConfirmDialogType="RadWindow" ConfirmText="Are you sure, you want to delete this item ?">
-      </telerik:GridButtonColumn>
+   
     </Columns>
   </MasterTableView>            
              </telerik:RadGrid>
@@ -1208,7 +1214,7 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
                 
 
          </div>
-            </div>
+          
            
     <asp:HiddenField ID="hdnMode" runat="server" />
 </asp:Content>

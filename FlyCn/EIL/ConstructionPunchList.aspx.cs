@@ -18,14 +18,14 @@ namespace FlyCn.EIL
 {
     public partial class ConstructionPunchList : System.Web.UI.Page
     {
-        TabAddEditSettings tabs = new TabAddEditSettings();
+     
        
         #region Global Variables
         ErrorHandling eObj = new ErrorHandling();
         DataTable dt = new DataTable();
         FlyCnDAL.PunchList pObj = new FlyCnDAL.PunchList();
         MasterPersonal mObj = new MasterPersonal();
-         
+        TabAddEditSettings tabs = new TabAddEditSettings();
         #endregion Global Variables
 
         #region Events
@@ -329,7 +329,7 @@ namespace FlyCn.EIL
                 grdFileUpload.DataBind();
 
 
-                //   ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
+              
 
                 //  ScriptManager.RegisterStartupScript(this, GetType(), "EditData", "UpdateFunction();", true);
 
@@ -605,37 +605,7 @@ namespace FlyCn.EIL
 
 
 
-                          // string id1 = txtIDno.Text;
-
-                          //  // pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
-
-                          // // DataTable dt1;
-
-                          ////  dt1 = pObj.GetEIL_AttachDetails(id, pObj.fileUpload, pObj.EILType);
-
-                          //  if ((dtt.Rows.Count > 0))
-                            //  {
-                            //      btnUpload.Enabled = true;
-                            //      foreach (DataRow rows in dtt.Rows)
-                            //      {
-                            //          string name = rows["FileName"].ToString();
-                            //          //  pObj.slno = Convert.ToInt32(dt.Rows[0]["SlNo"].ToString());
-                            //          pObj.slno = Convert.ToInt32(rows["SlNo"].ToString());
-
-
-                          //          if (pObj.fileUpload == name)
-                            //          {
-                            //              ChangeFileName(id1, pObj.fileUpload, pObj.EILType, pObj.slno);
-
-                          //          }
-
-                          //          ToolBar.AddButton.Visible = false;
-                            //          ToolBar.SaveButton.Visible = false;
-                            //          ToolBar.UpdateButton.Visible = true;
-                            //          ToolBar.DeleteButton.Visible = true;
-
-                          //      }
-                            //  }
+                       
                             else
                             {
 
