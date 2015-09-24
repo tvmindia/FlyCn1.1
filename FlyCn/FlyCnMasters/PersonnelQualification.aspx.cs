@@ -17,9 +17,9 @@ namespace FlyCn.FlyCnMasters
         ErrorHandling eObj = new ErrorHandling();
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
-        FlyCnDAL.MasterPersonnelQualification pq = new FlyCnDAL.MasterPersonnelQualification();
+        FlyCnDAL.MasterPersonnelQualification personnelqualificationobj = new FlyCnDAL.MasterPersonnelQualification();
         DataTable dtable = new DataTable();
-        string  _id1;
+        string _id1;
 
         #region  Page_Load
 
@@ -27,12 +27,12 @@ namespace FlyCn.FlyCnMasters
         {
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
 
-          _id1 = Request.QueryString["id"];
-          //txtEmpCode.Text = _id1;
-          HiddenField.Value = _id1;
-        
-          ToolBarQualification.onClick += new RadToolBarEventHandler(ToolBar_onClick);
-          ToolBarQualification.OnClientButtonClicking = "OnClientButtonClicking";         
+            _id1 = Request.QueryString["id"];
+            //txtEmpCode.Text = _id1;
+            HiddenField.Value = _id1;
+
+            ToolBarQualification.onClick += new RadToolBarEventHandler(ToolBar_onClick);
+            ToolBarQualification.OnClientButtonClicking = "OnClientButtonClicking";
         }
 
         #endregion  Page_Load
@@ -56,7 +56,7 @@ namespace FlyCn.FlyCnMasters
                 string code = HiddenField.Value;
                 string qualification = txtQualification.Text;
                 string ProjNo = UA.projectNo;
-                int result = pq.DeleteMasterPersonnelQualificationData(code, qualification, ProjNo);
+                int result = personnelqualificationobj.DeleteMasterPersonnelQualificationData(code, qualification, ProjNo);
                 if (result == 1)
                 {
                     dtgPersonnelQualificationGrid.Rebind();
@@ -76,9 +76,9 @@ namespace FlyCn.FlyCnMasters
         #region  dtgPersonnelQualificationGrid_NeedDataSource
         protected void dtgPersonnelQualificationGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dt = new DataTable();
-            dt = pq.BindMastersPersonalQualification(_id1);
-            dtgPersonnelQualificationGrid.DataSource = dt;
+            DataTable datatableobj = new DataTable();
+            datatableobj = personnelqualificationobj.BindMastersPersonalQualification(_id1);
+            dtgPersonnelQualificationGrid.DataSource = datatableobj;
 
         }
 
@@ -90,26 +90,26 @@ namespace FlyCn.FlyCnMasters
             try
             {
                 string val = null;
-                // mp.ProjectNo      = txt
-                pq.EmpCode = _id1;
-                pq.Qualification = txtQualification.Text;
-                pq.QualificationType = txtQualificationType.Text;
+              
+                personnelqualificationobj.EmpCode = _id1;
+                personnelqualificationobj.Qualification = txtQualification.Text;
+                personnelqualificationobj.QualificationType = txtQualificationType.Text;
                 if (RadFirstQualifiedDate.SelectedDate != null)
                 {
-                    pq.FirstQualifiedDate = Convert.ToString(RadFirstQualifiedDate.SelectedDate);
+                    personnelqualificationobj.FirstQualifiedDate = Convert.ToString(RadFirstQualifiedDate.SelectedDate);
                 }
                 if (RadExpiryDate.SelectedDate != null)
                 {
-                    pq.ExpiryDate = Convert.ToString(RadExpiryDate.SelectedDate);
+                    personnelqualificationobj.ExpiryDate = Convert.ToString(RadExpiryDate.SelectedDate);
                 }
 
                 if (RadDRenewedDate.SelectedDate != null)
                 {
-                    pq.RenewedDate = Convert.ToString(RadDRenewedDate.SelectedDate);
+                    personnelqualificationobj.RenewedDate = Convert.ToString(RadDRenewedDate.SelectedDate);
                 }
-                pq.Remarks = txtRemarks.Text;
+                personnelqualificationobj.Remarks = txtRemarks.Text;
                 string ProjNo = UA.projectNo;
-                int result = pq.InsertMasterPersonalQualificationData(ProjNo);
+                int result = personnelqualificationobj.InsertMasterPersonalQualificationData(ProjNo);
                 dtgPersonnelQualificationGrid.Rebind();
 
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
@@ -117,9 +117,9 @@ namespace FlyCn.FlyCnMasters
                 tabs.ResetTabCaptions(tab, tab1);
                 //tab.Selected = true;
                 RadMultiPage1.SelectedIndex = 0;
-              
+
             }
-           catch(Exception ex)
+            catch (Exception ex)
             {
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
                 RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
@@ -129,17 +129,17 @@ namespace FlyCn.FlyCnMasters
                 var page = HttpContext.Current.CurrentHandler as Page;
                 var master = page.Master;
                 eObj.ErrorData(ex, page);
-               
+
             }
-           
-            }
+
+        }
 
         #endregion  InsertData
 
         #region  dtgPersonnelQualificationGrid_ItemCommand
         protected void dtgPersonnelQualificationGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
-            string ProjNo = UA.projectNo;
+            string projectNo = UA.projectNo;
 
             GridDataItem item = e.Item as GridDataItem;
             string strId = item.GetDataKeyValue("EmpCode").ToString();
@@ -147,7 +147,7 @@ namespace FlyCn.FlyCnMasters
             if (e.CommandName == "Delete")
             {
 
-                int result = pq.DeleteMasterPersonnelQualificationData(strId,Qualification,ProjNo);
+                int result = personnelqualificationobj.DeleteMasterPersonnelQualificationData(strId, Qualification, projectNo);
                 if (result == 1)
                 {
 
@@ -167,7 +167,7 @@ namespace FlyCn.FlyCnMasters
                 ToolBarQualification.UpdateButton.Visible = true;
                 ToolBarQualification.DeleteButton.Visible = true;
 
-                dtable = pq.FillMasterData(strId, Qualification,ProjNo);
+                dtable = personnelqualificationobj.FillMasterData(strId, Qualification, projectNo);
                 txtEmpCode.Text = dtable.Rows[0]["EmpCode"].ToString();
                 txtQualification.Text = dtable.Rows[0]["Qualification"].ToString();
                 txtQualificationType.Text = dtable.Rows[0]["QualificationType"].ToString();
@@ -177,7 +177,7 @@ namespace FlyCn.FlyCnMasters
                     RadFirstQualifiedDate.SelectedDate = Convert.ToDateTime(FirstQualifiedDate);
                 }
                 RadFirstQualifiedDate.SelectedDate = null;
-                string ExpiryDate =  dtable.Rows[0]["ExpiryDate"].ToString();
+                string ExpiryDate = dtable.Rows[0]["ExpiryDate"].ToString();
 
                 if (ExpiryDate != "")
                 {
@@ -193,63 +193,50 @@ namespace FlyCn.FlyCnMasters
                 }
                 txtRemarks.Text = dtable.Rows[0]["Remarks"].ToString(); ;
 
-             //   ScriptManager.RegisterStartupScript(this, GetType(), "EditData", "UpdateFunction();", true);
-          
+                //   ScriptManager.RegisterStartupScript(this, GetType(), "EditData", "UpdateFunction();", true);
+
 
             }
         }
-   
+
         #endregion  dtgPersonnelQualificationGrid_ItemCommand
 
         #region  UpdateData
 
         public void UpdateData()
-       {
-           string val = null;
-           pq.EmpCode = HiddenField.Value;
-    pq.Qualification=txtQualification.Text;
-    pq.QualificationType=txtQualificationType.Text;
-    pq.Remarks = txtRemarks.Text;
-    if (RadFirstQualifiedDate.SelectedDate != null)
-
+        {
+            string val = null;
+            personnelqualificationobj.EmpCode = HiddenField.Value;
+            personnelqualificationobj.Qualification = txtQualification.Text;
+            personnelqualificationobj.QualificationType = txtQualificationType.Text;
+            personnelqualificationobj.Remarks = txtRemarks.Text;
+            if (RadFirstQualifiedDate.SelectedDate != null)
             {
-                pq.FirstQualifiedDate = Convert.ToString(RadFirstQualifiedDate.SelectedDate);
+                personnelqualificationobj.FirstQualifiedDate = Convert.ToString(RadFirstQualifiedDate.SelectedDate);
             }
-    if (RadExpiryDate.SelectedDate != null)
-    {
-        pq.ExpiryDate = Convert.ToString(RadExpiryDate.SelectedDate);
-    }
-    if (RadDRenewedDate.SelectedDate != null)
-    {
-        pq.RenewedDate= Convert.ToString(RadDRenewedDate.SelectedDate);
-    }
-    string ProjNo = UA.projectNo;
-           int result = pq.UpdateMasterPersonelQualificationData(ProjNo);
-           //if (result == 1)
-           //{
-               //dtgPersonnelQualificationGrid.Rebind();
-               //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-               //tab.Selected = true;
-               //RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
-               //tab1.Text = "New";
-               //tab1.ImageUrl = "~/Images/Icons/NewIcon.png";
-
-               //RadMultiPage1.SelectedIndex = 0;
-
-           //}
-
-       }
+            if (RadExpiryDate.SelectedDate != null)
+            {
+                personnelqualificationobj.ExpiryDate = Convert.ToString(RadExpiryDate.SelectedDate);
+            }
+            if (RadDRenewedDate.SelectedDate != null)
+            {
+                personnelqualificationobj.RenewedDate = Convert.ToString(RadDRenewedDate.SelectedDate);
+            }
+            string ProjNo = UA.projectNo;
+            int result = personnelqualificationobj.UpdateMasterPersonelQualificationData(ProjNo);
+        
+        }
 
         #endregion  UpdateData
 
         #region  dtgPersonnelQualificationGrid_PreRender1
 
         protected void dtgPersonnelQualificationGrid_PreRender1(object sender, EventArgs e)
-       {
-         dtgPersonnelQualificationGrid.MasterTableView.GetColumn("EmpCode").Visible= false;
-           //gvCktMap.MasterTableView.GetColumn("sid").Visible = false;  
-           dtgPersonnelQualificationGrid.Rebind();
-       }
+        {
+            dtgPersonnelQualificationGrid.MasterTableView.GetColumn("EmpCode").Visible = false;
+            //gvCktMap.MasterTableView.GetColumn("sid").Visible = false;  
+            dtgPersonnelQualificationGrid.Rebind();
+        }
 
         #endregion  dtgPersonnelQualificationGrid_PreRender1
 

@@ -20,8 +20,9 @@
 
         if (ProjectNo == "" || ProjectName == "" || ProjectLocation == "" || ProjectManager == "") 
         {
-
-            document.getElementById("<%=hidddenErrormsg.ClientID %>").value = "Please Fill all the Mandatory fields";
+           
+           
+            document.getElementById("<%=hidddenErrormsg.ClientID %>").value =messages.MandatoryFieldsGeneral ;
            
         }
                 //document.getElementById(<%--"<%=lblerrormsg.ClientID %--%>>").style.display="none"
@@ -41,11 +42,37 @@
         //}
         }
 </script>
+    <script>
+        function displayMessagePopUp(type, msg) {
+
+            var s = document.getElementById("<%=ErrorBoxPopUp.ClientID %>");
+            document.getElementById("<%=ErrorBoxPopUp.ClientID %>").style.visibility = "visible";
+            var divId = document.getElementById("masterDiv");
+            document.getElementById("<%=lblErrorInfoPopUp.ClientID %>").innerHTML = msg;
+           
+            if (type == 'SUCCESS') {
+                document.getElementById("<%=ErrorBoxPopUp.ClientID %>").className = "Succesmsgboxes";
+            }
+            else {
+                document.getElementById("<%=ErrorBoxPopUp.ClientID %>").className = "ErrormsgBoxes";
+            }
+
+        }
+
+        function hideMeForPopUp() {
+            debugger;
+            var s = document.getElementById("<%=ErrorBoxPopUp.ClientID %>");
+            document.getElementById("<%=ErrorBoxPopUp.ClientID %>").style.visibility = "hidden";
+            var divId = document.getElementById("masterDiv");
+
+            document.getElementById("<%=lblErrorInfoPopUp.ClientID %>").innerHTML = "";
+        }
+    </script>
 <script>
     function Finalvalidate() {
-        document.getElementById("<%=lblerrormsg.ClientID %>").innerHTML = document.getElementById("<%=hidddenErrormsg.ClientID %>").value;
+        //document.getElementById("<%=lblerrormsg.ClientID %>").innerHTML =
       
-        var lblerror = document.getElementById("<%=lblerrormsg.ClientID %>").innerHTML;
+        var lblerror = document.getElementById("<%=hidddenErrormsg.ClientID %>").value;;
         
         if (lblerror == "")
         {
@@ -53,6 +80,7 @@
             return true;
         }
         else
+            displayMessagePopUp(messageType.Error, messages.MandatoryFieldsGeneral);
         {
             return false;
         }
@@ -228,7 +256,7 @@ th, td {
 th, tr{
     height:50px;
     text-align:left;
-  vertical-align:bottom;
+    vertical-align:bottom;
 }
   td, label 
   { 
@@ -304,6 +332,18 @@ th, tr{
         
 <div id="bodyDiv">
 <div>
+    <div  id="ErrorBoxPopUp" style="visibility:hidden;height:20px;" runat="server" class="ErrormsgBoxes"  >
+            <table style="width: 100%;background-color: transparent; height:20px">                
+                <tr>
+                    <td style="text-align:center;width:90%; vertical-align:top">
+                        <asp:Label ID="lblErrorInfoPopUp" runat="server" ></asp:Label>
+                    </td>
+                     <td style="text-align:center; vertical-align:central ; width:10%">
+                        <span onclick="hideMeForPopUp();" class="closeButton" style=" text-align:left">X</span>  <%-- <img src="../Images/Close1.png" onclick="hideMe();" style="height:15px;width:15px"/>--%>                   
+                    </td>
+                </tr>
+            </table>
+        </div>
         <asp:Menu ID="Menu1" runat="server" CssClass="" OnMenuItemClick="Menu1_MenuItemClick" Orientation="Horizontal" 
         style="left: 0px; position: relative; top: 22px" Height="80px" Width="800px"  >
             <StaticMenuStyle HorizontalPadding="0px" VerticalPadding="0px"   />

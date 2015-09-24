@@ -85,7 +85,9 @@ box-shadow: 0px 2px 7px #292929;
 
             if (ProjectNo == "" || ProjectName == "" || ProjectLocation == "" || ProjectManager == "") {
 
-                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+                <%--  document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";--%>
+                displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+
                 return false;
 
             }
@@ -240,10 +242,9 @@ font-family: Trebuchet MS;">*</span>
                    <td>Project Name </td>
                    <td>
                        <asp:TextBox ID="txtProjName" runat="server"></asp:TextBox>
-                         <span id="span1" runat="server" style="color: red; font-size: 15px; font-weight: 500;
-font-family: Trebuchet MS;">*</span>
+                       <span id="span1" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
                    </td>
-                   <td  class="myclass">&nbsp;&nbsp;</td>
+                   <td class="myclass">&nbsp;&nbsp;</td>
                    <td class="size">Project Location </td>
                    <td class="size">
                        <asp:TextBox ID="txtLocation" runat="server"></asp:TextBox>
@@ -570,7 +571,7 @@ font-family: Trebuchet MS;">*</span>
          </telerik:RadPageView>
     
             </telerik:RadMultiPage>
-            <div id="modal_dialog"  style="display: none; width:1000px!important; height:700px!important; border-radius:30px; overflow:hidden; overflow-x:hidden; 
+            <div id="modal_dialog"  style="display: none; width:1000px!important; height:700px!important;  overflow:hidden; overflow-x:hidden; 
 ">
    
                    <iframe src="AddNewProject.aspx" style="width:1300px;  height:700px;">

@@ -55,7 +55,7 @@
 
     <script type="text/javascript">
         function onClientTabSelected(sender, args) {
-            //   debugger;
+            
             var tab = args.get_tab();
             if (tab.get_value() == '2') {
 
@@ -105,27 +105,7 @@
         }
     </script>
 
-    <script>
-        $(document).ready(function () {
-            $('.accordion-content').show();
-        });
-    </script>
-
-  <%--  <style>
-        table {
-        }
-
-            table tbody {
-            }
-
-        .tabletd {
-            width: 550px;
-        }
-
-        .tabletbody {
-            width: 900px;
-        }
-    </style>--%>
+  
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
