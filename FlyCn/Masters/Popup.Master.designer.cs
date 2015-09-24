@@ -22,31 +22,31 @@ namespace FlyCn.Masters {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
         
         /// <summary>
-        /// Errorbox control.
+        /// ErrorBoxPopUp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Errorbox;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ErrorBoxPopUp;
         
         /// <summary>
-        /// lblErrorInfo control.
+        /// lblErrorInfoPopUp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorInfo;
+        protected global::System.Web.UI.WebControls.Label lblErrorInfoPopUp;
         
         /// <summary>
-        /// masterDiv control.
+        /// masterDivPopUp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl masterDiv;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl masterDivPopUp;
         
         /// <summary>
         /// form1 control.

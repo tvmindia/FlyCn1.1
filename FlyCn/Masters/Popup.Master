@@ -51,10 +51,28 @@ color:#B00000;
     }
     </style>
    <script>
-       function hideMe() {
-           document.getElementById("Errorbox").style.display = "none";
-           var divId = document.getElementById("masterDiv");
-           divId.style.opacity = "1";
+       function displayMessagePopUp(type, msg) {
+
+           var s = document.getElementById("ErrorBoxPopUp");
+           document.getElementById("ErrorBoxPopUp").style.visibility = "visible";
+           var divId = document.getElementById("masterDivPopUp");
+           document.getElementById("lblErrorInfoPopUp").innerHTML = msg;
+           if (type == 'SUCCESS') {
+               document.getElementById("ErrorBoxPopUp").className = "Succesmsgboxes";
+           }
+           else {
+               document.getElementById("ErrorBoxPopUp").className = "ErrormsgBoxes";
+           }
+
+       }
+
+       function hideMeForPopUp() {
+           debugger;
+           var s = document.getElementById("ErrorBoxPopUp");
+           document.getElementById("ErrorBoxPopUp").style.visibility = "hidden";
+           var divId = document.getElementById("masterDivPopUp");
+
+           document.getElementById("lblErrorInfoPopUp").innerHTML = "";
        }
     </script>
 </head>
@@ -62,19 +80,19 @@ color:#B00000;
    
 
     <div style="width:100%;text-align:right;right:0px;">
-       <div  id="Errorbox" style="width:50%;display: none;right:0px;float:right;padding-left:200px;margin-left:300px" runat="server" class="ErrormsgBoxes"  >
+       <div  id="ErrorBoxPopUp" style="width:50%;display: none;right:0px;float:right;padding-left:200px;margin-left:300px" runat="server" class="ErrormsgBoxes"  >
             <table style="width: 100%;background-color: transparent;">                
                 <tr>
                     <td style="text-align: right;width:90%">
-                        <asp:Label ID="lblErrorInfo" runat="server" Style="font-size:medium;"></asp:Label>
+                        <asp:Label ID="lblErrorInfoPopUp" runat="server" Style="font-size:medium;"></asp:Label>
                     </td>
                      <td style="text-align: right;width:10%">
-                        <img src="../Images/Close1.png" onclick="hideMe();" style="height:15px;width:15px"/>                   
+                        <img src="../Images/Close1.png" onclick="hideMeForPopUp();" style="height:15px;width:15px"/>                   
                     </td>
                 </tr>
             </table>
         </div></div>
-    <div id="masterDiv" runat="server"> 
+    <div id="masterDivPopUp" runat="server"> 
    <form id="form1" runat="server">
     <div>
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
