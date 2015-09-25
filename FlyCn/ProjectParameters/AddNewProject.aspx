@@ -88,24 +88,7 @@
 
     }
 </script>
-<%--<script>
-    function nexttab()
-    {
-        var CurrentView = <%=  (UpdatePanel1.FindControl("MultiView1") as MultiView).ActiveViewIndex %>
-   alert("Current Active View Index Is :" + CurrentView);
-        
-        var MultiView =  <%= (UpdatePanel1.FindControl("MultiView1") as MultiView).ClientID%>
-        alert(MultiView);
-        
-    }
-</script>--%>
-<%--<script>
-    function SetActiveTab(tabControl, tabNumber)
-    {
-        var ctrl = $find(tabControl); ctrl.set_activeTab(ctrl.get_tabs()[tabNumber]);
-    }
 
-</script> --%>
   <script runat="server">
 
         protected void Menu1_MenuItemClick(object sender, MenuEventArgs e)
@@ -173,17 +156,7 @@
 
      protected void btnNext_Click(object sender, EventArgs e)
      {
-         //if (Page.IsValid)
-         //{
-         //    lblvalmsg.Text = "Required field is filled!";
-         //}
-         //else
-         //{
-         //    lblvalmsg.Text = "Required field is empty!";
-         //}
-      //   MultiView1.ActiveViewIndex++;
-         
-      //var i= Convert.ToString(  Menu1.TabIndex);
+        
       MultiView1.SetActiveView(MultiView1.Views[++MultiView1.ActiveViewIndex]);
          if(MultiView1.ActiveViewIndex == 1)
          {
@@ -200,25 +173,11 @@
             
          }
       ShowViewBtn();
-         
-      //   var s=i+1;
-      //Menu1.Items[].Selected=true;
-      //Menu1.SelectedItem.Value = i;
-       
+    
      }
 
     
-</script>
- <%--<script runat="server">
-
-     protected void btnSkipFinish_Click(object sender, EventArgs e)
-     {
-        
-     }
-     
-     </script>--%>
-
-    
+</script>    
 <script runat="server">
     private void ShowViewBtn()
     {

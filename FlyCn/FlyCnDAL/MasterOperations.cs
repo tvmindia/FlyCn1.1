@@ -11,7 +11,7 @@ namespace FlyCn.FlyCnDAL
     public class MasterOperations
     {
         ErrorHandling eObj = new ErrorHandling();
- 
+
         #region Methods
 
         #region InsertMasterData
@@ -27,7 +27,6 @@ namespace FlyCn.FlyCnDAL
             int result = 0;
             SqlConnection con = null;
             try
-
             {
                 List<object> list = (from row in dsTest.AsEnumerable() select (row["Values"])).ToList();
                 DataSet dataset = new DataSet();
@@ -48,12 +47,12 @@ namespace FlyCn.FlyCnDAL
                 {
                     cmd.Parameters.AddWithValue("@ProjNo", ProjNo);
                     FieldValue = "ProjectNo" + ",";
-                    FieldParams = "'"+ProjNo+"'"+",";
+                    FieldParams = "'" + ProjNo + "'" + ",";
                     for (int i = 1; i < totalrows; i++)
                     {
 
 
-                        FieldValue = FieldValue  + dataset.Tables[0].Rows[i]["Field_Name"] + ",";
+                        FieldValue = FieldValue + dataset.Tables[0].Rows[i]["Field_Name"] + ",";
                         if (list[i - 1] == "")
                         {
                             FieldParams = FieldParams + "NULL" + ",";
@@ -85,13 +84,13 @@ namespace FlyCn.FlyCnDAL
                             FieldParams = FieldParams + "'" + list[i] + "'" + ",";
 
                         }
-                  
+
                     }
                 }
-               
-                FieldValue = FieldValue + "Updated_By,Updated_Date" ;
-                FieldParams = FieldParams +"'"+ "Amrutha"+"'"+","+"'"+System.DateTime.Now.ToString("MM/dd/yyyy")+"'";
-                cmd.Parameters.AddWithValue("@p_selectedFields",FieldValue);
+
+                FieldValue = FieldValue + "Updated_By,Updated_Date";
+                FieldParams = FieldParams + "'" + "Amrutha" + "'" + "," + "'" + System.DateTime.Now.ToString("MM/dd/yyyy") + "'";
+                cmd.Parameters.AddWithValue("@p_selectedFields", FieldValue);
                 cmd.Parameters.AddWithValue("@p_selectedFieldsParameters", FieldParams);
                 cmd.ExecuteScalar();
                 var page = HttpContext.Current.CurrentHandler as Page;
@@ -100,7 +99,7 @@ namespace FlyCn.FlyCnDAL
             }
             catch (Exception ex)
             {
-               // return 0;
+                // return 0;
                 throw ex;
             }
             finally
@@ -111,7 +110,7 @@ namespace FlyCn.FlyCnDAL
             return result;
 
         }
-       
+
         #endregion InsertMasterData
 
         #region BindMasters
@@ -137,7 +136,7 @@ namespace FlyCn.FlyCnDAL
             dt = sd.getFieldNames(TableName);
             int totalrows = dt.Rows.Count;
             string temp = dt.Rows[0]["Field_Name"].ToString();
-            
+
             SqlCommand cmd = new SqlCommand("SelectMasterTable", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@TableName", TableName);
@@ -182,25 +181,25 @@ namespace FlyCn.FlyCnDAL
         /// <returns>return integer</returns>
         public int DeleteMasterData(string keys, string TableName, string KeyValue)
         {
-         SqlConnection conObj = null;
+            SqlConnection conObj = null;
             try
             {
-                string whereCondition="";
+                string whereCondition = "";
                 string[] strArr = keys.Split(',');
                 string[] year = KeyValue.Split(new char[] { ',' });
                 string a = strArr[0];
                 int b = strArr.Length;
-                for (int i = 0; strArr.Length>=i+1; i++)
+                for (int i = 0; strArr.Length >= i + 1; i++)
                 {
-                    whereCondition = whereCondition +strArr[i] +"=" + "'"+year[i] + "'" + "  AND ";
-                 }
-               // whereCondition = whereCondition.TrimEnd();
-                whereCondition = whereCondition.Remove(whereCondition.Length -4);
+                    whereCondition = whereCondition + strArr[i] + "=" + "'" + year[i] + "'" + "  AND ";
+                }
+                // whereCondition = whereCondition.TrimEnd();
+                whereCondition = whereCondition.Remove(whereCondition.Length - 4);
                 dbConnection dcon = new dbConnection();
                 conObj = dcon.GetDBConnection();
-             // whereCondition = Id + "=" + "'" + code + "'";
+                // whereCondition = Id + "=" + "'" + code + "'";
                 SqlCommand cmd = new SqlCommand("DeleteMaster", conObj);
-                cmd.CommandType = CommandType.StoredProcedure;            
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@TableName", TableName);
                 cmd.Parameters.AddWithValue("@p_whereCondition", whereCondition);
                 cmd.ExecuteScalar();
@@ -208,14 +207,14 @@ namespace FlyCn.FlyCnDAL
                 eObj.DeleteSuccessData(page);
                 return 1;
             }
-            catch (SqlException ex)  
+            catch (SqlException ex)
             {
-               
-              // throw ex;
+
+                // throw ex;
                 var page = HttpContext.Current.CurrentHandler as Page;
                 var master = page.Master;
                 eObj.ErrorData(ex, page);
-               
+
             }
             finally
             {
@@ -227,14 +226,14 @@ namespace FlyCn.FlyCnDAL
         #endregion DeleteMasterData
 
         #region FillMasterData
-/// <summary>
-/// fill datas to the text boxes
-/// </summary>
-/// <param name="Id1"></param>
-/// <param name="TableName"></param>
-/// <param name="ProjNo"></param>
-/// <param name="condition"></param>
-/// <returns>return data table</returns>
+        /// <summary>
+        /// fill datas to the text boxes
+        /// </summary>
+        /// <param name="Id1"></param>
+        /// <param name="TableName"></param>
+        /// <param name="ProjNo"></param>
+        /// <param name="condition"></param>
+        /// <returns>return data table</returns>
         public DataTable FillMasterData(string keys, string TableName, string ProjNo, string KeyValue)
         {
             string whereCondition = "";
@@ -263,8 +262,8 @@ namespace FlyCn.FlyCnDAL
             da = sd.getData(TableName);
             int totalrows = da.Tables[0].Rows.Count;
             string temp = da.Tables[0].Rows[0]["Field_Name"].ToString();
-         
-         
+
+
             SqlCommand cmd = new SqlCommand("FillMasterData", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@TableName", TableName);
@@ -277,7 +276,7 @@ namespace FlyCn.FlyCnDAL
                     FieldValue = FieldValue + "," + da.Tables[0].Rows[i]["Field_Name"];
                 }
                 FieldValue = FieldValue + "";
-               
+
                 cmd.Parameters.AddWithValue("@p_selectedFields", FieldValue);
                 cmd.Parameters.AddWithValue("@p_whereCondition", whereCondition);
             }
@@ -289,8 +288,8 @@ namespace FlyCn.FlyCnDAL
                 }
                 FieldValue = FieldValue + "";
                 FieldValue = FieldValue.TrimEnd(',');
-              
-                    
+
+
                 cmd.Parameters.AddWithValue("@p_selectedFields", FieldValue);
                 cmd.Parameters.AddWithValue("@p_whereCondition", whereCondition);
             }
@@ -312,7 +311,7 @@ namespace FlyCn.FlyCnDAL
         /// <param name="Table"></param>
         /// <param name="Condition"></param>
         /// <returns>return datatable</returns>
-        public int UpdateMaster(DataTable dsTest, string Table,string Condition)
+        public int UpdateMaster(DataTable dsTest, string Table, string Condition)
         {
 
             List<object> list = (from row in dsTest.AsEnumerable() select (row["Values"])).ToList();
@@ -322,7 +321,7 @@ namespace FlyCn.FlyCnDAL
             try
             {
 
-               
+
                 DataSet dataset = new DataSet();
                 SystemDefenitionDetails dbobj = new SystemDefenitionDetails();
                 dataset = dbobj.getData(Table);
@@ -356,20 +355,22 @@ namespace FlyCn.FlyCnDAL
                     for (int i = 1; i <= totalrows; i++)
                     {
                         //updatestring = list2[i - 1].ToString() + "='" + list[i - 1].ToString() + "'";
-                        if (dsTest.Rows[i - 1]["Values"].ToString()==""){
+                        if (dsTest.Rows[i - 1]["Values"].ToString() == "")
+                        {
                             updatestring = dsTest.Rows[i - 1]["Field_Name"] + "=NULL";
                         }
+                      
                         else
                         {
-                        updatestring = dsTest.Rows[i-1]["Field_Name"] + "='" + dsTest.Rows[i-1]["Values"] + "'";
+                            updatestring = dsTest.Rows[i - 1]["Field_Name"] + "='" + dsTest.Rows[i - 1]["Values"] + "'";
                         }
 
                         //cmd.Parameters.AddWithValue("@p_UpdateString", updatestring + ",");
                         FieldValue = FieldValue + updatestring + ",";
                     }
                 }
-                string addfield = "Updated_By" + "=" + "'Amrutha'" + "," + "Updated_Date" + "='" + System.DateTime.Now.ToString("MM/dd/yyyy")+"'";
-               FieldValue = FieldValue + addfield;
+                string addfield = "Updated_By" + "=" + "'Amrutha'" + "," + "Updated_Date" + "='" + System.DateTime.Now.ToString("MM/dd/yyyy") + "'";
+                FieldValue = FieldValue + addfield;
 
                 cmd.Parameters.AddWithValue("@p_UpdateString", FieldValue);
                 cmd.Parameters.AddWithValue("@p_whereCondition", whereCondition);
@@ -380,9 +381,9 @@ namespace FlyCn.FlyCnDAL
             }
             catch (SqlException ex)
             {
-             
+
                 throw ex;
-                
+
 
             }
             finally
@@ -390,7 +391,7 @@ namespace FlyCn.FlyCnDAL
                 con.Close();
             }
         }
-       
+
         #endregion UpdateMaster
 
         #region GetComboBoxData
@@ -429,13 +430,13 @@ namespace FlyCn.FlyCnDAL
         /// <param name="Name"></param>
         /// <param name="Code"></param>
         /// <returns> return datatable</returns>
-        public DataTable GetComboBoxDataById(string Id,string TableName,string Name,string Code)
+        public DataTable GetComboBoxDataById(string Id, string TableName, string Name, string Code)
         {
             DataTable dt = null;
             SqlConnection con = null;
             dbConnection dcon = new dbConnection();
             con = dcon.GetDBConnection();
-            string WhereCondition =Code + '=' +"'"+ Id+"'";
+            string WhereCondition = Code + '=' + "'" + Id + "'";
             SqlCommand cmd = new SqlCommand("GetComboBoxDataById", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@TableName", TableName);
@@ -452,9 +453,9 @@ namespace FlyCn.FlyCnDAL
 
         }
     }
-      #endregion GetComboBoxDataById
+        #endregion GetComboBoxDataById
 
-    #endregion Methods
+        #endregion Methods
 
     }
 //changes//---------
