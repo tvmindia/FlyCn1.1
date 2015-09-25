@@ -161,7 +161,7 @@
                             <asp:Label ID="lblmasterName" runat="server" CssClass="PageHeading"></asp:Label>
                             <asp:HiddenField ID="HiddenField" runat="server" />
                             <asp:HiddenField ID="HiddenField1" runat="server" />
-
+                        <asp:HiddenField ID="HiddenUniqueIdentifier" runat="server" />
                             <br />
                             <br />
 

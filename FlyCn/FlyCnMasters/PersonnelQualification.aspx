@@ -28,8 +28,8 @@
             var Qualification = document.getElementById('<%=txtQualification.ClientID %>').value;
             if (Qualification == "") {
 
-           document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
-               // displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+    document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+       //    displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
 
                   return false;
 

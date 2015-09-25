@@ -107,7 +107,15 @@ namespace FlyCn.FlyCnMasters
                         TextBox box = new TextBox();
                         box.Attributes.Add("class", "form-control");
                         box.ID = "txt" + datatableobj.Rows[f]["Field_Name"].ToString();
-                        if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
+                        HiddenField hf = new HiddenField();
+                        if (datatableobj.Rows[f]["Field_DataType"].ToString() == "U" | datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
+                        {
+                       
+                            hf.ID = "hf" + datatableobj.Rows[f]["Field_Name"].ToString();
+                            
+                           
+                        }
+                        else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
                         {
                             cell.Controls.Add(lbl);
                             cell1.Controls.Add(box);
@@ -129,6 +137,7 @@ namespace FlyCn.FlyCnMasters
                         }
                         table.Rows.Add(row);
                         placeholder.Controls.Add(table);
+                        placeholder.Controls.Add(hf);
                     }
                 }
                 //---- if no of rows greater than 6 then place controls in 2 sides
@@ -253,8 +262,25 @@ namespace FlyCn.FlyCnMasters
 
                 for (int f = 0; f < datatableobj.Rows.Count; f++)
                 {
-
-                    if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
+                    if (datatableobj.Rows[f]["Field_DataType"].ToString() == "U")
+                    {
+                        System.Guid guid = System.Guid.NewGuid();
+                        String id = guid.ToString();
+                        datatableobj.Rows[f]["Values"] = id;
+                    }
+                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "V")
+                    {
+                       
+                        datatableobj.Rows[f]["Values"] = UA.userName;
+                    }
+                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
+                    {
+                      //  string date = System.DateTime.Now.ToString();
+                        datatableobj.Rows[f]["Values"] = System.DateTime.Now.ToString("MM/dd/yyyy");
+                    }
+                       
+               
+                   else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
                     {
                         TextBox box = (TextBox)placeholder.FindControl("txt" + datatableobj.Rows[f]["Field_Name"]);
 
@@ -390,9 +416,24 @@ namespace FlyCn.FlyCnMasters
                 dst = dynamicmasteroperationobj.FillMasterData(primarykeys, _mode, UA.projectNo, KeyValue);
                 FlyCnDAL.SystemDefenitionDetails sm = new FlyCnDAL.SystemDefenitionDetails();
                 datatableobj.Columns.Add("Values", typeof(String));
+
                 for (int f = 0; f < dst.Columns.Count; f++)
                 {
-                    if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
+
+                    if (datatableobj.Rows[f]["Field_DataType"].ToString() == "U" | datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
+                    { 
+
+                        string boxname = datatableobj.Rows[f]["Field_Name"].ToString();
+                        HiddenField hf = (HiddenField)placeholder.FindControl("hf" + datatableobj.Rows[f]["Field_Name"]);
+                        hf.Value = dst.Rows[0][boxname].ToString();
+                    }
+                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "V")
+                    {
+
+                        datatableobj.Rows[f]["Values"] = UA.userName;
+                    }
+                   
+                   else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
                     {
                         string boxname = datatableobj.Rows[f]["Field_Name"].ToString();
                         TextBox box = (TextBox)placeholder.FindControl("txt" + datatableobj.Rows[f]["Field_Name"]);
@@ -474,7 +515,25 @@ namespace FlyCn.FlyCnMasters
                 datatableobj.Columns.Add("Values", typeof(String));
                 for (int f = 0; f < datatableobj.Rows.Count; f++)
                 {
-                    if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
+
+                    if (datatableobj.Rows[f]["Field_DataType"].ToString() == "U")
+                    {
+                        HiddenField hf = (HiddenField)placeholder.FindControl("hf" + datatableobj.Rows[f]["Field_Name"]);
+                        datatableobj.Rows[f]["Values"] = hf.Value;
+                    }
+                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "V")
+                    {
+                        datatableobj.Rows[f]["Values"] = UA.userName;
+                       
+                    }
+                  else  if (datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
+                    {
+                        HiddenField hf = (HiddenField)placeholder.FindControl("hf" + datatableobj.Rows[f]["Field_Name"]);
+                        //string date = hf.Value;
+                        datatableobj.Rows[f]["Values"] = DateTime.Parse(hf.Value);
+                    }
+                       
+                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
                     {
                         TextBox box = (TextBox)placeholder.FindControl("txt" + datatableobj.Rows[f]["Field_Name"]);
 
