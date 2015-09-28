@@ -344,7 +344,7 @@
 
                                                 <telerik:RadComboBox ID="RadComboCompany" runat="server" Width="170px"
                                                     EmptyMessage="Select a Company" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
-                                                    EnableVirtualScrolling="true" OnItemsRequested="RadComboCompany_ItemsRequested">
+                                                    EnableVirtualScrolling="true" OnItemsRequested="RadComboCompany_ItemsRequested"  sort="Ascending">
                                                 </telerik:RadComboBox>
                                                 <span id="span4" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
 
