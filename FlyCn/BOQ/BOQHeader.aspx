@@ -73,11 +73,11 @@
                         <Columns>
                             
                                    <telerik:GridTemplateColumn UniqueName="CheckBoxTemplateColumn">
-                                       <ItemTemplate>
-                                        <asp:CheckBox ID="CheckBox1" runat="server"  AutoPostBack="False" />
+                         <ItemTemplate>
+                                        <asp:CheckBox ID="ChkChild" runat="server" onclick="HeaderUncheck(this);" AutoPostBack="False" />
                                       </ItemTemplate>
                             <HeaderTemplate>
-                            <asp:CheckBox ID="headerChkbox" runat="server" onclick="CheckAllEmp(this);"  AutoPostBack="False" />
+                            <asp:CheckBox ID="Chkheader" runat="server" onclick="Check(this);" AutoPostBack="False" />
                             </HeaderTemplate>
                             </telerik:GridTemplateColumn>
                                                         
@@ -217,14 +217,62 @@
 
 <!--<JavaScrict>-->
 <script type="text/javascript">
-    function CheckAllEmp(Checkbox) {
-        alert("hai");
-        debugger;
-        var GridVwHeaderChckbox = document.getElementById("<%=dtgBOQGrid.ClientID %>");
-        for (i = 1; i < GridVwHeaderChckbox.rows.length; i++) {
-            GridVwHeaderChckbox.rows[i].cells[3].getElementsByTagName("INPUT")[0].checked = Checkbox.checked;
+    function validate() {
+        var Clientdocumentno = document.getElementById('<%=txtClientdocumentno.ClientID %>').value;
+        var Revisionno = document.getElementById('<%=txtRevisionno.ClientID %>').value;
+        var DocumentDate = document.getElementById('<%=RadDocumentDate.ClientID %>').value;
+        var Documenttitle = document.getElementById('<%=txtDocumenttitle.ClientID %>').value;
+        var Remarks = document.getElementById('<%=txtRemarks.ClientID%>').value;
+        if (Clientdocumentno == "" || Revisionno == "" || DocumentDate == "" || Documenttitle == "" || Remarks=="") {
+
+            displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+
+            return false;
+
+        }
+
+        else {
+
+            return true;
         }
     }
+
+    function HeaderUncheck(obj)
+    {
+        var IsChecked = obj.checked;
+        if(!IsChecked)
+        {
+            var chkBox = $('input[id$="Chkheader"]');
+        chkBox[0].checked = false;
+        }
+
+    }
+    function Check(obj)
+    {
+        
+        var IsChecked = obj.checked;
+        var grid = $find("<%=dtgBOQGrid.ClientID %>");
+        var MasterTable = grid.get_masterTableView();
+        var Rows = MasterTable.get_dataItems();
+        if (IsChecked == true)
+        {
+            for (var i = 0; i < Rows.length; i++)
+            {
+              MasterTable.get_dataItems()[i].findElement("ChkChild").checked = true;
+            }
+        }
+       
+        if (IsChecked == false)
+        {
+            for (var i = 0; i < Rows.length; i++)
+            {
+                MasterTable.get_dataItems()[i].findElement("ChkChild").checked = false;
+            }
+        }
+    }
+  
+
+
     function onClientTabSelected(sender, args) {
 
         var tab = args.get_tab();
@@ -265,6 +313,15 @@
        
     function OnClientButtonClicking(sender, args)
     {
+        var btn = args.get_item();
+       if (btn.get_value() == 'Save') {
+
+            args.set_cancel(!validate());
+        }
+        if (btn.get_value() == 'Update') {
+
+            args.set_cancel(!validate());
+        }
 
               
                 
