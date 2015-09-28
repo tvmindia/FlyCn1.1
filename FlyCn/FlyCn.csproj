@@ -245,6 +245,9 @@
     <Content Include="Content\themes\FlyCnBlue\fonts\font-awesome.min.css" />
     <Content Include="Content\themes\FlyCnBlue\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\themes\FlyCnBlue\js\jquery.min.js" />
+    <Content Include="Content\themes\FlyCnRed_Rad\Common\radActionsSprite.png" />
+    <Content Include="Content\themes\FlyCnRed_Rad\TabStrip.FlyCnRed_Rad.css" />
+    <Content Include="Content\themes\FlyCnRed_Rad\TabStrip\FlyCnRed_Rad.gif" />
     <Content Include="Content\themes\FlyCnRider\Common\loading.gif" />
     <Content Include="Content\themes\FlyCnRider\Common\radActionsSprite.png" />
     <Content Include="Content\themes\FlyCnRider\Splitter.FlyCnRider.css" />
