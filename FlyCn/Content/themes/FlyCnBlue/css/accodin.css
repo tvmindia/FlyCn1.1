@@ -72,9 +72,9 @@
 		margin-left: 5px;
 	}
 	.content.white {
-  		background: #8dc2d9 none repeat scroll 0 0;
-		border-radius:4px;
-	}
+    background: #FBF7F7 none repeat scroll 0 0;
+    border-radius: 4px;
+}
 	.content.black {
 		background: #000;
 	}
@@ -82,7 +82,7 @@
 		color: #999;
 	}
 	.content.black p a {
-		color: #08c;
+		color: #999;
 	}
 	
 	.accordion-container {
@@ -91,26 +91,26 @@
 		clear: both;
 	}
 	.accordion-toggle {
-	  background: #7bb1cf none repeat scroll 0 0;
-	  color: #fff;
-	  display: block;
-	  font-size: 14px;
-	  font-weight: 300;
-	  padding: 9px;
-	  position: relative;
-	  text-decoration: none;
-     border-radius: 5px;
-		outline:none;
-	}
+    background: #F9F2F2 none repeat scroll 0 0;
+    color: gray;
+    display: block;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 9px;
+    position: relative;
+    text-decoration: none;
+    border-radius: 5px;
+    outline: none;
+}
 	.accordion-toggle.open {
-		background: #5a99bc;
-		color: #fff;
-		text-decoration:none;
-		outline:none;
-		 border-radius: 5px;
-	}
+    background: #F5E9E9;
+    color: gray;
+    text-decoration: none;
+    outline: none;
+    border-radius: 5px;
+}
 	.accordion-toggle:hover {
-		background: #5a99bc;
+		background: #EACECE;
 		text-decoration:none;
 		outline:none;
 	}

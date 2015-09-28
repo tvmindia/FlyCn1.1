@@ -17,7 +17,7 @@ namespace FlyCn.ProjectParameters
     public partial class ManageProject : System.Web.UI.Page
     {
         ErrorHandling eObj = new ErrorHandling();
-        FlyCnDAL.ProjectParameters pObj = new FlyCnDAL.ProjectParameters();
+        FlyCnDAL.ProjectParameters prjctprmtrObj = new FlyCnDAL.ProjectParameters();
 
         #region  pageload
         protected void Page_Load(object sender, EventArgs e)
@@ -39,7 +39,7 @@ namespace FlyCn.ProjectParameters
             else if (e.Item.Value == "Delete")
             {
                 string ProjectNo = txtProjNo.Text;
-                int result = pObj.DeleteSYSProjectsData(ProjectNo);
+                int result = prjctprmtrObj.DeleteSYSProjectsData(ProjectNo);
                 if (result == 1)
                 {
                     dtgManageProjectGrid.Rebind();
@@ -59,12 +59,11 @@ namespace FlyCn.ProjectParameters
         #region dtgManageProjectGrid_NeedDataSource1
         protected void dtgManageProjectGrid_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dt;
-            dt = pObj.GetProjectDetails();
-            dtgManageProjectGrid.DataSource = dt;
+            DataTable datatableobj;
+            datatableobj = prjctprmtrObj.GetProjectDetails();
+            dtgManageProjectGrid.DataSource = datatableobj;
             DataTable dts;
-        //    dts = mObj.GetDEtailsFromPersonal();
-         //   dtgManageProjectGrid.DataSource = dts;
+   
         }
         #endregion dtgManageProjectGrid_NeedDataSource1
 
@@ -73,7 +72,7 @@ namespace FlyCn.ProjectParameters
         {
             if(e.CommandName=="EditData")
             {
-                TabAddEditSettings tabs = new TabAddEditSettings();
+                TabAddEditSettings tabs = new TabAddEditSettings();//change tab name and icon to edit
 
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                 tabs.EditTab(tab);
@@ -101,11 +100,11 @@ namespace FlyCn.ProjectParameters
         {
             txtProjNo.Enabled = false;
          
-            DataTable dt;
-            dt = pObj.GetProjectParameters(projno);
-            txtProjName.Text = dt.Rows[0]["ProjectName"].ToString();
-            txtProjNo.Text = dt.Rows[0]["ProjectNo"].ToString();
-            if (dt.Rows[0]["Active"].ToString() == "True")
+            DataTable dtbleobj;
+            dtbleobj = prjctprmtrObj.GetProjectParameters(projno);
+            txtProjName.Text = dtbleobj.Rows[0]["ProjectName"].ToString();
+            txtProjNo.Text = dtbleobj.Rows[0]["ProjectNo"].ToString();
+            if (dtbleobj.Rows[0]["Active"].ToString() == "True")
             {
                 CheckboxActive.Checked = true;
             
@@ -115,64 +114,64 @@ namespace FlyCn.ProjectParameters
             {
                 CheckboxActive.Checked = false;
             }
-            txtLocation.Text = dt.Rows[0]["ProjectLocation"].ToString();
-            txtManager.Text = dt.Rows[0]["Project_Manager"].ToString();
-            txtCompanyName.Text = dt.Rows[0]["CompName"].ToString();
-            txtAddress1.Text = dt.Rows[0]["CompAdd1"].ToString();
-            txtAddress2.Text = dt.Rows[0]["CompAdd2"].ToString();
-            txtTelephone.Text = dt.Rows[0]["CompTeleNo"].ToString();
-            txtFax.Text = dt.Rows[0]["CompFaxNo"].ToString();
-            txtEmail.Text = dt.Rows[0]["CompEmailAdd"].ToString();
-            txtWebsite.Text = dt.Rows[0]["CompWebSite"].ToString();
-            txtClientName.Text = dt.Rows[0]["ClientName"].ToString();
-            txtContractDetails.Text = dt.Rows[0]["ContractNo"].ToString();
+            txtLocation.Text = dtbleobj.Rows[0]["ProjectLocation"].ToString();
+            txtManager.Text = dtbleobj.Rows[0]["Project_Manager"].ToString();
+            txtCompanyName.Text = dtbleobj.Rows[0]["CompName"].ToString();
+            txtAddress1.Text = dtbleobj.Rows[0]["CompAdd1"].ToString();
+            txtAddress2.Text = dtbleobj.Rows[0]["CompAdd2"].ToString();
+            txtTelephone.Text = dtbleobj.Rows[0]["CompTeleNo"].ToString();
+            txtFax.Text = dtbleobj.Rows[0]["CompFaxNo"].ToString();
+            txtEmail.Text = dtbleobj.Rows[0]["CompEmailAdd"].ToString();
+            txtWebsite.Text = dtbleobj.Rows[0]["CompWebSite"].ToString();
+            txtClientName.Text = dtbleobj.Rows[0]["ClientName"].ToString();
+            txtContractDetails.Text = dtbleobj.Rows[0]["ContractNo"].ToString();
             //txtClientTelephone.Text = dt.Rows[0][""].ToString();
             // txtClientFax.Text = dt.Rows[0][""].ToString();
             //txtClientWebsite.Text = dt.Rows[0][""].ToString();
             //txtClientEmail.Text = dt.Rows[0][""].ToString();
-            txtImplementation.Text = dt.Rows[0]["Regional_ImplEngineer"].ToString();
-            txtProjectAdmin.Text = dt.Rows[0]["Project_Administrator"].ToString();
+            txtImplementation.Text = dtbleobj.Rows[0]["Regional_ImplEngineer"].ToString();
+            txtProjectAdmin.Text = dtbleobj.Rows[0]["Project_Administrator"].ToString();
             //txtPunchList.Text = dt.Rows[0][""].ToString();
             // txtPunchListPerson.Text = dt.Rows[0][""].ToString();
             // txtPunchListToCompany.Text = dt.Rows[0][""].ToString();
             //txtPunchListToPerson.Text = dt.Rows[0][""].ToString();
-            txtPlant.Text = dt.Rows[0]["Plant_Caption"].ToString();
-            txtArea.Text = dt.Rows[0]["Area_Caption"].ToString();
-            txtLocation.Text = dt.Rows[0]["Location_Caption"].ToString();
-            txtSystem.Text = dt.Rows[0]["TO_System_Caption"].ToString();
-            txtsubsystem.Text = dt.Rows[0]["TO_SubSystem_Caption"].ToString();
-            txtManPower.Text = dt.Rows[0]["MiscManpowerTracking_Caption"].ToString();
-            txtOtherCost1.Text = dt.Rows[0]["CaptionForOtherCost1"].ToString();
-            txtOtherCost2.Text = dt.Rows[0]["CaptionForOtherCost2"].ToString();
-            txtOtherCost3.Text = dt.Rows[0]["CaptionForOtherCost3"].ToString();
-            txtPaymentCurrency.Text = dt.Rows[0]["PaymentCurrency"].ToString();
-            txtLunchBreakMinutes.Text = dt.Rows[0]["LunchBreak_Minutes"].ToString();
-            txtLevel1.Text = dt.Rows[0]["SchCaptionLevel1"].ToString();
-            txtLevel2.Text = dt.Rows[0]["SchCaptionLevel2"].ToString();
-            txtLevel3.Text = dt.Rows[0]["SchCaptionLevel3"].ToString();
-            txtClient1.Text = dt.Rows[0]["Weld_Client1Caption"].ToString();
-            txtClient2.Text = dt.Rows[0]["Weld_Client2Caption"].ToString();
-            txtThirdParty.Text = dt.Rows[0]["Weld_ThirdPartyCaption"].ToString();
+            txtPlant.Text = dtbleobj.Rows[0]["Plant_Caption"].ToString();
+            txtArea.Text = dtbleobj.Rows[0]["Area_Caption"].ToString();
+            txtLocation.Text = dtbleobj.Rows[0]["Location_Caption"].ToString();
+            txtSystem.Text = dtbleobj.Rows[0]["TO_System_Caption"].ToString();
+            txtsubsystem.Text = dtbleobj.Rows[0]["TO_SubSystem_Caption"].ToString();
+            txtManPower.Text = dtbleobj.Rows[0]["MiscManpowerTracking_Caption"].ToString();
+            txtOtherCost1.Text = dtbleobj.Rows[0]["CaptionForOtherCost1"].ToString();
+            txtOtherCost2.Text = dtbleobj.Rows[0]["CaptionForOtherCost2"].ToString();
+            txtOtherCost3.Text = dtbleobj.Rows[0]["CaptionForOtherCost3"].ToString();
+            txtPaymentCurrency.Text = dtbleobj.Rows[0]["PaymentCurrency"].ToString();
+            txtLunchBreakMinutes.Text = dtbleobj.Rows[0]["LunchBreak_Minutes"].ToString();
+            txtLevel1.Text = dtbleobj.Rows[0]["SchCaptionLevel1"].ToString();
+            txtLevel2.Text = dtbleobj.Rows[0]["SchCaptionLevel2"].ToString();
+            txtLevel3.Text = dtbleobj.Rows[0]["SchCaptionLevel3"].ToString();
+            txtClient1.Text = dtbleobj.Rows[0]["Weld_Client1Caption"].ToString();
+            txtClient2.Text = dtbleobj.Rows[0]["Weld_Client2Caption"].ToString();
+            txtThirdParty.Text = dtbleobj.Rows[0]["Weld_ThirdPartyCaption"].ToString();
 
 
 
 
             /*-------------image loading-------------------------*/
-            if (dt.Rows[0]["Company_Logo"] != DBNull.Value)
+            if (dtbleobj.Rows[0]["Company_Logo"] != DBNull.Value)
             {
                 string CompanyLogofileName = txtProjNo.Text + lblComapnyLogo.Text + ".png";
                 string type = "Company_Logo";
                 //fuLogo.FileContent=
-                MakeFile(dt.Rows[0], CompanyLogofileName, type);
+                MakeFile(dtbleobj.Rows[0], CompanyLogofileName, type);
                 imbCompany.ImageUrl = "/Images/ProjectImages/" + CompanyLogofileName;
 
             }
 
-            if (dt.Rows[0]["Client_Logo"] != DBNull.Value)
+            if (dtbleobj.Rows[0]["Client_Logo"] != DBNull.Value)
             {
                 string ClientLogofileName = txtProjNo.Text + lblClientLogo.Text + ".png";
                 string type = "Client_Logo";
-                MakeFile(dt.Rows[0], ClientLogofileName, type);
+                MakeFile(dtbleobj.Rows[0], ClientLogofileName, type);
 
                 imbClientLogo.ImageUrl = "/Images/ProjectImages/" + ClientLogofileName;
             }
@@ -204,43 +203,43 @@ namespace FlyCn.ProjectParameters
             try
             {
                 int result = 0;
-                pObj.ProjectNo = txtProjNo.Text;
-                pObj.ProjectName = txtProjName.Text;
-                pObj.ProjectLocation = txtLocation.Text;
-                pObj.ProjectManager = txtManager.Text;
-                pObj.BaseProject = txtBaseProject.Text;
+                prjctprmtrObj.ProjectNo = txtProjNo.Text;
+                prjctprmtrObj.ProjectName = txtProjName.Text;
+                prjctprmtrObj.ProjectLocation = txtLocation.Text;
+                prjctprmtrObj.ProjectManager = txtManager.Text;
+                prjctprmtrObj.BaseProject = txtBaseProject.Text;
                 if (CheckboxActive.Checked == true)
                 {
-                    pObj.Active = Convert.ToByte(true);
+                    prjctprmtrObj.Active = Convert.ToByte(true);
                 }
-                pObj.CompName = txtCompanyName.Text;
-                pObj.CompAdd1 = txtAddress1.Text;
-                pObj.CompAdd2 = txtAddress2.Text;
-                pObj.CompTeleNo = txtTelephone.Text;
-                pObj.CompFaxNo = txtFax.Text;
-                pObj.CompEmailAdd = txtEmail.Text;
-                pObj.CompWebSite = txtWebsite.Text;
-                pObj.ClientName = txtClientName.Text;
-                pObj.ContractNo = txtContractDetails.Text;
-                pObj.Regional_ImplEngineer = txtImplementation.Text;
-                pObj.Project_Administrator = txtProjectAdmin.Text;
-                pObj.Plant_Caption = txtPlant.Text;
-                pObj.Area_Caption = txtArea.Text;
-                pObj.Location_Caption = txtLocation.Text;
-                pObj.TO_System_Caption = txtSystem.Text;
-                pObj.TO_SubSystem_Caption = txtsubsystem.Text;
-                pObj.MiscManpowerTracking_Caption = txtManPower.Text;
-                pObj.CaptionForOtherCost1 = txtOtherCost1.Text;
-                pObj.CaptionForOtherCost2 = txtOtherCost2.Text;
-                pObj.CaptionForOtherCost3 = txtOtherCost3.Text;
-                pObj.PaymentCurrency = txtPaymentCurrency.Text;
-                pObj.LunchBreak_Minutes = Convert.ToDecimal(txtLunchBreakMinutes.Text);
-                pObj.SchCaptionLevel1 = txtLevel1.Text;
-                pObj.SchCaptionLevel2 = txtLevel2.Text;
-                pObj.SchCaptionLevel3 = txtLevel3.Text;
-                pObj.Weld_Client1Caption = txtClient1.Text;
-                pObj.Weld_Client2Caption = txtClient2.Text;
-                pObj.Weld_ThirdPartyCaption = txtThirdParty.Text;
+                prjctprmtrObj.CompName = txtCompanyName.Text;
+                prjctprmtrObj.CompAdd1 = txtAddress1.Text;
+                prjctprmtrObj.CompAdd2 = txtAddress2.Text;
+                prjctprmtrObj.CompTeleNo = txtTelephone.Text;
+                prjctprmtrObj.CompFaxNo = txtFax.Text;
+                prjctprmtrObj.CompEmailAdd = txtEmail.Text;
+                prjctprmtrObj.CompWebSite = txtWebsite.Text;
+                prjctprmtrObj.ClientName = txtClientName.Text;
+                prjctprmtrObj.ContractNo = txtContractDetails.Text;
+                prjctprmtrObj.Regional_ImplEngineer = txtImplementation.Text;
+                prjctprmtrObj.Project_Administrator = txtProjectAdmin.Text;
+                prjctprmtrObj.Plant_Caption = txtPlant.Text;
+                prjctprmtrObj.Area_Caption = txtArea.Text;
+                prjctprmtrObj.Location_Caption = txtLocation.Text;
+                prjctprmtrObj.TO_System_Caption = txtSystem.Text;
+                prjctprmtrObj.TO_SubSystem_Caption = txtsubsystem.Text;
+                prjctprmtrObj.MiscManpowerTracking_Caption = txtManPower.Text;
+                prjctprmtrObj.CaptionForOtherCost1 = txtOtherCost1.Text;
+                prjctprmtrObj.CaptionForOtherCost2 = txtOtherCost2.Text;
+                prjctprmtrObj.CaptionForOtherCost3 = txtOtherCost3.Text;
+                prjctprmtrObj.PaymentCurrency = txtPaymentCurrency.Text;
+                prjctprmtrObj.LunchBreak_Minutes = Convert.ToDecimal(txtLunchBreakMinutes.Text);
+                prjctprmtrObj.SchCaptionLevel1 = txtLevel1.Text;
+                prjctprmtrObj.SchCaptionLevel2 = txtLevel2.Text;
+                prjctprmtrObj.SchCaptionLevel3 = txtLevel3.Text;
+                prjctprmtrObj.Weld_Client1Caption = txtClient1.Text;
+                prjctprmtrObj.Weld_Client2Caption = txtClient2.Text;
+                prjctprmtrObj.Weld_ThirdPartyCaption = txtThirdParty.Text;
                
                 if (fuLogo.FileName != "")
                 {
@@ -252,10 +251,10 @@ namespace FlyCn.ProjectParameters
                     ClientLogoUpdate();
                 }
              //   ScriptManager.RegisterStartupScript(this, GetType(), "", "validate();", true);
-                result = pObj.EditProjectParameters(pObj.ProjectNo);
+                result = prjctprmtrObj.EditProjectParameters(prjctprmtrObj.ProjectNo);
                 if(result==1)
                 {
-                    EditDataMethod(pObj.ProjectNo);
+                    EditDataMethod(prjctprmtrObj.ProjectNo);
                 }
             }
             catch (Exception ex)
@@ -320,7 +319,7 @@ namespace FlyCn.ProjectParameters
                 if ((fuLogo.HasFile) && (largerSize == false))
                 {
 
-                    pObj.Company_Logo = fuLogo.FileContent;
+                    prjctprmtrObj.Company_Logo = fuLogo.FileContent;
 
                 }
             }
@@ -379,7 +378,7 @@ namespace FlyCn.ProjectParameters
                 if ((fuClientLogo.HasFile) && (largerClientLogoSize == false))
                 {
 
-                    pObj.Client_Logo = fuClientLogo.FileContent;
+                    prjctprmtrObj.Client_Logo = fuClientLogo.FileContent;
 
                 }
             }

@@ -27,20 +27,7 @@ namespace FlyCn.ProjectParameters
         {
             InsertData();
         }
-        //protected void CheckBox1_CheckChanged(object sender, System.EventArgs e)
-        //{
-
-        //    if (chkActive.Checked == true)
-        //    {
-        //        //Label1.Text = "WOW! You are a member of an asp.net user group.";
-        //        //Label1.ForeColor = System.Drawing.Color.Green;
-        //    }
-        //    else
-        //    {
-        //        Label1.Text = "You are not a member of any asp.net user group.";
-        //        Label1.ForeColor = System.Drawing.Color.Crimson;
-        //    }
-        //}
+      
         public void InsertData()
         {
             FlyCn.FlyCnDAL.ProjectParameters pp = new FlyCnDAL.ProjectParameters();
@@ -116,7 +103,7 @@ namespace FlyCn.ProjectParameters
         public void CompanyFileInsertion()
         {
             FlyCn.FlyCnDAL.ProjectParameters pp = new FlyCnDAL.ProjectParameters();
-            string[] validFileTypes = { "bmp", "gif", "png", "jpg", "jpeg" };
+            string[] validFileTypes = {  "png","PNG"};
             int size = 10;
             string ext = System.IO.Path.GetExtension(FileUploadCompanyLogo.FileName);
             bool isValidFile = false;
@@ -160,7 +147,8 @@ namespace FlyCn.ProjectParameters
         {
             FlyCn.FlyCnDAL.ProjectParameters pp = new FlyCnDAL.ProjectParameters();
 
-            string[] validFileTypes1 = { "bmp", "gif", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx", "pdf" };
+            string[] validFileTypes1 = { "png","PNG" };
+                                  
             int size1 = 10;
             string ext1 = System.IO.Path.GetExtension(FileUploadClientLogo.FileName);
             bool isValidFile1 = false;

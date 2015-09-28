@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="InputTemplateContent.aspx.cs" Inherits="FlyCn.Templates.InputTemplateContent" %>
 
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
-
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -18,14 +18,24 @@
 <link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
 <!-----main css--->
 <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />
 <!-----main css--->
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
            <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
 </asp:ScriptManager>
-<div class="container">
+<div class="container" style="width:100%">
   
-
+     <telerik:RadTabStrip ID="RadTabStrip1" runat="server"  Width="300px"  
+             CausesValidation="false"   SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false" >
+            
+            <Tabs>
+                <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True" ></telerik:RadTab>
+                 <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"  ></telerik:RadTab>
+            </Tabs>
+        </telerik:RadTabStrip>
+    <div id="content"> 
+        <div class="contentTopBar"></div>
     <uc1:ToolBar runat="server" ID="ToolBar" />
   <!-----FORM SECTION----> 
   <!---SECTION ONE--->
@@ -364,7 +374,7 @@
       <li><a href="#" name="tab3">TAB 03</a></li>
       <li><a href="#" name="tab4">TAB 04</a></li>
     </ul>
-    <div id="content">
+    <div id="content1">
       <div id="tab1">
         <div role="tabpanel" class="tab-pane active" id="home">
           <div class="table-responsive">
@@ -805,6 +815,7 @@
   <!-----SECTION TABLE----> 
   
   <!-----FORM SECTION----> 
+</div>
 </div>
 
 <!--<script src="js/jquery.js"></script>--> <script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>

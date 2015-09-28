@@ -175,7 +175,7 @@ legend {
 }
 
 textarea {
-    overflow: auto;
+    overflow: auto; 
 }
 
 optgroup {
@@ -1353,7 +1353,7 @@ html {
 
 body {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.42857143;
     color: #333;
     background-color: #fff;
@@ -1363,17 +1363,18 @@ button, input, select, textarea {
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
+    height:22px;
 }
 
 a {
-    color: #337ab7;
+    color:#370B0E;
     text-decoration: none;
 }
 
     a:focus, a:hover {
-        color: #23527c;
-        text-decoration: underline;
-    }
+    color: #370B0E;
+    text-decoration: underline;
+}
 
     a:focus {
         outline: thin dotted;
@@ -2834,7 +2835,7 @@ table td[class*=col-], table th[class*=col-] {
 @media screen and (max-width:767px) {
     .table-responsive {
         width: 100%;
-        margin-bottom: 15px;
+        margin-bottom: 0px;
         overflow-y: hidden;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         border: 1px solid #ddd;
@@ -2888,7 +2889,7 @@ label {
     display: inline-block;
     max-width: 100%;
     margin-bottom: 5px;
-    font-weight: 700;
+    font-weight: 500;
 }
 
 input[type=search] {
@@ -5216,13 +5217,14 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     display: inline;
     padding: .2em .6em .3em;
     font-size: 75%;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1;
     color: #fff;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: .25em;
+    font-size:12px;
 }
 
 a.label:focus, a.label:hover {
@@ -6777,24 +6779,16 @@ button.close {
 }
 
     .carousel-control.left {
-        background-image: -webkit-linear-gradient(left,rgba(0,0,0,.5) 0,rgba(0,0,0,.0001) 100%);
-        background-image: -o-linear-gradient(left,rgba(0,0,0,.5) 0,rgba(0,0,0,.0001) 100%);
-        background-image: -webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.5)),to(rgba(0,0,0,.0001)));
-        background-image: linear-gradient(to right,rgba(0,0,0,.5) 0,rgba(0,0,0,.0001) 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
         background-repeat: repeat-x;
-    }
+    background-image: linear-gradient(to right,rgba(0,0,0,.5) 0,rgba(0,0,0,.0001) 100%);
+}
 
     .carousel-control.right {
         right: 0;
         left: auto;
-        background-image: -webkit-linear-gradient(left,rgba(0,0,0,.0001) 0,rgba(0,0,0,.5) 100%);
-        background-image: -o-linear-gradient(left,rgba(0,0,0,.0001) 0,rgba(0,0,0,.5) 100%);
-        background-image: -webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.0001)),to(rgba(0,0,0,.5)));
-        background-image: linear-gradient(to right,rgba(0,0,0,.0001) 0,rgba(0,0,0,.5) 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
         background-repeat: repeat-x;
-    }
+    background-image: linear-gradient(to right,rgba(0,0,0,.0001) 0,rgba(0,0,0,.5) 100%);
+}
 
     .carousel-control:focus, .carousel-control:hover {
         color: #fff;

@@ -50,18 +50,27 @@
     <form id="form1" runat="server">
     <div class="baseStyles">
         <div class="header-cont">
-        <div id="HeaderStrip">
-            <table class="headerStrip"><tr><td style="width:10%"   >
-                <img src="../Images/FlyCnlogo.PNG" style="height:30px" /><span class="LogoText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>   </td><td></td> <td style="width:10%" >
-                   <asp:Image ID="imgMenu" runat="server" ImageUrl="~/Images/Icons/tilesIcon.png"  onclick="goMenu();" style="height:30px"/>
-                     
-                                                                                 </td>
-                <td style="width:10%" class=""  >
-                    <asp:Label ID="lblUser" runat="server" Text=""></asp:Label></td>
-                <td style="width:10%" >
-                    <asp:LinkButton ID="lnkLoginLogout" runat="server" Text="Login" class="LoginButton" OnClick="lnkLoginLogout_Click"></asp:LinkButton>
-                   </td><td style="width:1%"></td></tr></table>
-        </div></div><div class="mainBody">
+            <div id="HeaderStrip">
+                <table class="headerStrip">
+                    <tr>
+                        <td style="width: 10%">
+                            <img src="../Images/FlyCnlogo.PNG" style="height: 25px" /><span class="LogoText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>   </td>
+                        <td></td>
+                        <td style="width: 10%">
+                            <asp:Image ID="imgMenu" runat="server" ImageUrl="~/Images/Icons/tilesIcon.png" onclick="goMenu();" Style="height: 30px" />
+
+                        </td>
+                        <td style="width: 10%" class="">
+                            <asp:Label ID="lblUser" runat="server" Text=""></asp:Label></td>
+                        <td style="width: 10%">
+                            <asp:LinkButton ID="lnkLoginLogout" runat="server" Text="Login" class="LoginButton" OnClick="lnkLoginLogout_Click"></asp:LinkButton>
+                        </td>
+                        <td style="width: 1%"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="mainBody">
          <asp:ContentPlaceHolder ID="MainBody" runat="server"  > 
         
         </asp:ContentPlaceHolder></div><br />
@@ -91,7 +100,7 @@
 
                 <tr>
                     <td style="width: 5%"></td>
-                    <td style="width: 85%">
+                    <td style="width: 85%;">
                         <input id="txtUsername" runat="server" class="LoginCaption" name="Username" type="text" value="User Name" onfocus="if (this.value == 'User Name') {this.value = '';}" onblur="if (this.value == ''){this.value = 'User Name'} " /></td>
                     <td></td>
                 </tr>
@@ -102,7 +111,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td colspan="3">&nbsp; </td>
+                    <td colspan="3">&nbsp;&nbsp; </td>
                 </tr>
                 <tr>
                     <td></td>

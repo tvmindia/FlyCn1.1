@@ -102,11 +102,13 @@ namespace FlyCn
         #region  RadComboCompany_ItemsRequested
         protected void RadComboCompany_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
+            RadComboCompany.Items.Clear();
             DataTable dataTable = new DataTable();
             dataTable = materpersonnelobj.GetCompanyComboBoxData();
             foreach (DataRow dataRow in dataTable.Rows)
             {
                 RadComboBoxItem item = new RadComboBoxItem();
+           
                 item.Text = dataRow["CompName"].ToString();
                 item.Value = dataRow["Code"].ToString();
                 RadComboCompany.Items.Add(item);

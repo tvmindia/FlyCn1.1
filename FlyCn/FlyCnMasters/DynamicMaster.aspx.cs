@@ -529,8 +529,12 @@ namespace FlyCn.FlyCnMasters
                   else  if (datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
                     {
                         HiddenField hf = (HiddenField)placeholder.FindControl("hf" + datatableobj.Rows[f]["Field_Name"]);
-                        //string date = hf.Value;
-                        datatableobj.Rows[f]["Values"] = DateTime.Parse(hf.Value);
+                        DateTime date =Convert.ToDateTime(hf.Value);
+
+                        datatableobj.Rows[f]["Values"] = date.ToString("MM/dd/yyyy");
+                          //  Convert.ToDateTime(date);
+                        
+                           
                     }
                        
                     else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")

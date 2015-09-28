@@ -14,7 +14,7 @@ namespace FlyCn.Masters
         protected void Page_Init(object sender, EventArgs e)
         {
             if (Session[Const.LoginSession] == null) {
-                if (GetCurrentPageName() == Const.HomePage)
+                if (GetCurrentPageName() == Const.HomePage || GetCurrentPageName().ToUpper() == Const.Default.ToUpper())
                 {
 
                     imgMenu.Visible = false;

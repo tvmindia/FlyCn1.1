@@ -23,6 +23,13 @@ namespace FlyCn.UIClasses
             }
         }
 
+        public string Default {
+            get
+            {
+                return "Default.aspx";
+            }
+        }
+
         public string HomePageURL
         {
             get
