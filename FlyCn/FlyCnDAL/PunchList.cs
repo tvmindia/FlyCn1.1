@@ -134,7 +134,7 @@ namespace FlyCn.FlyCnDAL
         public string Discipline
         {
             get;
-            set;          
+            set;
         }
         #endregion Discipline
 
@@ -235,7 +235,7 @@ namespace FlyCn.FlyCnDAL
         public int Query
         {
             get;
-            set;          
+            set;
         }
         #endregion Query
 
@@ -353,26 +353,26 @@ namespace FlyCn.FlyCnDAL
         #region Methods
 
         #region BindTree
-      
+
         public void BindTree(RadTreeView myTree)
         {
 
             myTree.Nodes.Clear();
             RadTreeNode rtn = new RadTreeNode("Construction", "WEIL");
-                rtn.NavigateUrl = cnst.ConstructionPunchListURL + "?Mode=" + rtn.Value;
-                rtn.Target = "contentPane";
-                myTree.Nodes.Add(rtn);
+            rtn.NavigateUrl = cnst.ConstructionPunchListURL + "?Mode=" + rtn.Value;
+            rtn.Target = "contentPane";
+            myTree.Nodes.Add(rtn);
 
 
-                rtn = new RadTreeNode("Client", "CEIL");
-                rtn.NavigateUrl = cnst.ConstructionPunchListURL + "?Mode=" + rtn.Value;
-                rtn.Target = "contentPane";
-                myTree.Nodes.Add(rtn);
+            rtn = new RadTreeNode("Client", "CEIL");
+            rtn.NavigateUrl = cnst.ConstructionPunchListURL + "?Mode=" + rtn.Value;
+            rtn.Target = "contentPane";
+            myTree.Nodes.Add(rtn);
 
             rtn = new RadTreeNode("QC", "QEIL");
             rtn.NavigateUrl = cnst.ConstructionPunchListURL + "?Mode=" + rtn.Value;
-                rtn.Target = "contentPane";
-                myTree.Nodes.Add(rtn);
+            rtn.Target = "contentPane";
+            myTree.Nodes.Add(rtn);
         }
         #endregion BindTree()
 
@@ -392,7 +392,7 @@ namespace FlyCn.FlyCnDAL
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
 
-                string selectQuery = "select ProjectNo,IDNo,LinkIDNo,EILType,OpenBy,OpenDt from EIL where EILType= '" + EILType +"'";
+                string selectQuery = "select ProjectNo,IDNo,LinkIDNo,EILType,OpenBy,OpenDt from EIL where EILType= '" + EILType + "'";
                 daObj = new SqlDataAdapter(selectQuery, con);
                 daObj.Fill(dt);
 
@@ -527,7 +527,7 @@ namespace FlyCn.FlyCnDAL
             }
             catch (SqlException ex)
             {
-               
+
                 throw ex;
             }
             finally
@@ -634,7 +634,7 @@ namespace FlyCn.FlyCnDAL
 
         }
         #endregion EditPunchListItems
-        
+
         #region GetPunchListByProjNo
         /// <summary>
         /// To get the details from EIL table passing Project No and Id
@@ -695,7 +695,7 @@ namespace FlyCn.FlyCnDAL
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
                 cmdSelect.CommandType = CommandType.StoredProcedure;
                 cmdSelect.Parameters.AddWithValue("@projectno", UA.projectNo);
-                
+
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(dt);
             }
@@ -1348,5 +1348,5 @@ namespace FlyCn.FlyCnDAL
         #endregion GetSLNo_AttachDetails
     }
 
-    #endregion Methods
+        #endregion Methods
 }

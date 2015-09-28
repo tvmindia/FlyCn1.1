@@ -64,15 +64,28 @@
 
  <telerik:RadGrid ID="dtgBOQGrid" runat="server"  CellSpacing="0" GridLines="None" OnNeedDataSource="dtgBOQGrid_NeedDataSource" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" OnItemCommand="dtgBOQGrid_ItemCommand"
     PageSize="10" Width="984px" Skin="Silk" >
+     <ClientSettings>
+          <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
+        </ClientSettings>
+    
                     <MasterTableView AutoGenerateColumns="False" DataKeyNames="DocumentID,ProjectNo">
 
                         <Columns>
+                            
+                                   <telerik:GridTemplateColumn UniqueName="CheckBoxTemplateColumn">
+                         <ItemTemplate>
+                                        <asp:CheckBox ID="ChkChild" runat="server" onclick="HeaderUncheck(this);" AutoPostBack="False" />
+                                      </ItemTemplate>
+                            <HeaderTemplate>
+                            <asp:CheckBox ID="Chkheader" runat="server" onclick="Check(this);" AutoPostBack="False" />
+                            </HeaderTemplate>
+                            </telerik:GridTemplateColumn>
+                                                        
                             <telerik:GridButtonColumn CommandName="EditDoc" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
                             </telerik:GridButtonColumn>
-                            <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
-                            </telerik:GridButtonColumn>
+                           
                             <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo" Display="false"></telerik:GridBoundColumn> 
-                            <telerik:GridBoundColumn HeaderText="DocumentID" DataField="DocumentID" UniqueName="DocumentID" Display="false"></telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn HeaderText="DocumentID" DataField="DocumentID" UniqueName="DocumentID"></telerik:GridBoundColumn> 
                             <telerik:GridBoundColumn HeaderText="Document No" DataField="DocumentNo" UniqueName="DocumentNo"></telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderText="Title" DataField="DocumentTitle" UniqueName="DocumentTitle"></telerik:GridBoundColumn> 
                             <telerik:GridBoundColumn HeaderText="Client Doc No" DataField="ClientDocNo" UniqueName="ClientDocNo"></telerik:GridBoundColumn> 
@@ -80,6 +93,7 @@
                             <telerik:GridBoundColumn HeaderText="Document Date" DataField="DocumentDate" UniqueName="DocumentDate" DataType="System.DateTime"  DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn> 
                             <telerik:GridBoundColumn HeaderText="Document Owner" DataField="DocumentOwner" UniqueName="DocumentOwner"></telerik:GridBoundColumn> 
                             <telerik:GridBoundColumn HeaderText="Created Date" DataField="CreatedDate" UniqueName="CreatedDate" DataType="System.DateTime"  DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn HeaderText="Document Status" DataField="DocumentStatus" UniqueName="DocumentStatus"></telerik:GridBoundColumn> 
                            
                             
                         </Columns>
@@ -106,7 +120,9 @@
           <div class="col-lg-9">
             
             <asp:TextBox ID="txtDocumentno" Enabled="false" runat="server" CssClass="form-control" BackColor="Gray"></asp:TextBox>
-           
+              <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" />
+              <asp:HiddenField ID="hiddenFieldDocumentID" runat="server" />
+              <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" />
 
           </div>
         </div>
@@ -201,6 +217,62 @@
 
 <!--<JavaScrict>-->
 <script type="text/javascript">
+    function validate() {
+        var Clientdocumentno = document.getElementById('<%=txtClientdocumentno.ClientID %>').value;
+        var Revisionno = document.getElementById('<%=txtRevisionno.ClientID %>').value;
+        var DocumentDate = document.getElementById('<%=RadDocumentDate.ClientID %>').value;
+        var Documenttitle = document.getElementById('<%=txtDocumenttitle.ClientID %>').value;
+        var Remarks = document.getElementById('<%=txtRemarks.ClientID%>').value;
+        if (Clientdocumentno == "" || Revisionno == "" || DocumentDate == "" || Documenttitle == "" || Remarks=="") {
+
+            displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+
+            return false;
+
+        }
+
+        else {
+
+            return true;
+        }
+    }
+
+    function HeaderUncheck(obj)
+    {
+        var IsChecked = obj.checked;
+        if(!IsChecked)
+        {
+            var chkBox = $('input[id$="Chkheader"]');
+        chkBox[0].checked = false;
+        }
+
+    }
+    function Check(obj)
+    {
+        
+        var IsChecked = obj.checked;
+        var grid = $find("<%=dtgBOQGrid.ClientID %>");
+        var MasterTable = grid.get_masterTableView();
+        var Rows = MasterTable.get_dataItems();
+        if (IsChecked == true)
+        {
+            for (var i = 0; i < Rows.length; i++)
+            {
+              MasterTable.get_dataItems()[i].findElement("ChkChild").checked = true;
+            }
+        }
+       
+        if (IsChecked == false)
+        {
+            for (var i = 0; i < Rows.length; i++)
+            {
+                MasterTable.get_dataItems()[i].findElement("ChkChild").checked = false;
+            }
+        }
+    }
+  
+
+
     function onClientTabSelected(sender, args) {
 
         var tab = args.get_tab();
@@ -241,11 +313,22 @@
        
     function OnClientButtonClicking(sender, args)
     {
+        var btn = args.get_item();
+       if (btn.get_value() == 'Save') {
+
+            args.set_cancel(!validate());
+        }
+        if (btn.get_value() == 'Update') {
+
+            args.set_cancel(!validate());
+        }
 
               
                 
     }
-    
+   
+        
+  
    </script>
 
 <!--<JavaScrict ends here>-->

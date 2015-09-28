@@ -55,7 +55,7 @@
 
     <script type="text/javascript">
         function onClientTabSelected(sender, args) {
-            //   debugger;
+            
             var tab = args.get_tab();
             if (tab.get_value() == '2') {
 
@@ -105,27 +105,7 @@
         }
     </script>
 
-    <script>
-        $(document).ready(function () {
-            $('.accordion-content').show();
-        });
-    </script>
-
-  <%--  <style>
-        table {
-        }
-
-            table tbody {
-            }
-
-        .tabletd {
-            width: 550px;
-        }
-
-        .tabletbody {
-            width: 900px;
-        }
-    </style>--%>
+  
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -169,7 +149,7 @@
                     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
                     </asp:ScriptManager>
 
-                    <telerik:RadGrid ID="dtgPersonnelGrid" runat="server" AllowPaging="true" AllowSorting="true"
+                    <telerik:RadGrid ID="dtgPersonnelGrid" runat="server" AllowPaging="true" AllowSorting="true"  PageSize="7"
                         OnNeedDataSource="dtgPersonnelGrid_NeedDataSource" OnItemCommand="dtgPersonnelGrid_ItemCommand"
                         Skin="Silk" CssClass="outerMultiPage"
                         OnPreRender="dtgPersonnelGrid_PreRender">
@@ -364,7 +344,7 @@
 
                                                 <telerik:RadComboBox ID="RadComboCompany" runat="server" Width="170px"
                                                     EmptyMessage="Select a Company" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
-                                                    EnableVirtualScrolling="true" OnItemsRequested="RadComboCompany_ItemsRequested">
+                                                    EnableVirtualScrolling="true" OnItemsRequested="RadComboCompany_ItemsRequested"  sort="Ascending">
                                                 </telerik:RadComboBox>
                                                 <span id="span4" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
 
@@ -571,10 +551,7 @@
                                 <%-- </div>--%>
                             </div>
                         </div>
-                    </div>
-
-              
-                
+                    </div>                
                  </div>
                 <hr />
 

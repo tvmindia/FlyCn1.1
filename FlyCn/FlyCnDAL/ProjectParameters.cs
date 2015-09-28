@@ -13,11 +13,14 @@ namespace FlyCn.FlyCnDAL
 {
 
     public class ProjectParameters
-    {
+    {  
+        #region Global Variables
         ErrorHandling eObj = new ErrorHandling();
-                #region Properties
+          #endregion Global Variables
 
-       
+        #region Properties
+
+
         public string ProjectNo
         {
             get;
@@ -190,7 +193,7 @@ namespace FlyCn.FlyCnDAL
             set;
         }
 
-        public object  Company_Logo
+        public object Company_Logo
         {
             get;
             set;
@@ -210,7 +213,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-      
+
         //public string ProjectNum
         //{
         //    get;
@@ -396,7 +399,7 @@ namespace FlyCn.FlyCnDAL
         //    get;
         //    set;
         //}
-     
+
         #endregion Properties
 
         #region BindTree
@@ -464,11 +467,11 @@ namespace FlyCn.FlyCnDAL
                 string editQuery = "UpdateProjectNoSYS_Projects";
                 SqlCommand cmdEdit = new SqlCommand(editQuery, con);
                 cmdEdit.CommandType = CommandType.StoredProcedure;
-                cmdEdit.Parameters.AddWithValue("@ProjectNo",ProjectNo);
+                cmdEdit.Parameters.AddWithValue("@ProjectNo", ProjectNo);
                 cmdEdit.Parameters.AddWithValue("@ProjectName", ProjectName);
-                cmdEdit.Parameters.AddWithValue("@ProjectLocation",ProjectLocation);
+                cmdEdit.Parameters.AddWithValue("@ProjectLocation", ProjectLocation);
                 cmdEdit.Parameters.AddWithValue("@BaseProject", BaseProject);
-                cmdEdit.Parameters.AddWithValue("@Project_Manager", ProjectManager); 
+                cmdEdit.Parameters.AddWithValue("@Project_Manager", ProjectManager);
 
                 cmdEdit.Parameters.AddWithValue("@Active", Active);
                 cmdEdit.Parameters.AddWithValue("@CompName", CompName);
@@ -484,7 +487,7 @@ namespace FlyCn.FlyCnDAL
                     cmdEdit.Parameters.AddWithValue("@ContractNo", ContractNo);
 
                 }
-              
+
                 cmdEdit.Parameters.AddWithValue("@FromCompCode", FromCompCode);
                 cmdEdit.Parameters.AddWithValue("@ToCompCode", ToCompCode);
                 cmdEdit.Parameters.AddWithValue("@Plant_Caption", Plant_Caption);
@@ -521,8 +524,8 @@ namespace FlyCn.FlyCnDAL
             }
             return result;
         }
-        #endregion EditProjectParameters 
-        
+        #endregion EditProjectParameters
+
         #region GetProjectParameters
         public DataTable GetProjectParameters(string ProjNo)
         {
@@ -571,10 +574,10 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@ProjectNo", ProjectNo);
                 cmd.Parameters.AddWithValue("@ProjectName", ProjectName);
                 cmd.Parameters.AddWithValue("@ProjectLocation", ProjectLocation);
-                    cmd.Parameters.AddWithValue("@BaseProject", BaseProject);
-                    cmd.Parameters.AddWithValue("@Project_Manager", ProjectManager); 
+                cmd.Parameters.AddWithValue("@BaseProject", BaseProject);
+                cmd.Parameters.AddWithValue("@Project_Manager", ProjectManager);
 
-                cmd.Parameters.AddWithValue("@Active",Active);
+                cmd.Parameters.AddWithValue("@Active", Active);
                 cmd.Parameters.AddWithValue("@CompName", CompName);
                 cmd.Parameters.AddWithValue("@CompAdd1", CompAdd1);
                 cmd.Parameters.AddWithValue("@CompAdd2", CompAdd2);
@@ -589,30 +592,30 @@ namespace FlyCn.FlyCnDAL
 
                 }
                 cmd.Parameters.AddWithValue("@FromCompCode", FromCompCode);
-                cmd.Parameters.AddWithValue("@ToCompCode", ToCompCode);           
-                cmd.Parameters.AddWithValue("@Plant_Caption",Plant_Caption);
-                cmd.Parameters.AddWithValue("@Area_Caption", Area_Caption);            
+                cmd.Parameters.AddWithValue("@ToCompCode", ToCompCode);
+                cmd.Parameters.AddWithValue("@Plant_Caption", Plant_Caption);
+                cmd.Parameters.AddWithValue("@Area_Caption", Area_Caption);
                 cmd.Parameters.AddWithValue("@Location_Caption", Location_Caption);
-                cmd.Parameters.AddWithValue("@TO_System_Caption",TO_System_Caption);
+                cmd.Parameters.AddWithValue("@TO_System_Caption", TO_System_Caption);
                 cmd.Parameters.AddWithValue("@TO_SubSystem_Caption", TO_SubSystem_Caption);
-                cmd.Parameters.AddWithValue("@SchCaptionLevel1",SchCaptionLevel1);
+                cmd.Parameters.AddWithValue("@SchCaptionLevel1", SchCaptionLevel1);
                 cmd.Parameters.AddWithValue("@SchCaptionLevel2", SchCaptionLevel2);
                 cmd.Parameters.AddWithValue("@SchCaptionLevel3", SchCaptionLevel3);
-                cmd.Parameters.AddWithValue("@CaptionForOtherCost1",CaptionForOtherCost1);
-                cmd.Parameters.AddWithValue("@CaptionForOtherCost2",CaptionForOtherCost2);
+                cmd.Parameters.AddWithValue("@CaptionForOtherCost1", CaptionForOtherCost1);
+                cmd.Parameters.AddWithValue("@CaptionForOtherCost2", CaptionForOtherCost2);
                 cmd.Parameters.AddWithValue("@CaptionForOtherCost3", CaptionForOtherCost3);
-                cmd.Parameters.AddWithValue("@PaymentCurrency",PaymentCurrency);
-                cmd.Parameters.AddWithValue("@LunchBreak_Minutes",LunchBreak_Minutes);
-                cmd.Parameters.AddWithValue("@Regional_ImplEngineer",Regional_ImplEngineer);
+                cmd.Parameters.AddWithValue("@PaymentCurrency", PaymentCurrency);
+                cmd.Parameters.AddWithValue("@LunchBreak_Minutes", LunchBreak_Minutes);
+                cmd.Parameters.AddWithValue("@Regional_ImplEngineer", Regional_ImplEngineer);
                 cmd.Parameters.AddWithValue("@Project_Administrator", Project_Administrator);
                 cmd.Parameters.AddWithValue("@Weld_Client1Caption", Weld_Client1Caption);
                 cmd.Parameters.AddWithValue("@Weld_Client2Caption", Weld_Client2Caption);
-                cmd.Parameters.AddWithValue("@Weld_ThirdPartyCaption",Weld_ThirdPartyCaption);
-               // cmd.Parameters.AddWithValue("@Company_Logo",s).Value=Company_Logo
+                cmd.Parameters.AddWithValue("@Weld_ThirdPartyCaption", Weld_ThirdPartyCaption);
+                // cmd.Parameters.AddWithValue("@Company_Logo",s).Value=Company_Logo
                 //cmd.Parameters.AddWithValue("@Company_Logo",Company_Logo);
                 cmd.Parameters.Add("@Company_Logo", SqlDbType.VarBinary).Value = Company_Logo;
                 cmd.Parameters.Add("@Client_Logo", SqlDbType.VarBinary).Value = Client_Logo;
-              /// cmd.Parameters.AddWithValue("@Client_Logo",DBNull.Value);
+                /// cmd.Parameters.AddWithValue("@Client_Logo",DBNull.Value);
                 cmd.Parameters.AddWithValue("@MiscManpowerTracking_Caption", MiscManpowerTracking_Caption);
                 cmd.ExecuteScalar();
                 var page = HttpContext.Current.CurrentHandler as Page;

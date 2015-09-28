@@ -8,7 +8,7 @@
     <style type="text/css">
         .RadWindow .rwDialogPopup {
             color: Blue !important;
-            /*customizing popup window;*/ 
+            /*customizing popup window;*/
         }
 
         .RadWindow .rwWindowContent .rwPopupButton .rwInnerSpan {
@@ -91,7 +91,7 @@
 
     </script>
 
- <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Input</title>
@@ -115,73 +115,73 @@
 </asp:Content>
 <asp:Content ID="phdDynamicMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-   
-            <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
-                CausesValidation="False" SelectedIndex="1" Skin="Silk">
-                <Tabs>
-                    <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True" TabIndex="0"></telerik:RadTab>
-                    <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png" TabIndex="1"></telerik:RadTab>
-                </Tabs>
-            </telerik:RadTabStrip>
 
-            <table style="width: 100%">
-                <tr>
+    <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
+        CausesValidation="False" SelectedIndex="1" Skin="Silk">
+        <Tabs>
+            <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True" TabIndex="0"></telerik:RadTab>
+            <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png" TabIndex="1"></telerik:RadTab>
+        </Tabs>
+    </telerik:RadTabStrip>
 
-                    <td>
-                        <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
-                            <telerik:RadPageView ID="rpList" runat="server">
-                                <div id="div2">
-                                    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
-                                    </asp:ScriptManager>
-                                    <telerik:RadGrid ID="dtgDynamicMasterGrid" runat="server" CellSpacing="0"
-                                        GridLines="None" OnNeedDataSource="dtgDynamicMasterGrid_NeedDataSource1" AllowPaging="true" ItemStyle-HorizontalAlign="Left" AlternatingItemStyle-HorizontalAlign="Left"
-                                        PageSize="10" AllowAutomaticDeletes="True" OnItemCommand="dtgDynamicMasterGrid_ItemCommand"
-                                        OnPreRender="dtgDynamicMasterGrid_PreRender" AllowMultiRowEdit="true" DataKeyNames="Code" CommandItemDisplay="Right" Skin="Silk">
-                                        <MasterTableView>
+    <table style="width: 100%">
+        <tr>
 
-                                            <Columns>
-                                                <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png">
-                                                </telerik:GridButtonColumn>
-                                                <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
-                                                </telerik:GridButtonColumn>
+            <td>
+                <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
+                    <telerik:RadPageView ID="rpList" runat="server">
+                        <div id="div2">
+                            <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
+                            </asp:ScriptManager>
+                            <telerik:RadGrid ID="dtgDynamicMasterGrid" runat="server" CellSpacing="0"
+                                GridLines="None" OnNeedDataSource="dtgDynamicMasterGrid_NeedDataSource1" AllowPaging="true" ItemStyle-HorizontalAlign="Left" AlternatingItemStyle-HorizontalAlign="Left"
+                                PageSize="7" AllowAutomaticDeletes="True" OnItemCommand="dtgDynamicMasterGrid_ItemCommand" Width="984px"
+                                OnPreRender="dtgDynamicMasterGrid_PreRender" AllowMultiRowEdit="true" DataKeyNames="Code" CommandItemDisplay="Right" Skin="Silk">
+                                <MasterTableView>
 
-                                            </Columns>
-                                        </MasterTableView>
+                                    <Columns>
+                                        <telerik:GridButtonColumn CommandName="EditData" ItemStyle-Width="10px" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png">
+                                        </telerik:GridButtonColumn>
+                                        <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
+                                        </telerik:GridButtonColumn>
 
-                                    </telerik:RadGrid>
-                                </div>
-                            </telerik:RadPageView>
-                            <telerik:RadPageView ID="rpAddEdit" runat="server">
-                                <uc1:ToolBar runat="server" ID="ToolBar" />
-                                <div>
+                                    </Columns>
+                                </MasterTableView>
 
-
-                                    <div>
-                                    </div>
-                                    <asp:Label ID="lblmasterName" runat="server" CssClass="PageHeading"></asp:Label>
-                                    <asp:HiddenField ID="HiddenField" runat="server" />
-                                    <asp:HiddenField ID="HiddenField1" runat="server" />
-
-                                    <br />
-                                    <br />
-
-                                    <div id="div1">
-                                        <div id="placeholder" runat="server" style="text-align: left"></div>
-                                        <br />
-                                        <br />
-
-                                    </div>
+                            </telerik:RadGrid>
+                        </div>
+                    </telerik:RadPageView>
+                    <telerik:RadPageView ID="rpAddEdit" runat="server">
+                        <uc1:ToolBar runat="server" ID="ToolBar" />
+                        <div>
 
 
-                                </div>
+                            <div>
+                            </div>
+                            <asp:Label ID="lblmasterName" runat="server" CssClass="PageHeading"></asp:Label>
+                            <asp:HiddenField ID="HiddenField" runat="server" />
+                            <asp:HiddenField ID="HiddenField1" runat="server" />
+                        <asp:HiddenField ID="HiddenUniqueIdentifier" runat="server" />
+                            <br />
+                            <br />
 
-                            </telerik:RadPageView>
-                        </telerik:RadMultiPage>
-                    </td>
-                </tr>
-            </table>
+                            <div id="div1">
+                                <div id="placeholder" runat="server" style="text-align: left"></div>
+                                <br />
+                                <br />
 
-    
+                            </div>
+
+
+                        </div>
+
+                    </telerik:RadPageView>
+                </telerik:RadMultiPage>
+            </td>
+        </tr>
+    </table>
+
+
     <p>
     </p>
     <p>

@@ -5,11 +5,13 @@ using System.Linq;
 using System.Web;
 using Telerik.Web.UI;
 using System.Data;
+using System.Web.UI;
 namespace FlyCn.FlyCnDAL
 {
     public class BoqHeaderDetails
     {
         public DocumentMaster documentMaster = new DocumentMaster();
+        ErrorHandling eObj = new ErrorHandling();
         #region Billofquantityproperties
 
          #region Boqheaderproperty
@@ -206,11 +208,10 @@ namespace FlyCn.FlyCnDAL
                 boqcmd.Parameters.AddWithValue("@Remarks",Remarks);
                 SqlParameter OutparamId= boqcmd.Parameters.Add("@OutparamId", SqlDbType.SmallInt);
                 OutparamId.Direction = ParameterDirection.Output;
-
                 boqcmd.ExecuteNonQuery();
                 if(int.Parse(OutparamId.Value.ToString())!=0)
                 {
-                    //not successfull
+                    
                 }
                 else
                 {
@@ -221,7 +222,8 @@ namespace FlyCn.FlyCnDAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
             }
             finally
             {
@@ -237,29 +239,31 @@ namespace FlyCn.FlyCnDAL
             SqlConnection con = null;
             try
             {
-                BoqHeaderDetails boqHeaderDetails = new BoqHeaderDetails();
+               // BoqHeaderDetails boqHeaderDetails = new BoqHeaderDetails();
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand boqcmd = new SqlCommand();
                 boqcmd.Connection = con;
                 boqcmd.CommandType = System.Data.CommandType.StoredProcedure;
                 boqcmd.CommandText = "UpdateDocumentMaster";
+                boqcmd.Parameters.Add("@DocumentID", SqlDbType.UniqueIdentifier).Value = documentMaster.DocumentID;
                 boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = documentMaster.RevisionID;
                 boqcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = documentMaster.ProjectNo;
-                boqcmd.Parameters.Add("@RevisionNo", SqlDbType.NVarChar, 10).Value = boqHeaderDetails.RevisionNo;
-                boqcmd.Parameters.Add("@DocumentDate", SqlDbType.SmallDateTime).Value = boqHeaderDetails.DocumentDate;
-                boqcmd.Parameters.Add("@DocumentTitle", SqlDbType.NVarChar, 250).Value = boqHeaderDetails.DocumentTitle;
-                boqcmd.Parameters.AddWithValue("@Remarks", boqHeaderDetails.Remarks);
-                boqcmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 50).Value = boqHeaderDetails.UpdatedBy;
-                boqcmd.Parameters.Add("@UpdatedDate", SqlDbType.SmallDateTime).Value = boqHeaderDetails.UpdatedDate;
-                boqcmd.Parameters.Add("@UpdatedDateGMT", SqlDbType.SmallDateTime).Value = boqHeaderDetails.UpdatedDateGMT;
+                boqcmd.Parameters.Add("@ClientDocNo", SqlDbType.NVarChar, 50).Value = documentMaster.ClientDocNo;
+                boqcmd.Parameters.Add("@RevisionNo", SqlDbType.NVarChar, 10).Value = RevisionNo;
+                boqcmd.Parameters.Add("@DocumentDate", SqlDbType.SmallDateTime).Value = DocumentDate;
+                boqcmd.Parameters.Add("@DocumentTitle", SqlDbType.NVarChar, 250).Value = DocumentTitle;
+                boqcmd.Parameters.AddWithValue("@Remarks", Remarks);
+                boqcmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 50).Value = UpdatedBy;
+                boqcmd.Parameters.Add("@UpdatedDate", SqlDbType.SmallDateTime).Value = UpdatedDate;
+                boqcmd.Parameters.Add("@UpdatedDateGMT", SqlDbType.SmallDateTime).Value = UpdatedDateGMT;
                 SqlParameter OutparamId = boqcmd.Parameters.Add("@OutparamId", SqlDbType.SmallInt);
                 OutparamId.Direction = ParameterDirection.Output;
 
                 boqcmd.ExecuteNonQuery();
                 if (int.Parse(OutparamId.Value.ToString()) != 0)
                 {
-                    //not successfull
+                   
                 }
                 else
                 {
@@ -270,7 +274,8 @@ namespace FlyCn.FlyCnDAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
             }
             finally
             {

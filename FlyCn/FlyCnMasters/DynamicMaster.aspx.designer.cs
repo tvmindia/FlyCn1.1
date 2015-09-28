@@ -103,6 +103,15 @@ namespace FlyCn.FlyCnMasters {
         protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
         
         /// <summary>
+        /// HiddenUniqueIdentifier control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenUniqueIdentifier;
+        
+        /// <summary>
         /// placeholder control.
         /// </summary>
         /// <remarks>
