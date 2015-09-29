@@ -128,7 +128,7 @@
                                                 <asp:TextBox ID="txtDocumentno" Enabled="false" runat="server" CssClass="form-control" BackColor="Gray"></asp:TextBox>
                                                 <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" />
                                                 <asp:HiddenField ID="hiddenFieldDocumentID" runat="server" />
-                                                <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" />
+                                                <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static" />
 
                                             </div>
                                         </div>
@@ -221,7 +221,7 @@
                                                 <a href="#" class="accordion-toggle">Details<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                                                 <div class="accordion-content">
 
-                                                    <iframe id="ContentIframe" name="PQualification" src="BOQDetails.aspx" style="height: 300px; width: 100%; overflow: hidden;" runat="server"></iframe>
+                                                    <iframe id="ContentIframe" name="BOQDetails" src="BOQDetails.aspx" style="height: 300px; width: 100%; overflow: hidden;" runat="server"></iframe>
                                                      
                                                 </div>
                                             </div>

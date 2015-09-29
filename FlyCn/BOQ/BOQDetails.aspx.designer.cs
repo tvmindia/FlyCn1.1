@@ -22,13 +22,13 @@ namespace FlyCn.BOQ {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// ToolBarBOQDetails control.
+        /// ToolBar1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::FlyCn.UserControls.ToolBar ToolBarBOQDetails;
+        protected global::FlyCn.UserControls.ToolBar ToolBar1;
         
         /// <summary>
         /// lblItemNo control.
@@ -355,13 +355,13 @@ namespace FlyCn.BOQ {
         protected global::System.Web.UI.WebControls.TextBox txtUDFRateType5;
         
         /// <summary>
-        /// lblGroup1 control.
+        /// lbmdroup1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGroup1;
+        protected global::System.Web.UI.WebControls.Label lbmdroup1;
         
         /// <summary>
         /// txtGroup1 control.
@@ -373,13 +373,13 @@ namespace FlyCn.BOQ {
         protected global::System.Web.UI.WebControls.TextBox txtGroup1;
         
         /// <summary>
-        /// lblGroup2 control.
+        /// lbmdroup2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGroup2;
+        protected global::System.Web.UI.WebControls.Label lbmdroup2;
         
         /// <summary>
         /// txtGroup2 control.
@@ -391,13 +391,13 @@ namespace FlyCn.BOQ {
         protected global::System.Web.UI.WebControls.TextBox txtGroup2;
         
         /// <summary>
-        /// lblGroup3 control.
+        /// lbmdroup3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGroup3;
+        protected global::System.Web.UI.WebControls.Label lbmdroup3;
         
         /// <summary>
         /// txtGroup3 control.
@@ -409,13 +409,13 @@ namespace FlyCn.BOQ {
         protected global::System.Web.UI.WebControls.TextBox txtGroup3;
         
         /// <summary>
-        /// lblGroup4 control.
+        /// lbmdroup4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGroup4;
+        protected global::System.Web.UI.WebControls.Label lbmdroup4;
         
         /// <summary>
         /// txtGroup4 control.
@@ -427,13 +427,13 @@ namespace FlyCn.BOQ {
         protected global::System.Web.UI.WebControls.TextBox txtGroup4;
         
         /// <summary>
-        /// lblGroup5 control.
+        /// lbmdroup5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGroup5;
+        protected global::System.Web.UI.WebControls.Label lbmdroup5;
         
         /// <summary>
         /// txtGroup5 control.
