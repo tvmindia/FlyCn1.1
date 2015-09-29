@@ -1,0 +1,366 @@
+﻿
+
+
+iframe {
+    border-style: none;
+    height: auto;
+}
+
+.title {
+    font-size: large;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.Desc {
+    font-size: medium;
+    text-align: center;
+}
+
+.underConstructionLogo {
+    background-position: center center;
+    position: absolute;
+    top: 2%;
+    background-image: url('../Images/screw.png');
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 500px;
+    background-size: 10%;
+    text-align: center;
+    vertical-align: bottom;
+}
+
+.LogoText {
+    vertical-align: top;
+    color: #E5E5E5;
+    font-family: Magneto;
+    font-size: 22px;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+
+.underConstructionMessage {
+}
+
+.underConstructionTitle {
+    font-family: 'Segoe UI Light';
+    font-size: xx-large;
+    color: #333333;
+    position: relative;
+    top: 60%;
+}
+
+.baseStyles {
+    font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-cont {
+    width: 100%;
+    top: 0px;
+    z-index: 5;
+}
+
+.headerStrip {
+    text-align: right;
+    background: #ae2029; /* Old browsers */
+    background: -moz-linear-gradient(top, #ae2029 0%, #ad141c 50%, #ad161e 67%, #a80107 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ae2029), color-stop(50%,#ad141c), color-stop(67%,#ad161e), color-stop(100%,#a80107)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ae2029 0%,#ad141c 50%,#ad161e 67%,#a80107 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ae2029 0%,#ad141c 50%,#ad161e 67%,#a80107 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ae2029 0%,#ad141c 50%,#ad161e 67%,#a80107 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ae2029 0%,#ad141c 50%,#ad161e 67%,#a80107 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ae2029', endColorstr='#a80107',GradientType=0 ); /* IE6-9 */
+    /*background: rgb(174,32,41);  
+    background: rgba(174,32,41,0.95);*/
+    margin-left: -10px;
+    margin-top: -10px;
+    margin-right: 10px;
+    width: 102%;
+    color: white;
+}
+
+.footerStrip1 {
+    border-style: inset none none none;
+    border-width: 1px thin thin thin;
+    border-color: #ae2029;
+    color: white;
+    text-align: left;
+    font-size: xx-small;
+    background: #ae2029; /* Old browsers */
+    background: -moz-linear-gradient(top, #ae2029 0%, #ad141c 50%, #ad161e 67%, #a80107 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ae2029), color-stop(50%,#ad141c), color-stop(67%,#ad161e), color-stop(100%,#a80107)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ae2029 0%,#ad141c 50%,#ad161e 67%,#a80107 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ae2029 0%,#ad141c 50%,#ad161e 67%,#a80107 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ae2029 0%,#ad141c 50%,#ad161e 67%,#a80107 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ae2029 0%,#ad141c 50%,#ad161e 67%,#a80107 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ae2029', endColorstr='#a80107',GradientType=0 ); /* IE6-9 */
+    margin-left: -10px;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    height: 15px;
+    margin-top: 2px;
+}
+
+
+
+.footerStrip2 {
+    width: 100%;
+    text-align: left;
+    font-size: x-small;
+}
+
+.fullScreenIframe {
+    width: 99%;
+    height: 550px;
+}
+
+.contentPaneStyle {
+}
+
+
+.LoginDiv {
+    border-style: outset;
+    border-width: thin;
+    padding: 50px;
+    background: rgb(34,34,34); /* for IE */
+    background: rgba(34,34,34,0.75);
+    width: 500px;
+    height: 150px;
+    position: absolute;
+    top: 35%;
+    left: 30%;
+    border-radius: 20px;
+    text-align: center;
+    vertical-align: middle;
+    display: none;
+}
+
+.LoginCaption {
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    height: 15px;
+    font-size: x-large;
+}
+
+.LoginButton {
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.LogicCloseButton {
+    position: absolute;
+    top: -35px;
+    right: -35px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.LoginError {
+    color: red;
+}
+
+.HomeBox1 {
+    width: 30%;
+    /*background-color: #3366FF;*/
+    background: rgb(153,102,102);
+    color: #FFFFFF;
+    vertical-align: top;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.HomeBox2 {
+    width: 30%;
+    background-color: #009999;
+    color: #FFFFFF;
+    vertical-align: top;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.HomeBox3 {
+    width: 30%;
+    background-color: #FF6666;
+    color: #FFFFFF;
+    vertical-align: top;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.TileTable {
+    padding: 5px;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.Tiles {
+    color: white;
+    border-radius: 25px;
+    background-color: #E2656F; /*#FF6666;*/
+    vertical-align: middle;
+    text-align: center;
+    width: 125px;
+    height: 125px;
+    cursor: pointer;
+}
+    .Tiles:hover {
+    background-color: #DC4753;
+}
+
+
+.TileIcon {
+    width: 100%;
+}
+
+.RadSplitterDiv {
+    height: 85vh;
+    width: 100%;
+}
+
+.InputCaption {
+    font-size: medium;
+}
+
+.PageHeading {
+    font-family: 'Segoe UI';
+    font-size: 20px;
+    margin-left: 15px;
+}
+
+.InputDate {
+    color: #FFFFFF;
+    font-size: medium;
+}
+
+.Initialcombo {
+    border-radius: 1px;
+    width: 400px;
+}
+
+/*-------------input ----------------------*/
+
+.baseInputStyles {
+    font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    vertical-align: middle;
+}
+
+.inputMainContainer {
+    padding: 5px 0px 5px 0px;
+    width: 100% !important;
+    border-radius: 10px;
+    top: 10%;
+    height:100%;
+     
+}
+
+    .inputMainContainer .innerDiv {
+        width: 99%;
+        margin: 0 auto;
+        height: 100%;
+        min-height: 695px;
+        background-color: #F4F8FF;
+        border-radius: 10px;
+        background: rgba(196,229,245,1);
+        background: -moz-linear-gradient(top, rgba(196,229,245,1) 0%, rgba(223,233,237,1) 73%, rgba(231,239,245,1) 100%);
+        background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(196,229,245,1)), color-stop(73%, rgba(223,233,237,1)), color-stop(100%, rgba(231,239,245,1)));
+        background: -webkit-linear-gradient(top, rgba(196,229,245,1) 0%, rgba(223,233,237,1) 73%, rgba(231,239,245,1) 100%);
+        background: -o-linear-gradient(top, rgba(196,229,245,1) 0%, rgba(223,233,237,1) 73%, rgba(231,239,245,1) 100%);
+        background: -ms-linear-gradient(top, rgba(196,229,245,1) 0%, rgba(223,233,237,1) 73%, rgba(231,239,245,1) 100%);
+        background: linear-gradient(to bottom, rgba(196,229,245,1) 0%, rgba(223,233,237,1) 73%, rgba(231,239,245,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c4e5f5', endColorstr='#e7eff5', GradientType=0 );
+    }
+
+.Succesmsgboxes {
+    background: #D1E7BE; /* Old browsers */
+    border: thin inset #414813;
+    border-radius: 4px;
+    margin: 5px;
+    width: 70%;
+    color: #606B1D;
+    left: 27%;
+    top: 0px;
+    text-align: left;
+    position: fixed;
+    font-family: 'Segoe UI Light';
+    font-size: 14px;
+    z-index: 2;
+    min-height: 40px;
+    padding-left: 5px;
+    padding-right: 10px;
+}
+
+.ErrormsgBoxes {
+    /* Old browsers */
+    background-position: left center;
+    border: thin inset #800000;
+    background: #FFEAEA;
+    border-radius: 4px;
+    margin: 5px;
+    width: 70%;
+    color: #800000;
+    left: 27%;
+    top: 0px;
+    text-align: left;
+    position: fixed;
+    font-family: 'Segoe UI Light';
+    font-size: 14px;
+    z-index: 2;
+    min-height: 40px;
+    padding-left: 5px;
+    padding-right: 10px;
+     
+}
+
+
+.closeButton {
+    font-family: 'Segoe UI Semibold';
+}
+    .closeButton:hover {
+        cursor:pointer;
+    }
+
+
+.ToolBarContainer {
+    text-align: right;
+    border-top-style: none;
+    border-bottom-style: inset;
+    border-bottom-width: thin;
+    border-bottom-color: #fff9f9;
+    margin-bottom: 10px;
+ 
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,fff9f9+93,f9efef+97,f7eded+100 */
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffffff 0%, #fff9f9 93%, #f9efef 97%, #f7eded 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(93%,#fff9f9), color-stop(97%,#f9efef), color-stop(100%,#f7eded)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#fff9f9 93%,#f9efef 97%,#f7eded 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffffff 0%,#fff9f9 93%,#f9efef 97%,#f7eded 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffffff 0%,#fff9f9 93%,#f9efef 97%,#f7eded 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ffffff 0%,#fff9f9 93%,#f9efef 97%,#f7eded 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7eded',GradientType=0 ); /* IE6-9 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+.large-background {
+    background-image: url('../Images/bg3.jpg');
+
+}
