@@ -8,7 +8,7 @@ using System.Data;
 using System.Web.UI;
 namespace FlyCn.FlyCnDAL
 {
-    public class BoqHeaderDetails
+    public class BOQHeaderDetails
     {
         public DocumentMaster documentMaster = new DocumentMaster();
         ErrorHandling eObj = new ErrorHandling();
@@ -50,9 +50,148 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+        public BOQDetails bOQDetails//type of child items of BOQHeader(list items of child)
+        {
+            get;
+            set;
+        }
         #endregion Boqheaderproperty
+       
+
+    #endregion Billofquantityproperties
+
+
+
+        #region Billofquantitymethods
+        public void BindTree(RadTreeView myTree)
+        {
+           myTree.Nodes.Clear();
+        }
+        public void LoadInputScreen(RadPane myContentPane)
+        {
+           myContentPane.ContentUrl = "BOQHeader.aspx";
+        }
+        /// <summary>
+        /// inserting Boq header and details
+        /// </summary>
+        public void AddNewBOQ()
+        {
+            SqlConnection con = null;
+            try
+            {
+               
+                documentMaster.AddNewDocument();
+                
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand boqcmd = new SqlCommand();
+                boqcmd.Connection = con;
+                boqcmd.CommandType = System.Data.CommandType.StoredProcedure;
+                boqcmd.CommandText = "InsertBOQHeader";
+                boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = documentMaster.RevisionID;
+                boqcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = documentMaster.ProjectNo;
+                boqcmd.Parameters.Add("@RevisionNo", SqlDbType.NVarChar, 10).Value = RevisionNo;
+                boqcmd.Parameters.Add("@DocumentDate", SqlDbType.SmallDateTime).Value = DocumentDate;
+                boqcmd.Parameters.Add("@DocumentTitle", SqlDbType.NVarChar, 250).Value = DocumentTitle;
+                boqcmd.Parameters.AddWithValue("@Remarks",Remarks);
+                SqlParameter OutparamId= boqcmd.Parameters.Add("@OutparamId", SqlDbType.SmallInt);
+                OutparamId.Direction = ParameterDirection.Output;
+                SqlParameter OutRevisionId = boqcmd.Parameters.Add("@OutRevisionID", SqlDbType.UniqueIdentifier);
+                OutRevisionId.Direction = ParameterDirection.Output;
+                boqcmd.ExecuteNonQuery();
+                if(int.Parse(OutparamId.Value.ToString())!=0)
+                {
+                   
+                    
+                }
+                else
+                {
+                    //successfull
+                    documentMaster.RevisionID = (Guid)(OutRevisionId.Value);//returning revison id
+                    
+                }
+                
+
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+            }
+            finally
+            {
+                if(con!=null)
+                {
+                    con.Dispose();
+                }
+
+            }
+        }
+        public void UpdateBOQ()
+        {
+            SqlConnection con = null;
+            try
+            {
+               // BoqHeaderDetails boqHeaderDetails = new BoqHeaderDetails();
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand boqcmd = new SqlCommand();
+                boqcmd.Connection = con;
+                boqcmd.CommandType = System.Data.CommandType.StoredProcedure;
+                boqcmd.CommandText = "UpdateDocumentMaster";
+                boqcmd.Parameters.Add("@DocumentID", SqlDbType.UniqueIdentifier).Value = documentMaster.DocumentID;
+                boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = documentMaster.RevisionID;
+                boqcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = documentMaster.ProjectNo;
+                boqcmd.Parameters.Add("@ClientDocNo", SqlDbType.NVarChar, 50).Value = documentMaster.ClientDocNo;
+                boqcmd.Parameters.Add("@RevisionNo", SqlDbType.NVarChar, 10).Value = RevisionNo;
+                boqcmd.Parameters.Add("@DocumentDate", SqlDbType.SmallDateTime).Value = DocumentDate;
+                boqcmd.Parameters.Add("@DocumentTitle", SqlDbType.NVarChar, 250).Value = DocumentTitle;
+                boqcmd.Parameters.AddWithValue("@Remarks", Remarks);
+                boqcmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 50).Value = UpdatedBy;
+                boqcmd.Parameters.Add("@UpdatedDate", SqlDbType.SmallDateTime).Value = UpdatedDate;
+                boqcmd.Parameters.Add("@UpdatedDateGMT", SqlDbType.SmallDateTime).Value = UpdatedDateGMT;
+                SqlParameter OutparamId = boqcmd.Parameters.Add("@OutparamId", SqlDbType.SmallInt);
+                OutparamId.Direction = ParameterDirection.Output;
+
+                boqcmd.ExecuteNonQuery();
+                if (int.Parse(OutparamId.Value.ToString()) != 0)
+                {
+                   
+                }
+                else
+                {
+                    //successfull
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Dispose();
+                }
+
+            }
+        }
+
+
+        #endregion Billofquantitymethods
+
+    }
+
+    public class BOQDetails
+    {
+        public DocumentMaster documentMaster; 
+        ErrorHandling eObj = new ErrorHandling();
+
         #region Boqdetailproperty
-        public int ItemNo
+        public Int16 ItemNo
         {
             get;
             set;
@@ -62,7 +201,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public Double Quantity
+        public Single Quantity
         {
             get;
             set;
@@ -168,102 +307,55 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-     #endregion Boqdetailproperty
-
-    #endregion Billofquantityproperties
-
-
-
-        #region Billofquantitymethods
-        public void BindTree(RadTreeView myTree)
+        #endregion Boqdetailproperty
+        #region BOQDetailMethods
+        public void AddBOQDetails()
         {
-           myTree.Nodes.Clear();
-        }
-        public void LoadInputScreen(RadPane myContentPane)
-        {
-           myContentPane.ContentUrl = "BOQHeader.aspx";
-        }
-        /// <summary>
-        /// inserting Boq header and details
-        /// </summary>
-        public void AddNewBOQ()
-        {
+
             SqlConnection con = null;
             try
             {
-               
-                documentMaster.AddNewDocument();
-                
+                documentMaster=new DocumentMaster();
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand boqcmd = new SqlCommand();
                 boqcmd.Connection = con;
                 boqcmd.CommandType = System.Data.CommandType.StoredProcedure;
-                boqcmd.CommandText = "InsertBOQHeader";
+                boqcmd.CommandText = "[InsertBoqDetails]";
                 boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = documentMaster.RevisionID;
                 boqcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = documentMaster.ProjectNo;
-                boqcmd.Parameters.Add("@RevisionNo", SqlDbType.NVarChar, 10).Value = RevisionNo;
-                boqcmd.Parameters.Add("@DocumentDate", SqlDbType.SmallDateTime).Value = DocumentDate;
-                boqcmd.Parameters.Add("@DocumentTitle", SqlDbType.NVarChar, 250).Value = DocumentTitle;
-                boqcmd.Parameters.AddWithValue("@Remarks",Remarks);
-                SqlParameter OutparamId= boqcmd.Parameters.Add("@OutparamId", SqlDbType.SmallInt);
+                boqcmd.Parameters.Add("@ItemNo", SqlDbType.SmallInt).Value = ItemNo;
+                boqcmd.Parameters.Add("@ItemDescription", SqlDbType.NVarChar, 250).Value = ItemDescription;
+                boqcmd.Parameters.Add("@Quantity", SqlDbType.Real).Value = Quantity;
+                boqcmd.Parameters.Add("@Unit", SqlDbType.NVarChar, 10).Value = Unit;
+                boqcmd.Parameters.Add("@NormHours", SqlDbType.Real).Value = NormHours;
+                boqcmd.Parameters.Add("@LabourRate", SqlDbType.Real).Value = LabourRate;
+                boqcmd.Parameters.Add("@LabourRateType", SqlDbType.NVarChar,1).Value = LabourRateType;
+                boqcmd.Parameters.Add("@MaterialRate", SqlDbType.Real).Value = MaterialRate;
+                boqcmd.Parameters.Add("@UDFRate1", SqlDbType.Real).Value = UDFRate1;
+                boqcmd.Parameters.Add("@UDFRateType1", SqlDbType.NVarChar, 1).Value = UDFRateType1;
+                boqcmd.Parameters.Add("@UDFRate2", SqlDbType.Real).Value = UDFRate2;
+                boqcmd.Parameters.Add("@UDFRateType2", SqlDbType.NVarChar, 1).Value = UDFRateType2;
+                boqcmd.Parameters.Add("@UDFRate3", SqlDbType.Real).Value = UDFRate3;
+                boqcmd.Parameters.Add("@UDFRateType3", SqlDbType.NVarChar, 1).Value = UDFRateType3;
+                boqcmd.Parameters.Add("@UDFRate4", SqlDbType.Real).Value = UDFRate4;
+                boqcmd.Parameters.Add("@UDFRateType4", SqlDbType.NVarChar, 1).Value = UDFRateType4;
+                boqcmd.Parameters.Add("@UDFRate5", SqlDbType.Real).Value = UDFRate5;
+                boqcmd.Parameters.Add("@UDFRateType5", SqlDbType.NVarChar, 1).Value = UDFRateType5;
+
+                boqcmd.Parameters.Add("@Group1", SqlDbType.NVarChar, 50).Value = Group1;
+                boqcmd.Parameters.Add("@Group2", SqlDbType.NVarChar, 50).Value = Group2;
+                boqcmd.Parameters.Add("@Group3", SqlDbType.NVarChar, 50).Value = Group3;
+                boqcmd.Parameters.Add("@Group4", SqlDbType.NVarChar, 50).Value = Group4;
+                boqcmd.Parameters.Add("@Group5", SqlDbType.NVarChar, 50).Value = Group5;
+
+
+                SqlParameter OutparamId = boqcmd.Parameters.Add("@OutputParamId", SqlDbType.SmallInt);
                 OutparamId.Direction = ParameterDirection.Output;
-                boqcmd.ExecuteNonQuery();
-                if(int.Parse(OutparamId.Value.ToString())!=0)
-                {
-                    
-                }
-                else
-                {
-                    //successfull
-                }
-                
-
-            }
-            catch (Exception ex)
-            {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
-            }
-            finally
-            {
-                if(con!=null)
-                {
-                    con.Dispose();
-                }
-
-            }
-        }
-        public void UpdateBOQ()
-        {
-            SqlConnection con = null;
-            try
-            {
-               // BoqHeaderDetails boqHeaderDetails = new BoqHeaderDetails();
-                dbConnection dcon = new dbConnection();
-                con = dcon.GetDBConnection();
-                SqlCommand boqcmd = new SqlCommand();
-                boqcmd.Connection = con;
-                boqcmd.CommandType = System.Data.CommandType.StoredProcedure;
-                boqcmd.CommandText = "UpdateDocumentMaster";
-                boqcmd.Parameters.Add("@DocumentID", SqlDbType.UniqueIdentifier).Value = documentMaster.DocumentID;
-                boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = documentMaster.RevisionID;
-                boqcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = documentMaster.ProjectNo;
-                boqcmd.Parameters.Add("@ClientDocNo", SqlDbType.NVarChar, 50).Value = documentMaster.ClientDocNo;
-                boqcmd.Parameters.Add("@RevisionNo", SqlDbType.NVarChar, 10).Value = RevisionNo;
-                boqcmd.Parameters.Add("@DocumentDate", SqlDbType.SmallDateTime).Value = DocumentDate;
-                boqcmd.Parameters.Add("@DocumentTitle", SqlDbType.NVarChar, 250).Value = DocumentTitle;
-                boqcmd.Parameters.AddWithValue("@Remarks", Remarks);
-                boqcmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 50).Value = UpdatedBy;
-                boqcmd.Parameters.Add("@UpdatedDate", SqlDbType.SmallDateTime).Value = UpdatedDate;
-                boqcmd.Parameters.Add("@UpdatedDateGMT", SqlDbType.SmallDateTime).Value = UpdatedDateGMT;
-                SqlParameter OutparamId = boqcmd.Parameters.Add("@OutparamId", SqlDbType.SmallInt);
-                OutparamId.Direction = ParameterDirection.Output;
-
                 boqcmd.ExecuteNonQuery();
                 if (int.Parse(OutparamId.Value.ToString()) != 0)
                 {
-                   
+
                 }
                 else
                 {
@@ -285,11 +377,13 @@ namespace FlyCn.FlyCnDAL
                 }
 
             }
+
+
         }
 
 
-        #endregion Billofquantitymethods
 
+        #endregion BOQDetailMethods
     }
        
 }
