@@ -9,8 +9,8 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 a, a:visited {
-	color: #3fabff;
-	text-decoration: none;
+    color: #666666;
+    text-decoration: none;
 }
 
 h1 {
