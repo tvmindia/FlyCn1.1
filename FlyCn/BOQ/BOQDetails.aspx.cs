@@ -19,7 +19,7 @@ namespace FlyCn.BOQ
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar1.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar1.OnClientButtonClicking = "OnClientButtonClickingDetail";
-          //  ToolBarVisibility(1);
+            ToolBarVisibility(1);
         }
         #region ToolBar_onClick
          protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
@@ -77,9 +77,11 @@ namespace FlyCn.BOQ
              bOQHeaderDetails = new BOQHeaderDetails();
              //bOQHeaderDetails.documentMaster.RevisionID = New Guid();//warning
              bOQHeaderDetails.documentMaster.ProjectNo = UA.projectNo;
-             bOQHeaderDetails.bOQDetails.ItemNo = Convert.ToInt16(txtItemNo.Text.Trim());
-
+             bOQHeaderDetails.bOQDetails.ItemNo = Int16.Parse(txtItemNo.Text);
              bOQHeaderDetails.bOQDetails.ItemDescription = (txtItemDescription.Text.Trim() != "") ? txtItemDescription.Text.Trim().ToString() : null;
+             
+             
+            
              bOQHeaderDetails.bOQDetails.Quantity = (txtQuantity.Text.Trim() != "") ? Convert.ToSingle(txtQuantity.Text.Trim()) : Convert.ToSingle(null);
              bOQHeaderDetails.bOQDetails.Unit = (txtUnit.Text.Trim() != "") ? txtUnit.Text.Trim().ToString() : null;
              bOQHeaderDetails.bOQDetails.NormHours = (txtNormalHours.Text.Trim() != "") ? Convert.ToSingle(txtNormalHours.Text.Trim()) : Convert.ToSingle(null);

@@ -264,7 +264,7 @@
      debugger;
     
      $(document).ready(function () {
-         alert("hai");
+         alert("Boq detail insert not completd");
          
        
      });
@@ -287,7 +287,7 @@
        var btn = args.get_item();
        if (btn.get_value() == 'Save') {
            debugger;
-           alert("save");
+         
 
           //  args.set_cancel(!validate());
         }  

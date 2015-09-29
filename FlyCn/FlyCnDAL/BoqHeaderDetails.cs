@@ -11,6 +11,7 @@ namespace FlyCn.FlyCnDAL
     public class BOQHeaderDetails
     {
         public DocumentMaster documentMaster = new DocumentMaster();
+        public BOQDetails bOQDetails = new BOQDetails();
         ErrorHandling eObj = new ErrorHandling();
         #region Billofquantityproperties
 
@@ -50,11 +51,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public BOQDetails bOQDetails//type of child items of BOQHeader(list items of child)
-        {
-            get;
-            set;
-        }
+       
         #endregion Boqheaderproperty
        
 
