@@ -65,6 +65,7 @@
                     EnableButtonsForNew();
                     document.getElementById("<%=ContentIframe.ClientID %>").style.display = "none";
                     document.getElementById("<%=lblQualificationframe.ClientID %>").style.display = "";
+                    document.getElementById('<%=txtCode.ClientID %>').disabled = false;
 
 
                   }
