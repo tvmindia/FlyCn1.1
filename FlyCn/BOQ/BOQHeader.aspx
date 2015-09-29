@@ -58,16 +58,20 @@
                         <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
                             <telerik:RadPageView ID="rpList" runat="server">
 
-                                <div id="divList" style="width: 100%">
+                                <div id="divList" style="width: 100%;text-align:center">
 
 
 
 
 
                                     <telerik:RadGrid ID="dtgBOQGrid" runat="server" CellSpacing="0" GridLines="None" OnNeedDataSource="dtgBOQGrid_NeedDataSource" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" OnItemCommand="dtgBOQGrid_ItemCommand"
-                                        PageSize="10" Width="984px" Skin="Silk">
+                                        PageSize="10" Width="99%"  >
+                                        <HeaderStyle  HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <AlternatingItemStyle HorizontalAlign="Left" />
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
+                                           
                                         </ClientSettings>
 
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="DocumentID,ProjectNo">
