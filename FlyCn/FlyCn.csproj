@@ -725,6 +725,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Fileupload\" />
+    <Folder Include="Content\themes\FlyCnGreen\" />
+    <Folder Include="Content\themes\FlyCnRed\" />
     <Folder Include="Images\ProjectImages\" />
   </ItemGroup>
   <ItemGroup>
