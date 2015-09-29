@@ -17,7 +17,7 @@ namespace FlyCn.BOQ
     {
         #region Global Variables
         DocumentMaster documentMaster;
-        BoqHeaderDetails boqHeaderDetails;
+        BOQHeaderDetails boqHeaderDetails;
         ErrorHandling eObj = new ErrorHandling(); 
         
         UIClasses.Const Const = new UIClasses.Const();
@@ -41,9 +41,11 @@ namespace FlyCn.BOQ
         {
             DataSet ds = new DataSet();
             documentMaster = new DocumentMaster();
-
             ds = documentMaster.GetAllBOQDocumentHeader(UA.projectNo, "BOQ");
             dtgBOQGrid.DataSource = ds;
+            hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+            hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
+            hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
 
         }
         #endregion dtgBOQGrid_NeedDataSource
@@ -154,7 +156,7 @@ namespace FlyCn.BOQ
         #region insert
         public void AddNewBOQ()
         {
-            boqHeaderDetails = new BoqHeaderDetails();
+            boqHeaderDetails = new BOQHeaderDetails();
             boqHeaderDetails.documentMaster.ProjectNo = UA.projectNo;//project no has to change//nvarchar10
             boqHeaderDetails.documentMaster.DocumentNo = "C00005-BOQ-0001";//nvarchar50
             boqHeaderDetails.documentMaster.ClientDocNo = (txtClientdocumentno.Text.Trim() != "") ? txtClientdocumentno.Text.Trim().ToString() : null;
@@ -175,7 +177,7 @@ namespace FlyCn.BOQ
         #region UpdateBOQ
         public void UpdateBOQ()
         {
-            boqHeaderDetails = new BoqHeaderDetails();
+            boqHeaderDetails = new BOQHeaderDetails();
             boqHeaderDetails.documentMaster.ProjectNo = hiddenFiedldProjectno.Value;
             Guid documentID;
             Guid revisionID;
