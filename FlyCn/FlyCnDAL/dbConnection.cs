@@ -10,7 +10,7 @@ namespace FlyCn.FlyCnDAL
 {
     public class dbConnection
     {
-        public SqlConnection SQLCon = new SqlConnection("Data Source=.\\SQLEXPRESS;Initial Catalog=FLYCN;User ID=sa;Password=sqlserver");//ConfigurationManager.ConnectionStrings["FLYCNConnectionString"].ConnectionString);
+        public SqlConnection SQLCon = new SqlConnection(ConfigurationManager.ConnectionStrings["FLYCNConnectionString"].ConnectionString);
        public SqlTransaction DBTrans; 
 
         public int ConnectDB() {
