@@ -219,6 +219,13 @@ namespace FlyCn
                     {
                         dataTable = materpersonnelobj.GetCompanyComboBoxDataById(CompanyId);
                         RadComboCompany.Text = dataTable.Rows[0]["CompName"].ToString();
+                        RadComboCompany.SelectedValue = dataTable.Rows[0]["Code"].ToString();
+
+                    }
+                    else
+                    {
+                        RadComboCompany.Text = "";
+                       
                     }
                     txtGenericPosition.Text = dtableobj.Rows[0]["Generic_Position"].ToString();
                     txtContractPosition.Text = dtableobj.Rows[0]["Contract_Position"].ToString();
@@ -279,7 +286,9 @@ namespace FlyCn
 
                 materpersonnelobj.Code = txtCode.Text;
                 materpersonnelobj.Name = txtName.Text;
+
                 materpersonnelobj.Company = RadComboCompany.SelectedValue;
+               
                 materpersonnelobj.Emp_No = txtEmpNo.Text;
                 materpersonnelobj.OTEligibleYN = Convert.ToByte(RadcomboSubcontract.SelectedValue);
                 materpersonnelobj.Generic_Position = txtGenericPosition.Text;
