@@ -179,6 +179,7 @@
     <Content Include="bin\Telerik.Web.UI.XML" />
     <Content Include="bin\WebGrease.dll" />
     <Content Include="BOQ\BOQ.aspx" />
+    <Content Include="BOQ\BOQDetails.aspx" />
     <Content Include="BOQ\BOQHeader.aspx" />
     <Content Include="Content\FlyCnMain.css" />
     <Content Include="Content\Home.css" />
@@ -245,6 +246,9 @@
     <Content Include="Content\themes\FlyCnBlue\fonts\font-awesome.min.css" />
     <Content Include="Content\themes\FlyCnBlue\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\themes\FlyCnBlue\js\jquery.min.js" />
+    <Content Include="Content\themes\FlyCnRed_Rad\Common\radActionsSprite.png" />
+    <Content Include="Content\themes\FlyCnRed_Rad\TabStrip.FlyCnRed_Rad.css" />
+    <Content Include="Content\themes\FlyCnRed_Rad\TabStrip\FlyCnRed_Rad.gif" />
     <Content Include="Content\themes\FlyCnRider\Common\loading.gif" />
     <Content Include="Content\themes\FlyCnRider\Common\radActionsSprite.png" />
     <Content Include="Content\themes\FlyCnRider\Splitter.FlyCnRider.css" />
@@ -473,6 +477,13 @@
     </Compile>
     <Compile Include="BOQ\BOQ.aspx.designer.cs">
       <DependentUpon>BOQ.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BOQ\BOQDetails.aspx.cs">
+      <DependentUpon>BOQDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BOQ\BOQDetails.aspx.designer.cs">
+      <DependentUpon>BOQDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="BOQ\BOQHeader.aspx.cs">
       <DependentUpon>BOQHeader.aspx</DependentUpon>

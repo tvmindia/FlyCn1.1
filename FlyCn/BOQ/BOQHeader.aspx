@@ -113,7 +113,7 @@
   <!---SECTION ONE--->
   <div class="col-lg-12 Span-One">
     <div class="col-lg-6">
-      <form class="form-horizontal" role="form">
+ 
         <div class="form-group">
         
             <asp:Label ID="lblDocumentno" CssClass="control-label col-lg-3" runat="server" Text="Document No"></asp:Label>
@@ -126,10 +126,10 @@
 
           </div>
         </div>
-     <%-- </form>--%>
+    
     </div>
     <div class="col-lg-6">
-  <%--    <form class="form-horizontal" role="form">--%>
+ 
         <div class="form-group">
        
           
@@ -139,7 +139,7 @@
               <asp:TextBox ID="txtClientdocumentno" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
         </div>
-     <%-- </form>--%>
+   
     </div>
   </div>
   <!---SECTION ONE---> 
@@ -147,7 +147,7 @@
   <!---SECTION TWO--->
   <div class="col-lg-12 Span-One">
     <div class="col-lg-6">
-     <%-- <form class="form-horizontal" role="form">--%>
+  
         <div class="form-group">
          
             <asp:Label ID="lblRevisionno" CssClass="control-label col-lg-3" runat="server" Text="Revision No"></asp:Label>
@@ -156,12 +156,12 @@
               <asp:TextBox ID="txtRevisionno" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
         </div>
-     <%-- </form>--%>
+    
     </div>
 
 
     <div class="col-lg-6">
-     <%-- <form class="form-horizontal" role="form">--%>
+  
         <div class="form-group">
           
             <asp:Label ID="lblDocumentdate" CssClass="control-label col-lg-3" runat="server" Text="Document Date"></asp:Label>
@@ -170,13 +170,13 @@
              <%-- <asp:TextBox ID="txtDocumentdate" CssClass="form-control" runat="server"></asp:TextBox>--%>
           </div>
         </div>
-     <%-- </form>--%>
+    
     </div>
 
 
 
     <div class="col-lg-6">
-      <%--<form class="form-horizontal" role="form">--%>
+    
         <div class="form-group">
          
             <asp:Label ID="lblDocumenttitle" CssClass="control-label col-lg-3" runat="server" Text="Document Title"></asp:Label>
@@ -185,11 +185,11 @@
               <asp:TextBox ID="txtDocumenttitle" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
         </div>
-     <%-- </form>--%>
+    
     </div>
 
     <div class="col-lg-6">
-     <%-- <form class="form-horizontal" role="form">--%>
+   
         <div class="form-group">
          
            
@@ -199,8 +199,12 @@
               <asp:TextBox ID="txtRemarks" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
         </div>
-      </form>
+     
     </div>
+       
+     <iframe id="ContentIframe" name="PQualification" src="BOQDetails.aspx" style="height: 300px; width: 100%; overflow: hidden;" runat="server"></iframe>
+      
+
    
 </div>
 <!---SECTION TWO---> 
