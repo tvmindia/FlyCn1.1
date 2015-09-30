@@ -213,6 +213,63 @@ iframe {
     background-color: #DC4753;
 }
 
+ .Tiles.Blue {
+    background-color: #0d4689;
+}
+
+    .Tiles.Blue:hover {
+    background-color: #092D59;
+}
+
+   .Tiles.Teal {
+    background-color: #0d6f89;
+}
+
+    .Tiles.Teal:hover {
+    background-color: #0B576A;
+}
+
+    .Tiles.Green {
+    background-color: #016331;
+}
+
+    .Tiles.Green:hover {
+    background-color: #014925;
+}
+
+      .Tiles.Maroon{
+    background-color: #b62b2b;
+}
+
+    .Tiles.Maroon:hover {
+    background-color: #882020;
+}
+
+          .Tiles.Pink{
+    background-color: #d9394f;
+}
+
+    .Tiles.Pink:hover {
+    background-color: #B62335;
+}
+
+          .Tiles.LightBlue{
+    background-color:rgb(40,154,185);
+}
+
+    .Tiles.LightBlue:hover {
+    background-color: rgb(33, 125, 152);
+}
+
+
+          .Tiles.Yellow{
+    background-color:#f6731b;
+}
+
+    .Tiles.Yellow:hover {
+    background-color: #A84706;
+}
+
 
 .TileIcon {
     width: 100%;
