@@ -51,6 +51,7 @@ namespace FlyCn.UIClasses
         public LiteralControl GetThemeCss()
         {
             FlyCnDAL.Security.UserAuthendication UA;
+           
             UIClasses.Const Const = new UIClasses.Const();
             HttpContext context = HttpContext.Current;
             UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
@@ -86,6 +87,7 @@ namespace FlyCn.UIClasses
         {
 
             FlyCnDAL.Security.UserAuthendication UA;
+            FlyCnDAL.DALConstants DALConst = new FlyCnDAL.DALConstants();
             UIClasses.Const Const = new UIClasses.Const();
             HttpContext context = HttpContext.Current;
             UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
@@ -100,7 +102,7 @@ namespace FlyCn.UIClasses
             }
             else
             {
-                cssList = cssList.Replace("$THEME$", "FlyCnRed");
+                cssList = cssList.Replace("$THEME$", DALConst.DefaultTheme);
             }
 
             LiteralControl Css = new LiteralControl(cssList);

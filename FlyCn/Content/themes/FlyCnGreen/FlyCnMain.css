@@ -188,7 +188,7 @@ iframe {
 .Tiles {
     color: white;
     border-radius: 25px;
-    background-color: #E2656F; /*#FF6666;*/
+    background-color:#009999; /*#FF6666;*/
     vertical-align: middle;
     text-align: center;
     width: 125px;
@@ -196,7 +196,7 @@ iframe {
     cursor: pointer;
 }
     .Tiles:hover {
-    background-color: #DC4753;
+    background-color: #006262;
 }
 
 
@@ -317,32 +317,9 @@ iframe {
     border-top-style: none;
     border-bottom-style: inset;
     border-bottom-width: thin;
-    border-bottom-color: #fff9f9;
-    margin-bottom: 10px;
- 
-/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,fff9f9+93,f9efef+97,f7eded+100 */
-background: #ffffff; /* Old browsers */
-background: -moz-linear-gradient(top,  #ffffff 0%, #fff9f9 93%, #f9efef 97%, #f7eded 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(93%,#fff9f9), color-stop(97%,#f9efef), color-stop(100%,#f7eded)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #ffffff 0%,#fff9f9 93%,#f9efef 97%,#f7eded 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #ffffff 0%,#fff9f9 93%,#f9efef 97%,#f7eded 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #ffffff 0%,#fff9f9 93%,#f9efef 97%,#f7eded 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #ffffff 0%,#fff9f9 93%,#f9efef 97%,#f7eded 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7eded',GradientType=0 ); /* IE6-9 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    border-bottom-color: #CEFFFF;
+    margin-bottom: 10px; /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,fff9f9+93,f9efef+97,f7eded+100 */
+    background: #DFF4EA; /* Old browsers */
 }
 
 

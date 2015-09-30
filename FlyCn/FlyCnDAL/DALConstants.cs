@@ -11,5 +11,6 @@ namespace FlyCn.FlyCnDAL
         public string ClientPunchListURL = "../EIL/ClientPunchList.aspx";
         public string ConstructionPunchListURL = "../EIL/ConstructionPunchList.aspx";
         public string QCPunchListURL = "../EIL/QCPunchList.aspx";
+        public string DefaultTheme = "FlyCnRed";
     }
 }

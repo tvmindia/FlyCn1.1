@@ -140,7 +140,7 @@ namespace FlyCn.FlyCnDAL
                     isValidUser = false;
                 }
             }
-
+            FlyCnDAL.DALConstants Constants = new FlyCnDAL.DALConstants();
             private Boolean isValidUser;
             private string userN;
             private string project;
@@ -199,7 +199,7 @@ namespace FlyCn.FlyCnDAL
                     {
                         if (dt.Rows[0]["theme"] == null || dt.Rows[0]["theme"].ToString() == "")
                         {
-                            theme = "FlyCnRed";
+                            theme = Constants.DefaultTheme;
                         }
                         else
                         {
@@ -209,14 +209,14 @@ namespace FlyCn.FlyCnDAL
                     }
                     else
                     {
-                        theme = "FlyCnRed";
+                        theme = Constants.DefaultTheme;
                     }
 
 
                 }
                 catch (Exception)
                 {
-                    theme = "FlyCnRed";
+                    theme = Constants.DefaultTheme;
                 }
             }
 
