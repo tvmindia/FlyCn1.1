@@ -41,17 +41,26 @@ namespace FlyCn.UIClasses
                 myInnerHtml = myInnerHtml + Environment.NewLine;
                 if (id == null)
                 {
+                    string colorClass="";
+                    if (ds.Tables[0].Rows[f]["theme"] != null)
+                    {
+                        colorClass = " " + ds.Tables[0].Rows[f]["theme"].ToString();
+                    }
 
-                    myInnerHtml = myInnerHtml + "<td class='Tiles'  >";
+                    myInnerHtml = myInnerHtml + "<td class='Tiles" + colorClass + "'  >";
                     string img = ds.Tables[0].Rows[f]["imgUrl"].ToString();                   
                     myInnerHtml = myInnerHtml + " <table class='TileIcon'> <tr><td>" + "<img" + " src=" + "'" + img + "'" + " onclick" + "=" + "bindimage('" + ds.Tables[0].Rows[f]["menuId"].ToString() + "') border=" + "0" + " alt=Submission Form" + "/></td></tr>" +
                     "<tr> <td>  <span class=" + "description" + ">" + ds.Tables[0].Rows[f]["description"].ToString() + "</span> </td> </tr> </table></td>";
                 }
                 else
                 {
+                    string colorClass = "";
+                    if (ds.Tables[0].Rows[f]["theme"] != null)
+                    {
+                        colorClass = " " +  ds.Tables[0].Rows[f]["theme"].ToString();
+                    }
 
-
-                    myInnerHtml = myInnerHtml + "<td class='Tiles' >";
+                    myInnerHtml = myInnerHtml + "<td class='Tiles" + colorClass + "' >";
                     string img = ds.Tables[0].Rows[f]["subimgUrl"].ToString();
 
                     myInnerHtml = myInnerHtml + " <table class='TileIcon'> <tr><td><img" + " src=" + "'" + img + "'" + " onclick" + "=" + "parent.bindimageLink('" + ds.Tables[0].Rows[f]["subPath"].ToString() + "') border=" + "0" + " alt=Submission Form" + "/></td></tr>" +
