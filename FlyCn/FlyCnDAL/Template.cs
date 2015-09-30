@@ -24,6 +24,11 @@ namespace FlyCn.FlyCnDAL
             rtn.Target = "contentPane";
             myTree.Nodes.Add(rtn);
 
+            rtn = new RadTreeNode("template3", "2");
+            rtn.NavigateUrl = "../Templates/InputTemplateContent2.aspx";
+            rtn.Target = "contentPane";
+            myTree.Nodes.Add(rtn);
+
         }
         public void LoadInputScreen(RadPane myContentPane)
         {
