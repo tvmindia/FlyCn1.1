@@ -9,7 +9,7 @@
      
     </asp:ContentPlaceHolder>
     <script src="../Scripts/Messages.js"></script>
-       <link href="../Content/FlyCnMain.css" rel="stylesheet" />
+      
     <script src="../Scripts/jquery-1.8.2.min.js"></script>
        <style type="text/css">
         .auto-style3 {

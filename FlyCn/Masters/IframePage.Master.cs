@@ -14,6 +14,9 @@ namespace FlyCn.Masters
         {
             ErrorHandling eObj = new ErrorHandling();
             eObj.ClearMessage(this);
+
+            UIClasses.InputPages ip = new UIClasses.InputPages();
+            this.head.Controls.Add(ip.GetThemeCss());
         }
     }
 }
