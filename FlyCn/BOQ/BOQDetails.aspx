@@ -41,6 +41,7 @@
           <asp:Label ID="lblItemNo" CssClass="control-label col-md-3" runat="server" Text="Item No"></asp:Label>
           <div class="col-md-9">
             <asp:TextBox ID="txtItemNo"  runat="server" CssClass="form-control"></asp:TextBox>
+             <asp:HiddenField ID="hdfRevisionId" runat="server" />
           </div>
         </div>
        </div>
@@ -264,7 +265,7 @@
      debugger;
     
      $(document).ready(function () {
-         alert("Boq detail insert not completd");
+         //alert("Boq detail insert not completd");
          
        
      });

@@ -12,6 +12,8 @@ namespace FlyCn.FlyCnDAL
     {
         public DocumentMaster documentMaster = new DocumentMaster();
         public BOQDetails bOQDetails = new BOQDetails();
+            
+       
         ErrorHandling eObj = new ErrorHandling();
         #region Billofquantityproperties
 
@@ -71,7 +73,7 @@ namespace FlyCn.FlyCnDAL
         /// <summary>
         /// inserting Boq header and details
         /// </summary>
-        public void AddNewBOQ()
+        public Guid AddNewBOQ()
         {
             SqlConnection con = null;
             try
@@ -98,15 +100,22 @@ namespace FlyCn.FlyCnDAL
                 boqcmd.ExecuteNonQuery();
                 if(int.Parse(OutparamId.Value.ToString())!=0)
                 {
-                   
+
+                    //not successfull duplicate entry
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.InsertionSuccessData(page,"Given data is already existing,Duplicate Entry!");
                     
                 }
                 else
                 {
                     //successfull
-                    documentMaster.RevisionID = (Guid)(OutRevisionId.Value);//returning revison id
-                    
+                     documentMaster.RevisionID = (Guid)(OutRevisionId.Value);//returning revison id to store in boq iframe hidddendfield
+                     var page = HttpContext.Current.CurrentHandler as Page;
+                     eObj.InsertionSuccessData(page);
+
+                   
                 }
+               
                 
 
             }
@@ -123,6 +132,7 @@ namespace FlyCn.FlyCnDAL
                 }
 
             }
+            return documentMaster.RevisionID;
         }
         public void UpdateBOQ()
         {
@@ -153,11 +163,16 @@ namespace FlyCn.FlyCnDAL
                 boqcmd.ExecuteNonQuery();
                 if (int.Parse(OutparamId.Value.ToString()) != 0)
                 {
+                    //not successfull
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.UpdationSuccessData(page,"Not Updated");
                    
                 }
                 else
                 {
                     //successfull
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.UpdationSuccessData(page);
                 }
 
 
@@ -184,10 +199,22 @@ namespace FlyCn.FlyCnDAL
 
     public class BOQDetails
     {
-        public DocumentMaster documentMaster; 
         ErrorHandling eObj = new ErrorHandling();
+        
 
         #region Boqdetailproperty
+
+        public Guid RevisionID
+        {
+            get;
+            set;
+        }
+
+        public string ProjectNo
+        {
+            get;
+            set;
+        }
         public Int16 ItemNo
         {
             get;
@@ -312,15 +339,14 @@ namespace FlyCn.FlyCnDAL
             SqlConnection con = null;
             try
             {
-                documentMaster=new DocumentMaster();
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand boqcmd = new SqlCommand();
                 boqcmd.Connection = con;
                 boqcmd.CommandType = System.Data.CommandType.StoredProcedure;
                 boqcmd.CommandText = "[InsertBoqDetails]";
-                boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = documentMaster.RevisionID;
-                boqcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = documentMaster.ProjectNo;
+                boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = RevisionID;
+                boqcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = ProjectNo;
                 boqcmd.Parameters.Add("@ItemNo", SqlDbType.SmallInt).Value = ItemNo;
                 boqcmd.Parameters.Add("@ItemDescription", SqlDbType.NVarChar, 250).Value = ItemDescription;
                 boqcmd.Parameters.Add("@Quantity", SqlDbType.Real).Value = Quantity;
@@ -352,11 +378,18 @@ namespace FlyCn.FlyCnDAL
                 boqcmd.ExecuteNonQuery();
                 if (int.Parse(OutparamId.Value.ToString()) != 0)
                 {
+                   //not successfull   
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.InsertionSuccessData(page,"Insert not Successfull,Duplicate Entry!");
 
                 }
                 else
                 {
                     //successfull
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.InsertionSuccessData(page);
+
+
                 }
 
 

@@ -139,7 +139,7 @@
                                         <div class="form-group">
 
 
-                                            <asp:Label ID="lblClientdocumentnot" CssClass="control-label col-md-3" runat="server" Text="Client Document No"></asp:Label>
+                                            <asp:Label ID="lblClientdocumentnot" CssClass="control-label col-md-3" runat="server" Text="Client Document No*"></asp:Label>
                                             <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtClientdocumentno" CssClass="form-control" runat="server"></asp:TextBox>
@@ -156,7 +156,7 @@
 
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblRevisionno" CssClass="control-label col-md-3" runat="server" Text="Revision No"></asp:Label>
+                                            <asp:Label ID="lblRevisionno" CssClass="control-label col-md-3" runat="server" Text="Revision No*"></asp:Label>
                                             <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtRevisionno" CssClass="form-control" runat="server"></asp:TextBox>
@@ -170,7 +170,7 @@
 
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblDocumentdate" CssClass="control-label col-md-3" runat="server" Text="Document Date"></asp:Label>
+                                            <asp:Label ID="lblDocumentdate" CssClass="control-label col-md-3" runat="server" Text="Document Date*"></asp:Label>
                                             <div class="col-md-9">
                                                 <telerik:RadDatePicker ID="RadDocumentDate" runat="server"></telerik:RadDatePicker>
                                                 <%-- <asp:TextBox ID="txtDocumentdate" CssClass="form-control" runat="server"></asp:TextBox>--%>
@@ -185,7 +185,7 @@
 
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblDocumenttitle" CssClass="control-label col-md-3" runat="server" Text="Document Title"></asp:Label>
+                                            <asp:Label ID="lblDocumenttitle" CssClass="control-label col-md-3" runat="server" Text="Document Title*"></asp:Label>
                                             <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtDocumenttitle" CssClass="form-control" runat="server"></asp:TextBox>
@@ -199,7 +199,7 @@
                                         <div class="form-group">
 
 
-                                            <asp:Label ID="lblRemarks" CssClass="control-label col-md-3" runat="server" Text="Remarks"></asp:Label>
+                                            <asp:Label ID="lblRemarks" CssClass="control-label col-md-3" runat="server" Text="Remarks*"></asp:Label>
                                             <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtRemarks" CssClass="form-control" runat="server"></asp:TextBox>
@@ -221,7 +221,7 @@
                                                 <a href="#" class="accordion-toggle">Details<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                                                 <div class="accordion-content">
 
-                                                    <iframe id="ContentIframe" name="BOQDetails" src="BOQDetails.aspx" style="height: 300px; width: 100%; overflow: hidden;" runat="server"></iframe>
+                                                    <iframe id="ContentIframe" name="BOQDetails" style="height: 500px; width: 100%; overflow: hidden;" runat="server"></iframe>
                                                      
                                                 </div>
                                             </div>
