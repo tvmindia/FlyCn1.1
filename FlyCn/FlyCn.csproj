@@ -253,6 +253,7 @@
     <Content Include="Content\themes\FlyCnRider\Common\radActionsSprite.png" />
     <Content Include="Content\themes\FlyCnRider\Splitter.FlyCnRider.css" />
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
+    <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\flycnLogo.png" />
     <Content Include="Scripts\Messages.js" />
     <Content Include="Templates\htmlTemplate.html" />
@@ -563,6 +564,13 @@
     </Compile>
     <Compile Include="FlyCnMasters\PersonnelQualification.aspx.designer.cs">
       <DependentUpon>PersonnelQualification.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FlyCnMasters\UserMaster.aspx.cs">
+      <DependentUpon>UserMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlyCnMasters\UserMaster.aspx.designer.cs">
+      <DependentUpon>UserMaster.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
