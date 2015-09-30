@@ -9,8 +9,8 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <script src="../Scripts/jquery-1.8.2.min.js"></script>
-    <link href="../Content/FlyCnMain.css" rel="stylesheet" />
-    <link href="../Content/Site.css" rel="stylesheet" />
+    <%--<link href="../Content/FlyCnMain.css" rel="stylesheet" />
+    <link href="../Content/Site.css" rel="stylesheet" />--%>
     <link rel="shortcut icon" href="../Images/Icons/cap.ico" />
     <script type="text/javascript">
         function openLogin(opt) {

@@ -132,6 +132,7 @@ namespace FlyCn.FlyCnDAL
                     isValidUser = true;
                     userN = userName;
                     project = "C00001";
+                    GetUserDetails();
                 }
                 else
                 {
@@ -169,6 +170,56 @@ namespace FlyCn.FlyCnDAL
                     return project;
                 }
             }
+
+            public string theme
+            {
+                get;
+                set;
+            }
+
+
+            private void GetUserDetails()
+            {
+                try
+                {
+                    DataTable dt = new DataTable();
+                    SqlConnection con = null;
+                    SqlDataAdapter daObj;
+
+                    dbConnection dcon = new dbConnection();
+                    con = dcon.GetDBConnection();
+                    SqlCommand cmdSelect = new SqlCommand("GetUserDetails", con);
+                    cmdSelect.CommandType = CommandType.StoredProcedure;
+                    cmdSelect.Parameters.AddWithValue("@UserName", userName);
+
+                    daObj = new SqlDataAdapter(cmdSelect);
+                    daObj.Fill(dt);
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        if (dt.Rows[0]["theme"] == null || dt.Rows[0]["theme"].ToString() == "")
+                        {
+                            theme = "FlyCnRed";
+                        }
+                        else
+                        {
+                            theme = dt.Rows[0]["theme"].ToString();
+                        }
+
+                    }
+                    else
+                    {
+                        theme = "FlyCnRed";
+                    }
+
+
+                }
+                catch (Exception)
+                {
+                    theme = "FlyCnRed";
+                }
+            }
+
 
 
         }
@@ -282,5 +333,9 @@ namespace FlyCn.FlyCnDAL
             }
             return 0;
         }
+
+      
+
+
     }
 }
