@@ -62,7 +62,7 @@ namespace FlyCn.FlyCnMasters
         {
             Security securityObj = new Security();
             securityObj.UserName = txtUserName.Text;
-            securityObj.PassWord =txtPassWord.Text;
+            securityObj.PassWord = txtPassWord.Text;
             securityObj.ConfirmPassWord = txtConfirmPassWord.Text;
             securityObj.EmailId = txtEmailId.Text;
             securityObj.CreatedBy = UA.userName;
