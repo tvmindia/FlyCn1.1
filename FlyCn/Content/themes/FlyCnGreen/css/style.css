@@ -99,77 +99,70 @@ body {
     background-color: #DE4B56;
 }
 #tabs a {
-	position: relative;
-	background: #ddd;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#DE4B56), to(#DE4B56));
+    position: relative;
+    background: #00C1C1; /*background-image: -webkit-gradient(linear, left top, left bottom, from(#DE4B56), to(#DE4B56));
 	background-image: -webkit-linear-gradient(top, #DE4B56, #DE4B56);
 	background-image: -moz-linear-gradient(top, #DE4B56, #DE4B56);
 	background-image: -ms-linear-gradient(top, #DE4B56, #DE4B56);
 	background-image: -o-linear-gradient(top, #DE4B56, #DE4B56);
-	background-image: linear-gradient(to bottom, #DE4B56, #DE4B56);
-	padding: .3em 2.5em;
-	float: left;
-	text-decoration: none;
-	color: #FFF;
-	text-shadow: 0 1px 0 rgba(255,255,255,.8);
-	-webkit-border-radius: 5px 0 0 0;
-	-moz-border-radius: 5px 0 0 0;
-	border-radius: 5px 0 0 0;
-	-moz-box-shadow: 0 2px 2px rgba(0,0,0,.4);
-	-webkit-box-shadow: 0 2px 2px rgba(0,0,0,.4);
-	box-shadow: 0 2px 2px rgba(0,0,0,.4);
+	background-image: linear-gradient(to bottom, #DE4B56, #DE4B56);*/
+    padding: .3em 2.5em;
+    float: left;
+    text-decoration: none;
+    color: #FFF;
+    text-shadow: 0 1px 0 rgba(255,255,255,.8);
+    -webkit-border-radius: 5px 0 0 0;
+    -moz-border-radius: 5px 0 0 0;
+    border-radius: 5px 0 0 0;
+    -moz-box-shadow: 0 2px 2px rgba(0,0,0,.4);
+    -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.4);
+    box-shadow: 0 2px 2px rgba(0,0,0,.4);
 }
 #tabs a:hover, #tabs a:hover::after, #tabs a:focus, #tabs a:focus::after {
-    background: #A41E27;
+    background: #009999;
 }
 #tabs a:focus {
 	outline: 0;
 }
 #tabs a:active {
 	outline: thin;
-	background: #A41E27;
+	background: #009999;
      
 }
 #tabs a::after {
-	content: '';
-	position: absolute;
-	z-index: 1;
-	top: 0;
-	right: -.5em;
-	bottom: 0;
-	width: 1em;
-	background: #DE4B56;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#DE4B56), to(#DE4B56));
-	background-image: -webkit-linear-gradient(top, #DE4B56, #DE4B56);
-	background-image: -moz-linear-gradient(top, #DE4B56, #DE4B56);
-	background-image: -ms-linear-gradient(top, #DE4B56, #DE4B56);
-	background-image: -o-linear-gradient(top, #DE4B56, #DE4B56);
-	background-image: linear-gradient(to bottom, #DE4B56, #DE4B56);
-	-moz-box-shadow: 2px 2px 2px rgba(0,0,0,.4);
-	-webkit-box-shadow: 2px 2px 2px rgba(0,0,0,.4);
-	box-shadow: 2px 2px 2px rgba(0,0,0,.4);
-	-webkit-transform: skew(10deg);
-	-moz-transform: skew(10deg);
-	-ms-transform: skew(10deg);
-	-o-transform: skew(10deg);
-	transform: skew(10deg);
-	-webkit-border-radius: 0 5px 0 0;
-	-moz-border-radius: 0 5px 0 0;
-	border-radius: 0 5px 0 0;
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: -.5em;
+    bottom: 0;
+    width: 1em;
+    background: #00C1C1;
    
+    -moz-box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+    box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+    -webkit-transform: skew(10deg);
+    -moz-transform: skew(10deg);
+    -ms-transform: skew(10deg);
+    -o-transform: skew(10deg);
+    transform: skew(10deg);
+    -webkit-border-radius: 0 5px 0 0;
+    -moz-border-radius: 0 5px 0 0;
+    border-radius: 0 5px 0 0;
 }
 #tabs #current a {
-    background: #A41E27;
+    background: #009999;
     z-index: 3;
     /*border-style: inset none none inset;
     border-width: thin;
-    border-color: #A41E27;*/
+    border-color: #009999;*/
 }
 #tabs #current a::after {
     /*border-style: inset inset none none;
     border-width: thin;
-    border-color: #A41E27;*/
-    background: #A41E27;
+    border-color: #009999;*/
+    background: #009999;
     z-index: 3;
 }
 /* ------------------------------------------------- */
@@ -177,7 +170,7 @@ body {
 #content {
     border-style: none inset inset inset;
     border-width: thin;
-    border-color: #A41E27;
+    border-color: #009999;
     background: white;
     height: auto;
     min-height:85vh;
@@ -192,7 +185,7 @@ body {
 .contentTopBar {
     border-top-style: outset;
     border-top-width: medium;
-    border-color: #A41E27;
+    border-color: #009999;
 }
 /* ------------------------------------------------- */
 
