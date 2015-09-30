@@ -38,7 +38,7 @@
  <div class="col-md-12 Span-One">
     <div class="col-md-6">
        <div class="form-group">
-          <asp:Label ID="lblItemNo" CssClass="control-label col-md-3" runat="server" Text="Item No"></asp:Label>
+          <asp:Label ID="lblItemNo" CssClass="control-label col-md-3" runat="server" Text="Item No*"></asp:Label>
           <div class="col-md-9">
             <asp:TextBox ID="txtItemNo"  runat="server" CssClass="form-control"></asp:TextBox>
              <asp:HiddenField ID="hdfRevisionId" runat="server" />

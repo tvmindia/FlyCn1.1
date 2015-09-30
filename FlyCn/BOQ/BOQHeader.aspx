@@ -139,7 +139,7 @@
                                         <div class="form-group">
 
 
-                                            <asp:Label ID="lblClientdocumentnot" CssClass="control-label col-md-3" runat="server" Text="Client Document No*"></asp:Label>
+                                            <asp:Label ID="lblClientdocumentnot" CssClass="control-label col-md-3" runat="server" Text="Client Document No"></asp:Label>
                                             <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtClientdocumentno" CssClass="form-control" runat="server"></asp:TextBox>
