@@ -66,6 +66,17 @@ namespace FlyCn.FlyCnDAL
                 divMask1.Attributes["class"] = "Succesmsgboxes";
                 Success.Text = "Successfully Inserted";  
             }
+         public void InsertionSuccessData(Page pg,string msg)//if insert does not happend becasue of already existing
+         {
+             var master1 = pg.Master;
+             ContentPlaceHolder mpContentPlaceHolder1;
+             mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
+             HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
+             divMask1.Style["visibility"] = "visible";// divMask1.Style["display"] = "";              
+             Label Success = (Label)master1.FindControl("lblErrorInfo");
+             divMask1.Attributes["class"] = "Succesmsgboxes";
+             Success.Text = msg;//message comes from the insert function
+         }
         public void UpdationSuccessData(Page pg)
          {
              var master1 = pg.Master;
@@ -77,6 +88,18 @@ namespace FlyCn.FlyCnDAL
              divMask1.Attributes["class"] = "Succesmsgboxes";
              Success.Text = "Successfully Updated";  
          }
+
+        public void UpdationSuccessData(Page pg,string msg)//if update fails
+        {
+            var master1 = pg.Master;
+            ContentPlaceHolder mpContentPlaceHolder1;
+            mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
+            HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
+            divMask1.Style["visibility"] = "visible";// divMask1.Style["display"] = "";
+            Label Success = (Label)master1.FindControl("lblErrorInfo");
+            divMask1.Attributes["class"] = "Succesmsgboxes";
+            Success.Text = msg;
+        }
         
         //private void DisableAllControls(Control Page)
         //{
