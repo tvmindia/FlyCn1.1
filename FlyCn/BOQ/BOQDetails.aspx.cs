@@ -26,6 +26,7 @@ namespace FlyCn.BOQ
             ToolBar1.OnClientButtonClicking = "OnClientButtonClickingDetail";
             ToolBarVisibility(1);
         }
+       
         #region ToolBar_onClick
          protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
