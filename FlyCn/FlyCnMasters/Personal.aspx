@@ -113,18 +113,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Input</title>
     <!-----bootstrap css--->
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,900' rel='stylesheet' type='text/css' />
+    <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
     <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
     <!-----bootstrap css--->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link href="../Content/themes/FlyCnBlue/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../Content/themes/FlyCnBlue/css/stylesheet.css" rel="stylesheet" />
 
     <link href="../Content/themes/FlyCnBlue/css/selectize.css" rel="stylesheet" type="text/css" />
     <link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
     <!-----main css--->
     <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />
     <!-----main css--->
 
 </asp:Content>
@@ -133,7 +132,7 @@
     <div class="container" style="width: 100%">
 
     <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
-        CausesValidation="false" SelectedIndex="0" Skin="Silk">
+        CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
         <Tabs>
             <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
             <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"></telerik:RadTab>

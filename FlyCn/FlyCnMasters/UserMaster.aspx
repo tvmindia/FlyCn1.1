@@ -4,8 +4,7 @@
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-        <!-----bootstrap css--->
-
+       <!-----bootstrap css--->
     <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
     <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
     <!-----bootstrap css--->
@@ -88,17 +87,19 @@
 
 </asp:Content>
 <asp:Content ID="phdUserMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-      <div class="container">
+      <div class="container"  style="width: 100%">
           
                     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
                     </asp:ScriptManager>
     <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
-        CausesValidation="false" SelectedIndex="0" Skin="Silk">
+        CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
         <Tabs>
             <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
             <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"></telerik:RadTab>
         </Tabs>
     </telerik:RadTabStrip>
+           <div id="content">
+            <div class="contentTopBar"></div>
 
                <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
             <telerik:RadPageView ID="rpList" runat="server">
@@ -233,7 +234,8 @@
                      </div>
                                   </telerik:RadPageView>
                 </telerik:RadMultiPage>
-          
-
+         
+               </div>
 </div>
+    
 </asp:Content>

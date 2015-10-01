@@ -194,14 +194,21 @@ namespace FlyCn.FlyCnMasters
                         //rfv.SetFocusOnError = true;
                         //rfv.ErrorMessage = "*Comments field is mandatory";
                         //rfv.Enabled = true;
-                       
-                        //if (datatableobj.Rows[f]["Field_DataType"].ToString() == "U" | datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
-                        //{
 
-                        //    hf.ID = "hf" + datatableobj.Rows[f]["Field_Name"].ToString();
+                        if (datatableobj.Rows[f]["Field_DataType"].ToString() == "U" | datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
+                        {
+
+                            HtmlGenericControl divcontrol = new HtmlGenericControl("div");
+                            //  divYogesh.Attributes.Add("class", "myClass");
 
 
-                        //}
+                            HiddenField hf = new HiddenField();
+                            hf.ID = "hf" + datatableobj.Rows[f]["Field_Name"].ToString();
+                            divcontrol.Controls.Add(hf);
+                            placeholder.Controls.Add(divcontrol);
+
+
+                        }
                          if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
                         {
                             CheckBox checkbox = new CheckBox();
@@ -231,9 +238,11 @@ namespace FlyCn.FlyCnMasters
                             cell1.Controls.Add(combo);
                             row.Cells.Add(cell);
                             row.Cells.Add(cell1);
+                         
                         }
-
-                        if ((f + 1) % 2 == 0)
+                         int s = row.Cells.Count;
+                      //  if ((f + 1) % 2 == 0)
+                         if (s % 4 == 0)
                         {
                             table.Rows.Add(row);
 
@@ -486,6 +495,14 @@ namespace FlyCn.FlyCnMasters
 
                         datatableobj.Rows[f]["Values"] = UA.userName;
                     }
+
+                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
+                    {
+
+                        string boxname = datatableobj.Rows[f]["Field_Name"].ToString();
+                        CheckBox box = (CheckBox)placeholder.FindControl("chk" + datatableobj.Rows[f]["Field_Name"]);
+                        box.Checked =Convert.ToBoolean( dst.Rows[0][boxname].ToString());
+                    }
                    
                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
                     {
@@ -579,6 +596,13 @@ namespace FlyCn.FlyCnMasters
                     {
                         datatableobj.Rows[f]["Values"] = UA.userName;
                        
+                    }
+                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
+                    {
+                        CheckBox box = (CheckBox)placeholder.FindControl("chk" + datatableobj.Rows[f]["Field_Name"]);
+
+                        datatableobj.Rows[f]["Values"] = box.Checked;
+
                     }
                   else  if (datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
                     {
