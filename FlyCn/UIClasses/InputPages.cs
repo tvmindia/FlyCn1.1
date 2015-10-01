@@ -70,7 +70,8 @@ namespace FlyCn.UIClasses
        "<link href='../Content/themes/$THEME$/css/stylesheet.css' rel='stylesheet' />" +
        "<link href='../Content/themes/$THEME$/css/selectize.css' rel='stylesheet' type='text/css' />" +
        "<link href='../Content/themes/$THEME$/css/accodin.css' rel='stylesheet' type='text/css' />" +
-       "<link href='../Content/themes/$THEME$/css/style.css' rel='stylesheet' type='text/css' />";
+       "<link href='../Content/themes/$THEME$/css/style.css' rel='stylesheet' type='text/css' />" +
+       "<link href='../Content/themes/$THEME$/TabStrip.FlyCnRed_Rad.css' rel='stylesheet' />";
             }
 
            
