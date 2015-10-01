@@ -9,6 +9,19 @@
 
 
 
+
+  
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Input</title>
+   
+    
+</asp:Content>
+
+<asp:Content ID="phdPersonalContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
     <script type="text/javascript">
         function ClearTextBox() {
             $('textarea').empty();
@@ -55,7 +68,7 @@
 
     <script type="text/javascript">
         function onClientTabSelected(sender, args) {
-            
+
             var tab = args.get_tab();
             if (tab.get_value() == '2') {
 
@@ -68,20 +81,20 @@
                     document.getElementById('<%=txtCode.ClientID %>').disabled = false;
 
 
-                  }
-                  catch (x) {
-                      alert(x.message);
-                  }
+                }
+                catch (x) {
+                    alert(x.message);
+                }
 
-              }
+            }
 
-              if (tab.get_value() == "1") {//List tab selected
+            if (tab.get_value() == "1") {//List tab selected
 
-                  SelectTabList();
-                  SetTabNewTextAndIcon();
+                SelectTabList();
+                SetTabNewTextAndIcon();
 
-              }
-          }
+            }
+        }
 
     </script>
 
@@ -105,30 +118,6 @@
 
         }
     </script>
-
-  
-
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Input</title>
-    <!-----bootstrap css--->
-    <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
-    <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
-    <!-----bootstrap css--->
-    <link href="../Content/themes/FlyCnBlue/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../Content/themes/FlyCnBlue/css/stylesheet.css" rel="stylesheet" />
-
-    <link href="../Content/themes/FlyCnBlue/css/selectize.css" rel="stylesheet" type="text/css" />
-    <link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
-    <!-----main css--->
-    <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />
-    <!-----main css--->
-
-</asp:Content>
-
-<asp:Content ID="phdPersonalContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container" style="width: 100%">
 
     <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
@@ -545,7 +534,7 @@
                                 <%--    <div id="framediv" runat="server" style="overflow: hidden;">--%>
 
                                 <iframe id="ContentIframe"
-                                    name="PQualification" style="height: 300px; width: 100%; display: none; overflow: hidden;"
+                                    name="PQualification" style="height: 500px; width: 100%; display: none; overflow: hidden;"
                                     runat="server"></iframe>
                                                              <asp:Label ID="lblQualificationframe" runat="server" Text="First Insert Personnel Information and Click Save Button " ForeColor="Tomato"></asp:Label>
 

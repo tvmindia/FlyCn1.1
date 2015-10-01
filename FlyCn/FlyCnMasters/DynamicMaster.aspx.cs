@@ -183,12 +183,12 @@ namespace FlyCn.FlyCnMasters
                         box.Attributes.Add("class", "form-control");
 
                         box.ID = "txt" + datatableobj.Rows[f]["Field_Name"].ToString();
-                       
-                        //string ValidationGroup = "Submit";
+                       // box.ValidationGroup = "Submit";
+                       // string ValidationGroup = "Submit";
                         //RequiredFieldValidator rfv = new RequiredFieldValidator();
                         //rfv.ControlToValidate = box.ID;
                         //rfv.ID = "rfv" + datatableobj.Rows[f]["Field_Name"];
-                        //rfv.EnableClientScript = false;
+                        ////rfv.EnableClientScript = false;
                         //rfv.ValidationGroup = ValidationGroup;
                         //rfv.ForeColor = System.Drawing.Color.Red;
                         //rfv.SetFocusOnError = true;
@@ -223,6 +223,7 @@ namespace FlyCn.FlyCnMasters
                            {
                             cell.Controls.Add(lbl);
                             cell1.Controls.Add(box);
+                           // cell1.Controls.Add(rfv);
                             //cell2.Controls.Add(rfv);
                             row.Cells.Add(cell);
                             row.Cells.Add(cell1);
@@ -242,7 +243,7 @@ namespace FlyCn.FlyCnMasters
                         }
                          int s = row.Cells.Count;
                       //  if ((f + 1) % 2 == 0)
-                         if (s % 4 == 0)
+                         if (s % 4 == 0)// take coloum count . if count is multiple of 4 then it create next row. so each row contain 4 coloumns
                         {
                             table.Rows.Add(row);
 
