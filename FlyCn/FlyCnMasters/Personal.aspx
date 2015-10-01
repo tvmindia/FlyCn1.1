@@ -130,7 +130,7 @@
 </asp:Content>
 
 <asp:Content ID="phdPersonalContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container">
+    <div class="container" style="width: 100%">
 
     <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
         CausesValidation="false" SelectedIndex="0" Skin="Silk">
@@ -139,7 +139,8 @@
             <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"></telerik:RadTab>
         </Tabs>
     </telerik:RadTabStrip>
-
+          <div id="content">
+            <div class="contentTopBar"></div>
 
   
         <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
@@ -159,7 +160,7 @@
                             <Columns>
                                 <telerik:GridButtonColumn CommandName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
                                 </telerik:GridButtonColumn>
-                                <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
+                                <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton"  ImageUrl="~/Images/Cancel.png" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
                                 </telerik:GridButtonColumn>
 
                             </Columns>
@@ -180,13 +181,13 @@
                 --%>
 
 
-                <div class="col-lg-12 Span-One">
-                    <div class="col-lg-6">
+                <div class="col-md-12 Span-One">
+                    <div class="col-md-6">
 
                         <div class="form-group">
 
-                            <asp:Label ID="lblCode" CssClass="control-label col-lg-3" runat="server" Text="Code"></asp:Label>
-                            <div class="col-lg-9">
+                            <asp:Label ID="lblCode" CssClass="control-label col-md-3" runat="server" Text="Code"></asp:Label>
+                            <div class="col-md-9">
                                 <asp:TextBox ID="txtCode" CssClass="form-control" runat="server"></asp:TextBox>
                                 <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
                                 <asp:RequiredFieldValidator ID="rfv" runat="server" ErrorMessage="Enter code."
@@ -199,14 +200,14 @@
                         </div>
                         <%-- </form>--%>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-md-6">
                         <%--    <form class="form-horizontal" role="form">--%>
                         <div class="form-group">
 
 
-                            <asp:Label ID="lblStartDate" CssClass="control-label col-lg-3" runat="server" Text="Start Date"></asp:Label>
+                            <asp:Label ID="lblStartDate" CssClass="control-label col-md-3" runat="server" Text="Start Date"></asp:Label>
 
-                            <div class="col-lg-9">
+                            <div class="col-md-9">
 
 
                                 <telerik:RadDatePicker ID="RadStartDate" runat="server"
@@ -225,14 +226,14 @@
 
 
 
-                <div class="col-lg-12 Span-One">
-                    <div class="col-lg-6">
+                <div class="col-md-12 Span-One">
+                    <div class="col-md-6">
 
                         <div class="form-group">
 
 
-                            <asp:Label ID="lblName" CssClass="control-label col-lg-3" runat="server" Text="Name"></asp:Label>
-                            <div class="col-lg-9">
+                            <asp:Label ID="lblName" CssClass="control-label col-md-3" runat="server" Text="Name"></asp:Label>
+                            <div class="col-md-9">
 
                                 <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
                                 <span id="span1" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
@@ -242,15 +243,15 @@
                         </div>
                         <%-- </form>--%>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-md-6">
                         <%--    <form class="form-horizontal" role="form">--%>
                         <div class="form-group">
 
-                            <asp:Label ID="lblEndDate" CssClass="control-label col-lg-3" runat="server" Text="End Date"></asp:Label>
+                            <asp:Label ID="lblEndDate" CssClass="control-label col-md-3" runat="server" Text="End Date"></asp:Label>
 
 
 
-                            <div class="col-lg-9">
+                            <div class="col-md-9">
 
                                 <telerik:RadDatePicker ID="RadEndDate" runat="server"
                                     Width="170px" TabIndex="2" AutoPostBack="false" MinDate="<%# DateTime.Now.Date %>">
@@ -267,15 +268,15 @@
                 </div>
 
 
-                <div class="col-lg-12 Span-One">
-                    <div class="col-lg-6">
+                <div class="col-md-12 Span-One">
+                    <div class="col-md-6">
 
                         <div class="form-group">
 
 
-                            <asp:Label ID="lblNationality" CssClass="control-label col-lg-3" runat="server" Text="Nationality"></asp:Label>
+                            <asp:Label ID="lblNationality" CssClass="control-label col-md-3" runat="server" Text="Nationality"></asp:Label>
 
-                            <div class="col-lg-9">
+                            <div class="col-md-9">
 
                                 <asp:TextBox ID="txtNationality" CssClass="form-control" runat="server"></asp:TextBox>
                                 <span id="span3" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
@@ -284,15 +285,15 @@
                         </div>
                         <%-- </form>--%>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-md-6">
                         <%--    <form class="form-horizontal" role="form">--%>
                         <div class="form-group">
 
-                            <asp:Label ID="lblPassportNo" CssClass="control-label col-lg-3" runat="server" Text="Passport No"></asp:Label>
+                            <asp:Label ID="lblPassportNo" CssClass="control-label col-md-3" runat="server" Text="Passport No"></asp:Label>
 
 
 
-                            <div class="col-lg-9">
+                            <div class="col-md-9">
 
                                 <asp:TextBox ID="txtPassportNo" CssClass="form-control" runat="server"></asp:TextBox>
 
@@ -301,17 +302,17 @@
                         <%-- </form>--%>
                     </div>
                 </div>
-                <div class="col-lg-12 Span-One">
-                    <div class="col-lg-6">
+                <div class="col-md-12 Span-One">
+                    <div class="col-md-6">
                         <%--    <form class="form-horizontal" role="form">--%>
                         <div class="form-group">
-                            <asp:Label ID="lblRemarks" CssClass="control-label col-lg-3" runat="server" Text="Remarks"></asp:Label>
+                            <asp:Label ID="lblRemarks" CssClass="control-label col-md-3" runat="server" Text="Remarks"></asp:Label>
 
 
 
 
 
-                            <div class="col-lg-9">
+                            <div class="col-md-9">
                                 <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" Width="170px"></asp:TextBox>
 
 
@@ -323,7 +324,7 @@
                 <%-- 
               </div>
                     </div>  --%>
-             <div class="col-lg-12">
+             <div class="col-md-12">
 
       <div class="content white">
                           <div class="accordion-container"> <a href="#" class="accordion-toggle">Company Details  
@@ -332,16 +333,16 @@
                              <div class="accordion-content"> 
                       
 
-                                <div class="col-lg-12 Span-One ">
-                                    <div class="col-lg-6 ">
+                                <div class="col-md-12 Span-One ">
+                                    <div class="col-md-6 ">
 
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblCompany" CssClass="control-label col-lg-3" runat="server" Text="Company"></asp:Label>
+                                            <asp:Label ID="lblCompany" CssClass="control-label col-md-3" runat="server" Text="Company"></asp:Label>
 
 
 
-                                            <div class="col-lg-9">
+                                            <div class="col-md-9">
 
                                                 <telerik:RadComboBox ID="RadComboCompany" runat="server" Width="170px"
                                                     EmptyMessage="Select a Company" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
@@ -353,16 +354,16 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-md-6">
                                         <%--    <form class="form-horizontal" role="form">--%>
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblGenericPosition" CssClass="control-label col-lg-3" runat="server" Text="Generic Position"></asp:Label>
+                                            <asp:Label ID="lblGenericPosition" CssClass="control-label col-md-3" runat="server" Text="Generic Position"></asp:Label>
 
 
 
 
-                                            <div class="col-lg-9">
+                                            <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtGenericPosition" CssClass="form-control" runat="server"></asp:TextBox>
 
@@ -374,16 +375,16 @@
 
 
 
-                                <div class="col-lg-12 Span-One">
-                                    <div class="col-lg-6">
+                                <div class="col-md-12 Span-One">
+                                    <div class="col-md-6">
 
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblIsSubcontract" CssClass="control-label col-lg-3" runat="server" Text="Is Subcontract"></asp:Label>
+                                            <asp:Label ID="lblIsSubcontract" CssClass="control-label col-md-3" runat="server" Text="Is Subcontract"></asp:Label>
 
 
 
-                                            <div class="col-lg-9">
+                                            <div class="col-md-9">
 
                                                 <telerik:RadComboBox
                                                     ID="RadcomboSubcontract"
@@ -398,16 +399,16 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-md-6">
                                         <%--    <form class="form-horizontal" role="form">--%>
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblContractPosition" CssClass="control-label col-lg-3" runat="server" Text="Contract Position"></asp:Label>
+                                            <asp:Label ID="lblContractPosition" CssClass="control-label col-md-3" runat="server" Text="Contract Position"></asp:Label>
 
 
 
 
-                                            <div class="col-lg-9">
+                                            <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtContractPosition" CssClass="form-control" runat="server"></asp:TextBox>
 
@@ -419,15 +420,15 @@
 
 
 
-                                <div class="col-lg-12 Span-One">
-                                    <div class="col-lg-6">
+                                <div class="col-md-12 Span-One">
+                                    <div class="col-md-6">
 
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblEmpNo" CssClass="control-label col-lg-3" runat="server" Text="Emp No"></asp:Label>
+                                            <asp:Label ID="lblEmpNo" CssClass="control-label col-md-3" runat="server" Text="Emp No"></asp:Label>
 
 
-                                            <div class="col-lg-9">
+                                            <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtEmpNo" CssClass="form-control" runat="server"></asp:TextBox>
 
@@ -435,16 +436,16 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-md-6">
                                         <%--    <form class="form-horizontal" role="form">--%>
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblHierarchyPosition" CssClass="control-label col-lg-3" runat="server" Text="Hierarchy Position"></asp:Label>
+                                            <asp:Label ID="lblHierarchyPosition" CssClass="control-label col-md-3" runat="server" Text="Hierarchy Position"></asp:Label>
 
 
 
 
-                                            <div class="col-lg-9">
+                                            <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtHierarchyPosition" CssClass="form-control" runat="server"></asp:TextBox>
 
@@ -456,16 +457,16 @@
 
 
 
-                                <div class="col-lg-12 Span-One">
-                                    <div class="col-lg-6">
+                                <div class="col-md-12 Span-One">
+                                    <div class="col-md-6">
 
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblWorkHours" CssClass="control-label col-lg-3" runat="server" Text="Work Hours"></asp:Label>
+                                            <asp:Label ID="lblWorkHours" CssClass="control-label col-md-3" runat="server" Text="Work Hours"></asp:Label>
 
 
 
-                                            <div class="col-lg-9">
+                                            <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtWorkHours" CssClass="form-control" runat="server"></asp:TextBox>
                                                 <asp:RegularExpressionValidator
@@ -479,16 +480,16 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-md-6">
                                         <%--    <form class="form-horizontal" role="form">--%>
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblCategory" runat="server" CssClass="control-label col-lg-3" Text="Category"></asp:Label>
+                                            <asp:Label ID="lblCategory" runat="server" CssClass="control-label col-md-3" Text="Category"></asp:Label>
 
 
 
 
-                                            <div class="col-lg-9">
+                                            <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtCategory" CssClass="form-control" runat="server"></asp:TextBox>
 
@@ -499,12 +500,12 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12 Span-One">
-                                    <div class="col-lg-6">
+                                <div class="col-md-12 Span-One">
+                                    <div class="col-md-6">
 
                                         <div class="form-group">
-                                            <asp:Label ID="lblOTEligible" CssClass="control-label col-lg-3" runat="server" Text="OT Eligible"></asp:Label>
-                                            <div class="col-lg-9">
+                                            <asp:Label ID="lblOTEligible" CssClass="control-label col-md-3" runat="server" Text="OT Eligible"></asp:Label>
+                                            <div class="col-md-9">
 
                                                 <telerik:RadComboBox
                                                     ID="RadComboOTEligible"
@@ -519,13 +520,13 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-md-6">
                                         <%--    <form class="form-horizontal" role="form">--%>
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblDescipline" CssClass="control-label col-lg-3" runat="server" Text="Descipline"></asp:Label>
+                                            <asp:Label ID="lblDescipline" CssClass="control-label col-md-3" runat="server" Text="Descipline"></asp:Label>
 
-                                            <div class="col-lg-9">
+                                            <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtDescipline" CssClass="form-control" runat="server"></asp:TextBox>
 
@@ -563,7 +564,7 @@
         </telerik:RadMultiPage>
    
         </div>
-
+       </div>
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
