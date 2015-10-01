@@ -84,9 +84,9 @@ namespace FlyCn.FlyCnMasters
         public void PlaceControls()
         {
             {
-                HtmlGenericControl divcontrol = new HtmlGenericControl();
-                divcontrol.Attributes["class"] = "col-lg-12 Span-One col-lg-6 form-group";
-                divcontrol.TagName = "div";
+                //HtmlGenericControl divcontrol = new HtmlGenericControl();
+                //divcontrol.Attributes["class"] = "col-md-12 Span-One col-md-6 form-group";
+                //divcontrol.TagName = "div";
                 Table table = new Table();
                 StringBuilder html = new StringBuilder();
                 datatableobj = systabledefenitionobj.GetComboBoxDetails(_mode);
@@ -101,19 +101,33 @@ namespace FlyCn.FlyCnMasters
                         TableCell cell = new TableCell();
                         TableCell cell1 = new TableCell();
                         Label lbl = new Label();
-                        lbl.Attributes.Add("class", "control-label col-lg-3");
+                        lbl.Attributes.Add("class", "control-label col-md-3");
 
                         lbl.Text = datatableobj.Rows[f]["Field_Name"].ToString();
                         TextBox box = new TextBox();
                         box.Attributes.Add("class", "form-control");
                         box.ID = "txt" + datatableobj.Rows[f]["Field_Name"].ToString();
+
+                       
                         HiddenField hf = new HiddenField();
+                        CheckBox checkbox = new CheckBox();
+                        checkbox.ID = "chk" + datatableobj.Rows[f]["Field_Name"].ToString();
+                        checkbox.Text = "chk" + datatableobj.Rows[f]["Field_Name"].ToString();
+                       // CheckBoxList chkCheckbox = new CheckBoxList();
+                       
                         if (datatableobj.Rows[f]["Field_DataType"].ToString() == "U" | datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
                         {
                        
                             hf.ID = "hf" + datatableobj.Rows[f]["Field_Name"].ToString();
                             
                            
+                        }
+                        else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
+                        {
+                            cell.Controls.Add(lbl);
+                            cell1.Controls.Add(checkbox);
+                            row.Cells.Add(cell);
+                            row.Cells.Add(cell1);
                         }
                         else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
                         {
@@ -143,15 +157,17 @@ namespace FlyCn.FlyCnMasters
                 //---- if no of rows greater than 6 then place controls in 2 sides
                 else
                 {
-
+                    HiddenField hf = new HiddenField();
                     TableRow row = new TableRow();
+                    
                     for (int f = 0; f < datatableobj.Rows.Count; f++)
                     {
+                      
                         TableCell cell = new TableCell();
                         TableCell cell1 = new TableCell();
                         TableCell cell2 = new TableCell();
                         Label lbl = new Label();
-                        lbl.Attributes.Add("class", "control-label col-lg-3");
+                        lbl.Attributes.Add("class", "control-label col-md-3");
 
                         lbl.Text = datatableobj.Rows[f]["Field_Name"].ToString();
                         lbl.ID = "lbl" + datatableobj.Rows[f]["Field_Name"].ToString();
@@ -160,24 +176,43 @@ namespace FlyCn.FlyCnMasters
                         box.Attributes.Add("class", "form-control");
 
                         box.ID = "txt" + datatableobj.Rows[f]["Field_Name"].ToString();
-                        string ValidationGroup = "Submit";
-                        RequiredFieldValidator rfv = new RequiredFieldValidator();
-                        rfv.ControlToValidate = box.ID;
-                        rfv.ID = "rfv" + datatableobj.Rows[f]["Field_Name"];
-                        rfv.EnableClientScript = false;
-                        rfv.ValidationGroup = ValidationGroup;
-                        rfv.ForeColor = System.Drawing.Color.Red;
-                        rfv.SetFocusOnError = true;
-                        rfv.ErrorMessage = "*Comments field is mandatory";
-                        rfv.Enabled = true;
-                        if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
+                       
+                        //string ValidationGroup = "Submit";
+                        //RequiredFieldValidator rfv = new RequiredFieldValidator();
+                        //rfv.ControlToValidate = box.ID;
+                        //rfv.ID = "rfv" + datatableobj.Rows[f]["Field_Name"];
+                        //rfv.EnableClientScript = false;
+                        //rfv.ValidationGroup = ValidationGroup;
+                        //rfv.ForeColor = System.Drawing.Color.Red;
+                        //rfv.SetFocusOnError = true;
+                        //rfv.ErrorMessage = "*Comments field is mandatory";
+                        //rfv.Enabled = true;
+                       
+                        if (datatableobj.Rows[f]["Field_DataType"].ToString() == "U" | datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
                         {
+
+                            hf.ID = "hf" + datatableobj.Rows[f]["Field_Name"].ToString();
+
+
+                        }
+                        else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
+                        {
+                            CheckBox checkbox = new CheckBox();
+                            checkbox.ID = "chk" + datatableobj.Rows[f]["Field_Name"].ToString();
+                            // checkbox.Text = "chk" + datatableobj.Rows[f]["Field_Name"].ToString();
                             cell.Controls.Add(lbl);
-                            cell1.Controls.Add(box);
-                            cell2.Controls.Add(rfv);
+                            cell1.Controls.Add(checkbox);
                             row.Cells.Add(cell);
                             row.Cells.Add(cell1);
-                            row.Cells.Add(cell2);
+                        }
+                        else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
+                           {
+                            cell.Controls.Add(lbl);
+                            cell1.Controls.Add(box);
+                            //cell2.Controls.Add(rfv);
+                            row.Cells.Add(cell);
+                            row.Cells.Add(cell1);
+                            //row.Cells.Add(cell2);
                         }
                         else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "C" | datatableobj.Rows[f]["Field_DataType"].ToString() == "N")
                         {
@@ -198,11 +233,13 @@ namespace FlyCn.FlyCnMasters
                             row = new TableRow();
                         }
                         table.Rows.Add(row);
-
+                     
                     }
+                    placeholder.Controls.Add(hf);
                 }
-
+               
                 placeholder.Controls.Add(table);
+               
             }
         }
 
