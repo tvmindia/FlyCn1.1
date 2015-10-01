@@ -380,13 +380,13 @@ namespace FlyCn.FlyCnDAL
                 boqcmd.Parameters.Add("@Group5", SqlDbType.NVarChar, 50).Value = Group5;
 
 
-                SqlParameter OutparamId = boqcmd.Parameters.Add("@OutputParamId", SqlDbType.SmallInt);
+               
                 SqlParameter OutparmItemId = boqcmd.Parameters.Add("@OutputItemID", SqlDbType.UniqueIdentifier);
                 OutparmItemId.Direction = ParameterDirection.Output;
-                OutparamId.Direction = ParameterDirection.Output;
+            
                 boqcmd.ExecuteNonQuery();
-               
-                if (int.Parse(OutparamId.Value.ToString()) != 0)
+
+                if (OutparmItemId.Value.ToString()=="")
                 {
                    //not successfull   
                     ItemId = OutparmItemId.Value.ToString();
