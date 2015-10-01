@@ -109,20 +109,14 @@ namespace FlyCn.FlyCnMasters
                         box.ID = "txt" + datatableobj.Rows[f]["Field_Name"].ToString();
 
                        
-                        HiddenField hf = new HiddenField();
+                       
                         CheckBox checkbox = new CheckBox();
                         checkbox.ID = "chk" + datatableobj.Rows[f]["Field_Name"].ToString();
                         checkbox.Text = "chk" + datatableobj.Rows[f]["Field_Name"].ToString();
                        // CheckBoxList chkCheckbox = new CheckBoxList();
                        
-                        if (datatableobj.Rows[f]["Field_DataType"].ToString() == "U" | datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
-                        {
                        
-                            hf.ID = "hf" + datatableobj.Rows[f]["Field_Name"].ToString();
-                            
-                           
-                        }
-                        else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
+                        if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
                         {
                             cell.Controls.Add(lbl);
                             cell1.Controls.Add(checkbox);
@@ -151,13 +145,26 @@ namespace FlyCn.FlyCnMasters
                         }
                         table.Rows.Add(row);
                         placeholder.Controls.Add(table);
-                        placeholder.Controls.Add(hf);
+                       
+                    
+                    if (datatableobj.Rows[f]["Field_DataType"].ToString() == "U" | datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
+                    {
+                        HtmlGenericControl divcontrol = new HtmlGenericControl("div");
+                      //  divYogesh.Attributes.Add("class", "myClass");
+
+                    
+                        HiddenField hf = new HiddenField();
+                        hf.ID = "hf" + datatableobj.Rows[f]["Field_Name"].ToString();
+                        divcontrol.Controls.Add(hf);
+                        placeholder.Controls.Add(divcontrol);
+                    }
+                    
                     }
                 }
                 //---- if no of rows greater than 6 then place controls in 2 sides
                 else
                 {
-                    HiddenField hf = new HiddenField();
+                    //HiddenField hf = new HiddenField();
                     TableRow row = new TableRow();
                     
                     for (int f = 0; f < datatableobj.Rows.Count; f++)
@@ -165,7 +172,7 @@ namespace FlyCn.FlyCnMasters
                       
                         TableCell cell = new TableCell();
                         TableCell cell1 = new TableCell();
-                        TableCell cell2 = new TableCell();
+                       // TableCell cell2 = new TableCell();
                         Label lbl = new Label();
                         lbl.Attributes.Add("class", "control-label col-md-3");
 
@@ -176,26 +183,33 @@ namespace FlyCn.FlyCnMasters
                         box.Attributes.Add("class", "form-control");
 
                         box.ID = "txt" + datatableobj.Rows[f]["Field_Name"].ToString();
-                       
-                        //string ValidationGroup = "Submit";
+                       // box.ValidationGroup = "Submit";
+                       // string ValidationGroup = "Submit";
                         //RequiredFieldValidator rfv = new RequiredFieldValidator();
                         //rfv.ControlToValidate = box.ID;
                         //rfv.ID = "rfv" + datatableobj.Rows[f]["Field_Name"];
-                        //rfv.EnableClientScript = false;
+                        ////rfv.EnableClientScript = false;
                         //rfv.ValidationGroup = ValidationGroup;
                         //rfv.ForeColor = System.Drawing.Color.Red;
                         //rfv.SetFocusOnError = true;
                         //rfv.ErrorMessage = "*Comments field is mandatory";
                         //rfv.Enabled = true;
-                       
+
                         if (datatableobj.Rows[f]["Field_DataType"].ToString() == "U" | datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
                         {
 
+                            HtmlGenericControl divcontrol = new HtmlGenericControl("div");
+                            //  divYogesh.Attributes.Add("class", "myClass");
+
+
+                            HiddenField hf = new HiddenField();
                             hf.ID = "hf" + datatableobj.Rows[f]["Field_Name"].ToString();
+                            divcontrol.Controls.Add(hf);
+                            placeholder.Controls.Add(divcontrol);
 
 
                         }
-                        else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
+                         if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
                         {
                             CheckBox checkbox = new CheckBox();
                             checkbox.ID = "chk" + datatableobj.Rows[f]["Field_Name"].ToString();
@@ -209,6 +223,7 @@ namespace FlyCn.FlyCnMasters
                            {
                             cell.Controls.Add(lbl);
                             cell1.Controls.Add(box);
+                           // cell1.Controls.Add(rfv);
                             //cell2.Controls.Add(rfv);
                             row.Cells.Add(cell);
                             row.Cells.Add(cell1);
@@ -224,9 +239,11 @@ namespace FlyCn.FlyCnMasters
                             cell1.Controls.Add(combo);
                             row.Cells.Add(cell);
                             row.Cells.Add(cell1);
+                         
                         }
-
-                        if ((f + 1) % 2 == 0)
+                         int s = row.Cells.Count;
+                      //  if ((f + 1) % 2 == 0)
+                         if (s % 4 == 0)// take coloum count . if count is multiple of 4 then it create next row. so each row contain 4 coloumns
                         {
                             table.Rows.Add(row);
 
@@ -235,10 +252,12 @@ namespace FlyCn.FlyCnMasters
                         table.Rows.Add(row);
                      
                     }
-                    placeholder.Controls.Add(hf);
+                    
                 }
                
                 placeholder.Controls.Add(table);
+
+                
                
             }
         }
@@ -314,6 +333,13 @@ namespace FlyCn.FlyCnMasters
                     {
                       //  string date = System.DateTime.Now.ToString();
                         datatableobj.Rows[f]["Values"] = System.DateTime.Now.ToString("MM/dd/yyyy");
+                    }
+                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
+                    {
+
+                        CheckBox checkbox = (CheckBox)placeholder.FindControl("chk" + datatableobj.Rows[f]["Field_Name"]);
+
+                        datatableobj.Rows[f]["Values"] = checkbox.Checked;
                     }
                        
                
@@ -464,10 +490,19 @@ namespace FlyCn.FlyCnMasters
                         HiddenField hf = (HiddenField)placeholder.FindControl("hf" + datatableobj.Rows[f]["Field_Name"]);
                         hf.Value = dst.Rows[0][boxname].ToString();
                     }
+
                     else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "V")
                     {
 
                         datatableobj.Rows[f]["Values"] = UA.userName;
+                    }
+
+                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
+                    {
+
+                        string boxname = datatableobj.Rows[f]["Field_Name"].ToString();
+                        CheckBox box = (CheckBox)placeholder.FindControl("chk" + datatableobj.Rows[f]["Field_Name"]);
+                        box.Checked =Convert.ToBoolean( dst.Rows[0][boxname].ToString());
                     }
                    
                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
@@ -562,6 +597,13 @@ namespace FlyCn.FlyCnMasters
                     {
                         datatableobj.Rows[f]["Values"] = UA.userName;
                        
+                    }
+                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
+                    {
+                        CheckBox box = (CheckBox)placeholder.FindControl("chk" + datatableobj.Rows[f]["Field_Name"]);
+
+                        datatableobj.Rows[f]["Values"] = box.Checked;
+
                     }
                   else  if (datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
                     {

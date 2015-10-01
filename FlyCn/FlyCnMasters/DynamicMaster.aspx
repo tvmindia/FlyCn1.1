@@ -4,8 +4,10 @@
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 
 <asp:Content ID="phdDynamicMasterHead" ContentPlaceHolderID="head" runat="server">
-
-    <style type="text/css">
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <%-- <style type="text/css">
         .RadWindow .rwDialogPopup {
             color: Blue !important;
             /*customizing popup window;*/
@@ -16,11 +18,18 @@
             /* customizing the text in popup window;*/
         }
     </style>
-    <script></script>
+    <script></script>--%>
 
 
 
 
+    
+
+ 
+    
+     
+</asp:Content>
+<asp:Content ID="phdDynamicMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script type="text/javascript">
         function ClearTextBox() {
             $('textarea').empty();
@@ -90,40 +99,17 @@
 
 
     </script>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Input</title>
-    <!-----bootstrap css--->
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,900' rel='stylesheet' type='text/css' />
-    <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
-    <!-----bootstrap css--->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-    <link href="../Content/themes/FlyCnBlue/css/stylesheet.css" rel="stylesheet" />
-
-    <link href="../Content/themes/FlyCnBlue/css/selectize.css" rel="stylesheet" type="text/css" />
-    <link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
-    <!-----main css--->
-    <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
-    <!-----main css--->
-
-
-
-</asp:Content>
-<asp:Content ID="phdDynamicMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+        <div class="container" style="width: 100%">
 
     <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
-        CausesValidation="False" SelectedIndex="1" Skin="Silk">
+        CausesValidation="False" SelectedIndex="1"  Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
         <Tabs>
             <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True" TabIndex="0"></telerik:RadTab>
             <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png" TabIndex="1"></telerik:RadTab>
         </Tabs>
     </telerik:RadTabStrip>
-
+              <div id="content">
+            <div class="contentTopBar"></div>
     <table style="width: 100%">
         <tr>
 
@@ -142,7 +128,7 @@
                                     <Columns>
                                         <telerik:GridButtonColumn CommandName="EditData" ItemStyle-Width="10px" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png">
                                         </telerik:GridButtonColumn>
-                                        <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
+                                        <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" Text="Delete" UniqueName="Delete" ImageUrl="~/Images/Cancel.png"  ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
                                         </telerik:GridButtonColumn>
 
                                     </Columns>
@@ -152,7 +138,7 @@
                         </div>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="rpAddEdit" runat="server">
-                        <uc1:ToolBar runat="server" ID="ToolBar" />
+                         <div class="col-md-12" > <uc1:ToolBar runat="server" ID="ToolBar" /></div>
                         <div>
 
 
@@ -180,7 +166,8 @@
             </td>
         </tr>
     </table>
-
+                  </div>
+</div>
 
     <p>
     </p>

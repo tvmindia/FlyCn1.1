@@ -6,7 +6,7 @@
 .RadTabStrip_FlyCnRed_Rad {
     color: #757575;
     font: normal 13px/22px Arial,Helvetica,sans-serif;
-    line-height: 15px;
+    line-height: 26px;
 }
 
     .RadTabStrip_FlyCnRed_Rad .rtsGhostTab {
@@ -17,27 +17,27 @@
 
     .RadTabStrip_FlyCnRed_Rad .rtsLevel1 {
         border-radius: 9px 9px 0 0;
-        background: #f06573 url('Common/radGradientDarkV50.png') 0 0 repeat-x;
+        background: #9bc4ae url('Common/radGradientDarkV50.png') 0 0 repeat-x;
         _background-image: none;
-        background-image: -webkit-linear-gradient(top,#f06585 0,#f06573 100%);
-        background-image: -moz-linear-gradient(top,#f06585 0,#f06573 100%);
-        background-image: -ms-linear-gradient(top,#f06585 0,#f06573 100%);
-        background-image: -o-linear-gradient(top,#f06585 0,#f06573 100%);
-        background-image: linear-gradient(top,#f06585 0,#f06573 100%);
+        background-image: -webkit-linear-gradient(top,#b8dece 0,#9bc4ae 100%);
+        background-image: -moz-linear-gradient(top,#b8dece 0,#9bc4ae 100%);
+        background-image: -ms-linear-gradient(top,#b8dece 0,#9bc4ae 100%);
+        background-image: -o-linear-gradient(top,#b8dece 0,#9bc4ae 100%);
+        background-image: linear-gradient(top,#b8dece 0,#9bc4ae 100%);
     }
 
     .RadTabStrip_FlyCnRed_Rad .rtsLevel2 {
         padding-top: 0;
         border-radius: 3px;
         color: #ffffff;
-        background: #b84d5a;
+        background: #688c7b;
     }
 
     .RadTabStrip_FlyCnRed_Rad .rtsLevel3 {
         padding-top: 0;
         border-radius: 3px;
         color: #ffffff;
-        background: #b84d5a;
+        background: #688c7b;
     }
 
     .RadTabStrip_FlyCnRed_Rad .rtsDisabled {
@@ -50,41 +50,41 @@
         }
 
     .RadTabStrip_FlyCnRed_Rad .rtsLevel1 {
-        font-size: 12px;
+        font-size: 15px;
     }
 
         .RadTabStrip_FlyCnRed_Rad .rtsLevel1 .rtsLink {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-left: 1px solid #f0657a;
-    border-right: 1px solid #de5d79;
-    color: #FFFFFF;
-    text-shadow: 0 1px rgba(255,255,255,0.3);
-    background-position: 0 0;
-}
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-left: 1px solid #b4dec5;
+            border-right: 1px solid #8ac2b3;
+            color: #333333;
+            text-shadow: 0 1px rgba(255,255,255,0.3);
+            background-position: 0 0;
+        }
 
             .RadTabStrip_FlyCnRed_Rad .rtsLevel1 .rtsLink:hover {
                 color: #ffffff;
                 text-shadow: 0 -1px rgba(0,0,0,0.3);
-                background: #cf5761 url('Common/radGradientDarkV50.png') 0 0 repeat-x;
+                background: #7ca38e url('Common/radGradientDarkV50.png') 0 0 repeat-x;
                 _background-image: none;
-                background-image: -webkit-linear-gradient(top,#e35f6a 0,#cf5761 100%);
-                background-image: -moz-linear-gradient(top,#e35f6a 0,#cf5761 100%);
-                background-image: -ms-linear-gradient(top,#e35f6a 0,#cf5761 100%);
-                background-image: -o-linear-gradient(top,#e35f6a 0,#cf5761 100%);
-                background-image: linear-gradient(top,#e35f6a 0,#cf5761 100%);
+                background-image: -webkit-linear-gradient(top,#8db59f 0,#7ca38e 100%);
+                background-image: -moz-linear-gradient(top,#8db59f 0,#7ca38e 100%);
+                background-image: -ms-linear-gradient(top,#8db59f 0,#7ca38e 100%);
+                background-image: -o-linear-gradient(top,#8db59f 0,#7ca38e 100%);
+                background-image: linear-gradient(top,#8db59f 0,#7ca38e 100%);
             }
 
         .RadTabStrip_FlyCnRed_Rad .rtsLevel1 .rtsSelected, .RadTabStrip_FlyCnRed_Rad .rtsLevel1 .rtsSelected:hover {
             color: #ffffff;
             text-shadow: 0 -1px rgba(0,0,0,0.3);
-            background: #b84d58 url('Common/radGradientDarkV50.png') 0 0 repeat-x;
+            background: #688c7a url('Common/radGradientDarkV50.png') 0 0 repeat-x;
             _background-image: none;
-            background-image: -webkit-linear-gradient(top,#ab4853 0,#b84d58 100%);
-            background-image: -moz-linear-gradient(top,#ab4853 0,#b84d58 100%);
-            background-image: -ms-linear-gradient(top,#ab4853 0,#b84d58 100%);
-            background-image: -o-linear-gradient(top,#ab4853 0,#b84d58 100%);
-            background-image: linear-gradient(top,#ab4853 0,#b84d58 100%);
+            background-image: -webkit-linear-gradient(top,#5c806f 0,#688c7a 100%);
+            background-image: -moz-linear-gradient(top,#5c806f 0,#688c7a 100%);
+            background-image: -ms-linear-gradient(top,#5c806f 0,#688c7a 100%);
+            background-image: -o-linear-gradient(top,#5c806f 0,#688c7a 100%);
+            background-image: linear-gradient(top,#5c806f 0,#688c7a 100%);
             box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
         }
 
@@ -118,7 +118,7 @@
         }
 
     .RadTabStrip_FlyCnRed_Rad .rtsLevel2 .rtsSelected, .RadTabStrip_FlyCnRed_Rad .rtsLevel2 .rtsSelected:hover {
-        background: #cf5761;
+        background: #7ca38e;
     }
 
     .RadTabStrip_FlyCnRed_Rad .rtsLevel3 .rtsLink {
@@ -133,7 +133,7 @@
         }
 
     .RadTabStrip_FlyCnRed_Rad .rtsLevel3 .rtsSelected, .RadTabStrip_FlyCnRed_Rad .rtsLevel3 .rtsSelected:hover {
-        background: #cf5761;
+        background: #7ca38e;
     }
 
     .RadTabStrip_FlyCnRed_Rad .rtsScroll {
@@ -179,8 +179,8 @@
     .RadTabStrip_FlyCnRed_Rad.RadTabStripVertical .rtsLevel1 .rtsLink {
         border-left: none;
         border-right: 0;
-        border-top: 1px solid #de5d79;
-        border-bottom: 1px solid #f0657a;
+        border-top: 1px solid #8ac2b3;
+        border-bottom: 1px solid #b4dec5;
     }
 
     .RadTabStrip_FlyCnRed_Rad.RadTabStripVertical .rtsLevel1 .rtsFirst .rtsLink {
@@ -273,8 +273,4 @@ html .RadTabStrip_FlyCnRed_Rad_disabled .rtsDisabled {
     margin-top: -8px;
     margin-left: -16px;
     background-position: -17px -167px;
-}
-
-div.RadTabStrip_FlyCnRed_Rad .rtsLink {
-    color: rgb(255, 255, 255);
 }
