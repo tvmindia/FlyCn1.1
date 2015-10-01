@@ -209,6 +209,11 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+        public Guid ItemID
+        {
+            get;
+            set;
+        }
 
         public string ProjectNo
         {
@@ -333,12 +338,14 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion Boqdetailproperty
         #region BOQDetailMethods
-        public void AddBOQDetails()
+        public string AddBOQDetails()
         {
 
             SqlConnection con = null;
+            string ItemId="";
             try
             {
+               
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand boqcmd = new SqlCommand();
@@ -374,11 +381,15 @@ namespace FlyCn.FlyCnDAL
 
 
                 SqlParameter OutparamId = boqcmd.Parameters.Add("@OutputParamId", SqlDbType.SmallInt);
+                SqlParameter OutparmItemId = boqcmd.Parameters.Add("@OutputItemID", SqlDbType.UniqueIdentifier);
+                OutparmItemId.Direction = ParameterDirection.Output;
                 OutparamId.Direction = ParameterDirection.Output;
                 boqcmd.ExecuteNonQuery();
+               
                 if (int.Parse(OutparamId.Value.ToString()) != 0)
                 {
                    //not successfull   
+                    ItemId = OutparmItemId.Value.ToString();
                     var page = HttpContext.Current.CurrentHandler as Page;
                     eObj.InsertionSuccessData(page,"Insert not Successfull,Duplicate Entry!");
 
@@ -386,6 +397,92 @@ namespace FlyCn.FlyCnDAL
                 else
                 {
                     //successfull
+                    ItemId = OutparmItemId.Value.ToString();
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.InsertionSuccessData(page);
+
+
+                }
+              
+
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+            }
+                 
+            finally
+            {
+                if (con != null)
+                {
+                    con.Dispose();
+                }
+               
+            }
+            return ItemId;
+       }
+        public string UpdateBOQDocumentDetails()
+        {
+
+            SqlConnection con = null;
+            string ItemId = "";
+            try
+            {
+
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand boqcmd = new SqlCommand();
+                boqcmd.Connection = con;
+                boqcmd.CommandType = System.Data.CommandType.StoredProcedure;
+                boqcmd.CommandText = "[UpdateBOQDetails]";
+                boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = RevisionID;
+                boqcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = ProjectNo;
+                boqcmd.Parameters.Add("@ItemID", SqlDbType.UniqueIdentifier).Value = ItemID;
+                boqcmd.Parameters.Add("@ItemNo", SqlDbType.SmallInt).Value = ItemNo;
+                boqcmd.Parameters.Add("@ItemDescription", SqlDbType.NVarChar, 250).Value = ItemDescription;
+                boqcmd.Parameters.Add("@Quantity", SqlDbType.Real).Value = Quantity;
+                boqcmd.Parameters.Add("@Unit", SqlDbType.NVarChar, 10).Value = Unit;
+                boqcmd.Parameters.Add("@NormHours", SqlDbType.Real).Value = NormHours;
+                boqcmd.Parameters.Add("@LabourRate", SqlDbType.Real).Value = LabourRate;
+                boqcmd.Parameters.Add("@LabourRateType", SqlDbType.NVarChar, 1).Value = LabourRateType;
+                boqcmd.Parameters.Add("@MaterialRate", SqlDbType.Real).Value = MaterialRate;
+                boqcmd.Parameters.Add("@UDFRate1", SqlDbType.Real).Value = UDFRate1;
+                boqcmd.Parameters.Add("@UDFRateType1", SqlDbType.NVarChar, 1).Value = UDFRateType1;
+                boqcmd.Parameters.Add("@UDFRate2", SqlDbType.Real).Value = UDFRate2;
+                boqcmd.Parameters.Add("@UDFRateType2", SqlDbType.NVarChar, 1).Value = UDFRateType2;
+                boqcmd.Parameters.Add("@UDFRate3", SqlDbType.Real).Value = UDFRate3;
+                boqcmd.Parameters.Add("@UDFRateType3", SqlDbType.NVarChar, 1).Value = UDFRateType3;
+                boqcmd.Parameters.Add("@UDFRate4", SqlDbType.Real).Value = UDFRate4;
+                boqcmd.Parameters.Add("@UDFRateType4", SqlDbType.NVarChar, 1).Value = UDFRateType4;
+                boqcmd.Parameters.Add("@UDFRate5", SqlDbType.Real).Value = UDFRate5;
+                boqcmd.Parameters.Add("@UDFRateType5", SqlDbType.NVarChar, 1).Value = UDFRateType5;
+
+                boqcmd.Parameters.Add("@Group1", SqlDbType.NVarChar, 50).Value = Group1;
+                boqcmd.Parameters.Add("@Group2", SqlDbType.NVarChar, 50).Value = Group2;
+                boqcmd.Parameters.Add("@Group3", SqlDbType.NVarChar, 50).Value = Group3;
+                boqcmd.Parameters.Add("@Group4", SqlDbType.NVarChar, 50).Value = Group4;
+                boqcmd.Parameters.Add("@Group5", SqlDbType.NVarChar, 50).Value = Group5;
+
+
+                SqlParameter OutparamId = boqcmd.Parameters.Add("@OutputParamId", SqlDbType.SmallInt);
+                SqlParameter OutparmItemId = boqcmd.Parameters.Add("@OutputItemID", SqlDbType.UniqueIdentifier);
+                OutparmItemId.Direction = ParameterDirection.Output;
+                OutparamId.Direction = ParameterDirection.Output;
+                boqcmd.ExecuteNonQuery();
+
+                if (int.Parse(OutparamId.Value.ToString()) != 0)
+                {
+                    //not successfull   
+                    ItemId = OutparmItemId.Value.ToString();
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.InsertionSuccessData(page, "Insert not Successfull,Duplicate Entry!");
+
+                }
+                else
+                {
+                    //successfull
+                    ItemId = OutparmItemId.Value.ToString();
                     var page = HttpContext.Current.CurrentHandler as Page;
                     eObj.InsertionSuccessData(page);
 
@@ -399,6 +496,7 @@ namespace FlyCn.FlyCnDAL
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
             }
+
             finally
             {
                 if (con != null)
@@ -408,9 +506,55 @@ namespace FlyCn.FlyCnDAL
 
             }
 
-
+            return ItemId;
         }
+        public void DeleteBOQDocumentDetails()
+        {
+            SqlConnection con = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand boqcmd = new SqlCommand();
+                boqcmd.Connection = con;
+                boqcmd.CommandType = System.Data.CommandType.StoredProcedure;
+                boqcmd.CommandText = "[DeleteBOQDocumentDetails]";
+                boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = RevisionID;
+                boqcmd.Parameters.Add("@ItemID", SqlDbType.UniqueIdentifier).Value = ItemID;
+                SqlParameter OutparamId = boqcmd.Parameters.Add("@OutputParamId", SqlDbType.SmallInt);
+                OutparamId.Direction = ParameterDirection.Output;
+                boqcmd.ExecuteNonQuery();
+                if (int.Parse(OutparamId.Value.ToString()) != 0)
+                {
+                    //not successfull   
+                  
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                   // eObj.DeleteSuccessData(page);
 
+                }
+                else
+                {
+                    //successfull
+                 
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.DeleteSuccessData(page);
+
+
+                }
+            }
+            catch(Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Dispose();
+                }
+            }
+        }
 
 
         #endregion BOQDetailMethods

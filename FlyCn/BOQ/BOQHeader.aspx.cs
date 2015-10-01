@@ -59,7 +59,22 @@ namespace FlyCn.BOQ
         #endregion dtgBOQGrid_NeedDataSource
         #region dtgBOQGrid_PreRender
         protected void dtgBOQGrid_PreRender(object sender, EventArgs e)
-        { 
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                documentMaster = new DocumentMaster();
+                ds = documentMaster.GetAllBOQDocumentHeader(UA.projectNo, "BOQ");
+                dtgBOQGrid.DataSource = ds;
+                hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
+                hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+            }
         }
         #endregion dtgBOQGrid_PreRender
 
@@ -159,10 +174,7 @@ namespace FlyCn.BOQ
                     ToolBar.UpdateButton.Visible = true;
                     ToolBar.DeleteButton.Visible = false;
                    break;
-               case 3:
-                   break;
-
-                
+                             
             }
 
         }
@@ -186,8 +198,8 @@ namespace FlyCn.BOQ
                 boqHeaderDetails.DocumentTitle = (txtDocumenttitle.Text.Trim() != "") ? txtDocumenttitle.Text.Trim() : null;
                 boqHeaderDetails.Remarks = (txtRemarks.Text.Trim() != "") ? txtRemarks.Text.Trim() : null;
                 Guid Revisionid;
-                Revisionid = boqHeaderDetails.AddNewBOQ();
-                ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid;
+                Revisionid = boqHeaderDetails.AddNewBOQ();//Revison id will be returned here
+                ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid;//iframe page BOQDetails.aspx is called with query string revisonid
             }
             catch(Exception ex)
             {
@@ -215,8 +227,8 @@ namespace FlyCn.BOQ
                 boqHeaderDetails.documentMaster.UpdatedDate = System.DateTime.Now.ToString();
                 boqHeaderDetails.RevisionNo = (txtRevisionno.Text != "") ? txtRevisionno.Text.Trim().ToString() : null;
                 boqHeaderDetails.DocumentDate = (RadDocumentDate.SelectedDate != null) ? Convert.ToDateTime(RadDocumentDate.SelectedDate) : Convert.ToDateTime(null);
-                boqHeaderDetails.DocumentTitle = (txtDocumenttitle.Text != "") ? txtDocumenttitle.Text.Trim() : null;
-                boqHeaderDetails.Remarks = (txtRemarks.Text != "") ? txtRemarks.Text.Trim() : null;
+                boqHeaderDetails.DocumentTitle = (txtDocumenttitle.Text != "") ? txtDocumenttitle.Text : null;
+                boqHeaderDetails.Remarks = (txtRemarks.Text != "") ? txtRemarks.Text: null;
                 boqHeaderDetails.UpdatedBy = UA.userName;
                 boqHeaderDetails.UpdatedDate = System.DateTime.Now.ToString();
                 boqHeaderDetails.UpdatedDateGMT = System.DateTime.Now;

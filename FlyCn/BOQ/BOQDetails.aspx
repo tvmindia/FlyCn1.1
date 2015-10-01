@@ -42,6 +42,7 @@
           <div class="col-md-9">
             <asp:TextBox ID="txtItemNo"  runat="server" CssClass="form-control"></asp:TextBox>
              <asp:HiddenField ID="hdfRevisionId" runat="server" />
+              <asp:HiddenField ID="hdfItemId" runat="server" />
           </div>
         </div>
        </div>
@@ -274,24 +275,20 @@
 
      function OnClientButtonClickingDetail(sender, args)
      {
-       //  debugger;
-       // var btn = args.get_item();
-       //if (btn.get_value() == 'Save') {
-
+        debugger;
+        var btn = args.get_item();
+     if (btn.get_value() == 'Save') {
+         alert("save clicked");
+     //     args.set_cancel(!validate());
+       }
+        if (btn.get_value() == 'Update') {
+            alert("update clicked");
        //     args.set_cancel(!validate());
-       // }
-       // if (btn.get_value() == 'Update') {
+        }
 
-       //     args.set_cancel(!validate());
-       // }
-
-       var btn = args.get_item();
-       if (btn.get_value() == 'Save') {
-           debugger;
-         
-
-          //  args.set_cancel(!validate());
-        }  
+        if (btn.get_value() == "Delete") {
+            alert("Delete clicked");
+        }
                 
      }
 
