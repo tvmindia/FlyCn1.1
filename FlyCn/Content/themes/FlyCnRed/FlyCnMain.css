@@ -201,7 +201,7 @@ iframe {
 
 .Tiles {
     color: white;
-    border-radius: 20px;
+    border-radius: 2px;
     background-color: #E2656F; /*#FF6666;*/
     vertical-align: middle;
     text-align: center;
@@ -211,6 +211,11 @@ iframe {
 }
     .Tiles:hover {
     background-color: #DC4753;
+    /*-moz-box-shadow: 2px 2px 2px 2px #999; -webkit-box-shadow: 2px 2px 2px 2px #999; box-shadow: 2px 2px 2px 2px #999;*/
+    -webkit-transform:  scale(.99);
+-ms-transform: scale(.99);
+transform:  scale(.99);
+transition: .25s ease;
 }
 
  .Tiles.Blue {
