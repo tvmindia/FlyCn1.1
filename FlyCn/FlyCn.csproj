@@ -178,9 +178,6 @@
     <Content Include="bin\Telerik.Web.UI.Skins.dll" />
     <Content Include="bin\Telerik.Web.UI.XML" />
     <Content Include="bin\WebGrease.dll" />
-    <Content Include="BOQ\BOQ.aspx" />
-    <Content Include="BOQ\BOQDetails.aspx" />
-    <Content Include="BOQ\BOQHeader.aspx" />
     <Content Include="Content\FlyCnMain.css" />
     <Content Include="Content\Home.css" />
     <Content Include="Content\Site.css" />
@@ -525,27 +522,6 @@
       <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="BOQ\BOQ.aspx.cs">
-      <DependentUpon>BOQ.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BOQ\BOQ.aspx.designer.cs">
-      <DependentUpon>BOQ.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="BOQ\BOQDetails.aspx.cs">
-      <DependentUpon>BOQDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BOQ\BOQDetails.aspx.designer.cs">
-      <DependentUpon>BOQDetails.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="BOQ\BOQHeader.aspx.cs">
-      <DependentUpon>BOQHeader.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BOQ\BOQHeader.aspx.designer.cs">
-      <DependentUpon>BOQHeader.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
