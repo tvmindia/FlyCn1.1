@@ -373,21 +373,46 @@
 
         function OpenDetailAccordion(id)
         {
-            
-            var accordion = $(id);
-            var accordionContent = accordion.next('.accordion-content');
-            var accordionToggleIcon = accordion.children('.toggle-icon');
+            if (id != undefined)
+            {
+                alert(id);
+                debugger;
+                var accordion = $(id);
+                var accordionContent = accordion.next('.accordion-content');
+                var accordionToggleIcon = accordion.children('.toggle-icon');
 
-            // toggle accordion link open class
-            accordion.toggleClass("open");
-            // toggle accordion content
-            accordionContent.slideToggle(250);
+                // toggle accordion link open class
+                accordion.toggleClass("open");
+                // toggle accordion content
+                accordionContent.slideToggle(250);
 
-            // change plus/minus icon
-            if (accordion.hasClass("open")) {
-                accordionToggleIcon.html("<i class='fa fa-minus-circle'></i>");
-            } else {
-                accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
+                // change plus/minus icon
+                if (accordion.hasClass("open")) {
+                    accordionToggleIcon.html("<i class='fa fa-minus-circle'></i>");
+                } else {
+                    accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
+                }
+            }
+            if(id==undefined)
+            {
+                alert(id);
+                debugger;
+                id = document.getElementById('IDAccordion');
+                var accordion = $(id);
+                var accordionContent = accordion.next('.accordion-content');
+                var accordionToggleIcon = accordion.children('.toggle-icon');
+
+                // toggle accordion link open class
+                accordion.toggleClass("open");
+                // toggle accordion content
+                accordionContent.slideToggle(250);
+
+                // change plus/minus icon
+                if (accordion.hasClass("open")) {
+                    accordionToggleIcon.html("<i class='fa fa-minus-circle'></i>");
+                } else {
+                    accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
+                }
             }
         }
 
