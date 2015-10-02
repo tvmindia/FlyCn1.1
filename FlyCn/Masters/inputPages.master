@@ -34,7 +34,30 @@
             divId.style.opacity = "1";
         }
     </script>
+  
+        <script type="text/javascript">
+            function OnClientLoad(sender, args) {
+                var treeView = $find("<%= rtvLeftMenu.ClientID%>");
+       treeView.add_nodeClicked(ClientNodeClicked);
+   }
+   function ClientNodeClicked(sender, args) {
+       //node clicked event
+       GetSelected();
+   }
 
+   function GetSelected() {
+       var tree = $find("<%= rtvLeftMenu.ClientID %>");
+       var node = tree.findNodeByText("Root Node 1");
+       if (node) {
+           if (node.get_selected()) {
+               node.set_selected(false);
+           }
+           else {
+               node.set_selected(true);
+           }
+       }
+   }
+</script>
 
     <%--<div>
 </div>--%>

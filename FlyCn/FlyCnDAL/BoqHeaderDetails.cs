@@ -65,12 +65,24 @@ namespace FlyCn.FlyCnDAL
         public void BindTree(RadTreeView myTree)
         {
            myTree.Nodes.Clear();
-           RadTreeNode rtn1 = new RadTreeNode("DraftClose", ""); //<a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
+           string tree = " <telerik:RadTreeView ID " + "=" + "rtvLeftMenu" + " runat=" + "server" + ">"
+                    + " <Nodes>"
+                      + " <telerik:RadTreeNode CssClass" + "=" + "Desc" + ">"
+                           + "  <NodeTemplate>"
+                              + "<a href" + "= " + "../FlyCnMasters/CloseDocument.aspx?Mode=CloseDocument" + " target=" + "contentPane" + ">CloseDocument</a>"
+                            + " </NodeTemplate>" + "</telerik:RadTreeNode>" +
+                            "</Nodes> <DataBindings>" 
+                     
+                
+                       +" <telerik:RadTreeNodeBinding Target"+
+                  " = "+ "contentPane />" + " </DataBindings> "+ " </telerik:RadTreeView>";
+           
+          // RadTreeNode rtn1 = new RadTreeNode("CloseDocument", ""); //<a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
          //  rtn1.NavigateUrl = "../FlyCnMasters/Personal.aspx";
-           string radtree ="rtn1";
-           //rtn1.setAttribute("onclick", "");
-           rtn1.Target = "contentPane";
-           myTree.Nodes.Add(rtn1);
+           //string radtree ="rtn1";
+           ////rtn1.setAttribute("onclick", "");
+           //rtn1.Target = "contentPane";
+           //myTree.Nodes.Add(rtn1);
         }
         public void LoadInputScreen(RadPane myContentPane)
         {
