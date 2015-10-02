@@ -172,7 +172,7 @@
 
                                             <asp:Label ID="lblDocumentdate" CssClass="control-label col-md-3" runat="server" Text="Document Date*"></asp:Label>
                                             <div class="col-md-9">
-                                                <telerik:RadDatePicker ID="RadDocumentDate" runat="server"></telerik:RadDatePicker>
+                                                <telerik:RadDatePicker ID="RadDocumentDate" runat="server" DateInput-DateFormat="dd/MMM/yyyy"></telerik:RadDatePicker>
                                                 <%-- <asp:TextBox ID="txtDocumentdate" CssClass="form-control" runat="server"></asp:TextBox>--%>
                                             </div>
                                         </div>
@@ -218,7 +218,7 @@
                                         
                                         <div class="content white">
                                             <div class="accordion-container">
-                                                <a href="#" class="accordion-toggle">Details<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                                                <a href="#" class="accordion-toggle" id="IDAccordion">Details<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                                                 <div class="accordion-content">
 
                                                     <iframe id="ContentIframe" name="BOQDetails" style="height: 500px; width: 100%; overflow: hidden;" runat="server"></iframe>
@@ -330,12 +330,22 @@
         }
 
     }
+        function ClearBOQHeaderTexBox()
+        {
+           document.getElementById('<%=txtClientdocumentno.ClientID %>').value = "";
+           document.getElementById('<%=txtRevisionno.ClientID %>').value="";
+           document.getElementById('<%=RadDocumentDate.ClientID %>').value="";
+           document.getElementById('<%=txtDocumenttitle.ClientID %>').value="";
+           document.getElementById('<%=txtRemarks.ClientID%>').value="";
+        }
+      
 
     function OnClientButtonClicking(sender, args) {
         var btn = args.get_item();
         if (btn.get_value() == 'Save') {
 
             args.set_cancel(!validate());
+            
         }
         if (btn.get_value() == 'Update') {
 
@@ -353,10 +363,23 @@
         $(document).ready(function () {
             $('.accordion-toggle').on('click', function (event) {
                 event.preventDefault();
-                // create accordion variables
-                var accordion = $(this);
+                 
+                OpenDetailAccordion(this);
+
+            });
+            //OpenDetailAccordion('#IDAccordion');
+        });
+       
+
+        function OpenDetailAccordion(id)
+        {
+            if (id != undefined)
+            {
+                alert(id);
+                debugger;
+                var accordion = $(id);
                 var accordionContent = accordion.next('.accordion-content');
-                var accordionToggleIcon = $(this).children('.toggle-icon');
+                var accordionToggleIcon = accordion.children('.toggle-icon');
 
                 // toggle accordion link open class
                 accordion.toggleClass("open");
@@ -369,9 +392,31 @@
                 } else {
                     accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
                 }
+            }
+            if(id==undefined)
+            {
+                alert(id);
+                debugger;
+                id = document.getElementById('IDAccordion');
+                var accordion = $(id);
+                var accordionContent = accordion.next('.accordion-content');
+                var accordionToggleIcon = accordion.children('.toggle-icon');
 
-            });
-        });
+                // toggle accordion link open class
+                accordion.toggleClass("open");
+                // toggle accordion content
+                accordionContent.slideToggle(250);
+
+                // change plus/minus icon
+                if (accordion.hasClass("open")) {
+                    accordionToggleIcon.html("<i class='fa fa-minus-circle'></i>");
+                } else {
+                    accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
+                }
+            }
+        }
+
+
     </script>
     <!--<JavaScrict ends here>-->
 

@@ -2,8 +2,11 @@
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-       <script src="../Scripts/jquery-1.8.2.min.js"></script>
+   
+  <%--  <script src="../Scripts/jquery-ui-1.8.24.js"></script>--%>
+    <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
     <link href="../Content/themes/FlyCnRider/Splitter.FlyCnRider.css" rel="stylesheet" />
+        <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
     <style type="text/css">
         /*.auto-style3 {
         width: 173px;
@@ -27,21 +30,103 @@
     
         }
     </style>
-    <script>
-        function hideMe() {
-            document.getElementById("Errorbox").style.display = "none";
-            var divId = document.getElementById("masterDiv");
-            divId.style.opacity = "1";
+ <style type="text/css">
+        .ui-dialog-title {
+            padding-left: 15em;
+            color: white;
         }
-    </script>
 
+        .ui-dialog-titlebar {
+            background: transparent;
+            border: none;
+        }
+
+        .ui-dialog .ui-dialog-titlebar-close {
+            right: 0;
+        }
+
+        .ui-dialog {
+            box-shadow: 0px 2px 7px #292929;
+            -moz-box-shadow: 0px 2px 7px #292929;
+            -webkit-box-shadow: 0px 2px 7px #292929;
+            border-radius: 15px;
+            -moz-border-radius: 15px;
+            -webkit-border-radius: 15px;
+            background: #f2f2f2;
+            z-index: 50;
+            /*background:transparent;*/
+            /*background: rgba(34,34,34,0.75);*/
+            background: rgba(36,85,99,.9);
+            border: 1px solid #fff;
+        }
+
+        .headings {
+            font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 15px;
+            font-style: normal;
+            color: #009933;
+        }
+
+        td.myclass {
+            text-align: left;
+            width: 100px;
+        }
+
+        td.size {
+            text-align: left;
+            width: 200px;
+        }
+    </style>
 
     <%--<div>
 </div>--%>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainBody" runat="server">
-    
+       <script src="../Scripts/jquery-1.8.2.min.js"></script>
+    <script src="../Scripts/jquery-1.8.2.js"></script>
+    <script src="../Scripts/jquery-ui-1.8.24.js"></script>
+    <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>
+    <script type="text/javascript">
+       
+        function CloseDocumentWindow()
+        {
+            
+            try {
+                $("#CloseDocumentPopup").dialog({                  
+                    title: "Close projct",
+                    width: 780,
+                    height: 500,
+                    buttons: {}, modal: true
+                });
+               return false
+            }
+            catch (X) {
+                alert(X.message);
+            }
+      }
+        function alertVal(revisionid) {
+            debugger;
+            alert(document.getElementById('<%=IframePage.ClientID %>').innerHTML);
+            var txtCont = document.getElementById("Page.Master.FindControl('ContentPlaceHolder1').FindControl('hiddenFieldRevisionID')").value;
+            document.getElementById('IframeContent').src = "../Approvels/CloseDocument.aspx";
+            CloseDocumentWindow();
+           
+            
+            //alert(1);<a href="../Approvels/CloseDocument.aspx">../Approvels/CloseDocument.aspx</a>
+        }
+    </script>
+       <script>
+           function hideMe() {
+               document.getElementById("Errorbox").style.display = "none";
+               var divId = document.getElementById("masterDiv");
+               divId.style.opacity = "1";
+           }
+         
+         
+    </script>
+  
+        
         <div  id="Errorbox" runat="server" class="div1">
             <table style="width: 90%; height: 50px; border: groove; border-radius: 5px 6px; background-color: lightgrey">
                 <tr>
@@ -108,6 +193,11 @@
             </telerik:RadPane>
         </telerik:RadSplitter>
     </div>
+
+   <div id="CloseDocumentPopup" style="display:none; width: 1000px!important; height: 500px!important; overflow: hidden; overflow-x: hidden;">
+
+              <iframe id="IframeContent" style="width: 1300px; height: 700px;"></iframe>
+            </div>
 </asp:Content>
 
 

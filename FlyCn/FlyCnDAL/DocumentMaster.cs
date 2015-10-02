@@ -165,9 +165,12 @@ namespace FlyCn.FlyCnDAL
                 //cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = Remarks;
                 cmd.Parameters.Add("@outDocumentID", SqlDbType.UniqueIdentifier).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("@outRevisionID", SqlDbType.UniqueIdentifier).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("@outDocumentNo", SqlDbType.NVarChar, 50).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
                 DocumentID = (Guid)cmd.Parameters["@outDocumentID"].Value;
                 RevisionID = (Guid)cmd.Parameters["@outRevisionID"].Value;
+                DocumentNo = cmd.Parameters["@outDocumentNo"].Value.ToString();
+
             }
             catch (Exception ex)
             {

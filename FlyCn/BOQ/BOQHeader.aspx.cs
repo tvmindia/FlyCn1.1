@@ -28,12 +28,21 @@ namespace FlyCn.BOQ
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            BOQHeaderDetails  BOQObj= new BOQHeaderDetails();
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
+            BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString();
+            //BOQObj.BindTree(RadTreeView tview);
             
-           
+        }
+        public void DisableBOQHeaderTextBox()
+        {
+            txtClientdocumentno.Attributes.Add("readonly","readonly");
+            txtRevisionno.Attributes.Add("readonly", "readonly");
+            RadDocumentDate.Attributes.Add("readonly", "readonly");
+            txtDocumenttitle.Attributes.Add("readonly", "readonly");
+            txtRemarks.Attributes.Add("readonly", "readonly");
         }
         #endregion Page_Load
         #region dtgBOQGrid_NeedDataSource
@@ -136,8 +145,8 @@ namespace FlyCn.BOQ
             {
                 AddNewBOQ();
                 ToolBarVisibility(1);
-                
-                
+                DisableBOQHeaderTextBox();
+                dtgBOQGrid.Rebind();
             }
             if (e.Item.Value == "Update")
             {
@@ -199,7 +208,10 @@ namespace FlyCn.BOQ
                 boqHeaderDetails.Remarks = (txtRemarks.Text.Trim() != "") ? txtRemarks.Text.Trim() : null;
                 Guid Revisionid;
                 Revisionid = boqHeaderDetails.AddNewBOQ();//Revison id will be returned here
+                txtDocumentno.Text = boqHeaderDetails.documentMaster.DocumentNo.ToString();
                 ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid;//iframe page BOQDetails.aspx is called with query string revisonid
+               // ScriptManager.RegisterStartupScript(this.GetType(), "Add", "OpenDetailAccordion();", true);//Accordian calling BOQdetail slide down
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Add", "OpenDetailAccordion();", true);
             }
             catch(Exception ex)
             {

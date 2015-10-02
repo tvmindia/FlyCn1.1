@@ -145,6 +145,7 @@
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Activities\ActivityLibrary.aspx" />
     <Content Include="Activities\Main.aspx" />
+    <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.UI.Combined.dll" />
@@ -487,6 +488,13 @@
     <Compile Include="Activities\Main.aspx.designer.cs">
       <DependentUpon>Main.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Approvels\CloseDocument.aspx.cs">
+      <DependentUpon>CloseDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvels\CloseDocument.aspx.designer.cs">
+      <DependentUpon>CloseDocument.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="Account\Login.aspx.cs">
@@ -527,6 +535,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BOQ\BOQ.aspx.cs">
       <DependentUpon>BOQ.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BOQ\BOQ.aspx.designer.cs">
       <DependentUpon>BOQ.aspx</DependentUpon>
