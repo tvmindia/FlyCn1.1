@@ -27,12 +27,15 @@
     $(document).ready(function () {
         $("#MainBody_div1").fadeIn();
     });
-    function bindimage(id) {
-        
+    function bindimage(id,heading,color) {
+        document.getElementById('SubHeadSpan').innerHTML = '&nbsp;'
+        document.getElementById('SubHeadSpan').setAttribute('class', color);
+
         $('#iframesub1').fadeOut(500, function () { document.getElementById('iframesub1').setAttribute('src', 'SubMenu.aspx' + '?id=' + id); });
        
         document.getElementById('iframesub1').style.border = 0;
-        $("#iframesub1").fadeIn(1000);
+        document.getElementById('SubHeadSpan').innerHTML = heading;
+        $("#iframesub1").fadeIn(1000, function () { });
         
         if (flag == 0)
         {
@@ -40,6 +43,7 @@
             flag = 1;
 
         }
+
 
    
     }
@@ -51,7 +55,11 @@
     }
  
 </script>
+     
      <table style="width: 100%">
+         <tr><td></td><td>&nbsp;</td></tr>
+          <tr><td></td><td > 
+             <div class="subMenuHead"><span id="SubHeadSpan">&nbsp;</span></div> </td></tr>
             <tr>
                 <td style="width: 50%;">
                    

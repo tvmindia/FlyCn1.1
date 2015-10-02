@@ -17,6 +17,13 @@ iframe {
     text-align: center;
 }
 
+.Tinydescription {
+    font-size: 10px;
+}
+.description {
+    font-family:'Segoe UI';
+    font-size: 14px;
+}
 .underConstructionLogo {
     background-position: center center;
     position: absolute;
@@ -197,7 +204,20 @@ iframe {
     padding: 5px;
     margin-left: 10px;
     width: 100%;
+
+  
 }
+
+.TileTableMain {
+     border-spacing: 5px;
+    border-collapse: separate;
+    width:100%
+}
+
+.tinyImg {
+    width:10%;
+}
+
 
 .Tiles {
     color: white;
@@ -205,25 +225,50 @@ iframe {
     background-color: #E2656F; /*#FF6666;*/
     vertical-align: middle;
     text-align: center;
-    width: 125px;
-    height: 125px;
+    /*width: 125px;
+    height: 125px;*/
     cursor: pointer;
 }
     .Tiles:hover {
     background-color: #DC4753;
     /*-moz-box-shadow: 2px 2px 2px 2px #999; -webkit-box-shadow: 2px 2px 2px 2px #999; box-shadow: 2px 2px 2px 2px #999;*/
-    -webkit-transform:  scale(.99);
--ms-transform: scale(.99);
-transform:  scale(.99);
+    -webkit-transform:  scale(1.03);
+-ms-transform: scale(1.03);
+transform:  scale(1.03);
 transition: .25s ease;
 }
+
+    .Tiles.Large {
+         width: 200px;
+    height: 100px;
+    }
+
+    .Tiles.Small {
+         width: 100px;
+    height: 100px;
+    }
+
+    .Tiles.Tiny {
+         height:30px!important;
+         width:50px;
+
+    }
+    .TinyTileContainer {
+        vertical-align:top;
+         width: 100px;
+    height: 100px;
+    }
+    .TinyTable {
+        vertical-align:top;
+         
+    }
 
  .Tiles.Blue {
     background-color: #0d4689;
 }
 
     .Tiles.Blue:hover {
-    background-color: #092D59;
+    /*background-color: #092D59;*/
 }
 
    .Tiles.Teal {
@@ -304,6 +349,37 @@ transition: .25s ease;
     border-radius: 1px;
     width: 400px;
 }
+
+.subMenuHead {
+    text-align: center;
+    font-family: 'Segoe UI';
+    font-size: 20px;
+    width: 65%;
+    
+}
+    .subMenuHead .Blue {
+        color: #0d4689;
+    }
+    .subMenuHead .Teal {
+        color: #0d6f89;
+    }
+    .subMenuHead .Green {
+        color: #016331;
+    }    
+    .subMenuHead .Maroon {
+        color: #b62b2b;
+    }
+    .subMenuHead .Pink {
+        color: #d9394f;
+    }
+    .subMenuHead .LightBlue {
+        color: rgb(40,154,185);
+    }
+    .subMenuHead .Yellow {
+        color: #f6731b;
+    }   
+
+
 
 /*-------------input ----------------------*/
 
