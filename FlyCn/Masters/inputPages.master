@@ -96,7 +96,7 @@
                 $("#CloseDocumentPopup").dialog({                  
                     title: "Close projct",
                     width: 780,
-                    height: 700,
+                    height: 500,
                     buttons: {}, modal: true
                 });
                return false
@@ -107,13 +107,15 @@
       }
         function alertVal(revisionid) {
             debugger;
-            alert(revisionid);
+            alert(document.getElementById('<%=IframePage.ClientID %>').innerHTML);
+            var txtCont = document.getElementById("Page.Master.FindControl('ContentPlaceHolder1').FindControl('hiddenFieldRevisionID')").value;
+            document.getElementById('IframeContent').src = "../Approvels/CloseDocument.aspx";
             CloseDocumentWindow();
-            alert(1);
-            //document.getElementById['IframeContent'].src = vv;
-            //alert(1);
+           
+            
+            //alert(1);<a href="../Approvels/CloseDocument.aspx">../Approvels/CloseDocument.aspx</a>
         }
-       </script>
+    </script>
        <script>
            function hideMe() {
                document.getElementById("Errorbox").style.display = "none";
@@ -192,9 +194,9 @@
         </telerik:RadSplitter>
     </div>
 
-   <div id="CloseDocumentPopup" style="display:none; width: 1000px!important; height: 700px!important; overflow: hidden; overflow-x: hidden;">
+   <div id="CloseDocumentPopup" style="display:none; width: 1000px!important; height: 500px!important; overflow: hidden; overflow-x: hidden;">
 
-              <iframe src="AddNewProject.aspx" style="width: 1300px; height: 700px;"></iframe>
+              <iframe id="IframeContent" style="width: 1300px; height: 700px;"></iframe>
             </div>
 </asp:Content>
 
