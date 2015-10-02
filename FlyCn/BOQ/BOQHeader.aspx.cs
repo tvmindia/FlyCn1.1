@@ -33,7 +33,7 @@ namespace FlyCn.BOQ
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
             BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString();
-            BOQObj.BindTree(RadTreeView tview);
+            //BOQObj.BindTree(RadTreeView tview);
             
         }
         public void DisableBOQHeaderTextBox()
