@@ -48,6 +48,11 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+        public string RevisionIdFromHiddenfield
+        {
+            get;
+            set;
+        }
         public DateTime UpdatedDateGMT
         {
             get;
@@ -75,7 +80,7 @@ namespace FlyCn.FlyCnDAL
            rtn1.Target = "contentPane";
            myTree.Nodes.Add(rtn1);
          // myTree.NodeClick=
-           myTree.Attributes.Add("onclick", "alertVal()");
+           myTree.Attributes.Add("onclick", "alertVal(" + RevisionIdFromHiddenfield + ")");
         }
         public void LoadInputScreen(RadPane myContentPane)
         {

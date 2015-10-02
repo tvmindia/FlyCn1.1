@@ -28,11 +28,11 @@ namespace FlyCn.BOQ
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            BOQHeaderDetails  BOQObj= new BOQHeaderDetails();
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
-            
+            BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString();
            
         }
         public void DisableBOQHeaderTextBox()
