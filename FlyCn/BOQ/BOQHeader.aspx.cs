@@ -210,7 +210,7 @@ namespace FlyCn.BOQ
                 txtDocumentno.Text = boqHeaderDetails.documentMaster.DocumentNo.ToString();
                 ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid;//iframe page BOQDetails.aspx is called with query string revisonid
                // ScriptManager.RegisterStartupScript(this.GetType(), "Add", "OpenDetailAccordion();", true);//Accordian calling BOQdetail slide down
-               // ScriptManager.RegisterStartupScript(this.GetType(), "VoteJsFunc", "alert('Hey!You are legible to vote!')", true);
+                ScriptManager.RegisterStartupScript(this,this.GetType(), "Add", "alert('Hey!You are legible to vote!');", true);
             }
             catch(Exception ex)
             {
