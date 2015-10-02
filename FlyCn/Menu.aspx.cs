@@ -13,7 +13,7 @@ namespace FlyCn
         {
             UIClasses.DynamicIcons ui = new UIClasses.DynamicIcons();
 
-            string myInnerHtml = ui.GenerateImageString(null);
+            string myInnerHtml = ui.GenerateMultiSizeImageString(null);//ui.GenerateImageString(null);
             div1.Controls.Add(new LiteralControl(myInnerHtml));
         }
     }
