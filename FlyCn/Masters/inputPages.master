@@ -107,7 +107,7 @@
       }
         function alertVal(revisionid) {
             debugger;
-            alert(document.getElementById('<%=IframePage.ClientID %>').innerHTML);
+           <%-- alert(document.getElementById('<%=IframePage.ClientID %>').innerHTML);--%>
             var txtCont = document.getElementById("Page.Master.FindControl('ContentPlaceHolder1').FindControl('hiddenFieldRevisionID')").value;
             document.getElementById('IframeContent').src = "../Approvels/CloseDocument.aspx";
             CloseDocumentWindow();
