@@ -50,7 +50,15 @@ namespace FlyCn.Masters
         protected void Page_Load(object sender, EventArgs e)
         {
             UIClasses.InputPages ip = new UIClasses.InputPages();
-            this.head.Controls.Add(ip.GetLandingThemeCss());
+            try
+            {
+                this.head.Controls.Add(ip.GetLandingThemeCss());
+
+            }
+            catch(Exception ex)
+            {
+                
+            }
         }
 
         protected void btnLogin_Click(object sender, ImageClickEventArgs e)

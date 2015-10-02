@@ -5,7 +5,7 @@
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
        <!-----bootstrap css--->
-    <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
+   <%-- <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
     <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
     <!-----bootstrap css--->
     <link href="../Content/themes/FlyCnBlue/css/bootstrap.min.css" rel="stylesheet" />
@@ -15,16 +15,20 @@
     <link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
     <!-----main css--->
     <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />
+    <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />--%>
     <!-----main css--->
-       <script type="text/javascript">
-        function ClearTextBox() {
-            $('textarea').empty();
-            $('PassWord').empty();
-            $("input:text").val('');
-        }
-        function EnableButtonsForNew() {
-            <%=ToolBar.ClientID %>_SetAddVisible(false);
+  
+
+</asp:Content>
+<asp:Content ID="phdUserMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+         <script type="text/javascript">
+             function ClearTextBox() {
+                 $('textarea').empty();
+                 $('PassWord').empty();
+                 $("input:text").val('');
+             }
+             function EnableButtonsForNew() {
+                 <%=ToolBar.ClientID %>_SetAddVisible(false);
             <%=ToolBar.ClientID %>_SetSaveVisible(true);
             <%=ToolBar.ClientID %>_SetUpdateVisible(false);
             <%=ToolBar.ClientID %>_SetDeleteVisible(false);
@@ -45,7 +49,7 @@
 
      <script type="text/javascript">
          function onClientTabSelected(sender, args) {
-            
+
              var tab = args.get_tab();
              if (tab.get_value() == '2') {
 
@@ -53,23 +57,23 @@
 
                      ClearTextBox();
                      EnableButtonsForNew();
-                   
 
 
-                }
-                catch (x) {
-                    alert(x.message);
-                }
 
-            }
+                 }
+                 catch (x) {
+                     alert(x.message);
+                 }
 
-            if (tab.get_value() == "1") {//List tab selected
+             }
 
-                SelectTabList();
-                SetTabNewTextAndIcon();
+             if (tab.get_value() == "1") {//List tab selected
 
-            }
-        }
+                 SelectTabList();
+                 SetTabNewTextAndIcon();
+
+             }
+         }
 
     </script>
 
@@ -84,9 +88,6 @@
             }
         }
             </script>
-
-</asp:Content>
-<asp:Content ID="phdUserMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
       <div class="container"  style="width: 100%">
           
                     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
