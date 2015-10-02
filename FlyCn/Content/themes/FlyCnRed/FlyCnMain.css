@@ -351,10 +351,11 @@ transition: .25s ease;
 }
 
 .subMenuHead {
-    text-align: center;
+    text-align: left;
     font-family: 'Segoe UI';
-    font-size: 20px;
-    width: 65%;
+    font-size: 22px;
+    width: 60%;
+    padding-left: 4%;
     
 }
     .subMenuHead .Blue {
