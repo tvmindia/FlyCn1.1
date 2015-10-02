@@ -27,26 +27,33 @@
     
         }
     </style>
-    <script>
-        function hideMe() {
-            document.getElementById("Errorbox").style.display = "none";
-            var divId = document.getElementById("masterDiv");
-            divId.style.opacity = "1";
-        }
+ 
+
+    <%--<div>
+</div>--%>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="MainBody" runat="server">
+       <script>
+           function hideMe() {
+               document.getElementById("Errorbox").style.display = "none";
+               var divId = document.getElementById("masterDiv");
+               divId.style.opacity = "1";
+           }
     </script>
   
         <script type="text/javascript">
             function OnClientLoad(sender, args) {
                 var treeView = $find("<%= rtvLeftMenu.ClientID%>");
-       treeView.add_nodeClicked(ClientNodeClicked);
-   }
-   function ClientNodeClicked(sender, args) {
-       //node clicked event
-       GetSelected();
-   }
+                treeView.add_nodeClicked(ClientNodeClicked);
+            }
+            function ClientNodeClicked(sender, args) {
+                //node clicked event
+                GetSelected();
+            }
 
-   function GetSelected() {
-       var tree = $find("<%= rtvLeftMenu.ClientID %>");
+            function GetSelected() {
+                var tree = $find("<%= rtvLeftMenu.ClientID %>");
        var node = tree.findNodeByText("Root Node 1");
        if (node) {
            if (node.get_selected()) {
@@ -58,13 +65,6 @@
        }
    }
 </script>
-
-    <%--<div>
-</div>--%>
-</asp:Content>
-
-<asp:Content ID="Content2" ContentPlaceHolderID="MainBody" runat="server">
-    
         <div  id="Errorbox" runat="server" class="div1">
             <table style="width: 90%; height: 50px; border: groove; border-radius: 5px 6px; background-color: lightgrey">
                 <tr>

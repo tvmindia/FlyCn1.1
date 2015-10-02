@@ -12,7 +12,6 @@
             width:1050px;
         }
     </style>
-    <script src="../Scripts/jquery-1.8.2.min.js"></script>
     
 
 
@@ -22,6 +21,8 @@
 </asp:Content>
 
 <asp:Content ID="phdPersonnelQualificationMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+        <script src="../Scripts/jquery-1.8.2.min.js"></script>
+
  <script type="text/javascript">
      function validate() {
          var Qualification = document.getElementById('<%=txtQualification.ClientID %>').value;
