@@ -105,9 +105,9 @@
                 alert(X.message);
             }
       }
-        function alertVal() {
+        function alertVal(revisionid) {
             debugger;
-            alert(1);
+            alert(revisionid);
             CloseDocumentWindow();
             alert(1);
             //document.getElementById['IframeContent'].src = vv;
