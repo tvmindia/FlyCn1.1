@@ -35,6 +35,14 @@ namespace FlyCn.BOQ
             
            
         }
+        public void DisableBOQHeaderTextBox()
+        {
+            txtClientdocumentno.Attributes.Add("readonly","readonly");
+            txtRevisionno.Attributes.Add("readonly", "readonly");
+            RadDocumentDate.Attributes.Add("readonly", "readonly");
+            txtDocumenttitle.Attributes.Add("readonly", "readonly");
+            txtRemarks.Attributes.Add("readonly", "readonly");
+        }
         #endregion Page_Load
         #region dtgBOQGrid_NeedDataSource
         protected void dtgBOQGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -136,7 +144,7 @@ namespace FlyCn.BOQ
             {
                 AddNewBOQ();
                 ToolBarVisibility(1);
-                
+                DisableBOQHeaderTextBox();
                 
             }
             if (e.Item.Value == "Update")
@@ -199,7 +207,10 @@ namespace FlyCn.BOQ
                 boqHeaderDetails.Remarks = (txtRemarks.Text.Trim() != "") ? txtRemarks.Text.Trim() : null;
                 Guid Revisionid;
                 Revisionid = boqHeaderDetails.AddNewBOQ();//Revison id will be returned here
+                txtDocumentno.Text = boqHeaderDetails.documentMaster.DocumentNo.ToString();
                 ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid;//iframe page BOQDetails.aspx is called with query string revisonid
+               // ScriptManager.RegisterStartupScript(this.GetType(), "Add", "OpenDetailAccordion();", true);//Accordian calling BOQdetail slide down
+               // ScriptManager.RegisterStartupScript(this.GetType(), "VoteJsFunc", "alert('Hey!You are legible to vote!')", true);
             }
             catch(Exception ex)
             {
