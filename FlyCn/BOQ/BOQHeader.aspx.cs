@@ -121,6 +121,13 @@ namespace FlyCn.BOQ
                     RadDocumentDate.SelectedDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["DocumentDate"].ToString());
                     txtDocumenttitle.Text = ds.Tables[0].Rows[0]["DocumentTitle"].ToString();
                     txtRemarks.Text = ds.Tables[0].Rows[0]["Remarks"].ToString();
+                    Guid Revisionid;
+                    Guid.TryParse(hiddenFieldRevisionID.Value,out Revisionid);
+                    //BOQDetail Display accordion
+                    ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid;//iframe page BOQDetails.aspx is called with query string revisonid
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Add", "OpenDetailAccordion();", true);
+
+
                 }
                 else
                 {

@@ -1,6 +1,7 @@
 ﻿using FlyCn.FlyCnDAL;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -22,9 +23,9 @@ namespace FlyCn.BOQ
             Revisionid = Request.QueryString["Revisionid"];
 
             hdfRevisionId.Value = Revisionid;
-            ToolBar1.onClick += new RadToolBarEventHandler(ToolBar_onClick);
-            ToolBar1.OnClientButtonClicking = "OnClientButtonClickingDetail";
-            ToolBarVisibility(1);
+            ToolBarBOQDetail.onClick += new RadToolBarEventHandler(ToolBar_onClick);
+            ToolBarBOQDetail.OnClientButtonClicking = "OnClientButtonClickingDetail";
+            ToolBarVisibility(3);
         }
        
         #region ToolBar_onClick
@@ -36,6 +37,7 @@ namespace FlyCn.BOQ
              {
                  AddBOQDocumentDetails();
                  ToolBarVisibility(2);
+                 dtgBOQDetailGrid.Rebind();
              }
 
 
@@ -43,18 +45,22 @@ namespace FlyCn.BOQ
             {
                 AddBOQDocumentDetails();
                 ToolBarVisibility(2);
+                dtgBOQDetailGrid.Rebind();
             }
             if (e.Item.Value == "Update")
             {
                 UpdateBOQDocumentDetails();
                 ToolBarVisibility(2);
+                dtgBOQDetailGrid.Rebind();
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ClearMessage(page);
             }
             if (e.Item.Value == "Delete")
             {
                 DeleteBOQDocumentDetails();
+                dtgBOQDetailGrid.Rebind();
                 ToolBarVisibility(3);
+                dtgBOQDetailGrid.Rebind();
             }
         }
         #endregion ToolBar_onClick
@@ -64,23 +70,23 @@ namespace FlyCn.BOQ
          {
              switch (order)
              {
-                 case 1://after adding what should be visible
-                     ToolBar1.AddButton.Visible = false;
-                     ToolBar1.SaveButton.Visible = true;
-                     ToolBar1.UpdateButton.Visible = false;
-                     ToolBar1.DeleteButton.Visible = false;
+                 case 1:
+                     ToolBarBOQDetail.AddButton.Visible = false;
+                     ToolBarBOQDetail.SaveButton.Visible = true;
+                     ToolBarBOQDetail.UpdateButton.Visible = false;
+                     ToolBarBOQDetail.DeleteButton.Visible = false;
                      break;
                  case 2:
-                     ToolBar1.AddButton.Visible = true;
-                     ToolBar1.SaveButton.Visible = false;
-                     ToolBar1.UpdateButton.Visible = true;
-                     ToolBar1.DeleteButton.Visible = true;
+                     ToolBarBOQDetail.AddButton.Visible = true;
+                     ToolBarBOQDetail.SaveButton.Visible = false;
+                     ToolBarBOQDetail.UpdateButton.Visible = true;
+                     ToolBarBOQDetail.DeleteButton.Visible = true;
                      break;
                  case 3:
-                     ToolBar1.AddButton.Visible = true;
-                     ToolBar1.SaveButton.Visible = false;
-                     ToolBar1.UpdateButton.Visible = false;
-                     ToolBar1.DeleteButton.Visible = false;
+                     ToolBarBOQDetail.AddButton.Visible = true;
+                     ToolBarBOQDetail.SaveButton.Visible = false;
+                     ToolBarBOQDetail.UpdateButton.Visible = false;
+                     ToolBarBOQDetail.DeleteButton.Visible = false;
                      break;
 
 
@@ -88,7 +94,127 @@ namespace FlyCn.BOQ
 
          }
          #endregion ToolBarVisibility
+          protected void dtgBOQDetailGrid_PreRender(object sender, EventArgs e)
+          {
+              try
+              {
+                  Guid RevID;
+                  DataSet ds = new DataSet();
+                  bOQHeaderDetails = new BOQHeaderDetails();
+                  Revisionid = hdfRevisionId.Value;//Getting revision id from hiddenfield
+                  Guid.TryParse(Revisionid, out RevID);
+                  bOQHeaderDetails.bOQDetails.RevisionID = RevID;
+                  bOQHeaderDetails.bOQDetails.ProjectNo = UA.projectNo;
+                  ds = bOQHeaderDetails.bOQDetails.GetAllBOQDetails();
+                  dtgBOQDetailGrid.DataSource = ds;
+                  //hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                  //hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
+                  //hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+              }
+              catch (Exception ex)
+              {
+                  var page = HttpContext.Current.CurrentHandler as Page;
+                  eObj.ErrorData(ex, page);
+              }
+           
+          }
+          protected void dtgBOQDetailGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+          {
+              try
+              {
+                  Guid RevID;
+                  DataSet ds = new DataSet();
+                  bOQHeaderDetails = new BOQHeaderDetails();
+                  Revisionid = hdfRevisionId.Value;//Getting revision id from hiddenfield
+                  Guid.TryParse(Revisionid, out RevID);
+                  bOQHeaderDetails.bOQDetails.RevisionID = RevID;
+                  bOQHeaderDetails.bOQDetails.ProjectNo = UA.projectNo;
+                  ds = bOQHeaderDetails.bOQDetails.GetAllBOQDetails();
+                  dtgBOQDetailGrid.DataSource = ds;
+                  //hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                  //hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
+                  //hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+              }
+              catch (Exception ex)
+              {
+                  var page = HttpContext.Current.CurrentHandler as Page;
+                  eObj.ErrorData(ex, page);
+              }
 
+          }
+          protected void dtgBOQDetailGrid_ItemCommand(object source, GridCommandEventArgs e)
+          {
+              Guid Itemid;
+              bOQHeaderDetails = new BOQHeaderDetails();
+              try
+              {
+                  if (e.CommandName == "EditDoc")//RadGrid Edit
+                  {
+                      ToolBarVisibility(2);
+                      RadTab tab = (RadTab)RadTabStripBOQDetail.FindTabByValue("2");
+                      GridDataItem item = e.Item as GridDataItem;
+                      tab.Selected = true;
+                      tab.Text = "Edit";
+                      RadMultiPageBOQDetail.SelectedIndex = 1;
+                      string ProjectNo = item.GetDataKeyValue("ProjectNo").ToString();
+
+                      DataSet ds = new DataSet();
+                      bOQHeaderDetails = new BOQHeaderDetails();
+                     
+                      Guid.TryParse(item.GetDataKeyValue("ItemID").ToString(), out Itemid);
+                      bOQHeaderDetails.bOQDetails.ItemID = Itemid;
+                      ds = bOQHeaderDetails.bOQDetails.GetBOQDetailsByItemID();
+
+                      hdfItemId.Value = ds.Tables[0].Rows[0]["ItemID"].ToString();
+                      hdfRevisionId.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+                     
+                     
+                      txtItemNo.Text = ds.Tables[0].Rows[0]["ItemNo"].ToString();
+                      txtItemDescription.Text = ds.Tables[0].Rows[0]["ItemDescription"].ToString();
+                      txtQuantity.Text = ds.Tables[0].Rows[0]["Quantity"].ToString();
+                      txtUnit.Text= ds.Tables[0].Rows[0]["Unit"].ToString();
+                      txtNormalHours.Text = ds.Tables[0].Rows[0]["NormHours"].ToString();
+                      txtLabourRate.Text = ds.Tables[0].Rows[0]["LabourRate"].ToString();
+                      txtLabourRateType.Text = ds.Tables[0].Rows[0]["LabourRateType"].ToString();
+                      txtMaterialRate.Text = ds.Tables[0].Rows[0]["MaterialRate"].ToString();
+                      txtUDFRate1.Text = ds.Tables[0].Rows[0]["UDFRate1"].ToString();
+                      txtUDFRateType1.Text = ds.Tables[0].Rows[0]["UDFRateType1"].ToString();
+                      txtUDFRate2.Text = ds.Tables[0].Rows[0]["UDFRate2"].ToString();
+                      txtUDFRateType2.Text = ds.Tables[0].Rows[0]["UDFRateType2"].ToString();
+                      txtUDFRate3.Text = ds.Tables[0].Rows[0]["UDFRate3"].ToString();
+                      txtUDFRateType3.Text = ds.Tables[0].Rows[0]["UDFRateType3"].ToString();
+                      txtUDFRate4.Text = ds.Tables[0].Rows[0]["UDFRate4"].ToString();
+                      txtUDFRateType4.Text = ds.Tables[0].Rows[0]["UDFRateType4"].ToString();
+                      txtUDFRate5.Text = ds.Tables[0].Rows[0]["UDFRate5"].ToString();
+                      txtUDFRateType5.Text = ds.Tables[0].Rows[0]["UDFRateType5"].ToString();
+                      txtGroup1.Text = ds.Tables[0].Rows[0]["Group1"].ToString();
+                      txtGroup2.Text = ds.Tables[0].Rows[0]["Group2"].ToString();
+                      txtGroup3.Text = ds.Tables[0].Rows[0]["Group3"].ToString();
+                      txtGroup4.Text = ds.Tables[0].Rows[0]["Group4"].ToString();
+                      txtGroup5.Text = ds.Tables[0].Rows[0]["Group5"].ToString();
+                     
+                      
+                  }
+                  else
+                  {
+                      if (e.CommandName == "DeleteDoc")
+                      {
+                          GridDataItem item = e.Item as GridDataItem;
+                          Guid.TryParse(item.GetDataKeyValue("ItemID").ToString(), out Itemid);
+                          bOQHeaderDetails.bOQDetails.DeleteBOQDocumentDetails(Itemid);
+                      }
+                  }
+              }
+              catch (Exception ex)
+              {
+                  var page = HttpContext.Current.CurrentHandler as Page;
+                  eObj.ErrorData(ex, page);
+              }
+
+
+          }
+      
+        
          public void AddBOQDocumentDetails()
          {
              string ItemId = "";
@@ -187,7 +313,7 @@ namespace FlyCn.BOQ
                  bOQHeaderDetails.bOQDetails.Group4 = (txtGroup4.Text.Trim() != "") ? (txtGroup4.Text.Trim().ToString()) : null;
                  bOQHeaderDetails.bOQDetails.Group5 = (txtGroup5.Text.Trim() != "") ? (txtGroup5.Text.Trim().ToString()) : null;
 
-                 Itemidstring = bOQHeaderDetails.bOQDetails.UpdateBOQDocumentDetails();
+                 Itemidstring = bOQHeaderDetails.bOQDetails.UpdateBOQDocumentDetails(Itemid);
                  hdfItemId.Value = Itemidstring;//hiddenfield assinging outputparamitemid
              }
              catch (Exception ex)
@@ -208,7 +334,7 @@ namespace FlyCn.BOQ
                  Guid.TryParse(Itemidstring, out Itemid);
                  bOQHeaderDetails.bOQDetails.RevisionID = Revid;
                  bOQHeaderDetails.bOQDetails.ItemID = Itemid;
-                 bOQHeaderDetails.bOQDetails.DeleteBOQDocumentDetails();
+                 bOQHeaderDetails.bOQDetails.DeleteBOQDocumentDetails(Itemid);
 
              }
              catch(Exception ex)

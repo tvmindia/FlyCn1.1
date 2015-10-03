@@ -221,7 +221,7 @@
                                                 <a href="#" class="accordion-toggle" id="IDAccordion">Details<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                                                 <div class="accordion-content">
 
-                                                    <iframe id="ContentIframe" name="BOQDetails" style="height: 500px; width: 100%; overflow: hidden;" runat="server"></iframe>
+                                                    <iframe id="ContentIframe" name="BOQDetails" style="height: 600px; width: 100%; overflow: hidden;" runat="server"></iframe>
                                                      
                                                 </div>
                                             </div>

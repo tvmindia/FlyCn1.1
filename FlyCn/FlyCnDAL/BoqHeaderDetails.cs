@@ -354,6 +354,79 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion Boqdetailproperty
         #region BOQDetailMethods
+
+        public DataSet GetAllBOQDetails()//Accepts two parameters as property setting projectno and Revisonid
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllBOQDetails]";
+                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 10).Value = ProjectNo;
+                cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = RevisionID;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+            return ds;
+
+        }
+
+        public DataSet GetBOQDetailsByItemID() //Brings only one record since itemid is primarykey in BOQDetail table
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetBOQDetailsByItemID]";
+                cmd.Parameters.Add("@ItemID", SqlDbType.UniqueIdentifier).Value = ItemID;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+            return ds;
+        }
+
+
+       
         public string AddBOQDetails()
         {
 
@@ -438,7 +511,7 @@ namespace FlyCn.FlyCnDAL
             }
             return ItemId;
        }
-        public string UpdateBOQDocumentDetails()
+        public string UpdateBOQDocumentDetails(Guid paramItemid)
         {
 
             SqlConnection con = null;
@@ -454,7 +527,7 @@ namespace FlyCn.FlyCnDAL
                 boqcmd.CommandText = "[UpdateBOQDetails]";
                 boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = RevisionID;
                 boqcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = ProjectNo;
-                boqcmd.Parameters.Add("@ItemID", SqlDbType.UniqueIdentifier).Value = ItemID;
+                boqcmd.Parameters.Add("@ItemID", SqlDbType.UniqueIdentifier).Value = paramItemid;
                 boqcmd.Parameters.Add("@ItemNo", SqlDbType.SmallInt).Value = ItemNo;
                 boqcmd.Parameters.Add("@ItemDescription", SqlDbType.NVarChar, 250).Value = ItemDescription;
                 boqcmd.Parameters.Add("@Quantity", SqlDbType.Real).Value = Quantity;
@@ -524,19 +597,19 @@ namespace FlyCn.FlyCnDAL
 
             return ItemId;
         }
-        public void DeleteBOQDocumentDetails()
+        public void DeleteBOQDocumentDetails(Guid Itemid)
         {
             SqlConnection con = null;
             try
             {
+             
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand boqcmd = new SqlCommand();
                 boqcmd.Connection = con;
                 boqcmd.CommandType = System.Data.CommandType.StoredProcedure;
                 boqcmd.CommandText = "[DeleteBOQDocumentDetails]";
-                boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = RevisionID;
-                boqcmd.Parameters.Add("@ItemID", SqlDbType.UniqueIdentifier).Value = ItemID;
+                boqcmd.Parameters.Add("@ItemID", SqlDbType.UniqueIdentifier).Value = Itemid;
                 SqlParameter OutparamId = boqcmd.Parameters.Add("@OutputParamId", SqlDbType.SmallInt);
                 OutparamId.Direction = ParameterDirection.Output;
                 boqcmd.ExecuteNonQuery();

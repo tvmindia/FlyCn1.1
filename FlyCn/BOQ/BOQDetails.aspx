@@ -1,6 +1,7 @@
 ﻿<%-- Registration  --%>
 <%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="BOQDetails.aspx.cs" Inherits="FlyCn.BOQ.BOQDetails" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
 
@@ -32,10 +33,91 @@
 
 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
- <uc1:ToolBar runat="server" ID="ToolBar1" />
+  <div class="container" style="width: 100%">
+        <!-----FORM SECTION---->
+        <!-----SECTION TABLE---->
 
-  <!---SECTION ONE--->
+        <telerik:RadTabStrip ID="RadTabStripBOQDetail" runat="server" MultiPageID="RadMultiPageBOQDetail" Width="300px" OnClientTabSelected="onClientTabSelectedBOQDetail"
+            CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
+
+            <Tabs>
+                <telerik:RadTab Text="View" PageViewID="rpBOQDetailList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
+                <telerik:RadTab Text="New" PageViewID="rpBOQDetailAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"></telerik:RadTab>
+            </Tabs>
+        </telerik:RadTabStrip>
+        <div id="content">
+            <div class="contentTopBar"></div>
+            <table style="width: 100%">
+                <tr>
+                     
+                    <td>
+
+                        <telerik:RadMultiPage ID="RadMultiPageBOQDetail" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
+                            <!--Radpage view begins here-->
+                            <telerik:RadPageView ID="rpList" runat="server">
+
+                                <div id="rpBOQDetailList" style="width: 100%;text-align:center">
+
+                                       <telerik:RadGrid ID="dtgBOQDetailGrid" runat="server" CellSpacing="0" GridLines="None" OnNeedDataSource="dtgBOQDetailGrid_NeedDataSource" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" OnItemCommand="dtgBOQDetailGrid_ItemCommand"
+                                        PageSize="10" Width="99%"  >
+                                        <HeaderStyle  HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <AlternatingItemStyle HorizontalAlign="Left" />
+                                        <ClientSettings>
+                                            <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
+                                           
+                                        </ClientSettings>
+
+                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="ItemID,RevisionID,ProjectNo">
+
+                                            <Columns>
+
+                                                <telerik:GridTemplateColumn UniqueName="CheckBoxTemplateColumn">
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox ID="ChkChild" runat="server" onclick="HeaderUncheck(this);" AutoPostBack="False" />
+                                                    </ItemTemplate>
+                                                    <HeaderTemplate>
+                                                        <asp:CheckBox ID="Chkheader" runat="server" onclick="Check(this);" AutoPostBack="False" />
+                                                    </HeaderTemplate>
+                                                </telerik:GridTemplateColumn>
+
+                                                <telerik:GridButtonColumn CommandName="EditDoc" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
+                                                </telerik:GridButtonColumn>
+                                                <telerik:GridButtonColumn CommandName="DeleteDoc" Text="Delete" UniqueName="DeleteColumn" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" ConfirmDialogType="RadWindow" ConfirmText="Are you sure, you want to delete this item ?">
+                                                </telerik:GridButtonColumn>
+
+                                                <telerik:GridBoundColumn HeaderText="RevisionID" DataField="RevisionID" UniqueName="RevisionID" Display="false"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Item ID" DataField="ItemID" UniqueName="ItemID" Display="false"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo" Display="false"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Item No" DataField="ItemNo" UniqueName="ItemNo"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Description" DataField="ItemDescription" UniqueName="ItemDescription"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Quantity" DataField="Quantity" UniqueName="Quantity"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Unit" DataField="Unit" UniqueName="Unit"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Normal Hours" DataField="NormHours" UniqueName="NormHours"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Labour Rate" DataField="LabourRate" UniqueName="LabourRate"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="RateType" DataField="LabourRateType" UniqueName="LabourRateType"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Material Rate" DataField="MaterialRate" UniqueName="MaterialRate"></telerik:GridBoundColumn>
+                                               
+
+
+                                            </Columns>
+                                        </MasterTableView>
+
+                                    </telerik:RadGrid>
+
+
+                                </div>
+                            </telerik:RadPageView>
+                             <!--Radpage view Ends here-->
+
+                              <!----RadPage view edit begins here---->
+  <!----EDIT SECTION--->
+ <telerik:RadPageView ID="rpBOQDetailAddEdit" runat="server">
+ <uc1:ToolBar runat="server" ID="ToolBarBOQDetail" />
+
+ <!---SECTION ONE--->
  <div class="col-md-12 Span-One">
+
     <div class="col-md-6">
        <div class="form-group">
           <asp:Label ID="lblItemNo" CssClass="control-label col-md-3" runat="server" Text="Item No*"></asp:Label>
@@ -46,6 +128,7 @@
           </div>
         </div>
        </div>
+
       <div class="col-md-6">
        <div class="form-group">
          <asp:Label ID="lblItemDescription" CssClass="control-label col-md-3" runat="server" Text="Item Description"></asp:Label>
@@ -53,7 +136,7 @@
              <asp:TextBox ID="txtItemDescription" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+         </div>
 
      <div class="col-md-6">
        <div class="form-group">
@@ -62,7 +145,7 @@
              <asp:TextBox ID="txtQuantity" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+        </div>
 
      <div class="col-md-6">
        <div class="form-group">
@@ -71,7 +154,7 @@
              <asp:TextBox ID="txtUnit" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+        </div>
 
       <div class="col-md-6">
        <div class="form-group">
@@ -80,7 +163,7 @@
              <asp:TextBox ID="txtNormalHours" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+         </div>
 
        <div class="col-md-6">
        <div class="form-group">
@@ -89,7 +172,7 @@
              <asp:TextBox ID="txtLabourRate" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+         </div>
 
      <div class="col-md-6">
        <div class="form-group">
@@ -98,7 +181,7 @@
              <asp:TextBox ID="txtLabourRateType" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+         </div>
 
 
       <div class="col-md-6">
@@ -108,7 +191,7 @@
              <asp:TextBox ID="txtMaterialRate" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+         </div>
 
      <div class="col-md-6">
        <div class="form-group">
@@ -117,7 +200,7 @@
              <asp:TextBox ID="txtUDFRate1" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+         </div>
 
 
       <div class="col-md-6">
@@ -127,7 +210,7 @@
              <asp:TextBox ID="txtUDFRateType1" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+         </div>
 
 
        <div class="col-md-6">
@@ -137,7 +220,7 @@
              <asp:TextBox ID="txtUDFRate2" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+         </div>
 
      <div class="col-md-6">
        <div class="form-group">
@@ -146,7 +229,7 @@
              <asp:TextBox ID="txtUDFRateType2" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+          </div>
 
 
       <div class="col-md-6">
@@ -156,7 +239,7 @@
              <asp:TextBox ID="txtUDFRate3" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+         </div>
 
 
       <div class="col-md-6">
@@ -166,7 +249,7 @@
              <asp:TextBox ID="txtUDFRateType3" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+         </div>
 
 
       <div class="col-md-6">
@@ -176,7 +259,7 @@
              <asp:TextBox ID="txtUDFRate4" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+         </div>
 
       <div class="col-md-6">
        <div class="form-group">
@@ -185,7 +268,7 @@
              <asp:TextBox ID="txtUDFRateType4" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-      </div>
+         </div>
 
 
        <div class="col-md-6">
@@ -195,7 +278,7 @@
              <asp:TextBox ID="txtUDFRate5" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-       </div>
+         </div>
 
 
 
@@ -206,7 +289,7 @@
              <asp:TextBox ID="txtUDFRateType5" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-       </div>
+         </div>
 
      <div class="col-md-6">
        <div class="form-group">
@@ -215,7 +298,7 @@
              <asp:TextBox ID="txtGroup1" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-       </div>
+         </div>
 
       <div class="col-md-6">
        <div class="form-group">
@@ -224,7 +307,7 @@
              <asp:TextBox ID="txtGroup2" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-       </div>
+         </div>
 
       <div class="col-md-6">
        <div class="form-group">
@@ -233,7 +316,7 @@
              <asp:TextBox ID="txtGroup3" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           </div>
-       </div>
+        </div>
 
        <div class="col-md-6">
        <div class="form-group">
@@ -254,9 +337,18 @@
        </div>
 
 
-</div>
-    <!---SECTION ONE---> 
+ </div> <!---col-md-12 Span-One Ends here-->
+ <!---SECTION ONE---> 
 
+     <!--Radpage view rpAddEdit ends here-->
+       </telerik:RadPageView>
+          <!--RadMultiPage ends here-->
+        </telerik:RadMultiPage>
+        </td>
+        </tr>
+       </table>
+   </div>
+</div>
 
 
 
@@ -266,27 +358,49 @@
      debugger;
     
      $(document).ready(function () {
-         //alert("Boq detail insert not completd");
          
-       
+        
+         alert("doc ready");
      });
+     function onClientTabSelectedBOQDetail(sender, args)
+     {
+         var tab = args.get_tab();
+         if (tab.get_value() == '2') {
+             //Clear Text boxes When New tab clicks
+             //new clicked 
+             $('input[type=text]').each(function () {
+                 $(this).val('');
+             });
+             //Clear Text boxes When New tab clicks
+             try {
+                 <%=ToolBarBOQDetail.ClientID %>_SetAddVisible(false);
+                 <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(true);
+                 <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
+                 <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
+             }
+             catch (x) {
+                 alert(x.message);
+             }
+         }
 
-     
-
+     }
      function OnClientButtonClickingDetail(sender, args)
      {
         debugger;
         var btn = args.get_item();
-     if (btn.get_value() == 'Save') {
-         alert("save clicked");
+        if (btn.get_value() == 'Save')
+        {
+            alert("save clicked");
      //     args.set_cancel(!validate());
-       }
-        if (btn.get_value() == 'Update') {
+        }
+        if (btn.get_value() == 'Update') 
+        {
             alert("update clicked");
        //     args.set_cancel(!validate());
         }
 
-        if (btn.get_value() == "Delete") {
+        if (btn.get_value() == "Delete") 
+        {
             alert("Delete clicked");
         }
                 
