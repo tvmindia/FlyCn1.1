@@ -107,8 +107,13 @@
       }
         function alertVal(revisionid) {
             debugger;
-           <%-- alert(document.getElementById('<%=IframePage.ClientID %>').innerHTML);--%>
-            var txtCont = document.getElementById("Page.Master.FindControl('ContentPlaceHolder1').FindControl('hiddenFieldRevisionID')").value;
+            <%-- alert(document.getElementById('<%=IframePage.ClientID %>').innerHTML);--%>
+            var splitter = $find("<%= RadSplitter1.ClientID  %>");
+            var objs = splitter.getPaneById('<%=RadPane1.ClientID%>');
+            var sf = $("#hiddenFieldRevisionID");
+            alert(sf)
+            var s = document.getElementById('ctl00$ContentPlaceHolder1$hiddenFieldRevisionID');
+            alert(s);
             document.getElementById('IframeContent').src = "../Approvels/CloseDocument.aspx";
             CloseDocumentWindow();
            
@@ -198,6 +203,9 @@
 
               <iframe id="IframeContent" style="width: 1300px; height: 700px;"></iframe>
             </div>
+
 </asp:Content>
+
+   
 
 
