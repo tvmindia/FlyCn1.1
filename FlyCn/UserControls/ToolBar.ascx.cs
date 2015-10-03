@@ -16,10 +16,11 @@ namespace FlyCn.UserControls
         public SaveBtn SaveButton ;
         public UpdateBtn UpdateButton  ;
         public DeleteBtn DeleteButton  ;
+        public EditBtn EditButton;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-          
+           
         }
 
         protected void Page_Init(object sender, EventArgs e)
@@ -29,6 +30,7 @@ namespace FlyCn.UserControls
                SaveButton = new SaveBtn(CommonToolBar);
                UpdateButton = new UpdateBtn(CommonToolBar);
                DeleteButton = new DeleteBtn(CommonToolBar);
+              EditButton = new EditBtn(CommonToolBar);
         }
         
 
@@ -250,12 +252,12 @@ namespace FlyCn.UserControls
                     if (value)
                     {
                         CommonToolBar.FindItemByValue("Delete").Style["display"] = "";
-                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "";
+                         CommonToolBar.FindItemByValue("UpdateEditSeperator").Style["display"] = "";
                     }
                     else
                     {
                         CommonToolBar.FindItemByValue("Delete").Style["display"] = "none";
-                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "none";
+                        CommonToolBar.FindItemByValue("UpdateEditSeperator").Style["display"] = "none";
                     }
 
 
@@ -270,6 +272,64 @@ namespace FlyCn.UserControls
             }
         
         
+        }
+
+        public class EditBtn
+        {
+            public RadToolBar CommonToolBar;
+
+            public EditBtn(RadToolBar ToolBar)
+            {
+                this.CommonToolBar = ToolBar;
+            }
+
+
+            //------------------ Edit  -----------------------------------------------
+            public bool Visible
+            {
+
+                get
+                {
+                    if (CommonToolBar.FindItemByValue("Edit").Style["display"] == "block" || CommonToolBar.FindItemByValue("Edit").Style["display"] == "")
+                    {
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+
+
+
+                set
+                {
+
+                    if (value)
+                    {
+                        CommonToolBar.FindItemByValue("Edit").Style["display"] = "";
+                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "";
+                    }
+                    else
+                    {
+                        CommonToolBar.FindItemByValue("Edit").Style["display"] = "none";
+                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "none";
+                    }
+
+
+                }
+
+
+            }
+            public void registerScript_onClientClick(string JavaScriptFunction)
+            {
+
+                CommonToolBar.FindItemByValue("Edit").Attributes.Add("OnClick", JavaScriptFunction);
+            }
+
+
         }
 
 
@@ -290,6 +350,7 @@ namespace FlyCn.UserControls
                this.SaveButton.Visible = value;
                this.UpdateButton.Visible = value;
                this.DeleteButton.Visible = value;
+               this.EditButton.Visible = value;
            
            }
         

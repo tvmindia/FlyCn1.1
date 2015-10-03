@@ -17,6 +17,7 @@ namespace FlyCn.Templates
         protected void Page_Load(object sender, EventArgs e)
         {
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
+            ToolBar.EditButton.Visible = true;
         }
 
         #region dtgManageProjectGrid_NeedDataSource1

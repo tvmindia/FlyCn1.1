@@ -51,6 +51,12 @@
 
     }
 
+    function <%=ClientID%>_SetEditVisible(s) {
+
+        <%= ClientID%>_SetVisibleButton('Edit', s);
+
+      }
+
 
 
     function <%= ClientID%>_SetVisibleButton(id, value) {
@@ -105,10 +111,25 @@
 
         if (id == 'Delete') {
             var btn = btnItems.getItem(6);
-           // var sep = btnItems.getItem[5];
+            var sep = btnItems.getItem(7);
             if (value) {
                 btn.set_visible(true);
-               // sep.set_visible(true);
+                sep.set_visible(true);
+            }
+            else {
+                btn.set_visible(false);
+                sep.set_visible(false);
+
+            }
+
+        }
+
+        if (id == 'Edit') {
+            var btn = btnItems.getItem(8);
+            // var sep = btnItems.getItem[5];
+            if (value) {
+                btn.set_visible(true);
+                // sep.set_visible(true);
             }
             else {
                 btn.set_visible(false);
@@ -166,6 +187,12 @@ div.RadToolBar_Metro .rtbMiddle
             ImageUrl="~/Images/Icons/deleteToolbarIcon.png" DisabledImageUrl="~/Images/Icons/deleteToolbarIconDisabled.png" >
            
         </telerik:RadToolBarButton>
+              <telerik:RadToolBarButton Value="UpdateEditSeperator" IsSeparator="true" runat="server"    > </telerik:RadToolBarButton>
+         <telerik:RadToolBarButton runat="server" Text="" Value="Edit"    ImagePosition="Left"   ToolTip="Edit"   style="display:none"
+            ImageUrl="~/Images/Icons/editToolBarIcon.png" DisabledImageUrl="~/Images/Icons/editToolBarIconDisabled.png" >
+           
+        </telerik:RadToolBarButton>
+
     </Items>
 </telerik:RadToolBar>
     <asp:HiddenField ID="DeleteCancel" runat="server" />
