@@ -63,7 +63,7 @@
             <tr>
                 <td style="width: 50%;">
                    
-                        <div id="div1" runat="server" style="width:800px;height:580px;display:none" >
+                        <div id="div1" runat="server" style="width:800px;height:600px;display:none" >
                         </div>
                    
                         
