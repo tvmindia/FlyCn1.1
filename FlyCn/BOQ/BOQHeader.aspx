@@ -302,8 +302,14 @@
                    $(this).val('');
                });*/
 
-
-            document.getElementById('<%=txtDocumentno.ClientID %>').value = "-------System Code-------";
+            //Clear Text boxes When New tab clicks
+            document.getElementById('<%=txtDocumentno.ClientID %>').value = "----------------------System Code---------------------";
+            document.getElementById('<%=txtClientdocumentno.ClientID %>').value = "";
+            document.getElementById('<%=txtRevisionno.ClientID %>').value = "";
+            $find('<%=RadDocumentDate.ClientID %>').clear();
+            document.getElementById('<%=txtDocumenttitle.ClientID %>').value = "";
+            document.getElementById('<%=txtRemarks.ClientID %>').value = "";
+            //Clear Text boxes When New tab clicks
 
 
 
@@ -367,16 +373,14 @@
                 OpenDetailAccordion(this);
 
             });
-            //OpenDetailAccordion('#IDAccordion');
+           
         });
        
 
         function OpenDetailAccordion(id)
         {
-            if (id != undefined)
+            if (id != undefined)//accordion called from accordion click functionjs
             {
-                alert(id);
-                debugger;
                 var accordion = $(id);
                 var accordionContent = accordion.next('.accordion-content');
                 var accordionToggleIcon = accordion.children('.toggle-icon');
@@ -393,10 +397,8 @@
                     accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
                 }
             }
-            if(id==undefined)
+            if(id==undefined)//accordion called from code behind scrpt register after BoqHeaderSave
             {
-                alert(id);
-                debugger;
                 id = document.getElementById('IDAccordion');
                 var accordion = $(id);
                 var accordionContent = accordion.next('.accordion-content');

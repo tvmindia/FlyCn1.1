@@ -40,10 +40,11 @@ namespace FlyCn.BOQ
         {
             txtClientdocumentno.Attributes.Add("readonly","readonly");
             txtRevisionno.Attributes.Add("readonly", "readonly");
-            RadDocumentDate.Attributes.Add("readonly", "readonly");
+            RadDocumentDate.Enabled = !RadDocumentDate.Enabled;
             txtDocumenttitle.Attributes.Add("readonly", "readonly");
             txtRemarks.Attributes.Add("readonly", "readonly");
         }
+        
         #endregion Page_Load
         #region dtgBOQGrid_NeedDataSource
         protected void dtgBOQGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -54,9 +55,9 @@ namespace FlyCn.BOQ
                 documentMaster = new DocumentMaster();
                 ds = documentMaster.GetAllBOQDocumentHeader(UA.projectNo, "BOQ");
                 dtgBOQGrid.DataSource = ds;
-                hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
-                hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
-                hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+                //hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                //hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
+                //hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
             }
             catch(Exception ex)
             {
@@ -75,9 +76,9 @@ namespace FlyCn.BOQ
                 documentMaster = new DocumentMaster();
                 ds = documentMaster.GetAllBOQDocumentHeader(UA.projectNo, "BOQ");
                 dtgBOQGrid.DataSource = ds;
-                hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
-                hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
-                hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+               //hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+               //hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
+              //hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
             }
             catch (Exception ex)
             {
