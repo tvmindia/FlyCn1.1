@@ -301,6 +301,7 @@
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\flycnLogo.png" />
     <Content Include="Images\Icons\activity.png" />
+    <Content Include="Images\Icons\approve.png" />
     <Content Include="Images\Icons\boq.png" />
     <Content Include="Images\Icons\complete.png" />
     <Content Include="Images\Icons\construction.png" />
@@ -308,10 +309,12 @@
     <Content Include="Images\Icons\cp.png" />
     <Content Include="Images\Icons\delaylog.png" />
     <Content Include="Images\Icons\EnggData.png" />
+    <Content Include="Images\Icons\handover.png" />
     <Content Include="Images\Icons\inspect.png" />
     <Content Include="Images\Icons\itp.png" />
     <Content Include="Images\Icons\ncr.png" />
     <Content Include="Images\Icons\PredefinedReport.png" />
+    <Content Include="Images\Icons\preserve.png" />
     <Content Include="Images\Icons\progress.png" />
     <Content Include="Images\Icons\ProjectParams.png" />
     <Content Include="Images\Icons\punchList.png" />
@@ -321,6 +324,12 @@
     <Content Include="Images\Icons\quality.png" />
     <Content Include="Images\Icons\roles.png" />
     <Content Include="Images\Icons\setup.png" />
+    <Content Include="Images\Icons\sr.png" />
+    <Content Include="Images\Icons\subscribe.png" />
+    <Content Include="Images\Icons\system.png" />
+    <Content Include="Images\Icons\task.png" />
+    <Content Include="Images\Icons\testprogress.png" />
+    <Content Include="Images\Icons\ur.png" />
     <Content Include="Images\Icons\workpack.png" />
     <Content Include="Scripts\Messages.js" />
     <Content Include="Templates\htmlTemplate.html" />
