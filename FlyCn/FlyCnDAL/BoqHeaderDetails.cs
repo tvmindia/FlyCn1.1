@@ -80,7 +80,7 @@ namespace FlyCn.FlyCnDAL
            rtn1.Target = "contentPane";
            myTree.Nodes.Add(rtn1);
          // myTree.NodeClick=
-           myTree.Attributes.Add("onclick", "alertVal(" + 5 + ")");
+           myTree.Attributes.Add("onclick", "CloseDocument(" + 5 + ")");
         }
         public void LoadInputScreen(RadPane myContentPane)
         {
