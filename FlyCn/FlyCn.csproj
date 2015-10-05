@@ -322,6 +322,7 @@
     <Content Include="Images\Icons\qp.png" />
     <Content Include="Images\Icons\qry.png" />
     <Content Include="Images\Icons\quality.png" />
+    <Content Include="Images\Icons\road.png" />
     <Content Include="Images\Icons\roles.png" />
     <Content Include="Images\Icons\setup.png" />
     <Content Include="Images\Icons\sr.png" />
