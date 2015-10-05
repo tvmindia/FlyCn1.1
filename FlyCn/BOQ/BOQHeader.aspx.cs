@@ -155,6 +155,7 @@ namespace FlyCn.BOQ
                 ToolBarVisibility(1);
                 DisableBOQHeaderTextBox();
                 dtgBOQGrid.Rebind();
+
             }
             if (e.Item.Value == "Update")
             {
