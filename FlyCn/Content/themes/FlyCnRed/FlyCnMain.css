@@ -272,11 +272,11 @@ transition: .25s ease;
 }
 
    .Tiles.Teal {
-    background-color: #0d6f89;
+    background-color: #008080;
 }
 
     .Tiles.Teal:hover {
-    background-color: #0B576A;
+    background-color: #004F4F;
 }
 
     .Tiles.Green {
@@ -362,7 +362,7 @@ transition: .25s ease;
         color: #0d4689;
     }
     .subMenuHead .Teal {
-        color: #0d6f89;
+        color: #008080;
     }
     .subMenuHead .Green {
         color: #016331;
