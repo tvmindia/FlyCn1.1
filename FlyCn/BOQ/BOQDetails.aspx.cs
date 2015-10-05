@@ -60,7 +60,7 @@ namespace FlyCn.BOQ
                 DeleteBOQDocumentDetails();
                 dtgBOQDetailGrid.Rebind();
                 ToolBarVisibility(3);
-                dtgBOQDetailGrid.Rebind();
+              
             }
         }
         #endregion ToolBar_onClick
@@ -258,9 +258,17 @@ namespace FlyCn.BOQ
                  bOQHeaderDetails.bOQDetails.Group3 = (txtGroup3.Text.Trim() != "") ? (txtGroup3.Text.Trim().ToString()) : null;
                  bOQHeaderDetails.bOQDetails.Group4 = (txtGroup4.Text.Trim() != "") ? (txtGroup4.Text.Trim().ToString()) : null;
                  bOQHeaderDetails.bOQDetails.Group5 = (txtGroup5.Text.Trim() != "") ? (txtGroup5.Text.Trim().ToString()) : null;
-
-                 ItemId = bOQHeaderDetails.bOQDetails.AddBOQDetails();
-                 hdfItemId.Value = ItemId;//hiddenfield assinging outputparamitemid
+                 Guid itemid;
+                 itemid = bOQHeaderDetails.bOQDetails.AddBOQDetails();
+                 if (itemid != Guid.Empty)
+                 {
+                     hdfItemId.Value = itemid.ToString();//hiddenfield assinging outputparamitemid
+                     RadTab tab = (RadTab)RadTabStripBOQDetail.FindTabByValue("1");
+                     tab.Selected = true;
+                  //   tab.Text = "Edit";
+                     RadMultiPageBOQDetail.SelectedIndex = 0;
+                 }
+                
              }
              catch(Exception ex)
              {
