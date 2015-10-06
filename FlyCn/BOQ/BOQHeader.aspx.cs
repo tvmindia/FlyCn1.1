@@ -36,6 +36,7 @@ namespace FlyCn.BOQ
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
             BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString();
+           
             //BOQObj.BindTree(RadTreeView tview);
             
         }
@@ -159,7 +160,7 @@ namespace FlyCn.BOQ
             {
                 AddNewBOQ();
                 ToolBarVisibility(1);
-                DisableBOQHeaderTextBox();
+                //DisableBOQHeaderTextBox();
                 dtgBOQGrid.Rebind();
 
             }
@@ -216,6 +217,7 @@ namespace FlyCn.BOQ
         public void AddNewBOQ()
         {
             DataSet ds;
+            string QueryTimeStatus = "";
             try
             {
                 boqHeaderDetails = new BOQHeaderDetails();
@@ -243,12 +245,16 @@ namespace FlyCn.BOQ
                     hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
                     hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
                     hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+                    txtDocumentno.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
                 }
                 //hiddenField Binding
-                txtDocumentno.Text = boqHeaderDetails.documentMaster.DocumentNo.ToString();
-                ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid;//iframe page BOQDetails.aspx is called with query string revisonid
-               // ScriptManager.RegisterStartupScript(this.GetType(), "Add", "OpenDetailAccordion();", true);//Accordian calling BOQdetail slide down
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Add", "OpenDetailAccordion();", true);
+                if (Revisionid != Guid.Empty)
+                {
+                    QueryTimeStatus = "New";
+                    ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;//iframe page BOQDetails.aspx is called with query string revisonid
+                    //ScriptManager.RegisterStartupScript(this.GetType(), "Add", "OpenDetailAccordion();", true);//Accordian calling BOQdetail slide down
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Add", "OpenDetailAccordion();", true);
+                }
             }
             catch(Exception ex)
             {

@@ -16,16 +16,26 @@ namespace FlyCn.BOQ
         UIClasses.Const Const = new UIClasses.Const();
         ErrorHandling eObj = new ErrorHandling(); 
         FlyCnDAL.Security.UserAuthendication UA;
-        string Revisionid,Itemidstring;
+        string Revisionid,Itemidstring,QueryTimeStatus;
         protected void Page_Load(object sender, EventArgs e)
         {
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             Revisionid = Request.QueryString["Revisionid"];
-
+            QueryTimeStatus = Request.QueryString["QueryTimeStatus"];
             hdfRevisionId.Value = Revisionid;
             ToolBarBOQDetail.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBarBOQDetail.OnClientButtonClicking = "OnClientButtonClickingDetail";
             ToolBarVisibility(3);
+            if(!IsPostBack)
+            {
+                if(QueryTimeStatus=="New")
+                {
+                    RadTab tab = (RadTab)RadTabStripBOQDetail.FindTabByValue("2");
+                    tab.Selected = true;
+                    tab.Text = "New";
+                    RadMultiPageBOQDetail.SelectedIndex = 1;
+                }
+            }
         }
        
         #region ToolBar_onClick
@@ -167,9 +177,7 @@ namespace FlyCn.BOQ
 
                       hdfItemId.Value = ds.Tables[0].Rows[0]["ItemID"].ToString();
                       hdfRevisionId.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
-                     
-                     
-                      txtItemNo.Text = ds.Tables[0].Rows[0]["ItemNo"].ToString();
+                   
                       txtItemDescription.Text = ds.Tables[0].Rows[0]["ItemDescription"].ToString();
                       txtQuantity.Text = ds.Tables[0].Rows[0]["Quantity"].ToString();
                       txtUnit.Text= ds.Tables[0].Rows[0]["Unit"].ToString();
@@ -217,8 +225,7 @@ namespace FlyCn.BOQ
         
          public void AddBOQDocumentDetails()
          {
-             string ItemId = "";
-             try
+          try
              {
                  Guid Revid;
                  Revisionid = hdfRevisionId.Value;
@@ -226,10 +233,7 @@ namespace FlyCn.BOQ
                  Guid.TryParse(Revisionid, out Revid);
                  bOQHeaderDetails.bOQDetails.RevisionID = Revid;
                  bOQHeaderDetails.bOQDetails.ProjectNo = UA.projectNo;
-                 bOQHeaderDetails.bOQDetails.ItemNo = Int16.Parse(txtItemNo.Text);
                  bOQHeaderDetails.bOQDetails.ItemDescription = (txtItemDescription.Text.Trim() != "") ? txtItemDescription.Text.Trim().ToString() : null;
-
-
 
                  bOQHeaderDetails.bOQDetails.Quantity = (txtQuantity.Text.Trim() != "") ? Convert.ToSingle(txtQuantity.Text.Trim()) : Convert.ToSingle(null);
                  bOQHeaderDetails.bOQDetails.Unit = (txtUnit.Text.Trim() != "") ? txtUnit.Text.Trim().ToString() : null;
@@ -274,6 +278,7 @@ namespace FlyCn.BOQ
              {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
+                throw ex;
              }
          }
          public void UpdateBOQDocumentDetails()
@@ -290,7 +295,7 @@ namespace FlyCn.BOQ
                  bOQHeaderDetails.bOQDetails.RevisionID = Revid;
                  bOQHeaderDetails.bOQDetails.ProjectNo = UA.projectNo;
                  bOQHeaderDetails.bOQDetails.ItemID = Itemid;
-                 bOQHeaderDetails.bOQDetails.ItemNo = Int16.Parse(txtItemNo.Text);
+              
                  bOQHeaderDetails.bOQDetails.ItemDescription = (txtItemDescription.Text.Trim() != "") ? txtItemDescription.Text.Trim().ToString() : null;
 
                  bOQHeaderDetails.bOQDetails.Quantity = (txtQuantity.Text.Trim() != "") ? Convert.ToSingle(txtQuantity.Text.Trim()) : Convert.ToSingle(null);
@@ -328,6 +333,7 @@ namespace FlyCn.BOQ
              {
                  var page = HttpContext.Current.CurrentHandler as Page;
                  eObj.ErrorData(ex, page);
+                 throw ex;
              }
          }
          public void DeleteBOQDocumentDetails()
@@ -347,7 +353,9 @@ namespace FlyCn.BOQ
              }
              catch(Exception ex)
              {
-
+                 var page = HttpContext.Current.CurrentHandler as Page;
+                 eObj.ErrorData(ex, page);
+                 throw ex;
              }
 
          }

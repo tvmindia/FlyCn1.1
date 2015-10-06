@@ -11,7 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Input</title>
-
+   
+   <script src="../Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
     <!-----bootstrap css--->
     <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
     <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
@@ -160,11 +161,21 @@
                                             <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtRevisionno" CssClass="form-control" runat="server"></asp:TextBox>
+                                                
                                             </div>
                                         </div>
 
                                     </div>
+                                    <!----------->
 
+                                    <div class="col-md-6">
+                                    <div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy" runat="server">
+                                    <input class="form-control" type="text"/>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> </div>
+                                    </div>
+
+
+                                     <!----------->
 
                                     <div class="col-md-6">
 
@@ -172,7 +183,8 @@
 
                                             <asp:Label ID="lblDocumentdate" CssClass="control-label col-md-3" runat="server" Text="Document Date*"></asp:Label>
                                             <div class="col-md-9">
-                                                <telerik:RadDatePicker ID="RadDocumentDate" runat="server" DateInput-DateFormat="dd/MMM/yyyy"></telerik:RadDatePicker>
+                                                
+                                              <telerik:RadDatePicker ID="RadDocumentDate" runat="server" DateInput-DateFormat="dd/MMM/yyyy"></telerik:RadDatePicker>
                                                 <%-- <asp:TextBox ID="txtDocumentdate" CssClass="form-control" runat="server"></asp:TextBox>--%>
                                             </div>
                                         </div>
@@ -207,22 +219,14 @@
                                         </div>
 
                                     </div>
-
-                                 
-
-
-
                                 </div>
-
                                    <div class="col-md-12">
                                         
                                         <div class="content white">
                                             <div class="accordion-container">
                                                 <a href="#" class="accordion-toggle" id="IDAccordion">Details<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                                                 <div class="accordion-content">
-
-                                                    <iframe id="ContentIframe" name="BOQDetails" style="height: 600px; width: 100%; overflow: hidden;" runat="server"></iframe>
-                                                     
+                                                <iframe id="ContentIframe" name="BOQDetails" style="height: 600px; width: 100%; overflow: hidden;" runat="server"></iframe>
                                                 </div>
                                             </div>
                                         </div>
@@ -314,22 +318,7 @@
 
            
             //Enable header textboxess
-            debugger;
-          
-            var e = document.getElementById('<%=txtClientdocumentno.ClientID %>');
-            e.removeAttribute("readonly", 0);
-            e = document.getElementById('<%=txtRevisionno.ClientID %>');
-            e.removeAttribute("readonly", 0);
-        
-           e= $find(<%=RadDocumentDate.ClientID%>);
-            debugger;
-            e.get_enabled('true');
-            //e.Enabled = true;
-            e = document.getElementById('<%=txtDocumenttitle.ClientID %>');
-            e.removeAttribute("readonly", 0);
-            e = document.getElementById('<%=txtRemarks.ClientID %>');
-            e.removeAttribute("readonly", 0);
-            
+           
             //Enable header textboxess
             
 
@@ -372,8 +361,9 @@
     function OnClientButtonClicking(sender, args) {
         var btn = args.get_item();
         if (btn.get_value() == 'Save') {
-
+            debugger;
             args.set_cancel(!validate());
+            DisableBOQHeaderTextBox();
             
         }
         if (btn.get_value() == 'Update') {
@@ -390,6 +380,9 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
+            alert("hai");
+            debugger;
+     
             $('.accordion-toggle').on('click', function (event) {
                 event.preventDefault();
                  
@@ -397,7 +390,9 @@
 
             });
            
+           
         });
+
        
 
         function OpenDetailAccordion(id)
@@ -440,10 +435,60 @@
                 }
             }
         }
+        function DisableBOQHeaderTextBox()
+        {
+            
+            var v1 = document.getElementById('<%=txtClientdocumentno.ClientID %>');
+            v1.setAttribute("readonly", "readonly");
+            var v1 = document.getElementById('<%=txtRevisionno.ClientID %>');
+            v1.setAttribute("readonly", "readonly");
+            var v1 = document.getElementById('<%=txtDocumenttitle.ClientID %>');
+            v1.setAttribute("readonly", "readonly");
+            var v1 = document.getElementById('<%=txtRemarks.ClientID %>');
+            v1.setAttribute("readonly", "readonly");
+            $('#datepicker').datepicker('hide');
+            
+           
+            
+        }
+        function EnableBOQHeaderTextBox()
+        {
+            //Enable header textboxess
+            debugger;
+
+            var e = document.getElementById('<%=txtClientdocumentno.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            e = document.getElementById('<%=txtRevisionno.ClientID %>');
+            e.removeAttribute("readonly", 0);
+
+
+            e = document.getElementById('<%=txtDocumenttitle.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            e = document.getElementById('<%=txtRemarks.ClientID %>');
+            e.removeAttribute("readonly", 0);
+
+            //Enable header textboxess
+        }
+    
 
 
     </script>
     <!--<JavaScrict ends here>-->
+
+        <!-----bootstrap js---> 
+
+<script>
+    $(function () {
+        $("#datepicker").datepicker({
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('update', new Date());;
+    });
+
+</script> 
+
+
+<!-----bootstrap js--->
 
 </asp:Content>
 

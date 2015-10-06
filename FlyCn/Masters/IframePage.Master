@@ -10,7 +10,8 @@
     </asp:ContentPlaceHolder>
     <script src="../Scripts/Messages.js"></script>
       
-    <script src="../Scripts/jquery-1.8.2.min.js"></script>
+  <!--  <script src="../Scripts/jquery-1.8.2.min.js"></script> changed this to new 1.11 inorder to work with bootstrapdatepicker-->
+     <script src="../Scripts/jquery-1.11.3.min.js" type="text/javascript">></script>
        <style type="text/css">
         .auto-style3 {
             width: 173px;

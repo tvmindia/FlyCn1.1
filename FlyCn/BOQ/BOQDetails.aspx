@@ -118,22 +118,15 @@
  <!---SECTION ONE--->
  <div class="col-md-12 Span-One">
 
-    <div class="col-md-6">
-       <div class="form-group">
-          <asp:Label ID="lblItemNo" CssClass="control-label col-md-3" runat="server" Text="Item No*"></asp:Label>
-          <div class="col-md-9">
-            <asp:TextBox ID="txtItemNo"  runat="server" CssClass="form-control"></asp:TextBox>
-             <asp:HiddenField ID="hdfRevisionId" runat="server" />
-              <asp:HiddenField ID="hdfItemId" runat="server" />
-          </div>
-        </div>
-       </div>
+   
 
       <div class="col-md-6">
        <div class="form-group">
          <asp:Label ID="lblItemDescription" CssClass="control-label col-md-3" runat="server" Text="Item Description"></asp:Label>
           <div class="col-md-9">
              <asp:TextBox ID="txtItemDescription" CssClass="form-control" runat="server"></asp:TextBox>
+               <asp:HiddenField ID="hdfRevisionId" runat="server" />
+              <asp:HiddenField ID="hdfItemId" runat="server" />
           </div>
           </div>
          </div>
@@ -360,7 +353,7 @@
      $(document).ready(function () {
          
         
-         alert("doc ready");
+        
      });
      function onClientTabSelectedBOQDetail(sender, args)
      {
