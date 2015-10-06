@@ -228,6 +228,42 @@ namespace FlyCn.FlyCnDAL
 
         }
        #endregion GetAllDocuments
+        #region BindBOQHeader
+        public DataSet BindBOQHeader(Guid Revisionid)//New BOQ header binding method used to bind hiddenfields
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllBindBOQHeaderByRevisionID]";
+                cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = Revisionid;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+            return ds;
+        }
+        #endregion BindBOQHeader
         #region BindBOQ
         public DataSet BindBOQ(Guid documentID, string projectno)
         {

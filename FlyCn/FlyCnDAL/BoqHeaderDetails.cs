@@ -427,11 +427,10 @@ namespace FlyCn.FlyCnDAL
 
 
        
-        public string AddBOQDetails()
+        public Guid AddBOQDetails()
         {
 
             SqlConnection con = null;
-            string ItemId="";
             try
             {
                
@@ -478,7 +477,7 @@ namespace FlyCn.FlyCnDAL
                 if (OutparmItemId.Value.ToString()=="")
                 {
                    //not successfull   
-                    ItemId = OutparmItemId.Value.ToString();
+                    
                     var page = HttpContext.Current.CurrentHandler as Page;
                     eObj.InsertionSuccessData(page,"Insert not Successfull,Duplicate Entry!");
 
@@ -486,7 +485,7 @@ namespace FlyCn.FlyCnDAL
                 else
                 {
                     //successfull
-                    ItemId = OutparmItemId.Value.ToString();
+                    ItemID = (Guid)OutparmItemId.Value;
                     var page = HttpContext.Current.CurrentHandler as Page;
                     eObj.InsertionSuccessData(page);
 
@@ -509,7 +508,7 @@ namespace FlyCn.FlyCnDAL
                 }
                
             }
-            return ItemId;
+            return ItemID;
        }
         public string UpdateBOQDocumentDetails(Guid paramItemid)
         {

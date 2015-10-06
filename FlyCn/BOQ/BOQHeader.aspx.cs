@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Services;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
@@ -28,6 +30,7 @@ namespace FlyCn.BOQ
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             BOQHeaderDetails  BOQObj= new BOQHeaderDetails();
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
@@ -44,6 +47,15 @@ namespace FlyCn.BOQ
             txtDocumenttitle.Attributes.Add("readonly", "readonly");
             txtRemarks.Attributes.Add("readonly", "readonly");
         }
+      
+        public void EnableBOQHeaderTextBox()
+        {
+            txtClientdocumentno.Attributes.Remove("readonly");
+            txtRevisionno.Attributes.Remove("readonly");
+            RadDocumentDate.Enabled = true;
+            txtDocumenttitle.Attributes.Remove("readonly");
+            txtRemarks.Attributes.Remove("readonly");
+        }
         
         #endregion Page_Load
         #region dtgBOQGrid_NeedDataSource
@@ -55,9 +67,6 @@ namespace FlyCn.BOQ
                 documentMaster = new DocumentMaster();
                 ds = documentMaster.GetAllBOQDocumentHeader(UA.projectNo, "BOQ");
                 dtgBOQGrid.DataSource = ds;
-                //hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
-                //hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
-                //hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
             }
             catch(Exception ex)
             {
@@ -76,9 +85,6 @@ namespace FlyCn.BOQ
                 documentMaster = new DocumentMaster();
                 ds = documentMaster.GetAllBOQDocumentHeader(UA.projectNo, "BOQ");
                 dtgBOQGrid.DataSource = ds;
-               //hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
-               //hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
-              //hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
             }
             catch (Exception ex)
             {
@@ -164,10 +170,16 @@ namespace FlyCn.BOQ
                 UpdateBOQ();
                 ToolBarVisibility(2);
             }
+            if(e.Item.Value == "Edit")
+            {
+                EnableBOQHeaderTextBox();
+                ToolBarVisibility(2);
+            }
             if (e.Item.Value == "Delete")
             {
                 //Delete();
             }
+
         }
         #endregion ToolBar_onClick
        
@@ -183,13 +195,15 @@ namespace FlyCn.BOQ
                    case 1://after adding what should be visible
                     ToolBar.AddButton.Visible = false;
                     ToolBar.SaveButton.Visible = false;
-                    ToolBar.UpdateButton.Visible = true;
+                    ToolBar.UpdateButton.Visible = false;
+                    ToolBar.EditButton.Visible = true;
                     ToolBar.DeleteButton.Visible = false;
                    break;
                    case 2:
                     ToolBar.AddButton.Visible = false;
                     ToolBar.SaveButton.Visible = false;
                     ToolBar.UpdateButton.Visible = true;
+                    ToolBar.EditButton.Visible = false;
                     ToolBar.DeleteButton.Visible = false;
                    break;
                              
@@ -201,6 +215,7 @@ namespace FlyCn.BOQ
         #region insert
         public void AddNewBOQ()
         {
+            DataSet ds;
             try
             {
                 boqHeaderDetails = new BOQHeaderDetails();
@@ -217,6 +232,19 @@ namespace FlyCn.BOQ
                 boqHeaderDetails.Remarks = (txtRemarks.Text.Trim() != "") ? txtRemarks.Text.Trim() : null;
                 Guid Revisionid;
                 Revisionid = boqHeaderDetails.AddNewBOQ();//Revison id will be returned here
+                ds = new DataSet();
+                documentMaster = new DocumentMaster();
+                //BindBOQHEaderbyRevisonid
+                ds = documentMaster.BindBOQHeader(Revisionid);
+                //BindBOQHEaderbyRevisonid
+                //hiddenField Binding
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                    hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
+                    hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+                }
+                //hiddenField Binding
                 txtDocumentno.Text = boqHeaderDetails.documentMaster.DocumentNo.ToString();
                 ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid;//iframe page BOQDetails.aspx is called with query string revisonid
                // ScriptManager.RegisterStartupScript(this.GetType(), "Add", "OpenDetailAccordion();", true);//Accordian calling BOQdetail slide down

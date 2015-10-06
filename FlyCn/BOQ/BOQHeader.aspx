@@ -292,11 +292,12 @@
     }
 
 
-
+      
     function onClientTabSelected(sender, args) {
 
         var tab = args.get_tab();
-        if (tab.get_value() == '2') {
+        if (tab.get_value() == '2')
+        {
             //new clicked 
             /*   $('input[type=text]').each(function () {
                    $(this).val('');
@@ -311,9 +312,30 @@
             document.getElementById('<%=txtRemarks.ClientID %>').value = "";
             //Clear Text boxes When New tab clicks
 
+           
+            //Enable header textboxess
+            debugger;
+          
+            var e = document.getElementById('<%=txtClientdocumentno.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            e = document.getElementById('<%=txtRevisionno.ClientID %>');
+            e.removeAttribute("readonly", 0);
+        
+           e= $find(<%=RadDocumentDate.ClientID%>);
+            debugger;
+            e.get_enabled('true');
+            //e.Enabled = true;
+            e = document.getElementById('<%=txtDocumenttitle.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            e = document.getElementById('<%=txtRemarks.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            
+            //Enable header textboxess
+            
 
 
             try {
+                <%=ToolBar.ClientID %>_SetEditVisible(false);
                 <%=ToolBar.ClientID %>_SetAddVisible(false);
                 <%=ToolBar.ClientID %>_SetSaveVisible(true);
                 <%=ToolBar.ClientID %>_SetUpdateVisible(false);
@@ -327,6 +349,7 @@
         }
 
         if (tab.get_value() == "1") {
+
 
             var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
             var tab = tabStrip.findTabByValue("1");
