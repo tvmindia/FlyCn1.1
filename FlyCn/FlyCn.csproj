@@ -613,6 +613,7 @@
     <Compile Include="FlyCnDAL\Activities.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FlyCnDAL\ApprovelMaster.cs" />
     <Compile Include="FlyCnDAL\BoqHeaderDetails.cs" />
     <Compile Include="FlyCnDAL\DALConstants.cs">
       <SubType>Code</SubType>
