@@ -44,7 +44,7 @@ namespace FlyCn.BOQ
         {
             txtClientdocumentno.Attributes.Add("readonly","readonly");
             txtRevisionno.Attributes.Add("readonly", "readonly");
-            RadDocumentDate.Enabled = !RadDocumentDate.Enabled;
+           // RadDocumentDate.Enabled = !RadDocumentDate.Enabled;
             txtDocumenttitle.Attributes.Add("readonly", "readonly");
             txtRemarks.Attributes.Add("readonly", "readonly");
         }
@@ -53,7 +53,7 @@ namespace FlyCn.BOQ
         {
             txtClientdocumentno.Attributes.Remove("readonly");
             txtRevisionno.Attributes.Remove("readonly");
-            RadDocumentDate.Enabled = true;
+            txtdatepicker.Attributes.Remove("readonly");//bootstrap date picker enable
             txtDocumenttitle.Attributes.Remove("readonly");
             txtRemarks.Attributes.Remove("readonly");
         }
@@ -125,7 +125,8 @@ namespace FlyCn.BOQ
                     txtDocumentno.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
                     txtClientdocumentno.Text = ds.Tables[0].Rows[0]["ClientDocNo"].ToString();
                     txtRevisionno.Text = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
-                    RadDocumentDate.SelectedDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["DocumentDate"].ToString());
+                    //RadDocumentDate.SelectedDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["DocumentDate"].ToString());
+                    txtdatepicker.Value = Convert.ToString(ds.Tables[0].Rows[0]["DocumentDate"]);
                     txtDocumenttitle.Text = ds.Tables[0].Rows[0]["DocumentTitle"].ToString();
                     txtRemarks.Text = ds.Tables[0].Rows[0]["Remarks"].ToString();
                     Guid Revisionid;
@@ -158,10 +159,13 @@ namespace FlyCn.BOQ
             string functionName = e.Item.Value;
             if (e.Item.Value == "Save")
             {
+                string date;
+                date = txtdatepicker.Value;
                 AddNewBOQ();
                 ToolBarVisibility(1);
-                //DisableBOQHeaderTextBox();
                 dtgBOQGrid.Rebind();
+                //calling js function DisableBOQHeaderTextBox()to make text box readonly
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "DisableTextBox", "DisableBOQHeaderTextBox();", true);
 
             }
             if (e.Item.Value == "Update")
@@ -173,8 +177,9 @@ namespace FlyCn.BOQ
             }
             if(e.Item.Value == "Edit")
             {
-                EnableBOQHeaderTextBox();
+                
                 ToolBarVisibility(2);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "EnableTextBox", "EnableBOQHeaderTextBox();", true);
             }
             if (e.Item.Value == "Delete")
             {
@@ -229,7 +234,8 @@ namespace FlyCn.BOQ
                 boqHeaderDetails.documentMaster.CreatedDate = System.DateTime.Now;//smalldatetime
                 boqHeaderDetails.documentMaster.CreatedDateGMT = System.DateTime.Now;//smalldatetime
                 boqHeaderDetails.RevisionNo = (txtRevisionno.Text.Trim() != "") ? txtRevisionno.Text.Trim().ToString() : null;
-                boqHeaderDetails.DocumentDate = (RadDocumentDate.SelectedDate != null) ? Convert.ToDateTime(RadDocumentDate.SelectedDate) : Convert.ToDateTime(null);
+                //boqHeaderDetails.DocumentDate = (RadDocumentDate.SelectedDate != null) ? Convert.ToDateTime(RadDocumentDate.SelectedDate) : Convert.ToDateTime(null);
+                boqHeaderDetails.DocumentDate = (txtdatepicker.Value != null) ? Convert.ToDateTime(txtdatepicker.Value) : Convert.ToDateTime(null);
                 boqHeaderDetails.DocumentTitle = (txtDocumenttitle.Text.Trim() != "") ? txtDocumenttitle.Text.Trim() : null;
                 boqHeaderDetails.Remarks = (txtRemarks.Text.Trim() != "") ? txtRemarks.Text.Trim() : null;
                 Guid Revisionid;
@@ -281,13 +287,21 @@ namespace FlyCn.BOQ
                 boqHeaderDetails.documentMaster.DocumentOwner = UA.userName;
                 boqHeaderDetails.documentMaster.UpdatedDate = System.DateTime.Now.ToString();
                 boqHeaderDetails.RevisionNo = (txtRevisionno.Text != "") ? txtRevisionno.Text.Trim().ToString() : null;
-                boqHeaderDetails.DocumentDate = (RadDocumentDate.SelectedDate != null) ? Convert.ToDateTime(RadDocumentDate.SelectedDate) : Convert.ToDateTime(null);
+               // boqHeaderDetails.DocumentDate = (RadDocumentDate.SelectedDate != null) ? Convert.ToDateTime(RadDocumentDate.SelectedDate) : Convert.ToDateTime(null);
+                boqHeaderDetails.DocumentDate = (txtdatepicker.Value != null) ? Convert.ToDateTime(txtdatepicker.Value) : Convert.ToDateTime(null);
                 boqHeaderDetails.DocumentTitle = (txtDocumenttitle.Text != "") ? txtDocumenttitle.Text : null;
                 boqHeaderDetails.Remarks = (txtRemarks.Text != "") ? txtRemarks.Text: null;
                 boqHeaderDetails.UpdatedBy = UA.userName;
                 boqHeaderDetails.UpdatedDate = System.DateTime.Now.ToString();
                 boqHeaderDetails.UpdatedDateGMT = System.DateTime.Now;
                 boqHeaderDetails.UpdateBOQ();
+                if (revisionID != Guid.Empty)
+                {
+
+                    ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + revisionID;//iframe page BOQDetails.aspx is called with query string revisonid
+                    //ScriptManager.RegisterStartupScript(this.GetType(), "Add", "OpenDetailAccordion();", true);//Accordian calling BOQdetail slide down
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Update", "OpenDetailAccordion();", true);
+                }
             }
             catch(Exception ex)
             {

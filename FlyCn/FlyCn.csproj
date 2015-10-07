@@ -333,6 +333,7 @@
     <Content Include="Images\Icons\ur.png" />
     <Content Include="Images\Icons\workpack.png" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.11.3.min.js" />
     <Content Include="Scripts\jquery.1.9.1.min.js" />
     <Content Include="Scripts\Messages.js" />
