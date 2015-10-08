@@ -11,7 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Input</title>
-
+   
+   
     <!-----bootstrap css--->
     <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
     <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
@@ -147,11 +148,11 @@
                                         </div>
 
                                     </div>
-                                </div>
+                                
                                 <!---SECTION ONE--->
 
                                 <!---SECTION TWO--->
-                                <div class="col-md-12 Span-One">
+                               
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -160,24 +161,27 @@
                                             <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtRevisionno" CssClass="form-control" runat="server"></asp:TextBox>
+                                                
                                             </div>
                                         </div>
 
                                     </div>
-
+                                  
 
                                     <div class="col-md-6">
 
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblDocumentdate" CssClass="control-label col-md-3" runat="server" Text="Document Date*"></asp:Label>
-                                            <div class="col-md-9">
-                                                <telerik:RadDatePicker ID="RadDocumentDate" runat="server" DateInput-DateFormat="dd/MMM/yyyy"></telerik:RadDatePicker>
-                                                <%-- <asp:TextBox ID="txtDocumentdate" CssClass="form-control" runat="server"></asp:TextBox>--%>
-                                            </div>
+                                          <asp:Label ID="lblDocumentdate" CssClass="control-label col-md-3" runat="server" Text="Document Date*"></asp:Label>
+                                          <div class="col-md-9">
+                                            <!----------->                                               
+                                           <div id="datepicker" class="input-group date" data-date-format="dd-MM-yyyy">
+                                           <input class="form-control" id="txtdatepicker" type="text" runat="server" readonly="readonly"/>
+                                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> </div>
+                                            <!----------->
                                         </div>
-
-                                    </div>
+                                        </div>
+                                       </div>
 
 
 
@@ -207,22 +211,14 @@
                                         </div>
 
                                     </div>
-
-                                 
-
-
-
                                 </div>
-
                                    <div class="col-md-12">
                                         
                                         <div class="content white">
                                             <div class="accordion-container">
                                                 <a href="#" class="accordion-toggle" id="IDAccordion">Details<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                                                 <div class="accordion-content">
-
-                                                    <iframe id="ContentIframe" name="BOQDetails" style="height: 600px; width: 100%; overflow: hidden;" runat="server"></iframe>
-                                                     
+                                                <iframe id="ContentIframe" name="BOQDetails" style="height: 600px; width: 100%; overflow: hidden;" runat="server"></iframe>
                                                 </div>
                                             </div>
                                         </div>
@@ -247,7 +243,7 @@
         function validate() {
             var Clientdocumentno = document.getElementById('<%=txtClientdocumentno.ClientID %>').value;
         var Revisionno = document.getElementById('<%=txtRevisionno.ClientID %>').value;
-        var DocumentDate = document.getElementById('<%=RadDocumentDate.ClientID %>').value;
+        var DocumentDate = document.getElementById('<%=txtRevisionno.ClientID %>').value;
         var Documenttitle = document.getElementById('<%=txtDocumenttitle.ClientID %>').value;
         var Remarks = document.getElementById('<%=txtRemarks.ClientID%>').value;
         if (Clientdocumentno == "" || Revisionno == "" || DocumentDate == "" || Documenttitle == "" || Remarks == "") {
@@ -304,32 +300,18 @@
                });*/
 
             //Clear Text boxes When New tab clicks
-            document.getElementById('<%=txtDocumentno.ClientID %>').value = "----------------------System Code---------------------";
+            document.getElementById('<%=txtDocumentno.ClientID %>').value = "-------System Generated Code----------";
             document.getElementById('<%=txtClientdocumentno.ClientID %>').value = "";
             document.getElementById('<%=txtRevisionno.ClientID %>').value = "";
-            $find('<%=RadDocumentDate.ClientID %>').clear();
+          
+            $('#datepicker').datepicker('update', '');
             document.getElementById('<%=txtDocumenttitle.ClientID %>').value = "";
             document.getElementById('<%=txtRemarks.ClientID %>').value = "";
             //Clear Text boxes When New tab clicks
 
            
             //Enable header textboxess
-            debugger;
-          
-            var e = document.getElementById('<%=txtClientdocumentno.ClientID %>');
-            e.removeAttribute("readonly", 0);
-            e = document.getElementById('<%=txtRevisionno.ClientID %>');
-            e.removeAttribute("readonly", 0);
-        
-           e= $find(<%=RadDocumentDate.ClientID%>);
-            debugger;
-            e.get_enabled('true');
-            //e.Enabled = true;
-            e = document.getElementById('<%=txtDocumenttitle.ClientID %>');
-            e.removeAttribute("readonly", 0);
-            e = document.getElementById('<%=txtRemarks.ClientID %>');
-            e.removeAttribute("readonly", 0);
-            
+         
             //Enable header textboxess
             
 
@@ -363,7 +345,7 @@
         {
            document.getElementById('<%=txtClientdocumentno.ClientID %>').value = "";
            document.getElementById('<%=txtRevisionno.ClientID %>').value="";
-           document.getElementById('<%=RadDocumentDate.ClientID %>').value="";
+           document.getElementById('<%=txtRevisionno.ClientID %>').value="";
            document.getElementById('<%=txtDocumenttitle.ClientID %>').value="";
            document.getElementById('<%=txtRemarks.ClientID%>').value="";
         }
@@ -372,8 +354,9 @@
     function OnClientButtonClicking(sender, args) {
         var btn = args.get_item();
         if (btn.get_value() == 'Save') {
-
-            args.set_cancel(!validate());
+           
+            //args.set_cancel(!validate());
+           
             
         }
         if (btn.get_value() == 'Update') {
@@ -390,14 +373,20 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
+            
+     
             $('.accordion-toggle').on('click', function (event) {
                 event.preventDefault();
                  
                 OpenDetailAccordion(this);
 
             });
+
+           
+           
            
         });
+
        
 
         function OpenDetailAccordion(id)
@@ -440,10 +429,62 @@
                 }
             }
         }
+        function DisableBOQHeaderTextBox()
+        {
+            debugger;
+            var v1 = document.getElementById('<%=txtdatepicker.ClientID %>');
+            //v1.setAttribute("readonly", "readonly");
+            v1 = document.getElementById('<%=txtClientdocumentno.ClientID %>');
+            v1.setAttribute("readonly", "readonly");
+            v1 = document.getElementById('<%=txtRevisionno.ClientID %>');
+            v1.setAttribute("readonly", "readonly");
+            v1 = document.getElementById('<%=txtDocumenttitle.ClientID %>');
+            v1.setAttribute("readonly", "readonly");
+            v1 = document.getElementById('<%=txtRemarks.ClientID %>');
+            v1.setAttribute("readonly", "readonly");
+           // $('#datepicker').datepicker({ enableOnReadonly: false });
+           // $(document).off('.datepicker.data-api');
+            $('#datepicker').datepicker('hide');
+            //$('#datepicker').datepicker("remove");
+       
+        }
+        function EnableBOQHeaderTextBox()
+        {
+            //Enable header textboxess
+            debugger;
+            var e = document.getElementById('<%=txtClientdocumentno.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            e = document.getElementById('<%=txtRevisionno.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            e = document.getElementById('<%=txtDocumenttitle.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            e = document.getElementById('<%=txtRemarks.ClientID %>');
+            e.removeAttribute("readonly", 0);
+
+            //Enable header textboxess
+        }
+    
 
 
     </script>
     <!--<JavaScrict ends here>-->
+
+        <!-----bootstrap js---> 
+
+<script>
+    $(function () {
+      
+        $("#datepicker").datepicker({
+            autoclose: true,
+            clearBtn:true,
+            todayHighlight: true
+        }).datepicker('update', new Date());;
+    });
+
+</script> 
+
+
+<!-----bootstrap js--->
 
 </asp:Content>
 

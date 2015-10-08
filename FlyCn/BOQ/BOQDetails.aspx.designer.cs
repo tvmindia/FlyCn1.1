@@ -76,22 +76,22 @@ namespace FlyCn.BOQ {
         protected global::FlyCn.UserControls.ToolBar ToolBarBOQDetail;
         
         /// <summary>
-        /// lblItemNo control.
+        /// lblItemDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblItemNo;
+        protected global::System.Web.UI.WebControls.Label lblItemDescription;
         
         /// <summary>
-        /// txtItemNo control.
+        /// txtItemDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtItemNo;
+        protected global::System.Web.UI.WebControls.TextBox txtItemDescription;
         
         /// <summary>
         /// hdfRevisionId control.
@@ -110,24 +110,6 @@ namespace FlyCn.BOQ {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdfItemId;
-        
-        /// <summary>
-        /// lblItemDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblItemDescription;
-        
-        /// <summary>
-        /// txtItemDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtItemDescription;
         
         /// <summary>
         /// lblQuantity control.

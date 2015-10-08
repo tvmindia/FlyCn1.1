@@ -442,7 +442,6 @@ namespace FlyCn.FlyCnDAL
                 boqcmd.CommandText = "[InsertBoqDetails]";
                 boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = RevisionID;
                 boqcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = ProjectNo;
-                boqcmd.Parameters.Add("@ItemNo", SqlDbType.SmallInt).Value = ItemNo;
                 boqcmd.Parameters.Add("@ItemDescription", SqlDbType.NVarChar, 250).Value = ItemDescription;
                 boqcmd.Parameters.Add("@Quantity", SqlDbType.Real).Value = Quantity;
                 boqcmd.Parameters.Add("@Unit", SqlDbType.NVarChar, 10).Value = Unit;
@@ -527,7 +526,6 @@ namespace FlyCn.FlyCnDAL
                 boqcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = RevisionID;
                 boqcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = ProjectNo;
                 boqcmd.Parameters.Add("@ItemID", SqlDbType.UniqueIdentifier).Value = paramItemid;
-                boqcmd.Parameters.Add("@ItemNo", SqlDbType.SmallInt).Value = ItemNo;
                 boqcmd.Parameters.Add("@ItemDescription", SqlDbType.NVarChar, 250).Value = ItemDescription;
                 boqcmd.Parameters.Add("@Quantity", SqlDbType.Real).Value = Quantity;
                 boqcmd.Parameters.Add("@Unit", SqlDbType.NVarChar, 10).Value = Unit;
