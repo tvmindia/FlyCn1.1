@@ -13,13 +13,31 @@ namespace FlyCn.Approvels {
     public partial class CloseDocument {
         
         /// <summary>
-        /// hdfRevisionId control.
+        /// hdfSelectBox1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdfRevisionId;
+        protected global::System.Web.UI.WebControls.HiddenField hdfSelectBox1;
+        
+        /// <summary>
+        /// hdfSelectBox2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfSelectBox2;
+        
+        /// <summary>
+        /// hdfSelectBox3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfSelectBox3;
         
         /// <summary>
         /// lblrevisionid control.
