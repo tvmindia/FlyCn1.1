@@ -34,6 +34,7 @@ namespace FlyCn.BOQ
                     tab.Selected = true;
                     tab.Text = "New";
                     RadMultiPageBOQDetail.SelectedIndex = 1;
+                    ToolBarVisibility(1);//Save button visible
                 }
             }
         }
@@ -45,9 +46,9 @@ namespace FlyCn.BOQ
 
              if(e.Item.Value=="Add")
              {
-                 AddBOQDocumentDetails();
-                 ToolBarVisibility(2);
-                 dtgBOQDetailGrid.Rebind();
+                 //AddBOQDocumentDetails();
+                 //ToolBarVisibility(2);
+                 //dtgBOQDetailGrid.Rebind();
              }
 
 
@@ -210,6 +211,7 @@ namespace FlyCn.BOQ
                           GridDataItem item = e.Item as GridDataItem;
                           Guid.TryParse(item.GetDataKeyValue("ItemID").ToString(), out Itemid);
                           bOQHeaderDetails.bOQDetails.DeleteBOQDocumentDetails(Itemid);
+                          dtgBOQDetailGrid.Rebind();
                       }
                   }
               }
