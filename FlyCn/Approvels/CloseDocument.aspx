@@ -2,8 +2,66 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   
-    <asp:HiddenField ID="hdfRevisionId" runat="server" />
+   <script>
+     
+       function getOptions() {
+           var hiddenvalue = document.getElementById('<%=hdfSelectBox1.ClientID %>').value;          
+           var selectList = document.getElementById("selecttools");
+           var arr = hiddenvalue.split('||');
+           var arry = [];
+
+           for (i = 0; i < arr.length; i++) {
+               var aTemp = arr[i].split("=");
+
+               if (aTemp.length == 2) {
+                   //var option;
+                   var options;                                 
+                   arry.push({ id: aTemp[0], title: aTemp[1] });
+               }               
+           }
+           return arry;
+       }
+     
+        
+       function getOptionsLevel2() {
+           var hiddenvalue = document.getElementById('<%=hdfSelectBox2.ClientID %>').value;
+           var selectList = document.getElementById("select-tools2");
+           var arr = hiddenvalue.split('||');
+           var arry = [];
+
+           for (i = 0; i < arr.length; i++) {
+               var aTemp = arr[i].split("=");
+
+               if (aTemp.length == 2) {
+                   //var option;
+                   var options;
+                   arry.push({ id: aTemp[0], title: aTemp[1] });
+               }
+           }
+           return arry;
+       }
+
+       function getOptionsLevel3() {
+           var hiddenvalue = document.getElementById('<%=hdfSelectBox3.ClientID %>').value;
+           var selectList = document.getElementById("select-tools3");
+           var arr = hiddenvalue.split('||');
+           var arry = [];
+
+           for (i = 0; i < arr.length; i++) {
+               var aTemp = arr[i].split("=");
+
+               if (aTemp.length == 2) {
+                   //var option;
+                   var options;
+                   arry.push({ id: aTemp[0], title: aTemp[1] });
+               }
+           }
+           return arry;
+       }
+   </script>
+    <asp:HiddenField ID="hdfSelectBox1" runat="server" />
+      <asp:HiddenField ID="hdfSelectBox2" runat="server" />
+     <asp:HiddenField ID="hdfSelectBox3" runat="server" />
     <asp:Label ID="lblrevisionid" runat="server" Text="" ForeColor="SteelBlue"></asp:Label>
 
  <%-- <asp:TextBox ID="txtrevisionid" runat="server" ForeColor="Tan"></asp:TextBox>--%>
@@ -17,10 +75,11 @@
             <div class="control-group">
               <select id="selecttools" name="Level1"  
            >
+               
         <option value=""></option>
-        <option value="1">Manu</option>
+       <%-- <option value="1">Manu</option>
         <option value="2">Amal</option>
-        <option value="3">Jomon</option>
+        <option value="3">Jomon</option>--%>
     </select>
             </div>
           </div>
@@ -39,9 +98,9 @@
             <div class="control-group">
               <select id="select-tools2" name="Level2">
         <option value=""></option>
-        <option value="S1">Suvaneeth</option>
+      <%--  <option value="S1">Suvaneeth</option>
         <option value="J1">javd</option>
-        <option value="J2">jissar</option>
+        <option value="J2">jissar</option>--%>
     </select>
             </div>
           </div>
@@ -63,9 +122,9 @@
             <div class="control-group">
               <select id="select-tools3" name="Level3">
         <option value=""></option>
-        <option value="A1">Albert</option>
+      <%--  <option value="A1">Albert</option>
         <option value="A11">Amrutha</option>
-        <option value="G2">Gopika</option>
+        <option value="G2">Gopika</option>--%>
     </select>
             </div>
           </div>
@@ -90,10 +149,17 @@
     <script src="../Content/themes/FlyCnBlue/js/selectize.js"></script> 
 <script src="../Content/themes/FlyCnBlue/js/index.js"></script> 
 <script>
-  
-				var $select = $('#selecttools').selectize({
+
+
+   
+
+    var $select = $('#selecttools').selectize({
+
 					maxItems: null,
-					
+					valueField: 'id',
+					labelField: 'title',
+					searchField: 'title',
+					options: getOptions(),
 					create: false
 				});
 				
@@ -133,9 +199,13 @@
 
     var $select = $('#select-tools2').selectize({
         maxItems: null,
-
+        valueField: 'id',
+        labelField: 'title',
+        searchField: 'title',
+        options: getOptionsLevel2(),
         create: false
     });
+
 
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -173,11 +243,15 @@
 
         var $select = $('#select-tools3').selectize({
             maxItems: null,
-
+            valueField: 'id',
+            labelField: 'title',
+            searchField: 'title',
+            options: getOptionsLevel3(),
             create: false
         });
 
 
+        
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
         var control = $select[0].selectize;
