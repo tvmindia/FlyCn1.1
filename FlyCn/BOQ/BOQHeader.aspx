@@ -127,8 +127,8 @@
                                             <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtDocumentno" Enabled="false" runat="server" CssClass="form-control" BackColor="Gray"></asp:TextBox>
-                                                <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" />
-                                                <asp:HiddenField ID="hiddenFieldDocumentID" runat="server" />
+                                                <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" ClientIDMode="Static"/>
+                                                <asp:HiddenField ID="hiddenFieldDocumentID" runat="server" ClientIDMode="Static"/>
                                                 <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static" />
 
                                             </div>
@@ -175,7 +175,7 @@
                                           <asp:Label ID="lblDocumentdate" CssClass="control-label col-md-3" runat="server" Text="Document Date*"></asp:Label>
                                           <div class="col-md-9">
                                             <!----------->                                               
-                                           <div id="datepicker" class="input-group date" data-date-format="dd-MM-yyyy">
+                                           <div id="datepicker" class="input-group date" data-date-format="dd-M-yyyy">
                                            <input class="form-control" id="txtdatepicker" type="text" runat="server" readonly="readonly"/>
                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> </div>
                                             <!----------->
@@ -294,29 +294,14 @@
         var tab = args.get_tab();
         if (tab.get_value() == '2')
         {
-            //new clicked 
-            /*   $('input[type=text]').each(function () {
-                   $(this).val('');
-               });*/
-
-            //Clear Text boxes When New tab clicks
-            document.getElementById('<%=txtDocumentno.ClientID %>').value = "-------System Generated Code----------";
-            document.getElementById('<%=txtClientdocumentno.ClientID %>').value = "";
-            document.getElementById('<%=txtRevisionno.ClientID %>').value = "";
-          
-            $('#datepicker').datepicker('update', '');
-            document.getElementById('<%=txtDocumenttitle.ClientID %>').value = "";
-            document.getElementById('<%=txtRemarks.ClientID %>').value = "";
-            //Clear Text boxes When New tab clicks
-
            
-            //Enable header textboxess
-         
-            //Enable header textboxess
-            
+            //Clear Text boxes When New tab clicks
+           
+            ClearBOQHeaderTexBox();
+       
+            //Clear Text boxes When New tab clicks
 
-
-            try {
+         try {
                 <%=ToolBar.ClientID %>_SetEditVisible(false);
                 <%=ToolBar.ClientID %>_SetAddVisible(false);
                 <%=ToolBar.ClientID %>_SetSaveVisible(true);
@@ -343,12 +328,13 @@
     }
         function ClearBOQHeaderTexBox()
         {
-           document.getElementById('<%=txtClientdocumentno.ClientID %>').value = "";
-           document.getElementById('<%=txtRevisionno.ClientID %>').value="";
-           document.getElementById('<%=txtRevisionno.ClientID %>').value="";
-           document.getElementById('<%=txtDocumenttitle.ClientID %>').value="";
-           document.getElementById('<%=txtRemarks.ClientID%>').value="";
-        }
+            document.getElementById('<%=txtDocumentno.ClientID %>').value = "------System Generated Code------";
+            document.getElementById('<%=txtClientdocumentno.ClientID %>').value = "";
+            document.getElementById('<%=txtRevisionno.ClientID %>').value = "";
+            $('#datepicker').datepicker('update', '');
+            document.getElementById('<%=txtDocumenttitle.ClientID %>').value = "";
+            document.getElementById('<%=txtRemarks.ClientID %>').value = "";
+         }
       
 
     function OnClientButtonClicking(sender, args) {
@@ -364,7 +350,10 @@
             args.set_cancel(!validate());
         }
 
+        if (btn.get_value() == 'Edit') {
 
+           
+        }
 
     }
 
@@ -444,8 +433,11 @@
             v1.setAttribute("readonly", "readonly");
            // $('#datepicker').datepicker({ enableOnReadonly: false });
            // $(document).off('.datepicker.data-api');
-            $('#datepicker').datepicker('hide');
+           // $('#datepicker').datepicker('hide');
             //$('#datepicker').datepicker("remove");
+            $(".input-group date").attr('readonly', 'readonly')
+           v1 = document.getElementById('<%=ContentIframe.ClientID %>');
+           v1.style["display"] = "block";
        
         }
         function EnableBOQHeaderTextBox()
