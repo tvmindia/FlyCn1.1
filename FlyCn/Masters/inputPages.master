@@ -120,7 +120,10 @@
             var iframe = pane.getExtContentElement();
             var contentWindow = iframe.contentWindow;
             var hdn = contentWindow.document.getElementById('hiddenFieldRevisionID');
-           
+            debugger;
+        
+            var DocumentID = contentWindow.document.getElementById("hiddenFieldDocumentID")
+            var Projectno = contentWindow.document.getElementById('hiddenFiedldProjectno');
             //alert(hdn.value);
             if (hdn.value != "")
             {
