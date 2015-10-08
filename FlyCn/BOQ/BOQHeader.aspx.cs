@@ -38,7 +38,8 @@ namespace FlyCn.BOQ
             BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString();
            
             //BOQObj.BindTree(RadTreeView tview);
-            
+
+            ContentIframe.Style["display"] = "none";//ifrmae disabling
         }
         public void DisableBOQHeaderTextBox()
         {
@@ -157,15 +158,30 @@ namespace FlyCn.BOQ
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
             string functionName = e.Item.Value;
+            if(e.Item.Value == "Add")//It doesnot add anything but clears
+            {
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tab.Selected = true;
+                tab.Text = "New";
+                RadMultiPage1.SelectedIndex = 1;
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ClearTextBox", "ClearBOQHeaderTexBox();", true);
+                ToolBarVisibility(3);
+                ContentIframe.Style["display"] = "none";
+
+            }
             if (e.Item.Value == "Save")
             {
-                string date;
-                date = txtdatepicker.Value;
+               
                 AddNewBOQ();
                 ToolBarVisibility(1);
                 dtgBOQGrid.Rebind();
                 //calling js function DisableBOQHeaderTextBox()to make text box readonly
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "DisableTextBox", "DisableBOQHeaderTextBox();", true);
+                //if(ContentIframe.Style["display"] == "none")
+                //{
+                //    ContentIframe.Style["display"] = "";
+                //}
+               
 
             }
             if (e.Item.Value == "Update")
@@ -173,13 +189,21 @@ namespace FlyCn.BOQ
                
 
                 UpdateBOQ();
-                ToolBarVisibility(2);
+                ToolBarVisibility(1);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "DisableTextBox", "DisableBOQHeaderTextBox();", true);
             }
             if(e.Item.Value == "Edit")
             {
                 
                 ToolBarVisibility(2);
+
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "EnableTextBox", "EnableBOQHeaderTextBox();", true);
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tab.Selected = true;
+                tab.Text = "Edit";
+                RadMultiPage1.SelectedIndex = 1;
+
+            
             }
             if (e.Item.Value == "Delete")
             {
@@ -199,20 +223,27 @@ namespace FlyCn.BOQ
             switch (order)
             {
                    case 1://after adding what should be visible
-                    ToolBar.AddButton.Visible = false;
+                    ToolBar.AddButton.Visible = true;
                     ToolBar.SaveButton.Visible = false;
                     ToolBar.UpdateButton.Visible = false;
                     ToolBar.EditButton.Visible = true;
                     ToolBar.DeleteButton.Visible = false;
                    break;
                    case 2:
-                    ToolBar.AddButton.Visible = false;
+                    ToolBar.AddButton.Visible = true;
                     ToolBar.SaveButton.Visible = false;
                     ToolBar.UpdateButton.Visible = true;
                     ToolBar.EditButton.Visible = false;
                     ToolBar.DeleteButton.Visible = false;
                    break;
-                             
+                           
+                case 3:
+                    ToolBar.AddButton.Visible = false;
+                    ToolBar.SaveButton.Visible = true;
+                    ToolBar.UpdateButton.Visible = false;
+                    ToolBar.EditButton.Visible = false;
+                    ToolBar.DeleteButton.Visible = false;
+                   break;
             }
 
         }
