@@ -132,6 +132,8 @@
                                                 <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static"/>
                                                 <asp:HiddenField ID="hdfEditStatus" runat="server" ClientIDMode="Static" />
 
+                                                <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="hiddenFieldDocumentType" runat="server" ClientIDMode="Static" />
                                             </div>
                                         </div>
 

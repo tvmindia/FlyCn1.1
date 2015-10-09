@@ -38,7 +38,7 @@ namespace FlyCn.BOQ
             BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString();
            
             //BOQObj.BindTree(RadTreeView tview);
-
+            hiddenFieldDocumentType.Value = "BOQ";
             ContentIframe.Style["display"] = "none";//ifrmae disabling
         }
         public void DisableBOQHeaderTextBox()
