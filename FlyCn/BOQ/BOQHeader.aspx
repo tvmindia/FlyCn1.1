@@ -294,13 +294,9 @@
         var tab = args.get_tab();
         if (tab.get_value() == '2')
         {
-           
             //Clear Text boxes When New tab clicks
-           
             ClearBOQHeaderTexBox();
-       
             //Clear Text boxes When New tab clicks
-
          try {
                 <%=ToolBar.ClientID %>_SetEditVisible(false);
                 <%=ToolBar.ClientID %>_SetAddVisible(false);
@@ -309,9 +305,18 @@
                 <%=ToolBar.ClientID %>_SetDeleteVisible(false);
 
             }
-            catch (x) { alert(x.message); }
+            catch (x)
+            {
+                alert(x.message);
+            }
 
-
+            if (document.getElementById('<%=txtClientdocumentno.ClientID %>').readOnly == true)
+            {
+                //here the readonly text box will be set to false inorder to enter new Boqheader
+                EnableBOQHeaderTextBox();//remove readonly property from the text boxes
+                v1 = document.getElementById('<%=ContentIframe.ClientID %>');
+                v1.style["display"] = "none";//diabling iframe
+            }
 
         }
 
@@ -443,10 +448,12 @@
         function EnableBOQHeaderTextBox()
         {
             //Enable header textboxess
-            debugger;
+        
             var e = document.getElementById('<%=txtClientdocumentno.ClientID %>');
             e.removeAttribute("readonly", 0);
             e = document.getElementById('<%=txtRevisionno.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            e = document.getElementById('<%=txtdatepicker.ClientID %>');
             e.removeAttribute("readonly", 0);
             e = document.getElementById('<%=txtDocumenttitle.ClientID %>');
             e.removeAttribute("readonly", 0);

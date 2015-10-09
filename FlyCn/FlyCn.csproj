@@ -301,6 +301,7 @@
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\flycnLogo.png" />
     <Content Include="Images\glad.png" />
+    <Content Include="Images\gladsmall.png" />
     <Content Include="Images\Icons\activity.png" />
     <Content Include="Images\Icons\approve.png" />
     <Content Include="Images\Icons\boq.png" />

@@ -28,7 +28,9 @@ namespace FlyCn.Approvels
             ////txtEmpCode.Text = _id1;
             ////hdfRevisionId.Value = _id1;
             //lblrevisionid.Text = _RevisionID;
-
+            string caption = "Select Your Varifiers :)";
+            caption = caption.Replace(":)", "<img src='/Images/glad.png' alt='Happy!' />");
+            lblrevisionid.Text = caption;
             //lblrevisionid.Text = Emoticon.Format("Some text with a smiley :-) emoticon.");
             PlaceLabels();
             FillSelectBoxData();
