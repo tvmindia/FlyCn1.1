@@ -122,7 +122,7 @@
 
       <div class="col-md-6">
        <div class="form-group">
-         <asp:Label ID="lblItemDescription" CssClass="control-label col-md-3" runat="server" Text="Item Description"></asp:Label>
+         <asp:Label ID="lblItemDescription" CssClass="control-label col-md-3" runat="server" Text="Item Description*"></asp:Label>
           <div class="col-md-9">
              <asp:TextBox ID="txtItemDescription" CssClass="form-control" runat="server"></asp:TextBox>
                <asp:HiddenField ID="hdfRevisionId" runat="server" />
@@ -133,7 +133,7 @@
 
      <div class="col-md-6">
        <div class="form-group">
-         <asp:Label ID="lblQuantity" CssClass="control-label col-md-3" runat="server" Text="Quantity"></asp:Label>
+         <asp:Label ID="lblQuantity" CssClass="control-label col-md-3" runat="server" Text="Quantity*"></asp:Label>
           <div class="col-md-9">
              <asp:TextBox ID="txtQuantity" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
@@ -142,7 +142,7 @@
 
      <div class="col-md-6">
        <div class="form-group">
-         <asp:Label ID="lblUnit" CssClass="control-label col-md-3" runat="server" Text="Unit"></asp:Label>
+         <asp:Label ID="lblUnit" CssClass="control-label col-md-3" runat="server" Text="Unit*"></asp:Label>
           <div class="col-md-9">
              <asp:TextBox ID="txtUnit" CssClass="form-control" runat="server"></asp:TextBox>
           </div>

@@ -135,6 +135,7 @@ namespace FlyCn.BOQ
                     //BOQDetail Display accordion
                     ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid;//iframe page BOQDetails.aspx is called with query string revisonid
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Add", "OpenDetailAccordion();", true);
+                    ContentIframe.Style["display"] = "block";
 
 
                 }
@@ -171,39 +172,27 @@ namespace FlyCn.BOQ
             }
             if (e.Item.Value == "Save")
             {
-               
                 AddNewBOQ();
                 ToolBarVisibility(1);
                 dtgBOQGrid.Rebind();
                 //calling js function DisableBOQHeaderTextBox()to make text box readonly
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "DisableTextBox", "DisableBOQHeaderTextBox();", true);
-                //if(ContentIframe.Style["display"] == "none")
-                //{
-                //    ContentIframe.Style["display"] = "";
-                //}
-               
-
+  
             }
             if (e.Item.Value == "Update")
             {
-               
-
                 UpdateBOQ();
                 ToolBarVisibility(1);
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "DisableTextBox", "DisableBOQHeaderTextBox();", true);
             }
             if(e.Item.Value == "Edit")
             {
-                
                 ToolBarVisibility(2);
-
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "EnableTextBox", "EnableBOQHeaderTextBox();", true);
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                 tab.Selected = true;
                 tab.Text = "Edit";
                 RadMultiPage1.SelectedIndex = 1;
-
-            
             }
             if (e.Item.Value == "Delete")
             {

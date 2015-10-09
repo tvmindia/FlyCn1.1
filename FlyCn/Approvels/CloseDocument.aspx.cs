@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using FlyCn.FlyCnDAL;
 using System.Data;
 using System.Web.UI.HtmlControls;
+using System.Net.Mail;
 namespace FlyCn.Approvels
 {
     public partial class CloseDocument : System.Web.UI.Page
@@ -29,7 +30,7 @@ namespace FlyCn.Approvels
             ////hdfRevisionId.Value = _id1;
             //lblrevisionid.Text = _RevisionID;
             string caption = "Select Your Varifiers :)";
-            caption = caption.Replace(":)", "<img src='/Images/glad.png' alt='Happy!' />");
+            caption = caption.Replace(":)", "<img src='/Images/smile_1.png' alt='Happy!' />");
             lblrevisionid.Text = caption;
             //lblrevisionid.Text = Emoticon.Format("Some text with a smiley :-) emoticon.");
             PlaceLabels();
@@ -50,23 +51,7 @@ namespace FlyCn.Approvels
             lblLevel1.Text = ApprovelLeveldt.Rows[0]["LevelDescription"].ToString();
             lblLevel2.Text = ApprovelLeveldt.Rows[1]["LevelDescription"].ToString();
             lblLevel3.Text = ApprovelLeveldt.Rows[2]["LevelDescription"].ToString();
-            //selecttools.DataSource = ApprovelMasterdt;
-            //selecttools.DataTextField = "LevelDescription";
 
-            //selecttools.DataValueField = "LevelDescription";
-            //selecttools.DataBind();
-            //String Option1 = "Hello";
-            //String Option2 = "World";
-            //myDdl.Items.Add(new ListItem(Option1 + Option2));
-            //this.Controls.Add(myDdl);
-           //ddlDOBDay.Items.Add(new ListItem("1", "1"));
-            //select.DataSource = ApprovelMasterdt;
-
-            //select.DataTextField = "LevelDescription";
-
-            //select.DataValueField = "LevelDescription";
-            //select.DataBind();
-            //lblLevel4.Text = ApprovelMasterdt.Rows[3]["LevelDescription"].ToString();
         }
         public void FillSelectBoxData()
         {
@@ -120,9 +105,26 @@ namespace FlyCn.Approvels
             ApprovelMasterobj.VerifierID = level1Id;
             ApprovelMasterobj.VerifierLevel = 1;
             ApprovelMasterobj.CreatedBy = UA.userName;
-
             ApprovelMasterobj.InsertApprovelMaster();
+            MailMessage msgMail = new MailMessage();
+            MailMessage myMessage = new MailMessage();
+            myMessage.From = new MailAddress("sender's email", "sender`s name and surname");
+            myMessage.To.Add("recipient's email");
+            myMessage.Subject = "Subject";
+            myMessage.IsBodyHtml = true;
 
+            myMessage.Body = "Message Body";
+
+
+            SmtpClient mySmtpClient = new SmtpClient();
+            System.Net.NetworkCredential myCredential = new System.Net.NetworkCredential("email", "password");
+            mySmtpClient.Host = "your smtp host address";
+            mySmtpClient.UseDefaultCredentials = false;
+            mySmtpClient.Credentials = myCredential;
+            mySmtpClient.ServicePoint.MaxIdleTime = 1;
+
+            mySmtpClient.Send(myMessage);
+            myMessage.Dispose();
         }
     }
 }

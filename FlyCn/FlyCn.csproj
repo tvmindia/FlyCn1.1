@@ -300,7 +300,6 @@
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\flycnLogo.png" />
-    <Content Include="Images\glad.png" />
     <Content Include="Images\gladsmall.png" />
     <Content Include="Images\Icons\activity.png" />
     <Content Include="Images\Icons\approve.png" />
@@ -334,6 +333,7 @@
     <Content Include="Images\Icons\testprogress.png" />
     <Content Include="Images\Icons\ur.png" />
     <Content Include="Images\Icons\workpack.png" />
+    <Content Include="Images\smile_1.png" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.11.3.min.js" />
