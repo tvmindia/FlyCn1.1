@@ -11,13 +11,25 @@ namespace FlyCn.Approvels
 {
     public partial class CloseDocument : System.Web.UI.Page
     {
-        string _id1;
+        string _RevisionID;
+        string _DocumentID;
+        string _DocumentType;
+        UIClasses.Const Const = new UIClasses.Const();
+        FlyCnDAL.Security.UserAuthendication UA;
         protected void Page_Load(object sender, EventArgs e)
         {
-            _id1 = Request.QueryString["id"];
-            //txtEmpCode.Text = _id1;
-            //hdfRevisionId.Value = _id1;
-            lblrevisionid.Text = _id1;
+            UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
+            _RevisionID = Request.QueryString["RevisionID"];
+            _DocumentID = Request.QueryString["DocumentID"];
+            _DocumentType = Request.QueryString["DocumentType"];
+            //Uri myUri = new Uri(_id1, UriKind.RelativeOrAbsolute);
+            //string param1 = HttpUtility.ParseQueryString(myUri.Query).Get("DocumentID");
+            ////string param1 = HttpUtility.ParseQueryString(_id1.Query).Get("param1");
+            ////txtEmpCode.Text = _id1;
+            ////hdfRevisionId.Value = _id1;
+            //lblrevisionid.Text = _RevisionID;
+
+            //lblrevisionid.Text = Emoticon.Format("Some text with a smiley :-) emoticon.");
             PlaceLabels();
             FillSelectBoxData();
             HtmlSelect myDdl = (HtmlSelect)FindControl("Level1");
@@ -27,7 +39,7 @@ namespace FlyCn.Approvels
             //string correct = Request.Form.Get("Level1");
             //HtmlControl myDdlw = (HtmlControl)form.findcontrol("selecttools");
         }
-
+       
         public void PlaceLabels()
         {
             ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
@@ -56,8 +68,8 @@ namespace FlyCn.Approvels
         }
         public void FillSelectBoxData()
         {
-            string documentType = "BOQ";
-            string projectNo = "C00001";
+            string documentType = _DocumentType;
+            string projectNo = UA.projectNo;
             //int varifierLevel =0;
             ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
             DataTable Varifierdt = new DataTable();
@@ -92,11 +104,23 @@ namespace FlyCn.Approvels
         }
         protected void btnCloseDocument_Click(object sender, EventArgs e)
         {
+            ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
             string level1Id = (Request.Form["Level1"]);
             string level2Id = (Request.Form["Level2"]);
             string level3Id = (Request.Form["Level3"]);
-            string level4Id = (Request.Form["Level4"]);
-           
+            //string level4Id = (Request.Form["Level4"]);
+            string documentType = _DocumentType;
+            string projectNo =UA.projectNo;
+            System.Guid guid = System.Guid.NewGuid();            
+            ApprovelMasterobj.ApprovalID = guid.ToString();
+            ApprovelMasterobj.DocumentID = _DocumentID;
+            ApprovelMasterobj.RevisionID = _RevisionID;
+            ApprovelMasterobj.VerifierID = level1Id;
+            ApprovelMasterobj.VerifierLevel = 1;
+            ApprovelMasterobj.CreatedBy = UA.userName;
+
+            ApprovelMasterobj.InsertApprovelMaster();
+
         }
     }
 }

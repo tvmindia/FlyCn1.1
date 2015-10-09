@@ -4,30 +4,31 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
 
  namespace FlyCn.FlyCnDAL
 {
     public class ApprovelMaster
     {
+        ErrorHandling eObj = new ErrorHandling();
 
-
-        public Guid RevisionID
+        public string RevisionID
         {
             get;
             set;
         }
-        public Guid ApprovalID
+        public string ApprovalID
         {
             get;
             set;
         }
 
-        public Guid DocumentID
+        public string DocumentID
         {
             get;
             set;
         }
-        public Guid VerifierID
+        public string VerifierID
         {
             get;
             set;
@@ -42,7 +43,7 @@ using System.Web;
             get;
             set;
         }
-        public DateTime ApprovalDate
+        public string ApprovalDate
         {
             get;
             set;
@@ -97,29 +98,52 @@ using System.Web;
 
 
 
-        public DataTable InsertApprovelMaster()
+        public int InsertApprovelMaster()
         {
-            DataTable datatableobj = null;
+           
             SqlConnection con = null;
-            dbConnection dcon = new dbConnection();
-            con = dcon.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("InsertApprovelMaster", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@ApprovalID", ApprovalID);
-            cmd.Parameters.AddWithValue("@DocumentID", DocumentID);
-            cmd.Parameters.AddWithValue("@RevisionID", RevisionID);
-            cmd.Parameters.AddWithValue("@VerifierID", VerifierID);
-            cmd.Parameters.AddWithValue("@VerifierLevel", VerifierLevel);
-            cmd.Parameters.AddWithValue("@ApprovalStatus", ApprovalStatus);
-            cmd.Parameters.AddWithValue("@ApprovalDate", ApprovalDate);
-            cmd.Parameters.AddWithValue("@Remarks", Remarks);
-            cmd.Parameters.AddWithValue("@CreatedBy", CreatedBy);
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = cmd;
-            datatableobj = new DataTable();
-            adapter.Fill(datatableobj);
-            con.Close();
-            return datatableobj;
-        }
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("InsertApprovelMaster", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ApprovalID", ApprovalID);
+                cmd.Parameters.AddWithValue("@DocumentID", DocumentID);
+                cmd.Parameters.AddWithValue("@RevisionID", RevisionID);
+                cmd.Parameters.AddWithValue("@VerifierID", VerifierID);
+                cmd.Parameters.AddWithValue("@VerifierLevel", VerifierLevel);
+                if (ApprovalStatus != null)
+                {
+                    cmd.Parameters.AddWithValue("@ApprovalStatus", ApprovalStatus);
+                }
+                if (ApprovalDate != null)
+                {
+                    cmd.Parameters.AddWithValue("@ApprovalDate", ApprovalDate);
+                }
+                if (Remarks != null)
+                {
+                    cmd.Parameters.AddWithValue("@Remarks", Remarks);
+                }
+
+                cmd.Parameters.AddWithValue("@CreatedBy", CreatedBy);
+                cmd.ExecuteScalar();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.InsertionSuccessData(page);
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                //return 0;
+                throw ex;
+
+            }
+            finally
+            {
+                con.Close();
+
+            }
+            }
+        
     }
 }

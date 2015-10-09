@@ -300,6 +300,7 @@
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\flycnLogo.png" />
+    <Content Include="Images\glad.png" />
     <Content Include="Images\Icons\activity.png" />
     <Content Include="Images\Icons\approve.png" />
     <Content Include="Images\Icons\boq.png" />

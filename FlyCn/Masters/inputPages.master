@@ -33,7 +33,7 @@
  <style type="text/css">
         .ui-dialog-title {
             padding-left: 15em;
-            color: white;
+            color: #4169E1;
         }
 
         .ui-dialog-titlebar {
@@ -91,10 +91,10 @@
        
         function CloseDocumentWindow()
         {
-            
+            var DocumentTypeForHeading = document.getElementById('HiddenFieldDoctype').value;
             try {
                 $("#CloseDocumentPopup").dialog({                  
-                    title: "Close projct",
+                    title: "Close Docuement  " + DocumentTypeForHeading,
                     width: 780,
                     height: 500,
                     buttons: {}, modal: true
@@ -107,33 +107,23 @@
       }
         function CloseDocument(revisionid) {
 
-            <%-- alert(document.getElementById('<%=IframePage.ClientID %>').innerHTML);--%>
-         
-          <%--  var splitter = $find("<%= RadSplitter1.ClientID  %>");
-            var objs = splitter.getPaneById('<%=RadPane1.ClientID%>');
-            var hv = $('input[id$=hiddenFieldRevisionID]').val();
-            alert(hv);
-      var ff=objs
-            var hv = $("#hiddenFieldRevisionID");--%>
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
             var iframe = pane.getExtContentElement();
             var contentWindow = iframe.contentWindow;
-            var hdn = contentWindow.document.getElementById('hiddenFieldRevisionID');
-            debugger;
-        
+            var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
+            debugger;        
             var DocumentID = contentWindow.document.getElementById("hiddenFieldDocumentID")
-            var Projectno = contentWindow.document.getElementById('hiddenFiedldProjectno');
+            var DocumentType = contentWindow.document.getElementById('hiddenFieldDocumentType');
+            document.getElementById('HiddenFieldDoctype').value = DocumentType.value;
+            
             //alert(hdn.value);
-            if (hdn.value != "")
+            if (hiddenFieldRevisionID.value != "")
             {
-                document.getElementById('IframeContent').src = "../Approvels/CloseDocument.aspx?id=" + hdn.value;
+                document.getElementById('IframeContent').src = "../Approvels/CloseDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value;
+             
                 CloseDocumentWindow();
             }
-          
-           
-            
-            //alert(1);<a href="../Approvels/CloseDocument.aspx">../Approvels/CloseDocument.aspx</a>
         }
     </script>
        <script>
@@ -217,7 +207,9 @@
    <div id="CloseDocumentPopup" style="display:none; width: 1000px!important; height: 500px!important; overflow: hidden; overflow-x: hidden;">
 
               <iframe id="IframeContent" style="width: 1300px; height: 700px;"></iframe>
+
             </div>
+    <asp:HiddenField ID="HiddenFieldDoctype" runat="server" ClientIDMode="Static" />
 
 </asp:Content>
 

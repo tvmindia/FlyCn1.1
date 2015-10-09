@@ -66,8 +66,8 @@
 
  <%-- <asp:TextBox ID="txtrevisionid" runat="server" ForeColor="Tan"></asp:TextBox>--%>
 
-     <div class="col-lg-12 Span-One">
-    <div class="col-lg-6">
+     <div class="col-md-12 Span-One">
+    <div class="col-md-6">
      
         <div class="form-group">
     <asp:Label ID="lblLevel1" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
@@ -86,11 +86,23 @@
         </div>
       
     </div>
-    <div class="col-lg-6"> </div>
-  </div>
-    
-    <div class="col-lg-12 Span-One">
-    <div class="col-lg-6">
+    <div class="col-md-6">
+                        <%--    <form class="form-horizontal" role="form">--%>
+                        <div class="form-group">
+
+                           
+                            <div class="col-md-9">
+
+         <asp:CheckBox ID="chkLevel1" runat="server" AutoPostBack="false" />
+
+                               
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
+    </div>
+    <div class="col-md-12 Span-One">
+    <div class="col-md-6">
      
         <div class="form-group">
      <asp:Label ID="lblLevel2" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
@@ -107,14 +119,24 @@
         </div>
       
     </div>
-    <div class="col-lg-6"> 
-                
+   <div class="col-md-6">
+                        <%--    <form class="form-horizontal" role="form">--%>
+                        <div class="form-group">
+        
 
-        </div>
+                           
+                            <div class="col-md-9">
+
+                                 <asp:CheckBox ID="chkLevel2" runat="server" AutoPostBack="false" />
+                               
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
   </div>
 
-    <div class="col-lg-12 Span-One">
-    <div class="col-lg-6">
+    <div class="col-md-12 Span-One">
+    <div class="col-md-6">
      
         <div class="form-group">
      <asp:Label ID="lblLevel3" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
@@ -131,10 +153,20 @@
         </div>
       
     </div>
-    <div class="col-lg-6"> 
-                
+   <div class="col-md-6">
+                        <%--    <form class="form-horizontal" role="form">--%>
+                        <div class="form-group">
 
-        </div>
+                           
+                            <div class="col-md-9">
+
+         <asp:CheckBox ID="chkLevel3" runat="server" AutoPostBack="false" />
+
+                               
+                            </div>
+                        </div>
+                        <%-- </form>--%>
+                    </div>
   </div>
 
     
