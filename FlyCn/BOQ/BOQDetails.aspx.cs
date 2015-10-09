@@ -46,28 +46,39 @@ namespace FlyCn.BOQ
 
              if(e.Item.Value=="Add")
              {
-                 //AddBOQDocumentDetails();
-                 //ToolBarVisibility(2);
-                 //dtgBOQDetailGrid.Rebind();
+                 var page = HttpContext.Current.CurrentHandler as Page;
+                 eObj.ClearMessage(page);
+                 RadTab tab = (RadTab)RadTabStripBOQDetail.FindTabByValue("2");
+                 tab.Selected = true;
+                 tab.Text = "New";
+                 RadTabStripBOQDetail.SelectedIndex = 1;
+                 ToolBarVisibility(1);
+                 ScriptManager.RegisterStartupScript(this, this.GetType(), "ClearTextBox", "ClearTexBox();", true);
+                 
              }
 
 
             if (e.Item.Value == "Save")
             {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ClearMessage(page);
                 AddBOQDocumentDetails();
                 ToolBarVisibility(2);
                 dtgBOQDetailGrid.Rebind();
             }
             if (e.Item.Value == "Update")
             {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ClearMessage(page);
                 UpdateBOQDocumentDetails();
                 ToolBarVisibility(2);
                 dtgBOQDetailGrid.Rebind();
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ClearMessage(page);
+               
             }
             if (e.Item.Value == "Delete")
             {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ClearMessage(page);
                 DeleteBOQDocumentDetails();
                 dtgBOQDetailGrid.Rebind();
                 ToolBarVisibility(3);
@@ -91,7 +102,7 @@ namespace FlyCn.BOQ
                      ToolBarBOQDetail.AddButton.Visible = true;
                      ToolBarBOQDetail.SaveButton.Visible = false;
                      ToolBarBOQDetail.UpdateButton.Visible = true;
-                     ToolBarBOQDetail.DeleteButton.Visible = true;
+                     ToolBarBOQDetail.DeleteButton.Visible = false;
                      break;
                  case 3:
                      ToolBarBOQDetail.AddButton.Visible = true;
@@ -118,10 +129,7 @@ namespace FlyCn.BOQ
                   bOQHeaderDetails.bOQDetails.ProjectNo = UA.projectNo;
                   ds = bOQHeaderDetails.bOQDetails.GetAllBOQDetails();
                   dtgBOQDetailGrid.DataSource = ds;
-                  //hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
-                  //hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
-                  //hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
-              }
+               }
               catch (Exception ex)
               {
                   var page = HttpContext.Current.CurrentHandler as Page;

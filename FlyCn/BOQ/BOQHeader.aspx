@@ -130,6 +130,7 @@
                                                 <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" ClientIDMode="Static"/>
                                                 <asp:HiddenField ID="hiddenFieldDocumentID" runat="server" ClientIDMode="Static"/>
                                                 <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static"/>
+                                                <asp:HiddenField ID="hdfEditStatus" runat="server" ClientIDMode="Static" />
 
                                             </div>
                                         </div>
@@ -143,7 +144,7 @@
                                             <asp:Label ID="lblClientdocumentnot" CssClass="control-label col-md-3" runat="server" Text="Client Document No*"></asp:Label>
                                             <div class="col-md-9">
 
-                                                <asp:TextBox ID="txtClientdocumentno" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtClientdocumentno" CssClass="form-control" runat="server" MaxLength="50"></asp:TextBox>
                                             </div>
                                         </div>
 
@@ -160,7 +161,7 @@
                                             <asp:Label ID="lblRevisionno" CssClass="control-label col-md-3" runat="server" Text="Revision No*"></asp:Label>
                                             <div class="col-md-9">
 
-                                                <asp:TextBox ID="txtRevisionno" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtRevisionno" CssClass="form-control" runat="server" MaxLength="10"></asp:TextBox>
                                                 
                                             </div>
                                         </div>
@@ -192,7 +193,7 @@
                                             <asp:Label ID="lblDocumenttitle" CssClass="control-label col-md-3" runat="server" Text="Document Title*"></asp:Label>
                                             <div class="col-md-9">
 
-                                                <asp:TextBox ID="txtDocumenttitle" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtDocumenttitle" CssClass="form-control" runat="server" MaxLength="250"></asp:TextBox>
                                             </div>
                                         </div>
 
@@ -243,7 +244,7 @@
         function validate() {
             var Clientdocumentno = document.getElementById('<%=txtClientdocumentno.ClientID %>').value;
         var Revisionno = document.getElementById('<%=txtRevisionno.ClientID %>').value;
-        var DocumentDate = document.getElementById('<%=txtRevisionno.ClientID %>').value;
+        var DocumentDate = document.getElementById('<%=txtdatepicker.ClientID %>').value;
         var Documenttitle = document.getElementById('<%=txtDocumenttitle.ClientID %>').value;
         var Remarks = document.getElementById('<%=txtRemarks.ClientID%>').value;
         if (Clientdocumentno == "" || Revisionno == "" || DocumentDate == "" || Documenttitle == "" || Remarks == "") {
@@ -294,6 +295,7 @@
         var tab = args.get_tab();
         if (tab.get_value() == '2')
         {
+            hideMe();
           //Clear Text boxes When New tab clicks
             ClearBOQHeaderTexBox();
          //Clear Text boxes When New tab clicks
@@ -309,13 +311,19 @@
             {
                 alert(x.message);
             }
-
+            //here only one textbox is checked for readonly true
             if (document.getElementById('<%=txtClientdocumentno.ClientID %>').readOnly == true)
             {
                 //here the readonly text box will be set to false inorder to enter new Boqheader
                 EnableBOQHeaderTextBox();//remove readonly property from the text boxes
                 v1 = document.getElementById('<%=ContentIframe.ClientID %>');
-                v1.style["display"] = "none";//diabling iframe
+                v1.style["display"] = "none";//disabling iframe
+            }
+            if ($('#hdfEditStatus').val() == "GridEdit")//here gridedit value is set upon the grid edit event code behind code
+            {//this checking determines update is from gridedit so when user clicks on new tab the child iframe should clear
+                
+                v1 = document.getElementById('<%=ContentIframe.ClientID %>');
+                v1.style["display"] = "none";//disabling iframe
             }
 
          }
@@ -346,7 +354,7 @@
         var btn = args.get_item();
         if (btn.get_value() == 'Save') {
            
-            //args.set_cancel(!validate());
+            args.set_cancel(!validate());
            
             
         }

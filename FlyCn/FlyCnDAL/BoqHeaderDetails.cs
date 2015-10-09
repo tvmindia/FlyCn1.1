@@ -433,7 +433,7 @@ namespace FlyCn.FlyCnDAL
             SqlConnection con = null;
             try
             {
-               
+                //bOQHeaderDetails.bOQDetails.UDFRate2 = (txtUDFRate2.Text.Trim() != "") ? Convert.ToSingle(txtUDFRate2.Text.Trim()) : Convert.ToSingle(null);
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand boqcmd = new SqlCommand();
@@ -562,7 +562,7 @@ namespace FlyCn.FlyCnDAL
                     //not successfull   
                     ItemId = OutparmItemId.Value.ToString();
                     var page = HttpContext.Current.CurrentHandler as Page;
-                    eObj.InsertionSuccessData(page, "Insert not Successfull,Duplicate Entry!");
+                    eObj.UpdationSuccessData(page,"Not Updated");
 
                 }
                 else
@@ -570,7 +570,7 @@ namespace FlyCn.FlyCnDAL
                     //successfull
                     ItemId = OutparmItemId.Value.ToString();
                     var page = HttpContext.Current.CurrentHandler as Page;
-                    eObj.InsertionSuccessData(page);
+                    eObj.UpdationSuccessData(page);
 
 
                 }

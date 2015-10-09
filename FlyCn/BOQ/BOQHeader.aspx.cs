@@ -137,6 +137,8 @@ namespace FlyCn.BOQ
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Add", "OpenDetailAccordion();", true);
                     ContentIframe.Style["display"] = "block";
 
+                    hdfEditStatus.Value = "GridEdit";//set the hiddenfied to know the edit event comes from radgrid and not from the update toolbar button
+
 
                 }
                 else

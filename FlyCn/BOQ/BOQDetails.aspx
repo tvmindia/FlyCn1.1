@@ -88,15 +88,13 @@
 
                                                 <telerik:GridBoundColumn HeaderText="RevisionID" DataField="RevisionID" UniqueName="RevisionID" Display="false"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Item ID" DataField="ItemID" UniqueName="ItemID" Display="false"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo" Display="false"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Item No" DataField="ItemNo" UniqueName="ItemNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Description" DataField="ItemDescription" UniqueName="ItemDescription"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Quantity" DataField="Quantity" UniqueName="Quantity"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Unit" DataField="Unit" UniqueName="Unit"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Normal Hours" DataField="NormHours" UniqueName="NormHours"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Labour Rate" DataField="LabourRate" UniqueName="LabourRate"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="RateType" DataField="LabourRateType" UniqueName="LabourRateType"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Material Rate" DataField="MaterialRate" UniqueName="MaterialRate"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Normal Hours" DataField="NormHours" UniqueName="NormHours" Display="false"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Labour Rate" DataField="LabourRate" UniqueName="LabourRate" Display="false"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Material Rate" DataField="MaterialRate" UniqueName="MaterialRate" Display="false"></telerik:GridBoundColumn>
                                                
 
 
@@ -124,7 +122,7 @@
        <div class="form-group">
          <asp:Label ID="lblItemDescription" CssClass="control-label col-md-3" runat="server" Text="Item Description*"></asp:Label>
           <div class="col-md-9">
-             <asp:TextBox ID="txtItemDescription" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtItemDescription" CssClass="form-control" runat="server" TextMode="MultiLine" MaxLength="250"></asp:TextBox>
                <asp:HiddenField ID="hdfRevisionId" runat="server" />
               <asp:HiddenField ID="hdfItemId" runat="server" />
           </div>
@@ -144,7 +142,7 @@
        <div class="form-group">
          <asp:Label ID="lblUnit" CssClass="control-label col-md-3" runat="server" Text="Unit*"></asp:Label>
           <div class="col-md-9">
-             <asp:TextBox ID="txtUnit" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtUnit" CssClass="form-control" runat="server" MaxLength="10"></asp:TextBox>
           </div>
           </div>
         </div>
@@ -360,9 +358,8 @@
          if (tab.get_value() == '2') {
              //Clear Text boxes When New tab clicks
              //new clicked 
-             $('input[type=text]').each(function () {
-                 $(this).val('');
-             });
+             ClearTexBox();
+             hideMe();
              //Clear Text boxes When New tab clicks
              try {
                  <%=ToolBarBOQDetail.ClientID %>_SetAddVisible(false);
@@ -374,7 +371,41 @@
                  alert(x.message);
              }
          }
+         if (tab.get_value() == "1") {
 
+
+             var tabStrip = $find("<%= RadTabStripBOQDetail.ClientID %>");
+             var tab = tabStrip.findTabByValue("1");
+             tab.select();
+             var tab1 = tabStrip.findTabByValue("2");
+             tab1.set_text("New");
+         }
+
+
+     }
+     function ClearTexBox()
+     {
+        
+         $('input[type=text]').each(function () {
+             $(this).val('');
+         });
+     }
+     function validate() {
+         var ItemDescription = document.getElementById('<%=txtItemDescription.ClientID %>').value;
+         var Quantity = document.getElementById('<%=txtQuantity.ClientID %>').value;
+         var Unit = document.getElementById('<%=txtUnit.ClientID %>').value;
+         if (ItemDescription == "" || Quantity == "" || Unit == "") {
+
+             displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+
+             return false;
+
+         }
+
+         else {
+
+             return true;
+         }
      }
      function OnClientButtonClickingDetail(sender, args)
      {
@@ -382,18 +413,18 @@
         var btn = args.get_item();
         if (btn.get_value() == 'Save')
         {
-            alert("save clicked");
-     //     args.set_cancel(!validate());
+           
+           args.set_cancel(!validate());
         }
         if (btn.get_value() == 'Update') 
         {
-            alert("update clicked");
-       //     args.set_cancel(!validate());
+           
+           args.set_cancel(!validate());
         }
 
         if (btn.get_value() == "Delete") 
         {
-            alert("Delete clicked");
+         
         }
                 
      }
