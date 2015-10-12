@@ -76,8 +76,6 @@ namespace FlyCn.FlyCnDAL
 
         #endregion documentmasterproperties
 
-
-
         #region RevisionMasterproperties
 
         public Guid RevisionID
@@ -85,11 +83,8 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-      
-     
-      
-       
-
+   
+   
         public string UpdatedBy
         {
             get;
@@ -208,8 +203,7 @@ namespace FlyCn.FlyCnDAL
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
-                
-
+           
             }
             catch (Exception ex)
             {
@@ -224,9 +218,6 @@ namespace FlyCn.FlyCnDAL
                 }
             }
             return ds;
-
-
-
         }
        #endregion GetAllDocuments
         #region BindBOQHeader
@@ -260,7 +251,6 @@ namespace FlyCn.FlyCnDAL
                 {
                     con.Close();
                 }
-
             }
             return ds;
         }
@@ -301,21 +291,9 @@ namespace FlyCn.FlyCnDAL
                 
             }
             return ds;
-           
-
-         }
-         #endregion BindBOQ
-        
-
-
-
-
-        #endregion Documentmastermethods
-
-
-
-
-
+        }
+ #endregion BindBOQ
+ #endregion Documentmastermethods
 
     }
 }

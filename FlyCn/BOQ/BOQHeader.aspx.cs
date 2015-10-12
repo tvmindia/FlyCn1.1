@@ -100,8 +100,8 @@ namespace FlyCn.BOQ
         protected void dtgBOQGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
             try
-            {
-                if (e.CommandName == "EditDoc")
+            {//Only Edit functionality is needed in BOQheader so no delete
+                if (e.CommandName == "EditDoc")//EditDoc  is named because Radgrid has its own definition for Edit
                 {
                     ToolBarVisibility(2);
                     RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
@@ -113,8 +113,6 @@ namespace FlyCn.BOQ
 
                     Guid DocumentID;
                     Guid.TryParse(item.GetDataKeyValue("DocumentID").ToString(), out DocumentID);
-
-
                     DataSet ds = new DataSet();
                     documentMaster = new DocumentMaster();
                     ds = documentMaster.BindBOQ(DocumentID, ProjectNo);
@@ -136,23 +134,15 @@ namespace FlyCn.BOQ
                     ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid;//iframe page BOQDetails.aspx is called with query string revisonid
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Add", "OpenDetailAccordion();", true);
                     ContentIframe.Style["display"] = "block";
-
                     hdfEditStatus.Value = "GridEdit";//set the hiddenfied to know the edit event comes from radgrid and not from the update toolbar button
-
-
                 }
-                else
-                {
-                    if (e.CommandName == "DeleteDoc")
-                    {
-
-                    }
-                }
+                
             }
             catch(Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
+                throw ex;
             }
 
         }

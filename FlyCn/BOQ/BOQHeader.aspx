@@ -60,11 +60,6 @@
                             <telerik:RadPageView ID="rpList" runat="server">
 
                                 <div id="divList" style="width: 100%;text-align:center">
-
-
-
-
-
                                     <telerik:RadGrid ID="dtgBOQGrid" runat="server" CellSpacing="0" GridLines="None" OnNeedDataSource="dtgBOQGrid_NeedDataSource" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" OnItemCommand="dtgBOQGrid_ItemCommand"
                                         PageSize="10" Width="99%"  >
                                         <HeaderStyle  HorizontalAlign="Center" />
@@ -72,13 +67,10 @@
                                         <AlternatingItemStyle HorizontalAlign="Left" />
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
-                                           
+                                       
                                         </ClientSettings>
-
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="DocumentID,ProjectNo">
-
                                             <Columns>
-
                                                 <telerik:GridTemplateColumn UniqueName="CheckBoxTemplateColumn">
                                                     <ItemTemplate>
                                                         <asp:CheckBox ID="ChkChild" runat="server" onclick="HeaderUncheck(this);" AutoPostBack="False" />
@@ -101,14 +93,10 @@
                                                 <telerik:GridBoundColumn HeaderText="Document Owner" DataField="DocumentOwner" UniqueName="DocumentOwner"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Created Date" DataField="CreatedDate" UniqueName="CreatedDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Document Status" DataField="DocumentStatus" UniqueName="DocumentStatus"></telerik:GridBoundColumn>
-
-
                                             </Columns>
                                         </MasterTableView>
 
                                     </telerik:RadGrid>
-
-
                                 </div>
                             </telerik:RadPageView>
 
@@ -183,9 +171,6 @@
                                         </div>
                                         </div>
                                        </div>
-
-
-
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -288,9 +273,7 @@
         }
     }
 
-
-      
-    function onClientTabSelected(sender, args) {
+        function onClientTabSelected(sender, args) {
 
         var tab = args.get_tab();
         if (tab.get_value() == '2')
@@ -305,7 +288,6 @@
                 <%=ToolBar.ClientID %>_SetSaveVisible(true);
                 <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                 <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-
               }
             catch (x)
             {
@@ -325,20 +307,17 @@
                 v1 = document.getElementById('<%=ContentIframe.ClientID %>');
                 v1.style["display"] = "none";//disabling iframe
             }
-
          }
-
-        if (tab.get_value() == "1") {
-
-
+            if (tab.get_value() == "1")
+            {
             var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
             var tab = tabStrip.findTabByValue("1");
             tab.select();
             var tab1 = tabStrip.findTabByValue("2");
             tab1.set_text("New");
-        }
+            }
 
-    }
+         }
         function ClearBOQHeaderTexBox()
         {
             document.getElementById('<%=txtDocumentno.ClientID %>').value = "------System Generated Code------";
@@ -347,7 +326,7 @@
             $('#datepicker').datepicker('update', '');
             document.getElementById('<%=txtDocumenttitle.ClientID %>').value = "";
             document.getElementById('<%=txtRemarks.ClientID %>').value = "";
-         }
+        }
       
 
     function OnClientButtonClicking(sender, args) {
@@ -378,15 +357,11 @@
             
      
             $('.accordion-toggle').on('click', function (event) {
-                event.preventDefault();
-                 
-                OpenDetailAccordion(this);
 
+                event.preventDefault();          
+                OpenDetailAccordion(this);
             });
 
-           
-           
-           
         });
 
        
@@ -449,8 +424,8 @@
            // $('#datepicker').datepicker('hide');
             //$('#datepicker').datepicker("remove");
             $(".input-group date").attr('readonly', 'readonly')
-           v1 = document.getElementById('<%=ContentIframe.ClientID %>');
-           v1.style["display"] = "block";
+            v1 = document.getElementById('<%=ContentIframe.ClientID %>');
+            v1.style["display"] = "block";
        
         }
         function EnableBOQHeaderTextBox()

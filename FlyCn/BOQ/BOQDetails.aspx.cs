@@ -110,10 +110,7 @@ namespace FlyCn.BOQ
                      ToolBarBOQDetail.UpdateButton.Visible = false;
                      ToolBarBOQDetail.DeleteButton.Visible = false;
                      break;
-
-
              }
-
          }
          #endregion ToolBarVisibility
           protected void dtgBOQDetailGrid_PreRender(object sender, EventArgs e)
@@ -247,23 +244,24 @@ namespace FlyCn.BOQ
 
                  bOQHeaderDetails.bOQDetails.Quantity = (txtQuantity.Text.Trim() != "") ? Convert.ToSingle(txtQuantity.Text.Trim()) : Convert.ToSingle(null);
                  bOQHeaderDetails.bOQDetails.Unit = (txtUnit.Text.Trim() != "") ? txtUnit.Text.Trim().ToString() : null;
-                 bOQHeaderDetails.bOQDetails.NormHours = (txtNormalHours.Text.Trim() != "") ? Convert.ToSingle(txtNormalHours.Text.Trim()) : Convert.ToSingle(null);
-                 bOQHeaderDetails.bOQDetails.LabourRate = (txtLabourRate.Text.Trim() != "") ? Convert.ToSingle(txtLabourRate.Text.Trim()) : Convert.ToSingle(null);
+
+                 bOQHeaderDetails.bOQDetails.NormHours = (txtNormalHours.Text.Trim() != "") ? Convert.ToSingle(txtNormalHours.Text.Trim()) : bOQHeaderDetails.bOQDetails.NormHours=null;
+                 bOQHeaderDetails.bOQDetails.LabourRate = (txtLabourRate.Text.Trim() != "") ? Convert.ToSingle(txtLabourRate.Text.Trim()) : bOQHeaderDetails.bOQDetails.LabourRate=null;
                  bOQHeaderDetails.bOQDetails.LabourRateType = (txtLabourRateType.Text.Trim() != "") ? (txtLabourRateType.Text.Trim().ToString()) : null;
-                 bOQHeaderDetails.bOQDetails.MaterialRate = (txtMaterialRate.Text.Trim() != "") ? Convert.ToSingle(txtMaterialRate.Text.Trim()) : Convert.ToSingle(null);
-                 bOQHeaderDetails.bOQDetails.UDFRate1 = (txtUDFRate1.Text.Trim() != "") ? Convert.ToSingle(txtUDFRate1.Text.Trim()) : Convert.ToSingle(null);
+                 bOQHeaderDetails.bOQDetails.MaterialRate = (txtMaterialRate.Text.Trim() != "") ? Convert.ToSingle(txtMaterialRate.Text.Trim()) : bOQHeaderDetails.bOQDetails.MaterialRate=null;
+                 bOQHeaderDetails.bOQDetails.UDFRate1 = (txtUDFRate1.Text.Trim() != "") ? Convert.ToSingle(txtUDFRate1.Text.Trim()) : bOQHeaderDetails.bOQDetails.UDFRate1=null;
                  bOQHeaderDetails.bOQDetails.UDFRateType1 = (txtUDFRateType1.Text.Trim() != "") ? (txtUDFRateType1.Text.Trim().ToString()) : null;
 
-                 bOQHeaderDetails.bOQDetails.UDFRate2 = (txtUDFRate2.Text.Trim() != "") ? Convert.ToSingle(txtUDFRate2.Text.Trim()) : Convert.ToSingle(null);
+                 bOQHeaderDetails.bOQDetails.UDFRate2 = (txtUDFRate2.Text.Trim() != "") ? Convert.ToSingle(txtUDFRate2.Text.Trim()) :  bOQHeaderDetails.bOQDetails.UDFRate2=null;
                  bOQHeaderDetails.bOQDetails.UDFRateType2 = (txtUDFRateType2.Text.Trim() != "") ? (txtUDFRateType2.Text.Trim().ToString()) : null;
 
-                 bOQHeaderDetails.bOQDetails.UDFRate3 = (txtUDFRate3.Text.Trim() != "") ? Convert.ToSingle(txtUDFRate3.Text.Trim()) : Convert.ToSingle(null);
+                 bOQHeaderDetails.bOQDetails.UDFRate3 = (txtUDFRate3.Text.Trim() != "") ? Convert.ToSingle(txtUDFRate3.Text.Trim()) :  bOQHeaderDetails.bOQDetails.UDFRate3=null;
                  bOQHeaderDetails.bOQDetails.UDFRateType3 = (txtUDFRateType3.Text.Trim() != "") ? (txtUDFRateType3.Text.Trim().ToString()) : null;
 
-                 bOQHeaderDetails.bOQDetails.UDFRate4 = (txtUDFRate4.Text.Trim() != "") ? Convert.ToSingle(txtUDFRate4.Text.Trim()) : Convert.ToSingle(null);
+                 bOQHeaderDetails.bOQDetails.UDFRate4 = (txtUDFRate4.Text.Trim() != "") ? Convert.ToSingle(txtUDFRate4.Text.Trim()) : bOQHeaderDetails.bOQDetails.UDFRate4=null;
                  bOQHeaderDetails.bOQDetails.UDFRateType4 = (txtUDFRateType4.Text.Trim() != "") ? (txtUDFRateType4.Text.Trim().ToString()) : null;
 
-                 bOQHeaderDetails.bOQDetails.UDFRate5 = (txtUDFRate5.Text.Trim() != "") ? Convert.ToSingle(txtUDFRate5.Text.Trim()) : Convert.ToSingle(null);
+                 bOQHeaderDetails.bOQDetails.UDFRate5 = (txtUDFRate5.Text.Trim() != "") ? Convert.ToSingle(txtUDFRate5.Text.Trim()) : bOQHeaderDetails.bOQDetails.UDFRate5=null;
                  bOQHeaderDetails.bOQDetails.UDFRateType5 = (txtUDFRateType5.Text.Trim() != "") ? (txtUDFRateType5.Text.Trim().ToString()) : null;
 
 

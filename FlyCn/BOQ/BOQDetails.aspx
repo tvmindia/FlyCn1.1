@@ -61,7 +61,7 @@
                                        <telerik:RadGrid ID="dtgBOQDetailGrid" runat="server" CellSpacing="0" GridLines="None" OnNeedDataSource="dtgBOQDetailGrid_NeedDataSource" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" OnItemCommand="dtgBOQDetailGrid_ItemCommand"
                                         PageSize="10" Width="99%"  >
                                         <HeaderStyle  HorizontalAlign="Center" />
-                                        <ItemStyle HorizontalAlign="Left" />
+                                        <ItemStyle HorizontalAlign="Left"/>
                                         <AlternatingItemStyle HorizontalAlign="Left" />
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
@@ -95,15 +95,10 @@
                                                 <telerik:GridBoundColumn HeaderText="Normal Hours" DataField="NormHours" UniqueName="NormHours" Display="false"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Labour Rate" DataField="LabourRate" UniqueName="LabourRate" Display="false"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Material Rate" DataField="MaterialRate" UniqueName="MaterialRate" Display="false"></telerik:GridBoundColumn>
-                                               
-
-
-                                            </Columns>
+                                          </Columns>
                                         </MasterTableView>
 
                                     </telerik:RadGrid>
-
-
                                 </div>
                             </telerik:RadPageView>
                              <!--Radpage view Ends here-->
@@ -389,6 +384,7 @@
          $('input[type=text]').each(function () {
              $(this).val('');
          });
+             
      }
      function validate() {
          var ItemDescription = document.getElementById('<%=txtItemDescription.ClientID %>').value;
