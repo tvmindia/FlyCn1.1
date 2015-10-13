@@ -625,6 +625,7 @@
     <Compile Include="FlyCnDAL\DocumentMaster.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
+    <Compile Include="FlyCnDAL\MailSending.cs" />
     <Compile Include="FlyCnDAL\MasterData.cs" />
     <Compile Include="FlyCnDAL\MasterOperations.cs" />
     <Compile Include="FlyCnDAL\MasterPersonal.cs" />
