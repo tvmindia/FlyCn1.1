@@ -128,6 +128,7 @@ namespace FlyCn.BOQ
                     txtdatepicker.Value = Convert.ToString(ds.Tables[0].Rows[0]["DocumentDate"]);
                     txtDocumenttitle.Text = ds.Tables[0].Rows[0]["DocumentTitle"].ToString();
                     txtRemarks.Text = ds.Tables[0].Rows[0]["Remarks"].ToString();
+                    lblDocumentStatus.Text=ds.Tables[0].Rows[0]["DocumentStatus"].ToString();
                     Guid Revisionid;
                     Guid.TryParse(hiddenFieldRevisionID.Value,out Revisionid);
                     //BOQDetail Display accordion
