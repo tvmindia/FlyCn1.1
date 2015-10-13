@@ -60,11 +60,6 @@
                             <telerik:RadPageView ID="rpList" runat="server">
 
                                 <div id="divList" style="width: 100%;text-align:center">
-
-
-
-
-
                                     <telerik:RadGrid ID="dtgBOQGrid" runat="server" CellSpacing="0" GridLines="None" OnNeedDataSource="dtgBOQGrid_NeedDataSource" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" OnItemCommand="dtgBOQGrid_ItemCommand"
                                         PageSize="10" Width="99%"  >
                                         <HeaderStyle  HorizontalAlign="Center" />
@@ -72,13 +67,10 @@
                                         <AlternatingItemStyle HorizontalAlign="Left" />
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
-                                           
+                                       
                                         </ClientSettings>
-
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="DocumentID,ProjectNo">
-
                                             <Columns>
-
                                                 <telerik:GridTemplateColumn UniqueName="CheckBoxTemplateColumn">
                                                     <ItemTemplate>
                                                         <asp:CheckBox ID="ChkChild" runat="server" onclick="HeaderUncheck(this);" AutoPostBack="False" />
@@ -101,14 +93,10 @@
                                                 <telerik:GridBoundColumn HeaderText="Document Owner" DataField="DocumentOwner" UniqueName="DocumentOwner"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Created Date" DataField="CreatedDate" UniqueName="CreatedDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Document Status" DataField="DocumentStatus" UniqueName="DocumentStatus"></telerik:GridBoundColumn>
-
-
                                             </Columns>
                                         </MasterTableView>
 
                                     </telerik:RadGrid>
-
-
                                 </div>
                             </telerik:RadPageView>
 
@@ -129,7 +117,8 @@
                                                 <asp:TextBox ID="txtDocumentno" Enabled="false" runat="server" CssClass="form-control" BackColor="Gray"></asp:TextBox>
                                                 <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" ClientIDMode="Static"/>
                                                 <asp:HiddenField ID="hiddenFieldDocumentID" runat="server" ClientIDMode="Static"/>
-                                                <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static"/>
+                                                <asp:HiddenField ID="hdfEditStatus" runat="server" ClientIDMode="Static" />
                                                 <asp:HiddenField ID="hiddenFieldDocumentType" runat="server" ClientIDMode="Static" />
                                             </div>
                                         </div>
@@ -143,7 +132,7 @@
                                             <asp:Label ID="lblClientdocumentnot" CssClass="control-label col-md-3" runat="server" Text="Client Document No*"></asp:Label>
                                             <div class="col-md-9">
 
-                                                <asp:TextBox ID="txtClientdocumentno" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtClientdocumentno" CssClass="form-control" runat="server" MaxLength="50"></asp:TextBox>
                                             </div>
                                         </div>
 
@@ -160,7 +149,7 @@
                                             <asp:Label ID="lblRevisionno" CssClass="control-label col-md-3" runat="server" Text="Revision No*"></asp:Label>
                                             <div class="col-md-9">
 
-                                                <asp:TextBox ID="txtRevisionno" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtRevisionno" CssClass="form-control" runat="server" MaxLength="10"></asp:TextBox>
                                                 
                                             </div>
                                         </div>
@@ -182,9 +171,6 @@
                                         </div>
                                         </div>
                                        </div>
-
-
-
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -192,7 +178,7 @@
                                             <asp:Label ID="lblDocumenttitle" CssClass="control-label col-md-3" runat="server" Text="Document Title*"></asp:Label>
                                             <div class="col-md-9">
 
-                                                <asp:TextBox ID="txtDocumenttitle" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtDocumenttitle" CssClass="form-control" runat="server" MaxLength="250"></asp:TextBox>
                                             </div>
                                         </div>
 
@@ -243,7 +229,7 @@
         function validate() {
             var Clientdocumentno = document.getElementById('<%=txtClientdocumentno.ClientID %>').value;
         var Revisionno = document.getElementById('<%=txtRevisionno.ClientID %>').value;
-        var DocumentDate = document.getElementById('<%=txtRevisionno.ClientID %>').value;
+        var DocumentDate = document.getElementById('<%=txtdatepicker.ClientID %>').value;
         var Documenttitle = document.getElementById('<%=txtDocumenttitle.ClientID %>').value;
         var Remarks = document.getElementById('<%=txtRemarks.ClientID%>').value;
         if (Clientdocumentno == "" || Revisionno == "" || DocumentDate == "" || Documenttitle == "" || Remarks == "") {
@@ -287,50 +273,51 @@
         }
     }
 
-
-      
-    function onClientTabSelected(sender, args) {
+        function onClientTabSelected(sender, args) {
 
         var tab = args.get_tab();
         if (tab.get_value() == '2')
         {
-            //Clear Text boxes When New tab clicks
+            hideMe();
+          //Clear Text boxes When New tab clicks
             ClearBOQHeaderTexBox();
-            //Clear Text boxes When New tab clicks
-         try {
+         //Clear Text boxes When New tab clicks
+          try {
                 <%=ToolBar.ClientID %>_SetEditVisible(false);
                 <%=ToolBar.ClientID %>_SetAddVisible(false);
                 <%=ToolBar.ClientID %>_SetSaveVisible(true);
                 <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                 <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-
-            }
+              }
             catch (x)
             {
                 alert(x.message);
             }
-
+            //here only one textbox is checked for readonly true
             if (document.getElementById('<%=txtClientdocumentno.ClientID %>').readOnly == true)
             {
                 //here the readonly text box will be set to false inorder to enter new Boqheader
                 EnableBOQHeaderTextBox();//remove readonly property from the text boxes
                 v1 = document.getElementById('<%=ContentIframe.ClientID %>');
-                v1.style["display"] = "none";//diabling iframe
+                v1.style["display"] = "none";//disabling iframe
             }
-
-        }
-
-        if (tab.get_value() == "1") {
-
-
+            if ($('#hdfEditStatus').val() == "GridEdit")//here gridedit value is set upon the grid edit event code behind code
+            {//this checking determines update is from gridedit so when user clicks on new tab the child iframe should clear
+                
+                v1 = document.getElementById('<%=ContentIframe.ClientID %>');
+                v1.style["display"] = "none";//disabling iframe
+            }
+         }
+            if (tab.get_value() == "1")
+            {
             var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
             var tab = tabStrip.findTabByValue("1");
             tab.select();
             var tab1 = tabStrip.findTabByValue("2");
             tab1.set_text("New");
-        }
+            }
 
-    }
+         }
         function ClearBOQHeaderTexBox()
         {
             document.getElementById('<%=txtDocumentno.ClientID %>').value = "------System Generated Code------";
@@ -339,14 +326,14 @@
             $('#datepicker').datepicker('update', '');
             document.getElementById('<%=txtDocumenttitle.ClientID %>').value = "";
             document.getElementById('<%=txtRemarks.ClientID %>').value = "";
-         }
+        }
       
 
     function OnClientButtonClicking(sender, args) {
         var btn = args.get_item();
         if (btn.get_value() == 'Save') {
            
-            //args.set_cancel(!validate());
+            args.set_cancel(!validate());
            
             
         }
@@ -370,15 +357,11 @@
             
      
             $('.accordion-toggle').on('click', function (event) {
-                event.preventDefault();
-                 
-                OpenDetailAccordion(this);
 
+                event.preventDefault();          
+                OpenDetailAccordion(this);
             });
 
-           
-           
-           
         });
 
        
@@ -441,8 +424,8 @@
            // $('#datepicker').datepicker('hide');
             //$('#datepicker').datepicker("remove");
             $(".input-group date").attr('readonly', 'readonly')
-           v1 = document.getElementById('<%=ContentIframe.ClientID %>');
-           v1.style["display"] = "block";
+            v1 = document.getElementById('<%=ContentIframe.ClientID %>');
+            v1.style["display"] = "block";
        
         }
         function EnableBOQHeaderTextBox()

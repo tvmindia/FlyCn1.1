@@ -10,14 +10,13 @@ namespace FlyCn.FlyCnDAL
 {
     public class BOQHeaderDetails
     {
+        #region private variables
         public DocumentMaster documentMaster = new DocumentMaster();
         public BOQDetails bOQDetails = new BOQDetails();
-            
-       
         ErrorHandling eObj = new ErrorHandling();
-        #region Billofquantityproperties
+        #endregion private variables
 
-         #region Boqheaderproperty
+        #region Boqheaderproperty
         public string RevisionNo
         {
             get;
@@ -60,23 +59,15 @@ namespace FlyCn.FlyCnDAL
         }
        
         #endregion Boqheaderproperty
-       
-
-    #endregion Billofquantityproperties
-
-
-
+     
         #region Billofquantitymethods
         public void BindTree(RadTreeView myTree)
         {
            myTree.Nodes.Clear();
-
-
            RadTreeNode rtn1 = new RadTreeNode("CloseDocument", ""); //<a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
            //  rtn1.NavigateUrl = "../FlyCnMasters/Personal.aspx";
            string radtree = "rtn1";
            //rtn1.setAttribute("onclick", "");
-
            rtn1.Target = "contentPane";
            myTree.Nodes.Add(rtn1);
          // myTree.NodeClick=
@@ -86,8 +77,9 @@ namespace FlyCn.FlyCnDAL
         {
            myContentPane.ContentUrl = "BOQHeader.aspx";
         }
+        #region AddNewBOQ
         /// <summary>
-        /// inserting Boq header and details
+        /// inserting New Document,Revision and Boq header
         /// </summary>
         public Guid AddNewBOQ()
         {
@@ -95,7 +87,7 @@ namespace FlyCn.FlyCnDAL
             try
             {
                
-                documentMaster.AddNewDocument();
+                documentMaster.AddNewDocument();//New Document and Revision is made here
                 
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
@@ -128,17 +120,13 @@ namespace FlyCn.FlyCnDAL
                      documentMaster.RevisionID = (Guid)(OutRevisionId.Value);//returning revison id to store in boq iframe hidddendfield
                      var page = HttpContext.Current.CurrentHandler as Page;
                      eObj.InsertionSuccessData(page);
-
-                   
                 }
-               
-                
-
             }
             catch (Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
+                throw ex;
             }
             finally
             {
@@ -150,6 +138,11 @@ namespace FlyCn.FlyCnDAL
             }
             return documentMaster.RevisionID;
         }
+        #endregion AddNewBOQ
+        #region UpdateBOQ
+        /// <summary>
+        /// Updates the BOQHeader
+        /// </summary>
         public void UpdateBOQ()
         {
             SqlConnection con = null;
@@ -207,6 +200,7 @@ namespace FlyCn.FlyCnDAL
 
             }
         }
+        #endregion UpdateBOQ
 
 
         #endregion Billofquantitymethods
@@ -215,9 +209,9 @@ namespace FlyCn.FlyCnDAL
 
     public class BOQDetails
     {
+        #region private variables
         ErrorHandling eObj = new ErrorHandling();
-        
-
+        #endregion private variables
         #region Boqdetailproperty
 
         public Guid RevisionID
@@ -256,12 +250,12 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public Double NormHours
+        public Double? NormHours
         {
             get;
             set;
         }
-        public Double LabourRate
+        public Double? LabourRate
         {
             get;
             set;
@@ -272,12 +266,12 @@ namespace FlyCn.FlyCnDAL
             set;
 
         }
-        public Double MaterialRate
+        public Double? MaterialRate
         {
             get;
             set;
         }
-        public Double UDFRate1
+        public Double? UDFRate1
         {
             get;
             set;
@@ -287,7 +281,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public Double UDFRate2
+        public Double? UDFRate2
         {
             get;
             set;
@@ -297,7 +291,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public Double UDFRate3
+        public Double? UDFRate3
         {
             get;
             set;
@@ -307,7 +301,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public Double UDFRate4
+        public Double? UDFRate4
         {
             get;
             set;
@@ -317,7 +311,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public Double UDFRate5
+        public Double? UDFRate5
         {
             get;
             set;
@@ -354,7 +348,11 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion Boqdetailproperty
         #region BOQDetailMethods
-
+        #region GetAllBOQDetails
+        /// <summary>
+        /// Select All BOQDetails
+        /// </summary>
+        /// <returns></returns>
         public DataSet GetAllBOQDetails()//Accepts two parameters as property setting projectno and Revisonid
         {
             SqlConnection con = null;
@@ -390,7 +388,13 @@ namespace FlyCn.FlyCnDAL
             return ds;
 
         }
+        #endregion GetAllBOQDetails
 
+        #region GetBOQDetailsByItemID
+        /// <summary>
+        /// Select BOQ Detail By item id
+        /// </summary>
+        /// <returns>BOQ Details</returns>
         public DataSet GetBOQDetailsByItemID() //Brings only one record since itemid is primarykey in BOQDetail table
         {
             SqlConnection con = null;
@@ -425,15 +429,19 @@ namespace FlyCn.FlyCnDAL
             return ds;
         }
 
-
-       
+        #endregion GetBOQDetailsByItemID
+        #region  AddBOQDetails
+        /// <summary>
+        /// Add Boq Details into the table
+        /// </summary>
+        /// <returns></returns>
         public Guid AddBOQDetails()
         {
-
+           
             SqlConnection con = null;
             try
             {
-               
+                //bOQHeaderDetails.bOQDetails.UDFRate2 = (txtUDFRate2.Text.Trim() != "") ? Convert.ToSingle(txtUDFRate2.Text.Trim()) : Convert.ToSingle(null);
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand boqcmd = new SqlCommand();
@@ -509,6 +517,14 @@ namespace FlyCn.FlyCnDAL
             }
             return ItemID;
        }
+        #endregion  AddBOQDetails
+
+        #region UpdateBOQDocumentDetails
+        /// <summary>
+        /// Updates the BOQ details based on the itemId
+        /// </summary>
+        /// <param name="paramItemid"></param>
+        /// <returns></returns>
         public string UpdateBOQDocumentDetails(Guid paramItemid)
         {
 
@@ -516,7 +532,6 @@ namespace FlyCn.FlyCnDAL
             string ItemId = "";
             try
             {
-
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand boqcmd = new SqlCommand();
@@ -543,63 +558,56 @@ namespace FlyCn.FlyCnDAL
                 boqcmd.Parameters.Add("@UDFRateType4", SqlDbType.NVarChar, 1).Value = UDFRateType4;
                 boqcmd.Parameters.Add("@UDFRate5", SqlDbType.Real).Value = UDFRate5;
                 boqcmd.Parameters.Add("@UDFRateType5", SqlDbType.NVarChar, 1).Value = UDFRateType5;
-
                 boqcmd.Parameters.Add("@Group1", SqlDbType.NVarChar, 50).Value = Group1;
                 boqcmd.Parameters.Add("@Group2", SqlDbType.NVarChar, 50).Value = Group2;
                 boqcmd.Parameters.Add("@Group3", SqlDbType.NVarChar, 50).Value = Group3;
                 boqcmd.Parameters.Add("@Group4", SqlDbType.NVarChar, 50).Value = Group4;
                 boqcmd.Parameters.Add("@Group5", SqlDbType.NVarChar, 50).Value = Group5;
-
-
                 SqlParameter OutparamId = boqcmd.Parameters.Add("@OutputParamId", SqlDbType.SmallInt);
                 SqlParameter OutparmItemId = boqcmd.Parameters.Add("@OutputItemID", SqlDbType.UniqueIdentifier);
                 OutparmItemId.Direction = ParameterDirection.Output;
                 OutparamId.Direction = ParameterDirection.Output;
                 boqcmd.ExecuteNonQuery();
-
                 if (int.Parse(OutparamId.Value.ToString()) != 0)
                 {
                     //not successfull   
                     ItemId = OutparmItemId.Value.ToString();
                     var page = HttpContext.Current.CurrentHandler as Page;
-                    eObj.InsertionSuccessData(page, "Insert not Successfull,Duplicate Entry!");
-
+                    eObj.UpdationSuccessData(page,"Not Updated");
                 }
                 else
                 {
                     //successfull
                     ItemId = OutparmItemId.Value.ToString();
                     var page = HttpContext.Current.CurrentHandler as Page;
-                    eObj.InsertionSuccessData(page);
-
-
+                    eObj.UpdationSuccessData(page);
                 }
-
-
             }
             catch (Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
             }
-
             finally
             {
                 if (con != null)
                 {
                     con.Dispose();
                 }
-
             }
-
             return ItemId;
         }
+        #endregion UpdateBOQDocumentDetails
+        #region DeleteBOQDocumentDetails
+        /// <summary>
+        /// Deletes BOQ Details based on the itemid
+        /// </summary>
+        /// <param name="Itemid"></param>
         public void DeleteBOQDocumentDetails(Guid Itemid)
         {
             SqlConnection con = null;
             try
             {
-             
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand boqcmd = new SqlCommand();
@@ -612,26 +620,22 @@ namespace FlyCn.FlyCnDAL
                 boqcmd.ExecuteNonQuery();
                 if (int.Parse(OutparamId.Value.ToString()) != 0)
                 {
-                    //not successfull   
-                  
-                    var page = HttpContext.Current.CurrentHandler as Page;
-                   // eObj.DeleteSuccessData(page);
-
+                 //not successfull   
+                  var page = HttpContext.Current.CurrentHandler as Page;
+                 // eObj.DeleteSuccessData(page);
                 }
                 else
                 {
-                    //successfull
-                 
+                 //successfull
                     var page = HttpContext.Current.CurrentHandler as Page;
                     eObj.DeleteSuccessData(page);
-
-
                 }
             }
             catch(Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
+                throw ex;
             }
             finally
             {
@@ -641,7 +645,7 @@ namespace FlyCn.FlyCnDAL
                 }
             }
         }
-
+        #endregion DeleteBOQDocumentDetails
 
         #endregion BOQDetailMethods
     }
