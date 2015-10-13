@@ -58,6 +58,7 @@
             /*background: rgba(34,34,34,0.75);*/
       /*background: rgba(36,85,99,.9);*/
             border: 1px solid #fff;
+          /*background: #BC8F8F*/
         }
 
         .headings {
