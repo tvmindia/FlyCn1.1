@@ -39,9 +39,9 @@ namespace FlyCn.BOQ
             }
         }
        
-        #region ToolBar_onClick
+         #region ToolBar_onClick
          protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
-        {
+         {
             string functionName = e.Item.Value;
 
              if(e.Item.Value=="Add")
@@ -110,6 +110,12 @@ namespace FlyCn.BOQ
                      ToolBarBOQDetail.UpdateButton.Visible = false;
                      ToolBarBOQDetail.DeleteButton.Visible = false;
                      break;
+                 case 4:
+                     ToolBarBOQDetail.AddButton.Visible = false;
+                     ToolBarBOQDetail.SaveButton.Visible = false;
+                     ToolBarBOQDetail.UpdateButton.Visible = false;
+                     ToolBarBOQDetail.DeleteButton.Visible = false;
+                  break;
              }
          }
          #endregion ToolBarVisibility
@@ -126,6 +132,13 @@ namespace FlyCn.BOQ
                   bOQHeaderDetails.bOQDetails.ProjectNo = UA.projectNo;
                   ds = bOQHeaderDetails.bOQDetails.GetAllBOQDetails();
                   dtgBOQDetailGrid.DataSource = ds;
+                  if (ds.Tables[0].Rows.Count > 0) 
+                  {
+                      if (ds.Tables[0].Rows[0]["LatestStatus"].ToString() != "")
+                      {
+                          hdfLatestStatus.Value = ds.Tables[0].Rows[0]["LatestStatus"].ToString();//setting hiddden value for statusCheck
+                      }
+                  }
                }
               catch (Exception ex)
               {
@@ -150,6 +163,14 @@ namespace FlyCn.BOQ
                   //hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
                   //hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
                   //hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+                  if (ds.Tables[0].Rows.Count > 0) 
+                  {
+                      if (ds.Tables[0].Rows[0]["LatestStatus"].ToString() != "")
+                      {
+                          hdfLatestStatus.Value = ds.Tables[0].Rows[0]["LatestStatus"].ToString();//setting hiddden value for statusCheck
+                      }
+                  }
+               // if ((ds.Tables.Count > 0) && (ds.Tables[0].Rows[0]["LatestStatus"].ToString() != ""))
               }
               catch (Exception ex)
               {
@@ -166,7 +187,7 @@ namespace FlyCn.BOQ
               {
                   if (e.CommandName == "EditDoc")//RadGrid Edit
                   {
-                      ToolBarVisibility(2);
+                      //ToolBarVisibility(2);
                       RadTab tab = (RadTab)RadTabStripBOQDetail.FindTabByValue("2");
                       GridDataItem item = e.Item as GridDataItem;
                       tab.Selected = true;
@@ -176,11 +197,27 @@ namespace FlyCn.BOQ
 
                       DataSet ds = new DataSet();
                       bOQHeaderDetails = new BOQHeaderDetails();
+
                      
                       Guid.TryParse(item.GetDataKeyValue("ItemID").ToString(), out Itemid);
                       bOQHeaderDetails.bOQDetails.ItemID = Itemid;
                       ds = bOQHeaderDetails.bOQDetails.GetBOQDetailsByItemID();
-
+                      if (ds.Tables[0].Rows.Count > 0)
+                      {
+                          if (ds.Tables[0].Rows[0]["LatestStatus"].ToString() != "")
+                          {
+                              if (ds.Tables[0].Rows[0]["LatestStatus"].ToString() != "1")
+                              {
+                                  ToolBarVisibility(2);//Normal display of Toolbar
+                              }
+                              else
+                              {
+                                  ToolBarVisibility(4);////Disable display of Toolbar
+                                  hdfLatestStatus.Value = ds.Tables[0].Rows[0]["LatestStatus"].ToString();
+                              }
+                          }
+                      }
+                      
                       hdfItemId.Value = ds.Tables[0].Rows[0]["ItemID"].ToString();
                       hdfRevisionId.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
                    
