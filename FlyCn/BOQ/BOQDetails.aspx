@@ -119,7 +119,8 @@
           <div class="col-md-9">
              <asp:TextBox ID="txtItemDescription" CssClass="form-control" runat="server" TextMode="MultiLine" MaxLength="250"></asp:TextBox>
                <asp:HiddenField ID="hdfRevisionId" runat="server" />
-              <asp:HiddenField ID="hdfItemId" runat="server" />
+               <asp:HiddenField ID="hdfItemId" runat="server" />
+               <asp:HiddenField ID="hdfLatestStatus" runat="server" />
           </div>
           </div>
          </div>
@@ -356,14 +357,23 @@
              ClearTexBox();
              hideMe();
              //Clear Text boxes When New tab clicks
-             try {
-                 <%=ToolBarBOQDetail.ClientID %>_SetAddVisible(false);
-                 <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(true);
-                 <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
-                 <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
+             if (document.getElementById('<%=hdfLatestStatus.ClientID %>').value == "1")
+             {
+               
+               
+                     <%=ToolBarBOQDetail.ClientID %>_SetAddVisible(false);
+                     <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(false);
+                     <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
+                     <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
+                
              }
-             catch (x) {
-                 alert(x.message);
+             else
+             {
+                     <%=ToolBarBOQDetail.ClientID %>_SetAddVisible(false);
+                     <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(true);
+                     <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
+                     <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
+                    
              }
          }
          if (tab.get_value() == "1") {

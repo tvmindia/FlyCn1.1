@@ -319,13 +319,13 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.HtmlControls.HtmlSelect selecttools10;
         
         /// <summary>
-        /// CheckBox1 control.
+        /// chkLevel10 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox1;
+        protected global::System.Web.UI.WebControls.CheckBox chkLevel10;
         
         /// <summary>
         /// btnCloseDocument control.

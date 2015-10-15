@@ -190,7 +190,7 @@
                                 <div class="col-md-12">
                                       <div class="col-md-6">
                                         <div class="form-group">
-                                            <asp:Label ID="lblDocumentStatus" CssClass="control-label col-md-3" runat="server"></asp:Label>
+                                            <asp:Label ID="lblDocumentStatus" CssClass="control-label col-md-3" runat="server" BackColor="Pink" Font-Size="Large" Font-Bold="true"></asp:Label>
                                         </div>
                                       </div>
                               </div>
@@ -205,8 +205,6 @@
                                        </div>
                                       </div>
                                     </div>
-
-
                                 <!---SECTION TWO--->
 
                             </telerik:RadPageView>
@@ -324,6 +322,7 @@
             $('#datepicker').datepicker('update', '');
             document.getElementById('<%=txtDocumenttitle.ClientID %>').value = "";
             document.getElementById('<%=txtRemarks.ClientID %>').value = "";
+            document.getElementById('<%=lblDocumentStatus.ClientID%>').innerHTML = "";
         }
       
 

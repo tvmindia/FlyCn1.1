@@ -24,8 +24,8 @@
                 <div class="form-group">
                     <asp:Label ID="lblLevel1" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
-                        <div class="control-group">
-                            <select id="selecttools1" name="Level1" runat="server"  visible="false" >
+                        <div class="control-group"> 
+                            <select id="selecttools1" name="Level1" runat="server"  visible="false">
 
                                 <option value="0"></option>
                                 <%-- <option value="1">Manu</option>
@@ -342,7 +342,7 @@
 
                     <div class="col-md-9">
 
-                        <asp:CheckBox ID="CheckBox1" runat="server" AutoPostBack="false"  Visible="false" />
+                        <asp:CheckBox ID="chkLevel10" runat="server" AutoPostBack="false"  Visible="false" />
 
 
                     </div>
