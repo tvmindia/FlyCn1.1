@@ -34,7 +34,7 @@ namespace FlyCn.Approvels
             lblrevisionid.Text = caption;
             //lblrevisionid.Text = Emoticon.Format("Some text with a smiley :-) emoticon.");
             PlaceLabels();
-        
+
             //HtmlSelect myDdl = (HtmlSelect)FindControl("selecttools1");
             //string ddl = Request.Form["Level1"].ToString();
             //string day = Request.Form["Level1"];
@@ -44,12 +44,12 @@ namespace FlyCn.Approvels
             HtmlControl lbls = (HtmlControl)Placeholder.FindControl("selecttools");
             Control table = (HtmlControl)FindControl("selecttools");
             Control c = Page.FindControl("selecttools");
-  //          HtmlControl Label1 = (HtmlControl)Master.FindControl("selecttools");
-  //          HtmlControl contentPanel1 = (HtmlControl)Master.FindControl("IframeContent");
-  //          HtmlSelect l = contentPanel1.FindControl("selecttools") as HtmlSelect;
-  //          HtmlSelect TB =
-  //Master.FindControl("ContentPlaceHolder1").FindControl("select-tools2") as
-  //HtmlSelect;
+            //          HtmlControl Label1 = (HtmlControl)Master.FindControl("selecttools");
+            //          HtmlControl contentPanel1 = (HtmlControl)Master.FindControl("IframeContent");
+            //          HtmlSelect l = contentPanel1.FindControl("selecttools") as HtmlSelect;
+            //          HtmlSelect TB =
+            //Master.FindControl("ContentPlaceHolder1").FindControl("select-tools2") as
+            //HtmlSelect;
         }
 
         protected override void OnPreRender(EventArgs e)
@@ -66,68 +66,68 @@ namespace FlyCn.Approvels
             selecttools9.ClientIDMode = ClientIDMode.Static;
             selecttools10.ClientIDMode = ClientIDMode.Static;
         }
-       
+
         public void PlaceLabels()
         {
             ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
             DataTable ApprovelLeveldt = new DataTable();
             ApprovelLeveldt = ApprovelMasterobj.getDataFromApprovelLevel();
             int totalrows = ApprovelLeveldt.Rows.Count;
-              for (int i = 0; i < totalrows; i++)
-              {
-                  Label lbl = (Label)Placeholder.FindControl("lbl" + ApprovelLeveldt.Rows[i]["LevelDescription"]);
-                  lbl.Text = ApprovelLeveldt.Rows[i]["LevelDescription"].ToString();
-                  HtmlSelect myDdl = (HtmlSelect)FindControl("selecttools");
-                  HtmlControl ctrl = (HtmlControl)this.FindControl("selecttools");
-                  System.Web.UI.HtmlControls.HtmlGenericControl div1 = (System.Web.UI.HtmlControls.HtmlGenericControl)this.FindControl("selecttools");
-                  FillSelectBoxData();
-                  if(lbl.Text=="Level1")
-                  {
-                      selecttools1.Visible = true;
-                      chkLevel1.Visible = true;
-                  }
-                  if(lbl.Text=="Level2")
-                  {
-                      selecttools2.Visible = true;
-                      chkLevel2.Visible = true;
-                  }
-                  if (lbl.Text == "Level3")
-                  {
-                      selecttools3.Visible = true;
-                      chkLevel3.Visible = true;
-                  }
-                  if (lbl.Text == "Level4")
-                  {
-                      selecttools4.Visible = true;
-                      chkLevel4.Visible = true;
-                  }
-                  if (lbl.Text == "Level5")
-                  {
-                      selecttools5.Visible = true;
-                      chkLevel5.Visible = true;
-                  }
-                  if (lbl.Text == "Level6")
-                  {
-                      selecttools6.Visible = true;
-                      chkLevel6.Visible = true;
-                  }
-                  if (lbl.Text == "Level7")
-                  {
-                      selecttools7.Visible = true;
-                      chkLevel7.Visible = true;
-                  }
-                  if (lbl.Text == "Level8")
-                  {
-                      selecttools8.Visible = true;
-                      chkLevel8.Visible = true;
-                  }
-                  if (lbl.Text == "Level9")
-                  {
-                      selecttools9.Visible = true;
-                      chkLevel9.Visible = true;
-                  }
-              }
-             
+            for (int i = 0; i < totalrows; i++)
+            {
+                Label lbl = (Label)Placeholder.FindControl("lbl" + ApprovelLeveldt.Rows[i]["LevelDescription"]);
+                lbl.Text = ApprovelLeveldt.Rows[i]["LevelDescription"].ToString();
+                HtmlSelect myDdl = (HtmlSelect)FindControl("selecttools");
+                HtmlControl ctrl = (HtmlControl)this.FindControl("selecttools");
+                System.Web.UI.HtmlControls.HtmlGenericControl div1 = (System.Web.UI.HtmlControls.HtmlGenericControl)this.FindControl("selecttools");
+                FillSelectBoxData();
+                if (lbl.Text == "Level1")
+                {
+                    selecttools1.Visible = true;
+                    chkLevel1.Visible = true;
+                }
+                if (lbl.Text == "Level2")
+                {
+                    selecttools2.Visible = true;
+                    chkLevel2.Visible = true;
+                }
+                if (lbl.Text == "Level3")
+                {
+                    selecttools3.Visible = true;
+                    chkLevel3.Visible = true;
+                }
+                if (lbl.Text == "Level4")
+                {
+                    selecttools4.Visible = true;
+                    chkLevel4.Visible = true;
+                }
+                if (lbl.Text == "Level5")
+                {
+                    selecttools5.Visible = true;
+                    chkLevel5.Visible = true;
+                }
+                if (lbl.Text == "Level6")
+                {
+                    selecttools6.Visible = true;
+                    chkLevel6.Visible = true;
+                }
+                if (lbl.Text == "Level7")
+                {
+                    selecttools7.Visible = true;
+                    chkLevel7.Visible = true;
+                }
+                if (lbl.Text == "Level8")
+                {
+                    selecttools8.Visible = true;
+                    chkLevel8.Visible = true;
+                }
+                if (lbl.Text == "Level9")
+                {
+                    selecttools9.Visible = true;
+                    chkLevel9.Visible = true;
+                }
+            }
+
         }
         public void FillSelectBoxData()
         {
@@ -137,7 +137,7 @@ namespace FlyCn.Approvels
             ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
             DataTable Varifierdt = new DataTable();
             Varifierdt = ApprovelMasterobj.getDataFromVarifierMaster(1, documentType, projectNo);
-            selecttools1.DataSource = Varifierdt;           
+            selecttools1.DataSource = Varifierdt;
             selecttools1.DataTextField = "VerifierEmail";
             selecttools1.DataValueField = "VerifierID";
             selecttools1.DataBind();
@@ -202,41 +202,88 @@ namespace FlyCn.Approvels
         protected void btnCloseDocument_Click(object sender, EventArgs e)
         {
             string level1Idf = (Request.Form["selecttools1"]);
-            //foreach (HtmlSelect item in selecttools1.Items)
+            ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
+            string level1="";
+            //string JJ = selecttools1.SelectedIndex.ToString();
+            string selection = Request.Form["Level1"];
+            //foreach (ListItem Items in selecttools1.Items)
             //{
-            //    if (item.selected)
+            //   
+            //    //level1 = level1 + selecttools1.Value + ",";
+            //    if (Items.Selected)
             //    {
-            //        message += item.Text + " " + item.Value + "\\n";
+            //        level1 = selecttools1.Value;
+            //        if (chkLevel1.Checked == true)
+            //        {
+            //            isLevelManadatory = Convert.ToByte(true);
+            //            InsertOperation(level1, 1, isLevelManadatory);
+
+            //        }
+            //    }
+
+            //}
+            byte isLevelManadatory = 0;
+            //for (int i = 0; i <= selecttools1.Items.Count - 1; i++)
+            //{
+
+            //    if (selecttools1.Items[i].Selected)
+            //        level1+=  selecttools1.Items[i].Text;
+
+            //}
+
+            //for (int i = 0; i < selecttools1.Items.Count; i++)
+            //{
+
+            //    if (selecttools1.Items[i].Selected != null)
+            //    {
+            //        string query = selecttools1.Items[i].Value;
+            //        level1 = query;
+            //        if (chkLevel1.Checked == true)
+            //        {
+            //            isLevelManadatory = Convert.ToByte(true);
+
+
+            //        }
+            //        InsertOperation(level1, 1, isLevelManadatory);
             //    }
             //}
-            string level1 ;
-            foreach (ListItem item in selecttools1.Items)
-            {
+            //string name = "";
+            //for (int i = 0; i < selecttools1.Items.Count; i++)
+            //{
+            //    if (selecttools1.Items[i].Selected)
+            //    {
+            //        name += selecttools1.Items[i].Text + ",";
+            //    }
+            //}
+            //string smndsa = name;
+            string s = selecttools1.Multiple.ToString();
+            string ghgh = selecttools1.Value;
 
-                //level1 = level1 + selecttools1.Value + ",";
-                level1 = selecttools1.Value;
-                InsertOperation(level1,1);
-            
-            }
-
-
-            //string level1Id = level1.TrimEnd(',');
             string level2Id;
             foreach (ListItem item in selecttools2.Items)
             {
 
-                //level1 = level1 + selecttools1.Value + ",";
+                if (chkLevel2.Checked == true)
+                {
+                    isLevelManadatory = Convert.ToByte(true);
+                }
+
                 level2Id = selecttools2.Value;
-                InsertOperation(level2Id,2);
+                InsertOperation(level2Id, 2, isLevelManadatory);
 
             }
             string level3Id;
             foreach (ListItem item in selecttools3.Items)
             {
 
-                //level1 = level1 + selecttools1.Value + ",";
+
+                if (chkLevel3.Checked == true)
+                {
+                    isLevelManadatory = Convert.ToByte(true);
+                }
+
                 level3Id = selecttools3.Value;
-                InsertOperation(level3Id,3);
+                InsertOperation(level3Id, 3, isLevelManadatory);
 
             }
 
@@ -244,18 +291,28 @@ namespace FlyCn.Approvels
             foreach (ListItem item in selecttools4.Items)
             {
 
-                //level1 = level1 + selecttools1.Value + ",";
+
+                if (chkLevel4.Checked == true)
+                {
+                    isLevelManadatory = Convert.ToByte(true);
+                }
+
+
                 level4Id = selecttools4.Value;
-                InsertOperation(level4Id, 4);
+                InsertOperation(level4Id, 4, isLevelManadatory);
 
             }
             string level5Id;
             foreach (ListItem item in selecttools5.Items)
             {
 
-                //level1 = level1 + selecttools1.Value + ",";
+                if (chkLevel5.Checked == true)
+                {
+                    isLevelManadatory = Convert.ToByte(true);
+                }
+
                 level5Id = selecttools5.Value;
-                InsertOperation(level5Id, 5);
+                InsertOperation(level5Id, 5, isLevelManadatory);
 
             }
 
@@ -263,9 +320,14 @@ namespace FlyCn.Approvels
             foreach (ListItem item in selecttools6.Items)
             {
 
-                //level1 = level1 + selecttools1.Value + ",";
+
+                if (chkLevel6.Checked == true)
+                {
+                    isLevelManadatory = Convert.ToByte(true);
+                }
+
                 level6Id = selecttools6.Value;
-                InsertOperation(level6Id, 6);
+                InsertOperation(level6Id, 6, isLevelManadatory);
 
             }
 
@@ -273,9 +335,13 @@ namespace FlyCn.Approvels
             foreach (ListItem item in selecttools7.Items)
             {
 
-                //level1 = level1 + selecttools1.Value + ",";
+
+                if (chkLevel7.Checked == true)
+                {
+                    isLevelManadatory = Convert.ToByte(true);
+                }
                 level7Id = selecttools7.Value;
-                InsertOperation(level7Id, 7);
+                InsertOperation(level7Id, 7, isLevelManadatory);
 
             }
 
@@ -283,9 +349,14 @@ namespace FlyCn.Approvels
             foreach (ListItem item in selecttools8.Items)
             {
 
-                //level1 = level1 + selecttools1.Value + ",";
+
+
+                if (chkLevel8.Checked == true)
+                {
+                    isLevelManadatory = Convert.ToByte(true);
+                }
                 level8Id = selecttools8.Value;
-                InsertOperation(level8Id, 8);
+                InsertOperation(level8Id, 8, isLevelManadatory);
 
             }
 
@@ -293,9 +364,14 @@ namespace FlyCn.Approvels
             foreach (ListItem item in selecttools9.Items)
             {
 
-                //level1 = level1 + selecttools1.Value + ",";
+
+                if (chkLevel9.Checked == true)
+                {
+                    isLevelManadatory = Convert.ToByte(true);
+                }
+
                 level9Id = selecttools9.Value;
-                InsertOperation(level9Id, 9);
+                InsertOperation(level9Id, 9, isLevelManadatory);
 
             }
 
@@ -303,61 +379,24 @@ namespace FlyCn.Approvels
             foreach (ListItem item in selecttools10.Items)
             {
 
-                //level1 = level1 + selecttools1.Value + ",";
+
+                if (chkLevel10.Checked == true)
+                {
+                    isLevelManadatory = Convert.ToByte(true);
+                }
                 level10Id = selecttools10.Value;
-                InsertOperation(level10Id, 10);
+                InsertOperation(level10Id, 10, isLevelManadatory);
 
             }
 
-            try
-            {
-                MailMessage Msg = new MailMessage();
-                // Sender e-mail address.
-                Msg.From = new MailAddress("info.thrithvam@gmail.com");
-                // Recipient e-mail address.
-                Msg.To.Add("info.thrithvam2@gmail.com");
-                Msg.Subject = "hr";
-                Msg.Body = "ghhhhfghhhhhhhhhhhhhhhhhhhj";
-                Msg.IsBodyHtml = true;
-                // your remote SMTP server IP.
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.Credentials = new System.Net.NetworkCredential("info.thrithvam", "thrithvam@2015");
-                smtp.EnableSsl = true;
-                smtp.Send(Msg);
-                Msg = null;
-               // Page.RegisterStartupScript("UserMsg", "<script>alert('Mail sent thank you...');if(alert){ window.location='test1.aspx';}</script>");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("{0} Exception caught.", ex);
-            }
-       // ...........................
-            //MailMessage msgMail = new MailMessage();
-            //MailMessage myMessage = new MailMessage();
-            //myMessage.From = new MailAddress("amruthasunny1993@gmail.com", "amrutha sunny");
-            //myMessage.To.Add("amruthasunny310@gmail.com");
-            //myMessage.Subject = "Subject";
-            //myMessage.IsBodyHtml = true;
+            FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
+            MailSendingobj.SendingMail();
 
-            //myMessage.Body = "Message Body";
-
-
-            //SmtpClient mySmtpClient = new SmtpClient();
-            //System.Net.NetworkCredential myCredential = new System.Net.NetworkCredential("amruthasunny1993@gmail.com", "amruthagopika1993");
-            //mySmtpClient.Host = "your smtp host address";
-            //mySmtpClient.UseDefaultCredentials = false;
-            //mySmtpClient.Credentials = myCredential;
-            //mySmtpClient.ServicePoint.MaxIdleTime = 1;
-
-            //mySmtpClient.Send(myMessage);
-            //myMessage.Dispose();
         }
-        public void InsertOperation(string level1Id,int Level)
+        public void InsertOperation(string level1Id, int Level, byte isLevelManadatory)
         {
             ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
-          
+
             string documentType = _DocumentType;
             string projectNo = UA.projectNo;
             System.Guid guid = System.Guid.NewGuid();
@@ -367,6 +406,7 @@ namespace FlyCn.Approvels
             ApprovelMasterobj.VerifierID = level1Id;
             ApprovelMasterobj.VerifierLevel = Level;
             ApprovelMasterobj.CreatedBy = UA.userName;
+            ApprovelMasterobj.IsLevelManadatory = isLevelManadatory;
             ApprovelMasterobj.InsertApprovelMaster();
         }
     }

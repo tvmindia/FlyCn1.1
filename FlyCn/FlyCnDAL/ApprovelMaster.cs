@@ -33,6 +33,11 @@ using System.Web.UI;
             get;
             set;
         }
+        public byte IsLevelManadatory
+        {
+            get;
+            set;
+        }
         public int VerifierLevel
         {
             get;
@@ -97,7 +102,7 @@ using System.Web.UI;
 
 
 
-
+        #region InsertApprovelMaster
         public int InsertApprovelMaster()
         {
            
@@ -113,6 +118,7 @@ using System.Web.UI;
                 cmd.Parameters.AddWithValue("@RevisionID", RevisionID);
                 cmd.Parameters.AddWithValue("@VerifierID", VerifierID);
                 cmd.Parameters.AddWithValue("@VerifierLevel", VerifierLevel);
+                cmd.Parameters.AddWithValue("@IslevelManadatory", IsLevelManadatory);
                 if (ApprovalStatus != null)
                 {
                     cmd.Parameters.AddWithValue("@ApprovalStatus", ApprovalStatus);
@@ -143,7 +149,9 @@ using System.Web.UI;
                 con.Close();
 
             }
-            }
-        
+        }
+
+        #endregion InsertApprovelMaster
+
     }
 }
