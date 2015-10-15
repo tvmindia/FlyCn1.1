@@ -5,15 +5,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <script src="../Scripts/jquery-1.8.2.min.js"></script>
+    <script src="../Scripts/jquery-1.8.2.min.js">
+    </script>
     <script src="../Scripts/jquery-ui-1.8.24.js"></script>
     <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
     <script type="text/javascript">
         //$("[id*=btnModalPopup]").live("click", function () {
         function PopUp() {
 
         }
     </script>
+    
     <style type="text/css">
         .ui-dialog-title {
             padding-left: 15em;
@@ -61,6 +64,7 @@
             width: 200px;
         }
     </style>
+
     <script type="text/javascript">
 
         function validate() {
@@ -154,6 +158,7 @@
               }
 
     </script>
+
     <script>
 
         function OnClientButtonClicking(sender, args) {

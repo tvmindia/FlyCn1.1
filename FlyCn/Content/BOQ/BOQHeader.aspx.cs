@@ -103,14 +103,12 @@ namespace FlyCn.BOQ
             {//Only Edit functionality is needed in BOQheader so no delete
                 if (e.CommandName == "EditDoc")//EditDoc  is named because Radgrid has its own definition for Edit
                 {
-                    ToolBarVisibility(2);
                     RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                     GridDataItem item = e.Item as GridDataItem;
                     tab.Selected = true;
                     tab.Text = "Edit";
                     RadMultiPage1.SelectedIndex = 1;
                     string ProjectNo = item.GetDataKeyValue("ProjectNo").ToString();
-
                     Guid DocumentID;
                     Guid.TryParse(item.GetDataKeyValue("DocumentID").ToString(), out DocumentID);
                     DataSet ds = new DataSet();
@@ -128,17 +126,25 @@ namespace FlyCn.BOQ
                     txtdatepicker.Value = Convert.ToString(ds.Tables[0].Rows[0]["DocumentDate"]);
                     txtDocumenttitle.Text = ds.Tables[0].Rows[0]["DocumentTitle"].ToString();
                     txtRemarks.Text = ds.Tables[0].Rows[0]["Remarks"].ToString();
+                    if (ds.Tables[0].Rows[0]["DocumentStatus"].ToString() != "CLOSED FOR VERIFICATION")
+                    {
+                        ToolBarVisibility(2);//Normal display of Toolbar
+                    }
+                    else
+                    {
+                        ToolBarVisibility(4);////Disable display of Toolbar
+                    }
+                    lblDocumentStatus.Text = ds.Tables[0].Rows[0]["DocumentStatus"].ToString();
                     Guid Revisionid;
-                    Guid.TryParse(hiddenFieldRevisionID.Value,out Revisionid);
+                    Guid.TryParse(hiddenFieldRevisionID.Value, out Revisionid);
                     //BOQDetail Display accordion
                     ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid;//iframe page BOQDetails.aspx is called with query string revisonid
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Add", "OpenDetailAccordion();", true);
                     ContentIframe.Style["display"] = "block";
                     hdfEditStatus.Value = "GridEdit";//set the hiddenfied to know the edit event comes from radgrid and not from the update toolbar button
                 }
-                
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
@@ -225,6 +231,16 @@ namespace FlyCn.BOQ
                     ToolBar.EditButton.Visible = false;
                     ToolBar.DeleteButton.Visible = false;
                    break;
+
+
+                case 4://toally invicible
+                    ToolBar.AddButton.Visible = false;
+                    ToolBar.SaveButton.Visible = false;
+                    ToolBar.UpdateButton.Visible = false;
+                    ToolBar.EditButton.Visible = false;
+                    ToolBar.DeleteButton.Visible = false;
+                   break;
+                  
             }
 
         }

@@ -127,15 +127,11 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-
-
                                             <asp:Label ID="lblClientdocumentnot" CssClass="control-label col-md-3" runat="server" Text="Client Document No*"></asp:Label>
                                             <div class="col-md-9">
-
                                                 <asp:TextBox ID="txtClientdocumentno" CssClass="form-control" runat="server" MaxLength="50"></asp:TextBox>
                                             </div>
                                         </div>
-
                                     </div>
                                 
                                 <!---SECTION ONE--->
@@ -143,18 +139,13 @@
                                 <!---SECTION TWO--->
                                
                                     <div class="col-md-6">
-
-                                        <div class="form-group">
-
-                                            <asp:Label ID="lblRevisionno" CssClass="control-label col-md-3" runat="server" Text="Revision No*"></asp:Label>
-                                            <div class="col-md-9">
-
-                                                <asp:TextBox ID="txtRevisionno" CssClass="form-control" runat="server" MaxLength="10"></asp:TextBox>
-                                                
-                                            </div>
+                                     <div class="form-group">
+                                        <asp:Label ID="lblRevisionno" CssClass="control-label col-md-3" runat="server" Text="Revision No*"></asp:Label>
+                                           <div class="col-md-9">
+                                               <asp:TextBox ID="txtRevisionno" CssClass="form-control" runat="server" MaxLength="10"></asp:TextBox>
+                                           </div>
                                         </div>
-
-                                    </div>
+                                     </div>
                                   
 
                                     <div class="col-md-6">
@@ -177,11 +168,9 @@
 
                                             <asp:Label ID="lblDocumenttitle" CssClass="control-label col-md-3" runat="server" Text="Document Title*"></asp:Label>
                                             <div class="col-md-9">
-
                                                 <asp:TextBox ID="txtDocumenttitle" CssClass="form-control" runat="server" MaxLength="250"></asp:TextBox>
                                             </div>
                                         </div>
-
                                     </div>
 
                                     <div class="col-md-6">
@@ -191,26 +180,31 @@
 
                                             <asp:Label ID="lblRemarks" CssClass="control-label col-md-3" runat="server" Text="Remarks*"></asp:Label>
                                             <div class="col-md-9">
-
                                                 <asp:TextBox ID="txtRemarks" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
-                                   <div class="col-md-12">
-                                        
-                                        <div class="content white">
-                                            <div class="accordion-container">
-                                                <a href="#" class="accordion-toggle" id="IDAccordion">Details<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
-                                                <div class="accordion-content">
-                                                <iframe id="ContentIframe" name="BOQDetails" style="height: 600px; width: 100%; overflow: hidden;" runat="server"></iframe>
-                                                </div>
-                                            </div>
+                              
+                                <div class="col-md-12">
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                            <asp:Label ID="lblDocumentStatus" CssClass="control-label col-md-3" runat="server" BackColor="Pink" Font-Size="Large" Font-Bold="true"></asp:Label>
                                         </div>
+                                      </div>
+                              </div>
+                                   <div class="col-md-12">
+                                   
+                                     <div class="content white">
+                                       <div class="accordion-container">
+                                         <a href="#" class="accordion-toggle" id="IDAccordion">Details<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                                         <div class="accordion-content">
+                                         <iframe id="ContentIframe" name="BOQDetails" style="height: 600px; width: 100%; overflow: hidden;" runat="server"></iframe>
+                                         </div>
+                                       </div>
+                                      </div>
                                     </div>
-
-
                                 <!---SECTION TWO--->
 
                             </telerik:RadPageView>
@@ -220,9 +214,9 @@
                 </tr>
             </table>
         </div>
-
+        </div>
         <!-----FORM SECTION---->
-    </div>
+    
 
     <!--<JavaScrict>-->
     <script type="text/javascript">
@@ -300,12 +294,14 @@
                 EnableBOQHeaderTextBox();//remove readonly property from the text boxes
                 v1 = document.getElementById('<%=ContentIframe.ClientID %>');
                 v1.style["display"] = "none";//disabling iframe
+               
             }
             if ($('#hdfEditStatus').val() == "GridEdit")//here gridedit value is set upon the grid edit event code behind code
             {//this checking determines update is from gridedit so when user clicks on new tab the child iframe should clear
                 
                 v1 = document.getElementById('<%=ContentIframe.ClientID %>');
                 v1.style["display"] = "none";//disabling iframe
+             
             }
          }
             if (tab.get_value() == "1")
@@ -326,6 +322,7 @@
             $('#datepicker').datepicker('update', '');
             document.getElementById('<%=txtDocumenttitle.ClientID %>').value = "";
             document.getElementById('<%=txtRemarks.ClientID %>').value = "";
+            document.getElementById('<%=lblDocumentStatus.ClientID%>').innerHTML = "";
         }
       
 
