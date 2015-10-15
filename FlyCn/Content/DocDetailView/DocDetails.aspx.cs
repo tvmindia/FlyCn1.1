@@ -11,7 +11,24 @@ namespace FlyCn.Content.DocDetailView
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            string projectNum = Request.QueryString["ProjNum"];
+            string revId = Request.QueryString["RevNum"];
 
         }
+
+        protected void dtDocDetailGrid_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+
+        }
+
+        protected void dtDocDetailGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+               
+            
+        }
+
+      
+
+    
     }
 }

@@ -630,6 +630,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FlyCnDAL\dbConnection.cs" />
+    <Compile Include="FlyCnDAL\DocDetailList.cs" />
     <Compile Include="FlyCnDAL\DocumentMaster.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
