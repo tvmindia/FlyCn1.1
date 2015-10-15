@@ -145,6 +145,7 @@
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Activities\ActivityLibrary.aspx" />
     <Content Include="Activities\Main.aspx" />
+    <Content Include="Approvels\ApprovalDocument.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
@@ -526,6 +527,13 @@
     </Compile>
     <Compile Include="Activities\Main.aspx.designer.cs">
       <DependentUpon>Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Approvels\ApprovalDocument.aspx.cs">
+      <DependentUpon>ApprovalDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvels\ApprovalDocument.aspx.designer.cs">
+      <DependentUpon>ApprovalDocument.aspx</DependentUpon>
     </Compile>
     <Compile Include="Approvels\CloseDocument.aspx.cs">
       <DependentUpon>CloseDocument.aspx</DependentUpon>
