@@ -73,7 +73,8 @@ namespace FlyCn.Approvels
             {
                 if(e.CommandName=="Action")
                 {
-
+                    //call ifrma approval screen
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenNewProjectWizard", "OpenNewProjectWizard();", true);
 
                 }
                 if(e.CommandName=="Details")

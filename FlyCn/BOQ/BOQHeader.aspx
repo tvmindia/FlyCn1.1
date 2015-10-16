@@ -413,12 +413,10 @@
             $(".input-group date").attr('readonly', 'readonly')
             v1 = document.getElementById('<%=ContentIframe.ClientID %>');
             v1.style["display"] = "block";
-       
-        }
+            }
         function EnableBOQHeaderTextBox()
         {
             //Enable header textboxess
-        
             var e = document.getElementById('<%=txtClientdocumentno.ClientID %>');
             e.removeAttribute("readonly", 0);
             e = document.getElementById('<%=txtRevisionno.ClientID %>');
@@ -429,7 +427,6 @@
             e.removeAttribute("readonly", 0);
             e = document.getElementById('<%=txtRemarks.ClientID %>');
             e.removeAttribute("readonly", 0);
-
             //Enable header textboxess
         }
     
