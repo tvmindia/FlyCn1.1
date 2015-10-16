@@ -6,13 +6,10 @@
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <%-- Registration--%>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Input</title>
-   
-   
     <!-----bootstrap css--->
     <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
     <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
@@ -35,12 +32,8 @@
     </asp:ScriptManager>
 
     <div class="container" style="width: 100%">
-
-
-
         <!-----FORM SECTION---->
         <!-----SECTION TABLE---->
-
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
             CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
 
@@ -99,13 +92,10 @@
                                     </telerik:RadGrid>
                                 </div>
                             </telerik:RadPageView>
-
+                             <!-----SECTION TABLE---->
+                             <!---SECTION ONE--->
                             <telerik:RadPageView ID="rpAddEdit" runat="server">
                                 <uc1:ToolBar runat="server" ID="ToolBar" />
-
-
-                                <!-----SECTION TABLE---->
-                                <!---SECTION ONE--->
                                 <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 

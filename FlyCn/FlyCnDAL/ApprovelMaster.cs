@@ -153,5 +153,42 @@ using System.Web.UI;
 
         #endregion InsertApprovelMaster
 
+
+#region GetAllPendingApprovalsByVerifierLevel
+        public DataSet GetAllPendingApprovalsByVerifierLevel(int paramverifierLevel)
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("GetAllPendingApprovalsByVerifierLevel", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@verifierLevel", SqlDbType.Int).Value = paramverifierLevel;
+                SqlDataAdapter sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch(Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if(con!=null)
+                {
+                    
+                    con.Dispose();
+                    
+                }
+            }
+            return ds;
+        }
+#endregion GetAllPendingApprovalsByVerifierLevel
+
     }
 }
