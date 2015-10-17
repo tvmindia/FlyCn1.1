@@ -2,9 +2,21 @@
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+  
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+   <%--  <script src="../Scripts/jquery-1.8.2.js"></script>
+      <script src="../Scripts/jquery-1.8.2.min.js"></script>
+    <script src="../Scripts/jquery-ui-1.8.24.js"></script>
+    <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>
+        <script src="../Content/themes/FlyCnBlue/jquery.js"></script>   --%>
+    <script src="../../Scripts/jquery-1.8.2.js"></script>
+    <script src="../../Scripts/jquery-1.8.2.min.js"></script>
+    <script src="../../Scripts/jquery-ui-1.8.24.js"></script>
+    <script src="../../Scripts/jquery-ui-1.8.24.min.js"></script>
+
+              <link href="../themes/base/jquery-ui.css" rel="stylesheet" />
      <style type="text/css">
         .ui-dialog-title {
             padding-left: 15em;
@@ -38,28 +50,21 @@
 
  <script type="text/javascript">
 
-        //function OnClientTabSelecting(sender, eventArgs) {
-        //    var tab = eventArgs.get_tab();
-        //    if (tab.get_value() == '2') {
 
-        //        eventArgs.set_cancel(true);
-        //        OpenNewProjectWizard();
-        //    }
-
-     //}
+   
      $(document).ready(function () {
 
          OpenNewProjectWizard();
 
      });
 
-
+    
 
         function OpenNewProjectWizard() {
             try {
                 $("#modal_dialog").dialog({
 
-                    title: "Project Wizard",
+                    title: "Document Details",
                     width: 780,
                     height: 700,
                     buttons: {}, modal: true
@@ -73,8 +78,8 @@
             }
         }
      </script>
-          <div id="modal_dialog" style="display: none; width: 1000px!important; height: 700px!important; overflow: hidden; overflow-x: hidden;">
-
+          <div id="modal_dialog" style="width: 1000px!important; height: 700px!important; overflow: hidden; overflow-x: hidden;">
+               <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
                    <telerik:RadPageView ID="rpList" runat="server">
                 <div id="divList">
 
@@ -84,8 +89,8 @@
 
                     <telerik:RadGrid ID="dtDocDetailGrid" runat="server" AllowPaging="true" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtDocDetailGrid_NeedDataSource"
                          OnItemCommand="dtDocDetailGrid_ItemCommand"
-                        Skin="Silk" CssClass="outerMultiPage"
-                        OnPreRender="dtgPersonnelGrid_PreRender">
+                        Skin="Silk" CssClass="outerMultiPage" OnPreRender="dtDocDetailGrid_PreRender">
+                    
                           <MasterTableView DataKeyNames="RevisionID,ProjectNo"></MasterTableView>
                     </telerik:RadGrid>
 
@@ -93,7 +98,7 @@
                 </div>
 
             </telerik:RadPageView>
-
+                   </telerik:RadMultiPage>
             </div>
 </asp:Content>
  
