@@ -20,7 +20,7 @@
     <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />
     <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
     <!-----main css--->
-    <!----jquery---->
+    <!----jquery here jquery 1.11.3.min.js in ifrme has been disabled inorder to work dialog popup here---->
      <script src="../Content/themes/FlyCnBlue/js/jquery.js"></script>
      <script src="../Scripts/jquery-1.8.2.js"></script>
      <script src="../Scripts/jquery-1.8.2.min.js"></script>
@@ -119,8 +119,8 @@
 
                                     </telerik:RadGrid>
                                 </div>
-                    </td>
-                </tr>
+                             </td>
+                            </tr>
             </table>
         </div>
         </div>
@@ -134,7 +134,7 @@
             try {
                 $("#modal_dialog").dialog({
 
-                    title: "Project Wizard",
+                    title: "Approval Screen",
                     width: 780,
                     height: 700,
                     buttons: {}, modal: true
