@@ -15,7 +15,7 @@
        <script src="../Scripts/jquery-ui-1.8.24.js"></script>
        <link href="../themes/base/jquery-ui.css" rel="stylesheet" />
 
-     <style type="text/css">
+    <%-- <style type="text/css">
         .ui-dialog-title {
             padding-left: 15em;
             color: white;
@@ -70,8 +70,8 @@
             }
         }
      
-     </script>
-          <div id="modal_dialog" style="width: 1000px!important; height: 700px!important; overflow: hidden; overflow-x: hidden;">
+     </script>--%>
+        <%--  <div id="modal_dialog" style="width: 1000px!important; height: 700px!important; overflow: hidden; overflow-x: hidden;">--%>
            
                 <div id="divList">
                     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
@@ -83,9 +83,9 @@
                     </telerik:RadGrid>
 
 
-                </div>
+      </div>
 
      
-            </div>
+<%--            </div>--%>
 </asp:Content>
  
