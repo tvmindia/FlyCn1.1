@@ -1,8 +1,8 @@
 ﻿ <%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="DocDetails.aspx.cs" Inherits="FlyCn.Content.DocDetailView.DocDetails" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
-<%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-  
+    
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -11,12 +11,10 @@
     <script src="../Scripts/jquery-ui-1.8.24.js"></script>
     <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>
         <script src="../Content/themes/FlyCnBlue/jquery.js"></script>   --%>
-    <script src="../../Scripts/jquery-1.8.2.js"></script>
-    <script src="../../Scripts/jquery-1.8.2.min.js"></script>
-    <script src="../../Scripts/jquery-ui-1.8.24.js"></script>
-    <script src="../../Scripts/jquery-ui-1.8.24.min.js"></script>
+       <script src="../Scripts/jquery-1.8.2.min.js"></script>   
+       <script src="../Scripts/jquery-ui-1.8.24.js"></script>
+       <link href="../themes/base/jquery-ui.css" rel="stylesheet" />
 
-              <link href="../themes/base/jquery-ui.css" rel="stylesheet" />
      <style type="text/css">
         .ui-dialog-title {
             padding-left: 15em;
@@ -48,18 +46,12 @@
         }
         </style>
 
- <script type="text/javascript">
-
-
-   
+ <script type="text/javascript">  
      $(document).ready(function () {
 
          OpenNewProjectWizard();
 
      });
-
-    
-
         function OpenNewProjectWizard() {
             try {
                 $("#modal_dialog").dialog({
@@ -77,16 +69,12 @@
                 alert(X.message);
             }
         }
+     
      </script>
           <div id="modal_dialog" style="width: 1000px!important; height: 700px!important; overflow: hidden; overflow-x: hidden;">
-               <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
-                   <telerik:RadPageView ID="rpList" runat="server">
+           
                 <div id="divList">
-
-
-                    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
-                    </asp:ScriptManager>
-
+                    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                     <telerik:RadGrid ID="dtDocDetailGrid" runat="server" AllowPaging="true" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtDocDetailGrid_NeedDataSource"
                          OnItemCommand="dtDocDetailGrid_ItemCommand"
                         Skin="Silk" CssClass="outerMultiPage" OnPreRender="dtDocDetailGrid_PreRender">
@@ -97,8 +85,7 @@
 
                 </div>
 
-            </telerik:RadPageView>
-                   </telerik:RadMultiPage>
+     
             </div>
 </asp:Content>
  

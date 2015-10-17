@@ -11,7 +11,7 @@ namespace FlyCn.FlyCnDAL
     public class DocDetailList
     {
         ErrorHandling eObj = new ErrorHandling();
-        public DataTable GetDocDetailList(string projectnum,string revid)
+        public DataTable GetDocDetailList(string revid,string type)
         {
             SqlConnection con = null;
             DataTable dt =new DataTable();
@@ -26,11 +26,12 @@ namespace FlyCn.FlyCnDAL
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
-                string SelectQuery = "";
+                string SelectQuery = "GetDocDetailsByProjectNoDocumentTypeRevisionId";
                 SqlCommand cmdSelect = new SqlCommand(SelectQuery, con);
                 cmdSelect.CommandType = CommandType.StoredProcedure;
-                cmdSelect.Parameters.AddWithValue("@projectno", UA.projectNo);
-                cmdSelect.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = revid;
+                cmdSelect.Parameters.AddWithValue("@projectno","C00001");
+                cmdSelect.Parameters.AddWithValue("@RevisionID", revid);
+                cmdSelect.Parameters.AddWithValue("@type", type);
                 da = new SqlDataAdapter(cmdSelect);
                 da.Fill(dt);
 

@@ -13,24 +13,6 @@ namespace FlyCn.Content.DocDetailView {
     public partial class DocDetails {
         
         /// <summary>
-        /// RadMultiPage1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadMultiPage RadMultiPage1;
-        
-        /// <summary>
-        /// rpList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView rpList;
-        
-        /// <summary>
         /// ScriptManager1 control.
         /// </summary>
         /// <remarks>

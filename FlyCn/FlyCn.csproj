@@ -184,7 +184,6 @@
     <Content Include="BOQ\BOQ.aspx" />
     <Content Include="BOQ\BOQDetails.aspx" />
     <Content Include="BOQ\BOQHeader.aspx" />
-    <Content Include="Content\DocDetailView\DocDetails.aspx" />
     <Content Include="Content\FlyCnMain.css" />
     <Content Include="Content\Home.css" />
     <Content Include="Content\Site.css" />
@@ -301,6 +300,7 @@
     <Content Include="Content\themes\FlyCnRider\Common\radActionsSprite.png" />
     <Content Include="Content\themes\FlyCnRider\Splitter.FlyCnRider.css" />
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
+    <Content Include="DocDetailView\DocDetails.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\flycnLogo.png" />
     <Content Include="Images\gladsmall.png" />
@@ -606,19 +606,19 @@
     <Compile Include="BOQ\BOQHeader.aspx.designer.cs">
       <DependentUpon>BOQHeader.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Content\DocDetailView\DocDetails.aspx.cs">
-      <DependentUpon>DocDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Content\DocDetailView\DocDetails.aspx.designer.cs">
-      <DependentUpon>DocDetails.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DocDetailView\DocDetails.aspx.cs">
+      <DependentUpon>DocDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DocDetailView\DocDetails.aspx.designer.cs">
+      <DependentUpon>DocDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="EIL\ConstructionPunchList.aspx.cs">
       <DependentUpon>ConstructionPunchList.aspx</DependentUpon>
