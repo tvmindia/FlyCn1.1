@@ -590,18 +590,21 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BOQ\BOQ.aspx.cs">
       <DependentUpon>BOQ.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BOQ\BOQ.aspx.designer.cs">
       <DependentUpon>BOQ.aspx</DependentUpon>
     </Compile>
     <Compile Include="BOQ\BOQDetails.aspx.cs">
       <DependentUpon>BOQDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BOQ\BOQDetails.aspx.designer.cs">
       <DependentUpon>BOQDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="BOQ\BOQHeader.aspx.cs">
       <DependentUpon>BOQHeader.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BOQ\BOQHeader.aspx.designer.cs">
       <DependentUpon>BOQHeader.aspx</DependentUpon>
@@ -887,7 +890,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:7717/</IISUrl>
+          <IISUrl>http://localhost:40922/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
