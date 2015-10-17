@@ -123,10 +123,12 @@
                             </tr>
             </table>
         </div>
+        <asp:LinkButton ID="lnkbtnDetail" runat="server" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
         </div>
              <div id="modal_dialog" style="display: none; width: 1000px!important; height: 700px!important; overflow: hidden; overflow-x: hidden;">
-                <iframe src="ApprovalScreen.aspx" style="width: 1300px; height: 700px;"></iframe>
+                <iframe src="../DocDetailView/DocDetails.aspx" style="width: 1300px; height: 700px;"></iframe>
              </div>
+
 
 <script type="text/javascript">
 

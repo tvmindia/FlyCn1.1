@@ -74,7 +74,7 @@ namespace FlyCn.Approvels
                 if(e.CommandName=="Action")
                 {
                     //call ifrma approval screen
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenNewProjectWizard", "OpenNewProjectWizard();", true);
+                  
 
                 }
                 if(e.CommandName=="Details")
@@ -90,5 +90,10 @@ namespace FlyCn.Approvels
 
         }
         #endregion dtgPendingApprovalGrid_ItemCommand
+
+        protected void lnkbtnDetail_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenNewProjectWizard", "OpenNewProjectWizard();", true);
+        }
     }
 }
