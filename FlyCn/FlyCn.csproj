@@ -146,6 +146,7 @@
     <Content Include="Activities\ActivityLibrary.aspx" />
     <Content Include="Activities\Main.aspx" />
     <Content Include="Approvels\ApprovalDocument.aspx" />
+    <Content Include="Approvels\ApprovalScreen.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
@@ -534,6 +535,13 @@
     </Compile>
     <Compile Include="Approvels\ApprovalDocument.aspx.designer.cs">
       <DependentUpon>ApprovalDocument.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Approvels\ApprovalScreen.aspx.cs">
+      <DependentUpon>ApprovalScreen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvels\ApprovalScreen.aspx.designer.cs">
+      <DependentUpon>ApprovalScreen.aspx</DependentUpon>
     </Compile>
     <Compile Include="Approvels\CloseDocument.aspx.cs">
       <DependentUpon>CloseDocument.aspx</DependentUpon>
