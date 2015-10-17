@@ -18,13 +18,17 @@
     <!-----main css--->
     <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
     <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />
-   
-    <!-----main css--->
-      <script src="../Scripts/jquery-1.8.2.min.js"></script>
-     <script src="../Scripts/jquery-ui-1.8.24.js"></script>
-   
     <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
-</asp:Content>
+    <!-----main css--->
+    <!----jquery---->
+     <script src="../Content/themes/FlyCnBlue/js/jquery.js"></script>
+     <script src="../Scripts/jquery-1.8.2.js"></script>
+     <script src="../Scripts/jquery-1.8.2.min.js"></script>
+     <script src="../Scripts/jquery-ui-1.8.24.js"></script>
+     <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>
+    <!----jquery---->
+     
+  </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <style type="text/css">
