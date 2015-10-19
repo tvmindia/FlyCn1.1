@@ -48,7 +48,7 @@ using System.Web.UI;
             get;
             set;
         }
-        public string ApprovalDate
+        public DateTime ApprovalDate
         {
             get;
             set;
@@ -153,8 +153,51 @@ using System.Web.UI;
 
         #endregion InsertApprovelMaster
 
+        #region UpdateApprovalMaster
+        public void UpdateApprovalMaster(string Approvalid)
+        {
+            SqlConnection con = null;
+            try
+            {
+                Guid approveid;
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "UpdateApprovalMasterByApprovalId";
+                Guid.TryParse(Approvalid, out approveid);
+                cmd.Parameters.Add("@ApprovalID", SqlDbType.UniqueIdentifier).Value = approveid;
+                cmd.Parameters.Add("@ApprovalStatus", SqlDbType.Int).Value = ApprovalStatus;
+                cmd.Parameters.Add("@ApprovalDate", SqlDbType.SmallDateTime).Value = ApprovalDate;
+                cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = Remarks;
+                cmd.ExecuteNonQuery();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.UpdationSuccessData(page);
+            }
+            catch(Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+              
+            }
+            finally
+            {
+                if (con != null)
+                {
 
-#region GetAllPendingApprovalsByVerifierLevel
+                    con.Dispose();
+
+                }
+
+            }
+
+        }
+        #endregion UpdateApprovalMaster
+
+
+        #region GetAllPendingApprovalsByVerifierLevel
         public DataSet GetAllPendingApprovalsByVerifierLevel(int paramverifierLevel)
         {
             SqlConnection con = null;

@@ -74,8 +74,22 @@ namespace FlyCn.Approvels
                 if(e.CommandName=="Action")
                 {
                     //call ifrma approval screen
-                  
+                    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                    GridDataItem item = e.Item as GridDataItem;
+                    tab.Selected = true;
+                    tab.Text = "Approval";
+                    RadMultiPage1.SelectedIndex = 1;
+                    //changing tab
+                    hiddenFiedldProjectno.Value = item.GetDataKeyValue("ProjectNo").ToString();
+                    hiddenFieldApprovalID.Value = item.GetDataKeyValue("ApprovalID").ToString();
+                    hiddenFieldDocumentID.Value = item.GetDataKeyValue("DocumentID").ToString();
+                    hiddenFieldRevisionID.Value = item.GetDataKeyValue("RevisionID").ToString();
 
+                    lblCreatedDate.Text = item.GetDataKeyValue("CreatedDate").ToString();
+                    lblDocumentNo.Text = item.GetDataKeyValue("DocumentNo").ToString();
+                    
+                    lblCreatedBy.Text = item.GetDataKeyValue("CreatedBy").ToString();
+                                   
                 }
                 if(e.CommandName=="Details")
                 {
@@ -90,7 +104,77 @@ namespace FlyCn.Approvels
 
         }
         #endregion dtgPendingApprovalGrid_ItemCommand
+        #region BtnApproval
+        protected void btnApprove_Click(object sender, EventArgs e)
+        {
+            approvelMaster = new ApprovelMaster();
+           
+            try
+            {
+                string approvid=hiddenFieldApprovalID.Value;
+               
+                approvelMaster.ApprovalStatus = 2;//2 means approved
+                approvelMaster.ApprovalDate = System.DateTime.Now;
+                approvelMaster.Remarks = txtRemarks.Text;
+                approvelMaster.UpdateApprovalMaster(approvid);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
 
+            }
+
+        }
+        #endregion BtnApproval
+        #region BtnDecline
+        protected void btnDecline_Click(object sender, EventArgs e)
+        {
+            approvelMaster = new ApprovelMaster();
+
+            try
+            {
+                string approvid = hiddenFieldApprovalID.Value;
+
+                approvelMaster.ApprovalStatus = 4;//4 means declined
+                approvelMaster.ApprovalDate = System.DateTime.Now;
+                approvelMaster.Remarks = txtRemarks.Text;
+                approvelMaster.UpdateApprovalMaster(approvid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
+        #endregion BtnDecline
+        protected void btnReject_Click(object sender, EventArgs e)
+        {
+            approvelMaster = new ApprovelMaster();
+            try
+            {
+                string approvid = hiddenFieldApprovalID.Value;
+                approvelMaster.ApprovalStatus = 3;//3 means Rejected
+                approvelMaster.ApprovalDate = System.DateTime.Now;
+                approvelMaster.Remarks = txtRemarks.Text;
+                approvelMaster.UpdateApprovalMaster(approvid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
+        #region BtnReject
+        #endregion BtnReject
         protected void lnkbtnDetail_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenNewProjectWizard", "OpenNewProjectWizard();", true);

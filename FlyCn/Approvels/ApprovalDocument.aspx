@@ -1,6 +1,7 @@
 ﻿<%-- Registration  --%>
 <%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="ApprovalDocument.aspx.cs" Inherits="FlyCn.Approvels.ApprovalDocument" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 <%-- Registration  --%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -88,8 +89,8 @@
             CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
 
             <Tabs>
-                <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
-                <telerik:RadTab Text="New" PageViewID="rpApproval" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"></telerik:RadTab>
+                <telerik:RadTab Text="Pending" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
+                <telerik:RadTab Text="Approval" PageViewID="rpApproval" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"></telerik:RadTab>
             </Tabs>
         </telerik:RadTabStrip>
 
@@ -109,7 +110,7 @@
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
                                         </ClientSettings>
-                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="ApprovalID,RevisionID,DocumentID,ProjectNo">
+                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="ApprovalID,RevisionID,DocumentID,ProjectNo,DocumentNo,CreatedDate,CreatedBy">
                                             <Columns>
                                                
                                                 <telerik:GridBoundColumn HeaderText="ApprovalID" DataField="ApprovalID" UniqueName="ApprovalID" Display="false"></telerik:GridBoundColumn>
@@ -138,27 +139,39 @@
 
                            <!--Approval page--->
                             <telerik:RadPageView ID="rpApproval" runat="server">
-                              
-                                <div class="col-md-12 Span-One">
+                                 <uc1:ToolBar runat="server" ID="ToolBar" />
+                                 <div class="col-md-12 Span-One">
                                  <div class="col-md-6">
                                         <div class="form-group">
-                                          <asp:Label ID="lblDocumentNo" runat="server" Text="DocumentNo"></asp:Label>
-                                           
-                                         </div>
-                                       <div class="form-group">
-                                           <asp:Label ID="lblCreatedDate" runat="server" Text="CreatedDate"></asp:Label>
+                                          <asp:Label ID="lblDocumentNo" runat="server" Text=""></asp:Label>
+                                             <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" ClientIDMode="Static"/>
+                                             <asp:HiddenField ID="hiddenFieldDocumentID" runat="server" ClientIDMode="Static"/>
+                                             <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static"/>
+                                             <asp:HiddenField ID="hiddenFieldApprovalID" runat="server" ClientIDMode="Static" />
+                                            </div>
+                                           <div class="col-md-6">
+                                       
+                                           <asp:Label ID="lblCreatedDate" runat="server" Text=""></asp:Label>
                                         </div>
-                                 </div>
-                                                                      
-                                 <div class="col-md-6">
+                                
+                                     </div>                                  
+                                      <div class="col-md-6">
 
                                         <div class="form-group">
-                                          <asp:Label ID="lblCreatedBy" runat="server" Text="CreatedBy"></asp:Label>
-                                        </div>
-                                 </div>
+                                          <asp:Label ID="lblCreatedBy" runat="server" Text=""></asp:Label>
 
+                                
+                                     <div class="col-md-6">
+                                           <asp:TextBox ID="txtRemarks" CssClass="form-control" runat="server" TextMode="MultiLine" MaxLength="250"></asp:TextBox>
+                                     </div>
+                                   </div>
+                                  </div>
                                 <!---SECTION ONE--->
-
+<div class="col-md-6"><!--button div-->
+    <asp:Button ID="btnApprove" runat="server" Text="Approve" OnClick="btnApprove_Click"/>
+    <asp:Button ID="btnDecline" runat="server" Text="Decline" OnClick="btnDecline_Click"/>
+    <asp:Button ID="btnReject" runat="server" Text="Reject" OnClick="btnReject_Click"/>
+</div><!--End of button div-->
                                </div><!--End of col-md-12 span one-->
 
                             </telerik:RadPageView>
@@ -208,7 +221,7 @@
                var tab = tabStrip.findTabByValue("1");
                tab.select();
                var tab1 = tabStrip.findTabByValue("2");
-               tab1.set_text("New");
+               tab1.set_text("Approval");
            }
 
        }
