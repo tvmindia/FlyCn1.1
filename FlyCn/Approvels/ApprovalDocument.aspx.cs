@@ -23,8 +23,15 @@ namespace FlyCn.Approvels
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
+           
             verifierEmail="Albert.thrithvam@gmail.com";
-            dtgPendingApprovalGrid.DataBind();
+            if (!IsPostBack)
+            {
+                dtgPendingApprovalGrid.DataBind();
+              
+
+            }
+          
 
         }
         #endregion Page_Load
@@ -38,6 +45,7 @@ namespace FlyCn.Approvels
                 approvelMaster = new ApprovelMaster();
                 ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(1, verifierEmail);
                 dtgPendingApprovalGrid.DataSource = ds;
+                dtgPendingApprovalGrid.DataBind();
             }
             catch (Exception ex)
             {
@@ -59,6 +67,7 @@ namespace FlyCn.Approvels
                 approvelMaster = new ApprovelMaster();
                 ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(1, verifierEmail);
                 dtgPendingApprovalGrid.DataSource = ds;
+                dtgPendingApprovalGrid.DataBind();
             }
             catch (Exception ex)
             {
@@ -92,7 +101,7 @@ namespace FlyCn.Approvels
                     lblDocumentNo.Text = item.GetDataKeyValue("DocumentNo").ToString();
                     
                     lblCreatedBy.Text = item.GetDataKeyValue("CreatedBy").ToString();
-                                   
+    
                 }
                 if(e.CommandName=="Details")
                 {
@@ -107,6 +116,33 @@ namespace FlyCn.Approvels
 
         }
         #endregion dtgPendingApprovalGrid_ItemCommand
+
+        #region dtgApprovers_NeedDataSource
+        protected void dtgApprovers_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                approvelMaster = new ApprovelMaster();
+                string temprevisionid = hiddenFieldRevisionID.Value;
+                Guid paramrevisionid;
+                Guid.TryParse(temprevisionid, out paramrevisionid);
+                ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(paramrevisionid);
+                dtgApprovers.DataSource = ds;
+                dtgApprovers.DataBind();
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+
+        }
+
+        #endregion dtgApprovers_NeedDataSource
+
+
         #region BtnApproval
         protected void btnApprove_Click(object sender, EventArgs e)
         {
@@ -157,6 +193,7 @@ namespace FlyCn.Approvels
             }
         }
         #endregion BtnDecline
+        #region BtnReject
         protected void btnReject_Click(object sender, EventArgs e)
         {
             approvelMaster = new ApprovelMaster();
@@ -177,7 +214,7 @@ namespace FlyCn.Approvels
                 dtgPendingApprovalGrid.DataBind();
             }
         }
-        #region BtnReject
+       
         #endregion BtnReject
         protected void lnkbtnDetail_Click(object sender, EventArgs e)
         {

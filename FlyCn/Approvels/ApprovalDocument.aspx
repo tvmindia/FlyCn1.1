@@ -78,6 +78,9 @@
             text-align: left;
             width: 200px;
         }
+
+        
+        
     </style>
      <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true"> 
     </asp:ScriptManager>
@@ -172,15 +175,39 @@
     <asp:Button ID="btnDecline" runat="server" Text="Decline" OnClick="btnDecline_Click"/>
     <asp:Button ID="btnReject" runat="server" Text="Reject" OnClick="btnReject_Click"/>
 </div><!--End of button div-->
-                               </div><!--End of col-md-12 span one-->
+          <!--Telerik Radlistbox-->
+                                     <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="50%">
+                                        <HeaderStyle  HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <AlternatingItemStyle HorizontalAlign="Left" />
+                                        <ClientSettings>
+                                            <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
+                                        </ClientSettings>
+                                        <MasterTableView AutoGenerateColumns="False">
+                                            <Columns>
+                                               
+                                                <telerik:GridBoundColumn HeaderText="ApprovalID" DataField="ApprovalID" UniqueName="ApprovalID" Display="false"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="RevisionID" DataField="RevisionID" UniqueName="RevisionID" Display="false"></telerik:GridBoundColumn>
+                                                                                            
+                                                <telerik:GridBoundColumn HeaderText="VerifierLevel" DataField="VerifierLevel" ItemStyle-Width="30%" UniqueName="VerifierLevel"></telerik:GridBoundColumn>
+												<telerik:GridBoundColumn HeaderText="VerifierEmail" DataField="VerifierEmail" ItemStyle-Width="30%" UniqueName="VerifierEmail"></telerik:GridBoundColumn>
+												<telerik:GridBoundColumn HeaderText="StatusDescription" DataField="StatusDescription" ItemStyle-Width="30%" UniqueName="StatusDescription"></telerik:GridBoundColumn>
+                                           </Columns>
+                                        </MasterTableView>
 
-                            </telerik:RadPageView>
-                           <!--End of radApproval page--->
-                        </telerik:RadMultiPage>
-                                
+                                    </telerik:RadGrid>
+         
+             <!--Telerik Radlistbox-->
+
+         </div><!--End of col-md-12 span one-->
+      </telerik:RadPageView>
+        <!--End of radApproval page--->
+    </telerik:RadMultiPage>
+                      
                   </td>
                 </tr>
             </table>
+          
         </div><!--end of div contentTopBar--->
         <asp:LinkButton ID="lnkbtnDetail" runat="server" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
         </div><!--end of div contentTopBar--->

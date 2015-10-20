@@ -235,5 +235,40 @@ using System.Web.UI;
         }
 #endregion GetAllPendingApprovalsByVerifierLevel
 
+        #region GetallapprovalByRevisionid
+
+        public DataSet GetAllPendingApprovalsByVerifierLevel(Guid revisionid)
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("spGetAllApprovelsByRevisionid", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = revisionid;
+                SqlDataAdapter sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Dispose();
+                }
+            }
+            return ds;
+        }
+        #endregion GetallapprovalByRevisionid
+
     }
 }
