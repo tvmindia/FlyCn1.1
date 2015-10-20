@@ -198,7 +198,7 @@ using System.Web.UI;
 
 
         #region GetAllPendingApprovalsByVerifierLevel
-        public DataSet GetAllPendingApprovalsByVerifierLevel(int paramverifierLevel)
+        public DataSet GetAllPendingApprovalsByVerifierLevel(int paramverifierLevel, string paramverifierEmail)
         {
             SqlConnection con = null;
             DataSet ds = null;
@@ -206,9 +206,11 @@ using System.Web.UI;
             {
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
-                SqlCommand cmd = new SqlCommand("GetAllPendingApprovalsByVerifierLevel", con);
+                SqlCommand cmd = new SqlCommand("GetAllPendingApprovalsByVerifierLevelandEmail", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@verifierLevel", SqlDbType.Int).Value = paramverifierLevel;
+                cmd.Parameters.Add("@verifierEmail", SqlDbType.NVarChar,50).Value = paramverifierEmail;
+
                 SqlDataAdapter sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();

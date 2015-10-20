@@ -17,11 +17,14 @@ namespace FlyCn.Approvels
         ErrorHandling eObj = new ErrorHandling();
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
+        string verifierEmail=null;
         ApprovelMaster approvelMaster;
         #endregion Global Variables
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
+            verifierEmail="Albert.thrithvam@gmail.com";
+            dtgPendingApprovalGrid.DataBind();
 
         }
         #endregion Page_Load
@@ -33,7 +36,7 @@ namespace FlyCn.Approvels
             {
                 DataSet ds = new DataSet();
                 approvelMaster = new ApprovelMaster();
-                ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(1);
+                ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(1, verifierEmail);
                 dtgPendingApprovalGrid.DataSource = ds;
             }
             catch (Exception ex)
@@ -54,7 +57,7 @@ namespace FlyCn.Approvels
             {
                 DataSet ds = new DataSet();
                 approvelMaster = new ApprovelMaster();
-                ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(1);
+                ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(1, verifierEmail);
                 dtgPendingApprovalGrid.DataSource = ds;
             }
             catch (Exception ex)
@@ -113,7 +116,7 @@ namespace FlyCn.Approvels
             {
                 string approvid=hiddenFieldApprovalID.Value;
                
-                approvelMaster.ApprovalStatus = 2;//2 means approved
+                approvelMaster.ApprovalStatus = 4;//4 means approved
                 approvelMaster.ApprovalDate = System.DateTime.Now;
                 approvelMaster.Remarks = txtRemarks.Text;
                 approvelMaster.UpdateApprovalMaster(approvid);
@@ -124,6 +127,7 @@ namespace FlyCn.Approvels
             }
             finally
             {
+                dtgPendingApprovalGrid.DataBind();
 
             }
 
@@ -138,7 +142,7 @@ namespace FlyCn.Approvels
             {
                 string approvid = hiddenFieldApprovalID.Value;
 
-                approvelMaster.ApprovalStatus = 4;//4 means declined
+                approvelMaster.ApprovalStatus = 2;//2 means declined
                 approvelMaster.ApprovalDate = System.DateTime.Now;
                 approvelMaster.Remarks = txtRemarks.Text;
                 approvelMaster.UpdateApprovalMaster(approvid);
@@ -149,7 +153,7 @@ namespace FlyCn.Approvels
             }
             finally
             {
-
+                dtgPendingApprovalGrid.DataBind();
             }
         }
         #endregion BtnDecline
@@ -170,7 +174,7 @@ namespace FlyCn.Approvels
             }
             finally
             {
-
+                dtgPendingApprovalGrid.DataBind();
             }
         }
         #region BtnReject
