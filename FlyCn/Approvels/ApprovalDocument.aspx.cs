@@ -23,11 +23,11 @@ namespace FlyCn.Approvels
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
-           
-            verifierEmail="Albert.thrithvam@gmail.com";
+
+            verifierEmail = "albert.thomson@thrithvam.ae";
             if (!IsPostBack)
             {
-                dtgPendingApprovalGrid.DataBind();
+                dtgPendingApprovalGrid.Rebind();
               
 
             }
@@ -45,7 +45,7 @@ namespace FlyCn.Approvels
                 approvelMaster = new ApprovelMaster();
                 ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(1, verifierEmail);
                 dtgPendingApprovalGrid.DataSource = ds;
-                dtgPendingApprovalGrid.DataBind();
+               
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace FlyCn.Approvels
                 approvelMaster = new ApprovelMaster();
                 ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(1, verifierEmail);
                 dtgPendingApprovalGrid.DataSource = ds;
-                dtgPendingApprovalGrid.DataBind();
+               
             }
             catch (Exception ex)
             {
@@ -96,12 +96,10 @@ namespace FlyCn.Approvels
                     hiddenFieldApprovalID.Value = item.GetDataKeyValue("ApprovalID").ToString();
                     hiddenFieldDocumentID.Value = item.GetDataKeyValue("DocumentID").ToString();
                     hiddenFieldRevisionID.Value = item.GetDataKeyValue("RevisionID").ToString();
-
                     lblCreatedDate.Text = item.GetDataKeyValue("CreatedDate").ToString();
                     lblDocumentNo.Text = item.GetDataKeyValue("DocumentNo").ToString();
-                    
                     lblCreatedBy.Text = item.GetDataKeyValue("CreatedBy").ToString();
-    
+                    dtgApprovers.Rebind();
                 }
                 if(e.CommandName=="Details")
                 {
@@ -127,9 +125,12 @@ namespace FlyCn.Approvels
                 string temprevisionid = hiddenFieldRevisionID.Value;
                 Guid paramrevisionid;
                 Guid.TryParse(temprevisionid, out paramrevisionid);
-                ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(paramrevisionid);
-                dtgApprovers.DataSource = ds;
-                dtgApprovers.DataBind();
+                if (paramrevisionid!=Guid.Empty)
+                {
+                    ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(paramrevisionid);
+                    dtgApprovers.DataSource = ds;
+                }
+               
             }
             catch (Exception ex)
             {
@@ -141,6 +142,32 @@ namespace FlyCn.Approvels
         }
 
         #endregion dtgApprovers_NeedDataSource
+
+        #region dtgApprovers_PreRender
+        protected void dtgApprovers_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                approvelMaster = new ApprovelMaster();
+                string temprevisionid = hiddenFieldRevisionID.Value;
+                Guid paramrevisionid;
+                Guid.TryParse(temprevisionid, out paramrevisionid);
+                if (paramrevisionid != Guid.Empty)
+                {
+                    ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(paramrevisionid);
+                    dtgApprovers.DataSource = ds;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+        }
+        #endregion dtgApprovers_PreRender
 
 
         #region BtnApproval
@@ -172,46 +199,54 @@ namespace FlyCn.Approvels
         #region BtnDecline
         protected void btnDecline_Click(object sender, EventArgs e)
         {
-            approvelMaster = new ApprovelMaster();
+            if (txtRemarks.Text != "")
+            {
+                approvelMaster = new ApprovelMaster();
 
-            try
-            {
-                string approvid = hiddenFieldApprovalID.Value;
+                try
+                {
+                    string approvid = hiddenFieldApprovalID.Value;
 
-                approvelMaster.ApprovalStatus = 2;//2 means declined
-                approvelMaster.ApprovalDate = System.DateTime.Now;
-                approvelMaster.Remarks = txtRemarks.Text;
-                approvelMaster.UpdateApprovalMaster(approvid);
+                    approvelMaster.ApprovalStatus = 2;//2 means declined
+                    approvelMaster.ApprovalDate = System.DateTime.Now;
+                    approvelMaster.Remarks = txtRemarks.Text;
+                    approvelMaster.UpdateApprovalMaster(approvid);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                finally
+                {
+                    dtgPendingApprovalGrid.DataBind();
+                }
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                dtgPendingApprovalGrid.DataBind();
-            }
+            
         }
         #endregion BtnDecline
         #region BtnReject
         protected void btnReject_Click(object sender, EventArgs e)
         {
-            approvelMaster = new ApprovelMaster();
-            try
+            if (txtRemarks.Text != "")
             {
-                string approvid = hiddenFieldApprovalID.Value;
-                approvelMaster.ApprovalStatus = 3;//3 means Rejected
-                approvelMaster.ApprovalDate = System.DateTime.Now;
-                approvelMaster.Remarks = txtRemarks.Text;
-                approvelMaster.UpdateApprovalMaster(approvid);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                dtgPendingApprovalGrid.DataBind();
+                approvelMaster = new ApprovelMaster();
+                try
+                {
+                    string approvid = hiddenFieldApprovalID.Value;
+                    approvelMaster.ApprovalStatus = 3;//3 means Rejected
+                    approvelMaster.ApprovalDate = System.DateTime.Now;
+                    approvelMaster.Remarks = txtRemarks.Text;
+                    approvelMaster.UpdateApprovalMaster(approvid);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    dtgPendingApprovalGrid.DataBind();
+                }
             }
         }
        

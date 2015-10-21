@@ -166,22 +166,25 @@
                                 
                                      <div class="col-md-6">
                                            <asp:TextBox ID="txtRemarks" CssClass="form-control" runat="server" TextMode="MultiLine" MaxLength="250"></asp:TextBox>
+                                         <asp:Label ID="lblValidationMsg" runat="server" Text=""></asp:Label>
+                                      
                                      </div>
                                    </div>
                                   </div>
                                 <!---SECTION ONE--->
 <div class="col-md-6"><!--button div-->
     <asp:Button ID="btnApprove" runat="server" Text="Approve" OnClick="btnApprove_Click"/>
-    <asp:Button ID="btnDecline" runat="server" Text="Decline" OnClick="btnDecline_Click"/>
-    <asp:Button ID="btnReject" runat="server" Text="Reject" OnClick="btnReject_Click"/>
+    <asp:Button ID="btnDecline" runat="server" Text="Decline" OnClick="btnDecline_Click" OnClientClick="return validateText()"/>
+    <asp:Button ID="btnReject" runat="server" Text="Reject" OnClick="btnReject_Click" OnClientClick="return validateText()"/>
 </div><!--End of button div-->
-          <!--Telerik Radlistbox-->
-                                     <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="50%">
+                       <!--Telerik Radlistbox-->
+                           <div class="col-md-6">
+                                     <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="50%" OnNeedDataSource="dtgApprovers_NeedDataSource">
                                         <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
-                                        <AlternatingItemStyle HorizontalAlign="Left" />
+                                        <AlternatingItemStyle HorizontalAlign="Left"/>
                                         <ClientSettings>
-                                            <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
+                                            <Selecting AllowRowSelect="true" EnableDragToSelectRows="false"/>
                                         </ClientSettings>
                                         <MasterTableView AutoGenerateColumns="False">
                                             <Columns>
@@ -196,8 +199,8 @@
                                         </MasterTableView>
 
                                     </telerik:RadGrid>
-         
-             <!--Telerik Radlistbox-->
+                                  </div>
+                     <!--Telerik Radlistbox-->
 
          </div><!--End of col-md-12 span one-->
       </telerik:RadPageView>
@@ -252,6 +255,17 @@
            }
 
        }
+    function validateText()
+    {
+       
+        var Remarks = document.getElementById('<%=txtRemarks.ClientID %>').value;
+        if(Remarks == "")
+        {
+            document.getElementById('<%= lblValidationMsg.ClientID %>').innerHTML = 'Plese Fill the Remarks...!';
+            return false;
+        }
+          
+    }
 </script>
                             
 </asp:Content>
