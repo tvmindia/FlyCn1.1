@@ -53,6 +53,11 @@ using System.Web.UI;
             get;
             set;
         }
+        public string Approvaldate
+        {
+            get;
+            set;
+        }
      
         public string Remarks
         {
@@ -123,9 +128,9 @@ using System.Web.UI;
                 {
                     cmd.Parameters.AddWithValue("@ApprovalStatus", ApprovalStatus);
                 }
-                if (ApprovalDate != null)
+                if (Approvaldate != null)
                 {
-                    cmd.Parameters.AddWithValue("@ApprovalDate", ApprovalDate);
+                    cmd.Parameters.AddWithValue("@ApprovalDate", Approvaldate);
                 }
                 if (Remarks != null)
                 {
@@ -269,6 +274,27 @@ using System.Web.UI;
             return ds;
         }
         #endregion GetallapprovalByRevisionid
+
+
+        public DataTable GetVarifierDetailsById(int level,string varifierId)
+        {
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetVarifierEmailByLevel", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@VarifierLevel", level);
+            cmd.Parameters.AddWithValue("@VerifierID", varifierId);
+           
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            datatableobj = new DataTable();
+            adapter.Fill(datatableobj);
+            con.Close();
+            return datatableobj;
+        }
+
 
     }
 }
