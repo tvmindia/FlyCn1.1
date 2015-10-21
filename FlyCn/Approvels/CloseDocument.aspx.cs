@@ -23,49 +23,18 @@ namespace FlyCn.Approvels
             _RevisionID = Request.QueryString["RevisionID"];
             _DocumentID = Request.QueryString["DocumentID"];
             _DocumentType = Request.QueryString["DocumentType"];
-            //Uri myUri = new Uri(_id1, UriKind.RelativeOrAbsolute);
-            //string param1 = HttpUtility.ParseQueryString(myUri.Query).Get("DocumentID");
-            ////string param1 = HttpUtility.ParseQueryString(_id1.Query).Get("param1");
-            ////txtEmpCode.Text = _id1;
-            ////hdfRevisionId.Value = _id1;
-            //lblrevisionid.Text = _RevisionID;
+          
             string caption = "Select Your Varifiers :)";
             caption = caption.Replace(":)", "<img src='/Images/smile_1.png' alt='Happy!' />");
             lblrevisionid.Text = caption;
-            //lblrevisionid.Text = Emoticon.Format("Some text with a smiley :-) emoticon.");
+         
             PlaceLabels();
 
-            //HtmlSelect myDdl = (HtmlSelect)FindControl("selecttools1");
-            //string ddl = Request.Form["Level1"].ToString();
-            //string day = Request.Form["Level1"];
-            //string sCorrectVal = .Value;
-            //string correct = Request.Form.Get("Level1");
-            //HtmlControl myDdlw = (HtmlControl)Placeholder.findcontrol("selecttools");
-            HtmlControl lbls = (HtmlControl)Placeholder.FindControl("selecttools");
-            Control table = (HtmlControl)FindControl("selecttools");
-            Control c = Page.FindControl("selecttools");
-            //          HtmlControl Label1 = (HtmlControl)Master.FindControl("selecttools");
-            //          HtmlControl contentPanel1 = (HtmlControl)Master.FindControl("IframeContent");
-            //          HtmlSelect l = contentPanel1.FindControl("selecttools") as HtmlSelect;
-            //          HtmlSelect TB =
-            //Master.FindControl("ContentPlaceHolder1").FindControl("select-tools2") as
-            //HtmlSelect;
+          
+      
         }
 
-        protected override void OnPreRender(EventArgs e)
-        {
 
-            selecttools1.ClientIDMode = ClientIDMode.Static;
-            selecttools2.ClientIDMode = ClientIDMode.Static;
-            selecttools3.ClientIDMode = ClientIDMode.Static;
-            selecttools4.ClientIDMode = ClientIDMode.Static;
-            selecttools5.ClientIDMode = ClientIDMode.Static;
-            selecttools6.ClientIDMode = ClientIDMode.Static;
-            selecttools7.ClientIDMode = ClientIDMode.Static;
-            selecttools8.ClientIDMode = ClientIDMode.Static;
-            selecttools9.ClientIDMode = ClientIDMode.Static;
-            selecttools10.ClientIDMode = ClientIDMode.Static;
-        }
 
         public void PlaceLabels()
         {
@@ -73,61 +42,59 @@ namespace FlyCn.Approvels
             DataTable ApprovelLeveldt = new DataTable();
             ApprovelLeveldt = ApprovelMasterobj.getDataFromApprovelLevel();
             int totalrows = ApprovelLeveldt.Rows.Count;
+            string DivLevels = "";
             for (int i = 0; i < totalrows; i++)
             {
                 Label lbl = (Label)Placeholder.FindControl("lbl" + ApprovelLeveldt.Rows[i]["LevelDescription"]);
                 lbl.Text = ApprovelLeveldt.Rows[i]["LevelDescription"].ToString();
-                HtmlSelect myDdl = (HtmlSelect)FindControl("selecttools");
-                HtmlControl ctrl = (HtmlControl)this.FindControl("selecttools");
-                System.Web.UI.HtmlControls.HtmlGenericControl div1 = (System.Web.UI.HtmlControls.HtmlGenericControl)this.FindControl("selecttools");
+
+                DivLevels = DivLevels + "selecttools" + ApprovelLeveldt.Rows[i]["Level"] + ",";
+               
                 FillSelectBoxData();
                 if (lbl.Text == "Level1")
                 {
-                    selecttools1.Visible = true;
-                    chkLevel1.Visible = true;
+                    divLevel1.Visible = true;
                 }
                 if (lbl.Text == "Level2")
                 {
-                    selecttools2.Visible = true;
-                    chkLevel2.Visible = true;
+
+                    divLevel2.Visible = true;
                 }
                 if (lbl.Text == "Level3")
                 {
-                    selecttools3.Visible = true;
-                    chkLevel3.Visible = true;
+                    divLevel3.Visible = true;
                 }
                 if (lbl.Text == "Level4")
                 {
-                    selecttools4.Visible = true;
-                    chkLevel4.Visible = true;
+                    divLevel4.Visible = true;
                 }
                 if (lbl.Text == "Level5")
                 {
-                    selecttools5.Visible = true;
-                    chkLevel5.Visible = true;
+                    divLevel5.Visible = true;
                 }
                 if (lbl.Text == "Level6")
                 {
-                    selecttools6.Visible = true;
-                    chkLevel6.Visible = true;
+                    divLevel6.Visible = true;
                 }
                 if (lbl.Text == "Level7")
                 {
-                    selecttools7.Visible = true;
-                    chkLevel7.Visible = true;
+                    divLevel7.Visible = true;
                 }
                 if (lbl.Text == "Level8")
                 {
-                    selecttools8.Visible = true;
-                    chkLevel8.Visible = true;
+                    divLevel8.Visible = true;
                 }
                 if (lbl.Text == "Level9")
                 {
-                    selecttools9.Visible = true;
-                    chkLevel9.Visible = true;
+                    divLevel9.Visible = true;
+                }
+                if (lbl.Text == "Level10")
+                {
+                    divLevel10.Visible = true;
                 }
             }
 
+            hdfDivLevels.Value = DivLevels.TrimEnd(',');
         }
         public void FillSelectBoxData()
         {
@@ -135,279 +102,340 @@ namespace FlyCn.Approvels
             string projectNo = UA.projectNo;
             //int varifierLevel =0;
             ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
-            DataTable Varifierdt = new DataTable();
-            Varifierdt = ApprovelMasterobj.getDataFromVarifierMaster(1, documentType, projectNo);
-            selecttools1.DataSource = Varifierdt;
-            selecttools1.DataTextField = "VerifierEmail";
-            selecttools1.DataValueField = "VerifierID";
-            selecttools1.DataBind();
+
+            DataTable VarifierdtLevel1 = new DataTable();
+            VarifierdtLevel1 = ApprovelMasterobj.getDataFromVarifierMaster(1, documentType, projectNo);
+            string FieldValueLevel1 = "";
+            int totalrowsLevel1 = VarifierdtLevel1.Rows.Count;
+            for (int j = 0; j < totalrowsLevel1; j++)
+            {
+                FieldValueLevel1 = FieldValueLevel1 + VarifierdtLevel1.Rows[j]["VerifierID"] + "=" + VarifierdtLevel1.Rows[j]["VerifierEmail"] + "||";
+            }
+            hdfSelectBox1.Value = FieldValueLevel1;
             //selecttools1.Items.Insert(0, "Select"); 
 
             DataTable VarifierdtLevel2 = new DataTable();
             VarifierdtLevel2 = ApprovelMasterobj.getDataFromVarifierMaster(2, documentType, projectNo);
-
-            selecttools2.DataSource = VarifierdtLevel2;
-            selecttools2.DataTextField = "VerifierEmail";
-            selecttools2.DataValueField = "VerifierID";
-            selecttools2.DataBind();
-
+            string FieldValueLevel2 = "";
+            int totalrowsLevel2 = VarifierdtLevel2.Rows.Count;
+            for (int j = 0; j < totalrowsLevel2; j++)
+            {
+                FieldValueLevel2 = FieldValueLevel2 + VarifierdtLevel2.Rows[j]["VerifierID"] + "=" + VarifierdtLevel2.Rows[j]["VerifierEmail"] + "||";
+            }
+            hdfSelectBox2.Value = FieldValueLevel2;
             DataTable VarifierdtLevel3 = new DataTable();
             VarifierdtLevel3 = ApprovelMasterobj.getDataFromVarifierMaster(3, documentType, projectNo);
-            selecttools3.DataSource = VarifierdtLevel2;
-            selecttools3.DataTextField = "VerifierEmail";
-            selecttools3.DataValueField = "VerifierID";
-            selecttools3.DataBind();
+            string FieldValueLevel3 = "";
+            int totalrowsLevel3 = VarifierdtLevel3.Rows.Count;
+            for (int j = 0; j < totalrowsLevel3; j++)
+            {
+                FieldValueLevel3 = FieldValueLevel3 + VarifierdtLevel3.Rows[j]["VerifierID"] + "=" + VarifierdtLevel3.Rows[j]["VerifierEmail"] + "||";
+            }
+            hdfSelectBox3.Value = FieldValueLevel3;
             DataTable VarifierdtLevel4 = new DataTable();
             VarifierdtLevel4 = ApprovelMasterobj.getDataFromVarifierMaster(4, documentType, projectNo);
-            selecttools4.DataSource = VarifierdtLevel4;
-            selecttools4.DataTextField = "VerifierEmail";
-            selecttools4.DataValueField = "VerifierID";
-            selecttools4.DataBind();
-
+            string FieldValueLevel4 = "";
+            int totalrowsLevel4 = VarifierdtLevel4.Rows.Count;
+            for (int j = 0; j < totalrowsLevel4; j++)
+            {
+                FieldValueLevel4 = FieldValueLevel4 + VarifierdtLevel4.Rows[j]["VerifierID"] + "=" + VarifierdtLevel4.Rows[j]["VerifierEmail"] + "||";
+            }
+            hdfSelectBox4.Value = FieldValueLevel4;
             DataTable VarifierdtLevel5 = new DataTable();
             VarifierdtLevel5 = ApprovelMasterobj.getDataFromVarifierMaster(5, documentType, projectNo);
-            selecttools5.DataSource = VarifierdtLevel5;
-            selecttools5.DataTextField = "VerifierEmail";
-            selecttools5.DataValueField = "VerifierID";
-            selecttools5.DataBind();
+            string FieldValueLevel5 = "";
+            int totalrowsLevel5 = VarifierdtLevel5.Rows.Count;
+            for (int j = 0; j < totalrowsLevel5; j++)
+            {
+                FieldValueLevel5 = FieldValueLevel5 + VarifierdtLevel5.Rows[j]["VerifierID"] + "=" + VarifierdtLevel5.Rows[j]["VerifierEmail"] + "||";
+            }
+            hdfSelectBox5.Value = FieldValueLevel5;
 
             DataTable VarifierdtLevel6 = new DataTable();
             VarifierdtLevel6 = ApprovelMasterobj.getDataFromVarifierMaster(6, documentType, projectNo);
-            selecttools6.DataSource = VarifierdtLevel6;
-            selecttools6.DataTextField = "VerifierEmail";
-            selecttools6.DataValueField = "VerifierID";
-            selecttools6.DataBind();
+            string FieldValueLevel6 = "";
+            int totalrowsLevel6 = VarifierdtLevel6.Rows.Count;
+            for (int j = 0; j < totalrowsLevel6; j++)
+            {
+                FieldValueLevel6 = FieldValueLevel6 + VarifierdtLevel6.Rows[j]["VerifierID"] + "=" + VarifierdtLevel6.Rows[j]["VerifierEmail"] + "||";
+            }
+            hdfSelectBox6.Value = FieldValueLevel6;
 
             DataTable VarifierdtLevel7 = new DataTable();
             VarifierdtLevel7 = ApprovelMasterobj.getDataFromVarifierMaster(7, documentType, projectNo);
-            selecttools7.DataSource = VarifierdtLevel7;
-            selecttools7.DataTextField = "VerifierEmail";
-            selecttools7.DataValueField = "VerifierID";
-            selecttools7.DataBind();
+            string FieldValueLevel7 = "";
+            int totalrowsLevel7 = VarifierdtLevel7.Rows.Count;
+            for (int j = 0; j < totalrowsLevel7; j++)
+            {
+                FieldValueLevel7 = FieldValueLevel7 + VarifierdtLevel7.Rows[j]["VerifierID"] + "=" + VarifierdtLevel7.Rows[j]["VerifierEmail"] + "||";
+            }
+            hdfSelectBox7.Value = FieldValueLevel7;
 
             DataTable VarifierdtLevel8 = new DataTable();
             VarifierdtLevel8 = ApprovelMasterobj.getDataFromVarifierMaster(8, documentType, projectNo);
-            selecttools8.DataSource = VarifierdtLevel8;
-            selecttools8.DataTextField = "VerifierEmail";
-            selecttools8.DataValueField = "VerifierID";
-            selecttools8.DataBind();
+            string FieldValueLevel8 = "";
+            int totalrowsLevel8 = VarifierdtLevel8.Rows.Count;
+            for (int j = 0; j < totalrowsLevel8; j++)
+            {
+                FieldValueLevel8 = FieldValueLevel8 + VarifierdtLevel8.Rows[j]["VerifierID"] + "=" + VarifierdtLevel8.Rows[j]["VerifierEmail"] + "||";
+            }
+            hdfSelectBox8.Value = FieldValueLevel8;
 
             DataTable VarifierdtLevel9 = new DataTable();
             VarifierdtLevel9 = ApprovelMasterobj.getDataFromVarifierMaster(9, documentType, projectNo);
-            selecttools9.DataSource = VarifierdtLevel9;
-            selecttools9.DataTextField = "VerifierEmail";
-            selecttools9.DataValueField = "VerifierID";
-            selecttools9.DataBind();
+            string FieldValueLevel9 = "";
+            int totalrowsLevel9 = VarifierdtLevel9.Rows.Count;
+            for (int j = 0; j < totalrowsLevel9; j++)
+            {
+                FieldValueLevel9 = FieldValueLevel9 + VarifierdtLevel9.Rows[j]["VerifierID"] + "=" + VarifierdtLevel9.Rows[j]["VerifierEmail"] + "||";
+            }
+            hdfSelectBox9.Value = FieldValueLevel9;
+
+            DataTable VarifierdtLevel10 = new DataTable();
+            VarifierdtLevel10 = ApprovelMasterobj.getDataFromVarifierMaster(10, documentType, projectNo);
+            string FieldValueLevel10 = "";
+            int totalrowsLevel10 = VarifierdtLevel10.Rows.Count;
+            for (int j = 0; j < totalrowsLevel10; j++)
+            {
+                FieldValueLevel10 = FieldValueLevel10 + VarifierdtLevel10.Rows[j]["VerifierID"] + "=" + VarifierdtLevel10.Rows[j]["VerifierEmail"] + "||";
+            }
+            hdfSelectBox10.Value = FieldValueLevel10;
         }
         protected void btnCloseDocument_Click(object sender, EventArgs e)
         {
             string level1Idf = (Request.Form["selecttools1"]);
             ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
-            string level1="";
+            string level1 = "";
             //string JJ = selecttools1.SelectedIndex.ToString();
-            string selection = Request.Form["Level1"];
-            //foreach (ListItem Items in selecttools1.Items)
-            //{
-            //   
-            //    //level1 = level1 + selecttools1.Value + ",";
-            //    if (Items.Selected)
-            //    {
-            //        level1 = selecttools1.Value;
-            //        if (chkLevel1.Checked == true)
-            //        {
-            //            isLevelManadatory = Convert.ToByte(true);
-            //            InsertOperation(level1, 1, isLevelManadatory);
-
-            //        }
-            //    }
-
-            //}
+            string selection = Request.Form["Level2"];
             byte isLevelManadatory = 0;
-            //for (int i = 0; i <= selecttools1.Items.Count - 1; i++)
-            //{
-
-            //    if (selecttools1.Items[i].Selected)
-            //        level1+=  selecttools1.Items[i].Text;
-
-            //}
-
-            //for (int i = 0; i < selecttools1.Items.Count; i++)
-            //{
-
-            //    if (selecttools1.Items[i].Selected != null)
-            //    {
-            //        string query = selecttools1.Items[i].Value;
-            //        level1 = query;
-            //        if (chkLevel1.Checked == true)
-            //        {
-            //            isLevelManadatory = Convert.ToByte(true);
 
 
-            //        }
-            //        InsertOperation(level1, 1, isLevelManadatory);
-            //    }
-            //}
-            //string name = "";
-            //for (int i = 0; i < selecttools1.Items.Count; i++)
-            //{
-            //    if (selecttools1.Items[i].Selected)
-            //    {
-            //        name += selecttools1.Items[i].Text + ",";
-            //    }
-            //}
-            //string smndsa = name;
-            string s = selecttools1.Multiple.ToString();
-            string ghgh = selecttools1.Value;
+            string level1IdData;
+            string level1Id;
 
-            string level2Id;
-            foreach (ListItem item in selecttools2.Items)
+            level1IdData = Request.Form["Level1"];
+            if (level1IdData != null)
             {
-
-                if (chkLevel2.Checked == true)
+                List<string> level1List = level1IdData.Split(',').ToList<string>();
+                foreach (var item in level1List)
                 {
-                    isLevelManadatory = Convert.ToByte(true);
-                }
+                    level1Id = item;
+                    if (chkLevel1.Checked == true)
+                    {
+                        isLevelManadatory = Convert.ToByte(true);
+                    }
+                    InsertOperation(level1Id, 1, isLevelManadatory);
 
-                level2Id = selecttools2.Value;
-                InsertOperation(level2Id, 2, isLevelManadatory);
+                }
 
             }
-            string level3Id;
-            foreach (ListItem item in selecttools3.Items)
+
+            string level2Id;
+            string level2IdData;
+            level2IdData = Request.Form["Level2"];
+            if (level2IdData != null)
             {
-
-
-                if (chkLevel3.Checked == true)
+                List<string> level2List = level2IdData.Split(',').ToList<string>();
+                foreach (var item in level2List)
                 {
-                    isLevelManadatory = Convert.ToByte(true);
+                    level2Id = item;
+                    if (chkLevel2.Checked == true)
+                    {
+                        isLevelManadatory = Convert.ToByte(true);
+                    }
+                    InsertOperation(level2Id, 2, isLevelManadatory);
+
                 }
 
-                level3Id = selecttools3.Value;
-                InsertOperation(level3Id, 3, isLevelManadatory);
+            }
+
+
+
+            string level3Id;
+            string level3IdData;
+            level3IdData = Request.Form["Level3"];
+            if (level3IdData != null)
+            {
+                List<string> level3List = level3IdData.Split(',').ToList<string>();
+                foreach (var item in level3List)
+                {
+                    level3Id = item;
+                    if (chkLevel3.Checked == true)
+                    {
+                        isLevelManadatory = Convert.ToByte(true);
+                    }
+                    InsertOperation(level3Id, 3, isLevelManadatory);
+
+
+                }
 
             }
 
             string level4Id;
-            foreach (ListItem item in selecttools4.Items)
+            string level4IdData;
+            level4IdData = Request.Form["Level4"];
+            if (level4IdData != null)
             {
-
-
-                if (chkLevel4.Checked == true)
+                List<string> level4List = level4IdData.Split(',').ToList<string>();
+                foreach (var item in level4List)
                 {
-                    isLevelManadatory = Convert.ToByte(true);
+                    level4Id = item;
+                    if (chkLevel4.Checked == true)
+                    {
+                        isLevelManadatory = Convert.ToByte(true);
+                    }
+                    InsertOperation(level4Id, 4, isLevelManadatory);
+
+
                 }
 
-
-                level4Id = selecttools4.Value;
-                InsertOperation(level4Id, 4, isLevelManadatory);
-
             }
+
+
             string level5Id;
-            foreach (ListItem item in selecttools5.Items)
+            string level5IdData;
+            level5IdData = Request.Form["Level5"];
+            if (level5IdData != null)
             {
-
-                if (chkLevel5.Checked == true)
+                List<string> level5List = level5IdData.Split(',').ToList<string>();
+                foreach (var item in level5List)
                 {
-                    isLevelManadatory = Convert.ToByte(true);
+                    level5Id = item;
+                    if (chkLevel5.Checked == true)
+                    {
+                        isLevelManadatory = Convert.ToByte(true);
+                    }
+                    InsertOperation(level5Id, 5, isLevelManadatory);
+
+
                 }
 
-                level5Id = selecttools5.Value;
-                InsertOperation(level5Id, 5, isLevelManadatory);
-
             }
+
 
             string level6Id;
-            foreach (ListItem item in selecttools6.Items)
+
+            string level6IdData;
+            level6IdData = Request.Form["Level6"];
+            if (level6IdData != null)
             {
-
-
-                if (chkLevel6.Checked == true)
+                List<string> level6List = level6IdData.Split(',').ToList<string>();
+                foreach (var item in level6List)
                 {
-                    isLevelManadatory = Convert.ToByte(true);
-                }
+                    level6Id = item;
+                    if (chkLevel6.Checked == true)
+                    {
+                        isLevelManadatory = Convert.ToByte(true);
+                    }
+                    InsertOperation(level6Id, 6, isLevelManadatory);
 
-                level6Id = selecttools6.Value;
-                InsertOperation(level6Id, 6, isLevelManadatory);
+                }
 
             }
-
             string level7Id;
-            foreach (ListItem item in selecttools7.Items)
+            string level7IdData;
+            level7IdData = Request.Form["Level7"];
+            if (level7IdData != null)
             {
-
-
-                if (chkLevel7.Checked == true)
+                List<string> level7List = level7IdData.Split(',').ToList<string>();
+                foreach (var item in level7List)
                 {
-                    isLevelManadatory = Convert.ToByte(true);
+                    level7Id = item;
+                    if (chkLevel7.Checked == true)
+                    {
+                        isLevelManadatory = Convert.ToByte(true);
+                    }
+                    InsertOperation(level7Id, 7, isLevelManadatory);
+
+
                 }
-                level7Id = selecttools7.Value;
-                InsertOperation(level7Id, 7, isLevelManadatory);
 
             }
 
             string level8Id;
-            foreach (ListItem item in selecttools8.Items)
+            string level8IdData;
+            level8IdData = Request.Form["Level8"];
+            if (level8IdData != null)
             {
-
-
-
-                if (chkLevel8.Checked == true)
+                List<string> level8List = level8IdData.Split(',').ToList<string>();
+                foreach (var item in level8List)
                 {
-                    isLevelManadatory = Convert.ToByte(true);
+                    level8Id = item;
+                    if (chkLevel8.Checked == true)
+                    {
+                        isLevelManadatory = Convert.ToByte(true);
+                    }
+                    InsertOperation(level8Id, 8, isLevelManadatory);
+
+
                 }
-                level8Id = selecttools8.Value;
-                InsertOperation(level8Id, 8, isLevelManadatory);
 
             }
 
             string level9Id;
-            foreach (ListItem item in selecttools9.Items)
+            string level9IdData;
+            level9IdData = Request.Form["Level9"];
+            if (level9IdData != null)
             {
-
-
-                if (chkLevel9.Checked == true)
+                List<string> level9List = level9IdData.Split(',').ToList<string>();
+                foreach (var item in level9List)
                 {
-                    isLevelManadatory = Convert.ToByte(true);
-                }
+                    level9Id = item;
+                    if (chkLevel9.Checked == true)
+                    {
+                        isLevelManadatory = Convert.ToByte(true);
+                    }
+                    InsertOperation(level9Id, 9, isLevelManadatory);
 
-                level9Id = selecttools9.Value;
-                InsertOperation(level9Id, 9, isLevelManadatory);
+
+                }
 
             }
 
             string level10Id;
-            foreach (ListItem item in selecttools10.Items)
+            string level10IdData;
+            level10IdData = Request.Form["Level10"];
+            if (level10IdData != null)
             {
-
-
-                if (chkLevel10.Checked == true)
+                List<string> level10List = level10IdData.Split(',').ToList<string>();
+                foreach (var item in level10List)
                 {
-                    isLevelManadatory = Convert.ToByte(true);
+                    level10Id = item;
+                    if (chkLevel10.Checked == true)
+                    {
+                        isLevelManadatory = Convert.ToByte(true);
+                    }
+                    InsertOperation(level10Id, 10, isLevelManadatory);
+
+
                 }
-                level10Id = selecttools10.Value;
-                InsertOperation(level10Id, 10, isLevelManadatory);
 
             }
-
-            FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
-            MailSendingobj.SendingMail();
-
         }
-        public void InsertOperation(string level1Id, int Level, byte isLevelManadatory)
+        public void InsertOperation(string levelId, int Level, byte isLevelManadatory)
         {
             ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
-
+            //FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
             string documentType = _DocumentType;
             string projectNo = UA.projectNo;
             System.Guid guid = System.Guid.NewGuid();
             ApprovelMasterobj.ApprovalID = guid.ToString();
             ApprovelMasterobj.DocumentID = _DocumentID;
             ApprovelMasterobj.RevisionID = _RevisionID;
-            ApprovelMasterobj.VerifierID = level1Id;
+            ApprovelMasterobj.VerifierID = levelId;
             ApprovelMasterobj.VerifierLevel = Level;
             ApprovelMasterobj.CreatedBy = UA.userName;
             ApprovelMasterobj.IsLevelManadatory = isLevelManadatory;
+            //MailSendingobj.MsgFrom = "";
+            //MailSendingobj.MsgTo = "";
+            //MailSendingobj.Password = "";
             ApprovelMasterobj.InsertApprovelMaster();
+            //if (Level == 1 )
+            //{
+            //    MailSendingobj.SendingMail(_DocumentType, _DocumentID);
+
+            //}
         }
     }
 }
