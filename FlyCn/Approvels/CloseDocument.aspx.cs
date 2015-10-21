@@ -8,6 +8,7 @@ using FlyCn.FlyCnDAL;
 using System.Data;
 using System.Web.UI.HtmlControls;
 using System.Net.Mail;
+using System.Threading;
 namespace FlyCn.Approvels
 {
     public partial class CloseDocument : System.Web.UI.Page
@@ -15,6 +16,8 @@ namespace FlyCn.Approvels
         string _RevisionID;
         string _DocumentID;
         string _DocumentType;
+        string _DocumentNo;
+        int count = 0;
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
         protected void Page_Load(object sender, EventArgs e)
@@ -23,9 +26,10 @@ namespace FlyCn.Approvels
             _RevisionID = Request.QueryString["RevisionID"];
             _DocumentID = Request.QueryString["DocumentID"];
             _DocumentType = Request.QueryString["DocumentType"];
-          
-            string caption = "Select Your Varifiers :)";
-            caption = caption.Replace(":)", "<img src='/Images/smile_1.png' alt='Happy!' />");
+            _DocumentNo = Request.QueryString["DocumentNo"];
+            //string caption = "Select Your Varifiers :)";
+            string caption = "Select Your Varifiers ";
+            //caption = caption.Replace(":)", "<img src='/Images/smile_1.png' alt='Happy!' />");
             lblrevisionid.Text = caption;
          
             PlaceLabels();
@@ -416,7 +420,7 @@ namespace FlyCn.Approvels
         public void InsertOperation(string levelId, int Level, byte isLevelManadatory)
         {
             ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
-            //FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
+      
             string documentType = _DocumentType;
             string projectNo = UA.projectNo;
             System.Guid guid = System.Guid.NewGuid();
@@ -426,16 +430,42 @@ namespace FlyCn.Approvels
             ApprovelMasterobj.VerifierID = levelId;
             ApprovelMasterobj.VerifierLevel = Level;
             ApprovelMasterobj.CreatedBy = UA.userName;
+            ApprovelMasterobj.ApprovalStatus = 1;
             ApprovelMasterobj.IsLevelManadatory = isLevelManadatory;
-            //MailSendingobj.MsgFrom = "";
-            //MailSendingobj.MsgTo = "";
-            //MailSendingobj.Password = "";
+          
             ApprovelMasterobj.InsertApprovelMaster();
-            //if (Level == 1 )
-            //{
-            //    MailSendingobj.SendingMail(_DocumentType, _DocumentID);
 
-            //}
+            if(count==0)
+            { 
+            if (Level == 1 && levelId!="")
+            {
+              //ThreadStart childthreat = new ThreadStart((MailSendingOperation(Level, levelId));
+                
+                new Thread(delegate () {
+   MailSendingOperation(Level, levelId);
+}).Start();
+                if (isLevelManadatory !=Convert.ToByte(true))
+                {
+                    count++;
+                   
+                }
+              
+            }
+            }
+
         }
+
+        public void MailSendingOperation(int Level, string levelId)
+        {
+            ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
+            FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
+            DataTable dtobj = new DataTable();
+            dtobj = ApprovelMasterobj.GetVarifierDetailsById( Level,  levelId);
+            MailSendingobj.MsgFrom = "";
+            MailSendingobj.MsgTo = dtobj.Rows[0]["VerifierEmail"].ToString();
+            MailSendingobj.Password = "";
+            MailSendingobj.SendingMail(_DocumentType, _DocumentNo, MailSendingobj.MsgTo);
+        }
+
     }
 }

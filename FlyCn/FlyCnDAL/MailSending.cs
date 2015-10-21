@@ -29,12 +29,12 @@ namespace FlyCn.FlyCnDAL
         }
 
         #region SendingMail
-       
-        public void SendingMail(string DocumentType,string DocumentID)
+
+        public void SendingMail(string DocumentType, string _DocumentNo, string MssgTo)
         {
             try
             {
-                if (MsgTo == ""||MsgFrom==""||Password=="")
+                if (MssgTo == "")
                 {
                     MailMessage Msg = new MailMessage();
                     // Sender e-mail address.
@@ -42,7 +42,7 @@ namespace FlyCn.FlyCnDAL
                     // Recipient e-mail address.
                     Msg.To.Add("info.thrithvam2@gmail.com");
                     Msg.Subject = "Document  For  Approvel";
-                    Msg.Body = "Please approve document " + DocumentType+"and document number is"+ DocumentID;
+                    Msg.Body = "Please approve " + DocumentType + "document" + _DocumentNo;
                     Msg.IsBodyHtml = true;
                     // your remote SMTP server IP.
                     SmtpClient smtp = new SmtpClient();
@@ -57,17 +57,17 @@ namespace FlyCn.FlyCnDAL
                 {
                     MailMessage Msg = new MailMessage();
                     // Sender e-mail address.
-                    Msg.From = new MailAddress(MsgFrom);
+                    Msg.From = new MailAddress("info.thrithvam@gmail.com");
                     // Recipient e-mail address.
-                    Msg.To.Add(MsgTo);
+                    Msg.To.Add(MssgTo);
                     Msg.Subject = "Document  For  Approvel";
-                    Msg.Body = "Please approve document " + DocumentType + "and document number is" + DocumentID;
+                    Msg.Body = "Please approve " + DocumentType + "document" + _DocumentNo;
                     Msg.IsBodyHtml = true;
                     // your remote SMTP server IP.
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host = "smtp.gmail.com";
                     smtp.Port = 587;
-                    smtp.Credentials = new System.Net.NetworkCredential(MsgFrom, Password);
+                    smtp.Credentials = new System.Net.NetworkCredential("info.thrithvam", "thrithvam@2015");
                     smtp.EnableSsl = true;
                     smtp.Send(Msg);
                     Msg = null;

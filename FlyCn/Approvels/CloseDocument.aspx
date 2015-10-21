@@ -13,9 +13,11 @@
             vertical-align:central;
              text-align:right;
              color:red;
+             padding-right:2em;
         }
     </style>
-
+  
+  <%--  <script src="../Scripts/jquery-1.11.3.min.js" type="text/javascript"></script>--%>
     <script>
         function CloseDoc()
         {
@@ -35,10 +37,10 @@
                 }
                 else if(s[k] == s[s.length - 1])     
                 {
-                    //document.getElementById('lblrevisionid').innerHTML = "Please Select Atleast One Varifier";
+                    document.getElementById('<%=lblerrordisplay.ClientID %>').innerHTML = "Please Select Atleast One Varifier";
                     //break;
-                   alert("Please Select Atleast One Varifier");
-                
+                   //alert("Please Select Atleast One Varifier");
+                   return false;
                 }
             }
         }
@@ -103,41 +105,7 @@
     </script>
     
   
-    <%--<script>
-        function CloseDoc()
-        {
-           
-          
-            var selecttools3 = document.getElementById("selecttools3");
-            var selecttools4 = document.getElementById("selecttools4");
-            var selecttools5 = document.getElementById("selecttools5");
-            var selecttools6 = document.getElementById("selecttools6");
-            var selecttools7 = document.getElementById("selecttools7");
-            var selecttools8 = document.getElementById("selecttools8");
-            var selecttools9 = document.getElementById("selecttools9");
-            var selecttools10 = document.getElementById("selecttools10");
-            divlevel1 = CloseDocDiv1();
-            function CloseDocDiv1() {
-                 selecttools1 = document.getElementById("selecttools1");
-                 if (selecttools1.value) {
-                     alert(1);
-                    // value is set to a valid option, so submit form
-                    return true;
-                }
-                return false;
-            }
-                divlevel2 = CloseDocDiv2();
-                function CloseDocDiv1() {
-                   selecttools2 = document.getElementById("selecttools2");
-                    if (selecttools2.value) {
-                        // value is set to a valid option, so submit form
-                        return true;
-                    }
-                }   return false;
-            }
-
    
-    </script>--%>
 
     <script>
         function getOptionsLevel3() {
@@ -386,9 +354,9 @@
                     <asp:Label ID="lblLevel1" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group"> 
-                            <select id="selecttools1"   name="Level1" >
+                            <select id="selecttools1"   name="Level1"  >
 
-                                <option value="0"   selected="selected"></option>
+                                <option value="0" ></option>
                       
                             </select>
                         </div>
@@ -704,7 +672,7 @@
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
             <asp:Button ID="btnCloseDocument" runat="server" Text="CloseDocument" BackColor="#009999"
-                 ForeColor="#000099" Width="263px" Height="36px"  OnClientClick="CloseDoc();"  OnClick="btnCloseDocument_Click"  />
+                 ForeColor="#000099" Width="263px" Height="36px"  OnClientClick="return CloseDoc();"  OnClick="btnCloseDocument_Click"  />
 
         </div>
 

@@ -104,7 +104,7 @@
                                             <asp:Label ID="lblDocumentno" CssClass="control-label col-md-3" runat="server" Text="Document No"></asp:Label>
                                             <div class="col-md-9">
 
-                                                <asp:TextBox ID="txtDocumentno" Enabled="false" runat="server" CssClass="form-control" BackColor="Gray"></asp:TextBox>
+                                                <asp:TextBox ID="txtDocumentno" Enabled="false" runat="server" CssClass="form-control" BackColor="Gray" ClientIDMode="Static"></asp:TextBox>
                                                 <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" ClientIDMode="Static"/>
                                                 <asp:HiddenField ID="hiddenFieldDocumentID" runat="server" ClientIDMode="Static"/>
                                                 <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static"/>
@@ -180,7 +180,7 @@
                                 <div class="col-md-12">
                                       <div class="col-md-6">
                                         <div class="form-group">
-                                            <asp:Label ID="lblDocumentStatus" CssClass="control-label col-md-3" runat="server" BackColor="Pink" Font-Size="Large" Font-Bold="true"></asp:Label>
+                                            <asp:Label ID="lblDocumentStatus" CssClass="control-label col-md-3" runat="server" BackColor="Pink" Font-Size="Large" Font-Bold="true"  ClientIDMode="Static"></asp:Label>
                                         </div>
                                       </div>
                               </div>
