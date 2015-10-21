@@ -48,7 +48,7 @@ using System.Web.UI;
             get;
             set;
         }
-        public string ApprovalDate
+        public DateTime ApprovalDate
         {
             get;
             set;
@@ -152,6 +152,123 @@ using System.Web.UI;
         }
 
         #endregion InsertApprovelMaster
+
+        #region UpdateApprovalMaster
+        public void UpdateApprovalMaster(string Approvalid)
+        {
+            SqlConnection con = null;
+            try
+            {
+                Guid approveid;
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "UpdateApprovalMasterByApprovalId";
+                Guid.TryParse(Approvalid, out approveid);
+                cmd.Parameters.Add("@ApprovalID", SqlDbType.UniqueIdentifier).Value = approveid;
+                cmd.Parameters.Add("@ApprovalStatus", SqlDbType.Int).Value = ApprovalStatus;
+                cmd.Parameters.Add("@ApprovalDate", SqlDbType.SmallDateTime).Value = ApprovalDate;
+                cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = Remarks;
+                cmd.ExecuteNonQuery();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.UpdationSuccessData(page);
+            }
+            catch(Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+              
+            }
+            finally
+            {
+                if (con != null)
+                {
+
+                    con.Dispose();
+
+                }
+
+            }
+
+        }
+        #endregion UpdateApprovalMaster
+
+
+        #region GetAllPendingApprovalsByVerifierLevel
+        public DataSet GetAllPendingApprovalsByVerifierLevel(int paramverifierLevel, string paramverifierEmail)
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("GetAllPendingApprovalsByVerifierLevelandEmail", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@verifierLevel", SqlDbType.Int).Value = paramverifierLevel;
+                cmd.Parameters.Add("@verifierEmail", SqlDbType.NVarChar,50).Value = paramverifierEmail;
+
+                SqlDataAdapter sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch(Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if(con!=null)
+                {
+                    
+                    con.Dispose();
+                    
+                }
+            }
+            return ds;
+        }
+#endregion GetAllPendingApprovalsByVerifierLevel
+
+        #region GetallapprovalByRevisionid
+
+        public DataSet GetAllPendingApprovalsByVerifierLevel(Guid revisionid)
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("spGetAllApprovelsByRevisionid", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = revisionid;
+                SqlDataAdapter sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Dispose();
+                }
+            }
+            return ds;
+        }
+        #endregion GetallapprovalByRevisionid
 
     }
 }

@@ -146,6 +146,7 @@
     <Content Include="Activities\ActivityLibrary.aspx" />
     <Content Include="Activities\Main.aspx" />
     <Content Include="Approvels\ApprovalDocument.aspx" />
+    <Content Include="Approvels\ApprovalScreen.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
@@ -183,7 +184,6 @@
     <Content Include="BOQ\BOQ.aspx" />
     <Content Include="BOQ\BOQDetails.aspx" />
     <Content Include="BOQ\BOQHeader.aspx" />
-    <Content Include="Content\DocDetailView\DocDetails.aspx" />
     <Content Include="Content\FlyCnMain.css" />
     <Content Include="Content\Home.css" />
     <Content Include="Content\Site.css" />
@@ -300,6 +300,7 @@
     <Content Include="Content\themes\FlyCnRider\Common\radActionsSprite.png" />
     <Content Include="Content\themes\FlyCnRider\Splitter.FlyCnRider.css" />
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
+    <Content Include="DocDetailView\DocDetails.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\flycnLogo.png" />
     <Content Include="Images\gladsmall.png" />
@@ -535,6 +536,13 @@
     <Compile Include="Approvels\ApprovalDocument.aspx.designer.cs">
       <DependentUpon>ApprovalDocument.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Approvels\ApprovalScreen.aspx.cs">
+      <DependentUpon>ApprovalScreen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvels\ApprovalScreen.aspx.designer.cs">
+      <DependentUpon>ApprovalScreen.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Approvels\CloseDocument.aspx.cs">
       <DependentUpon>CloseDocument.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -582,28 +590,24 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BOQ\BOQ.aspx.cs">
       <DependentUpon>BOQ.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BOQ\BOQ.aspx.designer.cs">
       <DependentUpon>BOQ.aspx</DependentUpon>
     </Compile>
     <Compile Include="BOQ\BOQDetails.aspx.cs">
       <DependentUpon>BOQDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BOQ\BOQDetails.aspx.designer.cs">
       <DependentUpon>BOQDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="BOQ\BOQHeader.aspx.cs">
       <DependentUpon>BOQHeader.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BOQ\BOQHeader.aspx.designer.cs">
       <DependentUpon>BOQHeader.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Content\DocDetailView\DocDetails.aspx.cs">
-      <DependentUpon>DocDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Content\DocDetailView\DocDetails.aspx.designer.cs">
-      <DependentUpon>DocDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -611,6 +615,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DocDetailView\DocDetails.aspx.cs">
+      <DependentUpon>DocDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DocDetailView\DocDetails.aspx.designer.cs">
+      <DependentUpon>DocDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="EIL\ConstructionPunchList.aspx.cs">
       <DependentUpon>ConstructionPunchList.aspx</DependentUpon>
@@ -635,6 +646,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FlyCnDAL\dbConnection.cs" />
+    <Compile Include="FlyCnDAL\DocDetailList.cs" />
     <Compile Include="FlyCnDAL\DocumentMaster.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
@@ -878,7 +890,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:7717/</IISUrl>
+          <IISUrl>http://localhost:40922/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
