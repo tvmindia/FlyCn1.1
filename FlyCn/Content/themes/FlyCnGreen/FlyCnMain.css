@@ -488,3 +488,15 @@ transition: .25s ease;
     color:red;
     text-align:left;
 }
+
+.seperator {
+    text-align:center;
+     width: 100%;
+}
+
+.seperatorLine {
+    width: 100%;
+    border-bottom-color: #F2F2F2;
+    border-bottom-style: inset;
+    border-bottom-width: thin;
+}

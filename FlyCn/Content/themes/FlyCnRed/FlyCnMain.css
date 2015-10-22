@@ -526,3 +526,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     color:red;
     text-align:left;
 }
+
+.seperator {
+    text-align:center;
+      width: 100%;
+}
+
+.seperatorLine {
+    width: 100%;
+    border-bottom-color: #F2F2F2;
+    border-bottom-style: inset;
+    border-bottom-width: thin;
+}
