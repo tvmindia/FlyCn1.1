@@ -6,7 +6,7 @@
 .RadTabStrip_FlyCnRed_Rad {
     color: #757575;
     font: normal 13px/22px Arial,Helvetica,sans-serif;
-    line-height: 26px;
+    
 }
 
     .RadTabStrip_FlyCnRed_Rad .rtsGhostTab {
@@ -50,7 +50,7 @@
         }
 
     .RadTabStrip_FlyCnRed_Rad .rtsLevel1 {
-        font-size: 15px;
+        font-size: 12px;
     }
 
         .RadTabStrip_FlyCnRed_Rad .rtsLevel1 .rtsLink {
