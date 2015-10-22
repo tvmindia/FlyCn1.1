@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Input</title>
-    <!-----bootstrap css--->
+   <%-- <!-----bootstrap css--->
     <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
     <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
     <!-----bootstrap css--->
@@ -22,7 +22,7 @@
     <!-----main css--->
     <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
     <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />
-     <script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>
+     <script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>--%>
 
     <!-----main css--->
 </asp:Content>
@@ -101,8 +101,8 @@
 
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblDocumentno" CssClass="control-label col-md-3" runat="server" Text="Document No"></asp:Label>
-                                            <div class="col-md-9">
+                                            <asp:Label ID="lblDocumentno" CssClass="control-label col-md-5" runat="server" Text="Document No"></asp:Label>
+                                            <div class="col-md-7">
 
                                                 <asp:TextBox ID="txtDocumentno" Enabled="false" runat="server" CssClass="form-control" BackColor="Gray" ClientIDMode="Static"></asp:TextBox>
                                                 <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" ClientIDMode="Static"/>
@@ -117,8 +117,8 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                                            <asp:Label ID="lblClientdocumentnot" CssClass="control-label col-md-3" runat="server" Text="Client Document No*"></asp:Label>
-                                            <div class="col-md-9">
+                                            <asp:Label ID="lblClientdocumentnot" CssClass="control-label col-md-5" runat="server" Text="Client Document No*"></asp:Label>
+                                            <div class="col-md-7">
                                                 <asp:TextBox ID="txtClientdocumentno" CssClass="form-control" runat="server" MaxLength="50"></asp:TextBox>
                                             </div>
                                         </div>
@@ -130,8 +130,8 @@
                                
                                     <div class="col-md-6">
                                      <div class="form-group">
-                                        <asp:Label ID="lblRevisionno" CssClass="control-label col-md-3" runat="server" Text="Revision No*"></asp:Label>
-                                           <div class="col-md-9">
+                                        <asp:Label ID="lblRevisionno" CssClass="control-label col-md-5" runat="server" Text="Revision No*"></asp:Label>
+                                           <div class="col-md-7">
                                                <asp:TextBox ID="txtRevisionno" CssClass="form-control" runat="server" MaxLength="10"></asp:TextBox>
                                            </div>
                                         </div>
@@ -142,22 +142,22 @@
 
                                         <div class="form-group">
 
-                                          <asp:Label ID="lblDocumentdate" CssClass="control-label col-md-3" runat="server" Text="Document Date*"></asp:Label>
-                                          <div class="col-md-9">
+                                          <asp:Label ID="lblDocumentdate" CssClass="control-label col-md-5" runat="server" Text="Document Date*"></asp:Label>
+                                          <div class="col-md-7">
                                             <!----------->                                               
-                                           <div id="datepicker" class="input-group date" data-date-format="dd-M-yyyy">
-                                           <input class="form-control" id="txtdatepicker" type="text" runat="server" readonly="readonly"/>
-                                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> </div>
+                                           <div id="datepicker" class="input-group date " data-date-format="dd-M-yyyy">
+                                           <input   id="txtdatepicker" class="form-control"  type="text" runat="server" readonly="readonly"/>
+                                           <span class="input-group-addon dateicon"  ><i class="glyphicon glyphicon-calendar"></i></span> </div>
                                             <!----------->
-                                        </div>
+                                          </div>
                                         </div>
                                        </div>
                                     <div class="col-md-6">
 
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblDocumenttitle" CssClass="control-label col-md-3" runat="server" Text="Document Title*"></asp:Label>
-                                            <div class="col-md-9">
+                                            <asp:Label ID="lblDocumenttitle" CssClass="control-label col-md-5" runat="server" Text="Document Title*"></asp:Label>
+                                            <div class="col-md-7">
                                                 <asp:TextBox ID="txtDocumenttitle" CssClass="form-control" runat="server" MaxLength="250"></asp:TextBox>
                                             </div>
                                         </div>
@@ -168,8 +168,8 @@
                                         <div class="form-group">
 
 
-                                            <asp:Label ID="lblRemarks" CssClass="control-label col-md-3" runat="server" Text="Remarks*"></asp:Label>
-                                            <div class="col-md-9">
+                                            <asp:Label ID="lblRemarks" CssClass="control-label col-md-5" runat="server" Text="Remarks*"></asp:Label>
+                                            <div class="col-md-7">
                                                 <asp:TextBox ID="txtRemarks" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                         </div>
@@ -180,7 +180,7 @@
                                 <div class="col-md-12">
                                       <div class="col-md-6">
                                         <div class="form-group">
-                                            <asp:Label ID="lblDocumentStatus" CssClass="control-label col-md-3" runat="server" BackColor="Pink" Font-Size="Large" Font-Bold="true"  ClientIDMode="Static"></asp:Label>
+                                            <asp:Label ID="lblDocumentStatus" CssClass="control-label col-md-5" runat="server" BackColor="Pink" Font-Size="Large" Font-Bold="true"  ClientIDMode="Static"></asp:Label>
                                         </div>
                                       </div>
                               </div>
