@@ -97,6 +97,7 @@
                             <telerik:RadPageView ID="rpAddEdit" runat="server">
                                 <uc1:ToolBar runat="server" ID="ToolBar" />
                                 <div class="col-md-12 Span-One">
+                                  
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -104,7 +105,7 @@
                                             <asp:Label ID="lblDocumentno" CssClass="control-label col-md-5" runat="server" Text="Document No"></asp:Label>
                                             <div class="col-md-7">
 
-                                                <asp:TextBox ID="txtDocumentno" Enabled="false" runat="server" CssClass="form-control" BackColor="Gray" ClientIDMode="Static"></asp:TextBox>
+                                                <asp:TextBox ID="txtDocumentno" Enabled="false" runat="server" CssClass="form-control AutoGenTextbox"  ClientIDMode="Static"></asp:TextBox>
                                                 <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" ClientIDMode="Static"/>
                                                 <asp:HiddenField ID="hiddenFieldDocumentID" runat="server" ClientIDMode="Static"/>
                                                 <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static"/>
@@ -117,9 +118,10 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                                            <asp:Label ID="lblClientdocumentnot" CssClass="control-label col-md-5" runat="server" Text="Client Document No*"></asp:Label>
+                                            <asp:Label ID="lblClientdocumentnot" CssClass="control-label col-md-5" runat="server" Text="Client Document No"></asp:Label>   
                                             <div class="col-md-7">
                                                 <asp:TextBox ID="txtClientdocumentno" CssClass="form-control" runat="server" MaxLength="50"></asp:TextBox>
+                                              
                                             </div>
                                         </div>
                                     </div>
@@ -129,20 +131,21 @@
                                 <!---SECTION TWO--->
                                
                                     <div class="col-md-6">
-                                     <div class="form-group">
-                                        <asp:Label ID="lblRevisionno" CssClass="control-label col-md-5" runat="server" Text="Revision No*"></asp:Label>
+                                     <div class="form-group required">
+                                        <asp:Label ID="lblRevisionno" CssClass="control-label col-md-5" runat="server" Text="Revision No"></asp:Label> 
                                            <div class="col-md-7">
                                                <asp:TextBox ID="txtRevisionno" CssClass="form-control" runat="server" MaxLength="10"></asp:TextBox>
                                            </div>
+                                         
                                         </div>
                                      </div>
                                   
 
                                     <div class="col-md-6">
 
-                                        <div class="form-group">
+                                        <div class="form-group required">
 
-                                          <asp:Label ID="lblDocumentdate" CssClass="control-label col-md-5" runat="server" Text="Document Date*"></asp:Label>
+                                          <asp:Label ID="lblDocumentdate" CssClass="control-label col-md-5" runat="server" Text="Document Date"></asp:Label> 
                                           <div class="col-md-7">
                                             <!----------->                                               
                                            <div id="datepicker" class="input-group date " data-date-format="dd-M-yyyy">
@@ -154,9 +157,9 @@
                                        </div>
                                     <div class="col-md-6">
 
-                                        <div class="form-group">
+                                        <div class="form-group required">
 
-                                            <asp:Label ID="lblDocumenttitle" CssClass="control-label col-md-5" runat="server" Text="Document Title*"></asp:Label>
+                                            <asp:Label ID="lblDocumenttitle" CssClass="control-label col-md-5" runat="server" Text="Document Title"></asp:Label> 
                                             <div class="col-md-7">
                                                 <asp:TextBox ID="txtDocumenttitle" CssClass="form-control" runat="server" MaxLength="250"></asp:TextBox>
                                             </div>
@@ -165,26 +168,32 @@
 
                                     <div class="col-md-6">
 
-                                        <div class="form-group">
+                                        <div class="form-group required">
 
 
-                                            <asp:Label ID="lblRemarks" CssClass="control-label col-md-5" runat="server" Text="Remarks*"></asp:Label>
+                                            <asp:Label ID="lblRemarks" CssClass="control-label col-md-5" runat="server" Text="Remarks"></asp:Label> 
                                             <div class="col-md-7">
                                                 <asp:TextBox ID="txtRemarks" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                         </div>
 
                                     </div>
+                                   
+                                    
                                 </div>
                               
                                 <div class="col-md-12">
+                                     <div class="col-md-6">&nbsp;</div>
+                                     <div class="col-md-6">&nbsp;</div>
+                                      <div class="col-md-6"></div>
                                       <div class="col-md-6">
-                                        <div class="form-group">
-                                            <asp:Label ID="lblDocumentStatus" CssClass="control-label col-md-5" runat="server" BackColor="Pink" Font-Size="Large" Font-Bold="true"  ClientIDMode="Static"></asp:Label>
-                                        </div>
-                                      </div>
-                              </div>
-                                   <div class="col-md-12">
+                                         <div class="col-md-5"></div>
+                                         <div class="col-md-7">
+                                             <asp:Label ID="lblDocumentStatus" CssClass="DocStatusLabel" runat="server"    ClientIDMode="Static"></asp:Label>
+                                         </div>
+
+                                    </div>
+                               
                                    
                                      <div class="content white">
                                        <div class="accordion-container">

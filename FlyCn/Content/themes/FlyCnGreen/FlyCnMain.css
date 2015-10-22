@@ -466,3 +466,25 @@ transition: .25s ease;
     background-image: url('../Images/bg3.jpg');
 
 }
+
+
+
+.DocStatusLabel {
+    color: #003366;
+    text-decoration: underline;
+    text-transform: capitalize;
+    font-size: 12px;
+    padding: 0px 0px 10px 0px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.AutoGenTextbox {
+    background-color:gray;
+    color:white;
+}
+
+.mandatory {
+    color:red;
+    text-align:left;
+}
