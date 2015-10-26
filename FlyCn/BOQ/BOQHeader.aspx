@@ -10,21 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Input</title>
-    <!-----bootstrap css--->
-    <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
-    <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
-    <!-----bootstrap css--->
-    <link href="../Content/themes/FlyCnBlue/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../Content/themes/FlyCnBlue/css/stylesheet.css" rel="stylesheet" />
-
-    <link href="../Content/themes/FlyCnBlue/css/selectize.css" rel="stylesheet" type="text/css" />
-    <link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
-    <!-----main css--->
-    <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />
-     <script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>
-
-    <!-----main css--->
+    
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -34,12 +20,12 @@
     <div class="container" style="width: 100%">
         <!-----FORM SECTION---->
         <!-----SECTION TABLE---->
-        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
+        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="200px" OnClientTabSelected="onClientTabSelected"
             CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
 
             <Tabs>
-                <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
-                <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"></telerik:RadTab>
+                <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="100px" Height="25px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
+                <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="100px"  Height="25px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"></telerik:RadTab>
             </Tabs>
         </telerik:RadTabStrip>
         <div id="content">
@@ -97,14 +83,15 @@
                             <telerik:RadPageView ID="rpAddEdit" runat="server">
                                 <uc1:ToolBar runat="server" ID="ToolBar" />
                                 <div class="col-md-12 Span-One">
+                                  
                                     <div class="col-md-6">
 
                                         <div class="form-group">
 
-                                            <asp:Label ID="lblDocumentno" CssClass="control-label col-md-3" runat="server" Text="Document No"></asp:Label>
-                                            <div class="col-md-9">
+                                            <asp:Label ID="lblDocumentno" CssClass="control-label col-md-5" runat="server" Text="Document No"></asp:Label>
+                                            <div class="col-md-7">
 
-                                                <asp:TextBox ID="txtDocumentno" Enabled="false" runat="server" CssClass="form-control" BackColor="Gray"></asp:TextBox>
+                                                <asp:TextBox ID="txtDocumentno" Enabled="false" runat="server" CssClass="form-control AutoGenTextbox"  ClientIDMode="Static"></asp:TextBox>
                                                 <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" ClientIDMode="Static"/>
                                                 <asp:HiddenField ID="hiddenFieldDocumentID" runat="server" ClientIDMode="Static"/>
                                                 <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static"/>
@@ -117,9 +104,10 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                                            <asp:Label ID="lblClientdocumentnot" CssClass="control-label col-md-3" runat="server" Text="Client Document No*"></asp:Label>
-                                            <div class="col-md-9">
+                                            <asp:Label ID="lblClientdocumentnot" CssClass="control-label col-md-5" runat="server" Text="Client Document No"></asp:Label>   
+                                            <div class="col-md-7">
                                                 <asp:TextBox ID="txtClientdocumentno" CssClass="form-control" runat="server" MaxLength="50"></asp:TextBox>
+                                              
                                             </div>
                                         </div>
                                     </div>
@@ -129,35 +117,36 @@
                                 <!---SECTION TWO--->
                                
                                     <div class="col-md-6">
-                                     <div class="form-group">
-                                        <asp:Label ID="lblRevisionno" CssClass="control-label col-md-3" runat="server" Text="Revision No*"></asp:Label>
-                                           <div class="col-md-9">
+                                     <div class="form-group required">
+                                        <asp:Label ID="lblRevisionno" CssClass="control-label col-md-5" runat="server" Text="Revision No"></asp:Label> 
+                                           <div class="col-md-7">
                                                <asp:TextBox ID="txtRevisionno" CssClass="form-control" runat="server" MaxLength="10"></asp:TextBox>
                                            </div>
+                                         
                                         </div>
                                      </div>
                                   
 
                                     <div class="col-md-6">
 
-                                        <div class="form-group">
+                                        <div class="form-group required">
 
-                                          <asp:Label ID="lblDocumentdate" CssClass="control-label col-md-3" runat="server" Text="Document Date*"></asp:Label>
-                                          <div class="col-md-9">
+                                          <asp:Label ID="lblDocumentdate" CssClass="control-label col-md-5" runat="server" Text="Document Date"></asp:Label> 
+                                          <div class="col-md-7">
                                             <!----------->                                               
-                                           <div id="datepicker" class="input-group date" data-date-format="dd-M-yyyy">
-                                           <input class="form-control" id="txtdatepicker" type="text" runat="server" readonly="readonly"/>
-                                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> </div>
+                                           <div id="datepicker" class="input-group date " data-date-format="dd-M-yyyy">
+                                           <input   id="txtdatepicker" class="form-control"  type="text" runat="server" readonly="readonly"/>
+                                           <span class="input-group-addon dateicon"  ><i class="glyphicon glyphicon-calendar"></i></span> </div>
                                             <!----------->
-                                        </div>
+                                          </div>
                                         </div>
                                        </div>
                                     <div class="col-md-6">
 
-                                        <div class="form-group">
+                                        <div class="form-group required">
 
-                                            <asp:Label ID="lblDocumenttitle" CssClass="control-label col-md-3" runat="server" Text="Document Title*"></asp:Label>
-                                            <div class="col-md-9">
+                                            <asp:Label ID="lblDocumenttitle" CssClass="control-label col-md-5" runat="server" Text="Document Title"></asp:Label> 
+                                            <div class="col-md-7">
                                                 <asp:TextBox ID="txtDocumenttitle" CssClass="form-control" runat="server" MaxLength="250"></asp:TextBox>
                                             </div>
                                         </div>
@@ -165,26 +154,32 @@
 
                                     <div class="col-md-6">
 
-                                        <div class="form-group">
+                                        <div class="form-group required">
 
 
-                                            <asp:Label ID="lblRemarks" CssClass="control-label col-md-3" runat="server" Text="Remarks*"></asp:Label>
-                                            <div class="col-md-9">
+                                            <asp:Label ID="lblRemarks" CssClass="control-label col-md-5" runat="server" Text="Remarks"></asp:Label> 
+                                            <div class="col-md-7">
                                                 <asp:TextBox ID="txtRemarks" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                         </div>
 
                                     </div>
+                                   
+                                    
                                 </div>
                               
                                 <div class="col-md-12">
+                                     <div class="col-md-6">&nbsp;</div>
+                                     <div class="col-md-6">&nbsp;</div>
+                                      <div class="col-md-6"></div>
                                       <div class="col-md-6">
-                                        <div class="form-group">
-                                            <asp:Label ID="lblDocumentStatus" CssClass="control-label col-md-3" runat="server" BackColor="Pink" Font-Size="Large" Font-Bold="true"></asp:Label>
-                                        </div>
-                                      </div>
-                              </div>
-                                   <div class="col-md-12">
+                                         <div class="col-md-5"></div>
+                                         <div class="col-md-7">
+                                             <asp:Label ID="lblDocumentStatus" CssClass="DocStatusLabel" runat="server"    ClientIDMode="Static"></asp:Label>
+                                         </div>
+
+                                    </div>
+                               
                                    
                                      <div class="content white">
                                        <div class="accordion-container">

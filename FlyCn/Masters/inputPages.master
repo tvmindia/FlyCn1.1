@@ -88,6 +88,8 @@
     <script src="../Scripts/jquery-1.8.2.js"></script>
     <script src="../Scripts/jquery-ui-1.8.24.js"></script>
     <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>
+    
+   
     <script type="text/javascript">
        
         function CloseDocumentWindow()
@@ -113,17 +115,38 @@
             var iframe = pane.getExtContentElement();
             var contentWindow = iframe.contentWindow;
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
-            debugger;        
+           
             var DocumentID = contentWindow.document.getElementById("hiddenFieldDocumentID")
             var DocumentType = contentWindow.document.getElementById('hiddenFieldDocumentType');
+            var DocumentNo = contentWindow.document.getElementById('txtDocumentno');
+           
             document.getElementById('HiddenFieldDoctype').value = DocumentType.value;
-            
+            var lblDocumentStatus = contentWindow.document.getElementById('lblDocumentStatus');
+          
+        
             //alert(hdn.value);
-            if (hiddenFieldRevisionID.value != "")
+            if (hiddenFieldRevisionID.value != "" && lblDocumentStatus.innerHTML == "DRAFT")
             {
-                document.getElementById('IframeContent').src = "../Approvels/CloseDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value;
+                debugger;
+                document.getElementById('IframeContent').src = "../Approvels/CloseDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value + '&DocumentNo=' + DocumentNo.value;
              
                 CloseDocumentWindow();
+            }
+
+            else if (hiddenFieldRevisionID.value != "" && ((lblDocumentStatus.innerHTML == "CLOSED FOR VERIFICATION" )||(lblDocumentStatus.innerHTML == "APPROVED")))
+            {
+        
+                
+     
+         
+     
+
+  
+                alert("This Document Is Already Closed")
+            }
+            else
+            {
+                alert("Please Select Any Document 1st")
             }
         }
     </script>
@@ -136,7 +159,7 @@
          
          
     </script>
-  
+
         
         <div  id="Errorbox" runat="server" class="div1">
             <table style="width: 90%; height: 50px; border: groove; border-radius: 5px 6px; background-color: lightgrey">

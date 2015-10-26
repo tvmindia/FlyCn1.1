@@ -1,6 +1,7 @@
 ﻿<%-- Registration  --%>
 <%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="ApprovalDocument.aspx.cs" Inherits="FlyCn.Approvels.ApprovalDocument" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 <%-- Registration  --%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -77,6 +78,9 @@
             text-align: left;
             width: 200px;
         }
+
+        
+        
     </style>
      <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true"> 
     </asp:ScriptManager>
@@ -84,11 +88,23 @@
     <div class="container" style="width: 100%">
         <!-----FORM SECTION---->
         <!-----SECTION TABLE---->
+          <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
+            CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
+
+            <Tabs>
+                <telerik:RadTab Text="Pending" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
+                <telerik:RadTab Text="Approval" PageViewID="rpApproval" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"></telerik:RadTab>
+            </Tabs>
+        </telerik:RadTabStrip>
+
+
         <div id="content">
             <div class="contentTopBar"></div>
             <table style="width: 100%">
                 <tr>
                   <td>
+                       <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
+                        <telerik:RadPageView ID="rpList" runat="server">
                         <div id="divList" style="width: 100%;text-align:center">
                                     <telerik:RadGrid ID="dtgPendingApprovalGrid" runat="server" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" OnNeedDataSource="dtgPendingApprovalGrid_NeedDataSource" OnPreRender="dtgPendingApprovalGrid_PreRender" OnItemCommand="dtgPendingApprovalGrid_ItemCommand" AllowAutomaticUpdates="false"  PageSize="10" Width="100%">
                                         <HeaderStyle  HorizontalAlign="Center" />
@@ -97,7 +113,7 @@
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
                                         </ClientSettings>
-                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="ApprovalID,RevisionID,DocumentID,ProjectNo">
+                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="ApprovalID,RevisionID,DocumentID,ProjectNo,DocumentNo,CreatedDate,CreatedBy">
                                             <Columns>
                                                
                                                 <telerik:GridBoundColumn HeaderText="ApprovalID" DataField="ApprovalID" UniqueName="ApprovalID" Display="false"></telerik:GridBoundColumn>
@@ -118,14 +134,87 @@
                                         </MasterTableView>
 
                                     </telerik:RadGrid>
+                            
+                        </div>
+                        </telerik:RadPageView>
+
+                       <!---End of radpageview list--->
+
+                           <!--Approval page--->
+                            <telerik:RadPageView ID="rpApproval" runat="server">
+                                 <uc1:ToolBar runat="server" ID="ToolBar" />
+                                 <div class="col-md-12 Span-One">
+                                 <div class="col-md-6">
+                                        <div class="form-group">
+                                          <asp:Label ID="lblDocumentNo" runat="server" Text=""></asp:Label>
+                                             <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" ClientIDMode="Static"/>
+                                             <asp:HiddenField ID="hiddenFieldDocumentID" runat="server" ClientIDMode="Static"/>
+                                             <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static"/>
+                                             <asp:HiddenField ID="hiddenFieldApprovalID" runat="server" ClientIDMode="Static" />
+                                            </div>
+                                           <div class="col-md-6">
+                                       
+                                           <asp:Label ID="lblCreatedDate" runat="server" Text=""></asp:Label>
+                                        </div>
+                                
+                                     </div>                                  
+                                      <div class="col-md-6">
+
+                                        <div class="form-group">
+                                          <asp:Label ID="lblCreatedBy" runat="server" Text=""></asp:Label>
+
+                                
+                                     <div class="col-md-6">
+                                           <asp:TextBox ID="txtRemarks" CssClass="form-control" runat="server" TextMode="MultiLine" MaxLength="250"></asp:TextBox>
+                                         <asp:Label ID="lblValidationMsg" runat="server" Text=""></asp:Label>
+                                      
+                                     </div>
+                                   </div>
+                                  </div>
+                                <!---SECTION ONE--->
+<div class="col-md-6"><!--button div-->
+    <asp:Button ID="btnApprove" runat="server" Text="Approve" OnClick="btnApprove_Click"/>
+    <asp:Button ID="btnDecline" runat="server" Text="Decline" OnClick="btnDecline_Click" OnClientClick="return validateText()"/>
+    <asp:Button ID="btnReject" runat="server" Text="Reject" OnClick="btnReject_Click" OnClientClick="return validateText()"/>
+</div><!--End of button div-->
+                       <!--Telerik Radlistbox-->
+                           <div class="col-md-6">
+                                     <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="50%" OnNeedDataSource="dtgApprovers_NeedDataSource">
+                                        <HeaderStyle  HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <AlternatingItemStyle HorizontalAlign="Left"/>
+                                        <ClientSettings>
+                                            <Selecting AllowRowSelect="true" EnableDragToSelectRows="false"/>
+                                        </ClientSettings>
+                                        <MasterTableView AutoGenerateColumns="False">
+                                            <Columns>
+                                               
+                                                <telerik:GridBoundColumn HeaderText="ApprovalID" DataField="ApprovalID" UniqueName="ApprovalID" Display="false"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="RevisionID" DataField="RevisionID" UniqueName="RevisionID" Display="false"></telerik:GridBoundColumn>
+                                                                                            
+                                                <telerik:GridBoundColumn HeaderText="VerifierLevel" DataField="VerifierLevel" ItemStyle-Width="30%" UniqueName="VerifierLevel"></telerik:GridBoundColumn>
+												<telerik:GridBoundColumn HeaderText="VerifierEmail" DataField="VerifierEmail" ItemStyle-Width="30%" UniqueName="VerifierEmail"></telerik:GridBoundColumn>
+												<telerik:GridBoundColumn HeaderText="StatusDescription" DataField="StatusDescription" ItemStyle-Width="30%" UniqueName="StatusDescription"></telerik:GridBoundColumn>
+                                            </Columns>
+                                        </MasterTableView>
+
+                                    </telerik:RadGrid>
                                 </div>
+                     <!--Telerik Radlistbox-->
+
+         </div><!--End of col-md-12 span one-->
+      </telerik:RadPageView>
+        <!--End of radApproval page--->
+    </telerik:RadMultiPage>
+                      
                              </td>
                             </tr>
             </table>
-        </div>
+          
+        </div><!--end of div contentTopBar--->
         <asp:LinkButton ID="lnkbtnDetail" runat="server" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
-        </div>
-             <div id="modal_dialog" style="display: none; width: 1000px!important; height: 700px!important; overflow:scroll;">
+        </div><!--end of div contentTopBar--->
+    <div id="modal_dialog" style="display: none; width: 1000px!important; height: 700px!important; overflow: hidden; overflow-x: hidden;">
                 <iframe src="../DocDetailView/DocDetails.aspx" style="width: 1300px; height: 700px;"></iframe>
              </div>
 
@@ -147,6 +236,35 @@
             catch (X) {
                 alert(X.message);
             }
+       }
+     
+
+       function onClientTabSelected(sender, args) {
+
+           var tab = args.get_tab();
+           if (tab.get_value() == '2')
+           {
+
+           }
+           if (tab.get_value() == "1") {
+               var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+               var tab = tabStrip.findTabByValue("1");
+               tab.select();
+               var tab1 = tabStrip.findTabByValue("2");
+               tab1.set_text("Approval");
+           }
+
+       }
+    function validateText()
+    {
+       
+        var Remarks = document.getElementById('<%=txtRemarks.ClientID %>').value;
+        if(Remarks == "")
+        {
+            document.getElementById('<%= lblValidationMsg.ClientID %>').innerHTML = 'Plese Fill the Remarks...!';
+            return false;
+        }
+          
        }  
 </script>
                             

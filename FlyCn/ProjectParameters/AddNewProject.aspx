@@ -247,7 +247,7 @@
             font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 18px;
             font-style: normal;
-            color: #660033;
+            color:#669900;
         }
 
         #Menu1 {
@@ -273,9 +273,9 @@
 
 
     <div id="bodyDiv">
-        <div>
-            <div id="ErrorBoxPopUp" style="visibility: hidden; height: 20px;" runat="server" class="ErrormsgBoxes">
-                <table style="width: 100%; background-color: transparent; height: 20px">
+        <div >
+            <div id="ErrorBoxPopUp" style="visibility: hidden; height: 2px;" runat="server" class="ErrormsgBoxes">
+                <table style="width: 100%; background-color: transparent; height: 10px">
                     <tr>
                         <td style="text-align: center; width: 90%; vertical-align: top">
                             <asp:Label ID="lblErrorInfoPopUp" runat="server"></asp:Label>
@@ -309,7 +309,7 @@
         <asp:Label ID="lblerrormsg" CssClass="Successmsg" runat="server" Text="" ForeColor="Red"></asp:Label>
         <asp:HiddenField ID="hidddenErrormsg" runat="server" />
 
-        <div style="width: 750px; height: 500px; background-color: transparent; overflow-y: auto; scrollbar-base-color: rgba(36,85,99,.9)">
+        <div style="width: 750px; height: 450px; background-color: transparent; overflow-y: auto; scrollbar-base-color: rgba(36,85,99,.9)">
 
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
@@ -813,7 +813,7 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                        <%--<hr />--%>
+                                      
                                         <div>
                                             <asp:Label ID="lblCaptionforProjectFields" runat="server" CssClass="headings" Text="Caption for Project Fields"></asp:Label>
 
@@ -920,7 +920,7 @@
                                                     </tr>
                                             </table>
                                         </div>
-                                        <%--     <hr />--%>
+                                       
                                         <div>
 
                                             <asp:Label ID="lblManHoursRelatedCaption" runat="server" CssClass="headings" Text=" Man Hours Related Captions"></asp:Label>
