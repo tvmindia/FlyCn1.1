@@ -72,7 +72,36 @@
      
      </script>--%>
         <%--  <div id="modal_dialog" style="width: 1000px!important; height: 700px!important; overflow: hidden; overflow-x: hidden;">--%>
-           
+    <br />
+    <div>
+           <div class="col-md-12 Span-One">
+                <div class="col-md-6">
+                <div class="form-group">
+               <asp:Label ID="lblDocumentType" CssClass="control-label col-md-3"  runat="server" Text="Document Type"></asp:Label>
+                        
+               <asp:Label ID="lblType" CssClass="control-label col-md-3" runat="server" Text=""></asp:Label>
+                            </div>
+                      <div class="col-md-9">
+                <div class="form-group">
+               <asp:Label ID="lblCreatedBy"  CssClass="control-label col-md-3" runat="server" Text="Created By"></asp:Label>
+                   
+                    
+               <asp:Label ID="lblCreated" CssClass="control-label col-md-3" runat="server" Text=""></asp:Label>
+        </div></div></div>
+    <div class="col-md-6">
+                <div class="form-group">
+               <asp:Label ID="lblCreatedDate" CssClass="control-label col-md-3" runat="server" Text="Created Date"></asp:Label>
+                        
+               <asp:Label ID="lblDate" CssClass="control-label col-md-3" runat="server" Text=""></asp:Label>
+                              </div>
+          <div class="col-md-9">
+               <asp:Label ID="lblLatestStatus" CssClass="control-label col-md-3"  runat="server" Text="Status"></asp:Label>
+               <asp:Label ID="lblStatus" CssClass="control-label col-md-3"  runat="server" Text=""></asp:Label>
+              </div>
+           </div>
+                    </div>
+        </div>
+                       <br />                    
                 <div id="divList">
                     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                     <telerik:RadGrid ID="dtDocDetailGrid" runat="server" AllowPaging="true" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtDocDetailGrid_NeedDataSource"

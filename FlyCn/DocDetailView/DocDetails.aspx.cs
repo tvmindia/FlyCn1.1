@@ -16,6 +16,29 @@ namespace FlyCn.Content.DocDetailView
             string projectNum = Request.QueryString["ProjNum"];
             string revId = Request.QueryString["RevNum"];
             string type="BOQ";
+            string revid = "d528a5a9-0049-41d3-b5bb-1bd02ee7f17d";
+            DataTable dt;
+            DocDetailList dObj = new DocDetailList();
+            dt = dObj.GetDocDetailList(revid, type);
+            lblType.Text = dt.Rows[0]["DocumentType"].ToString();
+            lblCreated.Text = dt.Rows[0]["CreatedBy"].ToString();
+            lblDate.Text = dt.Rows[0]["CreatedDate"].ToString();
+            int status = Convert.ToInt32(dt.Rows[0]["LatestStatus"]);
+            if(status==1)
+            {
+                lblStatus.Text = "Closed";
+            }
+            else
+                if(status==2)
+                {
+                    lblStatus.Text = "Declined";
+                }
+                else
+                    if(status==3)
+                    {
+                        lblStatus.Text = "Rejected for Amendment";
+                    }
+
 
         }
 
