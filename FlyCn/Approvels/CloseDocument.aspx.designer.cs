@@ -49,13 +49,103 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.HiddenField hdfSelectBox3;
         
         /// <summary>
-        /// lblrevisionid control.
+        /// hdfSelectBox4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblrevisionid;
+        protected global::System.Web.UI.WebControls.HiddenField hdfSelectBox4;
+        
+        /// <summary>
+        /// hdfSelectBox5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfSelectBox5;
+        
+        /// <summary>
+        /// hdfSelectBox6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfSelectBox6;
+        
+        /// <summary>
+        /// hdfSelectBox7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfSelectBox7;
+        
+        /// <summary>
+        /// hdfSelectBox8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfSelectBox8;
+        
+        /// <summary>
+        /// hdfSelectBox9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfSelectBox9;
+        
+        /// <summary>
+        /// hdfSelectBox10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfSelectBox10;
+        
+        /// <summary>
+        /// hdfDivLevels control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfDivLevels;
+        
+        /// <summary>
+        /// lblerrordisplay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblerrordisplay;
+        
+        /// <summary>
+        /// lblCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCaption;
+        
+        /// <summary>
+        /// divLevel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLevel1;
         
         /// <summary>
         /// lblLevel1 control.
@@ -67,15 +157,6 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.Label lblLevel1;
         
         /// <summary>
-        /// selecttools1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selecttools1;
-        
-        /// <summary>
         /// chkLevel1 control.
         /// </summary>
         /// <remarks>
@@ -83,6 +164,15 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkLevel1;
+        
+        /// <summary>
+        /// divLevel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLevel2;
         
         /// <summary>
         /// lblLevel2 control.
@@ -94,15 +184,6 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.Label lblLevel2;
         
         /// <summary>
-        /// selecttools2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selecttools2;
-        
-        /// <summary>
         /// chkLevel2 control.
         /// </summary>
         /// <remarks>
@@ -110,6 +191,15 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkLevel2;
+        
+        /// <summary>
+        /// divLevel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLevel3;
         
         /// <summary>
         /// lblLevel3 control.
@@ -121,15 +211,6 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.Label lblLevel3;
         
         /// <summary>
-        /// selecttools3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selecttools3;
-        
-        /// <summary>
         /// chkLevel3 control.
         /// </summary>
         /// <remarks>
@@ -137,6 +218,15 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkLevel3;
+        
+        /// <summary>
+        /// divLevel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLevel4;
         
         /// <summary>
         /// lblLevel4 control.
@@ -148,15 +238,6 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.Label lblLevel4;
         
         /// <summary>
-        /// selecttools4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selecttools4;
-        
-        /// <summary>
         /// chkLevel4 control.
         /// </summary>
         /// <remarks>
@@ -164,6 +245,15 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkLevel4;
+        
+        /// <summary>
+        /// divLevel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLevel5;
         
         /// <summary>
         /// lblLevel5 control.
@@ -175,15 +265,6 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.Label lblLevel5;
         
         /// <summary>
-        /// selecttools5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selecttools5;
-        
-        /// <summary>
         /// chkLevel5 control.
         /// </summary>
         /// <remarks>
@@ -191,6 +272,15 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkLevel5;
+        
+        /// <summary>
+        /// divLevel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLevel6;
         
         /// <summary>
         /// lblLevel6 control.
@@ -202,15 +292,6 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.Label lblLevel6;
         
         /// <summary>
-        /// selecttools6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selecttools6;
-        
-        /// <summary>
         /// chkLevel6 control.
         /// </summary>
         /// <remarks>
@@ -218,6 +299,15 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkLevel6;
+        
+        /// <summary>
+        /// divLevel7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLevel7;
         
         /// <summary>
         /// lblLevel7 control.
@@ -229,15 +319,6 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.Label lblLevel7;
         
         /// <summary>
-        /// selecttools7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selecttools7;
-        
-        /// <summary>
         /// chkLevel7 control.
         /// </summary>
         /// <remarks>
@@ -245,6 +326,15 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkLevel7;
+        
+        /// <summary>
+        /// divLevel8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLevel8;
         
         /// <summary>
         /// lblLevel8 control.
@@ -256,15 +346,6 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.Label lblLevel8;
         
         /// <summary>
-        /// selecttools8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selecttools8;
-        
-        /// <summary>
         /// chkLevel8 control.
         /// </summary>
         /// <remarks>
@@ -272,6 +353,15 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkLevel8;
+        
+        /// <summary>
+        /// divLevel9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLevel9;
         
         /// <summary>
         /// lblLevel9 control.
@@ -283,15 +373,6 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.Label lblLevel9;
         
         /// <summary>
-        /// selecttools9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selecttools9;
-        
-        /// <summary>
         /// chkLevel9 control.
         /// </summary>
         /// <remarks>
@@ -301,6 +382,15 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.CheckBox chkLevel9;
         
         /// <summary>
+        /// divLevel10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLevel10;
+        
+        /// <summary>
         /// lblLevel10 control.
         /// </summary>
         /// <remarks>
@@ -308,15 +398,6 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblLevel10;
-        
-        /// <summary>
-        /// selecttools10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selecttools10;
         
         /// <summary>
         /// chkLevel10 control.
