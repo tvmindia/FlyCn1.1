@@ -35,7 +35,9 @@
     <style type="text/css">
         .ui-dialog-title {
             padding-left: 15em;
-            color: white;
+            color:maroon;
+            font-size:large;
+            
         }
 
         .ui-dialog-titlebar {
@@ -214,8 +216,8 @@
         </div><!--end of div contentTopBar--->
         <asp:LinkButton ID="lnkbtnDetail" runat="server" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
         </div><!--end of div contentTopBar--->
-    <div id="modal_dialog" style="display: none; width: 1000px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
-                <iframe src="../DocDetailView/DocDetails.aspx" style="width: 1300px; height: 600px;"></iframe>
+    <div id="modal_dialog" style="display: none; width: 800px!important; height: 500px!important;overflow-x:scroll;overflow-y:scroll;">
+                <iframe src="../DocDetailView/DocDetails.aspx" style="width: 1000px; height: 600px;"></iframe>
              </div>
 
 
@@ -223,21 +225,22 @@
 
 
     $(document).ready(function () {
-        alert("disabled");
-        debugger
+       // alert("disabled");
+        //debugger
         var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
         var tab = tabStrip.findTabByText("Approval");
         tab.disable();
+
        
     });
 
        function OpenNewProjectWizard() {
+      var docno=document.getElementById("<%=lblDocumentNo.ClientID %>").value;
             try {
                 $("#modal_dialog").dialog({
-
-                    title: "Approval Screen",
-                    width: 1200,
-                    height: 600,
+                    title: "Document Details" + "-" +docno,                                                                     
+                    width: 900,
+                    height: 500,
                     buttons: {}, modal: true
 
                 });
