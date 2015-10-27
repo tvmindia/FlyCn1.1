@@ -307,6 +307,7 @@
     <Content Include="Images\gladsmall.png" />
     <Content Include="Images\Icons\activity.png" />
     <Content Include="Images\Icons\approve.png" />
+    <Content Include="Images\Icons\arrow-right3232.png" />
     <Content Include="Images\Icons\boq.png" />
     <Content Include="Images\Icons\complete.png" />
     <Content Include="Images\Icons\construction.png" />
