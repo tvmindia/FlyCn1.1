@@ -14,29 +14,61 @@
        <script src="../Scripts/jquery-1.8.2.min.js"></script>   
        <script src="../Scripts/jquery-ui-1.8.24.js"></script>
        <link href="../themes/base/jquery-ui.css" rel="stylesheet" />
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.accordion-toggle').on('click', function (event) {
-            event.preventDefault();
-            // create accordion variables
-            var accordion = $(this);
-            var accordionContent = accordion.next('.accordion-content');
-            var accordionToggleIcon = $(this).children('.toggle-icon');
+ <script type="text/javascript">
+     $(document).ready(function () {
+         id = document.getElementById('IDAccordion');
 
-            // toggle accordion link open class
-            accordion.toggleClass("open");
-            // toggle accordion content
-            accordionContent.slideToggle(250);
+         OpenDetailAccordion(id);
+     
+         $('.accordion-toggle').on('click', function (event) {
 
-            // change plus/minus icon
-            //if (accordion.hasClass("open")) {
-            //    accordionToggleIcon.html("<i class='fa fa-minus-circle'></i>");
-            //} else {
-            //    accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
-            //}
+             event.preventDefault();          
+             OpenDetailAccordion(this);
+         });
 
-        });
-    });
+     });
+
+       
+
+     function OpenDetailAccordion(id) {
+         if (id != undefined)//accordion called from accordion click functionjs
+         {
+             var accordion = $(id);
+             var accordionContent = accordion.next('.accordion-content');
+             var accordionToggleIcon = accordion.children('.toggle-icon');
+
+             // toggle accordion link open class
+             accordion.toggleClass("open");
+             // toggle accordion content
+             accordionContent.slideToggle(250);
+
+             // change plus/minus icon
+             if (accordion.hasClass("open")) {
+                 accordionToggleIcon.html("<i class='fa fa-minus-circle'></i>");
+             } else {
+                 accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
+             }
+         }
+         if (id == undefined)//accordion called from code behind scrpt register after BoqHeaderSave
+         {
+             id = document.getElementById('IDAccordion');
+             var accordion = $(id);
+             var accordionContent = accordion.next('.accordion-content');
+             var accordionToggleIcon = accordion.children('.toggle-icon');
+
+             // toggle accordion link open class
+             accordion.toggleClass("open");
+             // toggle accordion content
+             accordionContent.slideToggle(250);
+
+             // change plus/minus icon
+             if (accordion.hasClass("open")) {
+                 accordionToggleIcon.html("<i class='fa fa-minus-circle'></i>");
+             } else {
+                 accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
+             }
+         }
+     }
 </script>
      
     <style>
@@ -45,14 +77,10 @@
             font-size:large;
         }
     </style>
-    <div class="container" style="width:100%">
-        <div id="content"> 
+   <%-- <div class="container" style="width:100%">--%>
+       <div id="bodyDiv">
         <div class="contentTopBar"></div>
-             
- <p>
-
-    <asp:Label ID="lblHeader" runat="server" Text="Document Details" CssClass="head" ></asp:Label></p>
-    <div>
+  
  
            <div class="col-md-12 Span-One">
                 <div class="col-md-6">
@@ -86,7 +114,7 @@
         
      </div>
                        <br />    
-      <div class="accordion-container"> <a href="#" class="accordion-toggle">Details <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+      <div class="accordion-container"> <a href="#" class="accordion-toggle" id="IDAccordion">Details <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
           <div class="accordion-content"> 
              <div id="divList">
                     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
@@ -103,6 +131,6 @@
             
     </div>
          </div>
-        </div>
+        
 </asp:Content>
  
