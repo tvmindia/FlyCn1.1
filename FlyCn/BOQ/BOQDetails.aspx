@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Input</title>
 
-
+ <script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>
 </asp:Content>
 <%-- Registration--%>
 
@@ -338,11 +338,7 @@
 
  <script type="text/javascript">
     
-     $(document).ready(function () {
-         
-        
-        
-     });
+     
      function onClientTabSelectedBOQDetail(sender, args)
      {
          var tab = args.get_tab();

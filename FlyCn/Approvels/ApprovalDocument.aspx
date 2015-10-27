@@ -221,6 +221,13 @@
 
 <script type="text/javascript">
 
+
+    $(document).ready(function () {
+
+
+
+    });
+
        function OpenNewProjectWizard() {
             try {
                 $("#modal_dialog").dialog({
