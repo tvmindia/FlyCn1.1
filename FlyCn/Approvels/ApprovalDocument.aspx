@@ -223,9 +223,12 @@
 
 
     $(document).ready(function () {
-
-
-
+        alert("disabled");
+        debugger
+        var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+        var tab = tabStrip.findTabByText("Approval");
+        tab.disable();
+       
     });
 
        function OpenNewProjectWizard() {

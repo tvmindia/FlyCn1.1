@@ -13,7 +13,7 @@ namespace FlyCn.Content.DocDetailView
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string projectNum = Request.QueryString["ProjNum"];
+           /* string projectNum = Request.QueryString["ProjNum"];
             string revId = Request.QueryString["RevNum"];
             string type="BOQ";
             string revid = "d528a5a9-0049-41d3-b5bb-1bd02ee7f17d";
@@ -39,7 +39,7 @@ namespace FlyCn.Content.DocDetailView
                         lblStatus.Text = "Rejected for Amendment";
                     }
 
-
+*/
         }
 
         protected void dtDocDetailGrid_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
