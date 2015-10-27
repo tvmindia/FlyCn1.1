@@ -5,6 +5,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using Telerik.Web.UI;
+ 
 
  namespace FlyCn.FlyCnDAL
 {
@@ -334,6 +336,18 @@ using System.Web.UI;
             return datatableobj;
         }
 
+
+        #region BindTree
+        public void BindTree(Telerik.Web.UI.RadTreeView myTree)
+        {
+            myTree.Nodes.Clear();
+
+        }
+        #endregion BindTree
+        public void LoadInputScreen(RadPane myContentPane)
+        {
+            myContentPane.ContentUrl = "ApprovalDocument.aspx";
+        }
 
     }
 }

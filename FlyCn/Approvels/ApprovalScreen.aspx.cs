@@ -16,7 +16,7 @@ namespace FlyCn.Approvels
 
         protected void lnkbtnDetail_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/DocDetailView/DocDetails.aspx");
+            //Response.Redirect("/DocDetailView/DocDetails.aspx");
         }
     }
 }

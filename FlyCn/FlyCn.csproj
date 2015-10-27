@@ -146,6 +146,7 @@
     <Content Include="Activities\ActivityLibrary.aspx" />
     <Content Include="Activities\Main.aspx" />
     <Content Include="Approvels\ApprovalDocument.aspx" />
+    <Content Include="Approvels\Approvals.aspx" />
     <Content Include="Approvels\ApprovalScreen.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="bin\Antlr3.Runtime.dll" />
@@ -306,6 +307,7 @@
     <Content Include="Images\gladsmall.png" />
     <Content Include="Images\Icons\activity.png" />
     <Content Include="Images\Icons\approve.png" />
+    <Content Include="Images\Icons\arrow-right3232.png" />
     <Content Include="Images\Icons\boq.png" />
     <Content Include="Images\Icons\complete.png" />
     <Content Include="Images\Icons\construction.png" />
@@ -535,6 +537,13 @@
     </Compile>
     <Compile Include="Approvels\ApprovalDocument.aspx.designer.cs">
       <DependentUpon>ApprovalDocument.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Approvels\Approvals.aspx.cs">
+      <DependentUpon>Approvals.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvels\Approvals.aspx.designer.cs">
+      <DependentUpon>Approvals.aspx</DependentUpon>
     </Compile>
     <Compile Include="Approvels\ApprovalScreen.aspx.cs">
       <DependentUpon>ApprovalScreen.aspx</DependentUpon>
