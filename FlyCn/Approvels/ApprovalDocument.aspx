@@ -22,7 +22,7 @@
     <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
     <!-----main css--->
     <!----jquery here jquery 1.11.3.min.js in ifrme has been disabled inorder to work dialog popup here---->
-     <script src="../Content/themes/FlyCnBlue/js/jquery.js"></script>
+   <%--  <script src="../Content/themes/FlyCnBlue/js/jquery.js"></script>--%>
      <script src="../Scripts/jquery-1.8.2.js"></script>
      <script src="../Scripts/jquery-1.8.2.min.js"></script>
      <script src="../Scripts/jquery-ui-1.8.24.js"></script>
@@ -54,11 +54,11 @@
             border-radius: 15px;
             -moz-border-radius: 15px;
             -webkit-border-radius: 15px;
-            background: #f2f2f2;
+            background:white;
             z-index: 50;
             /*background:transparent;*/
             /*background: rgba(34,34,34,0.75);*/
-            background: rgba(36,85,99,.9);
+            background:white;
             border: 1px solid #fff;
         }
 
@@ -214,8 +214,8 @@
         </div><!--end of div contentTopBar--->
         <asp:LinkButton ID="lnkbtnDetail" runat="server" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
         </div><!--end of div contentTopBar--->
-    <div id="modal_dialog" style="display: none; width: 1000px!important; height: 700px!important; overflow: hidden; overflow-x: hidden;">
-                <iframe src="../DocDetailView/DocDetails.aspx" style="width: 1300px; height: 700px;"></iframe>
+    <div id="modal_dialog" style="display: none; width: 1000px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
+                <iframe src="../DocDetailView/DocDetails.aspx" style="width: 1300px; height: 600px;"></iframe>
              </div>
 
 
@@ -226,8 +226,8 @@
                 $("#modal_dialog").dialog({
 
                     title: "Approval Screen",
-                    width: 780,
-                    height: 700,
+                    width: 1200,
+                    height: 600,
                     buttons: {}, modal: true
 
                 });
