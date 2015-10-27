@@ -88,8 +88,7 @@
     <div class="container" style="width: 100%">
         <!-----FORM SECTION---->
         <!-----SECTION TABLE---->
-          <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
-            CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
+          <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
 
             <Tabs>
                 <telerik:RadTab Text="Pending" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
@@ -127,9 +126,7 @@
 
                                                  <telerik:GridButtonColumn HeaderText="Action" CommandName="Action" ButtonType="ImageButton" ItemStyle-Width="5%" ImageUrl="~/Images/Icons/arrow-right3232.png" Text="Action" UniqueName="Action">
                                                 </telerik:GridButtonColumn>
-                                                <telerik:GridButtonColumn HeaderText="Details" CommandName="Details" ButtonType="ImageButton" ItemStyle-Width="5%" ImageUrl="~/Images/Icons/mail3232.png" Text="Details" UniqueName="Details">
-                                                </telerik:GridButtonColumn>
-                                          
+                                                                                         
                                             </Columns>
                                         </MasterTableView>
 
@@ -177,6 +174,13 @@
     <asp:Button ID="btnDecline" runat="server" Text="Decline" OnClick="btnDecline_Click" OnClientClick="return validateText()"/>
     <asp:Button ID="btnReject" runat="server" Text="Reject" OnClick="btnReject_Click" OnClientClick="return validateText()"/>
 </div><!--End of button div-->
+
+                                     <div class="col-md-6">
+                                         <asp:LinkButton ID="lnkbtnDetail" runat="server" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
+                                     </div>
+                                     <div id="modal_dialog" style="display: none; width: 1000px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
+                                         <iframe src="../DocDetailView/DocDetails.aspx" style="width: 1300px; height: 600px;"></iframe>
+                                      </div>
                        <!--Telerik Radlistbox-->
                            <div class="col-md-6">
                                      <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="50%" OnNeedDataSource="dtgApprovers_NeedDataSource">
@@ -206,30 +210,39 @@
       </telerik:RadPageView>
         <!--End of radApproval page--->
     </telerik:RadMultiPage>
-                      
-                             </td>
-                            </tr>
-            </table>
+                    
+       </td>
+       </tr>
+     </table>
           
         </div><!--end of div contentTopBar--->
-        <asp:LinkButton ID="lnkbtnDetail" runat="server" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
+        
         </div><!--end of div contentTopBar--->
-    <div id="modal_dialog" style="display: none; width: 1000px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
-                <iframe src="../DocDetailView/DocDetails.aspx" style="width: 1300px; height: 600px;"></iframe>
-             </div>
+        
 
 
 <script type="text/javascript">
 
 
-    $(document).ready(function () {
-        alert("disabled");
-        debugger
-        var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-        var tab = tabStrip.findTabByText("Approval");
-        tab.disable();
-       
-    });
+     function pageLoad()//doc.ready function cant pick the radtab thatswhy we chose pageload
+   {
+     DisableTabStrip();
+    }
+      function DisableTabStrip()
+      {
+       var tabStrip =$find('<%= RadTabStrip1.ClientID %>');
+       var tab=tabStrip.findTabByValue("2"); 
+       tab.disable();
+      }
+      function EnableTabStrip()
+      {
+       alert("enabling");
+       var tabStrip =$find('<%= RadTabStrip1.ClientID %>');
+       var tab=tabStrip.findTabByValue("2"); 
+       tab.enable();
+       tab.select();
+      
+      }
 
        function OpenNewProjectWizard() {
             try {
@@ -250,18 +263,20 @@
      
 
        function onClientTabSelected(sender, args) {
-
+          alert("tab1 clicked");
            var tab = args.get_tab();
            if (tab.get_value() == '2')
            {
 
            }
            if (tab.get_value() == "1") {
+              alert("tab1 clicked");
                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
                var tab = tabStrip.findTabByValue("1");
                tab.select();
                var tab1 = tabStrip.findTabByValue("2");
                tab1.set_text("Approval");
+               DisableTabStrip();
            }
 
        }
