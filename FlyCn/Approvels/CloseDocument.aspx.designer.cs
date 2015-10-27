@@ -121,15 +121,6 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.HiddenField hdfDivLevels;
         
         /// <summary>
-        /// lblrevisionid control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblrevisionid;
-        
-        /// <summary>
         /// lblerrordisplay control.
         /// </summary>
         /// <remarks>
@@ -137,6 +128,15 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblerrordisplay;
+        
+        /// <summary>
+        /// lblCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCaption;
         
         /// <summary>
         /// divLevel1 control.

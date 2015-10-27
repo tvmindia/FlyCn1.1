@@ -61,7 +61,42 @@ namespace FlyCn.FlyCnDAL
                     // Recipient e-mail address.
                     Msg.To.Add(MssgTo);
                     Msg.Subject = "Document  For  Approvel";
-                    Msg.Body = "Please approve " + DocumentType + "document" + _DocumentNo;
+                    string body= "<div style='margin: 0; padding: 0; min-width: 100%!important;'>"+
+   " <div style='margin: 0; padding: 0; min-width: 100%!important;  height:30px; border:solid;color:lightseagreen; background:lightseagreen;text-align:center;'>" + " <label style='color:white; vertical-align:central'>" + " Document For Approvel</label></div>" +
+       " <table width=100% bgcolor=#f6f8f1 border=0" +"cellpadding=0"+" cellspacing="+"0>"+
+            "<tr>"+
+                "<td>"+
+                    "<table class="+"content"+" align=center  cellpadding=0 cellspacing=0 border=0>"+
+                        "<tr>"+
+                            "<td>"+
+                               
+                           " </td>"+
+
+                        "</tr>"+
+                        "<tr>"+
+                            "<td style='height:50px'>"+
+                              "  <label> Hi SSSSS</label>"+
+                           " </td>"+
+                        "</tr>"+
+                        "<tr>"+
+                            "<td style='height:50px'>"+
+                            "Please approve " + DocumentType + "document" +"&nbspnbsp"+ _DocumentNo + "'&nbsp&nbsp'"+ "For next approvel"+
+                            "</td>"+
+                       " </tr>"+
+                        "<tr>"+
+                            "<td style='height:50px;padding-left:190px'>"+
+                               " <button style='Width:203px; Height:31px; background-color:lightseagreen;color:white;align-self:center; margin-left: 0px;'>Link To Document</button>" +
+                               
+                            "</td>"+
+                        "</tr>"+
+                    "</table>"+
+                "</td>"+
+           " </tr>" +
+       " </table> "+ 
+" </div>";
+   
+                    Msg.Body =body;
+      
                     Msg.IsBodyHtml = true;
                     // your remote SMTP server IP.
                     SmtpClient smtp = new SmtpClient();
@@ -76,7 +111,7 @@ namespace FlyCn.FlyCnDAL
             }
             catch (Exception ex)
             {
-                Console.WriteLine("{0} Exception caught.", ex);
+                throw ex;
             }
         }
 

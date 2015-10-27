@@ -344,48 +344,44 @@
             <asp:HiddenField ID="hdfSelectBox9" runat="server" />
             <asp:HiddenField ID="hdfSelectBox10" runat="server" />
                <asp:HiddenField ID="hdfDivLevels" runat="server" />
-        <asp:Label ID="lblrevisionid" runat="server" Text="" ForeColor="#008B8B" Font-Size="18px" CssClass="caption" ClientIDMode="Static"></asp:Label>
+    
       
              <asp:Label ID="lblerrordisplay" runat="server" Text=""  Font-Size="14px" CssClass="Error"  ></asp:Label>
+            <div class="col-md-6 Span-One" >
+                    <asp:Label ID="lblCaption" runat="server" Text="" ForeColor="#008B8B" Font-Size="18px" CssClass="caption" ClientIDMode="Static"></asp:Label>
         <div class="col-md-12 Span-One" id="divLevel1"  runat="server" visible="false">
-            <div class="col-md-6">
+     
 
                 <div class="form-group">
-                    <asp:Label ID="lblLevel1" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
+                    <asp:Label ID="lblLevel1" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group"> 
-                            <select id="selecttools1"   name="Level1"  >
+
+                            <select id="selecttools1"   name="Level1"   >
 
                                 <option value="0" ></option>
                       
                             </select>
                         </div>
                     </div>
-                </div>
-
-            </div>
-            <div class="col-md-6">
-                <%--    <form class="form-horizontal" role="form">--%>
-                <div class="form-group">
-
-
-                    <div class="col-md-9">
+                    <div class="col-md-1">
 
                         <asp:CheckBox ID="chkLevel1" runat="server" AutoPostBack="false" />
 
 
-                    </div>
-                </div>
-                <%-- </form>--%>
+           
             </div>
-        </div>
+                </div>
+
+            </div>
+           
 
         <div class="col-md-12 Span-One" id="divLevel2" runat="server" visible="false">
-            <div class="col-md-6">
+          
 
                 <div class="form-group" >
-                    <asp:Label ID="lblLevel2" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
-                    <div class="col-md-9">
+                    <asp:Label ID="lblLevel2" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
+                    <div class="col-md-5">
                         <div class="control-group">
                             <select id="selecttools2" name="Level2">
                                 <option value=""></option>
@@ -393,29 +389,20 @@
                             </select>
                         </div>
                     </div>
-                </div>
-
-            </div>
-            <div class="col-md-6">
-                <%--    <form class="form-horizontal" role="form">--%>
-                <div class="form-group">
-
-
-
-                    <div class="col-md-9">
+                    <div class="col-md-1">
 
                         <asp:CheckBox ID="chkLevel2" runat="server" AutoPostBack="false"  />
 
                     </div>
                 </div>
-                <%-- </form>--%>
-            </div>
-        </div>
+                    
+                </div>
+             
 
         <div class="col-md-12 Span-One" id="divLevel3" runat="server" visible="false">
-            <div class="col-md-6">
+          
                 <div class="form-group">
-                    <asp:Label ID="lblLevel3" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
+                    <asp:Label ID="lblLevel3" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools3" name="Level3" >
@@ -424,30 +411,22 @@
                             </select>
                         </div>
                     </div>
-                </div>
-
-            </div>
-            <div class="col-md-6">
-                <%--    <form class="form-horizontal" role="form">--%>
-                <div class="form-group">
-
-
-                    <div class="col-md-9">
+                    <div class="col-md-1">
 
                         <asp:CheckBox ID="chkLevel3" runat="server" AutoPostBack="false"   />
 
 
                     </div>
                 </div>
-                <%-- </form>--%>
-            </div>
-        </div>
 
+
+                    
+                </div>
+              
         <div class="col-md-12 Span-One" id="divLevel4" runat="server" visible="false">
-            <div class="col-md-6">
-
+           
                 <div class="form-group">
-                    <asp:Label ID="lblLevel4" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
+                    <asp:Label ID="lblLevel4" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools4" name="Level4" >
@@ -456,30 +435,24 @@
                             </select>
                         </div>
                     </div>
-                </div>
-
-            </div>
-            <div class="col-md-6">
-                <%--    <form class="form-horizontal" role="form">--%>
-                <div class="form-group">
-
-
-                    <div class="col-md-9">
+                    <div class="col-md-1">
 
                         <asp:CheckBox ID="chkLevel4" runat="server" AutoPostBack="false"  />
 
 
                     </div>
                 </div>
-                <%-- </form>--%>
-            </div>
-        </div>
+
+            
+                    
+                </div>
+               
 
         <div class="col-md-12 Span-One" id="divLevel5" runat="server" visible="false">
-            <div class="col-md-6">
+           
 
                 <div class="form-group">
-                    <asp:Label ID="lblLevel5" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
+                    <asp:Label ID="lblLevel5" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools5" name="Level5">
@@ -488,30 +461,23 @@
                             </select>
                         </div>
                     </div>
-                </div>
-
-            </div>
-            <div class="col-md-6">
-                <%--    <form class="form-horizontal" role="form">--%>
-                <div class="form-group">
-
-
-                    <div class="col-md-9">
+                    <div class="col-md-1">
 
                         <asp:CheckBox ID="chkLevel5" runat="server" AutoPostBack="false"   />
 
 
                     </div>
                 </div>
-                <%-- </form>--%>
-            </div>
-        </div>
 
+           
+
+                    
+                </div>
+             
         <div class="col-md-12 Span-One" id="divLevel6" runat="server" visible="false">
-            <div class="col-md-6">
-
+          
                 <div class="form-group">
-                    <asp:Label ID="lblLevel6" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
+                    <asp:Label ID="lblLevel6" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools6" name="Level3" > 
@@ -520,30 +486,22 @@
                             </select>
                         </div>
                     </div>
-                </div>
+                    <div class="col-md-1">
 
-            </div>
-            <div class="col-md-6">
-              
-                <div class="form-group">
-
-
-                    <div class="col-md-9">
-
-                        <asp:CheckBox ID="chkLevel6" runat="server" AutoPostBack="false"   />
+                 <asp:CheckBox ID="chkLevel6" runat="server" AutoPostBack="false"   />
 
 
                     </div>
                 </div>
-                <%-- </form>--%>
+
             </div>
-        </div>
+           
 
         <div class="col-md-12 Span-One" id="divLevel7" runat="server" visible="false">
-            <div class="col-md-6">
+      
 
                 <div class="form-group">
-                    <asp:Label ID="lblLevel7" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
+                    <asp:Label ID="lblLevel7" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools7" name="Level3">
@@ -552,30 +510,21 @@
                             </select>
                         </div>
                     </div>
-                </div>
-
-            </div>
-            <div class="col-md-6">
-               
-                <div class="form-group">
-
-
-                    <div class="col-md-9">
+                    <div class="col-md-1">
 
                         <asp:CheckBox ID="chkLevel7" runat="server" AutoPostBack="false" />
 
 
                     </div>
                 </div>
-                <%-- </form>--%>
-            </div>
-        </div>
 
+            </div>
+            
         <div class="col-md-12 Span-One" id="divLevel8" runat="server" visible="false">
-            <div class="col-md-6">
+        
 
                 <div class="form-group">
-                    <asp:Label ID="lblLevel8" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
+                    <asp:Label ID="lblLevel8" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools8" name="Level3" >
@@ -584,30 +533,20 @@
                             </select>
                         </div>
                     </div>
-                </div>
-
-            </div>
-            <div class="col-md-6">
-             
-                <div class="form-group">
-
-
-                    <div class="col-md-9">
+                    <div class="col-md-1">
 
                         <asp:CheckBox ID="chkLevel8" runat="server" AutoPostBack="false"  />
 
 
                     </div>
                 </div>
-                <%-- </form>--%>
+
             </div>
-        </div>
-
+          
         <div class="col-md-12 Span-One" id="divLevel9" runat="server" visible="false">
-            <div class="col-md-6">
-
+          
                 <div class="form-group">
-                    <asp:Label ID="lblLevel9" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
+                    <asp:Label ID="lblLevel9" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools9" name="Level3" >
@@ -616,30 +555,20 @@
                             </select>
                         </div>
                     </div>
-                </div>
-
-            </div>
-            <div class="col-md-6">
-                <%--    <form class="form-horizontal" role="form">--%>
-                <div class="form-group">
-
-
-                    <div class="col-md-9">
+                    <div class="col-md-1">
 
                         <asp:CheckBox ID="chkLevel9" runat="server" AutoPostBack="false"  />
 
 
                     </div>
                 </div>
-                <%-- </form>--%>
+
             </div>
-        </div>
-
+          
         <div class="col-md-12 Span-One" id="divLevel10" runat="server" visible="false">
-            <div class="col-md-6">
-
+          
                 <div class="form-group">
-                    <asp:Label ID="lblLevel10" runat="server" class="control-label col-md-3" ForeColor="#669900"></asp:Label>
+                    <asp:Label ID="lblLevel10" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools10" name="Level10" >
@@ -648,37 +577,27 @@
                             </select>
                         </div>
                     </div>
-                </div>
-
-            </div>
-            <div class="col-md-6">
-              
-                <div class="form-group">
-
-
-                    <div class="col-md-9">
+                    <div class="col-md-1">
 
                         <asp:CheckBox ID="chkLevel10" runat="server" AutoPostBack="false"  />
 
 
                     </div>
                 </div>
-                <%-- </form>--%>
-            </div>
-        </div>
 
-        <div>
-            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+            </div>
+                <div>
+          
             <asp:Button ID="btnCloseDocument" runat="server" Text="CloseDocument" BackColor="#009999"
                  ForeColor="#000099" Width="263px" Height="36px"  OnClientClick="return CloseDoc();"  OnClick="btnCloseDocument_Click"  />
 
         </div>
+            </div>
+        
 
     </div>
         </div>
-
+      
     <script src="../Content/themes/FlyCnBlue/js/selectize.js"></script>
     <script src="../Content/themes/FlyCnBlue/js/index.js"></script>
 

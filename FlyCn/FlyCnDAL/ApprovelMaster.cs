@@ -86,7 +86,7 @@ using System.Web.UI;
         }
 
 
-        public DataTable getDataFromVarifierMaster(int Level,string documentType,string projectNo)
+        public DataTable getDataFromVarifierMaster(int Level, string documentType, string projectNo)
         {
             DataTable datatableobj = null;
             SqlConnection con = null;
@@ -97,6 +97,7 @@ using System.Web.UI;
             cmd.Parameters.AddWithValue("@Level", Level);
             cmd.Parameters.AddWithValue("@DocumentType", documentType);
             cmd.Parameters.AddWithValue("@ProjectNo", projectNo);
+         
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = cmd;
             datatableobj = new DataTable();
@@ -105,6 +106,44 @@ using System.Web.UI;
             return datatableobj;
         }
 
+        public DataTable GetVarifierEmailByIdTosentMail(int Level, string documentType, string projectNo, string varifierId)
+        {
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetVarifierDetailsByIdToSentMail", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Level", Level);
+            cmd.Parameters.AddWithValue("@DocumentType", documentType);
+            cmd.Parameters.AddWithValue("@ProjectNo", projectNo);
+            cmd.Parameters.AddWithValue("@varifierId", varifierId);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            datatableobj = new DataTable();
+            adapter.Fill(datatableobj);
+            con.Close();
+            return datatableobj;
+        }
+
+        public DataTable getDataFromVarifierMasterDetailsByRevisoinId(string RevisionID)
+        {
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetVarifierDetailsByRevisionId", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@RevisionId", RevisionID);
+          
+         
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            datatableobj = new DataTable();
+            adapter.Fill(datatableobj);
+            con.Close();
+            return datatableobj;
+        }
 
 
         #region InsertApprovelMaster
