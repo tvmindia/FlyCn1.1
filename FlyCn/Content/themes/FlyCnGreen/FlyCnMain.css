@@ -449,7 +449,19 @@ transition: .25s ease;
     .closeButton:hover {
         cursor:pointer;
     }
-
+ .buttonroundCorner
+{
+    border-radius: 15px;
+    background-color: #009999;
+    
+    color:#FFFFFF;
+    text-align :center;
+    font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 5px 10px 10px 10px;
+   font-size:17px;
+    width:100px;
+    height:30px;
+} 
 
 .ToolBarContainer {
     text-align: right;
