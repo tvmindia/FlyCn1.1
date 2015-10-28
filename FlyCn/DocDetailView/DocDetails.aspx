@@ -84,7 +84,7 @@
  
            <div class="col-md-12 Span-One">
                 <div class="col-md-6">
-                <div class="form-group">
+                
                     <asp:Label ID="lblDocNo" CssClass="control-label col-md-5" runat="server" Text="Document Number"></asp:Label>
                     <asp:Label ID="lblDocumntNo"  CssClass="control-label col-md-7" runat="server" Text=""></asp:Label>
                    
@@ -96,9 +96,9 @@
                    
                     
                <asp:Label ID="lblCreated" CssClass="control-label col-md-7" runat="server" Text=""></asp:Label>
-      </div>  </div></div>
+      </div>  </div>
     <div class="col-md-6">
-                <div class="form-group">
+                
                      <asp:Label ID="lblClientNo" CssClass="control-label col-md-5" runat="server" Text="Client DocumentNo"></asp:Label>
                     <asp:Label ID="lblClientDocNo" CssClass="control-label col-md-7"  runat="server" Text=""></asp:Label>
                <asp:Label ID="lblCreatedDate" CssClass="control-label col-md-5" runat="server" Text="Created Date"></asp:Label>
@@ -110,27 +110,31 @@
                <asp:Label ID="lblStatus" CssClass="control-label col-md-7"  runat="server" Text=""></asp:Label>
               </div>
           
-                 </div>   </div>
+                   </div>
         
      </div>
                        <br />    
-      <div class="accordion-container"> <a href="#" class="accordion-toggle" id="IDAccordion">Details <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
-          <div class="accordion-content"> 
+
+        <a href="#"  id="IDAccordion">
+            <asp:Label ID="lblheader" runat="server" Text="Details" style="font-size:large"></asp:Label> <%--<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>--%></a>
+          <div class="contentTopBar"> 
              <div id="divList">
                     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+                 <br />
+                 <div>
                     <telerik:RadGrid ID="dtDocDetailGrid" runat="server" AllowPaging="true" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtDocDetailGrid_NeedDataSource"
                          OnItemCommand="dtDocDetailGrid_ItemCommand" OnItemDataBound="dtDocDetailGrid_ItemDataBound"
                         Skin="Silk" CssClass="outerMultiPage" OnPreRender="dtDocDetailGrid_PreRender">
                     
                           <MasterTableView DataKeyNames="RevisionID,ProjectNo"></MasterTableView>
                     </telerik:RadGrid>
-
-               </div>  
+                 </div>
+               </div>   
     
-     </div>                
+     </div>              
             
-    </div>
-         </div>
+
+     
         
 </asp:Content>
  
