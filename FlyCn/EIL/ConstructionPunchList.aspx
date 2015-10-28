@@ -183,6 +183,29 @@
         }
     </script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.accordion-toggle').on('click', function (event) {
+            event.preventDefault();
+            // create accordion variables
+            var accordion = $(this);
+            var accordionContent = accordion.next('.accordion-content');
+            var accordionToggleIcon = $(this).children('.toggle-icon');
+
+            // toggle accordion link open class
+            accordion.toggleClass("open");
+            // toggle accordion content
+            accordionContent.slideToggle(250);
+
+            // change plus/minus icon
+            if (accordion.hasClass("open")) {
+                accordionToggleIcon.html("<i class='fa fa-minus-circle'></i>");
+            } else {
+                accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
+            }
+        });
+    });
+</script>
 
 
 
@@ -246,11 +269,16 @@
                                 <asp:Label ID="lblerror" runat="server" Text="" ForeColor="Red"></asp:Label>
 
                                 <uc1:ToolBar runat="server" ID="ToolBar" />
-                                <div class="col-md-12 Span-One">
-                                    <div class="col-md-6">
+                           
 
-                                        <div class="form-group">
-                                            Tracking Details
+                             <%-- Tracking Details--%>
+                                               <div class="accordion-container"> <a href="#" class="accordion-toggle">Tracking Details  
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                                      <div class="col-md-12 Span-One">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
                          <label class="control-label col-md-3" for="email3">
                              Module
                          </label>
@@ -307,12 +335,19 @@
                                         <%-- </form>--%>
                                     </div>
                                 </div>
+                                </div></div>
 
+                                 <%-- General Details--%>
+                                   <div class="accordion-container"> <a href="#" class="accordion-toggle">General Details
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content">
                                 <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                                            General Details
+                                           
+                                            
                          <label class="control-label col-md-3" for="email3">
                              ID No
                          </label>
@@ -411,13 +446,18 @@
 
                                 </div>
 
+                                 </div>
+                                       </div>
 
-
-                                <div class="col-md-12 Span-One">
+                                  <%-- Location Details--%>
+                                             <div class="accordion-container"> <a href="#" class="accordion-toggle">  Location Details 
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                                           <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                                            Location Details
                          <label class="control-label col-md-3" for="email3">
                              Plant
                          </label>
@@ -452,10 +492,10 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-3" for="email3">
+                                            <label class="control-label col-md-5" for="email3">
                                                 Location
                                             </label>
-                                            <div class="col-md-9">
+                                            <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlLocation" runat="server" CssClass="selectbox">
                                                 </asp:DropDownList>
 
@@ -468,10 +508,10 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-3" for="email3">
+                                            <label class="control-label col-md-5" for="email3">
                                                 Unit
                                             </label>
-                                            <div class="col-md-9">
+                                            <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlUnit" runat="server" CssClass="selectbox">
                                                 </asp:DropDownList>
                                             </div>
@@ -479,12 +519,17 @@
                                         <%-- </form>--%>
                                     </div>
                                 </div>
-
-                                <div class="col-md-12 Span-One">
+                                </div></div>
+                               
+                                        <%--System--%>   
+                                             <div class="accordion-container"> <a href="#" class="accordion-toggle"> System 
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content">  
+                                  <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                                            System
                          <label class="control-label col-md-3" for="email3">
                              System
                          </label>
@@ -534,11 +579,17 @@
                                     </div>
 
                                 </div>
-                                <div class="col-md-12 Span-One">
+                                </div></div>
+                                  <%--Item Details--%>  
+                                <div class="accordion-container"> <a href="#" class="accordion-toggle">Item Details   
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                                              
+                                 <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                                            Item Details    
                          <label class="control-label col-md-3" for="email3">
                              Requested By
                          </label>
@@ -712,12 +763,18 @@
                                         <%-- </form>--%>
                                     </div>
                                 </div>
+                                 </div></div>
 
-                                <div class="col-md-12 Span-One">
+                                  <%--Change Request Details--%>
+                                <div class="accordion-container"> <a href="#" class="accordion-toggle"> Change Request Details  
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                                           
+                                  <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                                            Change Request Details
                          <label class="control-label col-md-3" for="email3">
                              Reference
                          </label>
@@ -748,12 +805,16 @@
                                         <%-- </form>--%>
                                     </div>
                                 </div>
-
-                                <div class="col-md-12 Span-One">
+                                 </div></div>
+                                <%--Drawing Details--%>
+                                            <div class="accordion-container"> <a href="#" class="accordion-toggle">Drawing Details   
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                                        <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
-                                        <div class="form-group">
-                                            Drawing Details
+                                        <div class="form-group"> 
                          <label class="control-label col-md-3" for="email3">
                              Drawing
                          </label>
@@ -820,12 +881,18 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-md-12 Span-One">
+                                </div></div>
+                                  <%--Query Details--%>
+                                   <div class="accordion-container"> <a href="#" class="accordion-toggle">Query Details  
+                                            
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                               
+                                  <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                                            Query Details
                          <label class="control-label col-md-3" for="email3">
                              Query
                          </label>
@@ -876,12 +943,18 @@
 
 
                                 </div>
-
+                                </div></div>
+                                 <%--Completion Details--%>
+                                 <div class="accordion-container"> <a href="#" class="accordion-toggle">  Completion Details 
+                                            
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
                                 <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                                            Completion Details
+                                          
                          <label class="control-label col-md-3" for="email3">
                              Responsible Person
                          </label>
@@ -1039,7 +1112,7 @@
                                     </div>
                                 </div>
 
-
+                                 </div></div>
                                 <table style="width: 100%;">
                                     <tr>
                                         <td colspan="5" class="tabletd"></td>
@@ -1208,7 +1281,7 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
         </div>
     </div>
 
-
+    
     <asp:HiddenField ID="hdnMode" runat="server" />
 </asp:Content>
 
