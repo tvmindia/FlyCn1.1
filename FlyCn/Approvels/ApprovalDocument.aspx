@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Input</title>
-     <!-----bootstrap css--->
+    <%-- <!-----bootstrap css--->
     <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
     <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
     <!-----bootstrap css--->
@@ -20,7 +20,7 @@
     <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
     <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />
     <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
-    <!-----main css--->
+    <!-----main css--->--%>
     <!----jquery here jquery 1.11.3.min.js in ifrme has been disabled inorder to work dialog popup here---->
    <%--  <script src="../Content/themes/FlyCnBlue/js/jquery.js"></script>--%>
      <script src="../Scripts/jquery-1.8.2.js"></script>
@@ -88,7 +88,7 @@
     <div class="container" style="width: 100%">
         <!-----FORM SECTION---->
         <!-----SECTION TABLE---->
-          <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
+          <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" OnClientTabSelecting="OnClientTabSelecting" CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
 
             <Tabs>
                 <telerik:RadTab Text="Pending" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
@@ -224,25 +224,22 @@
 <script type="text/javascript">
 
 
-     function pageLoad()//doc.ready function cant pick the radtab thatswhy we chose pageload
-   {
-     DisableTabStrip();
-    }
-      function DisableTabStrip()
-      {
-       var tabStrip =$find('<%= RadTabStrip1.ClientID %>');
-       var tab=tabStrip.findTabByValue("2"); 
-       tab.disable();
-      }
-      function EnableTabStrip()
-      {
-       alert("enabling");
-       var tabStrip =$find('<%= RadTabStrip1.ClientID %>');
-       var tab=tabStrip.findTabByValue("2"); 
-       tab.enable();
-       tab.select();
-      
-      }
+    function OnClientTabSelecting(sender, eventArgs)
+    {
+       
+        var tab = eventArgs.get_tab();
+        if (tab.get_text() == "Approval")
+        {
+            alert("Please choose one of the actions below! ");
+            eventArgs.set_cancel(true);
+        }
+        if (tab.get_text() == "Pending")
+        {
+          
+            eventArgs.set_cancel(false);
+        }
+       
+   }
 
        function OpenNewProjectWizard() {
             try {
@@ -263,21 +260,19 @@
      
 
        function onClientTabSelected(sender, args) {
-          alert("tab1 clicked");
+       
            var tab = args.get_tab();
            if (tab.get_value() == '2')
            {
-
+              
+             
            }
            if (tab.get_value() == "1") {
-              alert("tab1 clicked");
+              
                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
                var tab = tabStrip.findTabByValue("1");
                tab.select();
-               var tab1 = tabStrip.findTabByValue("2");
-               tab1.set_text("Approval");
-               DisableTabStrip();
-           }
+               }
 
        }
     function validateText()

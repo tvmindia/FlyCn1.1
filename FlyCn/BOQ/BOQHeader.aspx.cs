@@ -103,6 +103,7 @@ namespace FlyCn.BOQ
             {//Only Edit functionality is needed in BOQheader so no delete
                 if (e.CommandName == "EditDoc")//EditDoc  is named because Radgrid has its own definition for Edit
                 {
+                    string DocumentStatus="";
                     RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                     GridDataItem item = e.Item as GridDataItem;
                     tab.Selected = true;
@@ -126,19 +127,20 @@ namespace FlyCn.BOQ
                     txtdatepicker.Value = Convert.ToString(ds.Tables[0].Rows[0]["DocumentDate"]);
                     txtDocumenttitle.Text = ds.Tables[0].Rows[0]["DocumentTitle"].ToString();
                     txtRemarks.Text = ds.Tables[0].Rows[0]["Remarks"].ToString();
-                    if (ds.Tables[0].Rows[0]["DocumentStatus"].ToString() != "CLOSED FOR VERIFICATION")
+                    if ((ds.Tables[0].Rows[0]["DocumentStatus"].ToString() == "CLOSED FOR VERIFICATION") || (ds.Tables[0].Rows[0]["DocumentStatus"].ToString() == "APPROVED"))
                     {
-                        ToolBarVisibility(2);//Normal display of Toolbar
+                        DocumentStatus = ds.Tables[0].Rows[0]["DocumentStatus"].ToString();
+                        ToolBarVisibility(4);//Disable display of Toolbar
                     }
                     else
                     {
-                        ToolBarVisibility(4);////Disable display of Toolbar
+                        ToolBarVisibility(2);//Normal display of Toolbar
                     }
                     lblDocumentStatus.Text = ds.Tables[0].Rows[0]["DocumentStatus"].ToString();
                     Guid Revisionid;
                     Guid.TryParse(hiddenFieldRevisionID.Value, out Revisionid);
                     //BOQDetail Display accordion
-                    ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid;//iframe page BOQDetails.aspx is called with query string revisonid
+                    ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid="+Revisionid+"&DocumentStatus="+DocumentStatus;//iframe page BOQDetails.aspx is called with query string revisonid
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Add", "OpenDetailAccordion();", true);
                     ContentIframe.Style["display"] = "block";
                     hdfEditStatus.Value = "GridEdit";//set the hiddenfied to know the edit event comes from radgrid and not from the update toolbar button
