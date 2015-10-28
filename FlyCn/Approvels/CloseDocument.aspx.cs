@@ -28,7 +28,7 @@ namespace FlyCn.Approvels
             _DocumentType = Request.QueryString["DocumentType"];
             _DocumentNo = Request.QueryString["DocumentNo"];
             //string caption = "Select Your Varifiers :)";
-            string caption = "Select Your Varifiers ";
+            string caption = "Select Document Varifiers ";
             //caption = caption.Replace(":)", "<img src='/Images/smile_1.png' alt='Happy!' />");
             lblCaption.Text = caption;
 

@@ -30,6 +30,7 @@
      
 </asp:Content>
 <asp:Content ID="phdDynamicMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <script src="../Scripts/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">
         function ClearTextBox() {
             $('textarea').empty();

@@ -1,4 +1,5 @@
-﻿<%-- Registration  --%>
+﻿
+<%-- Registration  --%>
 <%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="ApprovalDocument.aspx.cs" Inherits="FlyCn.Approvels.ApprovalDocument" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
@@ -8,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Input</title>
-    <%-- <!-----bootstrap css--->
+<%--     <!-----bootstrap css--->
     <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
     <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
     <!-----bootstrap css--->
@@ -18,9 +19,9 @@
     <link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
     <!-----main css--->
     <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />
-    <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
-    <!-----main css--->--%>
+    <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />--%>
+    <%--<link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />--%>
+    <!-----main css--->
     <!----jquery here jquery 1.11.3.min.js in ifrme has been disabled inorder to work dialog popup here---->
    <%--  <script src="../Content/themes/FlyCnBlue/js/jquery.js"></script>--%>
      <script src="../Scripts/jquery-1.8.2.js"></script>
@@ -35,7 +36,8 @@
     <style type="text/css">
         .ui-dialog-title {
             padding-left: 15em;
-            color: white;
+            color:maroon;
+            font-size:large;
         }
 
         .ui-dialog-titlebar {
@@ -60,6 +62,7 @@
             /*background: rgba(34,34,34,0.75);*/
             background:white;
             border: 1px solid #fff;
+            color:maroon;
         }
 
         .headings {
@@ -178,8 +181,8 @@
                                      <div class="col-md-6">
                                          <asp:LinkButton ID="lnkbtnDetail" runat="server" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
                                      </div>
-                                     <div id="modal_dialog" style="display: none; width: 1000px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
-                                         <iframe src="../DocDetailView/DocDetails.aspx" style="width: 1300px; height: 600px;"></iframe>
+                                     <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
+                                         <iframe src="../DocDetailView/DocDetails.aspx" style="width: 1000px; height: 600px;"></iframe>
                                       </div>
                        <!--Telerik Radlistbox-->
                            <div class="col-md-6">
@@ -225,29 +228,30 @@
 
 
     function OnClientTabSelecting(sender, eventArgs)
-    {
+   {
        
         var tab = eventArgs.get_tab();
         if (tab.get_text() == "Approval")
         {
             alert("Please choose one of the actions below! ");
             eventArgs.set_cancel(true);
-        }
+    }
         if (tab.get_text() == "Pending")
-        {
+      {
           
             eventArgs.set_cancel(false);
-        }
-       
-   }
+      }
+      
+      }
 
        function OpenNewProjectWizard() {
+    var docno=document.getElementById('<%=lblDocumentNo.ClientID %>').innerHTML;
             try {
                 $("#modal_dialog").dialog({
 
-                    title: "Approval Screen",
-                    width: 1200,
-                    height: 600,
+                    title: "Document Details" +"-"+ docno,
+                    width: 1000,
+                    height: 400,
                     buttons: {}, modal: true
 
                 });
@@ -264,7 +268,7 @@
            var tab = args.get_tab();
            if (tab.get_value() == '2')
            {
-              
+
              
            }
            if (tab.get_value() == "1") {
@@ -272,7 +276,7 @@
                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
                var tab = tabStrip.findTabByValue("1");
                tab.select();
-               }
+           }
 
        }
     function validateText()
@@ -281,7 +285,7 @@
         var Remarks = document.getElementById('<%=txtRemarks.ClientID %>').value;
         if(Remarks == "")
         {
-            document.getElementById('<%= lblValidationMsg.ClientID %>').innerHTML = 'Plese Fill the Remarks...!';
+            document.getElementById('<%= lblValidationMsg.ClientID %>').innerHTML = 'Please Fill the Remarks...!';
             return false;
         }
           
