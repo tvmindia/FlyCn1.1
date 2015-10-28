@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,40 +15,47 @@ namespace FlyCn.Content.DocDetailView
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           /* string projectNum = Request.QueryString["ProjNum"];
-            string revId = Request.QueryString["RevNum"];
-            string type="BOQ";
-            string revid = "d528a5a9-0049-41d3-b5bb-1bd02ee7f17d";
-            DataTable dt;
-            DocDetailList dObj = new DocDetailList();
-            dt = dObj.GetDocHeaderDetails(revid, type);
-            lblDocumntNo.Text = dt.Rows[0]["DocumentNo"].ToString();
-            lblClientDocNo.Text = dt.Rows[0]["ClientDocNo"].ToString();
-            lblType.Text = dt.Rows[0]["DocumentType"].ToString();
-            lblCreated.Text = dt.Rows[0]["CreatedBy"].ToString();
-            lblDate.Text = dt.Rows[0]["CreatedDate"].ToString();
-            int status = Convert.ToInt32(dt.Rows[0]["LatestStatus"]);
-            if(status==1)
-            {
-                lblStatus.Text = "Closed";
-            }
-            else
-                if(status==2)
-                {
-                    lblStatus.Text = "Declined";
-                }
-                else
-                    if(status==3)
-                    {
-                        lblStatus.Text = "Rejected for Amendment";
-                    }
-                    else
-                        if (status == 0)
-                        {
-                            lblStatus.Text = "Draft";
-                        }
 
-*/
+             string projectNum = Request.QueryString["ProjNum"];
+             string revId = Request.QueryString["RevNum"];
+             string type="BOQ";
+             string revid = "d528a5a9-0049-41d3-b5bb-1bd02ee7f17d";
+             DataTable dt;
+             DocDetailList dObj = new DocDetailList();
+             dt = dObj.GetDocHeaderDetails(revid, type);
+             lblDocumntNo.Text = dt.Rows[0]["DocumentNo"].ToString();
+             string docnum = lblDocumntNo.Text;
+             lblDocumntNo.Attributes["style"] = "font-weight:bold;";
+             lblClientDocNo.Text = dt.Rows[0]["ClientDocNo"].ToString();
+             lblClientDocNo.Attributes["style"] = "font-weight:bold;";
+             lblType.Text = dt.Rows[0]["DocumentType"].ToString();
+             lblType.Attributes["style"] = "font-weight:bold;";
+             lblCreated.Text = dt.Rows[0]["CreatedBy"].ToString();
+             lblCreated.Attributes["style"] = "font-weight:bold;";
+             lblDate.Text = dt.Rows[0]["CreatedDate"].ToString();
+             lblDate.Attributes["style"] = "font-weight:bold;";
+             int status = Convert.ToInt32(dt.Rows[0]["LatestStatus"]);
+             if(status==1)
+             {
+                 lblStatus.Text = "Closed";
+             }
+             else
+                 if(status==2)
+                 {
+                     lblStatus.Text = "Declined";
+                 }
+                 else
+                     if(status==3)
+                     {
+                         lblStatus.Text = "Rejected for Amendment";
+                     }
+                     else
+                         if (status == 0)
+                         {
+                             lblStatus.Text = "Draft";
+                         }
+             lblStatus.Attributes["style"] = "font-weight:bold;";
+ 
         }
 
         protected void dtDocDetailGrid_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)

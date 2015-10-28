@@ -1,4 +1,5 @@
-﻿<%-- Registration  --%>
+﻿
+<%-- Registration  --%>
 <%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="ApprovalDocument.aspx.cs" Inherits="FlyCn.Approvels.ApprovalDocument" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
@@ -22,7 +23,7 @@
     <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
     <!-----main css--->
     <!----jquery here jquery 1.11.3.min.js in ifrme has been disabled inorder to work dialog popup here---->
-     <script src="../Content/themes/FlyCnBlue/js/jquery.js"></script>
+   <%--  <script src="../Content/themes/FlyCnBlue/js/jquery.js"></script>--%>
      <script src="../Scripts/jquery-1.8.2.js"></script>
      <script src="../Scripts/jquery-1.8.2.min.js"></script>
      <script src="../Scripts/jquery-ui-1.8.24.js"></script>
@@ -54,11 +55,11 @@
             border-radius: 15px;
             -moz-border-radius: 15px;
             -webkit-border-radius: 15px;
-            background: #f2f2f2;
+            background:white;
             z-index: 50;
             /*background:transparent;*/
             /*background: rgba(34,34,34,0.75);*/
-            background: rgba(36,85,99,.9);
+            background:white;
             border: 1px solid #fff;
         }
 
@@ -88,8 +89,7 @@
     <div class="container" style="width: 100%">
         <!-----FORM SECTION---->
         <!-----SECTION TABLE---->
-          <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
-            CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
+          <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
 
             <Tabs>
                 <telerik:RadTab Text="Pending" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
@@ -99,10 +99,10 @@
 
 
         <div id="content">
-        <div class="contentTopBar"></div>
+            <div class="contentTopBar"></div>
             <table style="width: 100%">
                 <tr>
-                   <td>
+                  <td>
                        <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
                         <telerik:RadPageView ID="rpList" runat="server">
                         <div id="divList" style="width: 100%;text-align:center">
@@ -126,8 +126,6 @@
                                                 <telerik:GridBoundColumn HeaderText="Sent By" DataField="CreatedBy" ItemStyle-Width="30%"  UniqueName="CreatedBy"></telerik:GridBoundColumn>
 
                                                  <telerik:GridButtonColumn HeaderText="Action" CommandName="Action" ButtonType="ImageButton" ItemStyle-Width="5%" ImageUrl="~/Images/Icons/arrow-right3232.png" Text="Action" UniqueName="Action">
-                                                </telerik:GridButtonColumn>
-                                                <telerik:GridButtonColumn HeaderText="Details" CommandName="Details" ButtonType="ImageButton" ItemStyle-Width="5%" ImageUrl="~/Images/Icons/mail3232.png" Text="Details" UniqueName="Details">
                                                 </telerik:GridButtonColumn>
                                           
                                             </Columns>
@@ -177,6 +175,13 @@
     <asp:Button ID="btnDecline" runat="server" Text="Decline" OnClick="btnDecline_Click" OnClientClick="return validateText()"/>
     <asp:Button ID="btnReject" runat="server" Text="Reject" OnClick="btnReject_Click" OnClientClick="return validateText()"/>
 </div><!--End of button div-->
+
+                                     <div class="col-md-6">
+                                         <asp:LinkButton ID="lnkbtnDetail" runat="server" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
+                                     </div>
+                                     <div id="modal_dialog" style="display: none; width: 1000px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
+                                         <iframe src="../DocDetailView/DocDetails.aspx" style="width: 1300px; height: 600px;"></iframe>
+                                      </div>
                        <!--Telerik Radlistbox-->
                            <div class="col-md-6">
                                      <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="50%" OnNeedDataSource="dtgApprovers_NeedDataSource">
@@ -195,11 +200,11 @@
                                                 <telerik:GridBoundColumn HeaderText="VerifierLevel" DataField="VerifierLevel" ItemStyle-Width="30%" UniqueName="VerifierLevel"></telerik:GridBoundColumn>
 												<telerik:GridBoundColumn HeaderText="VerifierEmail" DataField="VerifierEmail" ItemStyle-Width="30%" UniqueName="VerifierEmail"></telerik:GridBoundColumn>
 												<telerik:GridBoundColumn HeaderText="StatusDescription" DataField="StatusDescription" ItemStyle-Width="30%" UniqueName="StatusDescription"></telerik:GridBoundColumn>
-                                           </Columns>
+                                            </Columns>
                                         </MasterTableView>
 
                                     </telerik:RadGrid>
-                                  </div>
+                                </div>
                      <!--Telerik Radlistbox-->
 
          </div><!--End of col-md-12 span one-->
@@ -207,27 +212,46 @@
         <!--End of radApproval page--->
     </telerik:RadMultiPage>
                       
-                  </td>
-                </tr>
+                             </td>
+                            </tr>
             </table>
           
         </div><!--end of div contentTopBar--->
-        <asp:LinkButton ID="lnkbtnDetail" runat="server" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
+        
         </div><!--end of div contentTopBar--->
-        <div id="modal_dialog" style="display: none; width: 1000px!important; height: 700px!important; overflow: hidden; overflow-x: hidden;">
-        <iframe src="../DocDetailView/DocDetails.aspx" style="width: 1300px; height: 700px;"></iframe>
-        </div>
+
 
 
 <script type="text/javascript">
+
+
+     function pageLoad()//doc.ready function cant pick the radtab thatswhy we chose pageload
+   {
+     DisableTabStrip();
+    }
+      function DisableTabStrip()
+      {
+       var tabStrip =$find('<%= RadTabStrip1.ClientID %>');
+       var tab=tabStrip.findTabByValue("2"); 
+        tab.disable();
+      }
+      function EnableTabStrip()
+      {
+       alert("enabling");
+       var tabStrip =$find('<%= RadTabStrip1.ClientID %>');
+       var tab=tabStrip.findTabByValue("2"); 
+       tab.enable();
+       tab.select();
+       
+      }
 
        function OpenNewProjectWizard() {
             try {
                 $("#modal_dialog").dialog({
 
                     title: "Approval Screen",
-                    width: 780,
-                    height: 700,
+                    width: 1200,
+                    height: 600,
                     buttons: {}, modal: true
 
                 });
@@ -240,18 +264,20 @@
      
 
        function onClientTabSelected(sender, args) {
-
+          alert("tab1 clicked");
            var tab = args.get_tab();
            if (tab.get_value() == '2')
            {
 
            }
            if (tab.get_value() == "1") {
+              alert("tab1 clicked");
                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
                var tab = tabStrip.findTabByValue("1");
                tab.select();
                var tab1 = tabStrip.findTabByValue("2");
                tab1.set_text("Approval");
+               DisableTabStrip();
            }
 
        }
@@ -261,11 +287,11 @@
         var Remarks = document.getElementById('<%=txtRemarks.ClientID %>').value;
         if(Remarks == "")
         {
-            document.getElementById('<%= lblValidationMsg.ClientID %>').innerHTML = 'Plese Fill the Remarks...!';
+            document.getElementById('<%= lblValidationMsg.ClientID %>').innerHTML = 'Please Fill the Remarks...!';
             return false;
         }
           
-    }
+       }  
 </script>
                             
 </asp:Content>
