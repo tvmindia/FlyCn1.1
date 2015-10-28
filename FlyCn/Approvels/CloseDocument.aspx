@@ -15,6 +15,12 @@
              color:red;
              padding-right:2em;
         }
+         .label{
+                font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color:white;
+         }
+
+     
     </style>
   
     <script src="../Scripts/jquery-1.11.3.min.js" type="text/javascript"></script>
@@ -331,7 +337,8 @@
         }
     </script>
  
-    <div class="container" style="width: 100%">
+    <div class="container" style="width: 100%;">
+         <div class="contentTopBar"></div>
         <div  id="Placeholder" runat="server">
             <asp:HiddenField ID="hdfSelectBox1" runat="server" />
             <asp:HiddenField ID="hdfSelectBox2" runat="server" />
@@ -352,7 +359,7 @@
         <div class="col-md-12 Span-One" id="divLevel1"  runat="server" visible="false">
      
 
-                <div class="form-group">
+               
                     <asp:Label ID="lblLevel1" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group"> 
@@ -373,7 +380,7 @@
             </div>
                 </div>
 
-            </div>
+           
            
 
         <div class="col-md-12 Span-One" id="divLevel2" runat="server" visible="false">
@@ -381,7 +388,7 @@
 
                 <div class="form-group" >
                     <asp:Label ID="lblLevel2" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
-                    <div class="col-md-5">
+                    <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools2" name="Level2">
                                 <option value=""></option>
@@ -480,7 +487,7 @@
                     <asp:Label ID="lblLevel6" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
-                            <select id="selecttools6" name="Level3" > 
+                            <select id="selecttools6" name="Level6" > 
                                 <option value=""></option>
                               
                             </select>
@@ -504,7 +511,7 @@
                     <asp:Label ID="lblLevel7" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
-                            <select id="selecttools7" name="Level3">
+                            <select id="selecttools7" name="Level7">
                                 <option value=""></option>
 
                             </select>
@@ -527,7 +534,7 @@
                     <asp:Label ID="lblLevel8" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
-                            <select id="selecttools8" name="Level3" >
+                            <select id="selecttools8" name="Level8" >
                                 <option value=""></option>
 
                             </select>
@@ -549,7 +556,7 @@
                     <asp:Label ID="lblLevel9" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
-                            <select id="selecttools9" name="Level3" >
+                            <select id="selecttools9" name="Level9" >
                                 <option value=""></option>
 
                             </select>
@@ -586,18 +593,23 @@
                 </div>
 
             </div>
-                <div>
-          
-            <asp:Button ID="btnCloseDocument" runat="server" Text="CloseDocument" BackColor="#009999"
-                 ForeColor="#000099" Width="263px" Height="36px"  OnClientClick="return CloseDoc();"  OnClick="btnCloseDocument_Click"  />
-
-        </div>
+                
             </div>
         
 
     </div>
+       
+      </div>
+
+    <div>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp   
+                  
+            <asp:Button class="buttonroundCorner" ID="btnCloseDocument" runat="server" Text="Close Document" 
+                  Width="263px" Height="36px"  OnClientClick="return CloseDoc();"  OnClick="btnCloseDocument_Click"   />
+ 
         </div>
-      
     <script src="../Content/themes/FlyCnBlue/js/selectize.js"></script>
     <script src="../Content/themes/FlyCnBlue/js/index.js"></script>
 
