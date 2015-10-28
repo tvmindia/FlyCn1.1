@@ -1,4 +1,5 @@
-﻿<%-- Registration  --%>
+﻿
+<%-- Registration  --%>
 <%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="ApprovalDocument.aspx.cs" Inherits="FlyCn.Approvels.ApprovalDocument" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
@@ -28,7 +29,7 @@
      <script src="../Scripts/jquery-ui-1.8.24.js"></script>
      <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>
     <!----jquery---->
-     
+       
   </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -235,7 +236,9 @@
     });
 
        function OpenNewProjectWizard() {
-      var docno=document.getElementById("<%=lblDocumentNo.ClientID %>").value;
+//debugger;
+      var docno=document.getElementById('<%=lblDocumentNo.ClientID %>').innerHTML;
+
             try {
                 $("#modal_dialog").dialog({
                     title: "Document Details" + "-" +docno,                                                                     
