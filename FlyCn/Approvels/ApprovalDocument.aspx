@@ -36,7 +36,7 @@
     <style type="text/css">
         .ui-dialog-title {
             padding-left: 15em;
-            color: white;
+            color:maroon;
         }
 
         .ui-dialog-titlebar {
@@ -61,6 +61,7 @@
             /*background: rgba(34,34,34,0.75);*/
             background:white;
             border: 1px solid #fff;
+            color:maroon;
         }
 
         .headings {
@@ -246,14 +247,15 @@
       }
 
        function OpenNewProjectWizard() {
+    var docno=document.getElementById('<%=lblDocumentNo.ClientID %>.innerHTML;
             try {
                 $("#modal_dialog").dialog({
 
-                    title: "Approval Screen",
-                    width: 1200,
-                    height: 600,
+                    title: "Document Details" +"-"+ docno,
+                    width: 1000,
+                    height: 400,
                     buttons: {}, modal: true
-
+                  
                 });
                return false;
             }
