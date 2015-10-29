@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -9,7 +10,15 @@ namespace FlyCn.UIClasses
 {
     public class InputPages
     {
+        #region GetDocumentStatusDictionary
+        public OrderedDictionary GetDocumentStatusDictionary()
+        {
+        OrderedDictionary documentStatusDictionary = new OrderedDictionary();
 
+
+        return documentStatusDictionary;
+        }
+        #endregion GetDocumentStatusDictionary
         public RadTreeView FindLeftTree(System.Web.UI.Page pg){
 
             var master = pg.Master.Master;
@@ -22,12 +31,10 @@ namespace FlyCn.UIClasses
 
         public RadPane FindContentPane(System.Web.UI.Page pg)
         {
-
             var master = pg.Master.Master;
             var cnt = master.FindControl("MainBody");
             FlyCnDAL.MasterData masters = new FlyCnDAL.MasterData();
             RadPane contenpane = (RadPane)cnt.FindControl("contentPane");
-
             return contenpane;
         }
 

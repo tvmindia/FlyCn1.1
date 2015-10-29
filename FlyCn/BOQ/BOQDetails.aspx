@@ -44,7 +44,7 @@
 
                                 <div id="rpBOQDetailList" style="width: 100%;text-align:center">
 
-                                       <telerik:RadGrid ID="dtgBOQDetailGrid" runat="server" CellSpacing="0" GridLines="None" OnNeedDataSource="dtgBOQDetailGrid_NeedDataSource" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" OnItemCommand="dtgBOQDetailGrid_ItemCommand"
+                                       <telerik:RadGrid ID="dtgBOQDetailGrid" runat="server" CellSpacing="0" GridLines="None" OnNeedDataSource="dtgBOQDetailGrid_NeedDataSource" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" OnItemCommand="dtgBOQDetailGrid_ItemCommand" OnPreRender="dtgBOQDetailGrid_PreRender"
                                         PageSize="10" Width="99%"  >
                                         <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left"/>
@@ -348,7 +348,7 @@
              ClearTexBox();
              hideMe();
              //Clear Text boxes When New tab clicks
-             debugger;
+          
              if ((document.getElementById('<%=hdfDocumentStatus.ClientID %>').value == "CLOSED FOR VERIFICATION") || (document.getElementById('<%=hdfDocumentStatus.ClientID %>').value == "APPROVED"))
              {
                
@@ -408,7 +408,7 @@
      }
      function OnClientButtonClickingDetail(sender, args)
      {
-        debugger;
+      
         var btn = args.get_item();
         if (btn.get_value() == 'Save')
         {
