@@ -1,5 +1,7 @@
 ﻿#region Namespaces
+
 using FlyCn.FlyCnDAL;
+using FlyCn.UIClasses;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +12,8 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
+
+
 #endregion Namespaces
 
 
@@ -30,8 +34,10 @@ namespace FlyCn.BOQ
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+           
+           
             BOQHeaderDetails  BOQObj= new BOQHeaderDetails();
+          
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
