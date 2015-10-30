@@ -16,17 +16,27 @@ namespace FlyCn.BOQ
         UIClasses.Const Const = new UIClasses.Const();
         ErrorHandling eObj = new ErrorHandling(); 
         FlyCnDAL.Security.UserAuthendication UA;
-        string Revisionid,Itemidstring,QueryTimeStatus;
+        string Revisionid, Itemidstring, QueryTimeStatus, DocumentStatus;
         protected void Page_Load(object sender, EventArgs e)
         {
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             Revisionid = Request.QueryString["Revisionid"];
             QueryTimeStatus = Request.QueryString["QueryTimeStatus"];
+            DocumentStatus = Request.QueryString["DocumentStatus"];
             hdfRevisionId.Value = Revisionid;
+            hdfDocumentStatus.Value = DocumentStatus;//status will be available in hiddenfieldDocumentStatus aswell as DocumentStatus
             ToolBarBOQDetail.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBarBOQDetail.OnClientButtonClicking = "OnClientButtonClickingDetail";
-            ToolBarVisibility(3);
+            if ((DocumentStatus == "CLOSED FOR VERIFICATION") || (DocumentStatus == "APPROVED"))
+            {
+                ToolBarVisibility(4);
+            }
+            else
+            {
+                ToolBarVisibility(3);
+            }
             if(!IsPostBack)
+
             {
                 if(QueryTimeStatus=="New")
                 {
@@ -132,13 +142,13 @@ namespace FlyCn.BOQ
                   bOQHeaderDetails.bOQDetails.ProjectNo = UA.projectNo;
                   ds = bOQHeaderDetails.bOQDetails.GetAllBOQDetails();
                   dtgBOQDetailGrid.DataSource = ds;
-                  if (ds.Tables[0].Rows.Count > 0) 
+                  dtgBOQDetailGrid.Rebind();
+              
+                  if ((hdfDocumentStatus.Value == "APPROVED") || (hdfDocumentStatus.Value == "CLOSED FOR VERIFICATION"))
                   {
-                      if (ds.Tables[0].Rows[0]["LatestStatus"].ToString() != "")
-                      {
-                          hdfLatestStatus.Value = ds.Tables[0].Rows[0]["LatestStatus"].ToString();//setting hiddden value for statusCheck
-                      }
+                      dtgBOQDetailGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
                   }
+                  
                }
               catch (Exception ex)
               {
@@ -160,17 +170,12 @@ namespace FlyCn.BOQ
                   bOQHeaderDetails.bOQDetails.ProjectNo = UA.projectNo;
                   ds = bOQHeaderDetails.bOQDetails.GetAllBOQDetails();
                   dtgBOQDetailGrid.DataSource = ds;
+               
                   //hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
                   //hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
                   //hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
-                  if (ds.Tables[0].Rows.Count > 0) 
-                  {
-                      if (ds.Tables[0].Rows[0]["LatestStatus"].ToString() != "")
-                      {
-                          hdfLatestStatus.Value = ds.Tables[0].Rows[0]["LatestStatus"].ToString();//setting hiddden value for statusCheck
-                      }
-                  }
-               // if ((ds.Tables.Count > 0) && (ds.Tables[0].Rows[0]["LatestStatus"].ToString() != ""))
+                  
+             
               }
               catch (Exception ex)
               {
@@ -202,22 +207,7 @@ namespace FlyCn.BOQ
                       Guid.TryParse(item.GetDataKeyValue("ItemID").ToString(), out Itemid);
                       bOQHeaderDetails.bOQDetails.ItemID = Itemid;
                       ds = bOQHeaderDetails.bOQDetails.GetBOQDetailsByItemID();
-                      if (ds.Tables[0].Rows.Count > 0)
-                      {
-                          if (ds.Tables[0].Rows[0]["LatestStatus"].ToString() != "")
-                          {
-                              if (ds.Tables[0].Rows[0]["LatestStatus"].ToString() != "1")
-                              {
-                                  ToolBarVisibility(2);//Normal display of Toolbar
-                              }
-                              else
-                              {
-                                  ToolBarVisibility(4);////Disable display of Toolbar
-                                  hdfLatestStatus.Value = ds.Tables[0].Rows[0]["LatestStatus"].ToString();
-                              }
-                          }
-                      }
-                      
+                     
                       hdfItemId.Value = ds.Tables[0].Rows[0]["ItemID"].ToString();
                       hdfRevisionId.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
                    
@@ -243,7 +233,16 @@ namespace FlyCn.BOQ
                       txtGroup3.Text = ds.Tables[0].Rows[0]["Group3"].ToString();
                       txtGroup4.Text = ds.Tables[0].Rows[0]["Group4"].ToString();
                       txtGroup5.Text = ds.Tables[0].Rows[0]["Group5"].ToString();
-                     
+
+
+                      if ((hdfDocumentStatus.Value == "CLOSED FOR VERIFICATION") || (hdfDocumentStatus.Value == "APPROVED"))
+                      {
+                          ToolBarVisibility(4);////Disable display of Toolbar
+                      }
+                      else
+                      {
+                          ToolBarVisibility(2);//Normal display of Toolbar
+                      }
                       
                   }
                   else

@@ -44,7 +44,7 @@
 
                                 <div id="rpBOQDetailList" style="width: 100%;text-align:center">
 
-                                       <telerik:RadGrid ID="dtgBOQDetailGrid" runat="server" CellSpacing="0" GridLines="None" OnNeedDataSource="dtgBOQDetailGrid_NeedDataSource" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" OnItemCommand="dtgBOQDetailGrid_ItemCommand"
+                                       <telerik:RadGrid ID="dtgBOQDetailGrid" runat="server" CellSpacing="0" GridLines="None" OnNeedDataSource="dtgBOQDetailGrid_NeedDataSource" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" OnItemCommand="dtgBOQDetailGrid_ItemCommand" OnPreRender="dtgBOQDetailGrid_PreRender"
                                         PageSize="10" Width="99%"  >
                                         <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left"/>
@@ -69,7 +69,7 @@
 
                                                 <telerik:GridButtonColumn CommandName="EditDoc" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
                                                 </telerik:GridButtonColumn>
-                                                <telerik:GridButtonColumn CommandName="DeleteDoc" Text="Delete" UniqueName="DeleteColumn" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" ConfirmDialogType="RadWindow" ConfirmText="Are you sure, you want to delete this item ?">
+                                                <telerik:GridButtonColumn CommandName="DeleteDoc" Text="Delete" UniqueName="DeleteColumn" Display="true" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" ConfirmDialogType="RadWindow" ConfirmText="Are you sure, you want to delete this item ?">
                                                 </telerik:GridButtonColumn>
 
                                                 <telerik:GridBoundColumn HeaderText="RevisionID" DataField="RevisionID" UniqueName="RevisionID" Display="false"></telerik:GridBoundColumn>
@@ -106,7 +106,7 @@
              <asp:TextBox ID="txtItemDescription" CssClass="form-control" runat="server" TextMode="MultiLine" MaxLength="250"></asp:TextBox>
                <asp:HiddenField ID="hdfRevisionId" runat="server" />
                <asp:HiddenField ID="hdfItemId" runat="server" />
-               <asp:HiddenField ID="hdfLatestStatus" runat="server" />
+               <asp:HiddenField ID="hdfDocumentStatus" runat="server" />
           </div>
           </div>
          </div>
@@ -348,7 +348,8 @@
              ClearTexBox();
              hideMe();
              //Clear Text boxes When New tab clicks
-             if (document.getElementById('<%=hdfLatestStatus.ClientID %>').value == "1")
+          
+             if ((document.getElementById('<%=hdfDocumentStatus.ClientID %>').value == "CLOSED FOR VERIFICATION") || (document.getElementById('<%=hdfDocumentStatus.ClientID %>').value == "APPROVED"))
              {
                
                
@@ -360,6 +361,7 @@
              }
              else
              {
+                    
                      <%=ToolBarBOQDetail.ClientID %>_SetAddVisible(false);
                      <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(true);
                      <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
@@ -406,7 +408,7 @@
      }
      function OnClientButtonClickingDetail(sender, args)
      {
-        debugger;
+      
         var btn = args.get_item();
         if (btn.get_value() == 'Save')
         {

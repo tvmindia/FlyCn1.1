@@ -8,10 +8,51 @@ using System.Web.UI;
 
 namespace FlyCn.FlyCnDAL
 {
+    #region DocumentStatusSettings class
+    #endregion DocumentStatusSettings class
     public class DocumentMaster
     {
+        public class DocumentStatusSettings
+        {
+            #region DocumentStatusSettings
+            /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+            //DocumentStatus Settings
+
+            public Int16 Draft
+            {
+                get { return 0; }
+
+            }
+            public Int16 Closed
+            {
+                get { return 1; }
+
+            }
+            public Int16 Declined
+            {
+                get { return 2; }
+
+            }
+            public Int16 Rejected_For_Amendment
+            {
+                get { return 3; }
+
+            }
+
+            public Int16 Approved
+            {
+                get { return 4; }
+
+            }
+
+            /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+            #endregion DocumentStatusSettings
+        }
+
+
         #region documentmasterproperties
         ErrorHandling eObj = new ErrorHandling();
+       
         public Guid DocumentID
         {
             get;

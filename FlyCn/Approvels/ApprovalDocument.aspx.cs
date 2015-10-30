@@ -100,7 +100,7 @@ namespace FlyCn.Approvels
                     lblDocumentNo.Text = item.GetDataKeyValue("DocumentNo").ToString();
                     lblCreatedBy.Text = item.GetDataKeyValue("CreatedBy").ToString();
                     dtgApprovers.Rebind();
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "EnableTabStrip();", "EnableTabStrip();", true);
+                   
                 }
                 if(e.CommandName=="Details")
                 {
