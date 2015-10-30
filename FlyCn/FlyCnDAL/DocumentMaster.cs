@@ -273,7 +273,6 @@ namespace FlyCn.FlyCnDAL
                 cmd.CommandText = "[GetAllBOQDocumentHeaderByDocumentID]";
                 cmd.Parameters.Add("@documentID", SqlDbType.UniqueIdentifier).Value = documentID;
                 cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 10).Value = projectno;
-
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();

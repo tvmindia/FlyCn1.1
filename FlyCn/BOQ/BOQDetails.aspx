@@ -348,8 +348,8 @@
              ClearTexBox();
              hideMe();
              //Clear Text boxes When New tab clicks
-          
-             if ((document.getElementById('<%=hdfDocumentStatus.ClientID %>').value == "CLOSED FOR VERIFICATION") || (document.getElementById('<%=hdfDocumentStatus.ClientID %>').value == "APPROVED"))
+             debugger;
+             if ((document.getElementById('<%=hdfDocumentStatus.ClientID %>').value == "1") || (document.getElementById('<%=hdfDocumentStatus.ClientID %>').value == "4"))
              {
                
                

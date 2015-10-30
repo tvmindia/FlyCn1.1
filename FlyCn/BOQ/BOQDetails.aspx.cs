@@ -7,28 +7,29 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
-
+using DocStatus= FlyCn.DocumentSettings.DocumentStatusSettings;//############
 namespace FlyCn.BOQ
 {
     public partial class BOQDetails : System.Web.UI.Page
     {
+        
         BOQHeaderDetails bOQHeaderDetails;
         UIClasses.Const Const = new UIClasses.Const();
         ErrorHandling eObj = new ErrorHandling(); 
         FlyCnDAL.Security.UserAuthendication UA;
-        string Revisionid, Itemidstring, QueryTimeStatus, DocumentStatus;
+        string Revisionid, Itemidstring, QueryTimeStatus, latestStatus;
         protected void Page_Load(object sender, EventArgs e)
         {
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             Revisionid = Request.QueryString["Revisionid"];
             QueryTimeStatus = Request.QueryString["QueryTimeStatus"];
-            DocumentStatus = Request.QueryString["DocumentStatus"];
+            latestStatus = Request.QueryString["latestStatus"];
             hdfRevisionId.Value = Revisionid;
-            hdfDocumentStatus.Value = DocumentStatus;//status will be available in hiddenfieldDocumentStatus aswell as DocumentStatus
+            hdfDocumentStatus.Value = latestStatus;//status will be available in hiddenfieldDocumentStatus aswell as DocumentStatus
             ToolBarBOQDetail.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBarBOQDetail.OnClientButtonClicking = "OnClientButtonClickingDetail";
-            if ((DocumentStatus == "CLOSED FOR VERIFICATION") || (DocumentStatus == "APPROVED"))
-            {
+            if ((latestStatus == DocStatus.Closed) || (latestStatus == DocStatus.Approved))
+            {//1-closed and 4 approved 
                 ToolBarVisibility(4);
             }
             else
@@ -143,8 +144,8 @@ namespace FlyCn.BOQ
                   ds = bOQHeaderDetails.bOQDetails.GetAllBOQDetails();
                   dtgBOQDetailGrid.DataSource = ds;
                   dtgBOQDetailGrid.Rebind();
-              
-                  if ((hdfDocumentStatus.Value == "APPROVED") || (hdfDocumentStatus.Value == "CLOSED FOR VERIFICATION"))
+
+                  if ((hdfDocumentStatus.Value == DocStatus.Approved) || (hdfDocumentStatus.Value == DocStatus.Closed))
                   {
                       dtgBOQDetailGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
                   }
@@ -235,7 +236,7 @@ namespace FlyCn.BOQ
                       txtGroup5.Text = ds.Tables[0].Rows[0]["Group5"].ToString();
 
 
-                      if ((hdfDocumentStatus.Value == "CLOSED FOR VERIFICATION") || (hdfDocumentStatus.Value == "APPROVED"))
+                      if ((hdfDocumentStatus.Value == DocStatus.Closed) || (hdfDocumentStatus.Value == DocStatus.Approved))
                       {
                           ToolBarVisibility(4);////Disable display of Toolbar
                       }

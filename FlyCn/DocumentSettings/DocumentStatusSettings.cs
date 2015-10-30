@@ -3,38 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace FlyCn.FlyCnDAL
+namespace FlyCn.DocumentSettings
 {
     #region DocumentStatusSettings class
-    public class DocumentStatusSettings
+    public static class  DocumentStatusSettings
     {
        #region DocumentStatusSettings
-         
 
-            public Int16 Draft
+
+        public static string Draft
             {
-                get { return 0; }
+                get { return "0"; }
 
             }
-            public Int16 Closed
+        public static string Closed
             {
-                get { return 1; }
+                get { return "1"; }
 
             }
-            public Int16 Declined
+        public static string Declined
             {
-                get { return 2; }
+                get { return "2"; }
 
             }
-            public Int16 Rejected_For_Amendment
+            public  static string Rejected_For_Amendment
             {
-                get { return 3; }
+                get { return "3"; }
 
             }
 
-            public Int16 Approved
+            public  static string Approved
             {
-                get { return 4; }
+                get { return "4"; }
 
             }
 
