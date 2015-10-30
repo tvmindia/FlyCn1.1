@@ -614,6 +614,8 @@ namespace FlyCn.EIL
                                     pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
                                     string save = Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
                                     fuAttach.SaveAs(save);
+                                   // Label lblStatus=(Label) FindControl("StatusLabel");
+
                                     StatusLabel.Text = "Upload status: File uploaded!";
                                     pObj.Idno = Convert.ToInt32(txtIDno.Text);
                                     string idno = Convert.ToString(pObj.Idno);
