@@ -20,7 +20,7 @@
 
         .textbox {
             width: 48%;
-            height: 10px;
+            height: 10px;   
             background-color: #FFF;
             font: 400 12px/18px 'Open Sans', sans-serif;
             color: #000;
@@ -297,7 +297,7 @@
                                                 <telerik:GridBoundColumn HeaderText="LinkIDNo" DataField="LinkIDNo" UniqueName="LinkIDNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="EILType" DataField="EILType" UniqueName="EILType"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="OpenBy" DataField="OpenBy" UniqueName="OpenBy"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="OpenDt" DataField="OpenDt" UniqueName="OpenDt" DataType="System.DateTime" DataFormatString="{0:M/d/yyyy}"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="OpenDt" DataField="OpenDt" UniqueName="OpenDt" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
 
                                             </Columns>
                                         </MasterTableView>
@@ -780,9 +780,9 @@
                                             </label>
                                             <div class="col-md-1">
 
-                                                <asp:RadioButton ID="rdbCoveredByYes" runat="server" Text="Yes"/></div>
+                                                <asp:RadioButton ID="rdbCoveredByYes"  runat="server" GroupName="Coveredbyproject" ToolTip="1" Text="Yes"/></div>
                                               <div class="col-md-6">
-                <asp:RadioButton ID="rdbCoveredByNo" runat="server" Text="No"/></div>
+                <asp:RadioButton ID="rdbCoveredByNo" runat="server"  GroupName="Coveredbyproject" ToolTip="0" Text="No"/></div>
                                             </div>
                                         </div>
                                         <%-- </form>--%>
@@ -839,9 +839,9 @@
                                                 
                                                  <div class="col-md-1">
 
-                                                <asp:RadioButton ID="rdbChangeRequestyes" runat="server" Text="Yes"/></div>
+                                                <asp:RadioButton ID="rdbChangeRequestyes" runat="server" Text="Yes" GroupName="ChangeRequest" ToolTip="1"/></div>
                                               <div class="col-md-6">
-                <asp:RadioButton ID="rdbchangerequestno" runat="server" Text="No"/></div>
+                <asp:RadioButton ID="rdbchangerequestno" runat="server" Text="No" GroupName="ChangeRequest" ToolTip="0"/></div>
                                             </div>
                                               
                                             </div>

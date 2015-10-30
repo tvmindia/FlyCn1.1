@@ -157,7 +157,7 @@ namespace FlyCn.FlyCnDAL
         #endregion RFIDate
 
         #region CoveredByProject
-        public Boolean CoveredByProject
+        public int CoveredByProject
         {
             get;
             set;
@@ -190,7 +190,7 @@ namespace FlyCn.FlyCnDAL
         #endregion ReferenceDate
 
         #region ChangeReq
-        public Boolean ChangeReq
+        public int ChangeReq
         {
             get;
             set;
@@ -469,10 +469,10 @@ namespace FlyCn.FlyCnDAL
                 cmdInsert.Parameters.AddWithValue("@Idno", Idno);
                 cmdInsert.Parameters.AddWithValue("@EILType", EILType);
                 cmdInsert.Parameters.AddWithValue("@openby", mObj.OpenBy);
-                //if (OpenDate != null)
-                //{
-                //    cmdInsert.Parameters.AddWithValue("@opendate", Convert.ToDateTime(OpenDate));
-                //}
+                if (OpenDate != null)
+                {
+                    cmdInsert.Parameters.AddWithValue("@opendate", Convert.ToDateTime(OpenDate));
+                }
                 cmdInsert.Parameters.AddWithValue("@enteredby", mObj.EnteredBy);
                 cmdInsert.Parameters.AddWithValue("@requestedby", mObj.RequestedBy);
                 cmdInsert.Parameters.AddWithValue("@inspector", mObj.Inspector);

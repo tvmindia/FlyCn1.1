@@ -149,6 +149,7 @@
     <Content Include="Approvels\Approvals.aspx" />
     <Content Include="Approvels\ApprovalScreen.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
+    <Content Include="Approvels\DocDetails.aspx" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.UI.Combined.dll" />
@@ -301,7 +302,6 @@
     <Content Include="Content\themes\FlyCnRider\Common\radActionsSprite.png" />
     <Content Include="Content\themes\FlyCnRider\Splitter.FlyCnRider.css" />
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
-    <Content Include="DocDetailView\DocDetails.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\flycnLogo.png" />
     <Content Include="Images\gladsmall.png" />
@@ -559,6 +559,13 @@
     <Compile Include="Approvels\CloseDocument.aspx.designer.cs">
       <DependentUpon>CloseDocument.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Approvels\DocDetails.aspx.cs">
+      <DependentUpon>DocDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvels\DocDetails.aspx.designer.cs">
+      <DependentUpon>DocDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="Account\Login.aspx.cs">
@@ -625,13 +632,6 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DocDetailView\DocDetails.aspx.cs">
-      <DependentUpon>DocDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DocDetailView\DocDetails.aspx.designer.cs">
-      <DependentUpon>DocDetails.aspx</DependentUpon>
-    </Compile>
     <Compile Include="DocumentSettings\DocumentStatusSettings.cs" />
     <Compile Include="EIL\ConstructionPunchList.aspx.cs">
       <DependentUpon>ConstructionPunchList.aspx</DependentUpon>
@@ -657,7 +657,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FlyCnDAL\dbConnection.cs" />
-    <Compile Include="FlyCnDAL\DocDetailList.cs" />
     <Compile Include="FlyCnDAL\DocumentMaster.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
