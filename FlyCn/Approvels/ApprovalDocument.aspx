@@ -9,18 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Input</title>
-<%--     <!-----bootstrap css--->
+     <!-----bootstrap css--->
     <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
     <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
     <!-----bootstrap css--->
-    <link href="../Content/themes/FlyCnBlue/css/bootstrap.min.css" rel="stylesheet" />
+   
     <link href="../Content/themes/FlyCnBlue/css/stylesheet.css" rel="stylesheet" />
     <link href="../Content/themes/FlyCnBlue/css/selectize.css" rel="stylesheet" type="text/css" />
     <link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
     <!-----main css--->
     <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />--%>
-    <%--<link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />--%>
+    <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />
+    <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
     <!-----main css--->
     <!----jquery here jquery 1.11.3.min.js in ifrme has been disabled inorder to work dialog popup here---->
    <%--  <script src="../Content/themes/FlyCnBlue/js/jquery.js"></script>--%>
@@ -28,6 +28,7 @@
      <script src="../Scripts/jquery-1.8.2.min.js"></script>
      <script src="../Scripts/jquery-ui-1.8.24.js"></script>
      <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>
+    
     <!----jquery---->
      
   </asp:Content>
