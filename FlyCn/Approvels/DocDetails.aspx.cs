@@ -21,8 +21,8 @@ namespace FlyCn.Content.DocDetailView
              string type="BOQ";
              string revid = "d528a5a9-0049-41d3-b5bb-1bd02ee7f17d";
              DataTable dt;
-             DocDetailList dObj = new DocDetailList();
-             dt = dObj.GetDocHeaderDetails(revid, type);
+             ApprovelMaster amObj = new ApprovelMaster();
+             dt = amObj.GetDocHeaderDetails(revid, type);
              lblDocumntNo.Text = dt.Rows[0]["DocumentNo"].ToString();
              string docnum = lblDocumntNo.Text;
              lblDocumntNo.Attributes["style"] = "font-weight:bold;";
@@ -70,8 +70,8 @@ namespace FlyCn.Content.DocDetailView
             string revid="d528a5a9-0049-41d3-b5bb-1bd02ee7f17d";
             string type = "BOQ";
             DataTable dt;
-            DocDetailList dObj = new DocDetailList();
-            dt=dObj.GetDocDetailList(revid,type);
+            ApprovelMaster amObj = new ApprovelMaster();
+            dt = amObj.GetDocDetailList(revid, type);
             dtDocDetailGrid.DataSource = dt;         
         }
 
