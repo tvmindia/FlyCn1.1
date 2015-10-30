@@ -632,6 +632,7 @@
     <Compile Include="DocDetailView\DocDetails.aspx.designer.cs">
       <DependentUpon>DocDetails.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DocumentSettings\DocumentStatusSettings.cs" />
     <Compile Include="EIL\ConstructionPunchList.aspx.cs">
       <DependentUpon>ConstructionPunchList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
