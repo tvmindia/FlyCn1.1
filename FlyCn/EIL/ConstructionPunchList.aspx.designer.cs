@@ -139,15 +139,6 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.TextBox txtIDno;
         
         /// <summary>
-        /// span2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span2;
-        
-        /// <summary>
         /// ddlOpenBy control.
         /// </summary>
         /// <remarks>
@@ -355,22 +346,22 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.TextBox txtReference;
         
         /// <summary>
-        /// rbChangeRequest control.
+        /// rdbChangeRequestyes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rbChangeRequest;
+        protected global::System.Web.UI.WebControls.RadioButton rdbChangeRequestyes;
         
         /// <summary>
-        /// RadioButtonList2 control.
+        /// rdbchangerequestno control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList2;
+        protected global::System.Web.UI.WebControls.RadioButton rdbchangerequestno;
         
         /// <summary>
         /// txtDrawing control.
@@ -499,15 +490,6 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.FileUpload fuAttach;
         
         /// <summary>
-        /// btnUpload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpload;
-        
-        /// <summary>
         /// StatusLabel control.
         /// </summary>
         /// <remarks>
@@ -517,13 +499,13 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.Label StatusLabel;
         
         /// <summary>
-        /// TextBox1 control.
+        /// btnUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.Button btnUpload;
         
         /// <summary>
         /// grdFileUpload control.
