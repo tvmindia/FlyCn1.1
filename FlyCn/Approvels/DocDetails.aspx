@@ -11,7 +11,7 @@
     <script src="../Scripts/jquery-ui-1.8.24.js"></script>
     <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>
         <script src="../Content/themes/FlyCnBlue/jquery.js"></script>   --%>
-       <script src="../Scripts/jquery-1.8.2.min.js"></script>   
+     <script src="../Scripts/jquery-1.8.2.min.js"></script>   
        <script src="../Scripts/jquery-ui-1.8.24.js"></script>
        <link href="../themes/base/jquery-ui.css" rel="stylesheet" />
  <script type="text/javascript">
@@ -19,16 +19,16 @@
          id = document.getElementById('IDAccordion');
 
          OpenDetailAccordion(id);
-     
+
          $('.accordion-toggle').on('click', function (event) {
 
-             event.preventDefault();          
+             event.preventDefault();
              OpenDetailAccordion(this);
          });
 
      });
 
-       
+
 
      function OpenDetailAccordion(id) {
          if (id != undefined)//accordion called from accordion click functionjs
@@ -137,4 +137,3 @@
      
         
 </asp:Content>
- 

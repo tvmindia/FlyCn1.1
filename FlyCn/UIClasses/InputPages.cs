@@ -1,5 +1,8 @@
-﻿using System;
+﻿using FlyCn.FlyCnDAL;
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -9,8 +12,7 @@ namespace FlyCn.UIClasses
 {
     public class InputPages
     {
-
-        public RadTreeView FindLeftTree(System.Web.UI.Page pg){
+       public RadTreeView FindLeftTree(System.Web.UI.Page pg){
 
             var master = pg.Master.Master;
             var cnt = master.FindControl("MainBody");
@@ -22,12 +24,10 @@ namespace FlyCn.UIClasses
 
         public RadPane FindContentPane(System.Web.UI.Page pg)
         {
-
             var master = pg.Master.Master;
             var cnt = master.FindControl("MainBody");
             FlyCnDAL.MasterData masters = new FlyCnDAL.MasterData();
             RadPane contenpane = (RadPane)cnt.FindControl("contentPane");
-
             return contenpane;
         }
 

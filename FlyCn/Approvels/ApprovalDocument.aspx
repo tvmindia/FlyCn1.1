@@ -13,7 +13,7 @@
     <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
     <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
     <!-----bootstrap css--->
-    <link href="../Content/themes/FlyCnBlue/css/bootstrap.min.css" rel="stylesheet" />
+   
     <link href="../Content/themes/FlyCnBlue/css/stylesheet.css" rel="stylesheet" />
     <link href="../Content/themes/FlyCnBlue/css/selectize.css" rel="stylesheet" type="text/css" />
     <link href="../Content/themes/FlyCnBlue/css/accodin.css" rel="stylesheet" type="text/css" />
@@ -28,6 +28,7 @@
      <script src="../Scripts/jquery-1.8.2.min.js"></script>
      <script src="../Scripts/jquery-ui-1.8.24.js"></script>
      <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>
+    
     <!----jquery---->
      
   </asp:Content>
@@ -36,7 +37,8 @@
     <style type="text/css">
         .ui-dialog-title {
             padding-left: 15em;
-            color: white;
+            color:maroon;
+            font-size:large;
         }
 
         .ui-dialog-titlebar {
@@ -61,6 +63,7 @@
             /*background: rgba(34,34,34,0.75);*/
             background:white;
             border: 1px solid #fff;
+            color:maroon;
         }
 
         .headings {
@@ -89,7 +92,7 @@
     <div class="container" style="width: 100%">
         <!-----FORM SECTION---->
         <!-----SECTION TABLE---->
-          <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
+          <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" OnClientTabSelecting="OnClientTabSelecting" CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
 
             <Tabs>
                 <telerik:RadTab Text="Pending" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
@@ -127,7 +130,7 @@
 
                                                  <telerik:GridButtonColumn HeaderText="Action" CommandName="Action" ButtonType="ImageButton" ItemStyle-Width="5%" ImageUrl="~/Images/Icons/arrow-right3232.png" Text="Action" UniqueName="Action">
                                                 </telerik:GridButtonColumn>
-                                          
+                                                                                         
                                             </Columns>
                                         </MasterTableView>
 
@@ -179,8 +182,8 @@
                                      <div class="col-md-6">
                                          <asp:LinkButton ID="lnkbtnDetail" runat="server" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
                                      </div>
-                                     <div id="modal_dialog" style="display: none; width: 1000px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
-                                         <iframe src="../DocDetailView/DocDetails.aspx" style="width: 1300px; height: 600px;"></iframe>
+                                     <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
+                                         <iframe src="../Approvels/DocDetails.aspx" style="width: 1000px; height: 600px;"></iframe>
                                       </div>
                        <!--Telerik Radlistbox-->
                            <div class="col-md-6">
@@ -211,47 +214,45 @@
       </telerik:RadPageView>
         <!--End of radApproval page--->
     </telerik:RadMultiPage>
-                      
-                             </td>
-                            </tr>
-            </table>
+                    
+       </td>
+       </tr>
+     </table>
           
         </div><!--end of div contentTopBar--->
         
         </div><!--end of div contentTopBar--->
-
+        
 
 
 <script type="text/javascript">
 
 
-     function pageLoad()//doc.ready function cant pick the radtab thatswhy we chose pageload
+    function OnClientTabSelecting(sender, eventArgs)
    {
-     DisableTabStrip();
-    }
-      function DisableTabStrip()
-      {
-       var tabStrip =$find('<%= RadTabStrip1.ClientID %>');
-       var tab=tabStrip.findTabByValue("2"); 
-        tab.disable();
-      }
-      function EnableTabStrip()
-      {
-       alert("enabling");
-       var tabStrip =$find('<%= RadTabStrip1.ClientID %>');
-       var tab=tabStrip.findTabByValue("2"); 
-       tab.enable();
-       tab.select();
        
+        var tab = eventArgs.get_tab();
+        if (tab.get_text() == "Approval")
+        {
+            alert("Please choose one of the actions below! ");
+            eventArgs.set_cancel(true);
+    }
+        if (tab.get_text() == "Pending")
+      {
+          
+            eventArgs.set_cancel(false);
+      }
+      
       }
 
        function OpenNewProjectWizard() {
+    var docno=document.getElementById('<%=lblDocumentNo.ClientID %>').innerHTML;
             try {
                 $("#modal_dialog").dialog({
 
-                    title: "Approval Screen",
-                    width: 1200,
-                    height: 600,
+                    title: "Document Details" +"-"+ docno,
+                    width: 1000,
+                    height: 400,
                     buttons: {}, modal: true
 
                 });
@@ -264,20 +265,18 @@
      
 
        function onClientTabSelected(sender, args) {
-          alert("tab1 clicked");
+       
            var tab = args.get_tab();
            if (tab.get_value() == '2')
            {
 
+             
            }
            if (tab.get_value() == "1") {
-              alert("tab1 clicked");
+              
                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
                var tab = tabStrip.findTabByValue("1");
                tab.select();
-               var tab1 = tabStrip.findTabByValue("2");
-               tab1.set_text("Approval");
-               DisableTabStrip();
            }
 
        }

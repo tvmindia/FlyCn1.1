@@ -8,10 +8,12 @@ using System.Web.UI;
 
 namespace FlyCn.FlyCnDAL
 {
+   
     public class DocumentMaster
     {
         #region documentmasterproperties
         ErrorHandling eObj = new ErrorHandling();
+       
         public Guid DocumentID
         {
             get;
@@ -271,7 +273,6 @@ namespace FlyCn.FlyCnDAL
                 cmd.CommandText = "[GetAllBOQDocumentHeaderByDocumentID]";
                 cmd.Parameters.Add("@documentID", SqlDbType.UniqueIdentifier).Value = documentID;
                 cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 10).Value = projectno;
-
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();

@@ -130,7 +130,7 @@ namespace FlyCn.EIL
                 dt = pObj.GetPunchListByProjNo(projno, ID);
                 txtIDno.Text = dt.Rows[0]["IDNo"].ToString();
                 string opndate = dt.Rows[0]["OpenDt"].ToString();
-
+                
                 if (opndate != "")
                 {
 
@@ -614,6 +614,8 @@ namespace FlyCn.EIL
                                     pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
                                     string save = Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
                                     fuAttach.SaveAs(save);
+                                   // Label lblStatus=(Label) FindControl("StatusLabel");
+
                                     StatusLabel.Text = "Upload status: File uploaded!";
                                     pObj.Idno = Convert.ToInt32(txtIDno.Text);
                                     string idno = Convert.ToString(pObj.Idno);
@@ -652,6 +654,20 @@ namespace FlyCn.EIL
             {
                 int result = 0;
                 pObj.Idno = Convert.ToInt32(txtIDno.Text);
+                pObj.CoveredByProject = 0;
+                if(rdbCoveredByYes.Checked)
+                {
+                    pObj.CoveredByProject= Convert.ToInt32(rdbCoveredByYes.ToolTip);
+                 
+                }
+                else
+                {
+                    if(rdbCoveredByNo.Checked)
+                    {
+                        pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByNo.ToolTip);
+                       
+                    }
+                }
                 if (ddlOpenBy.SelectedItem.Text != "-Select-")
                 {
                     mObj.OpenBy = Convert.ToString(ddlOpenBy.SelectedValue);
@@ -887,6 +903,20 @@ namespace FlyCn.EIL
                 int result=0;
                 pObj.Idno = Convert.ToInt32(txtIDno.Text);
                 pObj.EILType = hdnMode.Value;
+                pObj.CoveredByProject = 0;
+                if (rdbCoveredByYes.Checked)
+                {
+                    pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByYes.ToolTip);
+
+                }
+                else
+                {
+                    if (rdbCoveredByNo.Checked)
+                    {
+                        pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByNo.ToolTip);
+
+                    }
+                }
                 if (ddlOpenBy.SelectedItem.Text != "-Select-")
                 {
                     mObj.OpenBy = Convert.ToString(ddlOpenBy.SelectedValue);
@@ -986,7 +1016,7 @@ namespace FlyCn.EIL
                 {
                     pObj.Plant = null;
                 }
-                if (RadScheduleCompletionDate != null)
+                if (RadScheduleCompletionDate.SelectedDate != null)
                 {
                     pObj.ScheduledDateCompletion = Convert.ToString(RadScheduleCompletionDate.SelectedDate);
                 }
@@ -1074,6 +1104,20 @@ namespace FlyCn.EIL
                 {
                     pObj.ActionBy = null;
 
+                }
+                pObj.ChangeReq = 0;
+                if (rdbChangeRequestyes.Checked)
+                {
+                    pObj.ChangeReq = Convert.ToInt32(rdbChangeRequestyes.ToolTip);
+
+                }
+                else
+                {
+                    if (rdbchangerequestno.Checked)
+                    {
+                        pObj.CoveredByProject = Convert.ToInt32(rdbchangerequestno.ToolTip);
+
+                    }
                 }
                 pObj.EILType = hdnMode.Value;
                 try

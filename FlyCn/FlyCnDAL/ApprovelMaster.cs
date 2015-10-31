@@ -297,7 +297,7 @@ using Telerik.Web.UI;
             {
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
-                SqlCommand cmd = new SqlCommand("spGetAllApprovelsByRevisionid", con);
+                SqlCommand cmd = new SqlCommand("GetAllApprovelsByRevisionid", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = revisionid;
                 SqlDataAdapter sda = new SqlDataAdapter();
@@ -353,6 +353,86 @@ using Telerik.Web.UI;
         public void LoadInputScreen(RadPane myContentPane)
         {
             myContentPane.ContentUrl = "ApprovalDocument.aspx";
+        }
+        public DataTable GetDocDetailList(string revid, string type)
+        {
+            SqlConnection con = null;
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                UIClasses.Const Const = new UIClasses.Const();
+                FlyCnDAL.Security.UserAuthendication UA;
+
+                HttpContext context = HttpContext.Current;
+                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+
+                string SelectQuery = "GetDocDetailsByProjectNoDocumentTypeRevisionId";
+                SqlCommand cmdSelect = new SqlCommand(SelectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
+                cmdSelect.Parameters.AddWithValue("@projectno", "C00001");
+                cmdSelect.Parameters.AddWithValue("@RevisionID", revid);
+                cmdSelect.Parameters.AddWithValue("@type", type);
+                da = new SqlDataAdapter(cmdSelect);
+                da.Fill(dt);
+
+
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+            return dt;
+        }
+        public DataTable GetDocHeaderDetails(string revid, string type)
+        {
+            SqlConnection con = null;
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                UIClasses.Const Const = new UIClasses.Const();
+                FlyCnDAL.Security.UserAuthendication UA;
+
+                HttpContext context = HttpContext.Current;
+                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+
+                string SelectQuery = "GetDocDetailsByProjectNoRevisionID";
+                SqlCommand cmdSelect = new SqlCommand(SelectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
+                cmdSelect.Parameters.AddWithValue("@projectno", "C00001");
+                cmdSelect.Parameters.AddWithValue("@RevisionID", revid);
+                cmdSelect.Parameters.AddWithValue("@type", type);
+                da = new SqlDataAdapter(cmdSelect);
+                da.Fill(dt);
+
+
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+            return dt;
         }
 
 
