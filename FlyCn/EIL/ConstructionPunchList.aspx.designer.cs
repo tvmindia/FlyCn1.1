@@ -211,31 +211,31 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlUnit;
         
         /// <summary>
-        /// txtSystem control.
+        /// ddlSystem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSystem;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSystem;
         
         /// <summary>
-        /// txtControlSystem control.
+        /// ddlControlSystem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtControlSystem;
+        protected global::System.Web.UI.WebControls.DropDownList ddlControlSystem;
         
         /// <summary>
-        /// txtSubsystem control.
+        /// ddlSubsystem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSubsystem;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubsystem;
         
         /// <summary>
         /// ddlRequestedBy control.
