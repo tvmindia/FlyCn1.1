@@ -323,7 +323,7 @@ namespace FlyCn.BOQ
              {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
-                throw ex;
+                 throw ex;
              }
          }
          public void UpdateBOQDocumentDetails()

@@ -283,9 +283,34 @@ namespace FlyCn.EIL
 
                     ddlCategoryList.SelectedIndex = ddlCategoryList.Items.IndexOf(ddlCategoryList.Items.FindByText("-Select-"));
                 }
-                txtSystem.Text = dt.Rows[0]["TO_System"].ToString();
-                txtSubsystem.Text = dt.Rows[0]["TO_Subsystem"].ToString();
-                txtQueryRevision.Text = dt.Rows[0]["CTRL_System"].ToString();
+                string system=dt.Rows[0]["TO_System"].ToString();
+                if ( system!= "")
+                {
+                    ddlSystem.SelectedValue = system;
+                }
+                else
+                {
+                    ddlSystem.SelectedIndex = ddlSystem.Items.IndexOf(ddlSystem.Items.FindByText("-Select-"));
+                }
+                
+                 string subsystem  = dt.Rows[0]["TO_Subsystem"].ToString();
+                 if (subsystem != "")
+                 {
+                     ddlSubsystem.SelectedValue = subsystem;
+                 }
+                 else
+                 {
+                     ddlSubsystem.SelectedIndex = ddlSubsystem.Items.IndexOf(ddlSubsystem.Items.FindByText("-Select-"));
+                 }
+                string cntrlsystem = dt.Rows[0]["CTRL_System"].ToString();
+                if (cntrlsystem != "")
+                {
+                    ddlControlSystem.SelectedValue = cntrlsystem;
+                }
+                else
+                {
+                    ddlControlSystem.SelectedIndex = ddlControlSystem.Items.IndexOf(ddlControlSystem.Items.FindByText("-Select-"));
+                }
                 txtReference.Text = dt.Rows[0]["ChangeReqRef"].ToString();
 
                 string refDate = dt.Rows[0]["ChangeReqDt"].ToString();
@@ -301,7 +326,7 @@ namespace FlyCn.EIL
                     RadCompletionDate.SelectedDate = Convert.ToDateTime(compDate);
                 }
                 txtCompletionRemarks.Text = dt.Rows[0]["ComplRemarks"].ToString();
-                txtControlSystem.Text = dt.Rows[0]["CTRL_System"].ToString();
+              //  txtControlSystem.Text = dt.Rows[0]["CTRL_System"].ToString();
                 string organization = dt.Rows[0]["ComplRespOrg"].ToString();
                 if (organization != "")
                 {
@@ -1283,11 +1308,11 @@ namespace FlyCn.EIL
             ddlControlSystem.Items.Insert(0, new ListItem("-Select-", "NULL"));
 
             dt = pObj.GetSystemDetails();
-            ddlControlSystem.DataSource = dt;
-            ddlControlSystem.DataTextField = "Description";
-            ddlControlSystem.DataValueField = "Code";
-            ddlControlSystem.DataBind();
-            ddlControlSystem.Items.Insert(0, new ListItem("-Select-", "NULL"));
+            ddlSystem.DataSource = dt;
+            ddlSystem.DataTextField = "Description";
+            ddlSystem.DataValueField = "Code";
+            ddlSystem.DataBind();
+            ddlSystem.Items.Insert(0, new ListItem("-Select-", "NULL"));
 
             dt = pObj.GetSubSystemDetails();
             ddlSubsystem.DataSource = dt;
