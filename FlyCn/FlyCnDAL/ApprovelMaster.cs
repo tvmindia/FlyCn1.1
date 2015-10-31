@@ -291,7 +291,7 @@ using Telerik.Web.UI;
             {
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
-                SqlCommand cmd = new SqlCommand("spGetAllApprovelsByRevisionid", con);
+                SqlCommand cmd = new SqlCommand("GetAllApprovelsByRevisionid", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = revisionid;
                 SqlDataAdapter sda = new SqlDataAdapter();
