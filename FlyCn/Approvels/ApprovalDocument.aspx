@@ -98,12 +98,12 @@
                 <telerik:RadTab Text="Pending" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
                 <telerik:RadTab Text="Approval" PageViewID="rpApproval" Value="2" Width="150px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"></telerik:RadTab>
             </Tabs>
-        </telerik:RadTabStrip>
+          </telerik:RadTabStrip>
 
 
         <div id="content">
             <div class="contentTopBar"></div>
-            <table style="width: 100%">
+               <table style="width: 100%">
                 <tr>
                   <td>
                        <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
@@ -144,8 +144,15 @@
                            <!--Approval page--->
                             <telerik:RadPageView ID="rpApproval" runat="server">
                                  <uc1:ToolBar runat="server" ID="ToolBar" />
-                                 <div class="col-md-12 Span-One">
-                                 <div class="col-md-6">
+
+                                <div class="col-md-12 Span-One">
+
+                                     <div class="col-md-6">
+
+                                      <div class="col-md-5">
+                                          <asp:Label ID="lblDocNo" runat="server" Text="Document No"></asp:Label>
+                                     </div>
+                                      <div class="col-md-7">
                                         <div class="form-group">
                                           <asp:Label ID="lblDocumentNo" runat="server" Text=""></asp:Label>
                                              <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" ClientIDMode="Static"/>
@@ -153,77 +160,78 @@
                                              <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static"/>
                                              <asp:HiddenField ID="hiddenFieldApprovalID" runat="server" ClientIDMode="Static" />
                                             </div>
-                                           <div class="col-md-6">
+                                         </div>
+                                      <div class="col-md-5">
                                        
-                                           <asp:Label ID="lblCreatedDate" runat="server" Text=""></asp:Label>
+                                           <asp:Label ID="lblDate" runat="server" Text="Created Date"></asp:Label>
                                         </div>
-                                
-                                     </div>                                  
-                                      <div class="col-md-6">
+                                      <div class="col-md-7">
+                                              <asp:Label ID="lblCreatedDate" runat="server" Text=""></asp:Label>
+                                         </div>
+                                      <div class="col-md-5">
+                                            <asp:Label ID="lblcreated" runat="server" Text="Created By"></asp:Label>
+                                        </div>                   
+                                      <div class="col-md-7">
 
                                         <div class="form-group">
                                           <asp:Label ID="lblCreatedBy" runat="server" Text=""></asp:Label>
+                                            </div>
+                                          </div>
 
-                                
-                                     <div class="col-md-6">
-                                           <asp:TextBox ID="txtRemarks" CssClass="form-control" runat="server" TextMode="MultiLine" MaxLength="250"></asp:TextBox>
-                                         <asp:Label ID="lblValidationMsg" runat="server" Text=""></asp:Label>
-                                      
-                                     </div>
-                                   </div>
-                                  </div>
-                                <!---SECTION ONE--->
-<div class="col-md-6"><!--button div-->
-    <asp:Button ID="btnApprove" runat="server" Text="Approve" OnClick="btnApprove_Click"/>
-    <asp:Button ID="btnDecline" runat="server" Text="Decline" OnClick="btnDecline_Click" OnClientClick="return validateText()"/>
-    <asp:Button ID="btnReject" runat="server" Text="Reject" OnClick="btnReject_Click" OnClientClick="return validateText()"/>
-</div><!--End of button div-->
-
-                                     <div class="col-md-6">
-                                         <asp:LinkButton ID="lnkbtnDetail" runat="server" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
-                                     </div>
-                                     <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
-                                         <iframe src="../Approvels/DocDetails.aspx" style="width: 1000px; height: 600px;"></iframe>
+                                      <div class="col-md-12">
+                                      <asp:LinkButton ID="lnkbtnDetail" runat="server" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
                                       </div>
-                       <!--Telerik Radlistbox-->
-                           <div class="col-md-6">
-                                     <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="50%" OnNeedDataSource="dtgApprovers_NeedDataSource">
+                                      <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
+                                      <iframe src="../Approvels/DocDetails.aspx" style="width: 1000px; height: 600px;"></iframe>
+                                      </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="col-md-12">
+                                     <asp:TextBox ID="txtRemarks" CssClass="form-control" runat="server" TextMode="MultiLine" MaxLength="250"></asp:TextBox>
+                                     <asp:Label ID="lblValidationMsg" runat="server" Text=""></asp:Label>
+                                     </div>
+                                    <div class="col-md-12">
+                                    <asp:Button ID="btnApprove" runat="server" Text="Approve" OnClick="btnApprove_Click"/>
+                                    <asp:Button ID="btnDecline" runat="server" Text="Decline" OnClick="btnDecline_Click" OnClientClick="return validateText()"/>
+                                    <asp:Button ID="btnReject" runat="server" Text="Reject" OnClick="btnReject_Click" OnClientClick="return validateText()"/>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <!--Telerik Radlistbox-->
+                                        <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="50%" OnNeedDataSource="dtgApprovers_NeedDataSource">
                                         <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left"/>
                                         <ClientSettings>
-                                            <Selecting AllowRowSelect="true" EnableDragToSelectRows="false"/>
+                                        <Selecting AllowRowSelect="true" EnableDragToSelectRows="false"/>
                                         </ClientSettings>
                                         <MasterTableView AutoGenerateColumns="False">
-                                            <Columns>
-                                               
+                                             <Columns>
                                                 <telerik:GridBoundColumn HeaderText="ApprovalID" DataField="ApprovalID" UniqueName="ApprovalID" Display="false"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="RevisionID" DataField="RevisionID" UniqueName="RevisionID" Display="false"></telerik:GridBoundColumn>
-                                                                                            
                                                 <telerik:GridBoundColumn HeaderText="VerifierLevel" DataField="VerifierLevel" ItemStyle-Width="30%" UniqueName="VerifierLevel"></telerik:GridBoundColumn>
 												<telerik:GridBoundColumn HeaderText="VerifierEmail" DataField="VerifierEmail" ItemStyle-Width="30%" UniqueName="VerifierEmail"></telerik:GridBoundColumn>
 												<telerik:GridBoundColumn HeaderText="StatusDescription" DataField="StatusDescription" ItemStyle-Width="30%" UniqueName="StatusDescription"></telerik:GridBoundColumn>
-                                            </Columns>
+                                             </Columns>
                                         </MasterTableView>
-
-                                    </telerik:RadGrid>
+                                        </telerik:RadGrid>
+                                    </div>
+                             
                                 </div>
-                     <!--Telerik Radlistbox-->
-
-         </div><!--End of col-md-12 span one-->
-      </telerik:RadPageView>
-        <!--End of radApproval page--->
-    </telerik:RadMultiPage>
+                            </div><!--End of col-md-12 span one-->
+                           </telerik:RadPageView>
+                           <!--End of radApproval page--->
+                          </telerik:RadMultiPage>
                     
-       </td>
-       </tr>
-     </table>
+                  </td>
+              </tr>
+           </table>
           
-        </div><!--end of div contentTopBar--->
+             </div><!--end of div contentTopBar--->
         
-        </div><!--end of div contentTopBar--->
+    </div><!--end of div contentTopBar--->
         
-
+    
 
 <script type="text/javascript">
 

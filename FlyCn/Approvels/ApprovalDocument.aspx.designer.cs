@@ -76,6 +76,15 @@ namespace FlyCn.Approvels {
         protected global::FlyCn.UserControls.ToolBar ToolBar;
         
         /// <summary>
+        /// lblDocNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocNo;
+        
+        /// <summary>
         /// lblDocumentNo control.
         /// </summary>
         /// <remarks>
@@ -121,6 +130,15 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.HiddenField hiddenFieldApprovalID;
         
         /// <summary>
+        /// lblDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDate;
+        
+        /// <summary>
         /// lblCreatedDate control.
         /// </summary>
         /// <remarks>
@@ -130,6 +148,15 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.Label lblCreatedDate;
         
         /// <summary>
+        /// lblcreated control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblcreated;
+        
+        /// <summary>
         /// lblCreatedBy control.
         /// </summary>
         /// <remarks>
@@ -137,6 +164,15 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCreatedBy;
+        
+        /// <summary>
+        /// lnkbtnDetail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkbtnDetail;
         
         /// <summary>
         /// txtRemarks control.
@@ -182,15 +218,6 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnReject;
-        
-        /// <summary>
-        /// lnkbtnDetail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkbtnDetail;
         
         /// <summary>
         /// dtgApprovers control.
