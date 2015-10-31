@@ -352,7 +352,6 @@
       
          <asp:HiddenField ID="hdfDocType" runat="server" />
                <asp:HiddenField ID="hdfDocNo" runat="server" />
-             <asp:Label ID="lblerrordisplay" runat="server" Text=""  Font-Size="14px" CssClass="Error"  ></asp:Label>
             <div class="col-md-6 Span-One" >
                     <asp:Label ID="lblCaption" runat="server" Text=""  CssClass="Verifiercaption" ClientIDMode="Static"></asp:Label>
         <div class="col-md-12 Span-One" id="divLevel1"  runat="server" visible="false">
@@ -599,6 +598,7 @@
       </div>
 
     </div>
+             <asp:Label ID="lblerrordisplay" runat="server" Text=""  Font-Size="14px" CssClass="Error" style="margin-left:5px;" ></asp:Label>
     
         <div>
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
