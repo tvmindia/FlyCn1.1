@@ -4,10 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <style>
-        .caption {
-            font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            vertical-align: middle;
-        }
+        
          .Error {
             font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             vertical-align:central;
@@ -336,8 +333,9 @@
             return arry;
         }
     </script>
- 
+
     <div class="container" style="width: 100%;">
+         <div  style="width:auto; height:inherit; background-color: transparent; overflow-y: auto; scrollbar-base-color: rgba(36,85,99,.9)">
          <div class="contentTopBar"></div>
         <div  id="Placeholder" runat="server">
             <asp:HiddenField ID="hdfSelectBox1" runat="server" />
@@ -351,16 +349,17 @@
             <asp:HiddenField ID="hdfSelectBox9" runat="server" />
             <asp:HiddenField ID="hdfSelectBox10" runat="server" />
                <asp:HiddenField ID="hdfDivLevels" runat="server" />
-    
       
+         <asp:HiddenField ID="hdfDocType" runat="server" />
+               <asp:HiddenField ID="hdfDocNo" runat="server" />
              <asp:Label ID="lblerrordisplay" runat="server" Text=""  Font-Size="14px" CssClass="Error"  ></asp:Label>
             <div class="col-md-6 Span-One" >
-                    <asp:Label ID="lblCaption" runat="server" Text="" ForeColor="#008B8B" Font-Size="18px" CssClass="caption" ClientIDMode="Static"></asp:Label>
+                    <asp:Label ID="lblCaption" runat="server" Text=""  CssClass="Verifiercaption" ClientIDMode="Static"></asp:Label>
         <div class="col-md-12 Span-One" id="divLevel1"  runat="server" visible="false">
      
 
                
-                    <asp:Label ID="lblLevel1" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
+                    <asp:Label ID="lblLevel1" runat="server" class="control-label col-md-2" ForeColor="#006666"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group"> 
 
@@ -386,8 +385,8 @@
         <div class="col-md-12 Span-One" id="divLevel2" runat="server" visible="false">
           
 
-                <div class="form-group" >
-                    <asp:Label ID="lblLevel2" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
+
+                    <asp:Label ID="lblLevel2" runat="server" class="control-label col-md-2" ForeColor="#006666"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools2" name="Level2">
@@ -403,13 +402,12 @@
                     </div>
                 </div>
                     
-                </div>
-             
+
 
         <div class="col-md-12 Span-One" id="divLevel3" runat="server" visible="false">
           
-                <div class="form-group">
-                    <asp:Label ID="lblLevel3" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
+             
+                    <asp:Label ID="lblLevel3" runat="server" class="control-label col-md-2" ForeColor="#006666"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools3" name="Level3" >
@@ -428,12 +426,12 @@
 
 
                     
-                </div>
+             
               
         <div class="col-md-12 Span-One" id="divLevel4" runat="server" visible="false">
            
-                <div class="form-group">
-                    <asp:Label ID="lblLevel4" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
+          
+                    <asp:Label ID="lblLevel4" runat="server" class="control-label col-md-2" ForeColor="#006666"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools4" name="Level4" >
@@ -452,14 +450,13 @@
 
             
                     
-                </div>
+       
                
 
         <div class="col-md-12 Span-One" id="divLevel5" runat="server" visible="false">
            
 
-                <div class="form-group">
-                    <asp:Label ID="lblLevel5" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
+              <asp:Label ID="lblLevel5" runat="server" class="control-label col-md-2" ForeColor="#006666"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools5" name="Level5">
@@ -479,12 +476,12 @@
            
 
                     
-                </div>
+               
              
         <div class="col-md-12 Span-One" id="divLevel6" runat="server" visible="false">
           
-                <div class="form-group">
-                    <asp:Label ID="lblLevel6" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
+         
+                    <asp:Label ID="lblLevel6" runat="server" class="control-label col-md-2" ForeColor="#006666"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools6" name="Level6" > 
@@ -501,14 +498,14 @@
                     </div>
                 </div>
 
-            </div>
+        
            
 
         <div class="col-md-12 Span-One" id="divLevel7" runat="server" visible="false">
       
 
-                <div class="form-group">
-                    <asp:Label ID="lblLevel7" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
+      
+                    <asp:Label ID="lblLevel7" runat="server" class="control-label col-md-2" ForeColor="#006666"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools7" name="Level7">
@@ -525,13 +522,13 @@
                     </div>
                 </div>
 
-            </div>
+          
             
         <div class="col-md-12 Span-One" id="divLevel8" runat="server" visible="false">
         
 
-                <div class="form-group">
-                    <asp:Label ID="lblLevel8" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
+           
+                    <asp:Label ID="lblLevel8" runat="server" class="control-label col-md-2" ForeColor="#006666"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools8" name="Level8" >
@@ -548,12 +545,12 @@
                     </div>
                 </div>
 
-            </div>
+
           
         <div class="col-md-12 Span-One" id="divLevel9" runat="server" visible="false">
           
-                <div class="form-group">
-                    <asp:Label ID="lblLevel9" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
+              
+                    <asp:Label ID="lblLevel9" runat="server" class="control-label col-md-2" ForeColor="#006666"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools9" name="Level9" >
@@ -570,12 +567,12 @@
                     </div>
                 </div>
 
-            </div>
+        
           
         <div class="col-md-12 Span-One" id="divLevel10" runat="server" visible="false">
           
-                <div class="form-group">
-                    <asp:Label ID="lblLevel10" runat="server" class="control-label col-md-2" ForeColor="#669900"></asp:Label>
+        
+                    <asp:Label ID="lblLevel10" runat="server" class="control-label col-md-2" ForeColor="#006666"></asp:Label>
                     <div class="col-md-9">
                         <div class="control-group">
                             <select id="selecttools10" name="Level10" >
@@ -592,7 +589,7 @@
                     </div>
                 </div>
 
-            </div>
+    
                 
             </div>
         
@@ -601,7 +598,9 @@
        
       </div>
 
-    <div>
+    </div>
+    
+        <div>
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp   
@@ -610,6 +609,7 @@
                   Width="263px" Height="36px"  OnClientClick="return CloseDoc();"  OnClick="btnCloseDocument_Click"   />
  
         </div>
+  
     <script src="../Content/themes/FlyCnBlue/js/selectize.js"></script>
     <script src="../Content/themes/FlyCnBlue/js/index.js"></script>
 

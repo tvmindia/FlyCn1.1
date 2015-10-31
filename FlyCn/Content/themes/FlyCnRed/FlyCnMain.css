@@ -476,7 +476,13 @@ transition: .25s ease;
     height:30px;
     font-size:17px;
 }
-
+ .Verifiercaption {
+            font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            vertical-align: middle;
+             color:#B21212;
+             font-size:18px;
+        
+        }
 .ToolBarContainer {
     text-align: right;
     border-top-style: none;

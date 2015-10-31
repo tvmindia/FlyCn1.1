@@ -30,6 +30,12 @@ using Telerik.Web.UI;
             get;
             set;
         }
+      
+        public string DocumentType
+        {
+            get;
+            set;
+        }
         public string VerifierID
         {
             get;
@@ -349,5 +355,7 @@ using Telerik.Web.UI;
             myContentPane.ContentUrl = "ApprovalDocument.aspx";
         }
 
+
+    
     }
 }

@@ -33,12 +33,13 @@
  <style type="text/css">
         .ui-dialog-title {
             padding-left: 15em;
-            color: #CD5C5C;
+            color: #333300;
         }
 
         .ui-dialog-titlebar {
             background: transparent;
             border: none;
+            height: 1.1em;
         }
 
         .ui-dialog .ui-dialog-titlebar-close {
@@ -236,7 +237,7 @@ border-top:#A6CAB8 3px solid;
         </telerik:RadSplitter>
     </div>
 
-   <div id="CloseDocumentPopup" style="display:none; width: 1000px!important; overflow:scroll; overflow-x:hidden">
+   <div id="CloseDocumentPopup" style="display:none; width: 1000px!important; overflow-x:hidden;" >
            
               <iframe id="IframeContent" style="width:1300px; height:inherit; "></iframe>
                  </div>

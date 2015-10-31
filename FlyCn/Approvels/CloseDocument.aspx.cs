@@ -27,6 +27,7 @@ namespace FlyCn.Approvels
             _DocumentID = Request.QueryString["DocumentID"];
             _DocumentType = Request.QueryString["DocumentType"];
             _DocumentNo = Request.QueryString["DocumentNo"];
+         
             //string caption = "Select Your Varifiers :)";
             string caption = "Select Document Varifiers ";
             //caption = caption.Replace(":)", "<img src='/Images/smile_1.png' alt='Happy!' />");
@@ -39,7 +40,7 @@ namespace FlyCn.Approvels
         }
 
 
-
+        #region PlaceLabels
         public void PlaceLabels()
         {
             ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
@@ -100,6 +101,9 @@ namespace FlyCn.Approvels
 
             hdfDivLevels.Value = DivLevels.TrimEnd(',');
         }
+        #endregion PlaceLabels
+
+      
         public void FillSelectBoxData()
         {
             string documentType = _DocumentType;
@@ -205,6 +209,7 @@ namespace FlyCn.Approvels
             }
             hdfSelectBox10.Value = FieldValueLevel10;
         }
+
         protected void btnCloseDocument_Click(object sender, EventArgs e)
         {
             string level1Idf = (Request.Form["selecttools1"]);
@@ -416,12 +421,15 @@ namespace FlyCn.Approvels
                 }
 
             }
-            SendMailToVarifiers();
+            FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
+           MailSendingobj.SendMailToNextLevelVarifiers(_RevisionID, _DocumentType, UA.projectNo,_DocumentNo);
+      
+         
         }
         public void InsertOperation(string levelId, int Level, byte isLevelManadatory)
         {
             ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
-
+           
             string documentType = _DocumentType;
             string projectNo = UA.projectNo;
             System.Guid guid = System.Guid.NewGuid();
@@ -437,42 +445,9 @@ namespace FlyCn.Approvels
             ApprovelMasterobj.InsertApprovelMaster();
 
         }
-        public void SendMailToVarifiers()
-        {
-            ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
 
 
-            DataTable VarifierdtLevelByRevisionid = new DataTable();
-            VarifierdtLevelByRevisionid = ApprovelMasterobj.getDataFromVarifierMasterDetailsByRevisoinId(_RevisionID);
-            DataTable Varifierdetails = new DataTable();
-            int totalrows = VarifierdtLevelByRevisionid.Rows.Count;
-
-            for (int f = 0; f < VarifierdtLevelByRevisionid.Rows.Count; f++)
-            {
-                int verifierLevels = Convert.ToUInt16(VarifierdtLevelByRevisionid.Rows[0]["VerifierLevel"]);
-                if (Convert.ToUInt16(VarifierdtLevelByRevisionid.Rows[f]["VerifierLevel"]) == verifierLevels)
-                {
-                    string varifierId = VarifierdtLevelByRevisionid.Rows[f]["VerifierID"].ToString();
-                    Varifierdetails = ApprovelMasterobj.GetVarifierEmailByIdTosentMail(verifierLevels, _DocumentType, UA.projectNo, varifierId);
-                    string verifierMailId = Varifierdetails.Rows[0]["VerifierEmail"].ToString();
-                    new Thread(delegate()
-               {
-                   MailSendingOperation(verifierLevels, varifierId);
-               }).Start();
-                }
-            }
-        }
-        public void MailSendingOperation(int Level, string levelId)
-        {
-            ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
-            FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
-            DataTable dtobj = new DataTable();
-            dtobj = ApprovelMasterobj.GetVarifierDetailsById(Level, levelId);
-            MailSendingobj.MsgFrom = "";
-            MailSendingobj.MsgTo = dtobj.Rows[0]["VerifierEmail"].ToString();
-            MailSendingobj.Password = "";
-            MailSendingobj.SendingMail(_DocumentType, _DocumentNo, MailSendingobj.MsgTo);
-        }
+       
 
     }
 }

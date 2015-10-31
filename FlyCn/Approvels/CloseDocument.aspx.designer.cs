@@ -121,6 +121,24 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.HiddenField hdfDivLevels;
         
         /// <summary>
+        /// hdfDocType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfDocType;
+        
+        /// <summary>
+        /// hdfDocNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfDocNo;
+        
+        /// <summary>
         /// lblerrordisplay control.
         /// </summary>
         /// <remarks>
