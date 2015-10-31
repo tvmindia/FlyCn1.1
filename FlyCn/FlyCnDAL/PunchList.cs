@@ -496,7 +496,10 @@ namespace FlyCn.FlyCnDAL
                 cmdInsert.Parameters.AddWithValue("@failcategory", FailCategory);
                 cmdInsert.Parameters.AddWithValue("@rfino", RFINo);
                 cmdInsert.Parameters.AddWithValue("@displine", Discipline);
-                cmdInsert.Parameters.AddWithValue("@category", Category);
+                if (Category != null)
+                {
+                    cmdInsert.Parameters.AddWithValue("@category", Category);
+                }
                 if (RFIDate != null)
                 {
                     cmdInsert.Parameters.AddWithValue("@rfidate", Convert.ToDateTime(RFIDate));
@@ -678,7 +681,7 @@ namespace FlyCn.FlyCnDAL
         #endregion GetPunchListByProjNo
 
         #region GetSystemDetails
-        public DataTable GetSystemDetails(string ProjNo)
+        public DataTable GetSystemDetails()
         {
             DataTable dt = new DataTable();
             SqlConnection con = null;
@@ -713,7 +716,7 @@ namespace FlyCn.FlyCnDAL
         #endregion GetSystemDetails
 
         #region GetSubSystemDetails
-        public DataTable GetSubSystemDetails(string ProjNo)
+        public DataTable GetSubSystemDetails()
         {
             DataTable dt = new DataTable();
             SqlConnection con = null;
@@ -748,7 +751,7 @@ namespace FlyCn.FlyCnDAL
         #endregion GetSubSystemDetails
 
         #region GetCTRLSystemDetails
-        public DataTable GetCTRLSystemDetails(string ProjNo)
+        public DataTable GetCTRLSystemDetails()
         {
             DataTable dt = new DataTable();
             SqlConnection con = null;
@@ -1346,6 +1349,117 @@ namespace FlyCn.FlyCnDAL
             return dt;
         }
         #endregion GetSLNo_AttachDetails
+
+        //#region GetControlSystemFromM_CTRL_System
+        //public DataTable GetControlSystemFromM_CTRL_System()
+        //{
+        //    DataTable dt = new DataTable();
+        //    SqlConnection con = null;
+        //    SqlDataAdapter daObj;
+        //    try
+        //    {
+
+        //        dbConnection dcon = new dbConnection();
+        //        con = dcon.GetDBConnection();
+        //        UIClasses.Const Const = new UIClasses.Const();
+
+        //        FlyCnDAL.Security.UserAuthendication UA;
+        //        HttpContext context = HttpContext.Current;
+        //        UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+
+        //        string selectQuery = "select Code,Description from M_CTRL_System where ProjectNo=@No";
+        //        SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+        //        cmdSelect.Parameters.AddWithValue("@No", UA.projectNo);
+        //        daObj = new SqlDataAdapter(cmdSelect);
+        //        daObj.Fill(dt);
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        throw ex;
+
+        //    }
+        //    finally
+        //    {
+        //        con.Close();
+        //    }
+        //    return dt;
+        //}
+        //#endregion GetControlSystemFromM_CTRL_System
+
+        //#region GetSystemFromM_TO_System
+        //public DataTable GetSystemFromM_TO_System()
+        //{
+        //    DataTable dt = new DataTable();
+        //    SqlConnection con = null;
+        //    SqlDataAdapter daObj;
+        //    try
+        //    {
+
+        //        dbConnection dcon = new dbConnection();
+        //        con = dcon.GetDBConnection();
+        //        UIClasses.Const Const = new UIClasses.Const();
+
+        //        FlyCnDAL.Security.UserAuthendication UA;
+        //        HttpContext context = HttpContext.Current;
+        //        UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+
+        //        string selectQuery = "select Code,Description from M_TO_System where ProjectNo=@No";
+        //        SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+        //        cmdSelect.Parameters.AddWithValue("@No", UA.projectNo);
+        //        daObj = new SqlDataAdapter(cmdSelect);
+        //        daObj.Fill(dt);
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        throw ex;
+
+        //    }
+        //    finally
+        //    {
+        //        con.Close();
+        //    }
+        //    return dt;
+        //}
+        //#endregion GetControlSystemFromM_CTRL_System
+
+        //#region GetSubSystemFromM_TO_SubSystem
+        //public DataTable GetSubSystemFromM_TO_SubSystem()
+        //{
+        //    DataTable dt = new DataTable();
+        //    SqlConnection con = null;
+        //    SqlDataAdapter daObj;
+        //    try
+        //    {
+
+        //        dbConnection dcon = new dbConnection();
+        //        con = dcon.GetDBConnection();
+        //        UIClasses.Const Const = new UIClasses.Const();
+
+        //        FlyCnDAL.Security.UserAuthendication UA;
+        //        HttpContext context = HttpContext.Current;
+        //        UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+
+        //        string selectQuery = "select Code,Description from M_TO_SubSystem where ProjectNo=@No";
+        //        SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+        //        cmdSelect.Parameters.AddWithValue("@No", UA.projectNo);
+        //        daObj = new SqlDataAdapter(cmdSelect);
+        //        daObj.Fill(dt);
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        throw ex;
+
+        //    }
+        //    finally
+        //    {
+        //        con.Close();
+        //    }
+        //    return dt;
+        //}
+        //#endregion GetControlSystemFromM_CTRL_System
+
+
+
     }
 
         #endregion Methods

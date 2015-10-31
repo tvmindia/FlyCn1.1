@@ -576,8 +576,8 @@
                          </label>
                                             <div class="col-md-7">
 
-                                                <asp:TextBox ID="txtSystem" CssClass="form-control" runat="server"></asp:TextBox>
-
+                                              <%--  <asp:TextBox ID="txtSystem" CssClass="form-control" runat="server"></asp:TextBox>--%>
+                                                <asp:DropDownList ID="ddlSystem" runat="server" CssClass="selectbox"></asp:DropDownList>
 
                                             </div>
                                         </div>
@@ -594,7 +594,8 @@
                                             <div class="col-md-7">
 
 
-                                                <asp:TextBox ID="txtControlSystem" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <%--<asp:TextBox ID="txtControlSystem" CssClass="form-control" runat="server"></asp:TextBox>--%>
+                                                <asp:DropDownList ID="ddlControlSystem" runat="server" CssClass="selectbox"></asp:DropDownList>
                                             </div>
                                         </div>
                                         <%-- </form>--%>
@@ -611,8 +612,8 @@
                                             </label>
                                             <div class="col-md-7">
 
-                                                <asp:TextBox ID="txtSubsystem" CssClass="form-control" runat="server"></asp:TextBox>
-
+                                                <%--<asp:TextBox ID="txtSubsystem" CssClass="form-control" runat="server"></asp:TextBox>--%>
+                                                <asp:DropDownList ID="ddlSubsystem" runat="server" CssClass="selectbox"></asp:DropDownList>
 
                                             </div>
                                         </div>
@@ -721,7 +722,7 @@
                                             </label>
                                             <div class="col-md-7">
 
-                                                <asp:DropDownList ID="ddlCategoryList" runat="server" OnSelectedIndexChanged="DropDownList3_SelectedIndexChanged" CssClass="selectbox">
+                                                <asp:DropDownList ID="ddlCategoryList" runat="server" CssClass="selectbox">
                                                 </asp:DropDownList>
                                             </div>
                                         </div>

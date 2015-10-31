@@ -95,8 +95,7 @@ namespace FlyCn.EIL
         #endregion dtgManageProjectGrid_NeedDataSource1
 
         #region dtgManageProjectGrid_DeleteCommand
-        private void dtgManageProjectGrid_DeleteCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
-        {
+        private void dtgManageProjectGrid_DeleteCommand(object source, Telerik.Web.UI.GridCommandEventArgs e){
             string ID = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["IDNo"].ToString();
             DataTable table = (DataTable)Session["DataSource"];
             if (table.Rows.Find(ID) != null)
@@ -364,13 +363,6 @@ namespace FlyCn.EIL
         }
         #endregion btnUpdate_Click
 
-        #region DropDownList3_SelectedIndexChanged
-        protected void DropDownList3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        #endregion DropDownList3_SelectedIndexChanged
-
         #region txtIDno_TextChanged
         protected void txtIDno_TextChanged(object sender, EventArgs e)
         {
@@ -552,21 +544,7 @@ namespace FlyCn.EIL
                         pObj.EILType = "WEIL";
                     }
 
-                    //if (grdFileUpload.Rows.Count > 0)
-                    //{
-                    //    var dtable = new DataTable();
-                    //    dtable.Columns.Add("file", typeof(string));
-                    //    foreach (GridViewRow gvrow in grdFileUpload.Rows)
-                    //    {
-
-                    //        string filename = gvrow.Cells[3].Text;
-
-
-                    //        dtable.Rows.Add(filename);
-                    //    }
-                    //    foreach (DataRow dr in dtable.Rows)
-                    //    {
-                    //        pObj.fileUpload = dr["file"].ToString();
+                
 
                             string id = txtIDno.Text;
                             pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
@@ -721,10 +699,7 @@ namespace FlyCn.EIL
                     mObj.EnteredBy = null;
                 }
 
-                //if (RadEnteredDate.SelectedDate != null)
-                //{
-                //    pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
-                //}
+              
                 if (RadEnteredDate.SelectedDate != null)
                 {
                     pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
@@ -791,23 +766,7 @@ namespace FlyCn.EIL
                     pObj.FailCategory = null;
                 }
 
-                // pObj.Category = Convert.ToString(ddlCategoryList.SelectedValue);
-                if (txtSystem.Text != "")
-                {
-                    pObj.System = txtSystem.Text;
-                }
-                else
-                {
-                    pObj.System = null;
-                }
-                if (txtSubsystem.Text != "")
-                {
-                    pObj.Subsystem = txtSubsystem.Text;
-                }
-                else
-                {
-                    pObj.Subsystem = null;
-                }
+            
 
                 string val = null;
                 pObj.QueryRevision = string.IsNullOrEmpty(val) ? 0 : Convert.ToInt32(txtQueryRevision.Text);
@@ -817,20 +776,13 @@ namespace FlyCn.EIL
                     pObj.ReferenceDate = Convert.ToString(RadReferenceDate.SelectedDate);
                 }
 
-                //pObj.Revison = txtRevision.Text;
+            
                 if (RadCompletionDate.SelectedDate != null)
                 {
                     pObj.CompletionDate = Convert.ToString(RadCompletionDate.SelectedDate);
                 }
                 pObj.CompletionRemarks = txtCompletionRemarks.Text;
-                if (txtControlSystem.Text != "")
-                {
-                    pObj.ControlSystem = txtControlSystem.Text;
-                }
-                else
-                {
-                    pObj.ControlSystem = null;
-                }
+           
 
                 if (ddlOrganization.SelectedItem.Text != "-Select-")
                 {
@@ -840,8 +792,7 @@ namespace FlyCn.EIL
                 {
                     pObj.Organization = null;
                 }
-                // pObj.CoveredByProject=
-                // pObj.ChangeReq=
+               
                 if (ddlActionBy.SelectedItem.Text != "-Select-")
                 {
                     pObj.ActionBy = Convert.ToString(ddlActionBy.SelectedValue);
@@ -850,12 +801,38 @@ namespace FlyCn.EIL
                 {
                     pObj.ActionBy = null;
                 }
+                if (ddlSystem.SelectedItem.Text != "-Select-")
+                {
+                    pObj.System = Convert.ToString(ddlSystem.SelectedValue);
+                }
+                else
+                {
+                    pObj.System = null;
+                }
+                if (ddlSubsystem.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Subsystem = Convert.ToString(ddlSubsystem.SelectedValue);
+                }
+                else
+                {
+
+                    pObj.Subsystem = null;
+                }
+                if (ddlControlSystem.SelectedItem.Text != "-Select-")
+                {
+                    pObj.ControlSystem = Convert.ToString(ddlControlSystem.SelectedValue);
+                }
+                else
+                {
+                    pObj.ControlSystem = null;
+                }
+
                 pObj.Idno = Convert.ToInt32(txtIDno.Text);
                 pObj.EILType = hdnMode.Value;
 
 
                 result = pObj.EditPunchListItems(pObj.Idno, mObj);
-               // Response.Redirect("ConstructionPunchList.aspx");
+              
                 if (result == 1)
                 {
                     var page = HttpContext.Current.CurrentHandler as Page;
@@ -1040,23 +1017,23 @@ namespace FlyCn.EIL
                 }
                 //if (ddlCategory.SelectedItem.Text != "-Select-")
                 //{
-                //   pObj.Category = Convert.ToString(ddlCategoryList.SelectedValue);
+                //    pObj.Category = Convert.ToString(ddlCategoryList.SelectedValue);
                 //}
                 //else
                 //{
                 //    pObj.Category = null;
                 //}
-                if (txtSystem.Text != "")
+                if (ddlSystem.SelectedItem.Text != "-Select-")
                 {
-                    pObj.System = txtSystem.Text;
+                    pObj.System = Convert.ToString(ddlSystem.SelectedValue);
                 }
                 else
                 {
                     pObj.System = null;
                 }
-                if (txtSubsystem.Text != "")
+                if (ddlSubsystem.SelectedItem.Text != "-Select-")
                 {
-                    pObj.Subsystem = txtSubsystem.Text;
+                    pObj.Subsystem = Convert.ToString(ddlSubsystem.SelectedValue);
                 }
                 else
                 {
@@ -1077,9 +1054,9 @@ namespace FlyCn.EIL
                     pObj.CompletionDate = Convert.ToString(RadCompletionDate.SelectedDate);
                 }
                 pObj.CompletionRemarks = txtCompletionRemarks.Text;
-                if (txtControlSystem.Text != "")
+                if (ddlControlSystem.SelectedItem.Text != "-Select-")
                 {
-                    pObj.ControlSystem = txtControlSystem.Text;
+                    pObj.ControlSystem = Convert.ToString(ddlControlSystem.SelectedValue);
                 }
                 else
                 {
@@ -1297,6 +1274,27 @@ namespace FlyCn.EIL
             ddlOrganization.DataValueField = "Code";
             ddlOrganization.DataBind();
             ddlOrganization.Items.Insert(0, new ListItem("-Select-", "NULL"));
+
+            dt = pObj.GetCTRLSystemDetails();
+            ddlControlSystem.DataSource = dt;
+            ddlControlSystem.DataTextField = "Description";
+            ddlControlSystem.DataValueField = "Code";
+            ddlControlSystem.DataBind();
+            ddlControlSystem.Items.Insert(0, new ListItem("-Select-", "NULL"));
+
+            dt = pObj.GetSystemDetails();
+            ddlControlSystem.DataSource = dt;
+            ddlControlSystem.DataTextField = "Description";
+            ddlControlSystem.DataValueField = "Code";
+            ddlControlSystem.DataBind();
+            ddlControlSystem.Items.Insert(0, new ListItem("-Select-", "NULL"));
+
+            dt = pObj.GetSubSystemDetails();
+            ddlSubsystem.DataSource = dt;
+            ddlSubsystem.DataTextField = "Description";
+            ddlSubsystem.DataValueField = "Code";
+            ddlSubsystem.DataBind();
+            ddlSubsystem.Items.Insert(0, new ListItem("-Select-", "NULL"));
                
         }
         #endregion LoadComboBox
