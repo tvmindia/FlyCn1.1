@@ -520,3 +520,45 @@ transition: .25s ease;
     border-bottom-style: inset;
     border-bottom-width: thin;
 }
+
+.CommonAlerts{
+        /*background-position: left center;
+    border: thin inset #800000;
+    background: #FFEAEA;
+    border-radius: 4px;
+    margin: 5px;
+    width: 70%;
+    color: #800000;
+    left: 27%;
+    top: 0px;
+    text-align: left;
+    position: fixed;
+    font-family: 'Segoe UI Light';
+    font-size: 14px;
+    z-index: 2;
+    min-height: 40px;
+    padding-left: 5px;
+    padding-right: 10px;*/
+         width:550px;
+        height:100px; 
+        position: fixed;
+        background-color:#F5F4F4; 
+        top: 30%; 
+        left: 30%; 
+        box-shadow:10px 10px 5px #888888;
+        border: thin inset #800000;
+        border-radius: 4px;
+        text-align:center;
+
+}
+.OkButton
+{
+       font-family: 'Segoe UI Semibold';
+       background-color:#009999;
+        border-radius: 4px;
+      z-index: 2;
+}
+    .OkButton:hover {
+        cursor:pointer;
+
+}

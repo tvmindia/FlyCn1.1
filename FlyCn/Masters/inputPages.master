@@ -7,6 +7,7 @@
     <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
     <link href="../Content/themes/FlyCnRider/Splitter.FlyCnRider.css" rel="stylesheet" />
         <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <script src="../Scripts/Messages.js"></script>
     <style type="text/css">
         /*.auto-style3 {
         width: 173px;
@@ -122,7 +123,30 @@ border-top:#A6CAB8 3px solid;
             catch (X) {
                 alert(X.message);
             }
-      }
+        }
+        function hideMe() {
+            debugger;
+            var s = document.getElementById("Errorbox");
+            document.getElementById("Errorbox").style.visibility = "hidden";
+            var divId = document.getElementById("masterDiv");
+
+            document.getElementById("lblErrorInfo").innerHTML = "";
+        }
+        function hideMeAlert() {
+            debugger;
+            var alrt = document.getElementById("CommonAlertBox");
+            document.getElementById("CommonAlertBox").style.visibility = "hidden";
+         
+
+            document.getElementById("<%=lblAlertMsg.ClientID%>").innerHTML = "";
+        }
+        function AlertMsg(msg) {
+            debugger;
+           
+            var altmsg = document.getElementById("CommonAlertBox");
+            document.getElementById("CommonAlertBox").style.visibility = "visible";
+            document.getElementById("<%=lblAlertMsg.ClientID%>").innerText = msg;
+        }
         function CloseDocument(revisionid) {
 
             var splitter = $find("<%= RadSplitter1.ClientID %>");
@@ -150,16 +174,17 @@ border-top:#A6CAB8 3px solid;
 
             else if (hiddenFieldRevisionID.value != "" && ((lblDocumentStatus.innerHTML == "CLOSED FOR VERIFICATION" )||(lblDocumentStatus.innerHTML == "APPROVED")))
             {
-  
-                alert("This Document Is Already Closed")
+                debugger;
+               // alert("This Document Is Already Closed");
+                AlertMsg(messages.AlreadyClosedDocument);
             }
             else
             {
-                alert("Please Select Any Document 1st")
+                AlertMsg(messages.CloseDocumentClick);
             }
         }
     </script>
-       <script>
+      <%-- <script>
            function hideMe() {
                document.getElementById("Errorbox").style.display = "none";
                var divId = document.getElementById("masterDiv");
@@ -167,7 +192,7 @@ border-top:#A6CAB8 3px solid;
            }
          
          
-    </script>
+    </script>--%>
 
         
         <div  id="Errorbox" runat="server" class="div1">
@@ -188,6 +213,23 @@ border-top:#A6CAB8 3px solid;
                 </tr>
             </table>
         </div>
+     <div  id="CommonAlertBox" style="visibility:hidden" class="CommonAlerts">
+            <table style="background-color: transparent;vertical-align:middle;width:100%">  
+                <tr><td style="color:#E4E1E1;font-size:small">
+                    Alert !!
+                    </td></tr>              
+                <tr> 
+                    <td style="width:80%">
+                       <asp:Label ID="lblAlertMsg" Text="" runat="server" ></asp:Label>
+                    </td>
+                 
+                </tr>
+              
+                <tr><td style="text-align:center;border-color:black;color:black;padding-right:10px"> 
+                     <br />
+                   <span onclick="hideMeAlert();" class="OkButton">&nbsp&nbsp OK &nbsp&nbsp</span></td></tr>
+            </table>
+        </div> 
 
         <div id="masterDiv" runat="server">
     </div>

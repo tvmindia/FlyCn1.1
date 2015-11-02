@@ -302,6 +302,7 @@
     <Content Include="Content\themes\FlyCnRider\Common\radActionsSprite.png" />
     <Content Include="Content\themes\FlyCnRider\Splitter.FlyCnRider.css" />
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
+    <Content Include="DocumentRelated\OwnershipChange.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\flycnLogo.png" />
     <Content Include="Images\gladsmall.png" />
@@ -631,6 +632,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentRelated\OwnershipChange.aspx.cs">
+      <DependentUpon>OwnershipChange.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DocumentRelated\OwnershipChange.aspx.designer.cs">
+      <DependentUpon>OwnershipChange.aspx</DependentUpon>
     </Compile>
     <Compile Include="DocumentSettings\DocumentStatusSettings.cs" />
     <Compile Include="EIL\ConstructionPunchList.aspx.cs">
