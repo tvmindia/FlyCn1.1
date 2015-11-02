@@ -91,16 +91,22 @@ namespace FlyCn.Approvels
                     tab.Selected = true;
                     tab.Text = "Approval";
                     RadMultiPage1.SelectedIndex = 1;
-                    //changing tab
+                    //changing tab 
                     hiddenFiedldProjectno.Value = item.GetDataKeyValue("ProjectNo").ToString();
                     hiddenFieldApprovalID.Value = item.GetDataKeyValue("ApprovalID").ToString();
                     hiddenFieldDocumentID.Value = item.GetDataKeyValue("DocumentID").ToString();
                     hiddenFieldRevisionID.Value = item.GetDataKeyValue("RevisionID").ToString();
-                    lblCreatedDate.Text = item.GetDataKeyValue("CreatedDate").ToString();
+                    hiddenFieldDocumentType.Value = item.GetDataKeyValue("DocumentType").ToString();
+                    hiddenFieldDocumentNo.Value = item.GetDataKeyValue("DocumentNo").ToString();
                     lblDocumentNo.Text = item.GetDataKeyValue("DocumentNo").ToString();
-                    lblCreatedBy.Text = item.GetDataKeyValue("CreatedBy").ToString();
+                    lblProjectno.Text = item.GetDataKeyValue("ProjectNo").ToString();
+                    lblDocumentType.Text = item.GetDataKeyValue("DocumentType").ToString();
+                    lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("DocCreatedDate"));
+                    lblDocOwner.Text = item.GetDataKeyValue("DocumentOwner").ToString();
+                    lblCreatedBy.Text = item.GetDataKeyValue("DocCreatedBy").ToString();
+                    lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("CreatedDate"));
                     dtgApprovers.Rebind();
-                   
+                    
                 }
                 if(e.CommandName=="Details")
                 {
@@ -175,15 +181,15 @@ namespace FlyCn.Approvels
         protected void btnApprove_Click(object sender, EventArgs e)
         {
             approvelMaster = new ApprovelMaster();
-           
-            try
+            MailSending mailSending = new MailSending();
+             try
             {
                 string approvid=hiddenFieldApprovalID.Value;
-               
                 approvelMaster.ApprovalStatus = 4;//4 means approved
                 approvelMaster.ApprovalDate = System.DateTime.Now;
                 approvelMaster.Remarks = txtRemarks.Text;
                 approvelMaster.UpdateApprovalMaster(approvid);
+                mailSending.SendMailToNextLevelVarifiers( hiddenFieldRevisionID.Value,   hiddenFieldDocumentType.Value,  hiddenFiedldProjectno.Value,     hiddenFieldDocumentNo.Value);
             }
             catch(Exception ex)
             {
@@ -191,7 +197,7 @@ namespace FlyCn.Approvels
             }
             finally
             {
-                dtgPendingApprovalGrid.DataBind();
+                dtgPendingApprovalGrid.Rebind();
 
             }
 

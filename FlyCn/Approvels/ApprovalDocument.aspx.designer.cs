@@ -76,6 +76,24 @@ namespace FlyCn.Approvels {
         protected global::FlyCn.UserControls.ToolBar ToolBar;
         
         /// <summary>
+        /// lblProjectnumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProjectnumber;
+        
+        /// <summary>
+        /// lblProjectno control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProjectno;
+        
+        /// <summary>
         /// lblDocNo control.
         /// </summary>
         /// <remarks>
@@ -130,22 +148,76 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.HiddenField hiddenFieldApprovalID;
         
         /// <summary>
-        /// lblDate control.
+        /// hiddenFieldDocumentType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDate;
+        protected global::System.Web.UI.WebControls.HiddenField hiddenFieldDocumentType;
         
         /// <summary>
-        /// lblCreatedDate control.
+        /// hiddenFieldDocumentNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCreatedDate;
+        protected global::System.Web.UI.WebControls.HiddenField hiddenFieldDocumentNo;
+        
+        /// <summary>
+        /// lblDocumentOwner control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocumentOwner;
+        
+        /// <summary>
+        /// lblDocOwner control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocOwner;
+        
+        /// <summary>
+        /// lblDocType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocType;
+        
+        /// <summary>
+        /// lblDocumentType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocumentType;
+        
+        /// <summary>
+        /// lblDocDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocDate;
+        
+        /// <summary>
+        /// lblDocumentDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocumentDate;
         
         /// <summary>
         /// lblcreated control.
@@ -164,6 +236,24 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCreatedBy;
+        
+        /// <summary>
+        /// lblCloseddat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCloseddat;
+        
+        /// <summary>
+        /// lblClosedDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClosedDate;
         
         /// <summary>
         /// lnkbtnDetail control.

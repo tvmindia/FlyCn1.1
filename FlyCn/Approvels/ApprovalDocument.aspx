@@ -116,7 +116,7 @@
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
                                         </ClientSettings>
-                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="ApprovalID,RevisionID,DocumentID,ProjectNo,DocumentNo,CreatedDate,CreatedBy">
+                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="ApprovalID,RevisionID,DocumentID,ProjectNo,DocumentNo,CreatedDate,DocCreatedBy,DocumentType,DocCreatedDate,DocCreatedBy,DocumentOwner">
                                             <Columns>
                                                
                                                 <telerik:GridBoundColumn HeaderText="ApprovalID" DataField="ApprovalID" UniqueName="ApprovalID" Display="false"></telerik:GridBoundColumn>
@@ -148,45 +148,82 @@
                                 <div class="col-md-12 Span-One">
 
                                      <div class="col-md-6">
+                                         <div class="col-md-5">
+                                             <asp:Label ID="lblProjectnumber" runat="server" Text="Project No"></asp:Label>
+                                         </div>
+                                         <div class="col-md-7">
+                                               <div class="form-group">
+                                                   <asp:Label ID="lblProjectno" runat="server" Text="" Font-Bold="true"></asp:Label>
+                                               </div>
+                                         </div>
 
-                                      <div class="col-md-5">
+
+                                         <div class="col-md-5">
                                           <asp:Label ID="lblDocNo" runat="server" Text="Document No"></asp:Label>
                                      </div>
-                                      <div class="col-md-7">
-                                        <div class="form-group">
+                                         <div class="col-md-7">
+                                         <div class="form-group">
                                           <asp:Label ID="lblDocumentNo" runat="server" Text="" Font-Bold="true"></asp:Label>
                                              <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" ClientIDMode="Static"/>
                                              <asp:HiddenField ID="hiddenFieldDocumentID" runat="server" ClientIDMode="Static"/>
                                              <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static"/>
                                              <asp:HiddenField ID="hiddenFieldApprovalID" runat="server" ClientIDMode="Static" />
-                                            </div>
+                                             <asp:HiddenField ID="hiddenFieldDocumentType" runat="server" ClientIDMode="Static"/>
+                                             <asp:HiddenField ID="hiddenFieldDocumentNo" runat="server" ClientIDMode="Static" />
+                                           </div>
                                          </div>
-                                      <div class="col-md-5">
-                                       
-                                           <asp:Label ID="lblDate" runat="server" Text="Created Date"></asp:Label>
-                                        </div>
-                                      <div class="col-md-7">
-                                          <div class="form-group">
-                                              <asp:Label ID="lblCreatedDate" runat="server" Text="" Font-Bold="true"></asp:Label>
+                                          <div class="col-md-5">
+                                             <asp:Label ID="lblDocumentOwner" runat="server" Text="Document Owner"></asp:Label>
                                          </div>
-                                      </div>
-                                      <div class="col-md-5">
+                                         <div class="col-md-7">
+                                             <div class="form-group">
+                                                 <asp:Label ID="lblDocOwner" runat="server" Text="" Font-Bold="true"></asp:Label>
+                                             </div>
+                                         </div>
+                                             <div class="col-md-5">
+                                             <asp:Label ID="lblDocType" runat="server" Text="Document Type"></asp:Label>
+                                         </div>
+                                         <div class="col-md-7">
+                                             <div class="form-group">
+                                                 <asp:Label ID="lblDocumentType" runat="server" Text="" Font-Bold="true"></asp:Label>
+                                             </div>
+                                         </div>
+
+                                         <div class="col-md-5">
+                                             <asp:Label ID="lblDocDate" runat="server" Text="Document Date"></asp:Label>
+                                         </div>
+                                         <div class="col-md-7">
+                                             <div class="form-group">
+                                                 <asp:Label ID="lblDocumentDate" runat="server" Text='<%# Bind("Date", "{0:D}")%>' Font-Bold="true"></asp:Label>
+                                             </div>
+                                         </div>
+                                         <div class="col-md-5">
                                             <asp:Label ID="lblcreated" runat="server" Text="Created By"></asp:Label>
                                         </div>                   
-                                      <div class="col-md-7">
+                                         <div class="col-md-7">
 
                                         <div class="form-group">
                                           <asp:Label ID="lblCreatedBy" runat="server" Text='<%# Bind("Date", "{0:D}")%>' Font-Bold="true"></asp:Label>
                                         </div>
                                           </div>
+                                           <div class="col-md-5">
+                                           <asp:Label ID="lblCloseddat" runat="server" Text="Closed Date"></asp:Label>
+                                           </div>                   
+                                           <div class="col-md-7">
 
-                                      <div class="col-md-12">
-                                      <asp:LinkButton ID="lnkbtnDetail" runat="server" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
+                                           <div class="form-group">
+                                           <asp:Label ID="lblClosedDate" runat="server" Text='<%# Bind("Date", "{0:D}")%>' Font-Bold="true"></asp:Label>
+                                           </div>
+                                          </div>
+                                     
+
+                                         <div class="col-md-12">
+                                      <asp:LinkButton ID="lnkbtnDetail" runat="server" CssClass="DocStatusLabel" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
                                       </div>
-                                      <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
+                                         <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
                                       <iframe src="../Approvels/DocDetails.aspx" style="width: 1000px; height: 600px;"></iframe>
                                       </div>
-                                </div>
+                                      </div>
                                 
                                 <div class="col-md-6">
                                     <div class="col-md-12">
