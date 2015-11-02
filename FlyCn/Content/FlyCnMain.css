@@ -316,6 +316,35 @@ iframe {
     padding-right: 10px;
      
 }
+.CommonAlerts{
+        /*background-position: left center;
+    border: thin inset #800000;
+    background: #FFEAEA;
+    border-radius: 4px;
+    margin: 5px;
+    width: 70%;
+    color: #800000;
+    left: 27%;
+    top: 0px;
+    text-align: left;
+    position: fixed;
+    font-family: 'Segoe UI Light';
+    font-size: 14px;
+    z-index: 2;
+    min-height: 40px;
+    padding-left: 5px;
+    padding-right: 10px;*/
+        width:200px;
+        height:200px; 
+        position: fixed;
+        background-color: #C14242; 
+        top: 50%; 
+        left: 50%; 
+       
+        border: thin inset #800000;
+        border-radius: 4px;
+
+}
 
 
 .closeButton {
@@ -343,20 +372,6 @@ background: -o-linear-gradient(top,  #ffffff 0%,#fff9f9 93%,#f9efef 97%,#f7eded 
 background: -ms-linear-gradient(top,  #ffffff 0%,#fff9f9 93%,#f9efef 97%,#f7eded 100%); /* IE10+ */
 background: linear-gradient(to bottom,  #ffffff 0%,#fff9f9 93%,#f9efef 97%,#f7eded 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7eded',GradientType=0 ); /* IE6-9 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

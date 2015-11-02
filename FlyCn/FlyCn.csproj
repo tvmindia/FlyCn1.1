@@ -876,6 +876,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Fileupload\" />
+    <Folder Include="DocumentRelated\" />
     <Folder Include="Images\ProjectImages\" />
   </ItemGroup>
   <ItemGroup>
