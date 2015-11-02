@@ -109,7 +109,7 @@
                        <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
                         <telerik:RadPageView ID="rpList" runat="server">
                         <div id="divList" style="width: 100%;text-align:center">
-                                    <telerik:RadGrid ID="dtgPendingApprovalGrid" runat="server" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" OnNeedDataSource="dtgPendingApprovalGrid_NeedDataSource" OnPreRender="dtgPendingApprovalGrid_PreRender" OnItemCommand="dtgPendingApprovalGrid_ItemCommand" AllowAutomaticUpdates="false"  PageSize="10" Width="100%">
+                                    <telerik:RadGrid ID="dtgPendingApprovalGrid" runat="server" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" OnNeedDataSource="dtgPendingApprovalGrid_NeedDataSource" OnPreRender="dtgPendingApprovalGrid_PreRender" OnItemCommand="dtgPendingApprovalGrid_ItemCommand" OnItemDataBound="dtgPendingApprovalGrid_ItemDataBound" AllowAutomaticUpdates="false"  PageSize="10" Width="100%">
                                         <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
@@ -154,7 +154,7 @@
                                      </div>
                                       <div class="col-md-7">
                                         <div class="form-group">
-                                          <asp:Label ID="lblDocumentNo" runat="server" Text=""></asp:Label>
+                                          <asp:Label ID="lblDocumentNo" runat="server" Text="" Font-Bold="true"></asp:Label>
                                              <asp:HiddenField ID="hiddenFiedldProjectno" runat="server" ClientIDMode="Static"/>
                                              <asp:HiddenField ID="hiddenFieldDocumentID" runat="server" ClientIDMode="Static"/>
                                              <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static"/>
@@ -166,16 +166,18 @@
                                            <asp:Label ID="lblDate" runat="server" Text="Created Date"></asp:Label>
                                         </div>
                                       <div class="col-md-7">
-                                              <asp:Label ID="lblCreatedDate" runat="server" Text=""></asp:Label>
+                                          <div class="form-group">
+                                              <asp:Label ID="lblCreatedDate" runat="server" Text="" Font-Bold="true"></asp:Label>
                                          </div>
+                                      </div>
                                       <div class="col-md-5">
                                             <asp:Label ID="lblcreated" runat="server" Text="Created By"></asp:Label>
                                         </div>                   
                                       <div class="col-md-7">
 
                                         <div class="form-group">
-                                          <asp:Label ID="lblCreatedBy" runat="server" Text=""></asp:Label>
-                                            </div>
+                                          <asp:Label ID="lblCreatedBy" runat="server" Text='<%# Bind("Date", "{0:D}")%>' Font-Bold="true"></asp:Label>
+                                        </div>
                                           </div>
 
                                       <div class="col-md-12">
@@ -188,13 +190,17 @@
                                 
                                 <div class="col-md-6">
                                     <div class="col-md-12">
+                                    <div class="form-group">
                                      <asp:TextBox ID="txtRemarks" CssClass="form-control" runat="server" TextMode="MultiLine" MaxLength="250"></asp:TextBox>
                                      <asp:Label ID="lblValidationMsg" runat="server" Text=""></asp:Label>
                                      </div>
+                                    </div>
                                     <div class="col-md-12">
+                                    <div class="form-group">
                                     <asp:Button ID="btnApprove" runat="server" Text="Approve" OnClick="btnApprove_Click"/>
                                     <asp:Button ID="btnDecline" runat="server" Text="Decline" OnClick="btnDecline_Click" OnClientClick="return validateText()"/>
                                     <asp:Button ID="btnReject" runat="server" Text="Reject" OnClick="btnReject_Click" OnClientClick="return validateText()"/>
+                                    </div>
                                     </div>
                                     <div class="col-md-12">
                                         <!--Telerik Radlistbox-->
