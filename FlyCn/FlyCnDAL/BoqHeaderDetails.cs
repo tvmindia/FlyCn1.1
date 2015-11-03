@@ -63,6 +63,8 @@ namespace FlyCn.FlyCnDAL
         #region Billofquantitymethods
         public void BindTree(RadTreeView myTree)
         {
+             
+
            myTree.Nodes.Clear();
            RadTreeNode rtn1 = new RadTreeNode("CloseDocument", "");
            //<a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
@@ -75,8 +77,9 @@ namespace FlyCn.FlyCnDAL
            myTree.Nodes.Add(rtn1);
            rtn2.Target = "contentPane";
            myTree.Nodes.Add(rtn2);
-         // myTree.NodeClick=
+         
            myTree.Attributes.Add("onclick", "CloseDocument(" + 5 + ")");
+           myTree.Attributes.Add("onclick", "ChangeOwner()");
         }
         public void LoadInputScreen(RadPane myContentPane)
         {
