@@ -265,6 +265,15 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.LinkButton lnkbtnDetail;
         
         /// <summary>
+        /// ContentDocDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlIframe ContentDocDetails;
+        
+        /// <summary>
         /// txtRemarks control.
         /// </summary>
         /// <remarks>

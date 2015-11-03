@@ -55,6 +55,24 @@
 
         <%= ClientID%>_SetVisibleButton('Edit', s);
 
+    }
+
+    function <%=ClientID%>_SetApproveVisible(s) {
+
+        <%= ClientID%>_SetVisibleButton('Approve', s);
+
+    }
+
+    function <%=ClientID%>_SetDeclineVisible(s) {
+
+        <%= ClientID%>_SetVisibleButton('Decline', s);
+
+    }
+
+    function <%=ClientID%>_SetRejectVisible(s) {
+
+        <%= ClientID%>_SetVisibleButton('Reject', s);
+
       }
 
 
@@ -126,10 +144,55 @@
 
         if (id == 'Edit') {
             var btn = btnItems.getItem(8);
-            // var sep = btnItems.getItem[5];
+             var sep = btnItems.getItem(9);
             if (value) {
                 btn.set_visible(true);
-                // sep.set_visible(true);
+                sep.set_visible(true);
+            }
+            else {
+                btn.set_visible(false);
+                sep.set_visible(false);
+
+            }
+
+        }
+
+        if (id == 'Approve') {
+            var btn = btnItems.getItem(10);
+            var sep = btnItems.getItem(11);
+            if (value) {
+                btn.set_visible(true);
+                sep.set_visible(true);
+            }
+            else {
+                btn.set_visible(false);
+                sep.set_visible(false);
+
+            }
+
+        }
+
+        if (id == 'Decline') {
+            var btn = btnItems.getItem(12);
+            var sep = btnItems.getItem(13);
+            if (value) {
+                btn.set_visible(true);
+                sep.set_visible(true);
+            }
+            else {
+                btn.set_visible(false);
+                sep.set_visible(false);
+
+            }
+
+        }
+
+        if (id == 'Reject') {
+            var btn = btnItems.getItem(14);
+            //var sep = btnItems.getItem(9);
+            if (value) {
+                btn.set_visible(true);
+               // sep.set_visible(true);
             }
             else {
                 btn.set_visible(false);
@@ -190,6 +253,24 @@ div.RadToolBar_Metro .rtbMiddle
               <telerik:RadToolBarButton Value="UpdateEditSeperator" IsSeparator="true" runat="server"    > </telerik:RadToolBarButton>
          <telerik:RadToolBarButton runat="server" Text="" Value="Edit"    ImagePosition="Left"   ToolTip="Edit"   style="display:none"
             ImageUrl="~/Images/Icons/editToolBarIcon.png" DisabledImageUrl="~/Images/Icons/editToolBarIconDisabled.png" >
+           
+        </telerik:RadToolBarButton>
+
+          <telerik:RadToolBarButton Value="EditApproveSeperator" IsSeparator="true" runat="server"    > </telerik:RadToolBarButton>
+         <telerik:RadToolBarButton runat="server" Text="" Value="Approve"    ImagePosition="Left"   ToolTip="Approve"   style="display:none"
+            ImageUrl="~/Images/Icons/approveToolbarIcon.png" DisabledImageUrl="~/Images/Icons/addToolbarIconDisabled.png" >
+           
+        </telerik:RadToolBarButton>
+
+          <telerik:RadToolBarButton Value="ApproveDeclineSeperator" IsSeparator="true" runat="server"    > </telerik:RadToolBarButton>
+         <telerik:RadToolBarButton runat="server" Text="" Value="Decline"    ImagePosition="Left"   ToolTip="Decline"   style="display:none"
+            ImageUrl="~/Images/Icons/declineToolbarIcon.png" DisabledImageUrl="~/Images/Icons/declineToolbarIconDisabled.png" >
+           
+        </telerik:RadToolBarButton>
+
+          <telerik:RadToolBarButton Value="DeclineRejectSeperator" IsSeparator="true" runat="server"    > </telerik:RadToolBarButton>
+         <telerik:RadToolBarButton runat="server" Text="" Value="Reject"    ImagePosition="Left"   ToolTip="Reject"   style="display:none"
+            ImageUrl="~/Images/Icons/rejectToolbarIcon.png" DisabledImageUrl="~/Images/Icons/rejectToolbarIconDisabled.png" >
            
         </telerik:RadToolBarButton>
 
