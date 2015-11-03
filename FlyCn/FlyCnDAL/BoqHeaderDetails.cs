@@ -64,12 +64,17 @@ namespace FlyCn.FlyCnDAL
         public void BindTree(RadTreeView myTree)
         {
            myTree.Nodes.Clear();
-           RadTreeNode rtn1 = new RadTreeNode("CloseDocument", ""); //<a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
+           RadTreeNode rtn1 = new RadTreeNode("CloseDocument", "");
+           //<a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
            //  rtn1.NavigateUrl = "../FlyCnMasters/Personal.aspx";
+           RadTreeNode rtn2 = new RadTreeNode("Ownership Change", "");
+           
            string radtree = "rtn1";
            //rtn1.setAttribute("onclick", "");
            rtn1.Target = "contentPane";
            myTree.Nodes.Add(rtn1);
+           rtn2.Target = "contentPane";
+           myTree.Nodes.Add(rtn2);
          // myTree.NodeClick=
            myTree.Attributes.Add("onclick", "CloseDocument(" + 5 + ")");
         }
