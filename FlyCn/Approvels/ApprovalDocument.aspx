@@ -116,7 +116,7 @@
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
                                         </ClientSettings>
-                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="ApprovalID,RevisionID,DocumentID,ProjectNo,DocumentNo,CreatedDate,DocCreatedBy,DocumentType,DocCreatedDate,DocCreatedBy,DocumentOwner">
+                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="ApprovalID,RevisionID,DocumentID,ProjectNo,DocumentNo,CreatedDate,DocCreatedBy,DocumentType,DocCreatedDate,DocCreatedBy,DocumentOwner,DocumentDate">
                                             <Columns>
                                                
                                                 <telerik:GridBoundColumn HeaderText="ApprovalID" DataField="ApprovalID" UniqueName="ApprovalID" Display="false"></telerik:GridBoundColumn>
@@ -143,7 +143,7 @@
 
                            <!--Approval page--->
                             <telerik:RadPageView ID="rpApproval" runat="server">
-                                 <uc1:ToolBar runat="server" ID="ToolBar" />
+                                 <uc1:ToolBar runat="server" ID="ToolBarApprovalDoc" />
 
                                 <div class="col-md-12 Span-One">
 
@@ -188,6 +188,14 @@
                                                  <asp:Label ID="lblDocumentType" runat="server" Text="" Font-Bold="true"></asp:Label>
                                              </div>
                                          </div>
+                                          <div class="col-md-5">
+                                             <asp:Label ID="lblCreDate" runat="server" Text="Created Date"></asp:Label>
+                                            </div>
+                                            <div class="col-md-7">
+                                             <div class="form-group">
+                                                 <asp:Label ID="lblCreatedDate" runat="server" Text='<%# Bind("Date", "{0:D}")%>' Font-Bold="true"></asp:Label>
+                                             </div>
+                                            </div>
 
                                          <div class="col-md-5">
                                              <asp:Label ID="lblDocDate" runat="server" Text="Document Date"></asp:Label>
@@ -341,7 +349,28 @@
             return false;
         }
           
-       }  
+    }
+
+    function OnClientButtonClickingApproval(sender, args) {
+        ToolBarApprovalDoc.ApproveButton.Visible = true;
+        ToolBarApprovalDoc.DeclineButton.Visible = true;
+        ToolBarApprovalDoc.RejectButton.Visible = true;
+        var btn = args.get_item();
+        if (btn.get_value() == 'Approve') {
+
+            args.set_cancel(!validateText());
+        }
+        if (btn.get_value() == 'Decline') {
+
+           // args.set_cancel(!validate());
+        }
+
+        if (btn.get_value() == 'Reject') {
+
+        }
+
+    }
+
 </script>
                             
 </asp:Content>

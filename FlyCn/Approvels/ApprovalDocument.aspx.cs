@@ -31,6 +31,7 @@ namespace FlyCn.Approvels
               
 
             }
+            ToolBarApprovalDoc.OnClientButtonClicking = "OnClientButtonClickingApproval";
             enableDisableToolbar();
 
         }
@@ -99,9 +100,10 @@ namespace FlyCn.Approvels
                     hiddenFieldDocumentType.Value = item.GetDataKeyValue("DocumentType").ToString();
                     hiddenFieldDocumentNo.Value = item.GetDataKeyValue("DocumentNo").ToString();
                     lblDocumentNo.Text = item.GetDataKeyValue("DocumentNo").ToString();
+                    lblCreatedDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("DocCreatedDate"));
                     lblProjectno.Text = item.GetDataKeyValue("ProjectNo").ToString();
                     lblDocumentType.Text = item.GetDataKeyValue("DocumentType").ToString();
-                    lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("DocCreatedDate"));
+                    lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("DocumentDate"));
                     lblDocOwner.Text = item.GetDataKeyValue("DocumentOwner").ToString();
                     lblCreatedBy.Text = item.GetDataKeyValue("DocCreatedBy").ToString();
                     lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("CreatedDate"));
@@ -258,6 +260,36 @@ namespace FlyCn.Approvels
         }
        
         #endregion BtnReject
+
+        #region  ToolBarApprovalDoc_onClick
+        protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
+        {
+            string functionName = e.Item.Value;
+            if (e.Item.Value == "Approve")//It doesnot add anything but clears
+            {
+               
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ClearTextBox", "ClearBOQHeaderTexBox();", true);
+               // ToolBarVisibility(3);
+               
+
+            }
+            if (e.Item.Value == "Decline")
+            {
+               
+               
+            }
+            if (e.Item.Value == "Reject")
+            {
+             
+
+            }
+            
+          
+                      
+
+        }
+        #endregion ToolBar_onClick
+ 
         protected void lnkbtnDetail_Click(object sender, EventArgs e)
         {
             string Revisionid;
@@ -282,19 +314,17 @@ namespace FlyCn.Approvels
             }
         }
 
-
+       
         public void enableDisableToolbar()
         {
-            ToolBar.AddButton.Visible = false;
-            ToolBar.SaveButton.Visible=false;
-            ToolBar.UpdateButton.Visible = false;
-            ToolBar.DeleteButton.Visible = false;
-            ToolBar.EditButton.Visible = false;
-            ToolBar.ApproveButton.Visible = true;
-            ToolBar.DeclineButton.Visible=true;
-            ToolBar.RejectButton.Visible = true;
-
-        
+            ToolBarApprovalDoc.AddButton.Visible = false;
+            ToolBarApprovalDoc.SaveButton.Visible = false;
+            ToolBarApprovalDoc.UpdateButton.Visible = false;
+            ToolBarApprovalDoc.DeleteButton.Visible = false;
+            ToolBarApprovalDoc.EditButton.Visible = false;
+            ToolBarApprovalDoc.ApproveButton.Visible = true;
+            ToolBarApprovalDoc.DeclineButton.Visible = true;
+            ToolBarApprovalDoc.RejectButton.Visible = true;
         }
     }
 }
