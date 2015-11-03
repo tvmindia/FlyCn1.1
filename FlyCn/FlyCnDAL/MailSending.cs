@@ -11,7 +11,7 @@ namespace FlyCn.FlyCnDAL
     public class MailSending
     {
 
-
+        #region GeneralProperties
         public string MsgFrom
         {
             get;
@@ -29,6 +29,10 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+
+        #endregion GeneralProperties
+
+        #region Methods
 
         #region SendApprovalMail
 
@@ -64,7 +68,7 @@ namespace FlyCn.FlyCnDAL
                     Msg.To.Add(MssgTo);
                     Msg.Subject = "Document  For  Approval" + "" + _DocumentNo;
                     string body= "<div style='margin: 0; padding: 0; min-width: 100%!important;'>"+
-   " <div style='margin: 0; padding: 0; min-width: 100%!important;  height:25px; border:solid;color:lightseagreen; background:lightseagreen;text-align:center;'>" + " <label style='color:white; vertical-align:central'>" + " Document For Approvel</label></div>" +
+   " <div style='margin: 0; padding: 0; min-width: 100%!important;  height:25px; background:lightseagreen;text-align:center;'>" + " <label style='color:white; vertical-align:central'>" + " Document For Approvel</label></div>" +
      "    <div style='background-color:#f6f8f1; text-align:left; height:25px;'>" +
                                             "  <label "+"style='font:bold; font-size:15px;  color:#006666'"+"> Hi"+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +verifierMailIdName+"</label>"+
 
@@ -87,7 +91,7 @@ namespace FlyCn.FlyCnDAL
                        " </tr>"+
                         "<tr>"+
                             "<td style='height:50px;padding-left:190px'>"+
-                               " <button style='Width:203px; Height:31px; background-color:lightseagreen;color:white;align-self:center;border-style:none; margin-left: 0px;'>Click To Approve Document</button>" +
+                               " <button style='Width:203px; Height:31px;cursor:pointer; background-color:lightseagreen;color:white;align-self:center;border-style:none; margin-left: 0px;'>Click To Approve Document</button>" +
                                
                             "</td>"+
                         "</tr>"+
@@ -126,7 +130,7 @@ namespace FlyCn.FlyCnDAL
 
         #endregion SendApprovalMail
 
-
+        #region SendMailToNextLevelVarifiers
         public void SendMailToNextLevelVarifiers(string RevisionID, string DocumentType, string projectNo,string DocumentNo)
         {
 
@@ -164,6 +168,9 @@ namespace FlyCn.FlyCnDAL
           
         }
 
+        #endregion SendMailToNextLevelVarifiers
+
+        #region MailSendingOperation
         public void MailSendingOperation(int Level, string levelId, string verifierMailIdName, string documentType, string documentNo)
         {
             try
@@ -183,5 +190,35 @@ namespace FlyCn.FlyCnDAL
                 throw;
             }
         }
+        #endregion MailSendingOperation
+
+        #region GeneralEmailSending
+        public void GeneralEmailSending(string userName,string subject,string content)
+        {  
+            Users userobj=new  Users(userName);
+           
+            string MailTo = userobj.UserEMail;
+
+            MailMessage Msg = new MailMessage();
+            // Sender e-mail address.
+            Msg.From = new MailAddress("info.thrithvam@gmail.com");
+            // Recipient e-mail address.
+            Msg.To.Add(MailTo);
+            Msg.Subject = subject;
+            Msg.Body = content;
+            Msg.IsBodyHtml = true;
+            // your remote SMTP server IP.
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.Credentials = new System.Net.NetworkCredential("info.thrithvam", "thrithvam@2015");
+            smtp.EnableSsl = true;
+            smtp.Send(Msg);
+            Msg = null;
+        }
+
+        #endregion GeneralEmailSending
+
+        #endregion Methods
     }
 }

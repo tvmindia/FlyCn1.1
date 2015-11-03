@@ -6,14 +6,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using Telerik.Web.UI;
- 
+using Messages = FlyCn.UIClasses.Messages;
 
  namespace FlyCn.FlyCnDAL
 {
     public class ApprovelMaster
     {
         ErrorHandling eObj = new ErrorHandling();
-
+        #region GeneralProperties
         public string RevisionID
         {
             get;
@@ -77,6 +77,10 @@ using Telerik.Web.UI;
             get;
             set;
         }
+
+        #endregion GeneralProperties
+
+        #region getDataFromApprovelLevel
         public DataTable getDataFromApprovelLevel()
         {
             DataTable datatableobj = null;
@@ -93,7 +97,9 @@ using Telerik.Web.UI;
             return datatableobj;
         }
 
+        #endregion getDataFromApprovelLevel
 
+        #region getDataFromVarifierMaster
         public DataTable getDataFromVarifierMaster(int Level, string documentType, string projectNo)
         {
             DataTable datatableobj = null;
@@ -113,6 +119,10 @@ using Telerik.Web.UI;
             con.Close();
             return datatableobj;
         }
+
+        #endregion getDataFromVarifierMaster
+
+        #region GetVarifierEmailByIdTosentMail
 
         public DataTable GetVarifierEmailByIdTosentMail(int Level, string documentType, string projectNo, string varifierId)
         {
@@ -134,6 +144,10 @@ using Telerik.Web.UI;
             return datatableobj;
         }
 
+        #endregion GetVarifierEmailByIdTosentMail
+
+        #region getDataFromVarifierMasterDetailsByRevisoinId
+
         public DataTable getDataFromVarifierMasterDetailsByRevisoinId(string RevisionID)
         {
             DataTable datatableobj = null;
@@ -152,7 +166,7 @@ using Telerik.Web.UI;
             con.Close();
             return datatableobj;
         }
-
+        #endregion  getDataFromVarifierMasterDetailsByRevisoinId
 
         #region InsertApprovelMaster
         public int InsertApprovelMaster()
@@ -187,7 +201,8 @@ using Telerik.Web.UI;
                 cmd.Parameters.AddWithValue("@CreatedBy", CreatedBy);
                 cmd.ExecuteScalar();
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.InsertionSuccessData(page);
+                
+                eObj.InsertionSuccessData(page,Messages.documentclosesuccessMessage);
                 return 1;
             }
             catch (Exception ex)
@@ -247,7 +262,6 @@ using Telerik.Web.UI;
 
         }
         #endregion UpdateApprovalMaster
-
 
         #region GetAllPendingApprovalsByVerifierLevel
         public DataSet GetAllPendingApprovalsByVerifierLevel(int paramverifierLevel, string paramverifierEmail)
@@ -322,6 +336,7 @@ using Telerik.Web.UI;
         }
         #endregion GetallapprovalByRevisionid
 
+        #region GetVarifierDetailsById
 
         public DataTable GetVarifierDetailsById(int level,string varifierId)
         {
@@ -342,6 +357,7 @@ using Telerik.Web.UI;
             return datatableobj;
         }
 
+        #endregion GetVarifierDetailsById
 
         #region BindTree
         public void BindTree(Telerik.Web.UI.RadTreeView myTree)
@@ -350,10 +366,18 @@ using Telerik.Web.UI;
 
         }
         #endregion BindTree
+
+        #region LoadInputScreen
+
         public void LoadInputScreen(RadPane myContentPane)
         {
             myContentPane.ContentUrl = "ApprovalDocument.aspx";
         }
+
+        #endregion LoadInputScreen
+
+        #region GetDocDetailList
+
         public DataTable GetDocDetailList(string revid, string type)
         {
             SqlConnection con = null;
@@ -394,6 +418,11 @@ using Telerik.Web.UI;
             }
             return dt;
         }
+
+        #endregion GetDocDetailList
+
+        #region GetDocHeaderDetails
+
         public DataTable GetDocHeaderDetails(string revid, string type)
         {
             SqlConnection con = null;
@@ -435,7 +464,7 @@ using Telerik.Web.UI;
             return dt;
         }
 
+        #endregion GetDocHeaderDetails
 
-    
     }
 }

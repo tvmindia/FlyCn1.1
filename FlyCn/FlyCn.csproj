@@ -150,6 +150,7 @@
     <Content Include="Approvels\ApprovalScreen.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="Approvels\DocDetails.aspx" />
+    <Content Include="Approvels\ReviseDocument.aspx" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.UI.Combined.dll" />
@@ -573,6 +574,13 @@
     <Compile Include="Approvels\DocDetails.aspx.designer.cs">
       <DependentUpon>DocDetails.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Approvels\ReviseDocument.aspx.cs">
+      <DependentUpon>ReviseDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvels\ReviseDocument.aspx.designer.cs">
+      <DependentUpon>ReviseDocument.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="Account\Login.aspx.cs">
@@ -687,6 +695,7 @@
     <Compile Include="FlyCnDAL\Security.cs" />
     <Compile Include="FlyCnDAL\SystemDefenitionDetails.cs" />
     <Compile Include="FlyCnDAL\Template.cs" />
+    <Compile Include="FlyCnDAL\Users.cs" />
     <Compile Include="FlyCnMasters\DynamicMaster.aspx.cs">
       <DependentUpon>DynamicMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
