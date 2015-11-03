@@ -185,8 +185,27 @@ namespace FlyCn.FlyCnDAL
         }
 
         public void GeneralEmailSending(string userName,string subject,string content)
-        {
+        {  
+            Users userobj=new  Users(userName);
+           
+            string MailTo = userobj.UserEMail;
 
+            MailMessage Msg = new MailMessage();
+            // Sender e-mail address.
+            Msg.From = new MailAddress("info.thrithvam@gmail.com");
+            // Recipient e-mail address.
+            Msg.To.Add(MailTo);
+            Msg.Subject = subject;
+            Msg.Body = content;
+            Msg.IsBodyHtml = true;
+            // your remote SMTP server IP.
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.Credentials = new System.Net.NetworkCredential("info.thrithvam", "thrithvam@2015");
+            smtp.EnableSsl = true;
+            smtp.Send(Msg);
+            Msg = null;
         }
     }
 }

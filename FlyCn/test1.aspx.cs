@@ -12,6 +12,8 @@ namespace FlyCn
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            FlyCn.FlyCnDAL.MailSending mailobj = new FlyCnDAL.MailSending();
+            mailobj.GeneralEmailSending("Gopika", "Hi", "Hello");
         }
     }
 }
