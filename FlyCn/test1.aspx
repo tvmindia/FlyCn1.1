@@ -36,7 +36,7 @@
                         </tr>
                         <tr>
                             <td style="height:50px;padding-left:190px">
-                                <button style="Width:203px; Height:31px; background-color:lightseagreen;color:white;align-self:center; margin-left: 0px; font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;border-style:none;">Link To Document</button>
+                                <button style="Width:203px; Height:31px;cursor:pointer; background-color:lightseagreen;color:white;align-self:center; margin-left: 0px; font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;border-style:none;">Link To Document</button>
                                
                             </td>
                         </tr>

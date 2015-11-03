@@ -11,7 +11,7 @@ namespace FlyCn.FlyCnDAL
     public class MailSending
     {
 
-
+        #region GeneralProperties
         public string MsgFrom
         {
             get;
@@ -29,6 +29,10 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+
+        #endregion GeneralProperties
+
+        #region Methods
 
         #region SendApprovalMail
 
@@ -87,7 +91,7 @@ namespace FlyCn.FlyCnDAL
                        " </tr>"+
                         "<tr>"+
                             "<td style='height:50px;padding-left:190px'>"+
-                               " <button style='Width:203px; Height:31px; background-color:lightseagreen;color:white;align-self:center;border-style:none; margin-left: 0px;'>Click To Approve Document</button>" +
+                               " <button style='Width:203px; Height:31px;cursor:pointer; background-color:lightseagreen;color:white;align-self:center;border-style:none; margin-left: 0px;'>Click To Approve Document</button>" +
                                
                             "</td>"+
                         "</tr>"+
@@ -126,7 +130,7 @@ namespace FlyCn.FlyCnDAL
 
         #endregion SendApprovalMail
 
-
+        #region SendMailToNextLevelVarifiers
         public void SendMailToNextLevelVarifiers(string RevisionID, string DocumentType, string projectNo,string DocumentNo)
         {
 
@@ -164,6 +168,9 @@ namespace FlyCn.FlyCnDAL
           
         }
 
+        #endregion SendMailToNextLevelVarifiers
+
+        #region MailSendingOperation
         public void MailSendingOperation(int Level, string levelId, string verifierMailIdName, string documentType, string documentNo)
         {
             try
@@ -183,7 +190,9 @@ namespace FlyCn.FlyCnDAL
                 throw;
             }
         }
+        #endregion MailSendingOperation
 
+        #region GeneralEmailSending
         public void GeneralEmailSending(string userName,string subject,string content)
         {  
             Users userobj=new  Users(userName);
@@ -207,5 +216,9 @@ namespace FlyCn.FlyCnDAL
             smtp.Send(Msg);
             Msg = null;
         }
+
+        #endregion GeneralEmailSending
+
+        #endregion Methods
     }
 }

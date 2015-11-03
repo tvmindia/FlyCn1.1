@@ -37,5 +37,15 @@ namespace FlyCn.UIClasses
                 return "~/Home.aspx";
             }
         }
+      
     }
+
+      public static class Messages
+      {
+          public static string documentclosesuccessMessage
+          {
+              get { return "Document Successfully Closed"; }
+      }
+      }
+      
 }

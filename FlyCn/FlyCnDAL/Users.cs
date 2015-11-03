@@ -20,11 +20,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public string PassWord
-        {
-            get;
-            set;
-        }
+     
         public string CreatedBy
         {
             get;
@@ -35,8 +31,7 @@ namespace FlyCn.FlyCnDAL
             DataTable dtobj = new DataTable();
             dtobj = GetUserDetailsByUserName(userName);
             UserName = dtobj.Rows[0]["UserName"].ToString();
-            UserEMail = dtobj.Rows[0]["EmailId"].ToString();
-            PassWord = dtobj.Rows[0]["PassWord"].ToString();
+            UserEMail = dtobj.Rows[0]["EmailId"].ToString();         
             CreatedBy = dtobj.Rows[0]["CreatedBy"].ToString();
 
         }
