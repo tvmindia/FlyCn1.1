@@ -19,7 +19,7 @@ namespace FlyCn.Content.DocDetailView
              string projectNum = Request.QueryString["ProjNum"];
              string revId = Request.QueryString["RevNum"];
              string type="BOQ";
-             string revid = "d528a5a9-0049-41d3-b5bb-1bd02ee7f17d";
+             string revid =Request.QueryString["Revisionid"];
              DataTable dt;
              ApprovelMaster amObj = new ApprovelMaster();
              dt = amObj.GetDocHeaderDetails(revid, type);

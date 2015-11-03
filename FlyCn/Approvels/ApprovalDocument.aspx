@@ -221,7 +221,7 @@
                                       <asp:LinkButton ID="lnkbtnDetail" runat="server" CssClass="DocStatusLabel" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
                                       </div>
                                          <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
-                                      <iframe src="../Approvels/DocDetails.aspx" style="width: 1000px; height: 600px;"></iframe>
+                                      <iframe id="ContentDocDetails" runat="server" style="width: 1000px; height: 600px;"></iframe>
                                       </div>
                                       </div>
                                 

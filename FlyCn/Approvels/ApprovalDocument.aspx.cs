@@ -260,6 +260,9 @@ namespace FlyCn.Approvels
         #endregion BtnReject
         protected void lnkbtnDetail_Click(object sender, EventArgs e)
         {
+            string Revisionid;
+            Revisionid = hiddenFieldRevisionID.Value;
+            ContentDocDetails.Attributes["src"] = "DocDetails.aspx?Revisionid=" + Revisionid;//iframe page BOQDetails.aspx is called with query string revisonid
             ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenNewProjectWizard", "OpenNewProjectWizard();", true);
         }
 
