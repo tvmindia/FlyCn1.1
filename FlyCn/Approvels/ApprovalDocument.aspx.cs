@@ -31,7 +31,7 @@ namespace FlyCn.Approvels
               
 
             }
-          
+            enableDisableToolbar();
 
         }
         #endregion Page_Load
@@ -277,6 +277,21 @@ namespace FlyCn.Approvels
                     }
                 }
             }
+        }
+
+
+        public void enableDisableToolbar()
+        {
+            ToolBar.AddButton.Visible = false;
+            ToolBar.SaveButton.Visible=false;
+            ToolBar.UpdateButton.Visible = false;
+            ToolBar.DeleteButton.Visible = false;
+            ToolBar.EditButton.Visible = false;
+            ToolBar.ApproveButton.Visible = true;
+            ToolBar.DeclineButton.Visible=true;
+            ToolBar.RejectButton.Visible = true;
+
+        
         }
     }
 }

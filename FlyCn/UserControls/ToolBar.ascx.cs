@@ -17,6 +17,9 @@ namespace FlyCn.UserControls
         public UpdateBtn UpdateButton  ;
         public DeleteBtn DeleteButton  ;
         public EditBtn EditButton;
+        public ApproveBtn ApproveButton;
+        public DeclineBtn DeclineButton;
+        public RejectBtn RejectButton;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,6 +34,11 @@ namespace FlyCn.UserControls
                UpdateButton = new UpdateBtn(CommonToolBar);
                DeleteButton = new DeleteBtn(CommonToolBar);
               EditButton = new EditBtn(CommonToolBar);
+              ApproveButton = new ApproveBtn(CommonToolBar);
+              DeclineButton = new DeclineBtn(CommonToolBar);
+              RejectButton = new RejectBtn(CommonToolBar);
+
+
         }
         
 
@@ -310,12 +318,12 @@ namespace FlyCn.UserControls
                     if (value)
                     {
                         CommonToolBar.FindItemByValue("Edit").Style["display"] = "";
-                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "";
+                        CommonToolBar.FindItemByValue("EditApproveSeperator").Style["display"] = "";
                     }
                     else
                     {
                         CommonToolBar.FindItemByValue("Edit").Style["display"] = "none";
-                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "none";
+                        CommonToolBar.FindItemByValue("EditApproveSeperator").Style["display"] = "none";
                     }
 
 
@@ -327,6 +335,180 @@ namespace FlyCn.UserControls
             {
 
                 CommonToolBar.FindItemByValue("Edit").Attributes.Add("OnClick", JavaScriptFunction);
+            }
+
+
+        }
+
+        public class ApproveBtn
+        {
+            public RadToolBar CommonToolBar;
+
+            public ApproveBtn(RadToolBar ToolBar)
+            {
+                this.CommonToolBar = ToolBar;
+            }
+
+
+            //------------------ Approve  -----------------------------------------------
+            public bool Visible
+            {
+
+                get
+                {
+                    if (CommonToolBar.FindItemByValue("Approve").Style["display"] == "block" || CommonToolBar.FindItemByValue("Approve").Style["display"] == "")
+                    {
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+
+
+
+                set
+                {
+
+                    if (value)
+                    {
+                        CommonToolBar.FindItemByValue("Approve").Style["display"] = "";
+                        CommonToolBar.FindItemByValue("ApproveDeclineSeperator").Style["display"] = "";
+                    }
+                    else
+                    {
+                        CommonToolBar.FindItemByValue("Approve").Style["display"] = "none";
+                        CommonToolBar.FindItemByValue("ApproveDeclineSeperator").Style["display"] = "none";
+                    }
+
+
+                }
+
+
+            }
+            public void registerScript_onClientClick(string JavaScriptFunction)
+            {
+
+                CommonToolBar.FindItemByValue("Approve").Attributes.Add("OnClick", JavaScriptFunction);
+            }
+
+
+        }
+
+        public class DeclineBtn
+        {
+            public RadToolBar CommonToolBar;
+
+            public DeclineBtn(RadToolBar ToolBar)
+            {
+                this.CommonToolBar = ToolBar;
+            }
+
+
+            //------------------ Edit  -----------------------------------------------
+            public bool Visible
+            {
+
+                get
+                {
+                    if (CommonToolBar.FindItemByValue("Decline").Style["display"] == "block" || CommonToolBar.FindItemByValue("Decline").Style["display"] == "")
+                    {
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+
+
+
+                set
+                {
+
+                    if (value)
+                    {
+                        CommonToolBar.FindItemByValue("Decline").Style["display"] = "";
+                         CommonToolBar.FindItemByValue("DeclineRejectSeperator").Style["display"] = "";
+                    }
+                    else
+                    {
+                        CommonToolBar.FindItemByValue("Decline").Style["display"] = "none";
+                         CommonToolBar.FindItemByValue("DeclineRejectSeperator").Style["display"] = "none";
+                    }
+
+
+                }
+
+
+            }
+            public void registerScript_onClientClick(string JavaScriptFunction)
+            {
+
+                CommonToolBar.FindItemByValue("Decline").Attributes.Add("OnClick", JavaScriptFunction);
+            }
+
+
+        }
+
+        public class RejectBtn
+        {
+            public RadToolBar CommonToolBar;
+
+            public RejectBtn(RadToolBar ToolBar)
+            {
+                this.CommonToolBar = ToolBar;
+            }
+
+
+            //------------------ Edit  -----------------------------------------------
+            public bool Visible
+            {
+
+                get
+                {
+                    if (CommonToolBar.FindItemByValue("Reject").Style["display"] == "block" || CommonToolBar.FindItemByValue("Reject").Style["display"] == "")
+                    {
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+
+
+
+                set
+                {
+
+                    if (value)
+                    {
+                        CommonToolBar.FindItemByValue("Reject").Style["display"] = "";
+                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "";
+                    }
+                    else
+                    {
+                        CommonToolBar.FindItemByValue("Reject").Style["display"] = "none";
+                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "none";
+                    }
+
+
+                }
+
+
+            }
+            public void registerScript_onClientClick(string JavaScriptFunction)
+            {
+
+                CommonToolBar.FindItemByValue("Reject").Attributes.Add("OnClick", JavaScriptFunction);
             }
 
 
@@ -351,6 +533,9 @@ namespace FlyCn.UserControls
                this.UpdateButton.Visible = value;
                this.DeleteButton.Visible = value;
                this.EditButton.Visible = value;
+               this.ApproveButton.Visible = value;
+               this.DeclineButton.Visible = value;
+               this.RejectButton.Visible = value;
            
            }
         
