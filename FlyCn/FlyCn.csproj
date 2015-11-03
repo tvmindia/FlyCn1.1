@@ -687,6 +687,7 @@
     <Compile Include="FlyCnDAL\Security.cs" />
     <Compile Include="FlyCnDAL\SystemDefenitionDetails.cs" />
     <Compile Include="FlyCnDAL\Template.cs" />
+    <Compile Include="FlyCnDAL\Users.cs" />
     <Compile Include="FlyCnMasters\DynamicMaster.aspx.cs">
       <DependentUpon>DynamicMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
