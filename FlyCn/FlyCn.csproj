@@ -308,12 +308,16 @@
     <Content Include="Images\gladsmall.png" />
     <Content Include="Images\Icons\activity.png" />
     <Content Include="Images\Icons\approve.png" />
+    <Content Include="Images\Icons\approveToolbarIcon.png" />
+    <Content Include="Images\Icons\approveToolbarIconDisabled.png" />
     <Content Include="Images\Icons\arrow-right3232.png" />
     <Content Include="Images\Icons\boq.png" />
     <Content Include="Images\Icons\complete.png" />
     <Content Include="Images\Icons\construction.png" />
     <Content Include="Images\Icons\ConstructionReq.png" />
     <Content Include="Images\Icons\cp.png" />
+    <Content Include="Images\Icons\declineToolbarIcon.png" />
+    <Content Include="Images\Icons\declineToolbarIconDisabled.png" />
     <Content Include="Images\Icons\delaylog.png" />
     <Content Include="Images\Icons\EnggData.png" />
     <Content Include="Images\Icons\handover.png" />
@@ -329,6 +333,8 @@
     <Content Include="Images\Icons\qp.png" />
     <Content Include="Images\Icons\qry.png" />
     <Content Include="Images\Icons\quality.png" />
+    <Content Include="Images\Icons\rejectToolbarIcon.png" />
+    <Content Include="Images\Icons\rejectToolbarIconDisabled.png" />
     <Content Include="Images\Icons\road.png" />
     <Content Include="Images\Icons\roles.png" />
     <Content Include="Images\Icons\setup.png" />
@@ -681,6 +687,7 @@
     <Compile Include="FlyCnDAL\Security.cs" />
     <Compile Include="FlyCnDAL\SystemDefenitionDetails.cs" />
     <Compile Include="FlyCnDAL\Template.cs" />
+    <Compile Include="FlyCnDAL\Users.cs" />
     <Compile Include="FlyCnMasters\DynamicMaster.aspx.cs">
       <DependentUpon>DynamicMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
