@@ -383,6 +383,7 @@
      }
      function ClearTexBox()
      {
+         document.getElementById('<%=txtItemDescription.ClientID %>').value = "";
         
          $('input[type=text]').each(function () {
              $(this).val('');
