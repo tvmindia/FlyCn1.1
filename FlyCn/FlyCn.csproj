@@ -573,6 +573,7 @@
     <Compile Include="Approvels\DocDetails.aspx.designer.cs">
       <DependentUpon>DocDetails.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Approvels\ReviseDocument.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="Account\Login.aspx.cs">
