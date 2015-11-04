@@ -13,49 +13,67 @@ namespace FlyCn.Content.DocDetailView
 {
     public partial class DocDetails : System.Web.UI.Page
     {
+        ErrorHandling eObj = new ErrorHandling();
+        UIClasses.Const Const = new UIClasses.Const();
+        string revid = "";
         protected void Page_Load(object sender, EventArgs e)
         {
+            try
+            {
+                string projectNum = Request.QueryString["ProjNum"];
+                string revId = Request.QueryString["RevNum"];
+                string type = "BOQ";
+                string revid = Request.QueryString["Revisionid"];
+                hiddenFieldRevisionID.Value = revid;
+                DataTable dt;
+                ApprovelMaster amObj = new ApprovelMaster();
 
-             string projectNum = Request.QueryString["ProjNum"];
-             string revId = Request.QueryString["RevNum"];
-             string type="BOQ";
-             string revid =Request.QueryString["Revisionid"];
-             DataTable dt;
-             ApprovelMaster amObj = new ApprovelMaster();
-             dt = amObj.GetDocHeaderDetails(revid, type);
-             lblDocumntNo.Text = dt.Rows[0]["DocumentNo"].ToString();
-             string docnum = lblDocumntNo.Text;
-             lblDocumntNo.Attributes["style"] = "font-weight:bold;";
-             lblClientDocNo.Text = dt.Rows[0]["ClientDocNo"].ToString();
-             lblClientDocNo.Attributes["style"] = "font-weight:bold;";
-             lblType.Text = dt.Rows[0]["DocumentType"].ToString();
-             lblType.Attributes["style"] = "font-weight:bold;";
-             lblCreated.Text = dt.Rows[0]["CreatedBy"].ToString();
-             lblCreated.Attributes["style"] = "font-weight:bold;";
-             lblDate.Text = dt.Rows[0]["CreatedDate"].ToString();
-             lblDate.Attributes["style"] = "font-weight:bold;";
-             int status = Convert.ToInt32(dt.Rows[0]["LatestStatus"]);
-             if(status==1)
-             {
-                 lblStatus.Text = "Closed";
-             }
-             else
-                 if(status==2)
-                 {
-                     lblStatus.Text = "Declined";
-                 }
-                 else
-                     if(status==3)
-                     {
-                         lblStatus.Text = "Rejected for Amendment";
-                     }
-                     else
-                         if (status == 0)
-                         {
-                             lblStatus.Text = "Draft";
-                         }
-             lblStatus.Attributes["style"] = "font-weight:bold;";
- 
+                dt = amObj.GetDocHeaderDetails(revid, type);
+                if (dt.Rows.Count > 0)
+                {
+                    lblDocumntNo.Text = dt.Rows[0]["DocumentNo"].ToString();
+                    string docnum = lblDocumntNo.Text;
+                    lblDocumntNo.Attributes["style"] = "font-weight:bold;";
+                    lblClientDocNo.Text = dt.Rows[0]["ClientDocNo"].ToString();
+                    lblClientDocNo.Attributes["style"] = "font-weight:bold;";
+                    lblType.Text = dt.Rows[0]["DocumentType"].ToString();
+                    lblType.Attributes["style"] = "font-weight:bold;";
+                    lblCreated.Text = dt.Rows[0]["CreatedBy"].ToString();
+                    lblCreated.Attributes["style"] = "font-weight:bold;";
+                    lblDate.Text = dt.Rows[0]["CreatedDate"].ToString();
+                    lblDate.Attributes["style"] = "font-weight:bold;";
+                    int status = Convert.ToInt32(dt.Rows[0]["LatestStatus"]);
+
+                    if (status == 1)
+                    {
+                        lblStatus.Text = "Closed";
+                    }
+                    else
+                        if (status == 2)
+                        {
+                            lblStatus.Text = "Declined";
+                        }
+                        else
+                            if (status == 3)
+                            {
+                                lblStatus.Text = "Rejected for Amendment";
+                            }
+                            else
+                                if (status == 0)
+                                {
+                                    lblStatus.Text = "Draft";
+                                }
+
+                    lblStatus.Attributes["style"] = "font-weight:bold;";
+                }
+
+            }
+            catch(Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
         }
 
         protected void dtDocDetailGrid_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
@@ -67,12 +85,24 @@ namespace FlyCn.Content.DocDetailView
         {
           //  string projectNum = Request.QueryString["ProjNum"];
           //  string revId = Request.QueryString["RevNum"];
-            string revid="d528a5a9-0049-41d3-b5bb-1bd02ee7f17d";
-            string type = "BOQ";
-            DataTable dt;
-            ApprovelMaster amObj = new ApprovelMaster();
-            dt = amObj.GetDocDetailList(revid, type);
-            dtDocDetailGrid.DataSource = dt;         
+            try
+            {
+                string type = "BOQ";
+                DataTable dt;
+                ApprovelMaster amObj = new ApprovelMaster();
+                revid = hiddenFieldRevisionID.Value;
+                dt = amObj.GetDocDetailList(revid, type);
+                if (dt.Rows.Count > 0)
+                {
+                    dtDocDetailGrid.DataSource = dt;
+                }
+            }
+            catch(Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
         }
 
         protected void dtDocDetailGrid_PreRender(object sender, EventArgs e)
