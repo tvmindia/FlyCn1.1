@@ -184,7 +184,7 @@ namespace FlyCn.FlyCnDAL
             }
         }
         #endregion AddNewDocument
-#region GetAllDocuments
+        #region GetAllDocuments
         public DataSet GetAllBOQDocumentHeader(string projectno, string documenttype)
         {
             SqlConnection con = null;
@@ -294,7 +294,40 @@ namespace FlyCn.FlyCnDAL
             return ds;
         }
  #endregion BindBOQ
- #endregion Documentmastermethods
+
+        #region EditOwnershipName
+        public int EditOwnershipName(Guid @docid,string @username)
+        {
+            int result = 0;
+            SqlConnection con = null;
+            try
+            {
+                UIClasses.Const Const = new UIClasses.Const();
+                FlyCnDAL.Security.UserAuthendication UA;
+                HttpContext context = HttpContext.Current;
+                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                string editQuery = "UpdateDocumentMasterByDocumentID";
+                SqlCommand cmdEdit=new SqlCommand(editQuery,con);
+                cmdEdit.CommandType=CommandType.StoredProcedure;
+                cmdEdit.Parameters.AddWithValue("@docid",DocumentID);
+                cmdEdit.Parameters.AddWithValue("@username",UA.userName);
+                result = cmdEdit.ExecuteNonQuery();
+            }
+
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return result;
+        }
+        #endregion EditOwnershipName
+        #endregion Documentmastermethods
 
     }
 }
