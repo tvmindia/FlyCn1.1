@@ -216,6 +216,11 @@ border-top:#A6CAB8 3px solid;
                 ChangeOwnershipWindow();
             }
         }
+
+ function ReviseDocument() 
+{
+alert(1);
+}
     </script>
    
 
