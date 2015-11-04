@@ -113,12 +113,28 @@ border-top:#A6CAB8 3px solid;
             var DocumentTypeForHeading = document.getElementById('HiddenFieldDoctype').value;
             try {
                 $("#CloseDocumentPopup").dialog({                  
-                    title: "Close Docuement - " + DocumentTypeForHeading,
+                    title: "Close Document - " + DocumentTypeForHeading,
                     width: 780,
                     height: 500,
                     buttons: {}, modal: true
                 });
                return false
+            }
+            catch (X) {
+                alert(X.message);
+            }
+        }
+
+        function ChangeOwnershipWindow() {
+           
+            try {
+                $("#ChangeOwnerShip").dialog({
+                    title: "Change Ownership",
+                    width: 780,
+                    height: 500,
+                    buttons: {}, modal: true
+                });
+                return false
             }
             catch (X) {
                 alert(X.message);
@@ -183,16 +199,24 @@ border-top:#A6CAB8 3px solid;
                 AlertMsg(messages.CloseDocumentClick);
             }
         }
+
+        function ChangeOwner()
+        {
+            debugger;
+            var splitter = $find("<%= RadSplitter1.ClientID %>");
+            var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
+            var iframe = pane.getExtContentElement();
+            var contentWindow = iframe.contentWindow;
+            var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
+            var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
+            if (hiddenFieldOwner.value != hiddenusername.value)
+            {
+                document.getElementById('IframeChangeOwner').src = "../DocumentRelated/OwnershipChange.aspx";
+                ChangeOwnershipWindow();
+            }
+        }
     </script>
-      <%-- <script>
-           function hideMe() {
-               document.getElementById("Errorbox").style.display = "none";
-               var divId = document.getElementById("masterDiv");
-               divId.style.opacity = "1";
-           }
-         
-         
-    </script>--%>
+   
 
         
         <div  id="Errorbox" runat="server" class="div1">
@@ -283,6 +307,11 @@ border-top:#A6CAB8 3px solid;
            
               <iframe id="IframeContent" style="width:1300px; height:inherit; "></iframe>
                  </div>
+
+     <div id="ChangeOwnerShip" style="width: 1000px!important; overflow-x:hidden;">
+
+         <iframe id="IframeChangeOwner" style="width:1300px; height:inherit; "></iframe>
+     </div>
            
     <asp:HiddenField ID="HiddenFieldDoctype" runat="server" ClientIDMode="Static" />
 
