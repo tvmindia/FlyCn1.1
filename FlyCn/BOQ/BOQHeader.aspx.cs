@@ -28,14 +28,17 @@ namespace FlyCn.BOQ
         
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
+        
+    
         #endregion Global Variables
         #region Events
         
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
-           
-           
+
+            
+          
             BOQHeaderDetails  BOQObj= new BOQHeaderDetails();
           
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
@@ -46,6 +49,7 @@ namespace FlyCn.BOQ
             //BOQObj.BindTree(RadTreeView tview);
             hiddenFieldDocumentType.Value = "BOQ";
             ContentIframe.Style["display"] = "none";//ifrmae disabling
+
         }
         public void DisableBOQHeaderTextBox()
         {
@@ -121,10 +125,17 @@ namespace FlyCn.BOQ
                     DataSet ds = new DataSet();
                     documentMaster = new DocumentMaster();
                     ds = documentMaster.BindBOQ(DocumentID, ProjectNo);
+                    UIClasses.Const Const = new UIClasses.Const();
+                    FlyCnDAL.Security.UserAuthendication UA;
+
+                    HttpContext context = HttpContext.Current;
+                    UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                    hiddenUsername.Value = UA.userName;
                     //hiddenfield
                     hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
                     hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
                     hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+                    hiddenDocumentOwner.Value = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
                     //hiddenfield
                     txtDocumentno.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
                     txtClientdocumentno.Text = ds.Tables[0].Rows[0]["ClientDocNo"].ToString();
