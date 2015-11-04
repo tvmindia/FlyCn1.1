@@ -63,24 +63,21 @@ namespace FlyCn.FlyCnDAL
         #region Billofquantitymethods
         public void BindTree(RadTreeView myTree)
         {
-             
-
            myTree.Nodes.Clear();
            RadTreeNode rtn1 = new RadTreeNode("CloseDocument", "");
-           //<a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
-           //  rtn1.NavigateUrl = "../FlyCnMasters/Personal.aspx";
-           RadTreeNode rtn2 = new RadTreeNode("Ownership Change", "");
-           
-           string radtree = "rtn1";
-           //rtn1.setAttribute("onclick", "");
            rtn1.Target = "contentPane";
            myTree.Nodes.Add(rtn1);
+           rtn1.Attributes.Add("onclick", "CloseDocument(" + 5 + ")");
+           RadTreeNode rtn2 = new RadTreeNode("Ownership Change", "");
            rtn2.Target = "contentPane";
-           myTree.Nodes.Add(rtn2);
-         
-           myTree.Attributes.Add("onclick", "CloseDocument(" + 5 + ")");
-           myTree.Attributes.Add("onclick", "ChangeOwner()");
+           myTree.Nodes.Add(rtn2); 
+           rtn2.Attributes.Add("onclick", "ChangeOwner()");
+           RadTreeNode rtn3 = new RadTreeNode("Revise Document", "");
+           rtn3.Target = "contentPane";
+           myTree.Nodes.Add(rtn3);
+           rtn3.Attributes.Add("onclick", "ReviseDocument()");
         }
+
         public void LoadInputScreen(RadPane myContentPane)
         {
            myContentPane.ContentUrl = "BOQHeader.aspx";

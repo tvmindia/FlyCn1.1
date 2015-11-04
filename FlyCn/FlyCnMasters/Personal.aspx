@@ -429,10 +429,6 @@
                                         <div class="form-group">
 
                                             <asp:Label ID="lblHierarchyPosition" CssClass="control-label col-md-3" runat="server" Text="Hierarchy Position"></asp:Label>
-
-
-
-
                                             <div class="col-md-9">
 
                                                 <asp:TextBox ID="txtHierarchyPosition" CssClass="form-control" runat="server"></asp:TextBox>
