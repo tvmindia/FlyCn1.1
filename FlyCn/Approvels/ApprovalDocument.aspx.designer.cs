@@ -67,13 +67,13 @@ namespace FlyCn.Approvels {
         protected global::Telerik.Web.UI.RadPageView rpApproval;
         
         /// <summary>
-        /// ToolBar control.
+        /// ToolBarApprovalDoc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::FlyCn.UserControls.ToolBar ToolBar;
+        protected global::FlyCn.UserControls.ToolBar ToolBarApprovalDoc;
         
         /// <summary>
         /// lblProjectnumber control.
@@ -200,6 +200,24 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDocumentType;
+        
+        /// <summary>
+        /// lblCreDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCreDate;
+        
+        /// <summary>
+        /// lblCreatedDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCreatedDate;
         
         /// <summary>
         /// lblDocDate control.

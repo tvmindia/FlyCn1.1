@@ -86,6 +86,7 @@
                 <div class="col-md-6">
                 
                     <asp:Label ID="lblDocNo" CssClass="control-label col-md-5" runat="server" Text="Document Number"></asp:Label>
+                       <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static"/>
                     <asp:Label ID="lblDocumntNo"  CssClass="control-label col-md-7" runat="server" Text=""></asp:Label>
                    
 
