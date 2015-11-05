@@ -11,9 +11,12 @@
                 <div class="col-md-6">
                 
                     <asp:Label ID="lblRemarks" CssClass="control-label col-md-5" runat="server" Text="Remarks"></asp:Label>
-                    <asp:TextBox ID="txtRemarks" runat="server" CssClass="control-label col-md-7" multiline="true"></asp:TextBox>
+                    <asp:TextBox ID="txtRemarks" runat="server" CssClass="control-label col-md-7" Multiline="true" ></asp:TextBox>
                     </div>
                </div>
+       <div class="col-md-6">
+           <asp:Button ID="btnAcquire" runat="server" Text="Acquire"  OnClick="btnAcquire_Click"/>
+       </div>
    </div>
       
 

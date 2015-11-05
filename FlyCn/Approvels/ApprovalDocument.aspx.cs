@@ -19,20 +19,35 @@ namespace FlyCn.Approvels
         FlyCnDAL.Security.UserAuthendication UA;
         string verifierEmail=null;
         ApprovelMaster approvelMaster;
+       
         #endregion Global Variables
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            verifierEmail = "albert.thomson@thrithvam.ae";
-            if (!IsPostBack)
+            try
             {
-                dtgPendingApprovalGrid.Rebind();
-              
+                UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
+                Users userobj = new Users(UA.userName);
+                verifierEmail = userobj.UserEMail;
+
+                if (!IsPostBack)
+                {
+                    dtgPendingApprovalGrid.Rebind();
+                }
+                ToolBarApprovalDoc.OnClientButtonClicking = "OnClientButtonClickingApproval";
+                ToolBarApprovalDoc.onClick += new RadToolBarEventHandler(ToolBar_onClick);
+                ToolBarVisibility();
+            }
+            catch(Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
 
             }
-            ToolBarApprovalDoc.OnClientButtonClicking = "OnClientButtonClickingApproval";
-            enableDisableToolbar();
 
         }
         #endregion Page_Load
@@ -40,27 +55,12 @@ namespace FlyCn.Approvels
         #region dtgPendingApprovalGrid_NeedDataSource
         protected void dtgPendingApprovalGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            try
-            {
-                DataSet ds = new DataSet();
-                approvelMaster = new ApprovelMaster();
-                ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(1, verifierEmail);
-                dtgPendingApprovalGrid.DataSource = ds;
-               
-            }
-            catch (Exception ex)
-            {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
-                throw ex;
-            }
+            PendingApprovalGridBind();
 
         }
         #endregion dtgPendingApprovalGrid_NeedDataSource
-
-
-        #region dtgPendingApprovalGrid_PreRender
-        protected void dtgPendingApprovalGrid_PreRender(object sender, EventArgs e)
+        #region dtgPendingApprovalGridBind
+        public void PendingApprovalGridBind()
         {
             try
             {
@@ -68,7 +68,7 @@ namespace FlyCn.Approvels
                 approvelMaster = new ApprovelMaster();
                 ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(1, verifierEmail);
                 dtgPendingApprovalGrid.DataSource = ds;
-               
+
             }
             catch (Exception ex)
             {
@@ -76,6 +76,13 @@ namespace FlyCn.Approvels
                 eObj.ErrorData(ex, page);
                 throw ex;
             }
+        }
+        #endregion dtgPendingApprovalGridBind
+
+        #region dtgPendingApprovalGrid_PreRender
+        protected void dtgPendingApprovalGrid_PreRender(object sender, EventArgs e)
+        {
+            dtgPendingApprovalGrid.Rebind();
         }
         #endregion dtgPendingApprovalGrid_PreRender
 
@@ -86,28 +93,7 @@ namespace FlyCn.Approvels
             {
                 if(e.CommandName=="Action")
                 {
-                    //call ifrma approval screen
-                    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
-                    GridDataItem item = e.Item as GridDataItem;
-                    tab.Selected = true;
-                    tab.Text = "Approval";
-                    RadMultiPage1.SelectedIndex = 1;
-                    //changing tab 
-                    hiddenFiedldProjectno.Value = item.GetDataKeyValue("ProjectNo").ToString();
-                    hiddenFieldApprovalID.Value = item.GetDataKeyValue("ApprovalID").ToString();
-                    hiddenFieldDocumentID.Value = item.GetDataKeyValue("DocumentID").ToString();
-                    hiddenFieldRevisionID.Value = item.GetDataKeyValue("RevisionID").ToString();
-                    hiddenFieldDocumentType.Value = item.GetDataKeyValue("DocumentType").ToString();
-                    hiddenFieldDocumentNo.Value = item.GetDataKeyValue("DocumentNo").ToString();
-                    lblDocumentNo.Text = item.GetDataKeyValue("DocumentNo").ToString();
-                    lblCreatedDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("DocCreatedDate"));
-                    lblProjectno.Text = item.GetDataKeyValue("ProjectNo").ToString();
-                    lblDocumentType.Text = item.GetDataKeyValue("DocumentType").ToString();
-                    lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("DocumentDate"));
-                    lblDocOwner.Text = item.GetDataKeyValue("DocumentOwner").ToString();
-                    lblCreatedBy.Text = item.GetDataKeyValue("DocCreatedBy").ToString();
-                    lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("CreatedDate"));
-                    dtgApprovers.Rebind();
+                    ActionItemCommand(e);
                     
                 }
                 if(e.CommandName=="Details")
@@ -118,11 +104,42 @@ namespace FlyCn.Approvels
             }
             catch(Exception ex)
             {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
                 throw ex;
             }
 
         }
         #endregion dtgPendingApprovalGrid_ItemCommand
+
+        #region ActionItemCommand
+        public void ActionItemCommand(GridCommandEventArgs e)
+        {
+            //call ifrma approval screen
+            RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+            GridDataItem item = e.Item as GridDataItem;
+            tab.Selected = true;
+            tab.Text = "Approval";
+            RadMultiPage1.SelectedIndex = 1;
+            //changing tab 
+            hiddenFiedldProjectno.Value = item.GetDataKeyValue("ProjectNo").ToString();
+            hiddenFieldApprovalID.Value = item.GetDataKeyValue("ApprovalID").ToString();
+            hiddenFieldDocumentID.Value = item.GetDataKeyValue("DocumentID").ToString();
+            hiddenFieldRevisionID.Value = item.GetDataKeyValue("RevisionID").ToString();
+            hiddenFieldDocumentType.Value = item.GetDataKeyValue("DocumentType").ToString();
+            hiddenFieldDocumentNo.Value = item.GetDataKeyValue("DocumentNo").ToString();
+            lblDocumentNo.Text = item.GetDataKeyValue("DocumentNo").ToString();
+            lblCreatedDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("DocCreatedDate"));
+            lblProjectno.Text = item.GetDataKeyValue("ProjectNo").ToString();
+            lblDocumentType.Text = item.GetDataKeyValue("DocumentType").ToString();
+            lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("DocumentDate"));
+            lblDocOwner.Text = item.GetDataKeyValue("DocumentOwner").ToString();
+            lblCreatedBy.Text = item.GetDataKeyValue("DocCreatedBy").ToString();
+            lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("CreatedDate"));
+            dtgApprovers.Rebind();
+        }
+
+        #endregion ActionItemCommand
 
         #region dtgApprovers_NeedDataSource
         protected void dtgApprovers_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -178,37 +195,57 @@ namespace FlyCn.Approvels
         }
         #endregion dtgApprovers_PreRender
 
-
-        #region BtnApproval
-        protected void btnApprove_Click(object sender, EventArgs e)
+        #region  ToolBarApprovalDoc_onClick
+        protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
-            approvelMaster = new ApprovelMaster();
-            MailSending mailSending = new MailSending();
-             try
+            string functionName = e.Item.Value;
+            if (e.Item.Value == "Approve")
             {
-                string approvid=hiddenFieldApprovalID.Value;
-                approvelMaster.ApprovalStatus = 4;//4 means approved
-                approvelMaster.ApprovalDate = System.DateTime.Now;
-                approvelMaster.Remarks = txtRemarks.Text;
-                approvelMaster.UpdateApprovalMaster(approvid);
-                mailSending.SendMailToNextLevelVarifiers( hiddenFieldRevisionID.Value,   hiddenFieldDocumentType.Value,  hiddenFiedldProjectno.Value,     hiddenFieldDocumentNo.Value);
+                Approve();
             }
-            catch(Exception ex)
+            if (e.Item.Value == "Decline")
             {
-                throw ex;
+               // Decline();
             }
-            finally
+            if (e.Item.Value == "Reject")
             {
-                dtgPendingApprovalGrid.Rebind();
+               // Reject();
+            }
+         
+        }
+        #endregion ToolBar_onClick
 
+        #region Reject_method
+        public void Reject()
+        {
+            if (txtRemarks.Text != "")
+            {
+                approvelMaster = new ApprovelMaster();
+                try
+                {
+                    string approvid = hiddenFieldApprovalID.Value;
+                    approvelMaster.ApprovalStatus = 3;//3 means Rejected
+                    approvelMaster.ApprovalDate = System.DateTime.Now;
+                    approvelMaster.Remarks = txtRemarks.Text;
+                    approvelMaster.UpdateApprovalMaster(approvid);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    dtgPendingApprovalGrid.DataBind();
+                }
             }
 
         }
-        #endregion BtnApproval
-        #region BtnDecline
-        protected void btnDecline_Click(object sender, EventArgs e)
+        #endregion Reject_method
+        #region Decline_method
+
+        public void Decline()
         {
-            if (txtRemarks.Text != "")
+          if (txtRemarks.Text != "")
             {
                 approvelMaster = new ApprovelMaster();
 
@@ -231,65 +268,40 @@ namespace FlyCn.Approvels
                     dtgPendingApprovalGrid.DataBind();
                 }
             }
-            
         }
-        #endregion BtnDecline
-        #region BtnReject
-        protected void btnReject_Click(object sender, EventArgs e)
+        #endregion  Decline_method
+        #region Approve_method
+        public void Approve()//Approves the document
         {
-            if (txtRemarks.Text != "")
+            approvelMaster = new ApprovelMaster();
+            MailSending mailSending = new MailSending();//mail sending object
+            try
             {
-                approvelMaster = new ApprovelMaster();
-                try
-                {
-                    string approvid = hiddenFieldApprovalID.Value;
-                    approvelMaster.ApprovalStatus = 3;//3 means Rejected
-                    approvelMaster.ApprovalDate = System.DateTime.Now;
-                    approvelMaster.Remarks = txtRemarks.Text;
-                    approvelMaster.UpdateApprovalMaster(approvid);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    dtgPendingApprovalGrid.DataBind();
-                }
+                string approvid = hiddenFieldApprovalID.Value;
+                approvelMaster.ApprovalStatus = 4;//4 means approved
+                approvelMaster.ApprovalDate = System.DateTime.Now;
+                approvelMaster.Remarks = txtRemarks.Text;
+                approvelMaster.UpdateApprovalMaster(approvid);
+                mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                dtgPendingApprovalGrid.Rebind();
+
             }
         }
-       
-        #endregion BtnReject
 
-        #region  ToolBarApprovalDoc_onClick
-        protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
-        {
-            string functionName = e.Item.Value;
-            if (e.Item.Value == "Approve")//It doesnot add anything but clears
-            {
-               
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ClearTextBox", "ClearBOQHeaderTexBox();", true);
-               // ToolBarVisibility(3);
-               
 
-            }
-            if (e.Item.Value == "Decline")
-            {
-               
-               
-            }
-            if (e.Item.Value == "Reject")
-            {
-             
+        #endregion Approve_method
 
-            }
-            
-          
-                      
 
-        }
-        #endregion ToolBar_onClick
- 
+        #region lnkbtnDetail_Click
         protected void lnkbtnDetail_Click(object sender, EventArgs e)
         {
             string Revisionid;
@@ -297,7 +309,9 @@ namespace FlyCn.Approvels
             ContentDocDetails.Attributes["src"] = "DocDetails.aspx?Revisionid=" + Revisionid;//iframe page BOQDetails.aspx is called with query string revisonid
             ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenNewProjectWizard", "OpenNewProjectWizard();", true);
         }
+        #endregion lnkbtnDetail_Click
 
+        #region dtgPendingApprovalGrid_ItemDataBound
         protected void dtgPendingApprovalGrid_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)
@@ -313,9 +327,10 @@ namespace FlyCn.Approvels
                 }
             }
         }
+        #endregion dtgPendingApprovalGrid_ItemDataBound
 
-       
-        public void enableDisableToolbar()
+        #region ToolBarVisibility
+        public void ToolBarVisibility()
         {
             ToolBarApprovalDoc.AddButton.Visible = false;
             ToolBarApprovalDoc.SaveButton.Visible = false;
@@ -326,5 +341,6 @@ namespace FlyCn.Approvels
             ToolBarApprovalDoc.DeclineButton.Visible = true;
             ToolBarApprovalDoc.RejectButton.Visible = true;
         }
+        #endregion ToolBarVisibility
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlyCn.FlyCnDAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,10 +8,48 @@ using System.Web.UI.WebControls;
 
 namespace FlyCn.DocumentRelated
 {
+
     public partial class OwnershipChange : System.Web.UI.Page
     {
+
+        ErrorHandling eObj = new ErrorHandling();
+        string _DocId;
+        string _Username;
+        string _Ownername;
         protected void Page_Load(object sender, EventArgs e)
         {
+            _DocId = Request.QueryString["DocumentId"];
+            _Ownername = Request.QueryString["Ownername"];
+            _Username = Request.QueryString["Username"];
+        }
+
+        protected void btnAcquire_Click(object sender, EventArgs e)
+        {
+            
+            DocumentMaster dObj = new DocumentMaster();
+            dObj.DocumentID = new Guid(_DocId);
+            int result = 0;
+           
+            try
+            {
+               result= dObj.EditOwnershipName(dObj.DocumentID, _Username);
+               if (result == 1)
+               {
+                   var page = HttpContext.Current.CurrentHandler as Page;
+                   var master = page.Master;
+                   eObj.UpdationSuccessData(page);
+               }
+            }
+          catch(Exception ex)
+            {
+             
+               var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+              
+            }
+           
+
 
         }
     }

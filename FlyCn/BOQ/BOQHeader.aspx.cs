@@ -136,6 +136,7 @@ namespace FlyCn.BOQ
                     hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
                     hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
                     hiddenDocumentOwner.Value = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
+                   
                     //hiddenfield
                     txtDocumentno.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
                     txtClientdocumentno.Text = ds.Tables[0].Rows[0]["ClientDocNo"].ToString();

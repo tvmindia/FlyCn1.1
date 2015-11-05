@@ -209,9 +209,10 @@ border-top:#A6CAB8 3px solid;
             var contentWindow = iframe.contentWindow;
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
+            var hiddendocumentid = contentWindow.document.getElementById('hiddenFieldDocumentID');
             if (hiddenFieldOwner.value != hiddenusername.value)
             {
-                document.getElementById('IframeChangeOwner').src = "../DocumentRelated/OwnershipChange.aspx";
+                document.getElementById('IframeChangeOwner').src = "../DocumentRelated/OwnershipChange.aspx?DocumentId=" + hiddendocumentid.value + '&Username=' + hiddenusername.value + '&Ownername=' + hiddenFieldOwner.value;
                 ChangeOwnershipWindow();
             }
         }

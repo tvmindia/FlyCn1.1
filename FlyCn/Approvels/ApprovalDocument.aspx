@@ -240,13 +240,7 @@
                                      <asp:Label ID="lblValidationMsg" runat="server" Text=""></asp:Label>
                                      </div>
                                     </div>
-                                    <div class="col-md-12">
-                                    <div class="form-group">
-                                    <asp:Button ID="btnApprove" runat="server" Text="Approve" OnClick="btnApprove_Click"/>
-                                    <asp:Button ID="btnDecline" runat="server" Text="Decline" OnClick="btnDecline_Click" OnClientClick="return validateText()"/>
-                                    <asp:Button ID="btnReject" runat="server" Text="Reject" OnClick="btnReject_Click" OnClientClick="return validateText()"/>
-                                    </div>
-                                    </div>
+                                  
                                     <div class="col-md-12">
                                         <!--Telerik Radlistbox-->
                                         <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="50%" OnNeedDataSource="dtgApprovers_NeedDataSource">
@@ -341,34 +335,45 @@
        }
     function validateText()
     {
-       
+        debugger;
         var Remarks = document.getElementById('<%=txtRemarks.ClientID %>').value;
         if(Remarks == "")
         {
             document.getElementById('<%= lblValidationMsg.ClientID %>').innerHTML = 'Please Fill the Remarks...!';
             return false;
         }
+        else
+        {
+            return true;
+        }
           
     }
-
-    function OnClientButtonClickingApproval(sender, args) {
-        ToolBarApprovalDoc.ApproveButton.Visible = true;
-        ToolBarApprovalDoc.DeclineButton.Visible = true;
-        ToolBarApprovalDoc.RejectButton.Visible = true;
+    function ToolBarVisibility()
+    {
+        <%=ToolBarApprovalDoc.ClientID %>_SetApproveVisible(true);
+        <%=ToolBarApprovalDoc.ClientID %>_SetDeclineVisible(true);
+        <%=ToolBarApprovalDoc.ClientID %>_SetRejectVisible(true);
+    }
+    function OnClientButtonClickingApproval(sender, args)
+    {
+        
         var btn = args.get_item();
-        if (btn.get_value() == 'Approve') {
-
+        debugger;
+        if (btn.get_value() == 'Approve')
+        {
             args.set_cancel(!validateText());
         }
-        if (btn.get_value() == 'Decline') {
-
-           // args.set_cancel(!validate());
+        if (btn.get_value() == 'Decline')
+        {
+            alert("Decline function is temporarily disabled!");
+            args.set_cancel(false);
         }
 
-        if (btn.get_value() == 'Reject') {
-
+        if (btn.get_value() == 'Reject')
+        {
+            alert("Reject function is temporarily disabled!");
+            args.set_cancel(false);
         }
-
     }
 
 </script>
