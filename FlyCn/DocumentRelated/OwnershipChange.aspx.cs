@@ -16,11 +16,13 @@ namespace FlyCn.DocumentRelated
         string _DocId;
         string _Username;
         string _Ownername;
+        string _Documentno;
         protected void Page_Load(object sender, EventArgs e)
         {
             _DocId = Request.QueryString["DocumentId"];
             _Ownername = Request.QueryString["Ownername"];
             _Username = Request.QueryString["Username"];
+            _Documentno = Request.QueryString["DocumentNo"];
         }
 
         protected void btnAcquire_Click(object sender, EventArgs e)
@@ -33,6 +35,8 @@ namespace FlyCn.DocumentRelated
             try
             {
                result= dObj.EditOwnershipName(dObj.DocumentID, _Username);
+               MailSending mObj = new MailSending();
+               mObj.ChangeOwnershipAcknowledgement(_Documentno, _Ownername,_Username);
                if (result == 1)
                {
                    var page = HttpContext.Current.CurrentHandler as Page;

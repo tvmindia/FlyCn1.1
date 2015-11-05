@@ -131,7 +131,7 @@ border-top:#A6CAB8 3px solid;
                 $("#ChangeOwnerShip").dialog({
                     title: "Change Ownership",
                     width: 780,
-                    height: 500,
+                    height: 300,
                     buttons: {}, modal: true
                 });
                 return false
@@ -202,19 +202,39 @@ border-top:#A6CAB8 3px solid;
 
         function ChangeOwner()
         {
-            debugger;
+            
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
+           
             var iframe = pane.getExtContentElement();
             var contentWindow = iframe.contentWindow;
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
             var hiddendocumentid = contentWindow.document.getElementById('hiddenFieldDocumentID');
+            var DocumentNo = contentWindow.document.getElementById('txtDocumentno');
             if (hiddenFieldOwner.value != hiddenusername.value)
             {
-                document.getElementById('IframeChangeOwner').src = "../DocumentRelated/OwnershipChange.aspx?DocumentId=" + hiddendocumentid.value + '&Username=' + hiddenusername.value + '&Ownername=' + hiddenFieldOwner.value;
+                document.getElementById('IframeChangeOwner').src = "../DocumentRelated/OwnershipChange.aspx?DocumentId=" + hiddendocumentid.value + '&Username=' + hiddenusername.value + '&Ownername=' + hiddenFieldOwner.value + '&DocumentNo=' + DocumentNo.value;
                 ChangeOwnershipWindow();
             }
+           
+        }
+        function ChangeOwnerOnload()
+        {
+            debugger;
+            var splitter = $find("<%= RadSplitter1.ClientID %>");
+            var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
+
+            var iframe = pane.getExtContentElement();
+            var contentWindow = iframe.contentWindow;
+            var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
+            var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
+            var hiddendocumentid = contentWindow.document.getElementById('hiddenFieldDocumentID');
+            var DocumentNo = contentWindow.document.getElementById('txtDocumentno');
+            if (hiddenFieldOwner.value == hiddenusername.value) {
+                document.getElementsByClassName('rtMid')[0].style.visibility = 'hidden';
+            }
+            
         }
 
  function ReviseDocument() 

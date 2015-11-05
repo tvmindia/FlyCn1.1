@@ -42,7 +42,7 @@ namespace FlyCn.BOQ
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
             BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString();
-           
+             BOQObj.DocumentOwner = hiddenDocumentOwner.Value;
             //BOQObj.BindTree(RadTreeView tview);
             hiddenFieldDocumentType.Value = "BOQ";
             ContentIframe.Style["display"] = "none";//ifrmae disabling

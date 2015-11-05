@@ -12,6 +12,10 @@ namespace FlyCn.Masters
         protected void Page_Load(object sender, EventArgs e)
         {
 
+
+        //    System.Web.UI.ScriptManager.RegisterClientScriptBlock(Page, typeof(System.Web.UI.Page), "Script", "ChangeOwner();", true);
+            //ScriptManager.RegisterStartupScript(this, this.GetType(), "ChangeOwner", "ChangeOwner();", true);
+            
         }
     }
 }
