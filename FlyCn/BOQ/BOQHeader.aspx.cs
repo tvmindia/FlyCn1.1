@@ -153,6 +153,7 @@ namespace FlyCn.BOQ
                     }
                     else
                     {
+                        latestStatus = ds.Tables[0].Rows[0]["LatestStatus"].ToString();
                         ToolBarVisibility(2);//Normal display of Toolbar
                     }
                     lblDocumentStatus.Text = ds.Tables[0].Rows[0]["DocumentStatus"].ToString();
