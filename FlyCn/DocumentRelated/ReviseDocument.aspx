@@ -16,8 +16,42 @@
 </script> 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   
+   <div>
+<div class="col-md-12 Span-One">
 
+    <div class="col-md-6">
+       <div class="form-group required">
+         <asp:Label ID="lblDocumentNo" CssClass="control-label col-md-5" runat="server" Text="Document No"></asp:Label>
+          <div class="col-md-7">
+     <asp:TextBox ID="txtDocumentNo" runat="server" CssClass="form-control"  Width="170px"></asp:TextBox>
+
+          </div>
+          </div>
+        </div>
+
+     <div class="col-md-6">
+       <div class="form-group required">
+         <asp:Label ID="lblDocumentType" CssClass="control-label col-md-5" runat="server" Text="Document type"></asp:Label>
+          <div class="col-md-7">
+     <asp:TextBox ID="txtDocumentType" runat="server" CssClass="form-control"  Width="170px"></asp:TextBox>
+
+          </div>
+          </div>
+        </div>
+     </div>
+
+       <div class="col-md-12 Span-One">
+
+    <div class="col-md-6">
+       <div class="form-group required">
+         <asp:Label ID="lblRevisionNo" CssClass="control-label col-md-5" runat="server" Text="Revision Id"></asp:Label>
+          <div class="col-md-7">
+     <asp:TextBox ID="txtRevisionId" runat="server" CssClass="form-control"  Width="170px"></asp:TextBox>
+
+          </div>
+          </div>
+        </div>
+           </div>
 
  <div class="col-md-12 Span-One">
 
@@ -36,12 +70,16 @@
          <asp:Label ID="lblRevisedDate" CssClass="control-label col-md-5" runat="server" Text="Revised Date"></asp:Label>
           <div class="col-md-7">
  <div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
-              <input class="form-control" type="text"  />
+              <input   id="txtdatepicker" class="form-control"  type="text" runat="server" />
               <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> </div>
 
           </div>
           </div>
         </div>
      </div>
-
+</div>
+    <div>
+<asp:Button ID="ReviseDocumentButton" runat="server" Text="Button" OnClick="ReviseDocumentButton_Click" style="width: 56px" />
+    </div>
+    
 </asp:Content>
