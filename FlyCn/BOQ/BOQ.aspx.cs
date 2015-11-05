@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FlyCn.FlyCnDAL;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -12,6 +14,9 @@ namespace FlyCn.BOQ
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+           
+
+
             UIClasses.InputPages ip = new UIClasses.InputPages();
             FlyCnDAL.BOQHeaderDetails objBOQ = new FlyCnDAL.BOQHeaderDetails();
 
@@ -20,7 +25,7 @@ namespace FlyCn.BOQ
 
             RadPane radpane = ip.FindContentPane(this);
             objBOQ.LoadInputScreen(radpane);
-
+          
            
 
         }
