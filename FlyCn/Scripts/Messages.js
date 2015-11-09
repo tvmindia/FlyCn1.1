@@ -3,6 +3,9 @@
     MandatoryFieldsGeneral: "Please Enter mandatory fields (*) !",
     CloseDocumentClick: "Please Select Any Document",
     AlreadyClosedDocument: "This Document Is Already Closed",
+    OwnershipChangeFromSameOwner:"Document Onwer Cannot be changed"
+
+    AlreadyClosedDocument: "This Document Is Already Closed",
     NotApprovedDocument:"Only Approve Document Can Revise"
 }
 

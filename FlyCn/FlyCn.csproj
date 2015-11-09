@@ -305,6 +305,7 @@
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="DocumentRelated\OwnershipChange.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
+    <Content Include="Images\Download.png" />
     <Content Include="Images\flycnLogo.png" />
     <Content Include="Images\gladsmall.png" />
     <Content Include="Images\Icons\activity.png" />
@@ -380,7 +381,6 @@
     <Content Include="Images\Cancel.png" />
     <Content Include="Images\close.png" />
     <Content Include="Images\Close1.png" />
-    <Content Include="Images\Download.png" />
     <Content Include="Images\heroAccent.png" />
     <Content Include="Images\Icons\addToolbarIcon.png" />
     <Content Include="Images\Icons\addToolbarIconDisabled.png" />

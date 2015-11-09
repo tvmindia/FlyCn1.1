@@ -79,8 +79,9 @@ namespace FlyCn.FlyCnDAL
            rtn1.Attributes.Add("onclick", "CloseDocument(" + 5 + ")");
             RadTreeNode rtn2 = new RadTreeNode("Ownership Change", "");
             rtn2.Target = "contentPane";
+            rtn2.Value = "2";
             myTree.Nodes.Add(rtn2);
-            rtn2.Attributes.Add("onload", "ChangeOwnerOnload()");
+            //rtn2.Attributes.Add("OnLoad", "ChangeOwnerOnload()");
             rtn2.Attributes.Add("onclick", "ChangeOwner()");
            
            RadTreeNode rtn3 = new RadTreeNode("Revise Document", "");
@@ -228,6 +229,7 @@ namespace FlyCn.FlyCnDAL
         #region private variables
         ErrorHandling eObj = new ErrorHandling();
         #endregion private variables
+
         #region Boqdetailproperty
 
         public Guid RevisionID
@@ -363,6 +365,7 @@ namespace FlyCn.FlyCnDAL
             set;
         }
         #endregion Boqdetailproperty
+         
         #region BOQDetailMethods
         #region GetAllBOQDetails
         /// <summary>

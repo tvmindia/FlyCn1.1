@@ -1,5 +1,6 @@
 ﻿#region Namespaces
 
+using FlyCn.DocumentSettings;//############
 using FlyCn.FlyCnDAL;
 using FlyCn.UIClasses;
 using System;
@@ -12,7 +13,7 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
-using DocStatus = FlyCn.DocumentSettings.DocumentStatusSettings;//############
+using DocStatus = FlyCn.DocumentSettings.DocumentStatusSettings;
 
 #endregion Namespaces
 
@@ -24,29 +25,33 @@ namespace FlyCn.BOQ
         #region Global Variables
         DocumentMaster documentMaster;
         BOQHeaderDetails boqHeaderDetails;
-        ErrorHandling eObj = new ErrorHandling(); 
-        
+        ErrorHandling eObj = new ErrorHandling();
+       // DocumentStatusSettings dObj;
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
         
     
         #endregion Global Variables
+
         #region Events
         
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
-        {
-            BOQHeaderDetails  BOQObj= new BOQHeaderDetails();
-          
+        {      
+
+            BOQHeaderDetails  BOQObj= new BOQHeaderDetails();         
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
-            BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString();
+            BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString(); 
              BOQObj.DocumentOwner = hiddenDocumentOwner.Value;
             //BOQObj.BindTree(RadTreeView tview);
             hiddenFieldDocumentType.Value = "BOQ";
-            ContentIframe.Style["display"] = "none";//ifrmae disabling
-
+            ContentIframe.Style["display"] = "none";//iframe disabling
+            Context.Items["DocumentOwner"] = hiddenDocumentOwner.Value;
+            Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtMid');", true);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtTop');", true);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
         }
         public void DisableBOQHeaderTextBox()
         {
@@ -67,24 +72,28 @@ namespace FlyCn.BOQ
         }
         
         #endregion Page_Load
+
         #region dtgBOQGrid_NeedDataSource
         protected void dtgBOQGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             try
             {
-                dtgBOQGridBind();
+                DataSet ds = new DataSet();
+                documentMaster = new DocumentMaster();
+                ds = documentMaster.GetAllBOQDocumentHeader(UA.projectNo, "BOQ");
+                dtgBOQGrid.DataSource = ds;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
-                throw ex;
             }
+
         }
         #endregion dtgBOQGrid_NeedDataSource
 
-        #region dtgBOQGridBind
-        public void dtgBOQGridBind()
+        #region dtgBOQGrid_PreRender
+        protected void dtgBOQGrid_PreRender(object sender, EventArgs e)
         {
             try
             {
@@ -97,22 +106,6 @@ namespace FlyCn.BOQ
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
-                throw ex;
-            }
-        }
-        #endregion dtgBOQGridBind
-        #region dtgBOQGrid_PreRender
-        protected void dtgBOQGrid_PreRender(object sender, EventArgs e)
-        {
-            try
-            {
-                dtgBOQGrid.Rebind();
-            }
-            catch (Exception ex)
-            {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
-                throw ex;
             }
         }
         #endregion dtgBOQGrid_PreRender
@@ -138,7 +131,7 @@ namespace FlyCn.BOQ
                     ds = documentMaster.BindBOQ(DocumentID, ProjectNo);
                     UIClasses.Const Const = new UIClasses.Const();
                     FlyCnDAL.Security.UserAuthendication UA;
-
+                   
                     HttpContext context = HttpContext.Current;
                     UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
                     hiddenUsername.Value = UA.userName;
@@ -167,6 +160,28 @@ namespace FlyCn.BOQ
                         latestStatus = ds.Tables[0].Rows[0]["LatestStatus"].ToString();
                         ToolBarVisibility(2);//Normal display of Toolbar
                     }
+                    if (UA.userName == hiddenDocumentOwner.Value)
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtMid');", true);
+                   
+                    }
+                    if ((ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Closed) || (ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Approved))
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtMid');", true);
+                    }
+                    if (UA.userName != hiddenDocumentOwner.Value)
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.EnableTreeNode('rtMid');", true);
+                    }
+                    if ((UA.userName == hiddenDocumentOwner.Value) &&(ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Draft))
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.EnableTreeNode('rtTop');", true);
+                    }
+                    if ((UA.userName == hiddenDocumentOwner.Value) && (ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Closed))
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.EnableTreeNode('rtBot');", true);
+                    }
+
                     lblDocumentStatus.Text = ds.Tables[0].Rows[0]["DocumentStatus"].ToString();
                     Guid Revisionid;
                     Guid.TryParse(hiddenFieldRevisionID.Value, out Revisionid);
@@ -186,6 +201,7 @@ namespace FlyCn.BOQ
 
         }
         #endregion dtgBOQGrid_ItemCommand
+
         #region  ToolBar_onClick
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
@@ -239,8 +255,8 @@ namespace FlyCn.BOQ
         }
         #endregion Events
 
-
         #region Methods
+
         #region ToolBarVisibility
         public void ToolBarVisibility(int order)
         {
@@ -335,6 +351,7 @@ namespace FlyCn.BOQ
                    
          }
         #endregion insert
+
         #region UpdateBOQ
         public void UpdateBOQ()
         {

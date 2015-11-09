@@ -23,7 +23,7 @@ namespace FlyCn.DocumentRelated
             _Ownername = Request.QueryString["Ownername"];
             _Username = Request.QueryString["Username"];
             _Documentno = Request.QueryString["DocumentNo"];
-        }
+        } 
 
         protected void btnAcquire_Click(object sender, EventArgs e)
         {

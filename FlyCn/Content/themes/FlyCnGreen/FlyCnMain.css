@@ -209,7 +209,7 @@ iframe {
     border-radius: 2px;
     background-color: #E2656F; /*#FF6666;*/
     vertical-align: middle;
-    text-align: center;
+    text-align: center; 
     /*width: 125px;
     height: 125px;*/
     cursor: pointer;
@@ -552,7 +552,7 @@ transition: .25s ease;
         border: thin inset #800000;
         border-radius: 4px;
         text-align:center;
-
+           color: #800000;
 }
 .OkButton
 {

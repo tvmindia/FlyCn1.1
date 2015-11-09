@@ -14,7 +14,6 @@ namespace FlyCn.BOQ
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
 
 
             UIClasses.InputPages ip = new UIClasses.InputPages();
@@ -25,9 +24,16 @@ namespace FlyCn.BOQ
 
             RadPane radpane = ip.FindContentPane(this);
             objBOQ.LoadInputScreen(radpane);
-          
-           
+
+ 
+            
 
         }
+
+
+        //public void DisableTree(int index)
+        //{
+
+        //}
     }
 }

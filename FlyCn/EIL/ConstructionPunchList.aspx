@@ -267,7 +267,7 @@
         </telerik:RadTabStrip>
         <div id="content">
             <div class="contentTopBar"></div>
-            <table style="width: 100%">
+            <table style="width:100%">
                 <tr>
                     <td>&nbsp
                     </td>
@@ -286,7 +286,7 @@
 
                                     <telerik:RadGrid ID="dtgManageProjectGrid" runat="server" CellSpacing="0"
                                         GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true" OnItemCommand="dtgManageProjectGrid_ItemCommand"
-                                        PageSize="10" Width="984px" Skin="Silk">
+                                        PageSize="10" Width="100%" Skin="Silk">
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType">
                                             <Columns>
                                                 <telerik:GridButtonColumn CommandName="EditData" ItemStyle-Width="10px" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png"></telerik:GridButtonColumn>
@@ -320,9 +320,9 @@
                                       <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                         <label class="control-label col-md-5" for="email3">
-                             Module
-                         </label>
+                    
+                            <asp:Label ID="lblModule" runat="server" Text="Module"  class="control-label col-md-5" for="email3"></asp:Label>
+                     
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlModule" runat="server" CssClass="selectbox"></asp:DropDownList>
                                             </div>
@@ -334,9 +334,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Category
-                                            </label>
+                                             <asp:Label ID="lblCate" runat="server" Text="Category"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlCategory" runat="server" CssClass="selectbox"></asp:DropDownList>
 
@@ -350,9 +348,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Tag
-                                            </label>
+                                            <asp:Label ID="lblTag" runat="server" Text="Tag"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlTag" runat="server" CssClass="selectbox"></asp:DropDownList>
 
@@ -364,10 +360,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-
-                                            <label class="control-label col-md-5" for="email3">
-                                                Activity
-                                            </label>
+ <asp:Label ID="lblActivity" runat="server" Text="Activity"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlActivity" runat="server" CssClass="selectbox"></asp:DropDownList>
 
@@ -387,11 +380,8 @@
                                     <div class="col-md-6">
 
                                          <div class="form-group required">
-                                           
-                                            
-                         <label class="control-label col-md-5" for="email3">
-                             ID No
-                         </label>
+                              
+                                              <asp:Label ID="lblIdno" runat="server" Text="ID No"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:TextBox ID="txtIDno" CssClass="form-control" runat="server"></asp:TextBox>
@@ -406,9 +396,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Open By
-                                            </label>
+                                               <asp:Label ID="lblOpenBy" runat="server" Text="Open By"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlOpenBy" runat="server" CssClass="selectbox">
                                                 </asp:DropDownList>
@@ -424,9 +412,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Entered Date
-                                            </label>
+                                                <asp:Label ID="lblEnteredDate" runat="server" Text="Entered Date"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <telerik:RadDatePicker ID="RadEnteredDate" runat="server"
@@ -447,9 +433,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Entered By
-                                            </label>
+                                             <asp:Label ID="lblEnteredBy" runat="server" Text="Entered By"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlEnteredBy" runat="server" CssClass="selectbox">
                                                 </asp:DropDownList>
@@ -466,9 +450,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Open Date
-                                            </label>
+                                 <asp:Label ID="lblOpenDate" runat="server" Text="Open Date"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <telerik:RadDatePicker ID="RadOpenDate" runat="server"
@@ -499,9 +481,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                         <label class="control-label col-md-5" for="email3">
-                             Plant
-                         </label>
+                           <asp:Label ID="lblPlant" runat="server" Text="Plant"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:DropDownList ID="ddlPlant" runat="server" CssClass="selectbox">
@@ -516,9 +496,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Area
-                                            </label>
+                                            <asp:Label ID="lblArea" runat="server" Text="Area"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlArea" runat="server" CssClass="selectbox">
                                                 </asp:DropDownList>
@@ -533,9 +511,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Location
-                                            </label>
+                                       <asp:Label ID="lblLocation" runat="server" Text="Location"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlLocation" runat="server" CssClass="selectbox">
                                                 </asp:DropDownList>
@@ -549,9 +525,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Unit
-                                            </label>
+                                <asp:Label ID="lblUnit" runat="server" Text="Unit"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlUnit" runat="server" CssClass="selectbox">
                                                 </asp:DropDownList>
@@ -571,9 +545,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                         <label class="control-label col-md-5" for="email3">
-                             System
-                         </label>
+    <asp:Label ID="lblSystem" runat="server" Text="System"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                               <%--  <asp:TextBox ID="txtSystem" CssClass="form-control" runat="server"></asp:TextBox>--%>
@@ -588,9 +560,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Control System
-                                            </label>
+    <asp:Label ID="lblControlSystem" runat="server" Text="Control System"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
 
@@ -607,9 +577,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Sub System
-                                            </label>
+    <asp:Label ID="lblSubSystem" runat="server" Text="Sub System"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <%--<asp:TextBox ID="txtSubsystem" CssClass="form-control" runat="server"></asp:TextBox>--%>
@@ -632,9 +600,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                         <label class="control-label col-md-5" for="email3">
-                             Requested By
-                         </label>
+    <asp:Label ID="lblRequestedBy" runat="server" Text="Requested By"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlRequestedBy" runat="server" CssClass="selectbox">
                                                 </asp:DropDownList>
@@ -648,9 +614,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Inspector
-                                            </label>
+    <asp:Label ID="lblInspector" runat="server" Text="Inspector"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:DropDownList ID="ddlInspector" runat="server" CssClass="selectbox">
@@ -667,9 +631,7 @@
                                         <div class="form-group">
 
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Action By
-                                            </label>
+    <asp:Label ID="lblActionBy" runat="server" Text="Action By"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlActionBy" runat="server" CssClass="selectbox">
                                                 </asp:DropDownList>
@@ -682,10 +644,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-
-                                            <label class="control-label col-md-5" for="email3">
-                                                Discipline
-                                            </label>
+    <asp:Label ID="lblDiscipline" runat="server" Text="Discipline"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:DropDownList ID="ddlDiscipline" runat="server" CssClass="selectbox">
@@ -702,9 +661,7 @@
                                         <div class="form-group">
 
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Fail Category
-                                            </label>
+     <asp:Label ID="lblFailCategory" runat="server" Text="Fail Category"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlFailCategory" runat="server" CssClass="selectbox">
                                                 </asp:DropDownList>
@@ -717,9 +674,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Category
-                                            </label>
+    <asp:Label ID="lblCategory" runat="server" Text="Category"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:DropDownList ID="ddlCategoryList" runat="server" CssClass="selectbox">
@@ -735,10 +690,7 @@
 
                                         <div class="form-group">
 
-
-                                            <label class="control-label col-md-5" for="email3">
-                                                RFI No
-                                            </label>
+    <asp:Label ID="lblRFIno" runat="server" Text="RFI No"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:TextBox ID="txtRFINo" CssClass="form-control" runat="server"></asp:TextBox>
@@ -752,9 +704,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                RFI Date
-                                            </label>
+    <asp:Label ID="lblRFIDate" runat="server" Text="RFI Date"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <telerik:RadDatePicker ID="RadRFIDate" runat="server"
                                                     Width="200px" TabIndex="2" AutoPostBack="false">
@@ -774,11 +724,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-
-
-                                            <label class="control-label col-md-5" for="email3">
-                                                Covered By Project
-                                            </label>
+    <asp:Label ID="lblCoveredByProject" runat="server" Text="Covered By Project"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-1">
 
                                                 <asp:RadioButton ID="rdbCoveredByYes"  runat="server" GroupName="Coveredbyproject" ToolTip="1" Text="Yes"/></div>
@@ -793,9 +739,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Item Description
-                                            </label>
+    <asp:Label ID="lblItemDescription" runat="server" Text="Item Description"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:TextBox ID="txtItemDescription" CssClass="form-control" runat="server"></asp:TextBox>
@@ -817,9 +761,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                         <label class="control-label col-md-5" for="email3">
-                             Reference
-                         </label>
+    <asp:Label ID="Label1" runat="server" Text="Reference"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:TextBox ID="txtReference" CssClass="form-control" runat="server"></asp:TextBox>
@@ -832,10 +774,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-
-                                            <label class="control-label col-md-5" for="email3">
-                                                Change Request
-                                            </label>
+    <asp:Label ID="Label2" runat="server" Text="Change Request"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 
                                                  <div class="col-md-1">
@@ -860,9 +799,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group"> 
-                         <label class="control-label col-md-5" for="email3">
-                             Drawing
-                         </label>
+    <asp:Label ID="Label3" runat="server" Text="Drawing"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:TextBox ID="txtDrawing" CssClass="form-control" runat="server"></asp:TextBox>
@@ -875,10 +812,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-
-                                            <label class="control-label col-md-5" for="email3">
-                                                Sheet
-                                            </label>
+    <asp:Label ID="Label4" runat="server" Text="Sheet"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:TextBox ID="txtSheet" CssClass="form-control" runat="server"></asp:TextBox>
@@ -894,10 +828,7 @@
 
                                         <div class="form-group">
 
-
-                                            <label class="control-label col-md-5" for="email3">
-                                                Revision
-                                            </label>
+    <asp:Label ID="Label5" runat="server" Text="Revision"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:TextBox ID="txtRevision" CssClass="form-control" runat="server"></asp:TextBox>
@@ -910,9 +841,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                                            <label class="control-label col-md-5" for="email3">
-                                                Reference Date
-                                            </label>
+      <asp:Label ID="Label6" runat="server" Text="Reference Date"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <telerik:RadDatePicker ID="RadReferenceDate" runat="server"
                                                     Width="200px" TabIndex="2" AutoPostBack="false">
@@ -938,9 +867,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                         <label class="control-label col-md-5" for="email3">
-                             Query
-                         </label>
+    <asp:Label ID="Label7" runat="server" Text="Query"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:TextBox ID="txtQuery" CssClass="form-control" runat="server"></asp:TextBox>
@@ -954,9 +881,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Query Status
-                                            </label>
+    <asp:Label ID="Label8" runat="server" Text="Query Status"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:TextBox ID="txtQueryStatus" CssClass="form-control" runat="server"></asp:TextBox>
@@ -974,9 +899,7 @@
                                         <div class="form-group">
 
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Query Revision
-                                            </label>
+    <asp:Label ID="Label9" runat="server" Text="Query Revision"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:TextBox ID="txtQueryRevision" CssClass="form-control" runat="server"></asp:TextBox>
@@ -999,10 +922,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-                                          
-                         <label class="control-label col-md-5" for="email3">
-                             Responsible Person
-                         </label>
+    <asp:Label ID="Label10" runat="server" Text="Responsible Person"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlResponsiblePerson" runat="server" CssClass="selectbox">
                                                 </asp:DropDownList>
@@ -1015,9 +935,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Organization
-                                            </label>
+                <asp:Label ID="Label11" runat="server" Text="Organization"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:DropDownList ID="ddlOrganization" runat="server" CssClass="selectbox">
@@ -1034,10 +952,7 @@
 
                                         <div class="form-group">
 
-
-                                            <label class="control-label col-md-5" for="email3">
-                                                Signed By
-                                            </label>
+    <asp:Label ID="Label12" runat="server" Text="Signed By"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
                                                 <asp:DropDownList ID="ddlSignedBy" runat="server" CssClass="selectbox">
@@ -1052,9 +967,7 @@
 
                                         <div class="form-group">
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Completion Date
-                                            </label>
+          <asp:Label ID="Label13" runat="server" Text="Completion Date"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
 
 
@@ -1078,10 +991,8 @@
 
                                         <div class="form-group">
 
-
-                                            <label class="control-label col-md-5" for="email3">
-                                                Scheduled Completion Date
-                                            </label>
+                                                <asp:Label ID="Label14" runat="server" Text="Scheduled Completion Date"  class="control-label col-md-5" for="email3"></asp:Label>
+                                    
                                             <div class="col-md-7">
 
                                                 <telerik:RadDatePicker ID="RadScheduleCompletionDate" runat="server" Culture="Portuguese (Brazil)"
@@ -1101,10 +1012,8 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-
-                                            <label class="control-label col-md-5" for="email3">
-                                                Completion Remarks
-                                            </label>
+                                              <asp:Label ID="Label15" runat="server" Text="Completion Remarks"  class="control-label col-md-5" for="email3"></asp:Label>
+                                     
                                             <div class="col-md-7">
 
                                                 <asp:TextBox ID="txtCompletionRemarks" runat="server" TextMode="MultiLine" Height="60px" Width="200px"></asp:TextBox>
@@ -1115,16 +1024,19 @@
                                         <%-- </form>--%>
                                     </div>
                                 </div>
-
+                                 </div></div>
+                                  <div class="accordion-container"> <a href="#" class="accordion-toggle">Attachments 
+                                            
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
                                 <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
 
+                                              <asp:Label ID="Label16" runat="server" Text="Attach Document"  class="control-label col-md-5" for="email3"></asp:Label>
 
-                                            <label class="control-label col-md-5" for="email3">
-                                                Attach Document
-                                            </label>
                                             <div class="col-md-7">
 
                                                 <asp:FileUpload ID="fuAttach" runat="server" AllowMultiple="true" />
@@ -1132,83 +1044,67 @@
                                                
               
                                                  </div>
-                                            </div>  </div>
+                                            </div>  </div></div>
                                              <div class="col-md-12 Span-One">
                                          <div class="col-md-6">
 
                                         <div class="form-group">
                                           
-                                              <asp:Label runat="server" ID="StatusLabel" class="control-label col-md-5"  Text="Upload status "  Font-Size="Medium"/>
+                                              <asp:Label runat="server" ID="StatusLabel" class="control-label col-md-5"  Text="Upload status "  Font-Size="Small"/>
                                            <%--   <label class="control-label col-md-5" for="email3" id="StatusLabel">
                                                Upload status
                                             </label>--%>
                                               <div class="col-md-7">
-                                             <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClick="btnUpload_Click" Enabled="False" />
+                                             <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClick="btnUpload_Click" Enabled="False" style="width:77px"/>
                                                   </div>
                                         </div>
                                              </div>
                                                  </div>
                                         <%-- </form>--%>
-                                    </div>
+                           <table style="width: 100%;">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                   
 
                                   
-                                </div>
-
-                                 </div>
-                                <table style="width: 100%;">
-                                    <tr>
-                                        <td colspan="5" class="tabletd"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tabletd"></td>
-                                        <td class="tabletd"></td>
-                                        <td class="tabletd"></td>
-                                        <td class="tabletd"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tabletd"></td>
-                                        <td class="tabletd"></td>
-                                        <td class="tabletd"></td>
-                                        <td class="tabletd"></td>
-                                    </tr>
-                                    <tr class="tabletd">
-                                        <td></td>
-                                        <td class="tabletd"></td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tabletd"></td>
-                                        <td></td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
                                 </table>
-                                <hr />
-                                <table style="width: 100%;">
-                                    <tr>
-                                        <td colspan="5" class="tabletd"></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                </table>
-
                                 <table style="width: 100%;">
                                     <tr>
                                         <td class="tabletd">
-                                            <asp:GridView ID="grdFileUpload" DataKeyNames="FileName" runat="server" AutoGenerateColumns="false" Style="width: 100%" OnRowCommand="grdFileUpload_RowCommand" OnRowDeleting="grdFileUpload_RowDeleting" OnRowDataBound="grdFileUpload_RowDataBound">
+                                            <asp:GridView ID="grdFileUpload" DataKeyNames="FileName" runat="server" AutoGenerateColumns="false" style="width:80%" OnRowCommand="grdFileUpload_RowCommand" OnRowDeleting="grdFileUpload_RowDeleting" OnRowDataBound="grdFileUpload_RowDataBound" GridLines="None">
                                                 <Columns>
                                                     <asp:TemplateField>
                                                         <HeaderTemplate>
@@ -1245,7 +1141,12 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
                                         </td>
                                     </tr>
                                 </table>
+                                       </div>
 
+                                  
+                                </div>
+
+                                 </div>
                                 <table style="width: 100%;">
                                     <tr>
                                         <td>&nbsp;</td>

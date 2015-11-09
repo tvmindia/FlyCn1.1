@@ -29,6 +29,16 @@ namespace FlyCn.Content.DocDetailView
                 ApprovelMaster amObj = new ApprovelMaster();
 
                 dt = amObj.GetDocHeaderDetails(revid, type);
+                lblDocumntNo.Text = Request.QueryString["Documentno"];
+                lblDocumntNo.Attributes["style"] = "font-weight:bold;";
+                lblType.Text = Request.QueryString["DocumentType"];
+                lblType.Attributes["style"] = "font-weight:bold;";
+                lblCreated.Text = Request.QueryString["CreatedBy"];
+                lblCreated.Attributes["style"] = "font-weight:bold;";
+                lblDate.Text = Request.QueryString["Createddate"];
+                lblDate.Attributes["style"] = "font-weight:bold;";
+                lblStatus.Text = "Gopika";
+                lblClientDocNo.Text = "Gopika";
                 if (dt.Rows.Count > 0)
                 {
                     lblDocumntNo.Text = dt.Rows[0]["DocumentNo"].ToString();

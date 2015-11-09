@@ -170,13 +170,7 @@ namespace FlyCn.BOQ
                   bOQHeaderDetails.bOQDetails.RevisionID = RevID;
                   bOQHeaderDetails.bOQDetails.ProjectNo = UA.projectNo;
                   ds = bOQHeaderDetails.bOQDetails.GetAllBOQDetails();
-                  dtgBOQDetailGrid.DataSource = ds;
-               
-                  //hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
-                  //hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
-                  //hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
-                  
-             
+                  dtgBOQDetailGrid.DataSource = ds;           
               }
               catch (Exception ex)
               {

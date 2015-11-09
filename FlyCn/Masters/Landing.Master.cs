@@ -85,8 +85,6 @@ namespace FlyCn.Masters
             Session.Remove(Const.LoginSession);
             Response.Redirect("~/Home.aspx");
         }
-
-
         
     }
 }
