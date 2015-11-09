@@ -238,6 +238,8 @@ using Messages = FlyCn.UIClasses.Messages;
                 cmd.Parameters.Add("@ApprovalStatus", SqlDbType.Int).Value = ApprovalStatus;
                 cmd.Parameters.Add("@ApprovalDate", SqlDbType.SmallDateTime).Value = ApprovalDate;
                 cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = Remarks;
+                SqlParameter outparamSendmail = cmd.Parameters.Add("@Sendmail", SqlDbType.Int);//mail status
+                outparamSendmail.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.UpdationSuccessData(page);
@@ -264,7 +266,7 @@ using Messages = FlyCn.UIClasses.Messages;
         #endregion UpdateApprovalMaster
 
         #region GetAllPendingApprovalsByVerifierLevel
-        public DataSet GetAllPendingApprovalsByVerifierLevel(int paramverifierLevel, string paramverifierEmail)
+        public DataSet GetAllPendingApprovalsByVerifier(string paramverifierEmail)
         {
             SqlConnection con = null;
             DataSet ds = null;
@@ -272,11 +274,9 @@ using Messages = FlyCn.UIClasses.Messages;
             {
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
-                SqlCommand cmd = new SqlCommand("GetAllPendingApprovalsByVerifierLevelandEmail", con);
+                SqlCommand cmd = new SqlCommand("GetAllPendingApprovalsByVerifierEmail", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@verifierLevel", SqlDbType.Int).Value = paramverifierLevel;
                 cmd.Parameters.Add("@verifierEmail", SqlDbType.NVarChar,50).Value = paramverifierEmail;
-
                 SqlDataAdapter sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();

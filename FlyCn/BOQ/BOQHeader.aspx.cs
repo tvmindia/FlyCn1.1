@@ -36,16 +36,13 @@ namespace FlyCn.BOQ
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            
-          
             BOQHeaderDetails  BOQObj= new BOQHeaderDetails();
           
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
             BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString();
-           
+             BOQObj.DocumentOwner = hiddenDocumentOwner.Value;
             //BOQObj.BindTree(RadTreeView tview);
             hiddenFieldDocumentType.Value = "BOQ";
             ContentIframe.Style["display"] = "none";//ifrmae disabling
@@ -75,21 +72,19 @@ namespace FlyCn.BOQ
         {
             try
             {
-                DataSet ds = new DataSet();
-                documentMaster = new DocumentMaster();
-                ds = documentMaster.GetAllBOQDocumentHeader(UA.projectNo, "BOQ");
-                dtgBOQGrid.DataSource = ds;
+                dtgBOQGridBind();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
+                throw ex;
             }
-
         }
         #endregion dtgBOQGrid_NeedDataSource
-        #region dtgBOQGrid_PreRender
-        protected void dtgBOQGrid_PreRender(object sender, EventArgs e)
+
+        #region dtgBOQGridBind
+        public void dtgBOQGridBind()
         {
             try
             {
@@ -102,6 +97,22 @@ namespace FlyCn.BOQ
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
+                throw ex;
+            }
+        }
+        #endregion dtgBOQGridBind
+        #region dtgBOQGrid_PreRender
+        protected void dtgBOQGrid_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                dtgBOQGrid.Rebind();
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
             }
         }
         #endregion dtgBOQGrid_PreRender
@@ -153,6 +164,7 @@ namespace FlyCn.BOQ
                     }
                     else
                     {
+                        latestStatus = ds.Tables[0].Rows[0]["LatestStatus"].ToString();
                         ToolBarVisibility(2);//Normal display of Toolbar
                     }
                     lblDocumentStatus.Text = ds.Tables[0].Rows[0]["DocumentStatus"].ToString();

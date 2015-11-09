@@ -57,24 +57,35 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+        public string DocumentOwner
+        {
+            get;
+            set;
+        }
        
         #endregion Boqheaderproperty
      
         #region Billofquantitymethods
         public void BindTree(RadTreeView myTree)
         {
+            UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
            myTree.Nodes.Clear();
            RadTreeNode rtn1 = new RadTreeNode("CloseDocument", "");
            rtn1.Target = "contentPane";
            myTree.Nodes.Add(rtn1);
            rtn1.Attributes.Add("onclick", "CloseDocument(" + 5 + ")");
-           RadTreeNode rtn2 = new RadTreeNode("Ownership Change", "");
-           rtn2.Target = "contentPane";
-           myTree.Nodes.Add(rtn2); 
-           rtn2.Attributes.Add("onclick", "ChangeOwner()");
+            RadTreeNode rtn2 = new RadTreeNode("Ownership Change", "");
+            rtn2.Target = "contentPane";
+            myTree.Nodes.Add(rtn2);
+            rtn2.Attributes.Add("onload", "ChangeOwnerOnload()");
+            rtn2.Attributes.Add("onclick", "ChangeOwner()");
+           
            RadTreeNode rtn3 = new RadTreeNode("Revise Document", "");
            rtn3.Target = "contentPane";
-           myTree.Nodes.Add(rtn3);
+            myTree.Nodes.Add(rtn3);
            rtn3.Attributes.Add("onclick", "ReviseDocument()");
         }
 

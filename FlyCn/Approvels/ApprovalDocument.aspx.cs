@@ -66,7 +66,7 @@ namespace FlyCn.Approvels
             {
                 DataSet ds = new DataSet();
                 approvelMaster = new ApprovelMaster();
-                ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(1, verifierEmail);
+                ds = approvelMaster.GetAllPendingApprovalsByVerifier(verifierEmail);
                 dtgPendingApprovalGrid.DataSource = ds;
 
             }

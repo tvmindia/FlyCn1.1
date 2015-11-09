@@ -348,25 +348,19 @@
              ClearTexBox();
              hideMe();
              //Clear Text boxes When New tab clicks
-             debugger;
-             if ((document.getElementById('<%=hdfDocumentStatus.ClientID %>').value == "1") || (document.getElementById('<%=hdfDocumentStatus.ClientID %>').value == "4"))
+          if ((document.getElementById('<%=hdfDocumentStatus.ClientID %>').value == "1") || (document.getElementById('<%=hdfDocumentStatus.ClientID %>').value == "4"))
              {
-               
-               
                      <%=ToolBarBOQDetail.ClientID %>_SetAddVisible(false);
                      <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(false);
                      <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
                      <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
-                
              }
              else
              {
-                    
                      <%=ToolBarBOQDetail.ClientID %>_SetAddVisible(false);
                      <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(true);
                      <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
                      <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
-                    
              }
          }
          if (tab.get_value() == "1") {
@@ -394,22 +388,17 @@
          var ItemDescription = document.getElementById('<%=txtItemDescription.ClientID %>').value;
          var Quantity = document.getElementById('<%=txtQuantity.ClientID %>').value;
          var Unit = document.getElementById('<%=txtUnit.ClientID %>').value;
-         if (ItemDescription == "" || Quantity == "" || Unit == "") {
-
+         if (ItemDescription == "" || Quantity == "" || Unit == "")
+         {
              displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
-
              return false;
-
          }
-
          else {
-
              return true;
          }
      }
      function OnClientButtonClickingDetail(sender, args)
      {
-      
         var btn = args.get_item();
         if (btn.get_value() == 'Save')
         {
