@@ -58,13 +58,13 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.Label lblRevisionNo;
         
         /// <summary>
-        /// txtRevisionId control.
+        /// txtRevisionNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRevisionId;
+        protected global::System.Web.UI.WebControls.TextBox txtRevisionNo;
         
         /// <summary>
         /// lblRemarks control.

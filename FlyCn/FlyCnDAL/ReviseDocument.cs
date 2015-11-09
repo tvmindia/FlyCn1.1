@@ -16,12 +16,19 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+
+        public string RevisionNo
+        {
+            get;
+            set;
+        }
         public string DocumentNo
         {
             get;
             set;
         }
 
+       
         public string DocumentId
         {
             get;
@@ -56,10 +63,11 @@ namespace FlyCn.FlyCnDAL
                 con = dcon.GetDBConnection();
                 SqlCommand cmd = new SqlCommand("InsertRevisedDocument", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@RevisionNo", RevisionID);
+                cmd.Parameters.AddWithValue("@RevisionId", RevisionID);
                 cmd.Parameters.AddWithValue("@Remarks", Remarks);
                 cmd.Parameters.AddWithValue("@CreatedDate", CreatedDate);
                 cmd.Parameters.AddWithValue("@RevisionStatus", RevisionStatus);
+                cmd.Parameters.AddWithValue("@RevisionNo", RevisionNo);
               
                 cmd.Parameters.AddWithValue("@DocumentId",DocumentId );
                
