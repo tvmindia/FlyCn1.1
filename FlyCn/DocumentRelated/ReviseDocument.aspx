@@ -44,9 +44,9 @@
 
     <div class="col-md-6">
        <div class="form-group required">
-         <asp:Label ID="lblRevisionNo" CssClass="control-label col-md-5" runat="server" Text="Revision Id"></asp:Label>
+         <asp:Label ID="lblRevisionNo" CssClass="control-label col-md-5" runat="server" Text="Revision No"></asp:Label>
           <div class="col-md-7">
-     <asp:TextBox ID="txtRevisionId" runat="server" CssClass="form-control"  Width="170px"></asp:TextBox>
+     <asp:TextBox ID="txtRevisionNo" runat="server" CssClass="form-control"  Width="170px"></asp:TextBox>
 
           </div>
           </div>

@@ -23,11 +23,12 @@ namespace FlyCn.Approvels
             reviseObj.Remarks = txtRemarks.Text;
             reviseObj.CreatedDate = txtdatepicker.Value;
             reviseObj.DocumentNo = txtDocumentNo.Text;
+            reviseObj.RevisionNo = txtRevisionNo.Text;
             DataTable dtobj = new DataTable();
             dtobj = reviseObj.GetDocumentIdByNo();
             reviseObj.DocumentId = dtobj.Rows[0]["DocumentID"].ToString();
             reviseObj.RevisionID = dtobj.Rows[0]["LatestRevisionID"].ToString();
-            int result = reviseObj.InsertReviseDocument();
+            reviseObj.InsertReviseDocument();
         }
     }
 }
