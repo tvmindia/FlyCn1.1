@@ -232,7 +232,11 @@ namespace FlyCn.BOQ
 
         }
         #endregion ToolBar_onClick
-       
+
+        public void dtReBind()
+        {
+            dtgBOQGrid.Rebind();
+        }
         #endregion Events
 
 

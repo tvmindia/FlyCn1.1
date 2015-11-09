@@ -10,9 +10,19 @@ namespace FlyCn.Approvels
 {
     public partial class ReviseDocument : System.Web.UI.Page
     {
+        string _RevisionID;
+        string _DocumentID;
+        string _DocumentType;
+        string _DocumentNo;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+          
+            _RevisionID = Request.QueryString["RevisionID"];
+            _DocumentID = Request.QueryString["DocumentID"];
+            _DocumentType = Request.QueryString["DocumentType"];
+            _DocumentNo = Request.QueryString["DocumentNo"];
+            lblDocumentNo.Text = _DocumentNo;
+            lblDocumentTypeValue.Text = _DocumentType;
         }
 
         protected void ReviseDocumentButton_Click(object sender, EventArgs e)
@@ -21,8 +31,8 @@ namespace FlyCn.Approvels
             //reviseObj.RevisionID = txtRevisionId.Text;
             reviseObj.RevisionStatus = 0;
             reviseObj.Remarks = txtRemarks.Text;
-            reviseObj.CreatedDate = txtdatepicker.Value;
-            reviseObj.DocumentNo = txtDocumentNo.Text;
+            reviseObj.CreatedDate = txtdatepicker.Value;         
+            reviseObj.DocumentNo = _DocumentNo;
             reviseObj.RevisionNo = txtRevisionNo.Text;
             DataTable dtobj = new DataTable();
             dtobj = reviseObj.GetDocumentIdByNo();

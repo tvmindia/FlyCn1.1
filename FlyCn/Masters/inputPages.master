@@ -111,6 +111,7 @@ border-top:#A6CAB8 3px solid;
         function CloseDocumentWindow()
         {
             var DocumentTypeForHeading = document.getElementById('HiddenFieldDoctype').value;
+          
             try {
                 $("#CloseDocumentPopup").dialog({                  
                     title: "Close Document - " + DocumentTypeForHeading,
@@ -132,6 +133,23 @@ border-top:#A6CAB8 3px solid;
                     title: "Change Ownership",
                     width: 780,
                     height: 300,
+                    buttons: {}, modal: true
+                });
+                return false
+            }
+            catch (X) {
+                alert(X.message);
+            }
+        }
+
+        function ReviseDocumentWindow() {
+            var DocumentTypeForHeading = document.getElementById('HiddenFieldDoctype').value;
+         
+            try {
+                $("#ReviseDocumentPopUp").dialog({
+                    title: "Revise Document- " + DocumentTypeForHeading,
+                    width: 780,
+                    height: 500,
                     buttons: {}, modal: true
                 });
                 return false
@@ -238,8 +256,33 @@ border-top:#A6CAB8 3px solid;
         }
 
  function ReviseDocument() 
-{
-alert(1);
+ {
+     var splitter = $find("<%= RadSplitter1.ClientID %>");
+     var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
+     var iframe = pane.getExtContentElement();
+     var contentWindow = iframe.contentWindow;
+     var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
+
+     var DocumentID = contentWindow.document.getElementById("hiddenFieldDocumentID")
+     var DocumentType = contentWindow.document.getElementById('hiddenFieldDocumentType');
+     var DocumentNo = contentWindow.document.getElementById('txtDocumentno');
+
+     document.getElementById('HiddenFieldDoctype').value = DocumentType.value;
+     var lblDocumentStatus = contentWindow.document.getElementById('lblDocumentStatus');
+     if (hiddenFieldRevisionID.value != "" && lblDocumentStatus.innerHTML == "APPROVED") {
+       
+         document.getElementById('IframeReviseDocument').src = "../DocumentRelated/ReviseDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value + '&DocumentNo=' + DocumentNo.value;
+
+         ReviseDocumentWindow();
+     }
+     else if (hiddenFieldRevisionID.value != "" && ((lblDocumentStatus.innerHTML == "CLOSED FOR VERIFICATION") || (lblDocumentStatus.innerHTML == "DRAFT"))) {
+         debugger;
+         // alert("This Document Is Already Closed");
+         AlertMsg(messages.NotApprovedDocument);
+     }
+     else {
+         AlertMsg(messages.CloseDocumentClick);
+     }
 }
     </script>
    
@@ -338,7 +381,10 @@ alert(1);
 
          <iframe id="IframeChangeOwner" style="width:1300px; height:inherit; "></iframe>
      </div>
+         <div id="ReviseDocumentPopUp" style="display:none; width: 1000px!important; overflow-x:hidden;" >
            
+              <iframe id="IframeReviseDocument"  style="width:2000px; height:inherit; "></iframe>
+                 </div>     
     <asp:HiddenField ID="HiddenFieldDoctype" runat="server" ClientIDMode="Static" />
 
 </asp:Content>

@@ -13,6 +13,15 @@ namespace FlyCn.Approvels {
     public partial class ReviseDocument {
         
         /// <summary>
+        /// lblDocNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocNo;
+        
+        /// <summary>
         /// lblDocumentNo control.
         /// </summary>
         /// <remarks>
@@ -20,15 +29,6 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDocumentNo;
-        
-        /// <summary>
-        /// txtDocumentNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDocumentNo;
         
         /// <summary>
         /// lblDocumentType control.
@@ -40,13 +40,31 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.Label lblDocumentType;
         
         /// <summary>
-        /// txtDocumentType control.
+        /// lblDocumentTypeValue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDocumentType;
+        protected global::System.Web.UI.WebControls.Label lblDocumentTypeValue;
+        
+        /// <summary>
+        /// lblRevisedDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRevisedDate;
+        
+        /// <summary>
+        /// txtdatepicker control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtdatepicker;
         
         /// <summary>
         /// lblRevisionNo control.
@@ -83,24 +101,6 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRemarks;
-        
-        /// <summary>
-        /// lblRevisedDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRevisedDate;
-        
-        /// <summary>
-        /// txtdatepicker control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtdatepicker;
         
         /// <summary>
         /// ReviseDocumentButton control.

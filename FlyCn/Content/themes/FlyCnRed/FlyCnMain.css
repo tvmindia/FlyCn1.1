@@ -465,16 +465,19 @@ transition: .25s ease;
     }
  .buttonroundCorner
 {
+  
     border-radius: 15px;
-    background-color: #AD141C;
+    background-color: #AD141C;   
     color:#FFFFFF;
     text-align :center;
     font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 5px 10px 10px 10px;
-  
+    padding-left:30px;
+    margin-left:230px;
+   font-size:17px;
     width:100px;
     height:30px;
-    font-size:17px;
+    margin-top:26px;
 }
  .Verifiercaption {
             font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
