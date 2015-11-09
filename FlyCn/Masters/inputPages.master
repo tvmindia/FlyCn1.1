@@ -103,9 +103,8 @@ border-top:#A6CAB8 3px solid;
        <script src="../Scripts/jquery-1.8.2.min.js"></script>
     <script src="../Scripts/jquery-1.8.2.js"></script>
     <script src="../Scripts/jquery-ui-1.8.24.js"></script>
-    <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>
-    
-   
+    <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>   
+     <script src="../Scripts/Messages.js"></script>
     <script type="text/javascript">
        
         function CloseDocumentWindow()
@@ -123,7 +122,7 @@ border-top:#A6CAB8 3px solid;
             catch (X) {
                 alert(X.message);
             }
-        }
+        } 
 
         function ChangeOwnershipWindow() {
            
@@ -202,7 +201,7 @@ border-top:#A6CAB8 3px solid;
 
         function ChangeOwner()
         {
-            
+           
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
            
@@ -212,30 +211,72 @@ border-top:#A6CAB8 3px solid;
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
             var hiddendocumentid = contentWindow.document.getElementById('hiddenFieldDocumentID');
             var DocumentNo = contentWindow.document.getElementById('txtDocumentno');
+            var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             if (hiddenFieldOwner.value != hiddenusername.value)
             {
+                debugger;
                 document.getElementById('IframeChangeOwner').src = "../DocumentRelated/OwnershipChange.aspx?DocumentId=" + hiddendocumentid.value + '&Username=' + hiddenusername.value + '&Ownername=' + hiddenFieldOwner.value + '&DocumentNo=' + DocumentNo.value;
                 ChangeOwnershipWindow();
             }
            
+
+           
         }
-        function ChangeOwnerOnload()
+        //function DisableTreeNode(nodeclassname)
+        //{
+        //    document.getElementsByClassName(nodeclassname)[0].style.visibility = 'hidden';
+        //}
+        function DisableTreeNode(nodeclassname) {
+           debugger;
+          //  var treeView = $find("<%= contentPane.ClientID %>");
+           // var node = treeView.findNodeByText(text);
+            //node.DisableTreeNode = true;
+            //node.get_textElement().style.color = "gray";--%>
+           // var node = tree.findNodeByValue(value);
+           
+           // node.DisableTreeNode = true;
+           // node.style.color = "gray";
+            document.getElementsByClassName(nodeclassname)[0].style.DisableTreeNode = true;
+            document.getElementsByClassName(nodeclassname)[0].style.color = "gray";
+           
+        }
+        function EnableTreeNode(nodeclassname) {
+            // debugger;
+            //  var treeView = $find("<%= contentPane.ClientID %>");
+            // var node = treeView.findNodeByText(text);
+            //node.DisableTreeNode = true;
+            //node.get_textElement().style.color = "gray";--%>
+            //  var node = tree.findNodeByValue(value);
+            // node.DisableTreeNode = true;
+            // node.style.color = "gray";
+            document.getElementsByClassName(nodeclassname)[0].style.DisableTreeNode = false;
+            document.getElementsByClassName(nodeclassname)[0].style.color = "black";
+
+        }
+   <%--     function ChangeOwnerload()
         {
-            debugger;
+           
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
-
+           
             var iframe = pane.getExtContentElement();
             var contentWindow = iframe.contentWindow;
-            var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
-            var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
-            var hiddendocumentid = contentWindow.document.getElementById('hiddenFieldDocumentID');
-            var DocumentNo = contentWindow.document.getElementById('txtDocumentno');
-            if (hiddenFieldOwner.value == hiddenusername.value) {
-                document.getElementsByClassName('rtMid')[0].style.visibility = 'hidden';
-            }
+            document.getElementById("HiddenFieldLogin") = contentWindow.document.getElementById('hiddenUsername');
+            document.getElementById("HiddenFieldOwner") = contentWindow.document.getElementById('hiddenDocumentOwner');--%>
+            //var hiddendocumentid = contentWindow.document.getElementById('hiddenFieldDocumentID');
+            //var DocumentNo = contentWindow.document.getElementById('txtDocumentno');
+            //document.getElementById
+           
+            //debugger;
+            //if (hiddenFieldOwner.value == hiddenusername.value) {
+               
+            //}
             
-        }
+        //}
+        //function ChangeOwnerCheck()
+        //{
+        //    document.getElementsByClassName('rtMid')[0].style.visibility = 'hidden';
+        //}
 
  function ReviseDocument() 
 {
@@ -269,8 +310,8 @@ alert(1);
                     Alert !!
                     </td></tr>              
                 <tr> 
-                    <td style="width:80%">
-                       <asp:Label ID="lblAlertMsg" Text="" runat="server" ></asp:Label>
+                    <td style="width:80%;color:black">
+                       <asp:Label ID="lblAlertMsg" Text="" runat="server"  ></asp:Label>
                     </td>
                  
                 </tr>
@@ -286,6 +327,7 @@ alert(1);
 
     <div class="RadSplitterDiv">
         <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
+       
         <telerik:RadSplitter ID="RadSplitter1" runat="server" Height="105%" Width="99%" Skin="FlyCnSplitter" EnableEmbeddedSkins="false" style="overflow-x:hidden">
             <telerik:RadPane ID="RadPane1" runat="server" Width="150" Height="100%">
                 <telerik:RadTreeView ID="rtvLeftMenu" runat="server">
@@ -340,7 +382,8 @@ alert(1);
      </div>
            
     <asp:HiddenField ID="HiddenFieldDoctype" runat="server" ClientIDMode="Static" />
-
+     <asp:HiddenField ID="HiddenFieldOwner" runat="server" ClientIDMode="Static"/>
+        <asp:HiddenField ID="HiddenFieldLogin" runat="server" ClientIDMode="Static" />
 </asp:Content>
 
    

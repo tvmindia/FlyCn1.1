@@ -293,6 +293,81 @@ namespace FlyCn.FlyCnDAL
             }
         }
         #endregion ChangeOwnershipAcknowledgement
+
+        #region DocumentApprovalCompleted
+        public void DocumentApprovalCompleted(string _DocumentNo, string MssgTo, string username)
+        {
+            try
+            {
+
+
+                Users userobj = new Users(MssgTo);
+
+                string MailTo = userobj.UserEMail;
+                MailMessage Msg = new MailMessage();
+                // Sender e-mail address.
+                Msg.From = new MailAddress("info.thrithvam@gmail.com");
+                // Recipient e-mail address.
+                Msg.To.Add(MailTo);
+                Msg.Subject = "Document Approval Completed" + _DocumentNo;
+                string body = "<div style='margin: 0; padding: 0; min-width: 100%!important;'>" +
+" <div style='margin: 0; padding: 0; min-width: 100%!important;  height:25px; background:lightseagreen;text-align:center;'>" + " <label style='color:white; vertical-align:central'>" + " Change Ownership</label></div>" +
+ "    <div style='background-color:#f6f8f1; text-align:left; height:25px;'>" +
+                                        "  <label " + "style='font:bold; font-size:15px;  color:#006666'" + "> Hi" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + MssgTo + "</label>" +
+
+    "</div>" +
+" <table width=100% bgcolor=#f6f8f1 border=0" + "cellpadding=0" + " cellspacing=" + "0>" +
+        "<tr>" +
+            "<td>" +
+                "<table class=" + "content" + " align=center  cellpadding=0 cellspacing=0 border=0>" +
+                    "<tr>" +
+                        "<td>" +
+
+                       " </td>" +
+
+                    "</tr>" +
+
+                    "<tr>" +
+                        "<td style='height:50px'>" +
+                        " Approval for the document" + "&nbsp;&nbsp;" + "" + _DocumentNo + "&nbsp;&nbsp;&nbsp;" + "is completed " +  "&nbsp;&nbsp;&nbsp;" +
+                        "</td>" +
+                   " </tr>" +
+                    "<tr>" +
+                        "<td style='height:50px;padding-left:190px'>" +
+
+                        "</td>" +
+                    "</tr>" +
+                "</table>" +
+            "</td>" +
+       " </tr>" +
+       "   <tr>" +
+            "<td style='font-size:10px; color:#2F4F4F;'>" +
+                "This is an automatically generated email – please do not reply to it. If you have any queries please email to <a href=" + "'mailto:info.thrithvam@gmail.com'" + "> amrutha@thrithvam.com</a>" +
+            "</td>" +
+       " </tr>" +
+   " </table> " +
+" </div>";
+
+                Msg.Body = body;
+
+                Msg.IsBodyHtml = true;
+                // your remote SMTP server IP.
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.Credentials = new System.Net.NetworkCredential("info.thrithvam", "thrithvam@2015");
+                smtp.EnableSsl = true;
+                smtp.Send(Msg);
+                Msg = null;
+            }
+
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion DocumentApprovalCompleted
         #endregion Methods
     }
 }

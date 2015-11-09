@@ -94,6 +94,15 @@ namespace FlyCn.EIL {
         protected global::FlyCn.UserControls.ToolBar ToolBar;
         
         /// <summary>
+        /// lblModule control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblModule;
+        
+        /// <summary>
         /// ddlModule control.
         /// </summary>
         /// <remarks>
@@ -101,6 +110,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlModule;
+        
+        /// <summary>
+        /// lblCate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCate;
         
         /// <summary>
         /// ddlCategory control.
@@ -112,6 +130,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
         
         /// <summary>
+        /// lblTag control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTag;
+        
+        /// <summary>
         /// ddlTag control.
         /// </summary>
         /// <remarks>
@@ -119,6 +146,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTag;
+        
+        /// <summary>
+        /// lblActivity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblActivity;
         
         /// <summary>
         /// ddlActivity control.
@@ -130,6 +166,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlActivity;
         
         /// <summary>
+        /// lblIdno control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIdno;
+        
+        /// <summary>
         /// txtIDno control.
         /// </summary>
         /// <remarks>
@@ -137,6 +182,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtIDno;
+        
+        /// <summary>
+        /// lblOpenBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOpenBy;
         
         /// <summary>
         /// ddlOpenBy control.
@@ -148,6 +202,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlOpenBy;
         
         /// <summary>
+        /// lblEnteredDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEnteredDate;
+        
+        /// <summary>
         /// RadEnteredDate control.
         /// </summary>
         /// <remarks>
@@ -155,6 +218,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker RadEnteredDate;
+        
+        /// <summary>
+        /// lblEnteredBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEnteredBy;
         
         /// <summary>
         /// ddlEnteredBy control.
@@ -166,6 +238,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlEnteredBy;
         
         /// <summary>
+        /// lblOpenDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOpenDate;
+        
+        /// <summary>
         /// RadOpenDate control.
         /// </summary>
         /// <remarks>
@@ -173,6 +254,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker RadOpenDate;
+        
+        /// <summary>
+        /// lblPlant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPlant;
         
         /// <summary>
         /// ddlPlant control.
@@ -184,6 +274,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlPlant;
         
         /// <summary>
+        /// lblArea control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblArea;
+        
+        /// <summary>
         /// ddlArea control.
         /// </summary>
         /// <remarks>
@@ -191,6 +290,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlArea;
+        
+        /// <summary>
+        /// lblLocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLocation;
         
         /// <summary>
         /// ddlLocation control.
@@ -202,6 +310,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlLocation;
         
         /// <summary>
+        /// lblUnit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUnit;
+        
+        /// <summary>
         /// ddlUnit control.
         /// </summary>
         /// <remarks>
@@ -209,6 +326,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlUnit;
+        
+        /// <summary>
+        /// lblSystem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSystem;
         
         /// <summary>
         /// ddlSystem control.
@@ -220,6 +346,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlSystem;
         
         /// <summary>
+        /// lblControlSystem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblControlSystem;
+        
+        /// <summary>
         /// ddlControlSystem control.
         /// </summary>
         /// <remarks>
@@ -227,6 +362,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlControlSystem;
+        
+        /// <summary>
+        /// lblSubSystem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSubSystem;
         
         /// <summary>
         /// ddlSubsystem control.
@@ -238,6 +382,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlSubsystem;
         
         /// <summary>
+        /// lblRequestedBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRequestedBy;
+        
+        /// <summary>
         /// ddlRequestedBy control.
         /// </summary>
         /// <remarks>
@@ -245,6 +398,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRequestedBy;
+        
+        /// <summary>
+        /// lblInspector control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInspector;
         
         /// <summary>
         /// ddlInspector control.
@@ -256,6 +418,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlInspector;
         
         /// <summary>
+        /// lblActionBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblActionBy;
+        
+        /// <summary>
         /// ddlActionBy control.
         /// </summary>
         /// <remarks>
@@ -263,6 +434,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlActionBy;
+        
+        /// <summary>
+        /// lblDiscipline control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDiscipline;
         
         /// <summary>
         /// ddlDiscipline control.
@@ -274,6 +454,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlDiscipline;
         
         /// <summary>
+        /// lblFailCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFailCategory;
+        
+        /// <summary>
         /// ddlFailCategory control.
         /// </summary>
         /// <remarks>
@@ -281,6 +470,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlFailCategory;
+        
+        /// <summary>
+        /// lblCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCategory;
         
         /// <summary>
         /// ddlCategoryList control.
@@ -292,6 +490,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlCategoryList;
         
         /// <summary>
+        /// lblRFIno control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRFIno;
+        
+        /// <summary>
         /// txtRFINo control.
         /// </summary>
         /// <remarks>
@@ -301,6 +508,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.TextBox txtRFINo;
         
         /// <summary>
+        /// lblRFIDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRFIDate;
+        
+        /// <summary>
         /// RadRFIDate control.
         /// </summary>
         /// <remarks>
@@ -308,6 +524,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker RadRFIDate;
+        
+        /// <summary>
+        /// lblCoveredByProject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCoveredByProject;
         
         /// <summary>
         /// rdbCoveredByYes control.
@@ -328,6 +553,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.RadioButton rdbCoveredByNo;
         
         /// <summary>
+        /// lblItemDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblItemDescription;
+        
+        /// <summary>
         /// txtItemDescription control.
         /// </summary>
         /// <remarks>
@@ -337,6 +571,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.TextBox txtItemDescription;
         
         /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
         /// txtReference control.
         /// </summary>
         /// <remarks>
@@ -344,6 +587,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtReference;
+        
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
         /// rdbChangeRequestyes control.
@@ -364,6 +616,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.RadioButton rdbchangerequestno;
         
         /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
+        
+        /// <summary>
         /// txtDrawing control.
         /// </summary>
         /// <remarks>
@@ -371,6 +632,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDrawing;
+        
+        /// <summary>
+        /// Label4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label4;
         
         /// <summary>
         /// txtSheet control.
@@ -382,6 +652,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.TextBox txtSheet;
         
         /// <summary>
+        /// Label5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label5;
+        
+        /// <summary>
         /// txtRevision control.
         /// </summary>
         /// <remarks>
@@ -389,6 +668,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRevision;
+        
+        /// <summary>
+        /// Label6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label6;
         
         /// <summary>
         /// RadReferenceDate control.
@@ -400,6 +688,15 @@ namespace FlyCn.EIL {
         protected global::Telerik.Web.UI.RadDatePicker RadReferenceDate;
         
         /// <summary>
+        /// Label7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label7;
+        
+        /// <summary>
         /// txtQuery control.
         /// </summary>
         /// <remarks>
@@ -407,6 +704,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtQuery;
+        
+        /// <summary>
+        /// Label8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label8;
         
         /// <summary>
         /// txtQueryStatus control.
@@ -418,6 +724,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.TextBox txtQueryStatus;
         
         /// <summary>
+        /// Label9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label9;
+        
+        /// <summary>
         /// txtQueryRevision control.
         /// </summary>
         /// <remarks>
@@ -425,6 +740,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtQueryRevision;
+        
+        /// <summary>
+        /// Label10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label10;
         
         /// <summary>
         /// ddlResponsiblePerson control.
@@ -436,6 +760,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlResponsiblePerson;
         
         /// <summary>
+        /// Label11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label11;
+        
+        /// <summary>
         /// ddlOrganization control.
         /// </summary>
         /// <remarks>
@@ -443,6 +776,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlOrganization;
+        
+        /// <summary>
+        /// Label12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label12;
         
         /// <summary>
         /// ddlSignedBy control.
@@ -454,6 +796,15 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlSignedBy;
         
         /// <summary>
+        /// Label13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label13;
+        
+        /// <summary>
         /// RadCompletionDate control.
         /// </summary>
         /// <remarks>
@@ -461,6 +812,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker RadCompletionDate;
+        
+        /// <summary>
+        /// Label14 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label14;
         
         /// <summary>
         /// RadScheduleCompletionDate control.
@@ -472,6 +832,15 @@ namespace FlyCn.EIL {
         protected global::Telerik.Web.UI.RadDatePicker RadScheduleCompletionDate;
         
         /// <summary>
+        /// Label15 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label15;
+        
+        /// <summary>
         /// txtCompletionRemarks control.
         /// </summary>
         /// <remarks>
@@ -479,6 +848,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCompletionRemarks;
+        
+        /// <summary>
+        /// Label16 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label16;
         
         /// <summary>
         /// fuAttach control.
