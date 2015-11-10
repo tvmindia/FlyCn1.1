@@ -122,6 +122,7 @@ namespace FlyCn.Approvels
             tab.Text = "Approval";
             RadMultiPage1.SelectedIndex = 1;
             //changing tab 
+            hiddenFieldDocOwner.Value = item.GetDataKeyValue("DocumentOwner").ToString();
             hiddenFiedldProjectno.Value = item.GetDataKeyValue("ProjectNo").ToString();
             hiddenFieldApprovalID.Value = item.GetDataKeyValue("ApprovalID").ToString();
             hiddenFieldDocumentID.Value = item.GetDataKeyValue("DocumentID").ToString();
@@ -274,6 +275,7 @@ namespace FlyCn.Approvels
         public void Approve()//Approves the document
         {
             approvelMaster = new ApprovelMaster();
+            int mailstatus;
             MailSending mailSending = new MailSending();//mail sending object
             try
             {
@@ -281,8 +283,15 @@ namespace FlyCn.Approvels
                 approvelMaster.ApprovalStatus = 4;//4 means approved
                 approvelMaster.ApprovalDate = System.DateTime.Now;
                 approvelMaster.Remarks = txtRemarks.Text;
-                approvelMaster.UpdateApprovalMaster(approvid);
-                mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
+                mailstatus=approvelMaster.UpdateApprovalMaster(approvid);
+                if (mailstatus == 1)
+                {
+                    mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
+                }
+                if(mailstatus==2)//final mail to owner that doc has been approved
+                {
+                    mailSending.DocumentApprovalCompleted(hiddenFieldDocumentNo.Value,hiddenFieldDocOwner.Value,UA.userName);
+                }
             }
             catch (Exception ex)
             {
