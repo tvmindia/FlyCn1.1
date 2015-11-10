@@ -14,6 +14,7 @@ namespace FlyCn.FlyCnDAL
         {
             get;
             set;
+
         }
         public string UserEMail
         {
