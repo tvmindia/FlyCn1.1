@@ -145,6 +145,7 @@ namespace FlyCn.BOQ
                     txtDocumentno.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
                     txtClientdocumentno.Text = ds.Tables[0].Rows[0]["ClientDocNo"].ToString();
                     txtRevisionno.Text = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
+                    hiddenRevisionNumber.Value = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
                     //RadDocumentDate.SelectedDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["DocumentDate"].ToString());
                     txtdatepicker.Value = Convert.ToString(ds.Tables[0].Rows[0]["DocumentDate"]);
                     txtDocumenttitle.Text = ds.Tables[0].Rows[0]["DocumentTitle"].ToString();

@@ -191,7 +191,6 @@ border-top:#A6CAB8 3px solid;
             var DocumentID = contentWindow.document.getElementById("hiddenFieldDocumentID")
             var DocumentType = contentWindow.document.getElementById('hiddenFieldDocumentType');
             var DocumentNo = contentWindow.document.getElementById('txtDocumentno');
-           
             document.getElementById('HiddenFieldDoctype').value = DocumentType.value;
             var lblDocumentStatus = contentWindow.document.getElementById('lblDocumentStatus');
           
@@ -307,12 +306,14 @@ border-top:#A6CAB8 3px solid;
      var DocumentID = contentWindow.document.getElementById("hiddenFieldDocumentID")
      var DocumentType = contentWindow.document.getElementById('hiddenFieldDocumentType');
      var DocumentNo = contentWindow.document.getElementById('txtDocumentno');
-
+     var RevisionNumber = contentWindow.document.getElementById('hiddenRevisionNumber');
+     var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
+     var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
      document.getElementById('HiddenFieldDoctype').value = DocumentType.value;
      var lblDocumentStatus = contentWindow.document.getElementById('lblDocumentStatus');
-     if (hiddenFieldRevisionID.value != "" && lblDocumentStatus.innerHTML == "APPROVED") {
+     if (hiddenFieldRevisionID.value != "" && lblDocumentStatus.innerHTML == "APPROVED" && (hiddenFieldOwner.value == hiddenusername.value)) {
        
-         document.getElementById('IframeReviseDocument').src = "../DocumentRelated/ReviseDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value + '&DocumentNo=' + DocumentNo.value;
+         document.getElementById('IframeReviseDocument').src = "../DocumentRelated/ReviseDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value + '&DocumentNo=' + DocumentNo.value + '&RevisionNumber=' + RevisionNumber.value;
 
          ReviseDocumentWindow();
      }
