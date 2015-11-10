@@ -423,7 +423,8 @@ namespace FlyCn.Approvels
             }
             FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
            MailSendingobj.SendMailToNextLevelVarifiers(_RevisionID, _DocumentType, UA.projectNo,_DocumentNo);
-      
+           //FlyCn.BOQ.BOQHeader boqObj = new BOQ.BOQHeader();
+           //boqObj.Page.();
          
         }
         public void InsertOperation(string levelId, int Level, byte isLevelManadatory)
@@ -443,6 +444,7 @@ namespace FlyCn.Approvels
             ApprovelMasterobj.IsLevelManadatory = isLevelManadatory;
 
             ApprovelMasterobj.InsertApprovelMaster();
+
 
         }
 
