@@ -11,21 +11,11 @@ namespace FlyCn.Masters
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            //string owner = Context.Items["DocumentOwner"].ToString();
-            //Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "ChangeOwnerload();", true);
-            //if (HiddenFieldLogin.Value == HiddenFieldOwner.Value)
-            //{
-            //    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "ChangeOwnerCheck();", true);
-            //}
-              
-            
+            Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "SecurityOnload();", true);
+           
         }
 
 
-        //protected void Page_PreRender(object sender, EventArgs e)
-        //{
-     // does not fire
-        //}
+     
     }
 }

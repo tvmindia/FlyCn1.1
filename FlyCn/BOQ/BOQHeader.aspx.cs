@@ -145,6 +145,7 @@ namespace FlyCn.BOQ
                     txtDocumentno.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
                     txtClientdocumentno.Text = ds.Tables[0].Rows[0]["ClientDocNo"].ToString();
                     txtRevisionno.Text = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
+                    hiddenRevisionNumber.Value = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
                     //RadDocumentDate.SelectedDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["DocumentDate"].ToString());
                     txtdatepicker.Value = Convert.ToString(ds.Tables[0].Rows[0]["DocumentDate"]);
                     txtDocumenttitle.Text = ds.Tables[0].Rows[0]["DocumentTitle"].ToString();
@@ -177,7 +178,7 @@ namespace FlyCn.BOQ
                     {
                         Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.EnableTreeNode('rtTop');", true);
                     }
-                    if ((UA.userName == hiddenDocumentOwner.Value) && (ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Closed))
+                    if ((UA.userName == hiddenDocumentOwner.Value) && (ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Approved))
                     {
                         Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.EnableTreeNode('rtBot');", true);
                     }
