@@ -78,7 +78,7 @@ namespace FlyCn.Content.DocDetailView
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
@@ -93,8 +93,7 @@ namespace FlyCn.Content.DocDetailView
 
         protected void dtDocDetailGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-          //  string projectNum = Request.QueryString["ProjNum"];
-          //  string revId = Request.QueryString["RevNum"];
+          
             try
             {
                 string type = "BOQ";
@@ -107,7 +106,7 @@ namespace FlyCn.Content.DocDetailView
                     dtDocDetailGrid.DataSource = dt;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
@@ -134,11 +133,13 @@ namespace FlyCn.Content.DocDetailView
                         ((GridDateTimeColumn)col).DataFormatString = "{0:dd/MM/yyyy}";
                     }
                 }
-                }
             }
         }
-
-      
+    }
+}
+                
+          
+       
 
     
-    }
+  
