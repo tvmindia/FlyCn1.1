@@ -289,7 +289,7 @@ namespace FlyCn.FlyCnDAL
                 SqlCommand cmd = new SqlCommand("GetUser", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-            
+
 
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
@@ -302,7 +302,7 @@ namespace FlyCn.FlyCnDAL
             catch (Exception ex)
             {
                 throw ex;
-             
+
 
             }
             finally
@@ -341,75 +341,84 @@ namespace FlyCn.FlyCnDAL
             }
             return 0;
         }
-        public void LoginSecurityCheck(Page page,string username,Control pagecontrols)
+        public void LoginSecurityCheck(Page page, string username, ToolBar pagecontrols)
         {
 
-            if(username=="gopika")
-            
+            if (username == "gopika")
+
                 ReadOnly(pagecontrols);
-                
 
-            
+
+
         }
 
-        public void ReadOnly(Control pagecontrols)
+        public void ReadOnly(ToolBar pagecontrols)
         {
-            Control contrl = new Control();
+            //foreach (object o in pagecontrols)
+            //{
+            //    Control control = o as Control;
+            //    if (control != null)
+            //    {
+            //        control.IsEnabled = false;
+            //    }
+            //}
+            //    Control contrl = new Control();
 
-            foreach (Control c in contrl.Controls)
-            {
+            //    foreach (Control c in contrl.Controls)
+            //    {
 
-                if (c is TextBox)
+            //        if (c is TextBox)
 
-                    ((TextBox)c).Enabled = false;
+            //            ((TextBox)c).Enabled = false;
 
-                else if (c is Button)
+            //        else if (c is Button)
 
-                    ((Button)c).Enabled = false;
+            //            ((Button)c).Enabled = false;
 
-                else if (c is RadioButton)
+            //        else if (c is RadioButton)
 
-                    ((RadioButton)c).Enabled = false;
+            //            ((RadioButton)c).Enabled = false;
 
-                else if (c is ImageButton)
+            //        else if (c is ImageButton)
 
-                    ((ImageButton)c).Enabled = false;
+            //            ((ImageButton)c).Enabled = false;
 
-                else if (c is CheckBox)
+            //        else if (c is CheckBox)
 
-                    ((CheckBox)c).Enabled = false;
+            //            ((CheckBox)c).Enabled = false;
 
-                else if (c is DropDownList)
+            //        else if (c is DropDownList)
 
-                    ((DropDownList)c).Enabled = false;
+            //            ((DropDownList)c).Enabled = false;
 
-                else if (c is HyperLink)
+            //        else if (c is HyperLink)
 
-                    ((HyperLink)c).Enabled = false;
+            //            ((HyperLink)c).Enabled = false;
 
-                else if (c is ToolBar)
-                {
-                    RadToolBar toolbar = new RadToolBar();
-                    //foreach (object o in toolbar. )
-                    //{
-                    //    Control control = o as Control;
-                    //    if (control != null)
-                    //    {
-                    //        control.IsEnabled = false;
-                    //    }
-                    //}
-                    toolbar.Enabled = false;
-                }
-                if (c is TreeView)
-                {
-                    ((TreeView)c).Enabled = false;
-                }
+            //        else if (c is UserControl)
+            //        {
 
-            }
+            //            //foreach (object o in toolbar. )
+            //            //{
+            //            //    Control control = o as Control;
+            //            //    if (control != null)
+            //            //    {
+            //            //        control.IsEnabled = false;
+            //            //    }
+            //            //}
+            //            ((UserControl)c).EnableViewState= false;
+            //        }
+            //        if (c is TreeView)
+            //        {
+            //            ((TreeView)c).Enabled = false;
+            //        }
+
         }
+    }
+}
         
       
 
 
-    }
-}
+    
+

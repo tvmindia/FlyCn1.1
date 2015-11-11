@@ -123,6 +123,7 @@
       <HintPath>bin\Telerik.Web.UI.Skins.dll</HintPath>
     </Reference>
     <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
