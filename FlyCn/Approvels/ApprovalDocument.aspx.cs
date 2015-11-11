@@ -284,14 +284,15 @@ namespace FlyCn.Approvels
                 approvelMaster.ApprovalDate = System.DateTime.Now;
                 approvelMaster.Remarks = txtRemarks.Text;
                 mailstatus=approvelMaster.UpdateApprovalMaster(approvid);
-                if (mailstatus == 1)
+                switch (mailstatus)//calling mail function according to the status
                 {
-                    mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
-                }
-                if(mailstatus==2)//final mail to owner that doc has been approved
-                {
-                    mailSending.DocumentApprovalCompleted(hiddenFieldDocumentNo.Value,hiddenFieldDocOwner.Value,UA.userName);
-                }
+                    case 1:
+                        mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
+                        break;
+                    case 2:
+                        mailSending.DocumentApprovalCompleted(hiddenFieldDocumentNo.Value, hiddenFieldDocOwner.Value, UA.userName);
+                        break;
+               }
             }
             catch (Exception ex)
             {
