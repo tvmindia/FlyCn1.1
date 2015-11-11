@@ -117,12 +117,7 @@ border-top:#A6CAB8 3px solid;
                 alert(X.message);
             }
         }
-        function SecurityOnload()
-        {
-            debugger;
-            var childpage = document;
-            var hiddenpage = document.getElementById('HiddenContentPage').value;
-        }
+        
 
         function ChangeOwnershipWindow() {
            
@@ -385,8 +380,7 @@ border-top:#A6CAB8 3px solid;
                  </div>     
     <asp:HiddenField ID="HiddenFieldDoctype" runat="server" ClientIDMode="Static" />
     <asp:HiddenField ID="HiddenFieldOwner" runat="server" ClientIDMode="Static"/>
-    <asp:HiddenField ID="HiddenFieldLogin" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="HiddenContentPage" runat="server" ClientIDMode="Static" />
+ 
 </asp:Content>
 
    

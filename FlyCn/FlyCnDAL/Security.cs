@@ -1,10 +1,13 @@
-﻿using System;
+﻿using FlyCn.UserControls;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.WebControls;
+using Telerik.Web.UI;
 
 namespace FlyCn.FlyCnDAL
 {
@@ -35,6 +38,11 @@ namespace FlyCn.FlyCnDAL
             set;
         }
         public string CreatedBy
+        {
+            get;
+            set;
+        }
+        public string ContentPage
         {
             get;
             set;
@@ -333,7 +341,73 @@ namespace FlyCn.FlyCnDAL
             }
             return 0;
         }
+        public void LoginSecurityCheck(Page page,string username,Control pagecontrols)
+        {
 
+            if(username=="gopika")
+            
+                ReadOnly(pagecontrols);
+                
+
+            
+        }
+
+        public void ReadOnly(Control pagecontrols)
+        {
+            Control contrl = new Control();
+
+            foreach (Control c in contrl.Controls)
+            {
+
+                if (c is TextBox)
+
+                    ((TextBox)c).Enabled = false;
+
+                else if (c is Button)
+
+                    ((Button)c).Enabled = false;
+
+                else if (c is RadioButton)
+
+                    ((RadioButton)c).Enabled = false;
+
+                else if (c is ImageButton)
+
+                    ((ImageButton)c).Enabled = false;
+
+                else if (c is CheckBox)
+
+                    ((CheckBox)c).Enabled = false;
+
+                else if (c is DropDownList)
+
+                    ((DropDownList)c).Enabled = false;
+
+                else if (c is HyperLink)
+
+                    ((HyperLink)c).Enabled = false;
+
+                else if (c is ToolBar)
+                {
+                    RadToolBar toolbar = new RadToolBar();
+                    //foreach (object o in toolbar. )
+                    //{
+                    //    Control control = o as Control;
+                    //    if (control != null)
+                    //    {
+                    //        control.IsEnabled = false;
+                    //    }
+                    //}
+                    toolbar.Enabled = false;
+                }
+                if (c is TreeView)
+                {
+                    ((TreeView)c).Enabled = false;
+                }
+
+            }
+        }
+        
       
 
 
