@@ -222,7 +222,7 @@ using Messages = FlyCn.UIClasses.Messages;
         #endregion InsertApprovelMaster
 
         #region UpdateApprovalMaster
-        public void UpdateApprovalMaster(string Approvalid)
+        public int UpdateApprovalMaster(string Approvalid)
         {
             SqlConnection con = null;
             try
@@ -242,8 +242,10 @@ using Messages = FlyCn.UIClasses.Messages;
                 SqlParameter outparamSendmail = cmd.Parameters.Add("@Sendmail", SqlDbType.Int);//mail status
                 outparamSendmail.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
+                int mailstatus = (int)outparamSendmail.Value;
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.UpdationSuccessData(page);
+                return mailstatus;
             }
             catch(Exception ex)
             {

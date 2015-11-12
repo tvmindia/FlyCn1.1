@@ -48,13 +48,10 @@ namespace FlyCn.DocumentRelated
             {
              
                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
-                throw ex;
+               eObj.ErrorData(ex, page);
+               throw ex;
               
             }
-           
-
-
         }
     }
 }

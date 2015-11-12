@@ -2,6 +2,7 @@
 #region Namespaces
 using FlyCn.FlyCnDAL;
 using FlyCn.UIClasses;
+using FlyCn.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -51,6 +52,19 @@ namespace FlyCn.EIL
 
                     hdnMode.Value = Request.QueryString["Mode"].ToString();
                 }
+
+                UIClasses.Const Const = new UIClasses.Const();
+                FlyCnDAL.Security.UserAuthendication UA;
+                Security sObj = new Security();
+                HttpContext context = HttpContext.Current;
+                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                var page = HttpContext.Current.CurrentHandler as Page;
+
+               // ToolBar myControl = ((UserControl)this.FindControl("ToolBar")).FindControl("ToolBar") as ToolBar;
+
+                string name = UA.userName;
+
+                sObj.LoginSecurityCheck(page, name, ToolBar);
            }
                      
             SetTitle();

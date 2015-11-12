@@ -1,10 +1,13 @@
-﻿using System;
+﻿using FlyCn.UserControls;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.WebControls;
+using Telerik.Web.UI;
 
 namespace FlyCn.FlyCnDAL
 {
@@ -35,6 +38,11 @@ namespace FlyCn.FlyCnDAL
             set;
         }
         public string CreatedBy
+        {
+            get;
+            set;
+        }
+        public string ContentPage
         {
             get;
             set;
@@ -281,7 +289,7 @@ namespace FlyCn.FlyCnDAL
                 SqlCommand cmd = new SqlCommand("GetUser", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-            
+
 
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
@@ -294,7 +302,7 @@ namespace FlyCn.FlyCnDAL
             catch (Exception ex)
             {
                 throw ex;
-             
+
 
             }
             finally
@@ -333,9 +341,84 @@ namespace FlyCn.FlyCnDAL
             }
             return 0;
         }
+        public void LoginSecurityCheck(Page page, string username, ToolBar pagecontrols)
+        {
 
+            if (username == "gopika")
+
+                ReadOnly(pagecontrols);
+
+
+
+        }
+
+        public void ReadOnly(ToolBar pagecontrols)
+        {
+            //foreach (object o in pagecontrols)
+            //{
+            //    Control control = o as Control;
+            //    if (control != null)
+            //    {
+            //        control.IsEnabled = false;
+            //    }
+            //}
+            //    Control contrl = new Control();
+
+            //    foreach (Control c in contrl.Controls)
+            //    {
+
+            //        if (c is TextBox)
+
+            //            ((TextBox)c).Enabled = false;
+
+            //        else if (c is Button)
+
+            //            ((Button)c).Enabled = false;
+
+            //        else if (c is RadioButton)
+
+            //            ((RadioButton)c).Enabled = false;
+
+            //        else if (c is ImageButton)
+
+            //            ((ImageButton)c).Enabled = false;
+
+            //        else if (c is CheckBox)
+
+            //            ((CheckBox)c).Enabled = false;
+
+            //        else if (c is DropDownList)
+
+            //            ((DropDownList)c).Enabled = false;
+
+            //        else if (c is HyperLink)
+
+            //            ((HyperLink)c).Enabled = false;
+
+            //        else if (c is UserControl)
+            //        {
+
+            //            //foreach (object o in toolbar. )
+            //            //{
+            //            //    Control control = o as Control;
+            //            //    if (control != null)
+            //            //    {
+            //            //        control.IsEnabled = false;
+            //            //    }
+            //            //}
+            //            ((UserControl)c).EnableViewState= false;
+            //        }
+            //        if (c is TreeView)
+            //        {
+            //            ((TreeView)c).Enabled = false;
+            //        }
+
+        }
+    }
+}
+        
       
 
 
-    }
-}
+    
+
