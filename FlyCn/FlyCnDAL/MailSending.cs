@@ -152,11 +152,9 @@ namespace FlyCn.FlyCnDAL
                     Varifierdetails = ApprovelMasterobj.GetVarifierEmailByIdTosentMail(verifierLevels, DocumentType, projectNo, varifierId);
                     string verifierMailId = Varifierdetails.Rows[0]["VerifierEmail"].ToString();
                     string verifierMailIdName = new String(verifierMailId.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
-
                     verifierMailIdName = verifierMailIdName.Replace("@thrithvam.ae", "");
                     verifierMailIdName = verifierMailIdName.Replace("@gmail.com", "");
                     verifierMailIdName = verifierMailIdName.Replace(".", " ");
-                    
                     new Thread(delegate()
                     {
 
@@ -187,9 +185,9 @@ namespace FlyCn.FlyCnDAL
                 MailSendingobj.SendApprovalMail(documentType, documentNo, MailSendingobj.MsgTo, verifierMailIdName);
 
             }
-            catch
+            catch(Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
         #endregion MailSendingOperation

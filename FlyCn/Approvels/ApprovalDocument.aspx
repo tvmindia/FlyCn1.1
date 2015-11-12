@@ -171,6 +171,7 @@
                                              <asp:HiddenField ID="hiddenFieldApprovalID" runat="server" ClientIDMode="Static" />
                                              <asp:HiddenField ID="hiddenFieldDocumentType" runat="server" ClientIDMode="Static"/>
                                              <asp:HiddenField ID="hiddenFieldDocumentNo" runat="server" ClientIDMode="Static" />
+                                             <asp:HiddenField ID="hiddenFieldDocOwner" runat="server" ClientIDMode="Static" />
                                            </div>
                                          </div>
                                           <div class="col-md-5">
@@ -362,7 +363,14 @@
         debugger;
         if (btn.get_value() == 'Approve')
         {
-            args.set_cancel(!validateText());
+            var valbool=validateText();
+            args.set_cancel(!valbool);
+            if (valbool)
+            {
+                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+                var tab = tabStrip.findTabByValue("1");
+                tab.select();
+            }
         }
         if (btn.get_value() == 'Decline')
         {

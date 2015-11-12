@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-
+using Messages = FlyCn.UIClasses.Messages;
 namespace FlyCn.FlyCnDAL
 {
     public class ReviseDocument
@@ -49,7 +49,13 @@ namespace FlyCn.FlyCnDAL
         {
             get;
             set;
-        }   
+        }
+
+        public int Flag
+        {
+            get;
+            set;
+        }
         ErrorHandling eObj = new ErrorHandling();
 
         #region InsertReviseDocument
@@ -72,16 +78,18 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@DocumentId",DocumentId );
                
                 cmd.ExecuteScalar();
-                //var page = HttpContext.Current.CurrentHandler as Page;
+                var page = HttpContext.Current.CurrentHandler as Page;
 
-                //eObj.InsertionSuccessData(page, Messages.documentclosesuccessMessage);
+                eObj.InsertionSuccessData(page, Messages.documentrevisesuccessMessage);
+                Flag = 1;
                 return 1;
             }
             catch (Exception ex)
             {
-                //return 0;
-                throw ex;
-
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+                return 0;
             }
             finally
             {

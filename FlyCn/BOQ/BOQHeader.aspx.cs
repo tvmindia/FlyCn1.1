@@ -184,6 +184,7 @@ namespace FlyCn.BOQ
                     }
 
                     lblDocumentStatus.Text = ds.Tables[0].Rows[0]["DocumentStatus"].ToString();
+                    hiddenStatusValue.Value = ds.Tables[0].Rows[0]["LatestStatus"].ToString();
                     Guid Revisionid;
                     Guid.TryParse(hiddenFieldRevisionID.Value, out Revisionid);
                     //BOQDetail Display accordion

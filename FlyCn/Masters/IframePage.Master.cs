@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using FlyCn.FlyCnDAL;
+using FlyCn.UserControls;
+using Telerik.Web.UI;
+using System.Windows.Automation;
+
 
 namespace FlyCn.Masters
 {
@@ -18,7 +22,13 @@ namespace FlyCn.Masters
             UIClasses.InputPages ip = new UIClasses.InputPages();
             try { this.head.Controls.Add(ip.GetThemeCss()); }
             catch (Exception) { }
+           
+  
+          
             
         }
+
+   
+
     }
 }

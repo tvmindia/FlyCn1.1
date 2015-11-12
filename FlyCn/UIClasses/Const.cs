@@ -46,6 +46,11 @@ namespace FlyCn.UIClasses
           {
               get { return "Document Successfully Closed"; }
       }
+
+          public static string documentrevisesuccessMessage
+          {
+              get { return "Document Successfully Revised"; }
+          }
       }
       
 }

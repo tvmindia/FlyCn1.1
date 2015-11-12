@@ -229,14 +229,15 @@ using Messages = FlyCn.UIClasses.Messages;
             }
             catch (Exception ex)
             {
-                //return 0;
-                throw ex;
-
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+                return 0;
             }
             finally
             {
                 con.Close();
-
+              
             }
         }
 
@@ -272,7 +273,7 @@ using Messages = FlyCn.UIClasses.Messages;
         #endregion InsertApprovalLog
 
         #region UpdateApprovalMaster
-        public void UpdateApprovalMaster(string Approvalid)
+        public int UpdateApprovalMaster(string Approvalid)
         {
             SqlConnection con = null;
             try
@@ -292,8 +293,10 @@ using Messages = FlyCn.UIClasses.Messages;
                 SqlParameter outparamSendmail = cmd.Parameters.Add("@Sendmail", SqlDbType.Int);//mail status
                 outparamSendmail.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
+                int mailstatus = (int)outparamSendmail.Value;
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.UpdationSuccessData(page);
+                return mailstatus;
             }
             catch(Exception ex)
             {

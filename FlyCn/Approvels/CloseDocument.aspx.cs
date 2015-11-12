@@ -34,8 +34,7 @@ namespace FlyCn.Approvels
             lblCaption.Text = caption;
 
             PlaceLabels();
-
-
+          
 
         }
 
@@ -422,6 +421,7 @@ namespace FlyCn.Approvels
 
             }
             FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
+
            MailSendingobj.SendMailToNextLevelVarifiers(_RevisionID, _DocumentType, UA.projectNo,_DocumentNo);
            //FlyCn.BOQ.BOQHeader boqObj = new BOQ.BOQHeader();
            //boqObj.Page.();
