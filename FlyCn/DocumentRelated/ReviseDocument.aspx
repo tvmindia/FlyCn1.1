@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="ReviseDocument.aspx.cs" Inherits="FlyCn.Approvels.ReviseDocument" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<style>
+  
+</style>
     <script src="../Scripts/jquery-1.11.3.min.js"></script>
 
 
@@ -24,9 +27,9 @@
 
                 <div class="col-md-6">
 
-                           <asp:Label ID="lblDocNo" CssClass="control-label col-md-5" runat="server" Text="Document Number" Font-Bold="true"></asp:Label>
+                           <asp:Label ID="lblDocNo" CssClass="control-label col-md-5  labeliniframe" runat="server" Text="Document Number" Font-Bold="true" ></asp:Label>
                      
-                    <asp:Label ID="lblDocumentNo"  CssClass="control-label col-md-7" runat="server" Text="jhj" Font-Bold="true"> </asp:Label>
+                    <asp:Label ID="lblDocumentNo"  CssClass="control-label col-md-7 labeliniframe" runat="server" Text="" Font-Bold="true" > </asp:Label>
                       
 
                       
@@ -35,13 +38,10 @@
 
                 <div class="col-md-6">
                   
-                        <asp:Label ID="lblDocumentType" CssClass="control-label col-md-5" runat="server" Text="Document type" Font-Bold="true"></asp:Label>
-                        <div class="col-md-7">
-                        <asp:Label ID="lblDocumentTypeValue" CssClass="control-label col-md-5" runat="server" Text="gh" Font-Bold="true"></asp:Label>
-
-                           
-
-                        </div>
+                        <asp:Label ID="lblDocumentType" CssClass="control-label col-md-5 labeliniframe" runat="server" Text="Document type" Font-Bold="true"></asp:Label>
+                    <asp:Label ID="lblDocumentTypeValue"  CssClass="control-label col-md-7 labeliniframe" runat="server" Text="" Font-Bold="true" > </asp:Label>
+                      
+                      
                     </div>
                 
             </div>
@@ -79,7 +79,7 @@
                     <div class="form-group required">
                         <asp:Label ID="lblRemarks" CssClass="control-label col-md-5" runat="server" Text="Remarks"></asp:Label>
                         <div class="col-md-7">
-                            <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" ></asp:TextBox>
+                            <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" TextMode="MultiLine"  Width="300px"></asp:TextBox>
 
                         </div>
                     </div>
@@ -93,8 +93,8 @@
    <div style="height:150px;">
      
                  
-                       <asp:Button class="buttonroundCorner" ID="ReviseDocumentButton" runat="server" Text="Revise Document"
-                Width="250px" Height="36px" OnClick="ReviseDocumentButton_Click" />
+                       <asp:Button class="buttonroundCorner" ID="ReviseDocumentButton" runat="server" Text="Revise Document" 
+                Width="250px" Height="36px" OnClick="ReviseDocumentButton_Click"   />
                   
           
 
@@ -102,4 +102,6 @@
 
    </div>
    </div>
+    <asp:HiddenField ID="hiddenflag" runat="server" ClientIDMode="Static" Value="0" />
 </asp:Content>
+

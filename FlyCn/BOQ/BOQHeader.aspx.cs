@@ -178,12 +178,13 @@ namespace FlyCn.BOQ
                     {
                         Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.EnableTreeNode('rtTop');", true);
                     }
-                    if ((UA.userName == hiddenDocumentOwner.Value) && (ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Closed))
+                    if ((UA.userName == hiddenDocumentOwner.Value) && (ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Approved))
                     {
                         Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.EnableTreeNode('rtBot');", true);
                     }
 
                     lblDocumentStatus.Text = ds.Tables[0].Rows[0]["DocumentStatus"].ToString();
+                    hiddenStatusValue.Value = ds.Tables[0].Rows[0]["LatestStatus"].ToString();
                     Guid Revisionid;
                     Guid.TryParse(hiddenFieldRevisionID.Value, out Revisionid);
                     //BOQDetail Display accordion

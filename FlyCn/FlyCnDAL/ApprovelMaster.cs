@@ -207,14 +207,15 @@ using Messages = FlyCn.UIClasses.Messages;
             }
             catch (Exception ex)
             {
-                //return 0;
-                throw ex;
-
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+                return 0;
             }
             finally
             {
                 con.Close();
-
+              
             }
         }
 
