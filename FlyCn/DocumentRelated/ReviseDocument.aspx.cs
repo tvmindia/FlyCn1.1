@@ -15,9 +15,10 @@ namespace FlyCn.Approvels
         string _DocumentType;
         string _DocumentNo;
         string _RevisionNumber;
+        int flag = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-          
+         
             _RevisionID = Request.QueryString["RevisionID"];
             _DocumentID = Request.QueryString["DocumentID"];
             _DocumentType = Request.QueryString["DocumentType"];
@@ -33,9 +34,8 @@ namespace FlyCn.Approvels
 
         protected void ReviseDocumentButton_Click(object sender, EventArgs e)
         {
-            FlyCn.FlyCnDAL.ReviseDocument reviseObj = new FlyCnDAL.ReviseDocument();
-          
-            
+
+            FlyCn.FlyCnDAL.ReviseDocument reviseObj = new FlyCnDAL.ReviseDocument();      
             //reviseObj.RevisionID = txtRevisionId.Text;
             reviseObj.RevisionStatus = 0;
             reviseObj.Remarks = txtRemarks.Text;
@@ -46,7 +46,15 @@ namespace FlyCn.Approvels
             dtobj = reviseObj.GetDocumentIdByNo();
             reviseObj.DocumentId = dtobj.Rows[0]["DocumentID"].ToString();
             reviseObj.RevisionID = dtobj.Rows[0]["LatestRevisionID"].ToString();
-            reviseObj.InsertReviseDocument();
+            int result=reviseObj.InsertReviseDocument();
+            if(result==1)
+            {
+                ReviseDocumentButton.Visible = false;
+                hiddenflag.Value ="1";
+              
+               
+            }
+            
         }
     }
 }

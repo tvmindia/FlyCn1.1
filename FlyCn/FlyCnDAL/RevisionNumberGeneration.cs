@@ -85,76 +85,101 @@ using System.Web;
                 {
                     case 1:
                         {
-                            int user_Input = Convert.ToInt32(inputbox);
-                            resultbox = Convert.ToString(++user_Input);
+                            try
+                            {
+                                int user_Input = Convert.ToInt32(inputbox);
+                                resultbox = Convert.ToString(++user_Input);
+                              
+                            }
+                            catch(Exception ex)
+                            {
+                                resultbox = inputbox + "x001";
+                            }
                             break;
                         }
                     case 2:
                         {
-
-                            string input = inputbox;
-                            Match m = Regex.Match(input, @"(\D*)(\D*)");
-
-                            string number = m.Groups[1].Value;
-                            char cLastCharacter = number[number.Length - 1];
-                            string alpha = Convert.ToString(cLastCharacter);
-
-                            char i = Convert.ToChar(alpha);
-                            int ascii = Convert.ToInt32(i) + 1;
-                            char ch = Convert.ToChar(ascii);
-                            if (number.Length > 1)
+                            try
                             {
-                                resultbox = number.Substring(0, number.Length - 1) + ch;
+                                string input = inputbox;
+                                Match m = Regex.Match(input, @"(\D*)(\D*)");
+
+                                string number = m.Groups[1].Value;
+                                char cLastCharacter = number[number.Length - 1];
+                                string alpha = Convert.ToString(cLastCharacter);
+
+                                char i = Convert.ToChar(alpha);
+                                int ascii = Convert.ToInt32(i) + 1;
+                                char ch = Convert.ToChar(ascii);
+                                if (number.Length > 1)
+                                {
+                                    resultbox = number.Substring(0, number.Length - 1) + ch;
+                                }
+                                else
+                                {
+
+                                    resultbox = Convert.ToString(ch);
+                                }
+                                if ((cLastCharacter == 'z') || (cLastCharacter == 'Z'))
+                                {
+                                    resultbox = number.Substring(0, number.Length - 1) + "a1";
+                                }
                             }
-                            else
+                            catch(Exception ex)
                             {
-
-                                resultbox = Convert.ToString(ch);
-                            }
-                            if ((cLastCharacter == 'z') || (cLastCharacter == 'Z'))
-                            {
-                                resultbox = number.Substring(0, number.Length - 1) + "a1";
+                                resultbox = inputbox + "$123";
                             }
                             break;
                         }
                     case 3:
                         {
+                            try
+                            {
+                                string input = inputbox;
+                                Match m = Regex.Match(input, @"(\D*)(\d*)");
 
-                            string input = inputbox;
-                            Match m = Regex.Match(input, @"(\D*)(\d*)");
+                                string alpha = m.Groups[1].Value;
+                                string number = m.Groups[2].Value;
 
-                            string alpha = m.Groups[1].Value;
-                            string number = m.Groups[2].Value;
-
-                            int n = Convert.ToInt32(number) + 1;
-                            resultbox = alpha + n;
+                                int n = Convert.ToInt32(number) + 1;
+                                resultbox = alpha + n;
+                            }
+                            catch(Exception ex)
+                            {
+                                resultbox = inputbox + "abc1";
+                            }
                             break;
 
                         }
                     case 4:
                         {
-
-                            string input = inputbox;
-
-                            Match m = Regex.Match(input, @"(\d*)(\D*)");
-
-                            string number = m.Groups[1].Value;
-                            string alpha = m.Groups[2].Value;
-
-                            char cLastCharacter = input[input.Length - 1];
-                            char i = Convert.ToChar(cLastCharacter);
-                            int ascii = Convert.ToInt32(i) + 1;
-                            char ch = Convert.ToChar(ascii);
-
-                            if (input.Length > 1)
+                            try
                             {
-                                resultbox = input.Substring(0, input.Length - 1) + ch;
-                            }
-                            if (cLastCharacter == 'z')
-                            {
-                                resultbox = input.Substring(0, input.Length - 1) + "a1";
-                            }
+                                string input = inputbox;
 
+                                Match m = Regex.Match(input, @"(\d*)(\D*)");
+
+                                string number = m.Groups[1].Value;
+                                string alpha = m.Groups[2].Value;
+
+                                char cLastCharacter = input[input.Length - 1];
+                                char i = Convert.ToChar(cLastCharacter);
+                                int ascii = Convert.ToInt32(i) + 1;
+                                char ch = Convert.ToChar(ascii);
+
+                                if (input.Length > 1)
+                                {
+                                    resultbox = input.Substring(0, input.Length - 1) + ch;
+                                }
+                                if (cLastCharacter == 'z')
+                                {
+                                    resultbox = input.Substring(0, input.Length - 1) + "a1";
+                                }
+                            }
+                            catch(Exception ex)
+                            {
+                                resultbox = inputbox + "f543";
+                            }
 
                             break;
                         }

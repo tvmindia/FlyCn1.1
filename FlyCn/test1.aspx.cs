@@ -9,9 +9,16 @@ namespace FlyCn
 {
     public partial class test1 : System.Web.UI.Page
     {
+        public int url
+        {
+            get;
+            set;
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            url = Request.Url.Port;
         }
+       
+        
     }
 }

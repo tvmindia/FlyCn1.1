@@ -16,7 +16,10 @@
                 font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 color:white;
          }
-
+  /*#btnCloseDocument {
+    position: absolute;
+    /* Left/right and top/bottom offsets etc. */
+/*}*/
      
     </style>
   
@@ -335,7 +338,7 @@
     </script>
 
     <div class="container" style="width: 100%;">
-         <div  style="width:auto; height:inherit; background-color: transparent; overflow-y: auto; scrollbar-base-color: rgba(36,85,99,.9)">
+         <div  style="width:auto; height:320px; background-color: transparent; overflow-y: auto; scrollbar-base-color: rgba(36,85,99,.9); ">
          <div class="contentTopBar"></div>
         <div  id="Placeholder" runat="server">
             <asp:HiddenField ID="hdfSelectBox1" runat="server" />
@@ -600,13 +603,17 @@
     </div>
              <asp:Label ID="lblerrordisplay" runat="server" Text=""  Font-Size="14px" CssClass="Error" style="margin-left:5px;" ></asp:Label>
     
-        <div>
-      
+        <table>
+
+            <tr>
+
+                <td>
                   
             <asp:Button class="buttonroundCorner" ID="btnCloseDocument" runat="server" Text="Close Document" 
                   Width="263px" Height="36px"  OnClientClick="return CloseDoc();"  OnClick="btnCloseDocument_Click"   />
- 
-        </div>
+ </td>
+                </tr>
+       </table>
   
     <script src="../Content/themes/FlyCnBlue/js/selectize.js"></script>
     <script src="../Content/themes/FlyCnBlue/js/index.js"></script>
