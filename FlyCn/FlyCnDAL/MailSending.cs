@@ -36,8 +36,9 @@ namespace FlyCn.FlyCnDAL
 
         #region SendApprovalMail
 
-        public void SendApprovalMail(string DocumentType, string _DocumentNo, string MssgTo, string verifierMailIdName)
+        public void SendApprovalMail(string DocumentType, string _DocumentNo, string MssgTo, string verifierMailIdName,string optionalLogId="1234567")
         {
+           
             try
             {
                 if (MssgTo == "")
@@ -91,7 +92,7 @@ namespace FlyCn.FlyCnDAL
                        " </tr>"+
                         "<tr>"+
                             "<td style='height:50px;padding-left:190px'>"+
-                               " <button style='Width:203px; Height:31px;cursor:pointer; background-color:lightseagreen;color:white;align-self:center;border-style:none; margin-left: 0px;'>Click To Approve Document</button>" +
+                               "   <a href='http://localhost:40922/Approvels/Approvals.aspx'>"+"<button>"+"Click To Approve Document"+"</button>"+"</a>" +
                                
                             "</td>"+
                         "</tr>"+
@@ -131,7 +132,7 @@ namespace FlyCn.FlyCnDAL
         #endregion SendApprovalMail
 
         #region SendMailToNextLevelVarifiers
-        public void SendMailToNextLevelVarifiers(string RevisionID, string DocumentType, string projectNo,string DocumentNo)
+        public void SendMailToNextLevelVarifiers(string RevisionID, string DocumentType, string projectNo, string DocumentNo)
         {
 
 
@@ -140,7 +141,8 @@ namespace FlyCn.FlyCnDAL
             VarifierdtLevelByRevisionid = ApprovelMasterobj.getDataFromVarifierMasterDetailsByRevisoinId(RevisionID);
             DataTable Varifierdetails = new DataTable();
             int totalrows = VarifierdtLevelByRevisionid.Rows.Count;
-
+            
+         
             for (int f = 0; f < VarifierdtLevelByRevisionid.Rows.Count; f++)
             {
                 int verifierLevels = Convert.ToUInt16(VarifierdtLevelByRevisionid.Rows[0]["VerifierLevel"]);
@@ -150,11 +152,9 @@ namespace FlyCn.FlyCnDAL
                     Varifierdetails = ApprovelMasterobj.GetVarifierEmailByIdTosentMail(verifierLevels, DocumentType, projectNo, varifierId);
                     string verifierMailId = Varifierdetails.Rows[0]["VerifierEmail"].ToString();
                     string verifierMailIdName = new String(verifierMailId.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
-
                     verifierMailIdName = verifierMailIdName.Replace("@thrithvam.ae", "");
                     verifierMailIdName = verifierMailIdName.Replace("@gmail.com", "");
                     verifierMailIdName = verifierMailIdName.Replace(".", " ");
-                    
                     new Thread(delegate()
                     {
 
@@ -185,9 +185,9 @@ namespace FlyCn.FlyCnDAL
                 MailSendingobj.SendApprovalMail(documentType, documentNo, MailSendingobj.MsgTo, verifierMailIdName);
 
             }
-            catch
+            catch(Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
         #endregion MailSendingOperation
