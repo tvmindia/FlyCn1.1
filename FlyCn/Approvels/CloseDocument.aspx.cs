@@ -444,6 +444,7 @@ namespace FlyCn.Approvels
             ApprovelMasterobj.IsLevelManadatory = isLevelManadatory;
 
             ApprovelMasterobj.InsertApprovelMaster();
+            ApprovelMasterobj.InsertApprovalLog();
 
 
         }

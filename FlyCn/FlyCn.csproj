@@ -40,7 +40,7 @@
   <ItemGroup>
     <Reference Include="AjaxControlToolkit, Version=15.1.3.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\amrutha.sunny\Documents\ASP.NET AJAX Control Toolkit\Bin\AjaxControlToolkit.dll</HintPath>
+      <HintPath>C:\Users\Anija.G\Documents\Visual Studio 2013\Projects\JqueryUITreeview\JqueryUITreeview\bin\AjaxControlToolkit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -151,39 +151,39 @@
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="Approvels\DocDetails.aspx" />
     <Content Include="DocumentRelated\ReviseDocument.aspx" />
-    <Content Include="bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
-    <Content Include="bin\AspNet.ScriptManager.jQuery.UI.Combined.dll" />
-    <Content Include="bin\DotNetOpenAuth.AspNet.dll" />
-    <Content Include="bin\DotNetOpenAuth.AspNet.xml" />
-    <Content Include="bin\DotNetOpenAuth.Core.dll" />
-    <Content Include="bin\DotNetOpenAuth.Core.xml" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.dll" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.xml" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.dll" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.xml" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.xml" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.xml" />
-    <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.xml" />
-    <Content Include="bin\FlyCn.dll" />
-    <Content Include="bin\FlyCn.pdb" />
-    <Content Include="bin\Microsoft.AspNet.FriendlyUrls.dll" />
-    <Content Include="bin\Microsoft.AspNet.FriendlyUrls.xml" />
-    <Content Include="bin\Microsoft.AspNet.Membership.OpenAuth.dll" />
-    <Content Include="bin\Microsoft.AspNet.Membership.OpenAuth.xml" />
-    <Content Include="bin\Microsoft.AspNet.Web.Optimization.WebForms.dll" />
-    <Content Include="bin\Microsoft.ScriptManager.MSAjax.dll" />
-    <Content Include="bin\Microsoft.ScriptManager.WebForms.dll" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\System.Web.Optimization.dll" />
-    <Content Include="bin\System.Web.Providers.dll" />
-    <Content Include="bin\Telerik.Web.UI.dll" />
-    <Content Include="bin\Telerik.Web.UI.Skins.dll" />
-    <Content Include="bin\Telerik.Web.UI.XML" />
-    <Content Include="bin\WebGrease.dll" />
+    <Content Include="DocumentSettings\bin\Antlr3.Runtime.dll" />
+    <Content Include="DocumentSettings\bin\AspNet.ScriptManager.jQuery.dll" />
+    <Content Include="DocumentSettings\bin\AspNet.ScriptManager.jQuery.UI.Combined.dll" />
+    <Content Include="DocumentSettings\bin\DotNetOpenAuth.AspNet.dll" />
+    <Content Include="DocumentSettings\bin\DotNetOpenAuth.AspNet.xml" />
+    <Content Include="DocumentSettings\bin\DotNetOpenAuth.Core.dll" />
+    <Content Include="DocumentSettings\bin\DotNetOpenAuth.Core.xml" />
+    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OAuth.Consumer.dll" />
+    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OAuth.Consumer.xml" />
+    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OAuth.dll" />
+    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OAuth.xml" />
+    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OpenId.dll" />
+    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
+    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OpenId.RelyingParty.xml" />
+    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OpenId.xml" />
+    <Content Include="DocumentSettings\bin\EntityFramework.dll" />
+    <Content Include="DocumentSettings\bin\EntityFramework.xml" />
+    <Content Include="DocumentSettings\bin\FlyCn.dll" />
+    <Content Include="DocumentSettings\bin\FlyCn.pdb" />
+    <Content Include="DocumentSettings\bin\Microsoft.AspNet.FriendlyUrls.dll" />
+    <Content Include="DocumentSettings\bin\Microsoft.AspNet.FriendlyUrls.xml" />
+    <Content Include="DocumentSettings\bin\Microsoft.AspNet.Membership.OpenAuth.dll" />
+    <Content Include="DocumentSettings\bin\Microsoft.AspNet.Membership.OpenAuth.xml" />
+    <Content Include="DocumentSettings\bin\Microsoft.AspNet.Web.Optimization.WebForms.dll" />
+    <Content Include="DocumentSettings\bin\Microsoft.ScriptManager.MSAjax.dll" />
+    <Content Include="DocumentSettings\bin\Microsoft.ScriptManager.WebForms.dll" />
+    <Content Include="DocumentSettings\bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="DocumentSettings\bin\System.Web.Optimization.dll" />
+    <Content Include="DocumentSettings\bin\System.Web.Providers.dll" />
+    <Content Include="DocumentSettings\bin\Telerik.Web.UI.dll" />
+    <Content Include="DocumentSettings\bin\Telerik.Web.UI.Skins.dll" />
+    <Content Include="DocumentSettings\bin\Telerik.Web.UI.XML" />
+    <Content Include="DocumentSettings\bin\WebGrease.dll" />
     <Content Include="BOQ\BOQ.aspx" />
     <Content Include="BOQ\BOQDetails.aspx" />
     <Content Include="BOQ\BOQHeader.aspx" />

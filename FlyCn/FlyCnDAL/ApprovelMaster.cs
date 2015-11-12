@@ -168,6 +168,28 @@ using Messages = FlyCn.UIClasses.Messages;
         }
         #endregion  getDataFromVarifierMasterDetailsByRevisoinId
 
+        #region getDataFromApprovalLogByLogId
+        public DataTable getDataFromApprovalLogByLogId(string LogId)
+        {
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetVarifierDetailsByRevisionId", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@RevisionId", RevisionID);
+
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            datatableobj = new DataTable();
+            adapter.Fill(datatableobj);
+            con.Close();
+            return datatableobj;
+        }
+
+        #endregion getDataFromApprovalLogByLogId
+
         #region InsertApprovelMaster
         public int InsertApprovelMaster()
         {
@@ -219,6 +241,35 @@ using Messages = FlyCn.UIClasses.Messages;
         }
 
         #endregion InsertApprovelMaster
+
+        #region InsertApprovalLog
+        public int InsertApprovalLog()
+        {
+            SqlConnection con = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("InsertApprovalLog", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ApprovalID", ApprovalID);
+                cmd.ExecuteScalar();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                //return 0;
+                throw ex;
+
+            }
+            finally
+            {
+                con.Close();
+
+            }
+        }
+
+        #endregion InsertApprovalLog
 
         #region UpdateApprovalMaster
         public void UpdateApprovalMaster(string Approvalid)
