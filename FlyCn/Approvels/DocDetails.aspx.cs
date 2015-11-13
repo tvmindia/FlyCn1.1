@@ -27,7 +27,7 @@ namespace FlyCn.Content.DocDetailView
                 hiddenFieldRevisionID.Value = revid;
                 DataTable dt;
                 ApprovelMaster amObj = new ApprovelMaster();
-
+                ReviseDocument revObj=new ReviseDocument();
                 dt = amObj.GetDocHeaderDetails(revid, type);
                 lblDocumntNo.Text = Request.QueryString["Documentno"];
                 lblDocumntNo.Attributes["style"] = "font-weight:bold;";
@@ -53,27 +53,32 @@ namespace FlyCn.Content.DocDetailView
                     lblDate.Text = dt.Rows[0]["CreatedDate"].ToString();
                     lblDate.Attributes["style"] = "font-weight:bold;";
                     int status = Convert.ToInt32(dt.Rows[0]["LatestStatus"]);
-
-                    if (status == 1)
+                    List<KeyValuePair<String, int>> Docstatus = new List<KeyValuePair<string, int>>();
+                    Docstatus = revObj.GetRevisionStatus();
+                    foreach (var keyValuePair in Docstatus)
                     {
-                        lblStatus.Text = "Closed";
+                        string value=keyValuePair.Key;
+                        int key=keyValuePair.Value;
+                        if (key == status)
+                    {
+                        lblStatus.Text = value;
                     }
                     else
-                        if (status == 2)
+                            if (key == status)
                         {
-                            lblStatus.Text = "Declined";
+                            lblStatus.Text = value;
                         }
                         else
-                            if (status == 3)
+                                if (key == status)
                             {
-                                lblStatus.Text = "Rejected for Amendment";
+                                lblStatus.Text = value;
                             }
                             else
-                                if (status == 0)
+                                    if (key == status)
                                 {
-                                    lblStatus.Text = "Draft";
+                                    lblStatus.Text = value;
                                 }
-
+                }
                     lblStatus.Attributes["style"] = "font-weight:bold;";
                 }
 

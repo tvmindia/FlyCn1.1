@@ -696,7 +696,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FlyCnDAL\ReviseDocument.cs" />
-    <Compile Include="FlyCnDAL\RevisionNumberGeneration.cs" />
     <Compile Include="FlyCnDAL\Security.cs" />
     <Compile Include="FlyCnDAL\SystemDefenitionDetails.cs" />
     <Compile Include="FlyCnDAL\Template.cs" />
