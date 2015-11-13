@@ -150,7 +150,7 @@ namespace FlyCn.FlyCnDAL
             }
 
 
-            public void UserAuthendicationSpecialAccess(String userName)
+            public void UserAuthendication(String userName,int specialAccessCode)
             {
                 isValidUser = true;
                 userN = userName;
