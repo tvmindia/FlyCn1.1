@@ -24,7 +24,7 @@ namespace FlyCn.BOQ
 
             RadPane radpane = ip.FindContentPane(this);
             objBOQ.LoadInputScreen(radpane);
-
+           
  
             
 

@@ -195,7 +195,7 @@
 
         function RevisionHistory()
         {
-            alert(56);
+           
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
             var iframe = pane.getExtContentElement();
@@ -204,25 +204,30 @@
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
-            alert(56);
+            var DocumentNo = contentWindow.document.getElementById('txtDocumentno');
+         
             if ((hiddenFieldRevisionID.value != "") && (hiddenDocumentStatus.value == "4" || hiddenDocumentStatus.value == "0"||hiddenDocumentStatus.value == "1" ||hiddenDocumentStatus.value == "2" ||hiddenDocumentStatus.value == "3"||hiddenDocumentStatus.value == "5" ) && (hiddenFieldOwner.value == hiddenusername.value)) 
 
             {
-                alert(56);
-              
-                var data = eval('<%=rtvLeftMenu.ClientID %>_Data');
-                alert(data);
-                if (!data)
-                {
-                    var selectedNodeID = data.selectedNodeID.value;
-                    alert(selectedNodeID);
-                }
-                alert(2);
+                
+                var tree = $find("<%= rtvLeftMenu.ClientID %>");
+                var radNode = tree.findNodeByValue("4");
+                var childrenNode = new Telerik.Web.UI.RadTreeNode();
+                childrenNode.set_text(DocumentNo.value);
+                childrenNode.set_value("123");
+                radNode.get_nodes().add(childrenNode);
+                //tree.commitChanges();
+                var radNode2 = tree.findNodeByValue("123");
+                var childrenNode2 = new Telerik.Web.UI.RadTreeNode();
+                var childrenNode3 = new Telerik.Web.UI.RadTreeNode();
+                childrenNode2.set_text("New Noded3");
+                childrenNode3.set_text("New Noded4");
+                radNode2.get_nodes().add(childrenNode2);
+                radNode2.get_nodes().add(childrenNode3);
+                tree.commitChanges();
+               
             <%--    var treeViewData = window["<%=rtvLeftMenu.ClientID%>" + "_Data"];--%>
-                alert(treeView.selectedNodeID.value);
-            var id=    document.getElementById('TreeViewClientID_SelectedNode').value;
-                alert(1);
-                alert(id);
+             
                 }
         }
         function hideMe() {
@@ -274,14 +279,7 @@
                 CloseDocumentWindow();
             }
 
-            else if (hiddenFieldRevisionID.value != "" && ((hiddenDocumentStatus.value == "1") || (hiddenDocumentStatus.value == "4"))) {
-                debugger;
-               // alert("This Document Is Already Closed");
-                AlertMsg(messages.AlreadyClosedDocument);
-            }
-            else {
-                AlertMsg(messages.CloseDocumentClick);
-            }
+          
         }
 
         function ChangeOwner() {
@@ -344,14 +342,7 @@
 
          ReviseDocumentWindow();
      }
-            else if (hiddenFieldRevisionID.value != "" && ((hiddenDocumentStatus.value == "1") || (hiddenDocumentStatus.value == "0"))) {
-         debugger;
-         // alert("This Document Is Already Closed");
-         AlertMsg(messages.NotApprovedDocument);
-     }
-     else {
-         AlertMsg(messages.CloseDocumentClick);
-     }
+          
 }
     </script>
 

@@ -335,5 +335,29 @@ namespace FlyCn.FlyCnDAL
    
         #endregion Documentmastermethods
 
+        #region BindMasters
+        /// <summary>
+        /// bind Master Personnel data
+        /// </summary>
+        /// <returns>return data table</returns>
+        public DataTable GetRevisionIdByDocumentNo(string documentId)
+        {
+
+            SqlConnection con = null;
+            DataTable dt = null;
+
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetMasterPersonalData", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@DocumentId", documentId);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            dt = new DataTable();
+            adapter.Fill(dt);
+            con.Close();
+            return dt;
+        }
+        #endregion BindMasters
     }
 }
