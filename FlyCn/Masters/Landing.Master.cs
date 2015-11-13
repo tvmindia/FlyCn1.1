@@ -31,27 +31,31 @@ namespace FlyCn.Masters
            else if(GetCurrentPageName()==Const.ApprovalPageURL)
                     {
                         LogId = Request.QueryString["logid"];
-                         ApprovelMaster approvalmasterObj = new ApprovelMaster();
-                         string userName = approvalmasterObj.GetUserNameByLogId(LogId);
-                         if (userName == "No User Found")
+                        ApprovelMaster approvalmasterObj = new ApprovelMaster();
+                        string userName = approvalmasterObj.GetUserNameByLogId(LogId);
+                        if (userName == "No User Found")
                         {
                             Response.Redirect(Const.HomePageURL);
                         }
-                        else 
+                        else
                         {
-                            FlyCnDAL.Security.UserAuthendication UA = new FlyCnDAL.Security.UserAuthendication(txtUsername.Value, txtPassword.Value);
+                            FlyCnDAL.Security.UserAuthendication UA = new FlyCnDAL.Security.UserAuthendication(userName, 1);
+                           
                             if (UA.ValidUser)
                             {
-                                Session.Add(Const.LoginSession, UA);                              
+                                Session.Add(Const.LoginSession, UA);
                                 lblError.Text = "";
+                            }
+                            else {
+                                Response.Redirect(Const.HomePageURL);
                             }
                         }
                     }
                     
                 else 
                 {
-
-                    Response.Redirect(Const.HomePageURL);
+               
+                   Response.Redirect(Const.HomePageURL);
                 }
 
               

@@ -41,7 +41,7 @@ namespace FlyCn.UIClasses
         {
             get
             {
-                return "~/Approvals.aspx";
+                return "Approvals.aspx";
             }
 
         }
