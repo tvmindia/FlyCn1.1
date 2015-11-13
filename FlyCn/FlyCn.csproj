@@ -514,6 +514,7 @@
     <Content Include="Templates\InputTemplateContent2.aspx" />
     <Content Include="test1.aspx" />
     <Content Include="UserControls\MasterPopup.ascx" />
+    <Content Include="UserControls\MasterPopupGridview.aspx" />
     <Content Include="UserControls\ToolBar.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
@@ -892,6 +893,13 @@
     </Compile>
     <Compile Include="UserControls\MasterPopup.ascx.designer.cs">
       <DependentUpon>MasterPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MasterPopupGridview.aspx.cs">
+      <DependentUpon>MasterPopupGridview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\MasterPopupGridview.aspx.designer.cs">
+      <DependentUpon>MasterPopupGridview.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ToolBar.ascx.cs">
       <DependentUpon>ToolBar.ascx</DependentUpon>
