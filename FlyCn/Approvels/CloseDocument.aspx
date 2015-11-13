@@ -597,12 +597,13 @@
         
 
     </div>
+             
        
       </div>
 
     </div>
              <asp:Label ID="lblerrordisplay" runat="server" Text=""  Font-Size="14px" CssClass="Error" style="margin-left:5px;" ></asp:Label>
-    
+    <asp:HiddenField ID="hiddenCloseFlag" runat="server"  ClientIDMode="Static"/>
         <table>
 
             <tr>

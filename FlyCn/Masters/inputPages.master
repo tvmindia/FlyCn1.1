@@ -105,9 +105,10 @@
                     height: 500,
                     buttons: {}, modal: true,
                     beforeClose: function (event, ui) {
-
-                        
-                        location.reload(true);
+                        var reload = windowCloseDocumentCallback();
+                        if (reload == true) {
+                            location.reload(true);
+                        }
                     },
 
                 });
@@ -117,7 +118,19 @@
                 alert(X.message);
             }
         } 
+        function windowCloseDocumentCallback()
+        {
+            var frame = document.getElementById('IframeContent');
+            var innerDoc = frame.contentDocument || frame.contentWindow.document;
+            var input = innerDoc.getElementById('hiddenCloseFlag');
 
+            if (input.value == 1) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
 
         function ChangeOwnershipWindow() {
            
@@ -178,6 +191,39 @@
             {
                 return false;
             }
+        }
+
+        function RevisionHistory()
+        {
+            alert(56);
+            var splitter = $find("<%= RadSplitter1.ClientID %>");
+            var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
+            var iframe = pane.getExtContentElement();
+            var contentWindow = iframe.contentWindow;
+            var hiddenDocumentStatus = contentWindow.document.getElementById('hiddenStatusValue');
+            var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
+            var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
+            var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
+            alert(56);
+            if ((hiddenFieldRevisionID.value != "") && (hiddenDocumentStatus.value == "4" || hiddenDocumentStatus.value == "0"||hiddenDocumentStatus.value == "1" ||hiddenDocumentStatus.value == "2" ||hiddenDocumentStatus.value == "3"||hiddenDocumentStatus.value == "5" ) && (hiddenFieldOwner.value == hiddenusername.value)) 
+
+            {
+                alert(56);
+              
+                var data = eval('<%=rtvLeftMenu.ClientID %>_Data');
+                alert(data);
+                if (!data)
+                {
+                    var selectedNodeID = data.selectedNodeID.value;
+                    alert(selectedNodeID);
+                }
+                alert(2);
+            <%--    var treeViewData = window["<%=rtvLeftMenu.ClientID%>" + "_Data"];--%>
+                alert(treeView.selectedNodeID.value);
+            var id=    document.getElementById('TreeViewClientID_SelectedNode').value;
+                alert(1);
+                alert(id);
+                }
         }
         function hideMe() {
             debugger;
@@ -413,8 +459,8 @@
         <iframe id="IframeReviseDocument" style="width: 2000px; height: inherit;"></iframe>
                  </div>     
     <asp:HiddenField ID="HiddenFieldDoctype" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="HiddenFieldOwner" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="HiddenFieldLogin" runat="server" ClientIDMode="Static" />
+     <asp:HiddenField ID="HiddenFieldOwner" runat="server" ClientIDMode="Static"/>
+        <asp:HiddenField ID="HiddenFieldLogin" runat="server" ClientIDMode="Static" />
 </asp:Content>
 
    

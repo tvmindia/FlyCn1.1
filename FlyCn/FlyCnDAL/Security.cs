@@ -275,7 +275,7 @@ namespace FlyCn.FlyCnDAL
 
         public DataTable GetUser()
         {
-            ErrorHandling eObj = new ErrorHandling();
+            ErrorHandling eObj = new ErrorHandling()   ;
             SqlConnection con = null;
             DataTable dt = null;
             try
@@ -347,13 +347,44 @@ namespace FlyCn.FlyCnDAL
             if (username == "gopika")
 
                 ReadOnly(pagecontrols);
-
+            if (username == "amrutha")
+                AddEditOnly(pagecontrols);
 
 
         }
 
         public void ReadOnly(ToolBar pagecontrols)
         {
+            DisableAllControls(pagecontrols);
+     
+
+        }
+        public void AddEditOnly(ToolBar pagecontrols)
+        {
+            DisableAllControls(pagecontrols);
+            pagecontrols.EditButton.Visible = true;
+            pagecontrols.AddButton.Visible = true; 
+            pagecontrols.SaveButton.Visible = true;
+            pagecontrols.Visible = true;
+                     
+        }
+        public void DisableAllControls(ToolBar pagecontrols)
+        {
+
+            pagecontrols.AddButton.Visible = false;
+            pagecontrols.EditButton.Visible = false;
+            pagecontrols.DeclineButton.Visible = false;
+            pagecontrols.DeleteButton.Visible = false;
+            pagecontrols.ApproveButton.Visible = false;
+            pagecontrols.RejectButton.Visible = false;
+            pagecontrols.SaveButton.Visible = false;
+
+            //foreach (Control c in pagecontrols.Controls)
+            //{
+
+            //    c.Visible = false;
+            //}
+
             //foreach (object o in pagecontrols)
             //{
             //    Control control = o as Control;
@@ -412,7 +443,6 @@ namespace FlyCn.FlyCnDAL
             //        {
             //            ((TreeView)c).Enabled = false;
             //        }
-
         }
     }
 }

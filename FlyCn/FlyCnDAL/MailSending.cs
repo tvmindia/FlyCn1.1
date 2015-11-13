@@ -311,7 +311,7 @@ namespace FlyCn.FlyCnDAL
                 Msg.To.Add(MailTo);
                 Msg.Subject = "Document Approval Completed" + _DocumentNo;
                 string body = "<div style='margin: 0; padding: 0; min-width: 100%!important;'>" +
-" <div style='margin: 0; padding: 0; min-width: 100%!important;  height:25px; background:lightseagreen;text-align:center;'>" + " <label style='color:white; vertical-align:central'>" + " Change Ownership</label></div>" +
+" <div style='margin: 0; padding: 0; min-width: 100%!important;  height:25px; background:lightseagreen;text-align:center;'>" + " <label style='color:white; vertical-align:central'>" + "Document approved</label></div>" +
  "    <div style='background-color:#f6f8f1; text-align:left; height:25px;'>" +
                                         "  <label " + "style='font:bold; font-size:15px;  color:#006666'" + "> Hi" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + MssgTo + "</label>" +
 
