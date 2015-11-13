@@ -105,9 +105,10 @@
                     height: 500,
                     buttons: {}, modal: true,
                     beforeClose: function (event, ui) {
-
-                        
-                        location.reload(true);
+                        var reload = windowCloseDocumentCallback();
+                        if (reload == true) {
+                            location.reload(true);
+                        }
                     },
 
                 });
@@ -117,7 +118,19 @@
                 alert(X.message);
             }
         } 
+        function windowCloseDocumentCallback()
+        {
+            var frame = document.getElementById('IframeContent');
+            var innerDoc = frame.contentDocument || frame.contentWindow.document;
+            var input = innerDoc.getElementById('hiddenCloseFlag');
 
+            if (input.value == 1) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
 
         function ChangeOwnershipWindow() {
            
