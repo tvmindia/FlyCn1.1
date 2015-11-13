@@ -260,7 +260,7 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion BindBOQHeader
         #region BindBOQ
-        public DataSet BindBOQ(Guid documentID, string projectno)
+        public DataSet BindBOQ(Guid RevisionID)
         {
             SqlConnection con = null;
             DataSet ds = null;
@@ -272,18 +272,17 @@ namespace FlyCn.FlyCnDAL
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetAllBOQDocumentHeaderByDocumentID]";
-                cmd.Parameters.Add("@documentID", SqlDbType.UniqueIdentifier).Value = documentID;
-                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 10).Value = projectno;
+                cmd.CommandText = "[GetAllBOQDocumentHeaderByRevisionID]";
+                cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = RevisionID;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
-                }
+            }
             catch (Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex,page);
+                eObj.ErrorData(ex, page);
                 throw ex;
             }
             finally
@@ -292,11 +291,12 @@ namespace FlyCn.FlyCnDAL
                 {
                     con.Close();
                 }
-                
+
             }
             return ds;
         }
- #endregion BindBOQ
+        #endregion BindBOQ
+      
 
         #region EditOwnershipName
         public int EditOwnershipName(Guid @docid,string @username)

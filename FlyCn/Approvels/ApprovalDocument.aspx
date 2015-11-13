@@ -245,7 +245,7 @@
                                   
                                     <div class="col-md-12">
                                         <!--Telerik Radlistbox-->
-                                        <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="50%" OnNeedDataSource="dtgApprovers_NeedDataSource">
+                                        <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" ItemStyle-HorizontalAlign="Center" AlternatingItemStyle-HorizontalAlign="Center"  AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="500px" OnNeedDataSource="dtgApprovers_NeedDataSource">
                                         <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left"/>
@@ -256,9 +256,9 @@
                                              <Columns>
                                                 <telerik:GridBoundColumn HeaderText="ApprovalID" DataField="ApprovalID" UniqueName="ApprovalID" Display="false"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="RevisionID" DataField="RevisionID" UniqueName="RevisionID" Display="false"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="VerifierLevel" DataField="VerifierLevel" ItemStyle-Width="30%" UniqueName="VerifierLevel"></telerik:GridBoundColumn>
-												<telerik:GridBoundColumn HeaderText="VerifierEmail" DataField="VerifierEmail" ItemStyle-Width="30%" UniqueName="VerifierEmail"></telerik:GridBoundColumn>
-												<telerik:GridBoundColumn HeaderText="StatusDescription" DataField="StatusDescription" ItemStyle-Width="30%" UniqueName="StatusDescription"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Level" DataField="VerifierLevel" ItemStyle-Width="50px" UniqueName="VerifierLevel"></telerik:GridBoundColumn>
+												<telerik:GridBoundColumn HeaderText="VerifierEmail" DataField="VerifierEmail" ItemStyle-Width="50px" UniqueName="VerifierEmail"></telerik:GridBoundColumn>
+												<telerik:GridBoundColumn HeaderText="StatusDescription" DataField="StatusDescription" ItemStyle-Width="50px" UniqueName="StatusDescription"></telerik:GridBoundColumn>
                                              </Columns>
                                         </MasterTableView>
                                         </telerik:RadGrid>

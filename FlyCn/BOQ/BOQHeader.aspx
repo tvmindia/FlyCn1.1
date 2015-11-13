@@ -48,7 +48,7 @@
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
                                        
                                         </ClientSettings>
-                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="DocumentID,ProjectNo">
+                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="DocumentID,ProjectNo,RevisionID">
                                             <Columns>
                                                 <telerik:GridTemplateColumn UniqueName="CheckBoxTemplateColumn">
                                                     <ItemTemplate>
@@ -64,6 +64,7 @@
 
                                                 <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo" Display="false"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="DocumentID" DataField="DocumentID" UniqueName="DocumentID" Display="false"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="RevisionID" DataField="RevisionID" UniqueName="RevisionID" Display="false"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Document No" DataField="DocumentNo" UniqueName="DocumentNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Title" DataField="DocumentTitle" UniqueName="DocumentTitle"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Client Doc No" DataField="ClientDocNo" UniqueName="ClientDocNo"></telerik:GridBoundColumn>
@@ -71,6 +72,7 @@
                                                 <telerik:GridBoundColumn HeaderText="Document Date" DataField="DocumentDate" UniqueName="DocumentDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Document Owner" DataField="DocumentOwner" UniqueName="DocumentOwner"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Created Date" DataField="CreatedDate" UniqueName="CreatedDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Revision Date" DataField="RevisionDate" UniqueName="RevisionDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Document Status" DataField="DocumentStatus" UniqueName="DocumentStatus"></telerik:GridBoundColumn>
                                             </Columns>
                                         </MasterTableView>
