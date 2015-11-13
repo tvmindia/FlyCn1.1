@@ -62,9 +62,9 @@ namespace FlyCn.EIL
 
                // ToolBar myControl = ((UserControl)this.FindControl("ToolBar")).FindControl("ToolBar") as ToolBar;
 
-                string name = UA.userName;
+                //string name = UA.userName;
 
-                sObj.LoginSecurityCheck(page, name, ToolBar);
+                //sObj.LoginSecurityCheck(page, name, ToolBar);
            }
                      
             SetTitle();

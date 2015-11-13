@@ -70,7 +70,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-     
+     <script src="../Scripts/ToolBar.js"></script>
     <title>Input</title>
   <%--  <!-----bootstrap css--->
     <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
@@ -104,10 +104,12 @@
             $("input:text").val('');
         }
         function EnableButtonsForNew() {
-            <%=ToolBar.ClientID %>_SetAddVisible(false);
+            <%-- <%=ToolBar.ClientID %>_SetAddVisible(false);
             <%=ToolBar.ClientID %>_SetSaveVisible(true);
             <%=ToolBar.ClientID %>_SetUpdateVisible(false);
-            <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+            <%=ToolBar.ClientID %>_SetDeleteVisible(false);--%>
+           // var toolbar= var toolBar = $find("<%= ToolBar.ClientID %>");
+            AddMode("<%= ToolBar.ClientID %>");
         }
         function SelectTabList() {
             var tabStrip = $find("<%= RadTabStrip1.ClientID %>");

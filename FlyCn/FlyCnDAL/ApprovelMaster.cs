@@ -572,5 +572,40 @@ using Messages = FlyCn.UIClasses.Messages;
         #endregion GetUserNameByLogId
 
 
+        public DataTable GetAllDocumentStatus()
+        {
+            SqlConnection con = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetApprovelStatus";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+            return dt;
+        }
     }
 }
