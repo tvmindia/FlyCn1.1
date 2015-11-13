@@ -335,9 +335,9 @@ namespace FlyCn.FlyCnDAL
    
         #endregion Documentmastermethods
 
-        #region BindMasters
+        #region GetRevisionIdByDocumentNo
         /// <summary>
-        /// bind Master Personnel data
+        /// Get Revision Number By DocumentNo
         /// </summary>
         /// <returns>return data table</returns>
         public DataTable GetRevisionIdByDocumentNo(string documentId)
@@ -358,6 +358,6 @@ namespace FlyCn.FlyCnDAL
             con.Close();
             return dt;
         }
-        #endregion BindMasters
+        #endregion  GetRevisionIdByDocumentNo
     }
 }
