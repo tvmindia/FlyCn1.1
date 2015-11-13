@@ -512,6 +512,7 @@
     <Content Include="Templates\InputTemplateContent1.aspx" />
     <Content Include="Templates\InputTemplateContent2.aspx" />
     <Content Include="test1.aspx" />
+    <Content Include="UserControls\MasterPopup.ascx" />
     <Content Include="UserControls\ToolBar.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
@@ -886,6 +887,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UIClasses\TabAddEditSettings.cs" />
+    <Compile Include="UserControls\MasterPopup.ascx.cs">
+      <DependentUpon>MasterPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MasterPopup.ascx.designer.cs">
+      <DependentUpon>MasterPopup.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ToolBar.ascx.cs">
       <DependentUpon>ToolBar.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
