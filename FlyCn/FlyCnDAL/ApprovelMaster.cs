@@ -318,6 +318,41 @@ using Messages = FlyCn.UIClasses.Messages;
 
         }
         #endregion UpdateApprovalMaster
+        #region GetAllPendingApprovalsByApprovalID
+        public DataSet GetAllPendingApprovalsByApprovalID(Guid approvalID)//new get for login bypass
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("[GetAllPendingApprovalsByApprovalID]", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@ApprovalID", SqlDbType.UniqueIdentifier).Value = approvalID;
+                SqlDataAdapter sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+
+                    con.Dispose();
+
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllPendingApprovalsByApprovalID
 
         #region GetAllPendingApprovalsByVerifierLevel
         public DataSet GetAllPendingApprovalsByVerifier(string paramverifierEmail)
