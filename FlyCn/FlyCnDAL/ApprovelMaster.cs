@@ -520,6 +520,58 @@ using Messages = FlyCn.UIClasses.Messages;
 
         #endregion GetDocHeaderDetails
 
+        #region GetApprovalLogId
+        public DataTable GetApprovalLogId(string approvalId)
+        {
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetApprovalLogId", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@approvalId",approvalId);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            datatableobj = new DataTable();
+            adapter.Fill(datatableobj);
+            con.Close();
+            return datatableobj;
+        }
+
+        #endregion GetApprovalLogId
+
+        #region GetUserNameByLogId
+        public string GetUserNameByLogId(string LogId)
+        {
+            string userName="";
+            int norows;
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetUserNameByLogId", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@LogId", LogId);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            datatableobj = new DataTable();
+            adapter.Fill(datatableobj);
+            norows = datatableobj.Rows.Count;
+            if (norows > 0)
+            {
+                userName = datatableobj.Rows[0]["UserName"].ToString();
+            }
+            else
+            {
+                userName = "No User Found";
+            }
+            con.Close();
+            return userName;
+        }
+
+        #endregion GetUserNameByLogId
+
+
         public DataTable GetAllDocumentStatus()
         {
             SqlConnection con = null;

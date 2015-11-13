@@ -616,6 +616,7 @@ namespace FlyCn.FlyCnDAL
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
+                throw ex;
             }
             finally
             {

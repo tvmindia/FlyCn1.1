@@ -36,13 +36,15 @@ namespace FlyCn.FlyCnDAL
 
         #region SendApprovalMail
 
-        public void SendApprovalMail(string DocumentType, string _DocumentNo, string MssgTo, string verifierMailIdName,string optionalLogId="1234567")
+        public void SendApprovalMail(string DocumentType, string _DocumentNo, string MssgTo, string verifierMailIdName, string approvalId)
         {
            
             try
             {
                 if (MssgTo == "")
                 {
+                  
+               
                     MailMessage Msg = new MailMessage();
                     // Sender e-mail address.
                     Msg.From = new MailAddress("info.thrithvam@gmail.com");
@@ -62,6 +64,11 @@ namespace FlyCn.FlyCnDAL
                 }
                 else
                 {
+                    ApprovelMaster approvalObj = new ApprovelMaster();
+                    DataTable dt = new DataTable();
+                    dt = approvalObj.GetApprovalLogId(approvalId);
+                    string logId = dt.Rows[0]["LogId"].ToString();
+
                     MailMessage Msg = new MailMessage();
                     // Sender e-mail address.
                     Msg.From = new MailAddress("info.thrithvam@gmail.com");
@@ -92,7 +99,7 @@ namespace FlyCn.FlyCnDAL
                        " </tr>"+
                         "<tr>"+
                             "<td style='height:50px;padding-left:190px'>"+
-                               "   <a href='http://localhost:40922/Approvels/Approvals.aspx'>"+"<button>"+"Click To Approve Document"+"</button>"+"</a>" +
+                               "   <a href='http://localhost:40922/Approvels/Approvals.aspx?logid=" + logId + "'>" + "<button>" + "Click To Approve Document" + "</button>" + "</a>" +
                                
                             "</td>"+
                         "</tr>"+
@@ -148,6 +155,7 @@ namespace FlyCn.FlyCnDAL
                 int verifierLevels = Convert.ToUInt16(VarifierdtLevelByRevisionid.Rows[0]["VerifierLevel"]);
                 if (Convert.ToUInt16(VarifierdtLevelByRevisionid.Rows[f]["VerifierLevel"]) == verifierLevels)
                 {
+                    string approvalId = VarifierdtLevelByRevisionid.Rows[f]["ApprovalID"].ToString();
                     string varifierId = VarifierdtLevelByRevisionid.Rows[f]["VerifierID"].ToString();
                     Varifierdetails = ApprovelMasterobj.GetVarifierEmailByIdTosentMail(verifierLevels, DocumentType, projectNo, varifierId);
                     string verifierMailId = Varifierdetails.Rows[0]["VerifierEmail"].ToString();
@@ -158,7 +166,7 @@ namespace FlyCn.FlyCnDAL
                     new Thread(delegate()
                     {
 
-                        MailSendingOperation(verifierLevels, varifierId, verifierMailIdName, DocumentType, DocumentNo);
+                        MailSendingOperation(verifierLevels, varifierId, verifierMailIdName, DocumentType, DocumentNo, approvalId);
                     }).Start();
                 }
 
@@ -171,7 +179,7 @@ namespace FlyCn.FlyCnDAL
         #endregion SendMailToNextLevelVarifiers
 
         #region MailSendingOperation
-        public void MailSendingOperation(int Level, string levelId, string verifierMailIdName, string documentType, string documentNo)
+        public void MailSendingOperation(int Level, string levelId, string verifierMailIdName, string documentType, string documentNo, string approvalId)
         {
             try
             {
@@ -179,11 +187,11 @@ namespace FlyCn.FlyCnDAL
                 FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
                 DataTable dtobj = new DataTable();
                 dtobj = ApprovelMasterobj.GetVarifierDetailsById(Level, levelId);
+                
                 MailSendingobj.MsgFrom = "";
                 MailSendingobj.MsgTo = dtobj.Rows[0]["VerifierEmail"].ToString();
                 MailSendingobj.Password = "";
-                MailSendingobj.SendApprovalMail(documentType, documentNo, MailSendingobj.MsgTo, verifierMailIdName);
-
+                MailSendingobj.SendApprovalMail(documentType, documentNo, MailSendingobj.MsgTo, verifierMailIdName, approvalId);
             }
             catch(Exception ex)
             {
