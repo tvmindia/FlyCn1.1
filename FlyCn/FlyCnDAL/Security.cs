@@ -148,6 +148,16 @@ namespace FlyCn.FlyCnDAL
                     isValidUser = false;
                 }
             }
+
+
+            public void UserAuthendicationSpecialAccess(String userName)
+            {
+                isValidUser = true;
+                userN = userName;
+                project = "C00001";
+                GetUserDetails();
+            }
+
             FlyCnDAL.DALConstants Constants = new FlyCnDAL.DALConstants();
             private Boolean isValidUser;
             private string userN;
