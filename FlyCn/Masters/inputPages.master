@@ -204,7 +204,7 @@
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
-            var DocumentNo = contentWindow.document.getElementById('txtDocumentno');
+            var DocumentNo = contentWindow.document.getElementById('hiddenDocumentNo');
          
             if ((hiddenFieldRevisionID.value != "") && (hiddenDocumentStatus.value == "4" || hiddenDocumentStatus.value == "0"||hiddenDocumentStatus.value == "1" ||hiddenDocumentStatus.value == "2" ||hiddenDocumentStatus.value == "3"||hiddenDocumentStatus.value == "5" ) && (hiddenFieldOwner.value == hiddenusername.value)) 
 
@@ -264,7 +264,7 @@
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
             var DocumentID = contentWindow.document.getElementById("hiddenFieldDocumentID")
             var DocumentType = contentWindow.document.getElementById('hiddenFieldDocumentType');
-            var DocumentNo = contentWindow.document.getElementById('txtDocumentno');
+            var DocumentNo = contentWindow.document.getElementById('hiddenDocumentNo');
             debugger;
 
             document.getElementById('HiddenFieldDoctype').value = DocumentType.value;
@@ -292,7 +292,7 @@
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
             var hiddendocumentid = contentWindow.document.getElementById('hiddenFieldDocumentID');
-            var DocumentNo = contentWindow.document.getElementById('txtDocumentno');
+            var DocumentNo = contentWindow.document.getElementById('hiddenDocumentNo');
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             if (hiddenFieldOwner.value != hiddenusername.value) {
                 debugger;
@@ -329,7 +329,7 @@
 
      var DocumentID = contentWindow.document.getElementById("hiddenFieldDocumentID")
      var DocumentType = contentWindow.document.getElementById('hiddenFieldDocumentType');
-     var DocumentNo = contentWindow.document.getElementById('txtDocumentno');
+     var DocumentNo = contentWindow.document.getElementById('hiddenDocumentNo');
      var RevisionNumber = contentWindow.document.getElementById('hiddenRevisionNumber');
      var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
      var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');

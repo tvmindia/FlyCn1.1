@@ -117,6 +117,11 @@ namespace FlyCn.BOQ
                     GridDataItem item = e.Item as GridDataItem;
                     tab.Selected = true;
                     tab.Text = "Edit";
+                    string DocumentNo = hiddenDocumentNo.Value;
+                    DataTable docdtObj=new DataTable();
+                    FlyCn.FlyCnDAL.DocumentMaster docObj = new DocumentMaster();
+                    docdtObj=  docObj.GetRevisionIdByDocumentNo(DocumentNo);
+
                     RadMultiPage1.SelectedIndex = 1;
                     string revisionid=item.GetDataKeyValue("RevisionID").ToString();
                     BOQPopulate(revisionid);
@@ -365,6 +370,7 @@ namespace FlyCn.BOQ
                 hiddenDocumentOwner.Value = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
                 //hiddenfield
                 txtDocumentno.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
+                hiddenDocumentNo.Value = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
                 txtClientdocumentno.Text = ds.Tables[0].Rows[0]["ClientDocNo"].ToString();
                 txtRevisionno.Text = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
                 hiddenRevisionNumber.Value = ds.Tables[0].Rows[0]["RevisionNo"].ToString();

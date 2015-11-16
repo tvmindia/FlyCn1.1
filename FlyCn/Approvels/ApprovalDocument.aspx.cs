@@ -93,13 +93,20 @@ namespace FlyCn.Approvels
             {
                 if(e.CommandName=="Action")
                 {
+                    //call ifrma approval screen
+                    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                    GridDataItem item = e.Item as GridDataItem;
+                    tab.Selected = true;
+                    tab.Text = "Approval";
+                    RadMultiPage1.SelectedIndex = 1;
+                    //changing tab 
                     ActionItemCommand(e);
                     
                 }
                 if(e.CommandName=="Details")
                 {
 
-
+                
                 }
             }
             catch(Exception ex)
@@ -115,13 +122,8 @@ namespace FlyCn.Approvels
         #region ActionItemCommand
         public void ActionItemCommand(GridCommandEventArgs e)
         {
-            //call ifrma approval screen
-            RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+           
             GridDataItem item = e.Item as GridDataItem;
-            tab.Selected = true;
-            tab.Text = "Approval";
-            RadMultiPage1.SelectedIndex = 1;
-            //changing tab 
             hiddenFieldDocOwner.Value = item.GetDataKeyValue("DocumentOwner").ToString();
             hiddenFiedldProjectno.Value = item.GetDataKeyValue("ProjectNo").ToString();
             hiddenFieldApprovalID.Value = item.GetDataKeyValue("ApprovalID").ToString();
@@ -354,5 +356,50 @@ namespace FlyCn.Approvels
             ToolBarApprovalDoc.RejectButton.Visible = true;
         }
         #endregion ToolBarVisibility
+
+        #region GetAllPendingApprovalsByApprovalID
+        public void PendingApprovalGridBindByApprovalID(string approvalID)//approval detail bind during login bypass from mail
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                approvelMaster = new ApprovelMaster();
+                Guid ApprovalID;
+                Guid.TryParse(approvalID, out ApprovalID);
+                if (ApprovalID != Guid.Empty)
+                {
+                    ds = approvelMaster.GetAllPendingApprovalsByApprovalID(ApprovalID);
+                }
+                 if((ds != null)||(ds.Tables.Count>0))
+                {
+                    hiddenFieldDocOwner.Value = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
+                    hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                    hiddenFieldApprovalID.Value = ds.Tables[0].Rows[0]["ApprovalID"].ToString();
+                    hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
+                    hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+                    hiddenFieldDocumentType.Value = ds.Tables[0].Rows[0]["DocumentType"].ToString();
+                    hiddenFieldDocumentNo.Value = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
+                    lblDocumentNo.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
+                    lblCreatedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocCreatedDate"]);
+                    lblProjectno.Text = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                    lblDocumentType.Text = ds.Tables[0].Rows[0]["DocumentType"].ToString();
+                    lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocumentDate"]);
+                    lblDocOwner.Text = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
+                    lblCreatedBy.Text = ds.Tables[0].Rows[0]["DocCreatedBy"].ToString();
+                    lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["CreatedDate"]);
+                }
+
+            }
+            catch(Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+
+        }
+        #endregion GetAllPendingApprovalsByApprovalID
+
     }
 }
+
