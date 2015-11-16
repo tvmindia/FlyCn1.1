@@ -284,7 +284,8 @@
             var DocumentID = contentWindow.document.getElementById("hiddenFieldDocumentID")
             var DocumentType = contentWindow.document.getElementById('hiddenFieldDocumentType');
             var DocumentNo = contentWindow.document.getElementById('hiddenDocumentNo');
-            debugger;
+            var hiddendocumentDate = contentWindow.document.getElementById('hiddendocumentDate').value;
+            alert(hiddendocumentDate);
 
             document.getElementById('HiddenFieldDoctype').value = DocumentType.value;
             var hiddenDocumentStatus = contentWindow.document.getElementById('hiddenStatusValue');
@@ -293,7 +294,7 @@
             //alert(hdn.value);
             if (hiddenFieldRevisionID.value != "" && hiddenDocumentStatus.value == "0" && (hiddenFieldOwner.value == hiddenusername.value)) {
                 debugger;
-                document.getElementById('IframeContent').src = "../Approvels/CloseDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value + '&DocumentNo=' + DocumentNo.value + '&hiddenFieldOwner=' + hiddenFieldOwner.value;
+                document.getElementById('IframeContent').src = "../Approvels/CloseDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value + '&DocumentNo=' + DocumentNo.value + '&hiddenFieldOwner=' + hiddenFieldOwner.value + '&hiddendocumentDate=' + hiddendocumentDate;
              
                 CloseDocumentWindow();
             }

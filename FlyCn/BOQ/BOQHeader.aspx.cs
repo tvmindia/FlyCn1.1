@@ -383,6 +383,7 @@ namespace FlyCn.BOQ
                 hiddenRevisionNumber.Value = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
                 //RadDocumentDate.SelectedDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["DocumentDate"].ToString());
                 txtdatepicker.Value = Convert.ToString(ds.Tables[0].Rows[0]["DocumentDate"]);
+                hiddendocumentDate.Value =Convert.ToString(ds.Tables[0].Rows[0]["DocumentDate"]).ToString();
                 txtDocumenttitle.Text = ds.Tables[0].Rows[0]["DocumentTitle"].ToString();
                 txtRemarks.Text = ds.Tables[0].Rows[0]["Remarks"].ToString();
                 if ((ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Closed) || (ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Approved))
