@@ -120,11 +120,18 @@ namespace FlyCn.BOQ
                     string DocumentNo = hiddenDocumentNo.Value;
                     DataTable docdtObj=new DataTable();
                     FlyCn.FlyCnDAL.DocumentMaster docObj = new DocumentMaster();
-                    docdtObj=  docObj.GetRevisionIdByDocumentNo(DocumentNo);
+                  //  docdtObj=  docObj.GetRevisionIdByDocumentNo(DocumentNo);
 
                     RadMultiPage1.SelectedIndex = 1;
-                    string revisionid=item.GetDataKeyValue("RevisionID").ToString();
+                  
+                        string revisionid = item.GetDataKeyValue("RevisionID").ToString();
                     BOQPopulate(revisionid);
+                    
+                       
+                       
+                   
+                        //BOQPopulate(revisionid);
+                    
                 }
             }
             catch (Exception ex)
@@ -376,6 +383,7 @@ namespace FlyCn.BOQ
                 hiddenRevisionNumber.Value = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
                 //RadDocumentDate.SelectedDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["DocumentDate"].ToString());
                 txtdatepicker.Value = Convert.ToString(ds.Tables[0].Rows[0]["DocumentDate"]);
+                hiddendocumentDate.Value =Convert.ToString(ds.Tables[0].Rows[0]["DocumentDate"]).ToString();
                 txtDocumenttitle.Text = ds.Tables[0].Rows[0]["DocumentTitle"].ToString();
                 txtRemarks.Text = ds.Tables[0].Rows[0]["Remarks"].ToString();
                 if ((ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Closed) || (ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Approved))
@@ -411,6 +419,22 @@ namespace FlyCn.BOQ
                 }
                 lblDocumentStatus.Text = ds.Tables[0].Rows[0]["DocumentStatus"].ToString();
                 hiddenStatusValue.Value = ds.Tables[0].Rows[0]["LatestStatus"].ToString();
+                DataTable docdtObj = new DataTable();
+                DataTable docNoObj = new DataTable();
+                FlyCn.FlyCnDAL.DocumentMaster docObj = new DocumentMaster();
+
+                docNoObj = docObj.GetDocumentIdByNo(hiddenDocumentNo.Value);
+                String DocumentId = docNoObj.Rows[0]["DocumentID"].ToString();
+                docdtObj = docObj.GetRevisionIdByDocumentNo(DocumentId);
+                string FieldValueLevel1 = "";
+                int totalrows = docdtObj.Rows.Count;
+                for (int j = 0; j < totalrows; j++)
+                {
+                    FieldValueLevel1 = FieldValueLevel1 + docdtObj.Rows[j]["RevisionID"] + ",";
+                }
+               string revisionIds= FieldValueLevel1;
+               HiddenRevisionIdCollection.Value = revisionIds.TrimEnd(',');
+                string revisionid = docdtObj.Rows[0]["ProjectNo"].ToString();
                 Guid Revisionid;
                 Guid.TryParse(hiddenFieldRevisionID.Value, out Revisionid);
                 //BOQDetail Display accordion
