@@ -32,6 +32,12 @@ namespace FlyCn.FlyCnDAL
             set;
         }
 
+        public string Owner
+        {
+            get;
+            set;
+        }
+
         #endregion GeneralProperties
 
         #region Methods
@@ -45,8 +51,8 @@ namespace FlyCn.FlyCnDAL
             {
                 if (MssgTo == "")
                 {
-                  
-               
+                    
+                    
                     MailMessage Msg = new MailMessage();
                     // Sender e-mail address.
                     Msg.From = new MailAddress("info.thrithvam@gmail.com");
@@ -70,6 +76,8 @@ namespace FlyCn.FlyCnDAL
                     DataTable dt = new DataTable();
                     dt = approvalObj.GetApprovalLogId(approvalId);
                     string logId = dt.Rows[0]["LogId"].ToString();
+                    Guid logid = new Guid(logId);
+                    string userName = approvalObj.GetUserNameByLogId(logId);
                     string localhost = WebConfigurationManager.AppSettings["server name"];
                     MailMessage Msg = new MailMessage();
                     // Sender e-mail address.
@@ -77,9 +85,7 @@ namespace FlyCn.FlyCnDAL
                     // Recipient e-mail address.
                     Msg.To.Add(MssgTo);
                     string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/ApprovalMailTemplate.html");
-                    //HttpContext.Current.Server.MapPath("/Templates/ApprovalMailTemplate.html");
-                   // fileName = Path.GetFullPath(fileName);
-                  //  string directoryname = System.IO.Path.GetDirectoryName(fileName);
+                   
                     string body=fileName;
                     string owner = "Anija";
                     string date = "29-01-2015";
@@ -89,9 +95,7 @@ namespace FlyCn.FlyCnDAL
                         System.IO.StreamReader objReader;
                         objReader = new System.IO.StreamReader(fileName);
 
-                     //  X.Replace("$USERNAME$",verifierMailIdName);
-                      //       Msg.Subject = "Document  For  Approval" + "" + _DocumentNo;
-
+                  
                         body = objReader.ReadToEnd();
                         body=body.Replace("$USERNAME$", verifierMailIdName);
                         body=body.Replace("$DOCTYPE$",DocumentType);
@@ -102,45 +106,6 @@ namespace FlyCn.FlyCnDAL
 
                     }
                    Msg.Subject = "Document  For  Approval" + "" + _DocumentNo;
-                  
-//                     body= "<div style='margin: 0; padding: 0; min-width: 100%!important;'>"+
-//   " <div style='margin: 0; padding: 0; min-width: 100%!important;  height:25px; background:lightseagreen;text-align:center;'>" + " <label style='color:white; vertical-align:central'>" + " Document For Approvel</label></div>" +
-//     "    <div style='background-color:#f6f8f1; text-align:left; height:25px;'>" +
-//                                            "  <label "+"style='font:bold; font-size:15px;  color:#006666'"+"> Hi"+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +verifierMailIdName+"</label>"+
-
-//        "</div>"+
-//   " <table width=100% bgcolor=#f6f8f1 border=0" +"cellpadding=0"+" cellspacing="+"0>"+
-//            "<tr>"+
-//                "<td>"+
-//                    "<table class="+"content"+" align=center  cellpadding=0 cellspacing=0 border=0>"+
-//                        "<tr>"+
-//                            "<td>"+
-                               
-//                           " </td>"+
-
-//                        "</tr>"+
-                      
-//                        "<tr>"+
-//                            "<td style='height:50px'>"+
-//                            "" + DocumentType + "  document-" + "&nbsp;&nbsp;" + "" + _DocumentNo + "&nbsp;&nbsp;&nbsp;" + "is closed for approval ." +"&nbsp;&nbsp;&nbsp;" +"Click the below button to approve the document."+
-//                            "</td>"+
-//                       " </tr>"+
-//                        "<tr>"+
-//                            "<td style='height:50px;padding-left:190px'>"+
-//                               "   <a href='http://"+localhost+"/Approvels/Approvals.aspx?logid=" + logId + "'>" + "<button>" + "Click To Approve Document" + "</button>" + "</a>" +
-                               
-//                            "</td>"+
-//                        "</tr>"+
-//                    "</table>"+
-//                "</td>"+
-//           " </tr>" +
-//           "   <tr>"+
-//                "<td style='font-size:10px; color:#2F4F4F;'>" +
-//                    "This is an automatically generated email – please do not reply to it. If you have any queries please email to <a href="+"'mailto:info.thrithvam@gmail.com'"+"> amrutha@thrithvam.com</a>"+
-//                "</td>"+
-//           " </tr>"+
-//       " </table> "+ 
-//" </div>";
    
                     Msg.Body =body;
       
@@ -263,51 +228,36 @@ namespace FlyCn.FlyCnDAL
                
                 
                     Users userobj = new Users(MssgTo);
-
+                    ApprovelMaster approvalObj = new ApprovelMaster();
+                    DataTable dt = new DataTable();
+                    string logId = dt.Rows[0]["LogId"].ToString();
+                    Guid logid = new Guid(logId);
+                    username = approvalObj.GetUserNameByLogId(logId);
                     string MailTo = userobj.UserEMail;
                     MailMessage Msg = new MailMessage() ;
                     // Sender e-mail address.
                     Msg.From = new MailAddress("info.thrithvam@gmail.com");
                     // Recipient e-mail address.
                     Msg.To.Add(MailTo);
+                    string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/OwnershipChangeTemplate.html");
+                    string body = fileName;
+                    string owner = "Anija";
+                    string date = "29-01-2015";
+                    
+                    if (System.IO.File.Exists(fileName) == true)
+                    {
+                        System.IO.StreamReader objReader;
+                        objReader = new System.IO.StreamReader(fileName);
+
+                        body = objReader.ReadToEnd();
+                        body = 
+                        body = body.Replace("$DOCUMENTNUMBER$",_DocumentNo);
+                        body = body.Replace("$USERNAME$",username);
+                        body = body.Replace("$DOCUMENTOWNER$",owner);
+                        body = body.Replace("$DOCDATE$",date);
+                       
+                    }
                     Msg.Subject = "Ownership Change" + _DocumentNo ;
-                    string body = "<div style='margin: 0; padding: 0; min-width: 100%!important;'>" +
-   " <div style='margin: 0; padding: 0; min-width: 100%!important;  height:25px; background:lightseagreen;text-align:center;'>" + " <label style='color:white; vertical-align:central'>" + " Change Ownership</label></div>" +
-     "    <div style='background-color:#f6f8f1; text-align:left; height:25px;'>" +
-                                            "  <label " + "style='font:bold; font-size:15px;  color:#006666'" + "> Hi" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + MssgTo + "</label>" +
-
-        "</div>" +
-   " <table width=100% bgcolor=#f6f8f1 border=0" + "cellpadding=0" + " cellspacing=" + "0>" +
-            "<tr>" +
-                "<td>" +
-                    "<table class=" + "content" + " align=center  cellpadding=0 cellspacing=0 border=0>" +
-                        "<tr>" +
-                            "<td>" +
-
-                           " </td>" +
-
-                        "</tr>" +
-
-                        "<tr>" +
-                            "<td style='height:50px'>" +"Ownership for the document" +
-                            "  Document Number" + "&nbsp;&nbsp;" + "" + _DocumentNo + "&nbsp;&nbsp;&nbsp;" + "has been changed to " + username + "&nbsp;&nbsp;&nbsp;" +
-                            "</td>" +
-                       " </tr>" +
-                        "<tr>" +
-                            "<td style='height:50px;padding-left:190px'>" +
-                               
-                            "</td>" +
-                        "</tr>" +
-                    "</table>" +
-                "</td>" +
-           " </tr>" +
-           "   <tr>" +
-                "<td style='font-size:10px; color:#2F4F4F;'>" +
-                    "This is an automatically generated email – please do not reply to it. If you have any queries please email to <a href=" + "'mailto:info.thrithvam@gmail.com'" + "> amrutha@thrithvam.com</a>" +
-                "</td>" +
-           " </tr>" +
-       " </table> " +
-" </div>";
 
                     Msg.Body = body;
 
@@ -345,44 +295,23 @@ namespace FlyCn.FlyCnDAL
                 Msg.From = new MailAddress("info.thrithvam@gmail.com");
                 // Recipient e-mail address.
                 Msg.To.Add(MailTo);
+                string date = "29-01-2015";
+                string ApprovalDate = "20-09-2015";
+                string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/DocumentApprovalCompleteTemplate.html");
+                string body = fileName;
+                if (System.IO.File.Exists(fileName) == true)
+                {
+                    System.IO.StreamReader objReader;
+                    objReader = new System.IO.StreamReader(fileName);
+
+                    body = objReader.ReadToEnd();
+                    body = body.Replace("$USERNAME$", username);
+                    body = body.Replace("$DOCUMENTNUMBER$", _DocumentNo);
+                    body = body.Replace("$DOCDATE$", date);
+                    body = body.Replace("$APPROVALDATE$", ApprovalDate);
+                   
+                }
                 Msg.Subject = "Document Approval Completed" + _DocumentNo;
-                string body = "<div style='margin: 0; padding: 0; min-width: 100%!important;'>" +
-" <div style='margin: 0; padding: 0; min-width: 100%!important;  height:25px; background:lightseagreen;text-align:center;'>" + " <label style='color:white; vertical-align:central'>" + "Document approved</label></div>" +
- "    <div style='background-color:#f6f8f1; text-align:left; height:25px;'>" +
-                                        "  <label " + "style='font:bold; font-size:15px;  color:#006666'" + "> Hi" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + MssgTo + "</label>" +
-
-    "</div>" +
-" <table width=100% bgcolor=#f6f8f1 border=0" + "cellpadding=0" + " cellspacing=" + "0>" +
-        "<tr>" +
-            "<td>" +
-                "<table class=" + "content" + " align=center  cellpadding=0 cellspacing=0 border=0>" +
-                    "<tr>" +
-                        "<td>" +
-
-                       " </td>" +
-
-                    "</tr>" +
-
-                    "<tr>" +
-                        "<td style='height:50px'>" +
-                        " Approval for the document" + "&nbsp;&nbsp;" + "" + _DocumentNo + "&nbsp;&nbsp;&nbsp;" + "is completed " +  "&nbsp;&nbsp;&nbsp;" +
-                        "</td>" +
-                   " </tr>" +
-                    "<tr>" +
-                        "<td style='height:50px;padding-left:190px'>" +
-
-                        "</td>" +
-                    "</tr>" +
-                "</table>" +
-            "</td>" +
-       " </tr>" +
-       "   <tr>" +
-            "<td style='font-size:10px; color:#2F4F4F;'>" +
-                "This is an automatically generated email – please do not reply to it. If you have any queries please email to <a href=" + "'mailto:info.thrithvam@gmail.com'" + "> amrutha@thrithvam.com</a>" +
-            "</td>" +
-       " </tr>" +
-   " </table> " +
-" </div>";
 
                 Msg.Body = body;
 
