@@ -11,3 +11,9 @@ var messageType = {
     Success: "SUCCESS",
     Error:"ERROR"
 }
+var approvalStatus = {
+    Draft: "0",
+    Closed: "1",
+    Approved: "4",
+
+}

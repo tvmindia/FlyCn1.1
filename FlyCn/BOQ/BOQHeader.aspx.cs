@@ -117,14 +117,16 @@ namespace FlyCn.BOQ
                     GridDataItem item = e.Item as GridDataItem;
                     tab.Selected = true;
                     tab.Text = "Edit";
-                    string DocumentNo = hiddenDocumentNo.Value;
-                    DataTable docdtObj=new DataTable();
-                    FlyCn.FlyCnDAL.DocumentMaster docObj = new DocumentMaster();
-                    docdtObj=  docObj.GetRevisionIdByDocumentNo(DocumentNo);
-
                     RadMultiPage1.SelectedIndex = 1;
-                    string revisionid=item.GetDataKeyValue("RevisionID").ToString();
-                    BOQPopulate(revisionid);
+                  
+                        string revisionid = item.GetDataKeyValue("RevisionID").ToString();
+                        BOQPopulate(revisionid);
+                    
+                       
+                       
+                   
+                        //BOQPopulate(revisionid);
+                    
                 }
             }
             catch (Exception ex)
@@ -411,6 +413,22 @@ namespace FlyCn.BOQ
                 }
                 lblDocumentStatus.Text = ds.Tables[0].Rows[0]["DocumentStatus"].ToString();
                 hiddenStatusValue.Value = ds.Tables[0].Rows[0]["LatestStatus"].ToString();
+                DataTable docdtObj = new DataTable();
+                DataTable docNoObj = new DataTable();
+                FlyCn.FlyCnDAL.DocumentMaster docObj = new DocumentMaster();
+
+                docNoObj = docObj.GetDocumentIdByNo(hiddenDocumentNo.Value);
+                String DocumentId = docNoObj.Rows[0]["DocumentID"].ToString();
+                docdtObj = docObj.GetRevisionIdByDocumentNo(DocumentId);
+                string FieldValueLevel1 = "";
+                int totalrows = docdtObj.Rows.Count;
+                for (int j = 0; j < totalrows; j++)
+                {
+                    FieldValueLevel1 = FieldValueLevel1 + docdtObj.Rows[j]["RevisionID"] + ",";
+                }
+               string revisionIds= FieldValueLevel1;
+               HiddenRevisionIdCollection.Value = revisionIds.TrimEnd(',');
+                string revisionid = docdtObj.Rows[0]["ProjectNo"].ToString();
                 Guid Revisionid;
                 Guid.TryParse(hiddenFieldRevisionID.Value, out Revisionid);
                 //BOQDetail Display accordion

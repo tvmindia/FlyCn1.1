@@ -104,6 +104,7 @@
                                                  <asp:HiddenField ID="hiddenRevisionNumber" runat="server" ClientIDMode="Static" />
                                                  <asp:HiddenField ID="hiddenStatusValue" runat="server" ClientIDMode="Static" />
                                                   <asp:HiddenField ID="hiddenDocumentNo" runat="server" ClientIDMode="Static" />
+                                                    <asp:HiddenField ID="HiddenRevisionIdCollection" runat="server" ClientIDMode="Static" />
                                             </div>
                                         </div>
 
