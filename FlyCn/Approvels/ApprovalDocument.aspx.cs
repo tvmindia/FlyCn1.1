@@ -216,18 +216,32 @@ namespace FlyCn.Approvels
             if (e.Item.Value == "Approve")
             {
                 Approve();
+                TabChange();//to change radtab
             }
             if (e.Item.Value == "Decline")
             {
                 Decline();
+                TabChange();
             }
             if (e.Item.Value == "Reject")
             {
                // Reject();
+                TabChange();
             }
          
         }
         #endregion ToolBar_onClick
+        #region TabChange
+        //changing tab to pending tab after action
+        public void TabChange()
+        {
+            RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+            tab.Selected = true;
+            tab.Text = "Pending";
+            RadMultiPage1.SelectedIndex = 0;
+        }
+
+        #endregion TabChange
 
         #region Reject_method
         public void Reject()

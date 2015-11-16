@@ -366,17 +366,12 @@
         {
             var valbool=validateText();
             args.set_cancel(!valbool);
-            if (valbool)
-            {
-                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                var tab = tabStrip.findTabByValue("1");
-                tab.select();
-            }
+         
         }
         if (btn.get_value() == 'Decline')
         {
             alert("Decline function is temporarily disabled!");
-            args.set_cancel(true);
+            args.set_cancel(false);
         }
 
         if (btn.get_value() == 'Reject')
