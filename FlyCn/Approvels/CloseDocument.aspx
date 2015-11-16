@@ -57,7 +57,7 @@
         function getOptionsLevel1() {
 
             var hiddenvalue = document.getElementById('<%=hdfSelectBox1.ClientID %>').value;
-            debugger;
+            debugger;   
             if (hiddenvalue != "") {
 
 
