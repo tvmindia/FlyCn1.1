@@ -230,9 +230,9 @@ namespace FlyCn.FlyCnDAL
                     Users userobj = new Users(MssgTo);
                     ApprovelMaster approvalObj = new ApprovelMaster();
                     DataTable dt = new DataTable();
-                    string logId = dt.Rows[0]["LogId"].ToString();
-                    Guid logid = new Guid(logId);
-                    username = approvalObj.GetUserNameByLogId(logId);
+                    //string logId = dt.Rows[0]["LogId"].ToString();
+                    //Guid logid = new Guid(logId);
+                    //username = approvalObj.GetUserNameByLogId(logId);
                     string MailTo = userobj.UserEMail;
                     MailMessage Msg = new MailMessage() ;
                     // Sender e-mail address.
