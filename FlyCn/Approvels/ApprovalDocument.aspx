@@ -376,13 +376,13 @@
         if (btn.get_value() == 'Decline')
         {
             alert("Decline function is temporarily disabled!");
-            args.set_cancel(false);
+            args.set_cancel(true);
         }
 
         if (btn.get_value() == 'Reject')
         {
             alert("Reject function is temporarily disabled!");
-            args.set_cancel(false);
+            args.set_cancel(true);
         }
     }
 
