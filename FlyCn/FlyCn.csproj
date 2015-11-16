@@ -357,6 +357,7 @@
     <Content Include="Scripts\jquery.1.9.1.min.js" />
     <Content Include="Scripts\Messages.js" />
     <Content Include="Scripts\ToolBar.js" />
+    <Content Include="Templates\ApprovalMailTemplate.html" />
     <Content Include="Templates\htmlTemplate.html" />
     <Content Include="Content\themes\FlyCnBlue\css\selectize.css" />
     <Content Include="Content\themes\FlyCnBlue\css\style.css" />
