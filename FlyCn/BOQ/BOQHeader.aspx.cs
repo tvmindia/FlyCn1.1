@@ -120,7 +120,7 @@ namespace FlyCn.BOQ
                     string DocumentNo = hiddenDocumentNo.Value;
                     DataTable docdtObj=new DataTable();
                     FlyCn.FlyCnDAL.DocumentMaster docObj = new DocumentMaster();
-                    docdtObj=  docObj.GetRevisionIdByDocumentNo(DocumentNo);
+                  //  docdtObj=  docObj.GetRevisionIdByDocumentNo(DocumentNo);
 
                     RadMultiPage1.SelectedIndex = 1;
                     string revisionid=item.GetDataKeyValue("RevisionID").ToString();
