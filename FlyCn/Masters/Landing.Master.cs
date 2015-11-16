@@ -45,6 +45,7 @@ namespace FlyCn.Masters
                             {
                                 Session.Add(Const.LoginSession, UA);
                                 lblError.Text = "";
+                                setLogoutAndUserName(UA);
                             }
                             else {
                                 Response.Redirect(Const.HomePageURL);
@@ -62,13 +63,17 @@ namespace FlyCn.Masters
             }
             else {
                 FlyCnDAL.Security.UserAuthendication UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
-                lblUser.Text = UA.userName;
-                lnkLoginLogout.Text = "Logout";
-                imgMenu.Visible = true;
+                setLogoutAndUserName(UA);
             }
 
         }
 
+        public void setLogoutAndUserName(FlyCnDAL.Security.UserAuthendication UA)
+        {
+            lblUser.Text = UA.userName;
+            lnkLoginLogout.Text = "Logout";
+            imgMenu.Visible = true;
+        }
 
         public string GetCurrentPageName()
         {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Threading;
 using System.Web;
+using System.Web.Configuration;
  
 namespace FlyCn.FlyCnDAL
 {
@@ -68,7 +69,7 @@ namespace FlyCn.FlyCnDAL
                     DataTable dt = new DataTable();
                     dt = approvalObj.GetApprovalLogId(approvalId);
                     string logId = dt.Rows[0]["LogId"].ToString();
-
+                    string localhost = WebConfigurationManager.AppSettings["server name"];
                     MailMessage Msg = new MailMessage();
                     // Sender e-mail address.
                     Msg.From = new MailAddress("info.thrithvam@gmail.com");
@@ -99,7 +100,7 @@ namespace FlyCn.FlyCnDAL
                        " </tr>"+
                         "<tr>"+
                             "<td style='height:50px;padding-left:190px'>"+
-                               "   <a href='http://localhost:40922/Approvels/Approvals.aspx?logid=" + logId + "'>" + "<button>" + "Click To Approve Document" + "</button>" + "</a>" +
+                               "   <a href='http://"+localhost+"/Approvels/Approvals.aspx?logid=" + logId + "'>" + "<button>" + "Click To Approve Document" + "</button>" + "</a>" +
                                
                             "</td>"+
                         "</tr>"+
