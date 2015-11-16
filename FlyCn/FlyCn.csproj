@@ -382,6 +382,7 @@
     <Content Include="Scripts\Messages.js" />
     <Content Include="Scripts\ToolBar.js" />
     <Content Include="Templates\ApprovalMailTemplate.html" />
+    <Content Include="Templates\DocumentApprovalCompleteTemplate.html" />
     <Content Include="Templates\htmlTemplate.html" />
     <Content Include="Content\themes\FlyCnBlue\css\selectize.css" />
     <Content Include="Content\themes\FlyCnBlue\css\style.css" />
@@ -538,6 +539,7 @@
     <Content Include="Templates\InputTemplateContent.aspx" />
     <Content Include="Templates\InputTemplateContent1.aspx" />
     <Content Include="Templates\InputTemplateContent2.aspx" />
+    <Content Include="Templates\OwnershipChangeTemplate.html" />
     <Content Include="test1.aspx" />
     <Content Include="UserControls\MasterPopup.ascx" />
     <Content Include="UserControls\MasterPopupGridview.aspx" />
