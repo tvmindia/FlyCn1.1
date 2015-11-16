@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Threading;
 using System.Web;
 using System.Web.Configuration;
+using System.IO;
  
 namespace FlyCn.FlyCnDAL
 {
@@ -75,45 +76,71 @@ namespace FlyCn.FlyCnDAL
                     Msg.From = new MailAddress("info.thrithvam@gmail.com");
                     // Recipient e-mail address.
                     Msg.To.Add(MssgTo);
-                    Msg.Subject = "Document  For  Approval" + "" + _DocumentNo;
-                    string body= "<div style='margin: 0; padding: 0; min-width: 100%!important;'>"+
-   " <div style='margin: 0; padding: 0; min-width: 100%!important;  height:25px; background:lightseagreen;text-align:center;'>" + " <label style='color:white; vertical-align:central'>" + " Document For Approvel</label></div>" +
-     "    <div style='background-color:#f6f8f1; text-align:left; height:25px;'>" +
-                                            "  <label "+"style='font:bold; font-size:15px;  color:#006666'"+"> Hi"+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +verifierMailIdName+"</label>"+
+                    string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/ApprovalMailTemplate.html");
+                    //HttpContext.Current.Server.MapPath("/Templates/ApprovalMailTemplate.html");
+                   // fileName = Path.GetFullPath(fileName);
+                  //  string directoryname = System.IO.Path.GetDirectoryName(fileName);
+                    string body=fileName;
+                    string owner = "Anija";
+                    string date = "29-01-2015";
+                    string link="http://"+localhost+"/Approvels/Approvals.aspx?logid=" + logId + "";
+                    if (System.IO.File.Exists(fileName) == true)
+                    {
+                        System.IO.StreamReader objReader;
+                        objReader = new System.IO.StreamReader(fileName);
 
-        "</div>"+
-   " <table width=100% bgcolor=#f6f8f1 border=0" +"cellpadding=0"+" cellspacing="+"0>"+
-            "<tr>"+
-                "<td>"+
-                    "<table class="+"content"+" align=center  cellpadding=0 cellspacing=0 border=0>"+
-                        "<tr>"+
-                            "<td>"+
+                     //  X.Replace("$USERNAME$",verifierMailIdName);
+                      //       Msg.Subject = "Document  For  Approval" + "" + _DocumentNo;
+
+                        body = objReader.ReadToEnd();
+                        body=body.Replace("$USERNAME$", verifierMailIdName);
+                        body=body.Replace("$DOCTYPE$",DocumentType);
+                        body=body.Replace("$DOCNO$",_DocumentNo);
+                        body=body.Replace("$DOCOWNER$",owner);
+                        body=body.Replace("$DOCDATE$",date);
+                        body=body.Replace("$LINK$",link);
+
+                    }
+                   Msg.Subject = "Document  For  Approval" + "" + _DocumentNo;
+                  
+//                     body= "<div style='margin: 0; padding: 0; min-width: 100%!important;'>"+
+//   " <div style='margin: 0; padding: 0; min-width: 100%!important;  height:25px; background:lightseagreen;text-align:center;'>" + " <label style='color:white; vertical-align:central'>" + " Document For Approvel</label></div>" +
+//     "    <div style='background-color:#f6f8f1; text-align:left; height:25px;'>" +
+//                                            "  <label "+"style='font:bold; font-size:15px;  color:#006666'"+"> Hi"+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +verifierMailIdName+"</label>"+
+
+//        "</div>"+
+//   " <table width=100% bgcolor=#f6f8f1 border=0" +"cellpadding=0"+" cellspacing="+"0>"+
+//            "<tr>"+
+//                "<td>"+
+//                    "<table class="+"content"+" align=center  cellpadding=0 cellspacing=0 border=0>"+
+//                        "<tr>"+
+//                            "<td>"+
                                
-                           " </td>"+
+//                           " </td>"+
 
-                        "</tr>"+
+//                        "</tr>"+
                       
-                        "<tr>"+
-                            "<td style='height:50px'>"+
-                            "" + DocumentType + "  document-" + "&nbsp;&nbsp;" + "" + _DocumentNo + "&nbsp;&nbsp;&nbsp;" + "is closed for approval ." +"&nbsp;&nbsp;&nbsp;" +"Click the below button to approve the document."+
-                            "</td>"+
-                       " </tr>"+
-                        "<tr>"+
-                            "<td style='height:50px;padding-left:190px'>"+
-                               "   <a href='http://"+localhost+"/Approvels/Approvals.aspx?logid=" + logId + "'>" + "<button>" + "Click To Approve Document" + "</button>" + "</a>" +
+//                        "<tr>"+
+//                            "<td style='height:50px'>"+
+//                            "" + DocumentType + "  document-" + "&nbsp;&nbsp;" + "" + _DocumentNo + "&nbsp;&nbsp;&nbsp;" + "is closed for approval ." +"&nbsp;&nbsp;&nbsp;" +"Click the below button to approve the document."+
+//                            "</td>"+
+//                       " </tr>"+
+//                        "<tr>"+
+//                            "<td style='height:50px;padding-left:190px'>"+
+//                               "   <a href='http://"+localhost+"/Approvels/Approvals.aspx?logid=" + logId + "'>" + "<button>" + "Click To Approve Document" + "</button>" + "</a>" +
                                
-                            "</td>"+
-                        "</tr>"+
-                    "</table>"+
-                "</td>"+
-           " </tr>" +
-           "   <tr>"+
-                "<td style='font-size:10px; color:#2F4F4F;'>" +
-                    "This is an automatically generated email – please do not reply to it. If you have any queries please email to <a href="+"'mailto:info.thrithvam@gmail.com'"+"> amrutha@thrithvam.com</a>"+
-                "</td>"+
-           " </tr>"+
-       " </table> "+ 
-" </div>";
+//                            "</td>"+
+//                        "</tr>"+
+//                    "</table>"+
+//                "</td>"+
+//           " </tr>" +
+//           "   <tr>"+
+//                "<td style='font-size:10px; color:#2F4F4F;'>" +
+//                    "This is an automatically generated email – please do not reply to it. If you have any queries please email to <a href="+"'mailto:info.thrithvam@gmail.com'"+"> amrutha@thrithvam.com</a>"+
+//                "</td>"+
+//           " </tr>"+
+//       " </table> "+ 
+//" </div>";
    
                     Msg.Body =body;
       
