@@ -26,6 +26,8 @@ namespace FlyCn.Approvels
         {
             try
             {
+           
+               
                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
                 Users userobj = new Users(UA.userName);
                 verifierEmail = userobj.UserEMail;
@@ -33,6 +35,15 @@ namespace FlyCn.Approvels
                 if (!IsPostBack)
                 {
                     dtgPendingApprovalGrid.Rebind();
+                    string logIDMail = Request.QueryString["logid"];
+                    if (logIDMail != null)//during the call from a mail
+                    {
+                        RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                        tab.Selected = true;
+                        tab.Text = "Approval";
+                        RadMultiPage1.SelectedIndex = 1;
+                        PendingApprovalGridBindByLogID(logIDMail);
+                    }
                 }
                 ToolBarApprovalDoc.OnClientButtonClicking = "OnClientButtonClickingApproval";
                 ToolBarApprovalDoc.onClick += new RadToolBarEventHandler(ToolBar_onClick);
@@ -208,7 +219,7 @@ namespace FlyCn.Approvels
             }
             if (e.Item.Value == "Decline")
             {
-               // Decline();
+                Decline();
             }
             if (e.Item.Value == "Reject")
             {
@@ -248,18 +259,17 @@ namespace FlyCn.Approvels
 
         public void Decline()
         {
-          if (txtRemarks.Text != "")
+           if (txtRemarks.Text != "")
             {
                 approvelMaster = new ApprovelMaster();
 
                 try
                 {
                     string approvid = hiddenFieldApprovalID.Value;
-
                     approvelMaster.ApprovalStatus = 2;//2 means declined
                     approvelMaster.ApprovalDate = System.DateTime.Now;
                     approvelMaster.Remarks = txtRemarks.Text;
-                    approvelMaster.UpdateApprovalMaster(approvid);
+                    approvelMaster.DeclineApprovalMaster(approvid);
                 }
                 catch (Exception ex)
                 {
@@ -358,19 +368,19 @@ namespace FlyCn.Approvels
         #endregion ToolBarVisibility
 
         #region GetAllPendingApprovalsByApprovalID
-        public void PendingApprovalGridBindByApprovalID(string approvalID)//approval detail bind during login bypass from mail
+        public void PendingApprovalGridBindByLogID(string logID)//approval detail bind during login bypass from mail
         {
             try
             {
                 DataSet ds = new DataSet();
                 approvelMaster = new ApprovelMaster();
-                Guid ApprovalID;
-                Guid.TryParse(approvalID, out ApprovalID);
-                if (ApprovalID != Guid.Empty)
+                Guid LogID;
+                Guid.TryParse(logID, out LogID);
+                if (LogID != Guid.Empty)
                 {
-                    ds = approvelMaster.GetAllPendingApprovalsByApprovalID(ApprovalID);
+                    ds = approvelMaster.GetAllPendingApprovalsByLogID(LogID);
                 }
-                 if((ds != null)||(ds.Tables.Count>0))
+                 if(ds.Tables.Count>0)
                 {
                     hiddenFieldDocOwner.Value = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
                     hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();

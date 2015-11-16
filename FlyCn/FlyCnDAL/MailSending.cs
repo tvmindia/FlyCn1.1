@@ -98,10 +98,9 @@ namespace FlyCn.FlyCnDAL
                             "</td>"+
                        " </tr>"+
                         "<tr>"+
-                            "<td style='height:50px;padding-left:190px'>"+
-                               "   <a href='http://localhost:40922/Approvels/Approvals.aspx?logid=" + logId + "'>" + "<button>" + "Click To Approve Document" + "</button>" + "</a>" +
-                               
-                            "</td>"+
+                            "<td style='height:50px;padding-left:190px'>" +
+                               "<a href='http://localhost:40922/Approvels/Approvals.aspx?logid=" + logId + "'>" + "<button>" + "Click To Approve Document" + "</button>" + "</a>" +
+                 "</td>" +
                         "</tr>"+
                     "</table>"+
                 "</td>"+

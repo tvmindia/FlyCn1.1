@@ -117,14 +117,13 @@ namespace FlyCn.BOQ
                     GridDataItem item = e.Item as GridDataItem;
                     tab.Selected = true;
                     tab.Text = "Edit";
-                    string DocumentNo = hiddenDocumentNo.Value;
-                    DataTable docdtObj=new DataTable();
-                    FlyCn.FlyCnDAL.DocumentMaster docObj = new DocumentMaster();
-                    docdtObj=  docObj.GetRevisionIdByDocumentNo(DocumentNo);
-
                     RadMultiPage1.SelectedIndex = 1;
                     string revisionid=item.GetDataKeyValue("RevisionID").ToString();
                     BOQPopulate(revisionid);
+                    DataTable docdtObj = new DataTable();
+                    //string DocumentNo = hiddenDocumentNo.Value;
+                    //FlyCn.FlyCnDAL.DocumentMaster docObj = new DocumentMaster();
+                    //docdtObj = docObj.GetRevisionIdByDocumentNo(DocumentNo);
                 }
             }
             catch (Exception ex)
