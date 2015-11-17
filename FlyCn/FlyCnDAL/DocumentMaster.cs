@@ -348,7 +348,7 @@ namespace FlyCn.FlyCnDAL
 
             dbConnection dcon = new dbConnection();
             con = dcon.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("GetMasterPersonalData", con);
+            SqlCommand cmd = new SqlCommand("GETLeftTreeNodeRevisionIdByDocumentNo", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@DocumentId", documentId);
             SqlDataAdapter adapter = new SqlDataAdapter();
@@ -359,5 +359,31 @@ namespace FlyCn.FlyCnDAL
             return dt;
         }
         #endregion  GetRevisionIdByDocumentNo
+
+
+        #region GetDocumentIdByNo
+        /// <summary>
+        /// Get Revision Number By DocumentNo
+        /// </summary>
+        /// <returns>return data table</returns>
+        public DataTable GetDocumentIdByNo(string documentId)
+        {
+
+            SqlConnection con = null;
+            DataTable dt = null;
+
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetDocumentIdByNo", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@DocumentNo", documentId);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            dt = new DataTable();
+            adapter.Fill(dt);
+            con.Close();
+            return dt;
+        }
+        #endregion  GetDocumentIdByNo
     }
 }
