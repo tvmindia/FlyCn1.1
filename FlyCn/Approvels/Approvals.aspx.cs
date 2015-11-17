@@ -25,6 +25,7 @@ namespace FlyCn.Approvels
             }
             if(logIDMail!=null)
             {
+
                 objApproval.LoadInputScreen(radpane, logIDMail);
             }
         }
