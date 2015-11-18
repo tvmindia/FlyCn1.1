@@ -309,6 +309,7 @@
            
             var iframe = pane.getExtContentElement();
             var contentWindow = iframe.contentWindow;
+            var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
             var hiddendocumentid = contentWindow.document.getElementById('hiddenFieldDocumentID');
@@ -316,7 +317,7 @@
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             if (hiddenFieldOwner.value != hiddenusername.value) {
                 debugger;
-                document.getElementById('IframeChangeOwner').src = "../DocumentRelated/OwnershipChange.aspx?DocumentId=" + hiddendocumentid.value + '&Username=' + hiddenusername.value + '&Ownername=' + hiddenFieldOwner.value + '&DocumentNo=' + DocumentNo.value;
+                document.getElementById('IframeChangeOwner').src = "../DocumentRelated/OwnershipChange.aspx?DocumentId=" + hiddendocumentid.value + '&Username=' + hiddenusername.value + '&Ownername=' + hiddenFieldOwner.value + '&DocumentNo=' + DocumentNo.value + '&RevisionId=' + hiddenFieldRevisionID.value;
                 ChangeOwnershipWindow();
             }
            

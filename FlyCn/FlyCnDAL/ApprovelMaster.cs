@@ -13,6 +13,7 @@ using Messages = FlyCn.UIClasses.Messages;
     public class ApprovelMaster
     {
         ErrorHandling eObj = new ErrorHandling();
+
         #region GeneralProperties
         public string RevisionID
         {
@@ -157,8 +158,8 @@ using Messages = FlyCn.UIClasses.Messages;
             SqlCommand cmd = new SqlCommand("GetVarifierDetailsByRevisionId", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@RevisionId", RevisionID);
-          
-         
+
+
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = cmd;
             datatableobj = new DataTable();
@@ -284,7 +285,7 @@ using Messages = FlyCn.UIClasses.Messages;
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "UpdateApprovalMasterByApprovalId";
+                cmd.CommandText = "ApproveApprovalMasterByApprovalId";
                 Guid.TryParse(Approvalid, out approveid);
                 cmd.Parameters.Add("@ApprovalID", SqlDbType.UniqueIdentifier).Value = approveid;
                 cmd.Parameters.Add("@ApprovalStatus", SqlDbType.Int).Value = ApprovalStatus;

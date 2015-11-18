@@ -289,10 +289,10 @@ namespace FlyCn.Approvels
                 switch (mailstatus)//calling mail function according to the status
                 {
                     case 1:
-                        mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
+                        mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value);
                         break;
                     case 2:
-                        mailSending.DocumentApprovalCompleted(hiddenFieldDocumentNo.Value, hiddenFieldDocOwner.Value, UA.userName);
+                        mailSending.DocumentApprovalCompleted(hiddenFieldRevisionID.Value, hiddenFieldDocOwner.Value, UA.userName);
                         break;
                }
             }
