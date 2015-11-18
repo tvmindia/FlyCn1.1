@@ -18,7 +18,16 @@ namespace FlyCn.Approvels
             Telerik.Web.UI.RadTreeView tview = ip.FindLeftTree(this);
             objApproval.BindTree(tview);
             RadPane radpane = ip.FindContentPane(this);
-            objApproval.LoadInputScreen(radpane);
+            string logIDMail = Request.QueryString["logid"];
+            if (logIDMail == null)
+            {
+                objApproval.LoadInputScreen(radpane);
+            }
+            if(logIDMail!=null)
+            {
+
+                objApproval.LoadInputScreen(radpane, logIDMail);
+            }
         }
     }
 }
