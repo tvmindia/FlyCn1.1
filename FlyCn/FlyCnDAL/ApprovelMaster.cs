@@ -271,6 +271,51 @@ using Messages = FlyCn.UIClasses.Messages;
         }
 
         #endregion InsertApprovalLog
+        #region RejectApprovalMaster
+        public int RejectApprovalMaster(string Approvalid)
+        {
+            SqlConnection con = null;
+            try
+            {
+                Guid approveid;
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "RejectApprovalMasterByApprovalID";
+                Guid.TryParse(Approvalid, out approveid);
+                cmd.Parameters.Add("@ApprovalID", SqlDbType.UniqueIdentifier).Value = approveid;
+                cmd.Parameters.Add("@ApprovalStatus", SqlDbType.Int).Value = ApprovalStatus;
+                cmd.Parameters.Add("@ApprovalDate", SqlDbType.SmallDateTime).Value = ApprovalDate;
+                cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = Remarks;
+                SqlParameter outparamSendmail = cmd.Parameters.Add("@Sendmail", SqlDbType.Int);//mail status
+                outparamSendmail.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                int mailstatus = (int)outparamSendmail.Value;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.UpdationSuccessData(page);
+                return mailstatus;
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+
+            }
+            finally
+            {
+                if (con != null)
+                {
+
+                    con.Dispose();
+
+                }
+
+            }
+        }
+        #endregion RejectApprovalMaster
         #region DeclineApprovalMaster
         public int DeclineApprovalMaster(string Approvalid)//t
         {
@@ -317,6 +362,8 @@ using Messages = FlyCn.UIClasses.Messages;
         }
         #endregion DeclineApprovalMaster
 
+
+
         #region UpdateApprovalMaster
         public int UpdateApprovalMaster(string Approvalid)
         {
@@ -329,7 +376,7 @@ using Messages = FlyCn.UIClasses.Messages;
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "UpdateApprovalMasterByApprovalId";
+                cmd.CommandText = "ApproveApprovalMasterByApprovalId";
                 Guid.TryParse(Approvalid, out approveid);
                 cmd.Parameters.Add("@ApprovalID", SqlDbType.UniqueIdentifier).Value = approveid;
                 cmd.Parameters.Add("@ApprovalStatus", SqlDbType.Int).Value = ApprovalStatus;
@@ -354,13 +401,9 @@ using Messages = FlyCn.UIClasses.Messages;
             {
                 if (con != null)
                 {
-
                     con.Dispose();
-
                 }
-
             }
-
         }
         #endregion UpdateApprovalMaster
         #region GetAllPendingApprovalsByApprovalID
