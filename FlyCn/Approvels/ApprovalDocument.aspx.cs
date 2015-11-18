@@ -225,7 +225,7 @@ namespace FlyCn.Approvels
             }
             if (e.Item.Value == "Reject")
             {
-               // Reject();
+                Reject();
                 TabChange();
             }
          
@@ -249,13 +249,24 @@ namespace FlyCn.Approvels
             if (txtRemarks.Text != "")
             {
                 approvelMaster = new ApprovelMaster();
+                int mailstatus;
+                MailSending mailSending = new MailSending();//mail sending object
                 try
                 {
                     string approvid = hiddenFieldApprovalID.Value;
                     approvelMaster.ApprovalStatus = 3;//3 means Rejected
                     approvelMaster.ApprovalDate = System.DateTime.Now;
                     approvelMaster.Remarks = txtRemarks.Text;
-                    approvelMaster.UpdateApprovalMaster(approvid);
+                    mailstatus=approvelMaster.RejectApprovalMaster(approvid);
+                    switch (mailstatus)//calling mail function according to the status
+                    {
+                        case 1://@@need to change
+                            // mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
+                            break;
+                        case 2:
+                            //mailSending.DocumentApprovalCompleted(hiddenFieldDocumentNo.Value, hiddenFieldDocOwner.Value, UA.userName);
+                            break;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -276,14 +287,24 @@ namespace FlyCn.Approvels
            if (txtRemarks.Text != "")
             {
                 approvelMaster = new ApprovelMaster();
-
+                int mailstatus;
+                MailSending mailSending = new MailSending();//mail sending object
                 try
                 {
                     string approvid = hiddenFieldApprovalID.Value;
                     approvelMaster.ApprovalStatus = 2;//2 means declined
                     approvelMaster.ApprovalDate = System.DateTime.Now;
                     approvelMaster.Remarks = txtRemarks.Text;
-                    approvelMaster.DeclineApprovalMaster(approvid);
+                    mailstatus=approvelMaster.DeclineApprovalMaster(approvid);
+                    switch (mailstatus)//calling mail function according to the status
+                    {
+                        case 1://@@need to change
+                           // mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
+                            break;
+                        case 2:
+                            //mailSending.DocumentApprovalCompleted(hiddenFieldDocumentNo.Value, hiddenFieldDocOwner.Value, UA.userName);
+                            break;
+                     }
                 }
                 catch (Exception ex)
                 {

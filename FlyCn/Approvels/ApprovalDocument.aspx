@@ -377,7 +377,7 @@
         if (btn.get_value() == 'Reject')
         {
             alert("Reject function is temporarily disabled!");
-            args.set_cancel(true);
+            args.set_cancel(false);
         }
     }
 
