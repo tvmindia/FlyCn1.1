@@ -381,6 +381,7 @@
     <Content Include="Scripts\jquery.1.9.1.min.js" />
     <Content Include="Scripts\Messages.js" />
     <Content Include="Scripts\ToolBar.js" />
+    <Content Include="Scripts\UserJs\UserValidations.js" />
     <Content Include="Templates\ApprovalMailTemplate.html" />
     <Content Include="Templates\DeclinedMailTemplate.html" />
     <Content Include="Templates\DocumentApprovalCompleteTemplate.html" />

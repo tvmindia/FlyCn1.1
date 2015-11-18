@@ -397,6 +397,7 @@
              return true;
          }
      }
+
      function OnClientButtonClickingDetail(sender, args)
      {
         var btn = args.get_item();
@@ -417,6 +418,7 @@
         }
                 
      }
+    
 
 </script>
  
