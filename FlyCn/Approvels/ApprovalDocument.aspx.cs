@@ -264,7 +264,8 @@ namespace FlyCn.Approvels
                             // mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
                             break;
                         case 2:
-                            //mailSending.DocumentApprovalCompleted(hiddenFieldDocumentNo.Value, hiddenFieldDocOwner.Value, UA.userName);
+                            mailSending.RejectMail(hiddenFieldRevisionID.Value,UA.userName, hiddenFieldDocOwner.Value, txtRemarks.Text);
+                            // mailSending.RejectMail(hiddenFieldRevisionID.Value,hiddenFieldDocumentNo.Value, hiddenFieldDocOwner.Value, UA.userName);
                             break;
                     }
                 }
@@ -298,11 +299,11 @@ namespace FlyCn.Approvels
                     mailstatus=approvelMaster.DeclineApprovalMaster(approvid);
                     switch (mailstatus)//calling mail function according to the status
                     {
-                        case 1://@@need to change
-                           // mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
+                        case 1:
+                           mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value);
                             break;
                         case 2:
-                            //mailSending.DocumentApprovalCompleted(hiddenFieldDocumentNo.Value, hiddenFieldDocOwner.Value, UA.userName);
+                            mailSending.DeclineMail(hiddenFieldRevisionID.Value,UA.userName,hiddenFieldDocOwner.Value);
                             break;
                      }
                 }

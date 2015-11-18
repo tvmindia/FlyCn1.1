@@ -187,7 +187,7 @@ namespace FlyCn.FlyCnDAL
                 }
                 else
                 {
-                    MailSendingobj.DeclineMail(Revisionid, approvalId, MailSendingobj.MsgTo, verifierMailIdName);
+                    MailSendingobj.DeclineMail(Revisionid,MailSendingobj.MsgTo, verifierMailIdName);
                 }
             }
             catch(Exception ex)
@@ -367,10 +367,10 @@ namespace FlyCn.FlyCnDAL
                     objReader = new System.IO.StreamReader(fileName);
 
                     body = objReader.ReadToEnd();
-                    body = body.Replace("$DOCUMENTTYPE$", domObj.DocumentType);
-                    body = body.Replace("$DOCUMENTNUMBER$", domObj.DocumentNo);
+                    body = body.Replace("$DOCTYPE$", domObj.DocumentType);
+                    body = body.Replace("$DOCNO$", domObj.DocumentNo);
                     body = body.Replace("$USERNAME$", MssgTo);
-                    body = body.Replace("$DOCUMENTOWNER$", domObj.DocumentOwner);
+                    body = body.Replace("$DOCOWNER$", domObj.DocumentOwner);
                     body = body.Replace("$DOCDATE$", domObj.CreatedDate.ToString("dd MMM, yyyy"));
                     body = body.Replace("$Reason$", Reason);
 
@@ -399,24 +399,24 @@ namespace FlyCn.FlyCnDAL
         #endregion RejectMail
 
         #region DeclineMail
-        public void DeclineMail(string Revisionid, string approvalId, string MssgTo, string verifierMailIdName)
+        public void DeclineMail(string Revisionid, string MssgTo, string verifierMailIdName)
         {
             try
             {
-                //Users userobj = new Users(MssgTo);
+                Users userobj = new Users(MssgTo);
                 DocumentMaster domObj = new DocumentMaster();
                 Guid revId;
                 Guid.TryParse(Revisionid, out revId);
                 domObj.GetDocumentDetailsByRevisionID(revId);
                 ApprovelMaster approvalObj = new ApprovelMaster();
                 DataTable dt = new DataTable();
-
+                string MailTo = userobj.UserEMail;
                 
                 MailMessage Msg = new MailMessage();
                 // Sender e-mail address.
                 Msg.From = new MailAddress("info.thrithvam@gmail.com");
                 // Recipient e-mail address.
-                Msg.To.Add(MssgTo);
+                Msg.To.Add(MailTo);
                 string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/DeclinedMailTemplate.html");
                 string body = fileName;
 
@@ -427,12 +427,12 @@ namespace FlyCn.FlyCnDAL
 
                     body = objReader.ReadToEnd();
                     body = body.Replace("$DOCTYPE$", domObj.DocumentType);
-                    body = body.Replace("$USERNAME$",verifierMailIdName);
+                    body = body.Replace("$USERNAME$", verifierMailIdName);
                     body = body.Replace("$DOCNO$", domObj.DocumentNo);
                     body = body.Replace("$USERNAME$", MssgTo);
-                    body = body.Replace("$DOCUMENTOWNER$", domObj.DocumentOwner);
+                    body = body.Replace("$DOCOWNER$", domObj.DocumentOwner);
                     body = body.Replace("$DOCDATE$", domObj.CreatedDate.ToString("dd MMM, yyyy"));
-                    body = body.Replace("$Reason$", Remarks);
+                   // body = body.Replace("$Reason$", Remarks);
 
                 }
                 Msg.Subject = "Document Declined" + domObj.DocumentNo;
