@@ -422,7 +422,7 @@ namespace FlyCn.Approvels
             hiddenCloseFlag.Value = "1";
             FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
 
-           MailSendingobj.SendMailToNextLevelVarifiers(_RevisionID, _DocumentType, UA.projectNo,_DocumentNo);
+           MailSendingobj.SendMailToNextLevelVarifiers(_RevisionID);
            //FlyCn.BOQ.BOQHeader boqObj = new BOQ.BOQHeader();
            //boqObj.Page.();
          

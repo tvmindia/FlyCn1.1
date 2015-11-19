@@ -1,35 +1,30 @@
 <div style='margin: 0; padding: 0; min-width: 100%!important;font-family:"Segoe UI"'> 
     <div style='margin: 0; padding: 0; min-width: 100%!important;  height:25px; background-color :teal;text-align:center;'> 
-        <label style='color:white; vertical-align:central'> Document For Approval</label>
+        <label style='color:white; vertical-align:central'> Document approved</label>
 
     </div>    
     <div style='background-color:#f6f8f1; text-align:left;'>  
-        <table style="width:95%;color:darkgray;margin-left:10px"><tr><td>    Hi $USERNAME$ </td></tr> <tr><td>&nbsp;</td></tr>       
+        <table style="width:95%;color:#29282D;margin-left:10px"><tr><td>    Hi $USERNAME$ </td></tr> <tr><td>&nbsp;</td></tr>       
     <tr ><td > 
-        New $DOCTYPE$ document is created and it is closed for your approval .</td> </tr><tr><td>&nbsp;</td></tr>
+       Approval for the below mentioned $DOCUMENTTYPE$ document is completed</td> </tr><tr><td>&nbsp;</td></tr>
         <tr  ><td style="color:teal;text-decoration:underline;" >Document Details</td></tr>
             <tr><td>
                 <table style="margin:5px;">
                     <tr>
-                        <td>Document No</td><td>:</td><td>$DOCNO$</td>
-                    </tr>
-                    <tr>
-                        <td>Document Owner</td><td>:</td><td>$DOCOWNER$</td>
+                        <td>Document No</td><td>:</td><td>$DOCUMENTNUMBER$</td>
                     </tr>
                     <tr>
                         <td>Document Date</td><td>:</td><td>$DOCDATE$</td>
                     </tr>
+                    <tr>
+                        <td>Approval Date</td><td>:</td><td>$APPROVALDATE$</td>
+                    </tr>
+                   
                     
                 </table>
                 </td></tr>
         <tr><td></td></tr>
-        <tr><td style='height:75px;padding-left:190px'>   
-            <a href='$LINK$'>
-                <button style="color:teal">Click To Approve Document</button></a>
-
-            </td>
-
-        </tr>
+       
 
            <tr>
                <td style='font-size:10px;'>This is an automatically generated email – please do not reply to it. If you have any queries please email to 

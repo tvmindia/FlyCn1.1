@@ -59,7 +59,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public Guid LatestRevisionID//ref
+        public string LatestRevisionID//ref
         {
             get;
             set;
@@ -70,7 +70,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public int LatestApprovedRevID//ref
+        public string LatestApprovedRevID//ref
         {
             get;
             set;
@@ -184,6 +184,7 @@ namespace FlyCn.FlyCnDAL
             }
         }
         #endregion AddNewDocument
+
         #region GetAllDocuments
         public DataSet GetAllBOQDocumentHeader(string projectno, string documenttype)
         {
@@ -223,6 +224,7 @@ namespace FlyCn.FlyCnDAL
             return ds;
         }
        #endregion GetAllDocuments
+
         #region BindBOQHeader
         public DataSet BindBOQHeader(Guid Revisionid)//New BOQ header binding method used to bind hiddenfields
         {
@@ -259,6 +261,7 @@ namespace FlyCn.FlyCnDAL
             return ds;
         }
         #endregion BindBOQHeader
+
         #region BindBOQ
         public DataSet BindBOQ(Guid RevisionID)
         {
@@ -296,7 +299,83 @@ namespace FlyCn.FlyCnDAL
             return ds;
         }
         #endregion BindBOQ
-      
+
+        #region GetDocumentDetailsByRevisionID
+        public void GetDocumentDetailsByRevisionID(Guid RevID)
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("GetDocMasterByRevisionID", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value =RevID;
+                SqlDataAdapter sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+                //---------- assign to properties --------------
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataRow dr = ds.Tables[0].Rows[0];
+                   //DocumentID
+                    Guid documentid;
+                    Guid.TryParse(dr["DocumentID"].ToString(), out documentid);
+                    ProjectNo = dr["ProjectNo"].ToString();
+                    DocumentNo = dr["DocumentNo"].ToString();
+                    ClientDocNo = dr["ClientDocNo"].ToString();
+                    DocumentType = dr["DocumentType"].ToString();
+                    DocumentOwner = dr["DocumentOwner"].ToString();
+                    CreatedBy = dr["CreatedBy"].ToString();
+                    CreatedDate =Convert.ToDateTime(dr["CreatedDate"].ToString());
+                    CreatedDateGMT =Convert.ToDateTime(dr["CreatedDateGMT"]);
+                    LatestRevisionID =dr["LatestRevisionID"].ToString();
+                    LatestStatus =Convert.ToInt32(dr["LatestStatus"]);
+                    LatestApprovedRevID =dr["LatestApprovedRevID"].ToString();
+                    UpdatedBy = dr["UpdatedBy"].ToString();
+                  
+                    if ((dr["UpdatedDate"].ToString()!= null) && (dr["UpdatedDate"].ToString()!=""))
+                    {
+                        UpdatedDate = dr["UpdatedDate"].ToString();
+                        
+                }
+                    if ((dr["UpdatedDateGMT"].ToString() != null)&&(dr["UpdatedDateGMT"].ToString() != ""))
+                    {
+                        UpdatedDateGMT = Convert.ToDateTime(dr["UpdatedDateGMT"]);
+                    }
+                    RevisionStatus = Convert.ToInt32(dr["RevisionStatus"]);
+                    if ((dr["ApprovedDate"].ToString()!=null)&&(dr["ApprovedDate"].ToString()!=""))
+                    {
+                        ApprovedDate = Convert.ToDateTime(dr["ApprovedDate"]);
+                    }
+                    
+                    Description = dr["Description"].ToString();
+                    Remarks = dr["Remarks"].ToString();     
+                
+                }
+
+
+                //-----------------------------------------------
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Dispose();
+                }
+            }
+        }
+        #endregion GetDocumentDetailsByRevisionID
 
         #region EditOwnershipName
         public int EditOwnershipName(Guid @docid,string @username)
