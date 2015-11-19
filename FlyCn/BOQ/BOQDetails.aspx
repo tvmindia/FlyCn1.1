@@ -174,7 +174,7 @@
        <div class="form-group">
          <asp:Label ID="lblUDFRate1" CssClass="control-label col-md-5" runat="server" Text="UDF Rate1"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtUDFRate1" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtUDFRate1" CssClass="form-control" onkeypress="return IsNumeric(event);" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -397,6 +397,7 @@
              return true;
          }
      }
+
      function OnClientButtonClickingDetail(sender, args)
      {
         var btn = args.get_item();
@@ -417,6 +418,7 @@
         }
                 
      }
+    
 
 </script>
  

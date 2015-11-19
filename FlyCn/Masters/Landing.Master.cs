@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using FlyCn.FlyCnDAL;
 
 
 namespace FlyCn.Masters
@@ -11,32 +12,68 @@ namespace FlyCn.Masters
     public partial class Landing : System.Web.UI.MasterPage
     {
         UIClasses.Const Const= new UIClasses.Const();
+        public string LogId = "";
+
         protected void Page_Init(object sender, EventArgs e)
+      
         {
+           
+           // ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(userName)", true);
+
             if (Session[Const.LoginSession] == null) {
                 if (GetCurrentPageName() == Const.HomePage || GetCurrentPageName().ToUpper() == Const.Default.ToUpper())
                 {
-
+                   
                     imgMenu.Visible = false;
                     lnkLoginLogout.Attributes.Add("onclick", "return openLogin('slow')");
                 
                 }
-                else {
-
-                    Response.Redirect(Const.HomePageURL);
+           else if(GetCurrentPageName()==Const.ApprovalPageURL)
+                    {
+                        LogId = Request.QueryString["logid"];
+                        ApprovelMaster approvalmasterObj = new ApprovelMaster();
+                        string userName = approvalmasterObj.GetUserNameByLogId(LogId);
+                        if (userName == "No User Found")
+                        {
+                            Response.Redirect(Const.HomePageURL);
+                        }
+                        else
+                        {
+                            FlyCnDAL.Security.UserAuthendication UA = new FlyCnDAL.Security.UserAuthendication(userName, 1);
+                           
+                            if (UA.ValidUser)
+                            {
+                                Session.Add(Const.LoginSession, UA);
+                                lblError.Text = "";
+                                setLogoutAndUserName(UA);
+                            }
+                            else {
+                                Response.Redirect(Const.HomePageURL);
+                            }
+                        }
+                    }
+                    
+                else 
+                {
+               
+                   Response.Redirect(Const.HomePageURL);
                 }
 
               
             }
             else {
                 FlyCnDAL.Security.UserAuthendication UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
-                lblUser.Text = UA.userName;
-                lnkLoginLogout.Text = "Logout";
-                imgMenu.Visible = true;
+                setLogoutAndUserName(UA);
             }
 
         }
 
+        public void setLogoutAndUserName(FlyCnDAL.Security.UserAuthendication UA)
+        {
+            lblUser.Text = UA.userName;
+            lnkLoginLogout.Text = "Logout";
+            imgMenu.Visible = true;
+        }
 
         public string GetCurrentPageName()
         {

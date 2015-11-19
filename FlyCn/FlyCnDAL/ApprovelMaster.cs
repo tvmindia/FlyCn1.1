@@ -271,6 +271,98 @@ using Messages = FlyCn.UIClasses.Messages;
         }
 
         #endregion InsertApprovalLog
+        #region RejectApprovalMaster
+        public int RejectApprovalMaster(string Approvalid)
+        {
+            SqlConnection con = null;
+            try
+            {
+                Guid approveid;
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "RejectApprovalMasterByApprovalID";
+                Guid.TryParse(Approvalid, out approveid);
+                cmd.Parameters.Add("@ApprovalID", SqlDbType.UniqueIdentifier).Value = approveid;
+                cmd.Parameters.Add("@ApprovalStatus", SqlDbType.Int).Value = ApprovalStatus;
+                cmd.Parameters.Add("@ApprovalDate", SqlDbType.SmallDateTime).Value = ApprovalDate;
+                cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = Remarks;
+                SqlParameter outparamSendmail = cmd.Parameters.Add("@Sendmail", SqlDbType.Int);//mail status
+                outparamSendmail.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                int mailstatus = (int)outparamSendmail.Value;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.UpdationSuccessData(page);
+                return mailstatus;
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+
+            }
+            finally
+            {
+                if (con != null)
+                {
+
+                    con.Dispose();
+
+                }
+
+            }
+        }
+        #endregion RejectApprovalMaster
+        #region DeclineApprovalMaster
+        public int DeclineApprovalMaster(string Approvalid)//t
+        {
+            SqlConnection con = null;
+            try
+            {
+                Guid approveid;
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "DeclineApprovalMasterByApprovalID";
+                Guid.TryParse(Approvalid, out approveid);
+                cmd.Parameters.Add("@ApprovalID", SqlDbType.UniqueIdentifier).Value = approveid;
+                cmd.Parameters.Add("@ApprovalStatus", SqlDbType.Int).Value = ApprovalStatus;
+                cmd.Parameters.Add("@ApprovalDate", SqlDbType.SmallDateTime).Value = ApprovalDate;
+                cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = Remarks;
+                SqlParameter outparamSendmail = cmd.Parameters.Add("@Sendmail", SqlDbType.Int);//mail status
+                outparamSendmail.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                int mailstatus = (int)outparamSendmail.Value;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.UpdationSuccessData(page);
+                return mailstatus;
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+
+            }
+            finally
+            {
+                if (con != null)
+                {
+
+                    con.Dispose();
+
+                }
+
+            }
+        }
+        #endregion DeclineApprovalMaster
+
+
 
         #region UpdateApprovalMaster
         public int UpdateApprovalMaster(string Approvalid)
@@ -284,7 +376,7 @@ using Messages = FlyCn.UIClasses.Messages;
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "UpdateApprovalMasterByApprovalId";
+                cmd.CommandText = "ApproveApprovalMasterByApprovalId";
                 Guid.TryParse(Approvalid, out approveid);
                 cmd.Parameters.Add("@ApprovalID", SqlDbType.UniqueIdentifier).Value = approveid;
                 cmd.Parameters.Add("@ApprovalStatus", SqlDbType.Int).Value = ApprovalStatus;
@@ -309,15 +401,46 @@ using Messages = FlyCn.UIClasses.Messages;
             {
                 if (con != null)
                 {
+                    con.Dispose();
+                }
+            }
+        }
+        #endregion UpdateApprovalMaster
+        #region GetAllPendingApprovalsByApprovalID
+        public DataSet GetAllPendingApprovalsByLogID(Guid LogID)//new get for login bypass
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("GetAllPendingApprovalsByLogID", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@LogID", SqlDbType.UniqueIdentifier).Value = LogID;
+                SqlDataAdapter sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
 
                     con.Dispose();
 
                 }
-
             }
-
+            return ds;
         }
-        #endregion UpdateApprovalMaster
+        #endregion GetAllPendingApprovalsByApprovalID
 
         #region GetAllPendingApprovalsByVerifierLevel
         public DataSet GetAllPendingApprovalsByVerifier(string paramverifierEmail)
@@ -429,7 +552,12 @@ using Messages = FlyCn.UIClasses.Messages;
         }
 
         #endregion LoadInputScreen
-
+        #region LoadInputScreenwithlogid
+        public void LoadInputScreen(RadPane myContentPane,string logid)
+        {
+            myContentPane.ContentUrl = "ApprovalDocument.aspx?logid=" + logid;
+        }
+        #endregion LoadInputScreenwithlogid
         #region GetDocDetailList
 
         public DataTable GetDocDetailList(string revid, string type)
@@ -519,6 +647,58 @@ using Messages = FlyCn.UIClasses.Messages;
         }
 
         #endregion GetDocHeaderDetails
+
+        #region GetApprovalLogId
+        public DataTable GetApprovalLogId(string approvalId)
+        {
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetApprovalLogId", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@approvalId",approvalId);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            datatableobj = new DataTable();
+            adapter.Fill(datatableobj);
+            con.Close();
+            return datatableobj;
+        }
+
+        #endregion GetApprovalLogId
+
+        #region GetUserNameByLogId
+        public string GetUserNameByLogId(string LogId)
+        {
+            string userName="";
+            int norows;
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetUserNameByLogId", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@LogId", LogId);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            datatableobj = new DataTable();
+            adapter.Fill(datatableobj);
+            norows = datatableobj.Rows.Count;
+            if (norows > 0)
+            {
+                userName = datatableobj.Rows[0]["UserName"].ToString();
+            }
+            else
+            {
+                userName = "No User Found";
+            }
+            con.Close();
+            return userName;
+        }
+
+        #endregion GetUserNameByLogId
+
 
         public DataTable GetAllDocumentStatus()
         {

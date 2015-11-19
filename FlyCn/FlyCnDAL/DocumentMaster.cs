@@ -59,7 +59,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public Guid LatestRevisionID//ref
+        public string LatestRevisionID//ref
         {
             get;
             set;
@@ -70,7 +70,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public int LatestApprovedRevID//ref
+        public string LatestApprovedRevID//ref
         {
             get;
             set;
@@ -184,6 +184,7 @@ namespace FlyCn.FlyCnDAL
             }
         }
         #endregion AddNewDocument
+
         #region GetAllDocuments
         public DataSet GetAllBOQDocumentHeader(string projectno, string documenttype)
         {
@@ -223,6 +224,7 @@ namespace FlyCn.FlyCnDAL
             return ds;
         }
        #endregion GetAllDocuments
+
         #region BindBOQHeader
         public DataSet BindBOQHeader(Guid Revisionid)//New BOQ header binding method used to bind hiddenfields
         {
@@ -259,8 +261,9 @@ namespace FlyCn.FlyCnDAL
             return ds;
         }
         #endregion BindBOQHeader
+
         #region BindBOQ
-        public DataSet BindBOQ(Guid documentID, string projectno)
+        public DataSet BindBOQ(Guid RevisionID)
         {
             SqlConnection con = null;
             DataSet ds = null;
@@ -272,18 +275,17 @@ namespace FlyCn.FlyCnDAL
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetAllBOQDocumentHeaderByDocumentID]";
-                cmd.Parameters.Add("@documentID", SqlDbType.UniqueIdentifier).Value = documentID;
-                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 10).Value = projectno;
+                cmd.CommandText = "[GetAllBOQDocumentHeaderByRevisionID]";
+                cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = RevisionID;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
-                }
+            }
             catch (Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex,page);
+                eObj.ErrorData(ex, page);
                 throw ex;
             }
             finally
@@ -292,11 +294,88 @@ namespace FlyCn.FlyCnDAL
                 {
                     con.Close();
                 }
-                
+
             }
             return ds;
         }
- #endregion BindBOQ
+        #endregion BindBOQ
+
+        #region GetDocumentDetailsByRevisionID
+        public void GetDocumentDetailsByRevisionID(Guid RevID)
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("GetDocMasterByRevisionID", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value =RevID;
+                SqlDataAdapter sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+                //---------- assign to properties --------------
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataRow dr = ds.Tables[0].Rows[0];
+                   //DocumentID
+                    Guid documentid;
+                    Guid.TryParse(dr["DocumentID"].ToString(), out documentid);
+                    ProjectNo = dr["ProjectNo"].ToString();
+                    DocumentNo = dr["DocumentNo"].ToString();
+                    ClientDocNo = dr["ClientDocNo"].ToString();
+                    DocumentType = dr["DocumentType"].ToString();
+                    DocumentOwner = dr["DocumentOwner"].ToString();
+                    CreatedBy = dr["CreatedBy"].ToString();
+                    CreatedDate =Convert.ToDateTime(dr["CreatedDate"].ToString());
+                    CreatedDateGMT =Convert.ToDateTime(dr["CreatedDateGMT"]);
+                    LatestRevisionID =dr["LatestRevisionID"].ToString();
+                    LatestStatus =Convert.ToInt32(dr["LatestStatus"]);
+                    LatestApprovedRevID =dr["LatestApprovedRevID"].ToString();
+                    UpdatedBy = dr["UpdatedBy"].ToString();
+                  
+                    if ((dr["UpdatedDate"].ToString()!= null) && (dr["UpdatedDate"].ToString()!=""))
+                    {
+                        UpdatedDate = dr["UpdatedDate"].ToString();
+                        
+                }
+                    if ((dr["UpdatedDateGMT"].ToString() != null)&&(dr["UpdatedDateGMT"].ToString() != ""))
+                    {
+                        UpdatedDateGMT = Convert.ToDateTime(dr["UpdatedDateGMT"]);
+                    }
+                    RevisionStatus = Convert.ToInt32(dr["RevisionStatus"]);
+                    if ((dr["ApprovedDate"].ToString()!=null)&&(dr["ApprovedDate"].ToString()!=""))
+                    {
+                        ApprovedDate = Convert.ToDateTime(dr["ApprovedDate"]);
+                    }
+                    
+                    Description = dr["Description"].ToString();
+                    Remarks = dr["Remarks"].ToString();     
+                
+                }
+
+
+                //-----------------------------------------------
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Dispose();
+                }
+            }
+        }
+        #endregion GetDocumentDetailsByRevisionID
 
         #region EditOwnershipName
         public int EditOwnershipName(Guid @docid,string @username)
@@ -335,5 +414,80 @@ namespace FlyCn.FlyCnDAL
    
         #endregion Documentmastermethods
 
+        #region GetRevisionIdByDocumentNo
+        /// <summary>
+        /// Get Revision id By DocumentNo
+        /// </summary>
+        /// <returns>return data table</returns>
+        public DataTable GetRevisionIdByDocumentNo(string documentId)
+        {
+
+            SqlConnection con = null;
+            DataTable dt = null;
+
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GETLeftTreeNodeRevisionIdByDocumentNo", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@DocumentId", documentId);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            dt = new DataTable();
+            adapter.Fill(dt);
+            con.Close();
+            return dt;
+        }
+        #endregion  GetRevisionIdByDocumentNo
+
+
+        #region GetDocumentIdByNo
+        /// <summary>
+        /// Get DocumentId By DocumentNo
+        /// </summary>
+        /// <returns>return data table</returns>
+        public DataTable GetDocumentIdByNo(string documentId)
+        {
+
+            SqlConnection con = null;
+            DataTable dt = null;
+
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetDocumentIdByNo", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@DocumentNo", documentId);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            dt = new DataTable();
+            adapter.Fill(dt);
+            con.Close();
+            return dt;
+        }
+        #endregion  GetDocumentIdByNo
+
+        #region GetRevisionNumberByRevisionId
+        /// <summary>
+        /// Get Revision Number By Revision Id
+        /// </summary>
+        /// <returns>return data table</returns>
+        public DataTable GetRevisionNumberByRevisionId(string RevisionID)
+        {
+
+            SqlConnection con = null;
+            DataTable dt = null;
+
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetRevisionNumberByRevisionId", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@RevisionID", RevisionID);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            dt = new DataTable();
+            adapter.Fill(dt);
+            con.Close();
+            return dt;
+        }
+        #endregion  GetRevisionNumberByRevisionId
     }
 }

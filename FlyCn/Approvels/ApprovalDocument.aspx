@@ -125,9 +125,10 @@
                                                 <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo" Display="false"></telerik:GridBoundColumn>
                                                
                                                 <telerik:GridBoundColumn HeaderText="DocumentNo" DataField="DocumentNo" ItemStyle-Width="30%" UniqueName="DocumentNo"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Date" DataField="CreatedDate" ItemStyle-Width="30%" UniqueName="CreatedDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Document Type" DataField="DocumentType" ItemStyle-Width="30%" UniqueName="DocumentType"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Closed Date" DataField="CreatedDate" ItemStyle-Width="30%" UniqueName="CreatedDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Level" DataField="VerifierLevel" ItemStyle-Width="5%" UniqueName="VerifierLevel"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Sent By" DataField="CreatedBy" ItemStyle-Width="30%"  UniqueName="CreatedBy"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Closed By" DataField="CreatedBy" ItemStyle-Width="30%"  UniqueName="CreatedBy"></telerik:GridBoundColumn>
                                                 
                                                  <telerik:GridButtonColumn HeaderText="Action" CommandName="Action" ButtonType="ImageButton" ItemStyle-Width="5%" ImageUrl="~/Images/Icons/arrow-right3232.png" Text="Action" UniqueName="Action">
                                                 </telerik:GridButtonColumn>
@@ -245,7 +246,7 @@
                                   
                                     <div class="col-md-12">
                                         <!--Telerik Radlistbox-->
-                                        <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="50%" OnNeedDataSource="dtgApprovers_NeedDataSource">
+                                        <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" ItemStyle-HorizontalAlign="Center" AlternatingItemStyle-HorizontalAlign="Center"  AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="500px" OnNeedDataSource="dtgApprovers_NeedDataSource">
                                         <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left"/>
@@ -256,9 +257,9 @@
                                              <Columns>
                                                 <telerik:GridBoundColumn HeaderText="ApprovalID" DataField="ApprovalID" UniqueName="ApprovalID" Display="false"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="RevisionID" DataField="RevisionID" UniqueName="RevisionID" Display="false"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="VerifierLevel" DataField="VerifierLevel" ItemStyle-Width="30%" UniqueName="VerifierLevel"></telerik:GridBoundColumn>
-												<telerik:GridBoundColumn HeaderText="VerifierEmail" DataField="VerifierEmail" ItemStyle-Width="30%" UniqueName="VerifierEmail"></telerik:GridBoundColumn>
-												<telerik:GridBoundColumn HeaderText="StatusDescription" DataField="StatusDescription" ItemStyle-Width="30%" UniqueName="StatusDescription"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Level" DataField="VerifierLevel" ItemStyle-Width="50px" UniqueName="VerifierLevel"></telerik:GridBoundColumn>
+												<telerik:GridBoundColumn HeaderText="VerifierEmail" DataField="VerifierEmail" ItemStyle-Width="50px" UniqueName="VerifierEmail"></telerik:GridBoundColumn>
+												<telerik:GridBoundColumn HeaderText="StatusDescription" DataField="StatusDescription" ItemStyle-Width="50px" UniqueName="StatusDescription"></telerik:GridBoundColumn>
                                              </Columns>
                                         </MasterTableView>
                                         </telerik:RadGrid>
@@ -365,12 +366,7 @@
         {
             var valbool=validateText();
             args.set_cancel(!valbool);
-            if (valbool)
-            {
-                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-                var tab = tabStrip.findTabByValue("1");
-                tab.select();
-            }
+         
         }
         if (btn.get_value() == 'Decline')
         {

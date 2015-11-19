@@ -26,6 +26,8 @@ namespace FlyCn.Approvels
         {
             try
             {
+           
+               
                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
                 Users userobj = new Users(UA.userName);
                 verifierEmail = userobj.UserEMail;
@@ -33,6 +35,15 @@ namespace FlyCn.Approvels
                 if (!IsPostBack)
                 {
                     dtgPendingApprovalGrid.Rebind();
+                    string logIDMail = Request.QueryString["logid"];
+                    if (logIDMail != null)//during the call from a mail
+                    {
+                        RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                        tab.Selected = true;
+                        tab.Text = "Approval";
+                        RadMultiPage1.SelectedIndex = 1;
+                        PendingApprovalGridBindByLogID(logIDMail);
+                    }
                 }
                 ToolBarApprovalDoc.OnClientButtonClicking = "OnClientButtonClickingApproval";
                 ToolBarApprovalDoc.onClick += new RadToolBarEventHandler(ToolBar_onClick);
@@ -93,13 +104,20 @@ namespace FlyCn.Approvels
             {
                 if(e.CommandName=="Action")
                 {
+                    //call ifrma approval screen
+                    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                    GridDataItem item = e.Item as GridDataItem;
+                    tab.Selected = true;
+                    tab.Text = "Approval";
+                    RadMultiPage1.SelectedIndex = 1;
+                    //changing tab 
                     ActionItemCommand(e);
                     
                 }
                 if(e.CommandName=="Details")
                 {
 
-
+                
                 }
             }
             catch(Exception ex)
@@ -115,13 +133,8 @@ namespace FlyCn.Approvels
         #region ActionItemCommand
         public void ActionItemCommand(GridCommandEventArgs e)
         {
-            //call ifrma approval screen
-            RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+           
             GridDataItem item = e.Item as GridDataItem;
-            tab.Selected = true;
-            tab.Text = "Approval";
-            RadMultiPage1.SelectedIndex = 1;
-            //changing tab 
             hiddenFieldDocOwner.Value = item.GetDataKeyValue("DocumentOwner").ToString();
             hiddenFiedldProjectno.Value = item.GetDataKeyValue("ProjectNo").ToString();
             hiddenFieldApprovalID.Value = item.GetDataKeyValue("ApprovalID").ToString();
@@ -203,18 +216,32 @@ namespace FlyCn.Approvels
             if (e.Item.Value == "Approve")
             {
                 Approve();
+                TabChange();//to change radtab
             }
             if (e.Item.Value == "Decline")
             {
-               // Decline();
+                Decline();
+                TabChange();
             }
             if (e.Item.Value == "Reject")
             {
-               // Reject();
+                Reject();
+                TabChange();
             }
          
         }
         #endregion ToolBar_onClick
+        #region TabChange
+        //changing tab to pending tab after action
+        public void TabChange()
+        {
+            RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+            tab.Selected = true;
+            tab.Text = "Pending";
+            RadMultiPage1.SelectedIndex = 0;
+        }
+
+        #endregion TabChange
 
         #region Reject_method
         public void Reject()
@@ -222,13 +249,25 @@ namespace FlyCn.Approvels
             if (txtRemarks.Text != "")
             {
                 approvelMaster = new ApprovelMaster();
+                int mailstatus;
+                MailSending mailSending = new MailSending();//mail sending object
                 try
                 {
                     string approvid = hiddenFieldApprovalID.Value;
                     approvelMaster.ApprovalStatus = 3;//3 means Rejected
                     approvelMaster.ApprovalDate = System.DateTime.Now;
                     approvelMaster.Remarks = txtRemarks.Text;
-                    approvelMaster.UpdateApprovalMaster(approvid);
+                    mailstatus=approvelMaster.RejectApprovalMaster(approvid);
+                    switch (mailstatus)//calling mail function according to the status
+                    {
+                        case 1://@@need to change
+                            // mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
+                            break;
+                        case 2:
+                            mailSending.RejectMail(hiddenFieldRevisionID.Value,UA.userName, hiddenFieldDocOwner.Value, txtRemarks.Text);
+                            // mailSending.RejectMail(hiddenFieldRevisionID.Value,hiddenFieldDocumentNo.Value, hiddenFieldDocOwner.Value, UA.userName);
+                            break;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -246,18 +285,27 @@ namespace FlyCn.Approvels
 
         public void Decline()
         {
-          if (txtRemarks.Text != "")
+           if (txtRemarks.Text != "")
             {
                 approvelMaster = new ApprovelMaster();
-
+                int mailstatus;
+                MailSending mailSending = new MailSending();//mail sending object
                 try
                 {
                     string approvid = hiddenFieldApprovalID.Value;
-
                     approvelMaster.ApprovalStatus = 2;//2 means declined
                     approvelMaster.ApprovalDate = System.DateTime.Now;
                     approvelMaster.Remarks = txtRemarks.Text;
-                    approvelMaster.UpdateApprovalMaster(approvid);
+                    mailstatus=approvelMaster.DeclineApprovalMaster(approvid);
+                    switch (mailstatus)//calling mail function according to the status
+                    {
+                        case 1:
+                           mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value);
+                            break;
+                        case 2:
+                            mailSending.DeclineMail(hiddenFieldRevisionID.Value,UA.userName,hiddenFieldDocOwner.Value);
+                            break;
+                     }
                 }
                 catch (Exception ex)
                 {
@@ -287,10 +335,10 @@ namespace FlyCn.Approvels
                 switch (mailstatus)//calling mail function according to the status
                 {
                     case 1:
-                        mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
+                        mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value);
                         break;
                     case 2:
-                        mailSending.DocumentApprovalCompleted(hiddenFieldDocumentNo.Value, hiddenFieldDocOwner.Value, UA.userName);
+                        mailSending.DocumentApprovalCompleted(hiddenFieldRevisionID.Value, hiddenFieldDocOwner.Value, UA.userName);
                         break;
                }
             }
@@ -354,5 +402,50 @@ namespace FlyCn.Approvels
             ToolBarApprovalDoc.RejectButton.Visible = true;
         }
         #endregion ToolBarVisibility
+
+        #region GetAllPendingApprovalsByApprovalID
+        public void PendingApprovalGridBindByLogID(string logID)//approval detail bind during login bypass from mail
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                approvelMaster = new ApprovelMaster();
+                Guid LogID;
+                Guid.TryParse(logID, out LogID);
+                if (LogID != Guid.Empty)
+                {
+                    ds = approvelMaster.GetAllPendingApprovalsByLogID(LogID);
+                }
+                 if(ds.Tables.Count>0)
+                {
+                    hiddenFieldDocOwner.Value = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
+                    hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                    hiddenFieldApprovalID.Value = ds.Tables[0].Rows[0]["ApprovalID"].ToString();
+                    hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
+                    hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+                    hiddenFieldDocumentType.Value = ds.Tables[0].Rows[0]["DocumentType"].ToString();
+                    hiddenFieldDocumentNo.Value = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
+                    lblDocumentNo.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
+                    lblCreatedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocCreatedDate"]);
+                    lblProjectno.Text = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                    lblDocumentType.Text = ds.Tables[0].Rows[0]["DocumentType"].ToString();
+                    lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocumentDate"]);
+                    lblDocOwner.Text = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
+                    lblCreatedBy.Text = ds.Tables[0].Rows[0]["DocCreatedBy"].ToString();
+                    lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["CreatedDate"]);
+                }
+
+            }
+            catch(Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+
+        }
+        #endregion GetAllPendingApprovalsByApprovalID
+
     }
 }
+

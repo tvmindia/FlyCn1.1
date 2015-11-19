@@ -89,11 +89,11 @@ namespace FlyCn.FlyCnDAL
             myTree.Nodes.Add(rtn3);
            rtn3.Attributes.Add("onclick", "ReviseDocument()");
            RadTreeNode rtn4 = new RadTreeNode("Revision History", "");
-           rtn4.Nodes.Add(new RadTreeNode("child1"));
-           rtn4.Nodes.Add(new RadTreeNode("child2"));
-           rtn4.Nodes.Add(new RadTreeNode("child3"));
+           //rtn4.Nodes.Add(new RadTreeNode("child1"));
+           //rtn4.Nodes.Add(new RadTreeNode("child2"));
+           //rtn4.Nodes.Add(new RadTreeNode("child3"));
            rtn4.Target = "contentPane";
-         
+           rtn4.Value = "4";
            myTree.Nodes.Add(rtn4);
            rtn4.Attributes.Add("onclick", "RevisionHistory()");
 
@@ -616,6 +616,7 @@ namespace FlyCn.FlyCnDAL
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
+                throw ex;
             }
             finally
             {
