@@ -175,33 +175,6 @@ namespace FlyCn.BOQ {
         protected global::System.Web.UI.WebControls.HiddenField hiddenStatusValue;
         
         /// <summary>
-        /// hiddenDocumentNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenDocumentNo;
-        
-        /// <summary>
-        /// HiddenRevisionIdCollection control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenRevisionIdCollection;
-        
-        /// <summary>
-        /// hiddendocumentDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddendocumentDate;
-        
-        /// <summary>
         /// lblClientdocumentnot control.
         /// </summary>
         /// <remarks>

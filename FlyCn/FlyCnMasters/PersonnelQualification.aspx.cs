@@ -21,7 +21,6 @@ namespace FlyCn.FlyCnMasters
         DataTable dtable = new DataTable();
         string _id1;
 
-
         #region  Page_Load
 
         protected void Page_Load(object sender, EventArgs e)
@@ -29,7 +28,6 @@ namespace FlyCn.FlyCnMasters
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
 
             _id1 = Request.QueryString["id"];
-
             //txtEmpCode.Text = _id1;
             HiddenField.Value = _id1;
 
@@ -51,7 +49,6 @@ namespace FlyCn.FlyCnMasters
             }
             else if (functionName == "Update")
             {
-               
                 UpdateData();
             }
             else if (functionName == "Delete")
@@ -111,9 +108,6 @@ namespace FlyCn.FlyCnMasters
                     personnelqualificationobj.RenewedDate = Convert.ToString(RadDRenewedDate.SelectedDate);
                 }
                 personnelqualificationobj.Remarks = txtRemarks.Text;
-
-                personnelqualificationobj.Updated_By = UA.userName;
-
                 string ProjNo = UA.projectNo;
                 int result = personnelqualificationobj.InsertMasterPersonalQualificationData(ProjNo);
                 dtgPersonnelQualificationGrid.Rebind();
@@ -147,14 +141,11 @@ namespace FlyCn.FlyCnMasters
         {
             string projectNo = UA.projectNo;
 
-
-
             GridDataItem item = e.Item as GridDataItem;
             string strId = item.GetDataKeyValue("EmpCode").ToString();
             string Qualification = item.GetDataKeyValue("Qualification").ToString();
             if (e.CommandName == "Delete")
             {
-
 
                 int result = personnelqualificationobj.DeleteMasterPersonnelQualificationData(strId, Qualification, projectNo);
                 if (result == 1)
@@ -166,8 +157,6 @@ namespace FlyCn.FlyCnMasters
             }
             else if (e.CommandName == "EditData")
             {
-                txtQualification.ReadOnly = true;
-
                 TabAddEditSettings tabs = new TabAddEditSettings();
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                 tabs.EditTab(tab);
@@ -187,9 +176,7 @@ namespace FlyCn.FlyCnMasters
                 {
                     RadFirstQualifiedDate.SelectedDate = Convert.ToDateTime(FirstQualifiedDate);
                 }
-               
-                //RadFirstQualifiedDate.SelectedDate = null;
-
+                RadFirstQualifiedDate.SelectedDate = null;
                 string ExpiryDate = dtable.Rows[0]["ExpiryDate"].ToString();
 
                 if (ExpiryDate != "")
@@ -197,9 +184,7 @@ namespace FlyCn.FlyCnMasters
                     RadExpiryDate.SelectedDate = Convert.ToDateTime(ExpiryDate);
 
                 }
-
-                //RadExpiryDate.SelectedDate = null;
-
+                RadExpiryDate.SelectedDate = null;
                 string RenewedDate = dtable.Rows[0]["RenewedDate"].ToString();
 
                 if (RenewedDate != "")
@@ -225,9 +210,6 @@ namespace FlyCn.FlyCnMasters
             personnelqualificationobj.Qualification = txtQualification.Text;
             personnelqualificationobj.QualificationType = txtQualificationType.Text;
             personnelqualificationobj.Remarks = txtRemarks.Text;
-
-            //personnelqualificationobj.Updated_By = txtUpdatedBy.Text;
-
             if (RadFirstQualifiedDate.SelectedDate != null)
             {
                 personnelqualificationobj.FirstQualifiedDate = Convert.ToString(RadFirstQualifiedDate.SelectedDate);
@@ -240,8 +222,6 @@ namespace FlyCn.FlyCnMasters
             {
                 personnelqualificationobj.RenewedDate = Convert.ToString(RadDRenewedDate.SelectedDate);
             }
-
-            personnelqualificationobj.Updated_By = UA.userName;
             string ProjNo = UA.projectNo;
             int result = personnelqualificationobj.UpdateMasterPersonelQualificationData(ProjNo);
         

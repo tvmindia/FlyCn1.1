@@ -71,6 +71,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
      <script src="../Scripts/ToolBar.js"></script>
+    <script src="../Scripts/Messages.js"></script>
     <title>Input</title>
   <%--  <!-----bootstrap css--->
     <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
@@ -103,35 +104,145 @@
 
             $("input:text").val('');
         }
-        function EnableButtonsForNew() {
-            <%-- <%=ToolBar.ClientID %>_SetAddVisible(false);
-            <%=ToolBar.ClientID %>_SetSaveVisible(true);
-            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
-            <%=ToolBar.ClientID %>_SetDeleteVisible(false);--%>
-           // var toolbar= var toolBar = $find("<%= ToolBar.ClientID %>");
-            AddMode("<%= ToolBar.ClientID %>");
-        }
-        function SelectTabList() {
-            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-            var tab = tabStrip.findTabByValue("1");
-            tab.select();
+        //---------For Security-------------//
+
+        function EnableButtonsForNew(security) 
+            {
+         
+            if (security.indexOf("w") > -1)
+            {
+                AddMode("<%= ToolBar.ClientID %>");
+            }
+            else if
+                 (security.indexOf("a") > -1)
+            {
+                AddMode("<%= ToolBar.ClientID %>");
+            }
+            else if
+                 (security.indexOf("r") > -1)
+            {
+                DisableButtons();
+            }
+      
         }
 
-        function SetTabNewTextAndIcon() {
-            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-            var tab1 = tabStrip.findTabByValue("2");
-            tab1.set_text("New");
-            tab1.set_imageUrl('../Images/Icons/NewIcon.png');
+            function EnableButtonsForEdit(security)
+                {
+                   if (document.getElementById('<%= hdnSecurity.ClientID %>').value=="w")
+                    {
+                        EnableButtonsForNew(document.getElementById('<%= hdnSecurity.ClientID %>').value);
+                   }
+                else
+                if (security.indexOf("e")>-1)
+                    {
+                        EditMode("<%= ToolBar.ClientID %>");
+                    }
+                    else if
+                    (security.indexOf("r")>-1)
+                    {
+                        DisableButtons();
+                    }
+                   if(security.indexOf("d")>-1)
+                    {
+                        DeleteButtonEnable(security);
+                    }
+          
+
+                }
+        function DisableButtons()
+        {
+          
+                DisableAll("<%= ToolBar.ClientID %>");
+          
+                }
+        function DeleteButtonEnable(security)
+        {
+           
+            if (security.indexOf("d") > -1) {
+                EnableButtonsWithDelete("<%= ToolBar.ClientID %>");
+            }
         }
-    </script>
+        //---------------------------------------------------------//
+
+
+
+                function SelectTabList() {
+                    var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+                    var tab = tabStrip.findTabByValue("1");
+                    tab.select();
+                }
+
+                function SetTabNewTextAndIcon() {
+                    var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+                    var tab1 = tabStrip.findTabByValue("2");
+                    tab1.set_text("New");
+                    tab1.set_imageUrl('../Images/Icons/NewIcon.png');
+                }
+            
+            
+            </script>
     <script type="text/javascript">
+
+       //-----------------For  Security-------------------------//
+        function OnClientTabSelecting(sender, eventArgs) {
+            debugger;
+            var tab = eventArgs.get_tab();
+            var security=document.getElementById('<%= hdnSecurity.ClientID %>').value;
+           
+    if (security.indexOf("w") > -1)
+            {
+               
+                if (tab.get_text() == "New")
+                   
+                eventArgs.set_cancel(false);
+                EnableButtonsForNew(security);
+    }
+    else
+        if (security.indexOf("e") > -1) {
+            EnableButtonsForEdit(security);
+            if (tab.get_text() == "New") {
+                AlertMsg(messages.EditModeNewClick);
+
+
+                eventArgs.set_cancel(true);
+            }
+
+        }
+        else
+            if(security.indexOf("a") > -1)
+            {
+               
+                if (tab.get_text() == "New")
+                   
+                    eventArgs.set_cancel(false);
+                EnableButtonsForNew(security);
+            }
+            else if (security.indexOf("r") > -1)
+            {
+                EnableButtonsForEdit(security);
+                if (tab.get_text() == "New") {
+                    AlertMsg(messages.EditModeNewClick);
+
+                   
+                    eventArgs.set_cancel(true);
+                }
+           
+            }
+
+        }
+        
+        //-----------------------------------------------------------//
 
 
         function onClientTabSelected(sender, args) {
-            var tab = args.get_tab();
             if (tab.get_value() == '2') {
-                //ClearTextBox();
-                EnableButtonsForNew();
+         
+                //------------------------For Security------------------------------------------//
+
+                var security= document.getElementById('<%= hdnSecurity.ClientID %>').value;
+
+                EnableButtonsForNew(security);
+                //------------------------------------------------------------------------------//
 
                 try {
 
@@ -175,14 +286,14 @@
     <script type="text/javascript">
 
         function validate() {
-            //try{
+      
 
             debugger;
             var IdNo = document.getElementById("<%=txtIDno.ClientID %>").value;
 
             if (IdNo == "") {
 
-                //   document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+             
                 displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
                 return false;
 
@@ -197,7 +308,27 @@
 
 
     <script type="text/javascript">
+       
+       
+          
         $(document).ready(function () {
+
+            //------------------------For Security-----------------------------------------------//
+            debugger;
+                if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "EditData")
+                { 
+               
+                    var security=document.getElementById('<%= hdnSecurity.ClientID %>').value;
+                    EnableButtonsForEdit(security);
+
+                }
+            if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "ViewDetailColumn")
+            {
+                var security = document.getElementById('<%= hdnSecurity.ClientID %>').value;
+                DisableButtons();
+            }
+            //----------------------------------------------------------------------------------//
+
             $('.accordion-toggle').on('click', function (event) {
 
                 event.preventDefault();
@@ -217,10 +348,13 @@
                 } else {
                     accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
                 }
-            });
+               
+            });       
+            
         });
 </script>
     <script type="text/javascript">
+     
         $(document).ready(function () {
             id = document.getElementById('IDAccordion');
 
@@ -255,11 +389,12 @@
 
 
     <asp:Label ID="lblTitle" runat="server" Text="" CssClass="PageHeading"></asp:Label>
-
+   
+   
     <hr />
-
+         
     <div class="container" style="width: 100%">
-        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
+        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" OnClientTabSelecting="OnClientTabSelecting"
             CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
 
             <Tabs>
@@ -268,12 +403,14 @@
             </Tabs>
         </telerik:RadTabStrip>
         <div id="content">
+                <%-- For Security ViewDetailColumn--%>
             <div class="contentTopBar"></div>
             <table style="width:100%">
                 <tr>
                     <td>&nbsp
                     </td>
                     <td>
+                   
 
                         <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
                             <telerik:RadPageView ID="rpList" runat="server">
@@ -292,14 +429,15 @@
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType">
                                             <Columns>
                                                 <telerik:GridButtonColumn CommandName="EditData" ItemStyle-Width="10px" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png"></telerik:GridButtonColumn>
-                                                <telerik:GridButtonColumn CommandName="DeleteColumn" Text="Delete" UniqueName="DeleteColumn" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" ConfirmDialogType="RadWindow" ConfirmText="Are you sure, you want to delete this item ?">
-                                                </telerik:GridButtonColumn>
+                                                <telerik:GridButtonColumn CommandName="DeleteColumn" Text="Delete" UniqueName="DeleteColumn" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" ConfirmDialogType="RadWindow" ConfirmText="Are you sure, you want to delete this item ?">  </telerik:GridButtonColumn>
+                                                <telerik:GridButtonColumn CommandName="ViewDetailColumn" Text="ViewDetails" UniqueName="ViewDetailColumn"  ButtonType="ImageButton" Display="false" ImageUrl="~/Images/Document Next-WF.png" ConfirmDialogType="RadWindow" ></telerik:GridButtonColumn>
+                  
                                                 <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="ID No" DataField="IDNo" UniqueName="IDNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="LinkIDNo" DataField="LinkIDNo" UniqueName="LinkIDNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="EILType" DataField="EILType" UniqueName="EILType"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="OpenBy" DataField="OpenBy" UniqueName="OpenBy"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="OpenDt" DataField="OpenDt" UniqueName="OpenDt" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="OpenDt" DataField="OpenDt" UniqueName="OpenDt" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
 
                                             </Columns>
                                         </MasterTableView>
@@ -1226,8 +1364,9 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
         </div>
  
 
-    
+     <asp:HiddenField ID="hdnAccessMode" runat="server" />
     <asp:HiddenField ID="hdnMode" runat="server" />
+       <asp:HiddenField ID="hdnSecurity" runat="server" />
 </asp:Content>
 
 

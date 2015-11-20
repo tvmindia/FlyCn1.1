@@ -427,15 +427,6 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.Label lblerrordisplay;
         
         /// <summary>
-        /// hiddenCloseFlag control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenCloseFlag;
-        
-        /// <summary>
         /// btnCloseDocument control.
         /// </summary>
         /// <remarks>

@@ -17,16 +17,12 @@ namespace FlyCn.DocumentRelated
         string _Username;
         string _Ownername;
         string _Documentno;
-        string _RevisionId;
-        string _Remarks;
         protected void Page_Load(object sender, EventArgs e)
         {
             _DocId = Request.QueryString["DocumentId"];
             _Ownername = Request.QueryString["Ownername"];
             _Username = Request.QueryString["Username"];
             _Documentno = Request.QueryString["DocumentNo"];
-            _RevisionId = Request.QueryString["RevisionId"];
-            _Remarks = txtRemarks.Text;
         } 
 
         protected void btnAcquire_Click(object sender, EventArgs e)
@@ -40,7 +36,7 @@ namespace FlyCn.DocumentRelated
             {
                result= dObj.EditOwnershipName(dObj.DocumentID, _Username);
                MailSending mObj = new MailSending();
-               mObj.ChangeOwnershipAcknowledgement(_RevisionId, _Ownername, _Username, _Remarks);
+               mObj.ChangeOwnershipAcknowledgement(_Documentno, _Ownername,_Username);
                if (result == 1)
                {
                    var page = HttpContext.Current.CurrentHandler as Page;

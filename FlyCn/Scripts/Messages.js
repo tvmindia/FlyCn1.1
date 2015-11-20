@@ -4,7 +4,9 @@
     CloseDocumentClick: "Please Select Any Document",
     AlreadyClosedDocument: "This Document Is Already Closed",
     OwnershipChangeFromSameOwner:"Document Onwer Cannot be changed",
-    NotApprovedDocument:"Only Approve Document Can Revise"
+    NotApprovedDocument: "Only Approve Document Can Revise",
+    EditModeNewClick: "Sorry You dont have the permission to add a new document!",
+    
 }
 
 var messageType = {

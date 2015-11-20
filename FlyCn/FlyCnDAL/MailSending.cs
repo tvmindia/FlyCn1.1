@@ -5,8 +5,6 @@ using System.Linq;
 using System.Net.Mail;
 using System.Threading;
 using System.Web;
-using System.Web.Configuration;
-using System.IO;
  
 namespace FlyCn.FlyCnDAL
 {
@@ -32,71 +30,82 @@ namespace FlyCn.FlyCnDAL
             set;
         }
 
-        public string Owner
-        {
-            get;
-            set;
-        }
-
-        public string CommandName
-        {
-            get;
-            set;
-        }
-        public string Remarks
-        {
-            get;
-            set;
-        }
         #endregion GeneralProperties
 
         #region Methods
 
         #region SendApprovalMail
 
-        public void SendApprovalMail(string Revisionid, string approvalId, string MssgTo, string verifierMailIdName)
+        public void SendApprovalMail(string DocumentType, string _DocumentNo, string MssgTo, string verifierMailIdName,string optionalLogId="1234567")
         {
            
             try
             {
-               
-                    ApprovelMaster approvalObj = new ApprovelMaster();
-                    DocumentMaster domObj = new DocumentMaster();
-                    Guid revId;
-                    Guid.TryParse(Revisionid, out revId);
-                    domObj.GetDocumentDetailsByRevisionID(revId);
-                    DataTable dt = new DataTable();
-                    dt = approvalObj.GetApprovalLogId(approvalId);
-                    string logId = dt.Rows[0]["LogId"].ToString();
-                    Guid logid = new Guid(logId);
-                    string userName = approvalObj.GetUserNameByLogId(logId);
-                    string localhost = WebConfigurationManager.AppSettings["server name"];
+                if (MssgTo == "")
+                {
+                    MailMessage Msg = new MailMessage();
+                    // Sender e-mail address.
+                    Msg.From = new MailAddress("info.thrithvam@gmail.com");
+                    // Recipient e-mail address.
+                    Msg.To.Add("info.thrithvam2@gmail.com");
+                    Msg.Subject = "Document  For  Approval";
+                    Msg.Body = "Please approve " + DocumentType + "document" + _DocumentNo;
+                    Msg.IsBodyHtml = true;
+                    // your remote SMTP server IP.
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.Credentials = new System.Net.NetworkCredential("info.thrithvam", "thrithvam@2015");
+                    smtp.EnableSsl = true;
+                    smtp.Send(Msg);
+                    Msg = null;
+                }
+                else
+                {
                     MailMessage Msg = new MailMessage();
                     // Sender e-mail address.
                     Msg.From = new MailAddress("info.thrithvam@gmail.com");
                     // Recipient e-mail address.
                     Msg.To.Add(MssgTo);
-                    string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/ApprovalMailTemplate.html");
-                   
-                    string body=fileName;
-                   
-                    string link="http://"+localhost+"/Approvels/Approvals.aspx?logid=" + logId + "";
-                    if (System.IO.File.Exists(fileName) == true)
-                    {
-                        System.IO.StreamReader objReader;
-                        objReader = new System.IO.StreamReader(fileName);
+                    Msg.Subject = "Document  For  Approval" + "" + _DocumentNo;
+                    string body= "<div style='margin: 0; padding: 0; min-width: 100%!important;'>"+
+   " <div style='margin: 0; padding: 0; min-width: 100%!important;  height:25px; background:lightseagreen;text-align:center;'>" + " <label style='color:white; vertical-align:central'>" + " Document For Approvel</label></div>" +
+     "    <div style='background-color:#f6f8f1; text-align:left; height:25px;'>" +
+                                            "  <label "+"style='font:bold; font-size:15px;  color:#006666'"+"> Hi"+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +verifierMailIdName+"</label>"+
 
-                  
-                        body = objReader.ReadToEnd();
-                        body=body.Replace("$USERNAME$", verifierMailIdName);
-                        body=body.Replace("$DOCTYPE$",domObj.DocumentType);
-                        body=body.Replace("$DOCNO$",domObj.DocumentNo);
-                        body=body.Replace("$DOCOWNER$",domObj.DocumentOwner);
-                        body = body.Replace("$DOCDATE$", domObj.CreatedDate.ToString("dd MMM, yyyy"));
-                        body=body.Replace("$LINK$",link);
+        "</div>"+
+   " <table width=100% bgcolor=#f6f8f1 border=0" +"cellpadding=0"+" cellspacing="+"0>"+
+            "<tr>"+
+                "<td>"+
+                    "<table class="+"content"+" align=center  cellpadding=0 cellspacing=0 border=0>"+
+                        "<tr>"+
+                            "<td>"+
+                               
+                           " </td>"+
 
-                    }
-                   Msg.Subject = "Document  For  Approval" + "" + domObj.DocumentNo;
+                        "</tr>"+
+                      
+                        "<tr>"+
+                            "<td style='height:50px'>"+
+                            "" + DocumentType + "  document-" + "&nbsp;&nbsp;" + "" + _DocumentNo + "&nbsp;&nbsp;&nbsp;" + "is closed for approval ." +"&nbsp;&nbsp;&nbsp;" +"Click the below button to approve the document."+
+                            "</td>"+
+                       " </tr>"+
+                        "<tr>"+
+                            "<td style='height:50px;padding-left:190px'>"+
+                               "   <a href='http://localhost:40922/Approvels/Approvals.aspx'>"+"<button>"+"Click To Approve Document"+"</button>"+"</a>" +
+                               
+                            "</td>"+
+                        "</tr>"+
+                    "</table>"+
+                "</td>"+
+           " </tr>" +
+           "   <tr>"+
+                "<td style='font-size:10px; color:#2F4F4F;'>" +
+                    "This is an automatically generated email – please do not reply to it. If you have any queries please email to <a href="+"'mailto:info.thrithvam@gmail.com'"+"> amrutha@thrithvam.com</a>"+
+                "</td>"+
+           " </tr>"+
+       " </table> "+ 
+" </div>";
    
                     Msg.Body =body;
       
@@ -111,7 +120,7 @@ namespace FlyCn.FlyCnDAL
                     Msg = null;
                 }
               
-            
+            }
             catch (Exception ex)
             {
                 throw ex;
@@ -123,14 +132,10 @@ namespace FlyCn.FlyCnDAL
         #endregion SendApprovalMail
 
         #region SendMailToNextLevelVarifiers
-        public void SendMailToNextLevelVarifiers(string RevisionID)
+        public void SendMailToNextLevelVarifiers(string RevisionID, string DocumentType, string projectNo, string DocumentNo)
         {
-            DocumentMaster domObj = new DocumentMaster();
-            Guid revId;
-            Guid.TryParse(RevisionID, out revId);
-            domObj.GetDocumentDetailsByRevisionID(revId);
-         
-            
+
+
             ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
             DataTable VarifierdtLevelByRevisionid = new DataTable();
             VarifierdtLevelByRevisionid = ApprovelMasterobj.getDataFromVarifierMasterDetailsByRevisoinId(RevisionID);
@@ -143,19 +148,17 @@ namespace FlyCn.FlyCnDAL
                 int verifierLevels = Convert.ToUInt16(VarifierdtLevelByRevisionid.Rows[0]["VerifierLevel"]);
                 if (Convert.ToUInt16(VarifierdtLevelByRevisionid.Rows[f]["VerifierLevel"]) == verifierLevels)
                 {
-                    string approvalId = VarifierdtLevelByRevisionid.Rows[f]["ApprovalID"].ToString();
                     string varifierId = VarifierdtLevelByRevisionid.Rows[f]["VerifierID"].ToString();
-                    Varifierdetails = ApprovelMasterobj.GetVarifierEmailByIdTosentMail(verifierLevels, domObj.DocumentType, domObj.ProjectNo, varifierId);
+                    Varifierdetails = ApprovelMasterobj.GetVarifierEmailByIdTosentMail(verifierLevels, DocumentType, projectNo, varifierId);
                     string verifierMailId = Varifierdetails.Rows[0]["VerifierEmail"].ToString();
                     string verifierMailIdName = new String(verifierMailId.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
                     verifierMailIdName = verifierMailIdName.Replace("@thrithvam.ae", "");
-                    verifierMailIdName = verifierMailIdName.Replace("@thrithvam.me", "");
                     verifierMailIdName = verifierMailIdName.Replace("@gmail.com", "");
                     verifierMailIdName = verifierMailIdName.Replace(".", " ");
                     new Thread(delegate()
                     {
 
-                        MailSendingOperation(verifierLevels, varifierId, verifierMailIdName, domObj.DocumentType,domObj.DocumentNo, approvalId, RevisionID);
+                        MailSendingOperation(verifierLevels, varifierId, verifierMailIdName, DocumentType, DocumentNo);
                     }).Start();
                 }
 
@@ -168,7 +171,7 @@ namespace FlyCn.FlyCnDAL
         #endregion SendMailToNextLevelVarifiers
 
         #region MailSendingOperation
-        public void MailSendingOperation(int Level, string levelId, string verifierMailIdName, string documentType, string documentNo, string approvalId,string Revisionid)
+        public void MailSendingOperation(int Level, string levelId, string verifierMailIdName, string documentType, string documentNo)
         {
             try
             {
@@ -176,19 +179,11 @@ namespace FlyCn.FlyCnDAL
                 FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
                 DataTable dtobj = new DataTable();
                 dtobj = ApprovelMasterobj.GetVarifierDetailsById(Level, levelId);
-                
                 MailSendingobj.MsgFrom = "";
                 MailSendingobj.MsgTo = dtobj.Rows[0]["VerifierEmail"].ToString();
                 MailSendingobj.Password = "";
-                if (CommandName != "Decline")
-                {
-                    MailSendingobj.SendApprovalMail(Revisionid, approvalId, MailSendingobj.MsgTo, verifierMailIdName);
+                MailSendingobj.SendApprovalMail(documentType, documentNo, MailSendingobj.MsgTo, verifierMailIdName);
 
-                }
-                else
-                {
-                    MailSendingobj.DeclineMail(Revisionid,MailSendingobj.MsgTo, verifierMailIdName);
-                }
             }
             catch(Exception ex)
             {
@@ -225,44 +220,58 @@ namespace FlyCn.FlyCnDAL
         #endregion GeneralEmailSending
 
         #region ChangeOwnershipAcknowledgement
-        public void ChangeOwnershipAcknowledgement(string RevisionID, string MssgTo,string username,string Remarks)
+        public void ChangeOwnershipAcknowledgement(string _DocumentNo, string MssgTo,string username)
         {
             try
             {
                
                 
                     Users userobj = new Users(MssgTo);
-                    DocumentMaster domObj = new DocumentMaster();
-                    Guid revId;
-                    Guid.TryParse(RevisionID, out revId);
-                    domObj.GetDocumentDetailsByRevisionID(revId);
-                    ApprovelMaster approvalObj = new ApprovelMaster();
-                    DataTable dt = new DataTable();
-                    
+
                     string MailTo = userobj.UserEMail;
                     MailMessage Msg = new MailMessage() ;
                     // Sender e-mail address.
                     Msg.From = new MailAddress("info.thrithvam@gmail.com");
                     // Recipient e-mail address.
                     Msg.To.Add(MailTo);
-                    string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/OwnershipChangeTemplate.html");
-                    string body = fileName;
-                    
-                    if (System.IO.File.Exists(fileName) == true)
-                    {
-                        System.IO.StreamReader objReader;
-                        objReader = new System.IO.StreamReader(fileName);
+                    Msg.Subject = "Ownership Change" + _DocumentNo ;
+                    string body = "<div style='margin: 0; padding: 0; min-width: 100%!important;'>" +
+   " <div style='margin: 0; padding: 0; min-width: 100%!important;  height:25px; background:lightseagreen;text-align:center;'>" + " <label style='color:white; vertical-align:central'>" + " Change Ownership</label></div>" +
+     "    <div style='background-color:#f6f8f1; text-align:left; height:25px;'>" +
+                                            "  <label " + "style='font:bold; font-size:15px;  color:#006666'" + "> Hi" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + MssgTo + "</label>" +
 
-                        body = objReader.ReadToEnd();
-                        body = body.Replace("$DOCUMENTTYPE$", domObj.DocumentType);
-                        body = body.Replace("$DOCUMENTNUMBER$",domObj.DocumentNo);
-                        body = body.Replace("$USERNAME$",MssgTo);
-                        body = body.Replace("$DOCUMENTOWNER$",domObj.DocumentOwner);
-                        body = body.Replace("$DOCDATE$", domObj.CreatedDate.ToString("dd MMM, yyyy"));
-                        body = body.Replace("$Remarks$", Remarks);
-                       
-                    }
-                    Msg.Subject = "Ownership Change" + domObj.DocumentNo ;
+        "</div>" +
+   " <table width=100% bgcolor=#f6f8f1 border=0" + "cellpadding=0" + " cellspacing=" + "0>" +
+            "<tr>" +
+                "<td>" +
+                    "<table class=" + "content" + " align=center  cellpadding=0 cellspacing=0 border=0>" +
+                        "<tr>" +
+                            "<td>" +
+
+                           " </td>" +
+
+                        "</tr>" +
+
+                        "<tr>" +
+                            "<td style='height:50px'>" +"Ownership for the document" +
+                            "  Document Number" + "&nbsp;&nbsp;" + "" + _DocumentNo + "&nbsp;&nbsp;&nbsp;" + "has been changed to " + username + "&nbsp;&nbsp;&nbsp;" +
+                            "</td>" +
+                       " </tr>" +
+                        "<tr>" +
+                            "<td style='height:50px;padding-left:190px'>" +
+                               
+                            "</td>" +
+                        "</tr>" +
+                    "</table>" +
+                "</td>" +
+           " </tr>" +
+           "   <tr>" +
+                "<td style='font-size:10px; color:#2F4F4F;'>" +
+                    "This is an automatically generated email – please do not reply to it. If you have any queries please email to <a href=" + "'mailto:info.thrithvam@gmail.com'" + "> amrutha@thrithvam.com</a>" +
+                "</td>" +
+           " </tr>" +
+       " </table> " +
+" </div>";
 
                     Msg.Body = body;
 
@@ -286,37 +295,58 @@ namespace FlyCn.FlyCnDAL
         #endregion ChangeOwnershipAcknowledgement
 
         #region DocumentApprovalCompleted
-        public void DocumentApprovalCompleted(string RevisionID, string MssgTo, string username)
+        public void DocumentApprovalCompleted(string _DocumentNo, string MssgTo, string username)
         {
             try
             {
+
+
                 Users userobj = new Users(MssgTo);
-                DocumentMaster domObj = new DocumentMaster();
-                Guid revId;
-                Guid.TryParse(RevisionID, out revId);
-                domObj.GetDocumentDetailsByRevisionID(revId);
+
                 string MailTo = userobj.UserEMail;
                 MailMessage Msg = new MailMessage();
                 // Sender e-mail address.
                 Msg.From = new MailAddress("info.thrithvam@gmail.com");
                 // Recipient e-mail address.
                 Msg.To.Add(MailTo);
-               
-                string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/DocumentApprovalCompleteTemplate.html");
-                string body = fileName;
-                if (System.IO.File.Exists(fileName) == true)
-                {
-                    System.IO.StreamReader objReader;
-                    objReader = new System.IO.StreamReader(fileName);
-                    body = objReader.ReadToEnd();
-                    body = body.Replace("$USERNAME$", username);
-                    body = body.Replace("$DOCUMENTNUMBER$", domObj.DocumentNo);
-                    body = body.Replace("$DOCDATE$", domObj.CreatedDate.ToString("dd MMM, yyyy"));
-                    body = body.Replace("$APPROVALDATE$", domObj.ApprovedDate.ToString("dd MMM, yyyy"));
-                    body = body.Replace("$DOCUMENTTYPE$", domObj.DocumentType);
-                   
-                }
-                Msg.Subject = "Document Approval Completed" + domObj.DocumentNo;
+                Msg.Subject = "Document Approval Completed" + _DocumentNo;
+                string body = "<div style='margin: 0; padding: 0; min-width: 100%!important;'>" +
+" <div style='margin: 0; padding: 0; min-width: 100%!important;  height:25px; background:lightseagreen;text-align:center;'>" + " <label style='color:white; vertical-align:central'>" + " Change Ownership</label></div>" +
+ "    <div style='background-color:#f6f8f1; text-align:left; height:25px;'>" +
+                                        "  <label " + "style='font:bold; font-size:15px;  color:#006666'" + "> Hi" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + MssgTo + "</label>" +
+
+    "</div>" +
+" <table width=100% bgcolor=#f6f8f1 border=0" + "cellpadding=0" + " cellspacing=" + "0>" +
+        "<tr>" +
+            "<td>" +
+                "<table class=" + "content" + " align=center  cellpadding=0 cellspacing=0 border=0>" +
+                    "<tr>" +
+                        "<td>" +
+
+                       " </td>" +
+
+                    "</tr>" +
+
+                    "<tr>" +
+                        "<td style='height:50px'>" +
+                        " Approval for the document" + "&nbsp;&nbsp;" + "" + _DocumentNo + "&nbsp;&nbsp;&nbsp;" + "is completed " +  "&nbsp;&nbsp;&nbsp;" +
+                        "</td>" +
+                   " </tr>" +
+                    "<tr>" +
+                        "<td style='height:50px;padding-left:190px'>" +
+
+                        "</td>" +
+                    "</tr>" +
+                "</table>" +
+            "</td>" +
+       " </tr>" +
+       "   <tr>" +
+            "<td style='font-size:10px; color:#2F4F4F;'>" +
+                "This is an automatically generated email – please do not reply to it. If you have any queries please email to <a href=" + "'mailto:info.thrithvam@gmail.com'" + "> amrutha@thrithvam.com</a>" +
+            "</td>" +
+       " </tr>" +
+   " </table> " +
+" </div>";
 
                 Msg.Body = body;
 
@@ -338,126 +368,6 @@ namespace FlyCn.FlyCnDAL
             }
         }
         #endregion DocumentApprovalCompleted
-
-        #region RejectMail
-        public void RejectMail(string RevisionID, string MssgTo, string username, string Reason)
-        {
-            try
-            {
-                Users userobj = new Users(MssgTo);
-                DocumentMaster domObj = new DocumentMaster();
-                Guid revId;
-                Guid.TryParse(RevisionID, out revId);
-                domObj.GetDocumentDetailsByRevisionID(revId);
-                ApprovelMaster approvalObj = new ApprovelMaster();
-                DataTable dt = new DataTable();
-
-                string MailTo = userobj.UserEMail;
-                MailMessage Msg = new MailMessage();
-                // Sender e-mail address.
-                Msg.From = new MailAddress("info.thrithvam@gmail.com");
-                // Recipient e-mail address.
-                Msg.To.Add(MailTo);
-                string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/RejectedMailTemplate.html");
-                string body = fileName;
-
-                if (System.IO.File.Exists(fileName) == true)
-                {
-                    System.IO.StreamReader objReader;
-                    objReader = new System.IO.StreamReader(fileName);
-
-                    body = objReader.ReadToEnd();
-                    body = body.Replace("$DOCTYPE$", domObj.DocumentType);
-                    body = body.Replace("$DOCNO$", domObj.DocumentNo);
-                    body = body.Replace("$USERNAME$", MssgTo);
-                    body = body.Replace("$DOCOWNER$", domObj.DocumentOwner);
-                    body = body.Replace("$DOCDATE$", domObj.CreatedDate.ToString("dd MMM, yyyy"));
-                    body = body.Replace("$Reason$", Reason);
-
-                }
-                Msg.Subject = "Document Rejected" + domObj.DocumentNo;
-
-                Msg.Body = body;
-
-                Msg.IsBodyHtml = true;
-                // your remote SMTP server IP.
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.Credentials = new System.Net.NetworkCredential("info.thrithvam", "thrithvam@2015");
-                smtp.EnableSsl = true;
-                smtp.Send(Msg);
-                Msg = null;
-            }
-
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        #endregion RejectMail
-
-        #region DeclineMail
-        public void DeclineMail(string Revisionid, string MssgTo, string verifierMailIdName)
-        {
-            try
-            {
-                Users userobj = new Users(MssgTo);
-                DocumentMaster domObj = new DocumentMaster();
-                Guid revId;
-                Guid.TryParse(Revisionid, out revId);
-                domObj.GetDocumentDetailsByRevisionID(revId);
-                ApprovelMaster approvalObj = new ApprovelMaster();
-                DataTable dt = new DataTable();
-                string MailTo = userobj.UserEMail;
-                
-                MailMessage Msg = new MailMessage();
-                // Sender e-mail address.
-                Msg.From = new MailAddress("info.thrithvam@gmail.com");
-                // Recipient e-mail address.
-                Msg.To.Add(MailTo);
-                string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/DeclinedMailTemplate.html");
-                string body = fileName;
-
-                if (System.IO.File.Exists(fileName) == true)
-                {
-                    System.IO.StreamReader objReader;
-                    objReader = new System.IO.StreamReader(fileName);
-
-                    body = objReader.ReadToEnd();
-                    body = body.Replace("$DOCTYPE$", domObj.DocumentType);
-                    body = body.Replace("$USERNAME$", verifierMailIdName);
-                    body = body.Replace("$DOCNO$", domObj.DocumentNo);
-                    body = body.Replace("$USERNAME$", MssgTo);
-                    body = body.Replace("$DOCOWNER$", domObj.DocumentOwner);
-                    body = body.Replace("$DOCDATE$", domObj.CreatedDate.ToString("dd MMM, yyyy"));
-                   // body = body.Replace("$Reason$", Remarks);
-
-                }
-                Msg.Subject = "Document Declined" + domObj.DocumentNo;
-
-                Msg.Body = body;
-
-                Msg.IsBodyHtml = true;
-                // your remote SMTP server IP.
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.Credentials = new System.Net.NetworkCredential("info.thrithvam", "thrithvam@2015");
-                smtp.EnableSsl = true;
-                smtp.Send(Msg);
-                Msg = null;
-            }
-
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        #endregion DeclineMail
-
         #endregion Methods
     }
 }

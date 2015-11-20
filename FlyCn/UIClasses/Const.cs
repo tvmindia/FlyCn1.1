@@ -37,14 +37,7 @@ namespace FlyCn.UIClasses
                 return "~/Home.aspx";
             }
         }
-        public string ApprovalPageURL
-        {
-            get
-            {
-                return "Approvals.aspx";
-            }
-
-        }
+      
     }
 
       public static class Messages

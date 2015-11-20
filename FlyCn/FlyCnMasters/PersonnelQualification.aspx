@@ -1,4 +1,4 @@
-﻿    <%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="PersonnelQualification.aspx.cs" Inherits="FlyCn.FlyCnMasters.PersonnelQualification" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="PersonnelQualification.aspx.cs" Inherits="FlyCn.FlyCnMasters.PersonnelQualification" %>
 <%--<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/Popup.Master" AutoEventWireup="true" CodeBehind="PersonnelQualification.aspx.cs" Inherits="FlyCn.FlyCnMasters.PersonnelQualification" %>--%>
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
@@ -44,20 +44,15 @@
 
     <script type="text/javascript">
         function onClientTabSelected(sender, args) {
-            //debugger;
             var tab = args.get_tab();
             if (tab.get_value() == "2") {
                 //new clicked 
-               
-
                 try {
                     $('input[type=text]').each(function () {
                         $(this).val('');
                     });
 
                     $('textarea').empty();
-
-                   
                     <%=ToolBarQualification.ClientID %>_SetAddVisible(false);
                     <%=ToolBarQualification.ClientID %>_SetSaveVisible(true);
                     <%=ToolBarQualification.ClientID %>_SetUpdateVisible(false);
@@ -66,13 +61,9 @@
                 catch (x) {
                     alert(x.message);
                 }
-                document.getElementById('<%=txtQualification.ClientID%>').readOnly = false;
+
             }
             if (tab.get_value() == "1") {
-              
-
-                
-                
                 var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
                 var tab = tabStrip.findTabByValue("1");
                 tab.select();
@@ -144,13 +135,13 @@
                     <div id="divQualificationedit">
                         <div class="col-lg-12 Span-One">
                             <div class="col-lg-6">
-                                <div class="form-group required" >
+                                <div class="form-group">
 
                                     <asp:Label ID="lblQualification" CssClass="control-label col-lg-3" runat="server" Text="Qualification"></asp:Label>
                                     <div class="col-lg-9">
 
                                         <asp:TextBox ID="txtQualification" CssClass="form-control" runat="server"></asp:TextBox>
-                                        <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;"></span>
+                                        <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
 
                                     </div>
                                 </div>

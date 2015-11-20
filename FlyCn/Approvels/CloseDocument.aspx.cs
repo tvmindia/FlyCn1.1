@@ -17,8 +17,6 @@ namespace FlyCn.Approvels
         string _DocumentID;
         string _DocumentType;
         string _DocumentNo;
-        string _HiddenFieldOwner;
-        string _HiddendocumentDate;
         int count = 0;
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
@@ -29,8 +27,7 @@ namespace FlyCn.Approvels
             _DocumentID = Request.QueryString["DocumentID"];
             _DocumentType = Request.QueryString["DocumentType"];
             _DocumentNo = Request.QueryString["DocumentNo"];
-            _HiddenFieldOwner = Request.QueryString["hiddenFieldOwner"];
-            _HiddendocumentDate = Request.QueryString["hiddendocumentDate"];
+         
             //string caption = "Select Your Varifiers :)";
             string caption = "Select Document Varifiers ";
             //caption = caption.Replace(":)", "<img src='/Images/smile_1.png' alt='Happy!' />");
@@ -214,10 +211,14 @@ namespace FlyCn.Approvels
 
         protected void btnCloseDocument_Click(object sender, EventArgs e)
         {
-
-
-
+            string level1Idf = (Request.Form["selecttools1"]);
+            ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
+            string level1 = "";
+            //string JJ = selecttools1.SelectedIndex.ToString();
+            string selection = Request.Form["Level2"];
             byte isLevelManadatory = 0;
+
+
             string level1IdData;
             string level1Id;
 
@@ -419,10 +420,9 @@ namespace FlyCn.Approvels
                 }
 
             }
-            hiddenCloseFlag.Value = "1";
             FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
 
-           MailSendingobj.SendMailToNextLevelVarifiers(_RevisionID);
+           MailSendingobj.SendMailToNextLevelVarifiers(_RevisionID, _DocumentType, UA.projectNo,_DocumentNo);
            //FlyCn.BOQ.BOQHeader boqObj = new BOQ.BOQHeader();
            //boqObj.Page.();
          
