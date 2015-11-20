@@ -374,6 +374,7 @@
     <Content Include="Images\Icons\testprogress.png" />
     <Content Include="Images\Icons\ur.png" />
     <Content Include="Images\Icons\workpack.png" />
+    <Content Include="Images\Lb2.png" />
     <Content Include="Images\smile_1.png" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.min.js" />

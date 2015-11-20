@@ -62,5 +62,11 @@ namespace FlyCn.UserControls
             ScriptManager.RegisterStartupScript(this, this.GetType(), "passSelectedGridviewRowBankName", "passSelectedGridviewRowBankName('" + selectedRowName + "','" + selectedRowCode + "','" + textboxID + "','" + divID + "','" + iframeDiv + "');", true);
 
         }
+
+        protected void gvTableDetails_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvTableDetails.PageIndex = e.NewPageIndex;
+            gvTableDetails.DataBind();
+        }
     }
 }
