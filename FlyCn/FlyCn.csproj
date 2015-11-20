@@ -545,6 +545,7 @@
     <Content Include="Templates\OwnershipChangeTemplate.html" />
     <Content Include="Templates\RejectedMailTemplate.html" />
     <Content Include="test1.aspx" />
+    <Content Include="UserControls\GridviewFilter.ascx" />
     <Content Include="UserControls\MasterPopup.ascx" />
     <Content Include="UserControls\MasterPopupGridview.aspx" />
     <Content Include="UserControls\ToolBar.ascx" />
@@ -920,6 +921,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UIClasses\TabAddEditSettings.cs" />
+    <Compile Include="UserControls\GridviewFilter.ascx.cs">
+      <DependentUpon>GridviewFilter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\GridviewFilter.ascx.designer.cs">
+      <DependentUpon>GridviewFilter.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MasterPopup.ascx.cs">
       <DependentUpon>MasterPopup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
