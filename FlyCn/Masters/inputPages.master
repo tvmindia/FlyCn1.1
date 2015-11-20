@@ -107,7 +107,12 @@
              //var node = args.get_node();
          //alert(    selectedNode(node.get_text(), "content", node.get_value()));
           
-        }
+         }
+
+         function sayalert()
+         {
+             alert("hai");
+         }
     </script>
 
     <script type="text/javascript">
@@ -213,74 +218,49 @@
         function RevisionHistory()
         {
            
+          
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
             var iframe = pane.getExtContentElement();
             var contentWindow = iframe.contentWindow;
+          
             var hiddenDocumentStatus = contentWindow.document.getElementById('hiddenStatusValue');
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
             var DocumentNo = contentWindow.document.getElementById('hiddenDocumentNo');           
             var HiddenRevisionIdCollection = contentWindow.document.getElementById('HiddenRevisionIdCollection');
-            //alert(HiddenRevisionIdCollection.value);
-
-            if ((hiddenFieldRevisionID.value != "") && (hiddenDocumentStatus.value == approvalStatus.Approved || hiddenDocumentStatus.value == approvalStatus.Draft||hiddenDocumentStatus.value == approvalStatus.Closed||hiddenDocumentStatus.value == "2" ||hiddenDocumentStatus.value == "3"||hiddenDocumentStatus.value == "5" ) && (hiddenFieldOwner.value == hiddenusername.value)) 
-
+            var HiddenDocumentNo = document.getElementById('HiddenDocumentNo');
+            
+            if (HiddenDocumentNo.value != DocumentNo.value)
             {
-               
-                var tree = $find("<%= rtvLeftMenu.ClientID %>");
-                var radNode = tree.findNodeByValue("4");
-                var childrenNode = new Telerik.Web.UI.RadTreeNode();
+                if ((hiddenFieldRevisionID.value != "") && (hiddenDocumentStatus.value == approvalStatus.Approved || hiddenDocumentStatus.value == approvalStatus.Draft || hiddenDocumentStatus.value == approvalStatus.Closed || hiddenDocumentStatus.value == "2" || hiddenDocumentStatus.value == "3" || hiddenDocumentStatus.value == "5") && (hiddenFieldOwner.value == hiddenusername.value))
+                {
+            var tree = $find("<%= rtvLeftMenu.ClientID %>");
+            var radNode = tree.findNodeByValue("4");
+            var childrenNode = new Telerik.Web.UI.RadTreeNode();
+
+            childrenNode.set_text(DocumentNo.value);
+            childrenNode.set_value("123");
+            radNode.get_nodes().add(childrenNode);
+            tree.commitChanges();
+            var radNode2 = tree.findNodeByValue("123");
+           
               
-                childrenNode.set_text(DocumentNo.value);
-                childrenNode.set_value("123");              
-                radNode.get_nodes().add(childrenNode);
-                tree.commitChanges();
-                var radNode2 = tree.findNodeByValue("123");
-                //var childrenNode2 = new Telerik.Web.UI.RadTreeNode();
-                //var childrenNode3 = new Telerik.Web.UI.RadTreeNode();
-                //childrenNode2.set_text("New Noded3");
-                //childrenNode3.set_text("New Noded4");
-                //alert(6);
-                //radNode2.get_nodes().add(childrenNode2);
-                //radNode2.get_nodes().add(childrenNode3);
-                //tree.commitChanges();
-                var arr = HiddenRevisionIdCollection.value.split('||');
-                var arry = [];
+                HiddenDocumentNo.value = DocumentNo.value;
+               
 
-                //for (i = 0; i < arr.length; i++) {
-                //    var aTemp = arr[i].split("=");
-
-                //    alert(aTemp);
-                //    alert(aTemp[0]);
-                //        //var option;
-                //        var childrenNode2 = childnode + i;
-
-                //            childrenNode2 = new Telerik.Web.UI.RadTreeNode();
-                //            childrenNode2.set_text(aTemp[0]);
-
-                //            childrenNode2.set_target("contentPane");
-                //            childrenNode2.set_navigateUrl('BOQHeader.aspx?RevisionNo=' + aTemp[1]);
-                //            //childrenNode2.ur = "Home.aspx?id=4";
-                //            radNode2.get_nodes().add(childrenNode2);
-
-                //            tree.commitChanges();
-                //        //var options;
-                //        //arry.push({ id: aTemp[0], title: aTemp[1] });
-
-                //}
                 var NodeArray = new Array();
                 NodeArray = HiddenRevisionIdCollection.value.split('||');
-                alert(NodeArray);
+              
                 var childnode;
                 for (var x = 0; x < NodeArray.length; x++)
                 {
                     var aTemp = NodeArray[x].split("=");
-                    alert(aTemp);
+                    
                     if (aTemp.length == 2)
                     {
-                        alert(aTemp[1]);
+                        
                         var childrenNode2 = childnode + x;
 
                         childrenNode2 = new Telerik.Web.UI.RadTreeNode();
@@ -293,34 +273,35 @@
 
                         tree.commitChanges();
                     }
-                    //alert('Employee Name:- ' + NodeArray[x]);
+                  
                 }
                 var nodes = tree.get_allNodes();
                 for (var i = 0; i < nodes.length; i++) {
                     if (nodes[i].get_nodes() != null) {
-                        nodes[i].collapse();
+                        //nodes[i].collapse();
+                        nodes[i].expand();
                         
                     }
                     if (nodes[i].get_selected()) {
                         nodes[i].unselect();
+                        nodes[i].collapse();
                     }
                     else {
                         nodes[i].select();
                     }
                 }
                
-                //tree.commitChanges();
               
-             //  gbvc
-            <%--    var treeViewData = window["<%=rtvLeftMenu.ClientID%>" + "_Data"];--%>
              
-                }
+            }
+            }
         }
 
-
+   
+  
        
         function hideMe() {
-            debugger;
+           
             var s = document.getElementById("Errorbox");
             document.getElementById("Errorbox").style.visibility = "hidden";
             var divId = document.getElementById("masterDiv");
@@ -328,7 +309,7 @@
             document.getElementById("lblErrorInfo").innerHTML = "";
         }
         function hideMeAlert() {
-            debugger;
+            
             var alrt = document.getElementById("CommonAlertBox");
             document.getElementById("CommonAlertBox").style.visibility = "hidden";
          
@@ -336,8 +317,7 @@
             document.getElementById("<%=lblAlertMsg.ClientID%>").innerHTML = "";
         }
         function AlertMsg(msg) {
-            debugger;
-           
+      
             var altmsg = document.getElementById("CommonAlertBox");
             document.getElementById("CommonAlertBox").style.visibility = "visible";
             document.getElementById("<%=lblAlertMsg.ClientID%>").innerText = msg;
@@ -363,7 +343,7 @@
         
             //alert(hdn.value);
             if (hiddenFieldRevisionID.value != "" && hiddenDocumentStatus.value == "0" && (hiddenFieldOwner.value == hiddenusername.value)) {
-                debugger;
+               
                 document.getElementById('IframeContent').src = "../Approvels/CloseDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value + '&DocumentNo=' + DocumentNo.value + '&hiddenFieldOwner=' + hiddenFieldOwner.value + '&hiddendocumentDate=' + hiddendocumentDate;
              
                 CloseDocumentWindow();
@@ -372,6 +352,18 @@
           
         }
 
+        function DeleteNode() {
+        
+            var tree = $find("<%= rtvLeftMenu.ClientID %>");
+            var node = tree.findNodeByValue("123");
+            tree.trackChanges();
+            node.get_parent().get_nodes().remove(node);
+            //... or by ordinal position    
+            //node.get_parent().get_nodes().removeAt(0);    
+            //... or remove all nodes at one time
+            //node.get_parent().get_nodes().clear();
+            tree.commitChanges();
+        }
         function ChangeOwner() {
            
             var splitter = $find("<%= RadSplitter1.ClientID %>");
@@ -544,6 +536,7 @@
      <asp:HiddenField ID="HiddenFieldOwner" runat="server" ClientIDMode="Static"/>
         <asp:HiddenField ID="HiddenFieldLogin" runat="server" ClientIDMode="Static" />
         <asp:HiddenField ID="hiddenNodeId" runat="server" ClientIDMode="Static" />
+       <asp:HiddenField ID="HiddenDocumentNo" runat="server" ClientIDMode="Static" />
 </asp:Content>
 
    
