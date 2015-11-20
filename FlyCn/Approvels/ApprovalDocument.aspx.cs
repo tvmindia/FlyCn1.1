@@ -433,23 +433,23 @@ namespace FlyCn.Approvels
                     {
                         DataTable dt = ds.Tables[0];
                         if (dt.Rows.Count > 0)
-                        {
-                            hiddenFieldDocOwner.Value = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
-                            hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
-                            hiddenFieldApprovalID.Value = ds.Tables[0].Rows[0]["ApprovalID"].ToString();
-                            hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
-                            hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
-                            hiddenFieldDocumentType.Value = ds.Tables[0].Rows[0]["DocumentType"].ToString();
-                            hiddenFieldDocumentNo.Value = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
-                            lblDocumentNo.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
-                            lblCreatedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocCreatedDate"]);
-                            lblProjectno.Text = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
-                            lblDocumentType.Text = ds.Tables[0].Rows[0]["DocumentType"].ToString();
-                            lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocumentDate"]);
-                            lblDocOwner.Text = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
-                            lblCreatedBy.Text = ds.Tables[0].Rows[0]["DocCreatedBy"].ToString();
-                            lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["CreatedDate"]);
-                        }
+                {
+                    hiddenFieldDocOwner.Value = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
+                    hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                    hiddenFieldApprovalID.Value = ds.Tables[0].Rows[0]["ApprovalID"].ToString();
+                    hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
+                    hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+                    hiddenFieldDocumentType.Value = ds.Tables[0].Rows[0]["DocumentType"].ToString();
+                    hiddenFieldDocumentNo.Value = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
+                    lblDocumentNo.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
+                    lblCreatedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocCreatedDate"]);
+                    lblProjectno.Text = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                    lblDocumentType.Text = ds.Tables[0].Rows[0]["DocumentType"].ToString();
+                    lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocumentDate"]);
+                    lblDocOwner.Text = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
+                    lblCreatedBy.Text = ds.Tables[0].Rows[0]["DocCreatedBy"].ToString();
+                    lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["CreatedDate"]);
+                }
                         else
                         {
                             RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");

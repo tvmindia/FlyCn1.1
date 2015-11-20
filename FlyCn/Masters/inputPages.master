@@ -93,6 +93,23 @@
     <script src="../Scripts/jquery-ui-1.8.24.js"></script>
     <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>   
      <script src="../Scripts/Messages.js"></script>
+     <script type="text/javascript">
+        
+         function ClientNodeClicked(sender, args) {
+             
+             var treeView = $find("<%= rtvLeftMenu.ClientID %>");
+
+            var selectedNode = treeView.get_selectedNode();
+            var selectNodeText = selectedNode.get_text();
+            //var DocumentTypeForHeading = document.getElementById('HiddenFieldDoctype').value;
+            //var hiddenNodeId = document.getElementById('hiddenNodeId');
+             //hiddenNodeId.innerText = selectNodeText;
+             //var node = args.get_node();
+         //alert(    selectedNode(node.get_text(), "content", node.get_value()));
+          
+        }
+    </script>
+
     <script type="text/javascript">
        
         function CloseDocumentWindow() {
@@ -206,49 +223,71 @@
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
             var DocumentNo = contentWindow.document.getElementById('hiddenDocumentNo');           
             var HiddenRevisionIdCollection = contentWindow.document.getElementById('HiddenRevisionIdCollection');
-            alert(HiddenRevisionIdCollection.value);
+            //alert(HiddenRevisionIdCollection.value);
 
             if ((hiddenFieldRevisionID.value != "") && (hiddenDocumentStatus.value == approvalStatus.Approved || hiddenDocumentStatus.value == approvalStatus.Draft||hiddenDocumentStatus.value == approvalStatus.Closed||hiddenDocumentStatus.value == "2" ||hiddenDocumentStatus.value == "3"||hiddenDocumentStatus.value == "5" ) && (hiddenFieldOwner.value == hiddenusername.value)) 
 
             {
-                alert(1);
+               
                 var tree = $find("<%= rtvLeftMenu.ClientID %>");
                 var radNode = tree.findNodeByValue("4");
                 var childrenNode = new Telerik.Web.UI.RadTreeNode();
+              
                 childrenNode.set_text(DocumentNo.value);
-                childrenNode.set_value("123");
+                childrenNode.set_value("123");              
+                radNode.get_nodes().add(childrenNode);
+                tree.commitChanges();
                 var radNode2 = tree.findNodeByValue("123");
                 //var childrenNode2 = new Telerik.Web.UI.RadTreeNode();
                 //var childrenNode3 = new Telerik.Web.UI.RadTreeNode();
                 //childrenNode2.set_text("New Noded3");
                 //childrenNode3.set_text("New Noded4");
+                //alert(6);
                 //radNode2.get_nodes().add(childrenNode2);
                 //radNode2.get_nodes().add(childrenNode3);
                 //tree.commitChanges();
-                //radNode.get_nodes().add(childrenNode);
-                //
-                var employeeArray = new Array();
-                employeeArray = HiddenRevisionIdCollection.value.split(",");
+                var NodeArray = new Array();
+                NodeArray = HiddenRevisionIdCollection.value.split(",");
                 var childnode;
-                for (var x = 0; x < employeeArray.length; x++)
+                for (var x = 0; x < NodeArray.length; x++)
                 {
-                    childnode[x] = new Telerik.Web.UI.RadTreeNode();
-                    childnode[x].set_text("New Noded3");
-                    radNode2.get_nodes().add(childnode[x]);
-               
-                    radNode.get_nodes().add(childrenNode);
+                   
+                    var childrenNode2 = childnode + x;
+                 
+                    childrenNode2 = new Telerik.Web.UI.RadTreeNode();
+                    childrenNode2.set_text(NodeArray[x]);
+                    childrenNode2.set_navigateUrl('http://localhost:40922/BOQ/BOQ.aspx?RevisionNo=4');
+                   
+                    //childrenNode2.ur = "Home.aspx?id=4";
+                    radNode2.get_nodes().add(childrenNode2);
+                   
                     tree.commitChanges();
-                    alert('Employee Name:- ' + employeeArray[x]);
+                    //alert('Employee Name:- ' + NodeArray[x]);
                 }
-                alert("aaa");
+                var nodes = tree.get_allNodes();
+                for (var i = 0; i < nodes.length; i++) {
+                    if (nodes[i].get_nodes() != null) {
+                        nodes[i].collapse();
+                        
+                    }
+                    if (nodes[i].get_selected()) {
+                        nodes[i].unselect();
+                    }
+                    else {
+                        nodes[i].select();
+                    }
+                }
                
                 //tree.commitChanges();
               
-               
+             //  gbvc
             <%--    var treeViewData = window["<%=rtvLeftMenu.ClientID%>" + "_Data"];--%>
              
                 }
         }
+
+
+       
         function hideMe() {
             debugger;
             var s = document.getElementById("Errorbox");
@@ -473,6 +512,7 @@
     <asp:HiddenField ID="HiddenFieldDoctype" runat="server" ClientIDMode="Static" />
      <asp:HiddenField ID="HiddenFieldOwner" runat="server" ClientIDMode="Static"/>
         <asp:HiddenField ID="HiddenFieldLogin" runat="server" ClientIDMode="Static" />
+        <asp:HiddenField ID="hiddenNodeId" runat="server" ClientIDMode="Static" />
 </asp:Content>
 
    

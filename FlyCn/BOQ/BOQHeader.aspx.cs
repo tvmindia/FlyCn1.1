@@ -383,7 +383,7 @@ namespace FlyCn.BOQ
                 hiddenRevisionNumber.Value = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
                 //RadDocumentDate.SelectedDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["DocumentDate"].ToString());
                 txtdatepicker.Value = Convert.ToString(ds.Tables[0].Rows[0]["DocumentDate"]);
-                hiddendocumentDate.Value =Convert.ToString(ds.Tables[0].Rows[0]["DocumentDate"]).ToString();
+                hiddendocumentDate.Value =Convert.ToString(ds.Tables[0].Rows[0]["DocumentDate"]);
                 txtDocumenttitle.Text = ds.Tables[0].Rows[0]["DocumentTitle"].ToString();
                 txtRemarks.Text = ds.Tables[0].Rows[0]["Remarks"].ToString();
                 if ((ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Closed) || (ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Approved))
@@ -421,6 +421,7 @@ namespace FlyCn.BOQ
                 hiddenStatusValue.Value = ds.Tables[0].Rows[0]["LatestStatus"].ToString();
                 DataTable docdtObj = new DataTable();
                 DataTable docNoObj = new DataTable();
+                DataTable RevNoObj = new DataTable();
                 FlyCn.FlyCnDAL.DocumentMaster docObj = new DocumentMaster();
 
                 docNoObj = docObj.GetDocumentIdByNo(hiddenDocumentNo.Value);
@@ -432,8 +433,18 @@ namespace FlyCn.BOQ
                 {
                     FieldValueLevel1 = FieldValueLevel1 + docdtObj.Rows[j]["RevisionID"] + ",";
                 }
-               string revisionIds= FieldValueLevel1;
-               HiddenRevisionIdCollection.Value = revisionIds.TrimEnd(',');
+                 string revisionIds= FieldValueLevel1.TrimEnd(',');
+                 string revisionNos = "";
+                 List<string> revisionId = revisionIds.Split(',').ToList<string>();
+                 foreach (var item in revisionId)
+                 {
+
+
+                     RevNoObj = docObj.GetRevisionNumberByRevisionId(item);
+
+                     revisionNos = revisionNos + RevNoObj.Rows[0]["RevisionNo"] + ",";
+                 }
+                 HiddenRevisionIdCollection.Value = revisionNos.TrimEnd(',');
                 string revisionid = docdtObj.Rows[0]["ProjectNo"].ToString();
                 Guid Revisionid;
                 Guid.TryParse(hiddenFieldRevisionID.Value, out Revisionid);
