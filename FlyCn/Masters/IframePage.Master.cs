@@ -22,8 +22,13 @@ namespace FlyCn.Masters
             UIClasses.InputPages ip = new UIClasses.InputPages();
             try { this.head.Controls.Add(ip.GetThemeCss()); }
             catch (Exception) { }
+           
+  
+          
             
         }
+
+   
 
     }
 }

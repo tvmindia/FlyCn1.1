@@ -548,7 +548,7 @@ transition: .25s ease;
         position: fixed;
         background-color:#F5F4F4; 
         top: 30%; 
-        left: 30%;  z-index:5;
+        left: 30%; 
         box-shadow:10px 10px 5px #888888;
         border: thin inset #800000;
         border-radius: 4px;

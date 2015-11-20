@@ -65,6 +65,12 @@ namespace FlyCn.FlyCnDAL
             set;
         }
 
+
+        public string Updated_By
+        {
+            get;
+            set;
+        }
       
         #endregion Properties
 
@@ -184,8 +190,10 @@ namespace FlyCn.FlyCnDAL
                     }
               
                 cmd.Parameters.AddWithValue("@Remarks",Remarks);
-                cmd.Parameters.AddWithValue("@Updated_By","Amrutha");
-         
+                //cmd.Parameters.AddWithValue("@Updated_By","Amrutha");
+
+                cmd.Parameters.AddWithValue("@Updated_By", Updated_By);
+
                 cmd.ExecuteScalar();
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.InsertionSuccessData(page);
@@ -393,8 +401,10 @@ namespace FlyCn.FlyCnDAL
                 }
 
                 cmd.Parameters.AddWithValue("@Remarks", Remarks);
-                cmd.Parameters.AddWithValue("@Updated_By", "Amrutha");
-         
+
+                //cmd.Parameters.AddWithValue("@Updated_By", "Amrutha");
+
+                cmd.Parameters.AddWithValue("@Updated_By", Updated_By);
 
                 cmd.ExecuteScalar();
                 var page = HttpContext.Current.CurrentHandler as Page;

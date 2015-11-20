@@ -11,20 +11,14 @@ namespace FlyCn.FlyCnDAL
 {
     public class Activities
     {
-
-
-
         public void BindTree(RadTreeView myTree)
         {
             myTree.Nodes.Clear();
-
-
             RadTreeNode rtn = new RadTreeNode("Activity Library", "Activity Library"); //<a href="../FlyCnMasters/DynamicMaster.aspx?Mode=Country" target="contentPane">Country</a>
             rtn.NavigateUrl = "../Activities/ActivityLibrary.aspx";
                 rtn.Target = "contentPane";
                 myTree.Nodes.Add(rtn);
-            
-        }
+           }
 
 
         public DataSet GetActivities(string ProjNo )
