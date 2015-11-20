@@ -42,7 +42,12 @@
            }
 
        }
-
+       function callrevisionHistory()
+       {
+           alert(2);
+           //DeleteNode();
+          
+       }
        function hideMe() {
  
            var s = document.getElementById("Errorbox");
