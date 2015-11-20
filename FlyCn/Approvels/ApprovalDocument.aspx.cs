@@ -18,9 +18,11 @@ namespace FlyCn.Approvels
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
         string verifierEmail=null;
+        int verifierLevel;
         ApprovelMaster approvelMaster;
        
         #endregion Global Variables
+
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -70,6 +72,7 @@ namespace FlyCn.Approvels
 
         }
         #endregion dtgPendingApprovalGrid_NeedDataSource
+
         #region dtgPendingApprovalGridBind
         public void PendingApprovalGridBind()
         {
@@ -231,6 +234,7 @@ namespace FlyCn.Approvels
          
         }
         #endregion ToolBar_onClick
+
         #region TabChange
         //changing tab to pending tab after action
         public void TabChange()
@@ -260,6 +264,7 @@ namespace FlyCn.Approvels
                     mailstatus=approvelMaster.RejectApprovalMaster(approvid);
                     switch (mailstatus)//calling mail function according to the status
                     {
+                        
                         case 1://@@need to change
                             // mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
                             break;
@@ -281,6 +286,7 @@ namespace FlyCn.Approvels
 
         }
         #endregion Reject_method
+
         #region Decline_method
 
         public void Decline()
@@ -303,7 +309,7 @@ namespace FlyCn.Approvels
                            mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value);
                             break;
                         case 2:
-                            mailSending.DeclineMail(hiddenFieldRevisionID.Value,UA.userName,hiddenFieldDocOwner.Value);
+                            mailSending.DeclineMail(hiddenFieldRevisionID.Value, hiddenFieldDocOwner.Value, UA.userName);
                             break;
                      }
                 }
@@ -319,6 +325,7 @@ namespace FlyCn.Approvels
             }
         }
         #endregion  Decline_method
+
         #region Approve_method
         public void Approve()//Approves the document
         {
@@ -340,6 +347,14 @@ namespace FlyCn.Approvels
                     case 2:
                         mailSending.DocumentApprovalCompleted(hiddenFieldRevisionID.Value, hiddenFieldDocOwner.Value, UA.userName);
                         break;
+                    case 4:
+                        mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value);
+                        mailSending.SendMailToSameLevelVarifiers(hiddenFieldRevisionID.Value,approvid);
+                        break;
+                    case 5:
+                        mailSending.DocumentApprovalCompleted(hiddenFieldRevisionID.Value, hiddenFieldDocOwner.Value, UA.userName);
+                        mailSending.SendMailToSameLevelVarifiers(hiddenFieldRevisionID.Value,approvid);
+                        break;
                }
             }
             catch (Exception ex)
@@ -357,7 +372,6 @@ namespace FlyCn.Approvels
 
 
         #endregion Approve_method
-
 
         #region lnkbtnDetail_Click
         protected void lnkbtnDetail_Click(object sender, EventArgs e)
@@ -403,7 +417,7 @@ namespace FlyCn.Approvels
         }
         #endregion ToolBarVisibility
 
-        #region GetAllPendingApprovalsByApprovalID
+        #region PendingApprovalGridBindByLogID
         public void PendingApprovalGridBindByLogID(string logID)//approval detail bind during login bypass from mail
         {
             try
@@ -415,28 +429,40 @@ namespace FlyCn.Approvels
                 if (LogID != Guid.Empty)
                 {
                     ds = approvelMaster.GetAllPendingApprovalsByLogID(LogID);
-                }
-                 if(ds.Tables.Count>0)
-                {
-                    hiddenFieldDocOwner.Value = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
-                    hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
-                    hiddenFieldApprovalID.Value = ds.Tables[0].Rows[0]["ApprovalID"].ToString();
-                    hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
-                    hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
-                    hiddenFieldDocumentType.Value = ds.Tables[0].Rows[0]["DocumentType"].ToString();
-                    hiddenFieldDocumentNo.Value = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
-                    lblDocumentNo.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
-                    lblCreatedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocCreatedDate"]);
-                    lblProjectno.Text = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
-                    lblDocumentType.Text = ds.Tables[0].Rows[0]["DocumentType"].ToString();
-                    lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocumentDate"]);
-                    lblDocOwner.Text = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
-                    lblCreatedBy.Text = ds.Tables[0].Rows[0]["DocCreatedBy"].ToString();
-                    lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["CreatedDate"]);
+                    if (ds.Tables.Count > 0)
+                    {
+                        DataTable dt = ds.Tables[0];
+                        if (dt.Rows.Count > 0)
+                        {
+                            hiddenFieldDocOwner.Value = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
+                            hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                            hiddenFieldApprovalID.Value = ds.Tables[0].Rows[0]["ApprovalID"].ToString();
+                            hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
+                            hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+                            hiddenFieldDocumentType.Value = ds.Tables[0].Rows[0]["DocumentType"].ToString();
+                            hiddenFieldDocumentNo.Value = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
+                            lblDocumentNo.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
+                            lblCreatedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocCreatedDate"]);
+                            lblProjectno.Text = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                            lblDocumentType.Text = ds.Tables[0].Rows[0]["DocumentType"].ToString();
+                            lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocumentDate"]);
+                            lblDocOwner.Text = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
+                            lblCreatedBy.Text = ds.Tables[0].Rows[0]["DocCreatedBy"].ToString();
+                            lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["CreatedDate"]);
+                        }
+                        else
+                        {
+                            RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                            tab.Selected = true;
+                            tab.Text = "Pending";
+                            RadMultiPage1.SelectedIndex = 0;
+                        }
+                    }
                 }
 
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
@@ -444,7 +470,7 @@ namespace FlyCn.Approvels
             }
 
         }
-        #endregion GetAllPendingApprovalsByApprovalID
+        #endregion PendingApprovalGridBindByLogID
 
     }
 }
