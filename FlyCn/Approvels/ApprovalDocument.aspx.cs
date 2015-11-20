@@ -316,7 +316,7 @@ namespace FlyCn.Approvels
 
                 finally
                 {
-                    dtgPendingApprovalGrid.DataBind();
+                    dtgPendingApprovalGrid.Rebind();
                 }
             }
         }
