@@ -124,11 +124,13 @@
                                                 <telerik:GridBoundColumn HeaderText="DocumentID" DataField="DocumentID" UniqueName="DocumentID" Display="false"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo" Display="false"></telerik:GridBoundColumn>
                                                
-                                                <telerik:GridBoundColumn HeaderText="DocumentNo" DataField="DocumentNo" ItemStyle-Width="30%" UniqueName="DocumentNo"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Document Type" DataField="DocumentType" ItemStyle-Width="30%" UniqueName="DocumentType"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Closed Date" DataField="CreatedDate" ItemStyle-Width="30%" UniqueName="CreatedDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Level" DataField="VerifierLevel" ItemStyle-Width="5%" UniqueName="VerifierLevel"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Closed By" DataField="CreatedBy" ItemStyle-Width="30%"  UniqueName="CreatedBy"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="DocumentNo" DataField="DocumentNo" ItemStyle-Width="15%" UniqueName="DocumentNo"></telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Revision No" DataField="RevisionNo" ItemStyle-Width="15%" UniqueName="RevisionNo"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Document Type" DataField="DocumentType" ItemStyle-Width="10%" UniqueName="DocumentType"></telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Document Title" DataField="DocumentTitle" ItemStyle-Width="20%" UniqueName="DocumentTitle"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Closed Date" DataField="CreatedDate" ItemStyle-Width="15%" UniqueName="CreatedDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Level" DataField="VerifierLevel" ItemStyle-Width="10%" UniqueName="VerifierLevel"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Closed By" DataField="CreatedBy" ItemStyle-Width="15%"  UniqueName="CreatedBy"></telerik:GridBoundColumn>
                                                 
                                                  <telerik:GridButtonColumn HeaderText="Action" CommandName="Action" ButtonType="ImageButton" ItemStyle-Width="5%" ImageUrl="~/Images/Icons/arrow-right3232.png" Text="Action" UniqueName="Action">
                                                 </telerik:GridButtonColumn>
@@ -162,7 +164,7 @@
 
                                          <div class="col-md-5">
                                           <asp:Label ID="lblDocNo" runat="server" Text="Document No"></asp:Label>
-                                     </div>
+                                         </div>
                                          <div class="col-md-7">
                                          <div class="form-group">
                                           <asp:Label ID="lblDocumentNo" runat="server" Text="" Font-Bold="true"></asp:Label>
@@ -228,23 +230,27 @@
                                           </div>
                                      
 
-                                         <div class="col-md-12">
-                                      <asp:LinkButton ID="lnkbtnDetail" runat="server" CssClass="DocStatusLabel" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
+                                      <div class="col-md-12">
+                                         <asp:LinkButton ID="lnkbtnDetail" runat="server" CssClass="DocStatusLabel" OnClick="lnkbtnDetail_Click">Detail</asp:LinkButton>
                                       </div>
                                          <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
                                       <iframe id="ContentDocDetails" runat="server" style="width: 1000px; height: 600px;"></iframe>
                                       </div>
                                       </div>
                                 
-                                <div class="col-md-6">
-                                    <div class="col-md-12">
+                                   <div class="col-md-6">
+                                        <div class="col-md-4">
+                                         <asp:Label ID="lblRemarks" runat="server" Text="Approver Remarks"></asp:Label>
+                                        </div>
+                                    <div class="col-md-8">
                                     <div class="form-group">
                                      <asp:TextBox ID="txtRemarks" CssClass="form-control" runat="server" TextMode="MultiLine" MaxLength="250"></asp:TextBox>
                                      <asp:Label ID="lblValidationMsg" runat="server" Text=""></asp:Label>
                                      </div>
+
                                     </div>
                                   
-                                    <div class="col-md-12">
+                                    <div class="col-md-3">
                                         <!--Telerik Radlistbox-->
                                         <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" ItemStyle-HorizontalAlign="Center" AlternatingItemStyle-HorizontalAlign="Center"  AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="500px" OnNeedDataSource="dtgApprovers_NeedDataSource">
                                         <HeaderStyle  HorizontalAlign="Center" />
@@ -266,7 +272,10 @@
                                     </div>
                              
                                 </div>
-                            </div><!--End of col-md-12 span one-->
+                                        
+                                    
+                                             
+                               </div><!--End of col-md-12 span one-->
                            </telerik:RadPageView>
                            <!--End of radApproval page--->
                           </telerik:RadMultiPage>
@@ -292,12 +301,12 @@
         {
             alert("Please choose one of the actions below! ");
             eventArgs.set_cancel(true);
-    }
+        }
         if (tab.get_text() == "Pending")
-      {
+        {
           
             eventArgs.set_cancel(false);
-      }
+        }
       
       }
 

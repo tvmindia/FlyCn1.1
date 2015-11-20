@@ -297,7 +297,7 @@ namespace FlyCn.Approvels
                     approvelMaster.ApprovalDate = System.DateTime.Now;
                     approvelMaster.Remarks = txtRemarks.Text;
                     mailstatus=approvelMaster.DeclineApprovalMaster(approvid);
-                    switch (mailstatus)//calling mail function according to the status
+                    switch (mailstatus)//calling mail function according to the mailstatus
                     {
                         case 1:
                            mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value);
@@ -309,6 +309,8 @@ namespace FlyCn.Approvels
                 }
                 catch (Exception ex)
                 {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
                     throw ex;
                 }
 
