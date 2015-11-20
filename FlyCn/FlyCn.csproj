@@ -308,6 +308,7 @@
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="DocumentRelated\OwnershipChange.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
+    <Content Include="Images\Document Next-WF.png" />
     <Content Include="Images\Download.png" />
     <Content Include="Images\flycnLogo.png" />
     <Content Include="Images\gladsmall.png" />
@@ -351,6 +352,7 @@
     <Content Include="Images\Icons\ur.png" />
     <Content Include="Images\Icons\workpack.png" />
     <Content Include="Images\smile_1.png" />
+    <Content Include="Images\View-Incident.png" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.11.3.min.js" />
