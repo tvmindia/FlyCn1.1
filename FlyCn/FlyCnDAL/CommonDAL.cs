@@ -48,6 +48,38 @@ namespace FlyCn.FlyCnDAL
             }
             #endregion GetDocumentStatus
          */
+
+            //#region GetRevisionIdByNo
+            ///// <summary>
+            ///// Select GetRevisionIdByNo
+            ///// </summary>
+            ///// <returns></returns>
+            //public DataTable GetRevisionIdByNo(string RevisionNo)
+            //{
+            //    SqlConnection con = null;
+            //    DataTable dt = null;
+            //    try
+            //    {
+
+
+            //        dbConnection dcon = new dbConnection();
+            //        con = dcon.GetDBConnection();
+            //        SqlCommand cmd = new SqlCommand("GetRevisionIdByRevisionNo", con);
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Parameters.AddWithValue("@RevisionNo", RevisionNo);
+            //        SqlDataAdapter adapter = new SqlDataAdapter();
+            //        adapter.SelectCommand = cmd;
+            //        dt = new DataTable();
+            //        adapter.Fill(dt);
+            //        con.Close();
+            //        return dt;
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        throw ex;
+            //    }
+            //}
+            //#endregion GetRevisionIdByNo
             #endregion CommonDALMethods
     }
 }

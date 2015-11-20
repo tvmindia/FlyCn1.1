@@ -246,22 +246,53 @@
                 //radNode2.get_nodes().add(childrenNode2);
                 //radNode2.get_nodes().add(childrenNode3);
                 //tree.commitChanges();
+                var arr = HiddenRevisionIdCollection.value.split('||');
+                var arry = [];
+
+                //for (i = 0; i < arr.length; i++) {
+                //    var aTemp = arr[i].split("=");
+
+                //    alert(aTemp);
+                //    alert(aTemp[0]);
+                //        //var option;
+                //        var childrenNode2 = childnode + i;
+
+                //            childrenNode2 = new Telerik.Web.UI.RadTreeNode();
+                //            childrenNode2.set_text(aTemp[0]);
+
+                //            childrenNode2.set_target("contentPane");
+                //            childrenNode2.set_navigateUrl('BOQHeader.aspx?RevisionNo=' + aTemp[1]);
+                //            //childrenNode2.ur = "Home.aspx?id=4";
+                //            radNode2.get_nodes().add(childrenNode2);
+
+                //            tree.commitChanges();
+                //        //var options;
+                //        //arry.push({ id: aTemp[0], title: aTemp[1] });
+
+                //}
                 var NodeArray = new Array();
-                NodeArray = HiddenRevisionIdCollection.value.split(",");
+                NodeArray = HiddenRevisionIdCollection.value.split('||');
+                alert(NodeArray);
                 var childnode;
                 for (var x = 0; x < NodeArray.length; x++)
                 {
-                   
-                    var childrenNode2 = childnode + x;
-                 
-                    childrenNode2 = new Telerik.Web.UI.RadTreeNode();
-                    childrenNode2.set_text(NodeArray[x]);
-                    childrenNode2.set_navigateUrl('http://localhost:40922/BOQ/BOQ.aspx?RevisionNo=4');
-                   
-                    //childrenNode2.ur = "Home.aspx?id=4";
-                    radNode2.get_nodes().add(childrenNode2);
-                   
-                    tree.commitChanges();
+                    var aTemp = NodeArray[x].split("=");
+                    alert(aTemp);
+                    if (aTemp.length == 2)
+                    {
+                        alert(aTemp[1]);
+                        var childrenNode2 = childnode + x;
+
+                        childrenNode2 = new Telerik.Web.UI.RadTreeNode();
+                        childrenNode2.set_text(aTemp[0]);
+
+                        childrenNode2.set_target("contentPane");
+                        childrenNode2.set_navigateUrl('BOQHeader.aspx?RevisionId=' + aTemp[1]);
+                        //childrenNode2.ur = "Home.aspx?id=4";
+                        radNode2.get_nodes().add(childrenNode2);
+
+                        tree.commitChanges();
+                    }
                     //alert('Employee Name:- ' + NodeArray[x]);
                 }
                 var nodes = tree.get_allNodes();

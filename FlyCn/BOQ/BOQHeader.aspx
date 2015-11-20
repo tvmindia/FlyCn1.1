@@ -306,7 +306,7 @@
             tab.select();
             var tab1 = tabStrip.findTabByValue("2");
             tab1.set_text("New");
-            
+            tab1.set_imageUrl('../Images/Icons/NewIcon.png');
         
             }
 

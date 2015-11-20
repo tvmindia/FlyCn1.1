@@ -24,6 +24,7 @@ namespace FlyCn.BOQ
     {
         #region Global Variables
         DocumentMaster documentMaster;
+        string _RevisionId;
         BOQHeaderDetails boqHeaderDetails;
         ErrorHandling eObj = new ErrorHandling();
        // DocumentStatusSettings dObj;
@@ -45,6 +46,7 @@ namespace FlyCn.BOQ
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
             BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString(); 
              BOQObj.DocumentOwner = hiddenDocumentOwner.Value;
+             _RevisionId = Request.QueryString["RevisionId"];
             //BOQObj.BindTree(RadTreeView tview);
             hiddenFieldDocumentType.Value = "BOQ";
             ContentIframe.Style["display"] = "none";//iframe disabling
@@ -52,6 +54,22 @@ namespace FlyCn.BOQ
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtMid');", true);
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtTop');", true);
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
+            if (_RevisionId != null)
+            {
+                TabAddEditSettings tabs = new TabAddEditSettings();
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tabs.EditTab(tab);
+                RadMultiPage1.SelectedIndex = 1;
+                BOQPopulate(_RevisionId);
+            }
+            else
+            {
+                TabAddEditSettings tabs = new TabAddEditSettings();
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tabs.ResetTabCaptions(tab, tab1);
+                RadMultiPage1.SelectedIndex = 0;
+            }
         }
         public void DisableBOQHeaderTextBox()
         {
@@ -62,6 +80,7 @@ namespace FlyCn.BOQ
             txtRemarks.Attributes.Add("readonly", "readonly");
         }
       
+
         public void EnableBOQHeaderTextBox()
         {
             txtClientdocumentno.Attributes.Remove("readonly");
@@ -442,9 +461,9 @@ namespace FlyCn.BOQ
 
                      RevNoObj = docObj.GetRevisionNumberByRevisionId(item);
 
-                     revisionNos = revisionNos + RevNoObj.Rows[0]["RevisionNo"] + ",";
+                     revisionNos = revisionNos + RevNoObj.Rows[0]["RevisionNo"] + "=" + item + "||";
                  }
-                 HiddenRevisionIdCollection.Value = revisionNos.TrimEnd(',');
+                 HiddenRevisionIdCollection.Value = revisionNos;
                 string revisionid = docdtObj.Rows[0]["ProjectNo"].ToString();
                 Guid Revisionid;
                 Guid.TryParse(hiddenFieldRevisionID.Value, out Revisionid);

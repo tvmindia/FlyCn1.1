@@ -228,7 +228,7 @@ namespace FlyCn.FlyCnDAL
             }
         }
         #endregion UpdateBOQ
-
+        
 
         #endregion Billofquantitymethods
 
