@@ -11,6 +11,7 @@ using Telerik.Web.UI;
 
 namespace FlyCn.FlyCnDAL
 {
+    
     public class Security
     {
 
@@ -19,6 +20,10 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+        string w;
+        string r;
+        string e;
+        string empty = "";
 
         public string PassWord
         {
@@ -150,7 +155,7 @@ namespace FlyCn.FlyCnDAL
             }
 
 
-            public  UserAuthendication(String userName,int specialAccessCode)
+            public UserAuthendication(String userName, int specialAccessCode)
             {
                 isValidUser = true;
                 userN = userName;
@@ -351,21 +356,44 @@ namespace FlyCn.FlyCnDAL
             }
             return 0;
         }
-        public void LoginSecurityCheck(Page page, string username, ToolBar pagecontrols)
-        {
+        public string LoginSecurityCheck(string mode, string username, ToolBar pagecontrols)
+           {
 
             if (username == "gopika")
 
-                ReadOnly(pagecontrols);
+                return "r" ;
+            else
             if (username == "amrutha")
-                AddEditOnly(pagecontrols);
-
-
+                return "w";
+            else
+            if (username == "albert")
+                return "rd"; 
+            else
+            if(username=="anija")
+            {
+                return "e";
+            }
+            else
+            if (username == "aa")
+            {
+                return "rdew";
+            }
+           
+            
+            return empty;
         }
 
         public void ReadOnly(ToolBar pagecontrols)
         {
-            DisableAllControls(pagecontrols);
+            //DisableAllControls(pagecontrols);
+
+            pagecontrols.AddButton.Visible = false;
+            pagecontrols.EditButton.Visible = false;
+            pagecontrols.DeclineButton.Visible = false;
+            pagecontrols.DeleteButton.Visible = false;
+            pagecontrols.ApproveButton.Visible = false;
+            pagecontrols.RejectButton.Visible = false;
+            pagecontrols.SaveButton.Visible = false;
      
 
         }

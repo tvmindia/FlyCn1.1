@@ -268,6 +268,7 @@
         if (tab.get_value() == '2')
         {
             hideMe();
+
           //Clear Text boxes When New tab clicks
             ClearBOQHeaderTexBox();
          //Clear Text boxes When New tab clicks
@@ -306,8 +307,11 @@
             tab.select();
             var tab1 = tabStrip.findTabByValue("2");
             tab1.set_text("New");
-            
-        
+            tab1.set_imageUrl('../Images/Icons/NewIcon.png');
+         //   CallFnOnParent();
+            debugger;
+            parent.DeleteNode();
+            //document.getElementById("ctl00_ContentPlaceHolder1_pnlCriteriaSearch").value;
             }
 
          }
@@ -321,7 +325,26 @@
             document.getElementById('<%=txtRemarks.ClientID %>').value = "";
             document.getElementById('<%=lblDocumentStatus.ClientID%>').innerHTML = "";
         }
-      
+        function GetRadWindow() {
+            alert(111);
+            var oWindow = null;
+            if (window.radWindow) oWindow = window.radWindow;
+            else if (window.frameElement.radWindow) oWindow = window.frameElement.radWindow;
+            return oWindow;
+        }
+        function CallFnOnParent() {
+            GetRadWindow().BrowserWindow.DeleteNode();
+            // Tip: you can pass an argument to provide data to the called function
+        }
+
+        function CallFn() {
+            // Get a reference to the RadWindow (see Example 2 for the GetRadWindow function)
+            var oWnd = GetRadWindow();
+            // get a reference to the second RadWindow       
+            var dialogB = oWnd.get_windowManager().getWindowByName("RadWindow1");
+            // by using get_contentFrame, call the predefined function
+            dialogB.get_contentFrame().contentWindow.CalledFn();
+        }
 
     function OnClientButtonClicking(sender, args) {
         var btn = args.get_item();
