@@ -544,6 +544,7 @@
     <Content Include="Templates\InputTemplateContent2.aspx" />
     <Content Include="Templates\OwnershipChangeTemplate.html" />
     <Content Include="Templates\RejectedMailTemplate.html" />
+    <Content Include="Templates\SameLevelVerifierTemplate.html" />
     <Content Include="test1.aspx" />
     <Content Include="UserControls\GridviewFilter.ascx" />
     <Content Include="UserControls\MasterPopup.ascx" />
