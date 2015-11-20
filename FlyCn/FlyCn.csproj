@@ -158,72 +158,26 @@
     <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.UI.Combined.dll" />
     <Content Include="bin\DotNetOpenAuth.AspNet.dll" />
-    <Content Include="bin\DotNetOpenAuth.AspNet.xml" />
     <Content Include="bin\DotNetOpenAuth.Core.dll" />
-    <Content Include="bin\DotNetOpenAuth.Core.xml" />
     <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.dll" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.xml" />
     <Content Include="bin\DotNetOpenAuth.OAuth.dll" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.xml" />
     <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
     <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.xml" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.xml" />
     <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.xml" />
     <Content Include="bin\FlyCn.dll" />
     <Content Include="bin\FlyCn.pdb" />
     <Content Include="bin\Microsoft.AspNet.FriendlyUrls.dll" />
-    <Content Include="bin\Microsoft.AspNet.FriendlyUrls.xml" />
     <Content Include="bin\Microsoft.AspNet.Membership.OpenAuth.dll" />
-    <Content Include="bin\Microsoft.AspNet.Membership.OpenAuth.xml" />
     <Content Include="bin\Microsoft.AspNet.Web.Optimization.WebForms.dll" />
     <Content Include="bin\Microsoft.ScriptManager.MSAjax.dll" />
     <Content Include="bin\Microsoft.ScriptManager.WebForms.dll" />
     <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\Mono.Math.dll" />
-    <Content Include="bin\Mono.Math.xml" />
-    <Content Include="bin\Org.Mentalis.Security.Cryptography.dll" />
-    <Content Include="bin\Org.Mentalis.Security.Cryptography.xml" />
     <Content Include="bin\System.Web.Optimization.dll" />
     <Content Include="bin\System.Web.Providers.dll" />
     <Content Include="bin\Telerik.Web.UI.dll" />
     <Content Include="bin\Telerik.Web.UI.Skins.dll" />
     <Content Include="bin\WebGrease.dll" />
     <Content Include="DocumentRelated\ReviseDocument.aspx" />
-    <Content Include="DocumentSettings\bin\Antlr3.Runtime.dll" />
-    <Content Include="DocumentSettings\bin\AspNet.ScriptManager.jQuery.dll" />
-    <Content Include="DocumentSettings\bin\AspNet.ScriptManager.jQuery.UI.Combined.dll" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.AspNet.dll" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.AspNet.xml" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.Core.dll" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.Core.xml" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OAuth.Consumer.dll" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OAuth.Consumer.xml" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OAuth.dll" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OAuth.xml" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OpenId.dll" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OpenId.RelyingParty.xml" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OpenId.xml" />
-    <Content Include="DocumentSettings\bin\EntityFramework.dll" />
-    <Content Include="DocumentSettings\bin\EntityFramework.xml" />
-    <Content Include="DocumentSettings\bin\FlyCn.dll" />
-    <Content Include="DocumentSettings\bin\FlyCn.pdb" />
-    <Content Include="DocumentSettings\bin\Microsoft.AspNet.FriendlyUrls.dll" />
-    <Content Include="DocumentSettings\bin\Microsoft.AspNet.FriendlyUrls.xml" />
-    <Content Include="DocumentSettings\bin\Microsoft.AspNet.Membership.OpenAuth.dll" />
-    <Content Include="DocumentSettings\bin\Microsoft.AspNet.Membership.OpenAuth.xml" />
-    <Content Include="DocumentSettings\bin\Microsoft.AspNet.Web.Optimization.WebForms.dll" />
-    <Content Include="DocumentSettings\bin\Microsoft.ScriptManager.MSAjax.dll" />
-    <Content Include="DocumentSettings\bin\Microsoft.ScriptManager.WebForms.dll" />
-    <Content Include="DocumentSettings\bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="DocumentSettings\bin\System.Web.Optimization.dll" />
-    <Content Include="DocumentSettings\bin\System.Web.Providers.dll" />
-    <Content Include="DocumentSettings\bin\Telerik.Web.UI.dll" />
-    <Content Include="DocumentSettings\bin\Telerik.Web.UI.Skins.dll" />
-    <Content Include="DocumentSettings\bin\Telerik.Web.UI.XML" />
-    <Content Include="DocumentSettings\bin\WebGrease.dll" />
     <Content Include="BOQ\BOQ.aspx" />
     <Content Include="BOQ\BOQDetails.aspx" />
     <Content Include="BOQ\BOQHeader.aspx" />
@@ -345,7 +299,6 @@
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="DocumentRelated\OwnershipChange.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
-    <Content Include="Images\Document Next-WF.png" />
     <Content Include="Images\Download.png" />
     <Content Include="Images\flycnLogo.png" />
     <Content Include="Images\gladsmall.png" />
@@ -388,14 +341,18 @@
     <Content Include="Images\Icons\testprogress.png" />
     <Content Include="Images\Icons\ur.png" />
     <Content Include="Images\Icons\workpack.png" />
+    <Content Include="Images\Lb2.png" />
     <Content Include="Images\smile_1.png" />
-    <Content Include="Images\View-Incident.png" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.11.3.min.js" />
     <Content Include="Scripts\jquery.1.9.1.min.js" />
     <Content Include="Scripts\Messages.js" />
     <Content Include="Scripts\ToolBar.js" />
+    <Content Include="Scripts\UserJs\UserValidations.js" />
+    <Content Include="Templates\ApprovalMailTemplate.html" />
+    <Content Include="Templates\DeclinedMailTemplate.html" />
+    <Content Include="Templates\DocumentApprovalCompleteTemplate.html" />
     <Content Include="Templates\htmlTemplate.html" />
     <Content Include="Content\themes\FlyCnBlue\css\selectize.css" />
     <Content Include="Content\themes\FlyCnBlue\css\style.css" />
@@ -552,10 +509,18 @@
     <Content Include="Templates\InputTemplateContent.aspx" />
     <Content Include="Templates\InputTemplateContent1.aspx" />
     <Content Include="Templates\InputTemplateContent2.aspx" />
+    <Content Include="Templates\OwnershipChangeTemplate.html" />
+    <Content Include="Templates\RejectedMailTemplate.html" />
+    <Content Include="Templates\SameLevelVerifierTemplate.html" />
     <Content Include="test1.aspx" />
+    <Content Include="UserControls\GridviewFilter.ascx" />
+    <Content Include="UserControls\MasterPopup.ascx" />
+    <Content Include="UserControls\MasterPopupGridview.aspx" />
     <Content Include="UserControls\ToolBar.ascx" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
@@ -737,7 +702,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FlyCnDAL\ReviseDocument.cs" />
-    <Compile Include="FlyCnDAL\RevisionNumberGeneration.cs" />
     <Compile Include="FlyCnDAL\Security.cs" />
     <Compile Include="FlyCnDAL\SystemDefenitionDetails.cs" />
     <Compile Include="FlyCnDAL\Template.cs" />
@@ -927,6 +891,27 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UIClasses\TabAddEditSettings.cs" />
+    <Compile Include="UserControls\GridviewFilter.ascx.cs">
+      <DependentUpon>GridviewFilter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\GridviewFilter.ascx.designer.cs">
+      <DependentUpon>GridviewFilter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MasterPopup.ascx.cs">
+      <DependentUpon>MasterPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\MasterPopup.ascx.designer.cs">
+      <DependentUpon>MasterPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MasterPopupGridview.aspx.cs">
+      <DependentUpon>MasterPopupGridview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\MasterPopupGridview.aspx.designer.cs">
+      <DependentUpon>MasterPopupGridview.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ToolBar.ascx.cs">
       <DependentUpon>ToolBar.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
