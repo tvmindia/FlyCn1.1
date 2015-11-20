@@ -365,7 +365,10 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@HierachyPosition", HierachyPosition);
                 cmd.Parameters.AddWithValue("@OwnEmployeeYN", OwnEmployeeYN);
 
-                cmd.Parameters.AddWithValue("@Updated_By","Amrutha" );
+                //cmd.Parameters.AddWithValue("@Updated_By","Amrutha" );
+
+                cmd.Parameters.AddWithValue("@Updated_By", Updated_By);
+
                 cmd.Parameters.AddWithValue("@Updated_Date",System.DateTime.Now.ToString("MM/dd/yyyy"));
                 cmd.Parameters.AddWithValue("@PassportNo", PassportNo);
                 cmd.Parameters.AddWithValue("@Nationality",Nationality );
@@ -527,7 +530,10 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@HierachyPosition", HierachyPosition);
                 cmd.Parameters.AddWithValue("@OwnEmployeeYN", OwnEmployeeYN);
 
-                cmd.Parameters.AddWithValue("@Updated_By", "Amrutha");
+                cmd.Parameters.AddWithValue("@Updated_By", Updated_By);
+
+                //cmd.Parameters.AddWithValue("@Updated_By", "Amrutha");
+
                 cmd.Parameters.AddWithValue("@Updated_Date", System.DateTime.Now.ToString("MM/dd/yyyy"));
                 cmd.Parameters.AddWithValue("@PassportNo", PassportNo);
                 cmd.Parameters.AddWithValue("@Nationality", Nationality);

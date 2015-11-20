@@ -116,7 +116,7 @@
        <div class="form-group required">
          <asp:Label ID="lblQuantity" CssClass="control-label col-md-5" runat="server" Text="Quantity"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtQuantity" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtQuantity" CssClass="form-control" OnKeyPress="return isNumberKey(this,event);" runat="server"></asp:TextBox>
           </div>
           </div>
         </div>
@@ -134,7 +134,7 @@
        <div class="form-group">
          <asp:Label ID="lblNormalHours" CssClass="control-label col-md-5" runat="server" Text="Normal Hours"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtNormalHours" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtNormalHours" CssClass="form-control" OnKeyPress="return isNumberKey(this,event);" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -143,7 +143,7 @@
        <div class="form-group">
          <asp:Label ID="lblLabourRate" CssClass="control-label col-md-5" runat="server" Text="Labour Rate"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtLabourRate" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtLabourRate" CssClass="form-control" OnKeyPress="return isNumberKey(this,event);" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -152,7 +152,7 @@
        <div class="form-group">
          <asp:Label ID="lblLabourRateType" CssClass="control-label col-md-5" runat="server" Text="Labour Rate Type"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtLabourRateType" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtLabourRateType" CssClass="form-control" MaxLength="1" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -162,19 +162,19 @@
        <div class="form-group">
          <asp:Label ID="lblMaterialRate" CssClass="control-label col-md-5" runat="server" Text="Material Rate"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtMaterialRate" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtMaterialRate" CssClass="form-control" OnKeyPress="return isNumberKey(this,event);" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
-     
-     </div>
+      </div>
+
    <div class="col-md-12 Span-One seperator" >&nbsp;<div class="seperatorLine"></div></div>
       <div class="col-md-12 Span-One">
      <div class="col-md-6">
        <div class="form-group">
          <asp:Label ID="lblUDFRate1" CssClass="control-label col-md-5" runat="server" Text="UDF Rate1"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtUDFRate1" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtUDFRate1" CssClass="form-control" OnKeyPress="return isNumberKey(this,event);" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -184,7 +184,7 @@
        <div class="form-group">
          <asp:Label ID="lblUDFRateType1" CssClass="control-label col-md-5" runat="server" Text="UDF Rate Type1"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtUDFRateType1" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtUDFRateType1" CssClass="form-control" MaxLength="1" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -194,7 +194,7 @@
        <div class="form-group">
          <asp:Label ID="lblUDFRate2" CssClass="control-label col-md-5" runat="server" Text="UDF Rate2"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtUDFRate2" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtUDFRate2" CssClass="form-control" OnKeyPress="return isNumberKey(this,event);" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -203,7 +203,7 @@
        <div class="form-group">
          <asp:Label ID="lblUDFRateType2" CssClass="control-label col-md-5" runat="server" Text="UDF Rate Type2"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtUDFRateType2" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtUDFRateType2" CssClass="form-control" MaxLength="1" runat="server"></asp:TextBox>
           </div>
           </div>
           </div>
@@ -213,7 +213,7 @@
        <div class="form-group">
          <asp:Label ID="lblUDFRate3" CssClass="control-label col-md-5" runat="server" Text="UDF Rate3"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtUDFRate3" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtUDFRate3" CssClass="form-control" OnKeyPress="return isNumberKey(this,event);" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -223,7 +223,7 @@
        <div class="form-group">
          <asp:Label ID="lblUDFRateType3" CssClass="control-label col-md-5" runat="server" Text="UDF Rate Type3"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtUDFRateType3" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtUDFRateType3" CssClass="form-control" MaxLength="1" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -233,7 +233,7 @@
        <div class="form-group">
          <asp:Label ID="lblUDFRate4" CssClass="control-label col-md-5" runat="server" Text="UDF Rate4"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtUDFRate4" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtUDFRate4" CssClass="form-control" OnKeyPress="return isNumberKey(this,event);" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -242,7 +242,7 @@
        <div class="form-group">
          <asp:Label ID="lblUDFRateType4" CssClass="control-label col-md-5" runat="server" Text="UDF Rate Type4"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtUDFRateType4" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtUDFRateType4" CssClass="form-control" MaxLength="1" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -252,7 +252,7 @@
        <div class="form-group">
          <asp:Label ID="lblUDFRate5" CssClass="control-label col-md-5" runat="server" Text="UDF Rate5"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtUDFRate5" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtUDFRate5" CssClass="form-control" OnKeyPress="return isNumberKey(this,event);" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -263,7 +263,7 @@
        <div class="form-group">
          <asp:Label ID="lblUDFRateType5" CssClass="control-label col-md-5" runat="server" Text="UDF Rate Type5"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtUDFRateType5" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtUDFRateType5" CssClass="form-control" MaxLength="1" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -277,7 +277,7 @@
        <div class="form-group">
          <asp:Label ID="lbmdroup1" CssClass="control-label col-md-5" runat="server" Text="Group1"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtGroup1" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtGroup1" CssClass="form-control" MaxLength="50" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -286,7 +286,7 @@
        <div class="form-group">
          <asp:Label ID="lbmdroup2" CssClass="control-label col-md-5" runat="server" Text="Group2"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtGroup2" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtGroup2" CssClass="form-control" MaxLength="50" runat="server"></asp:TextBox>
           </div>
           </div>
          </div>
@@ -295,7 +295,7 @@
        <div class="form-group">
          <asp:Label ID="lbmdroup3" CssClass="control-label col-md-5" runat="server" Text="Group3"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtGroup3" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtGroup3" CssClass="form-control" MaxLength="50" runat="server"></asp:TextBox>
           </div>
           </div>
         </div>
@@ -304,7 +304,7 @@
        <div class="form-group">
          <asp:Label ID="lbmdroup4" CssClass="control-label col-md-5" runat="server" Text="Group4"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtGroup4" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtGroup4" CssClass="form-control" MaxLength="50" runat="server"></asp:TextBox>
           </div>
           </div>
        </div>
@@ -313,7 +313,7 @@
        <div class="form-group">
          <asp:Label ID="lbmdroup5" CssClass="control-label col-md-5" runat="server" Text="Group5"></asp:Label>
           <div class="col-md-7">
-             <asp:TextBox ID="txtGroup5" CssClass="form-control" runat="server"></asp:TextBox>
+             <asp:TextBox ID="txtGroup5" CssClass="form-control" MaxLength="50" runat="server"></asp:TextBox>
           </div>
           </div>
        </div>
@@ -397,6 +397,7 @@
              return true;
          }
      }
+
      function OnClientButtonClickingDetail(sender, args)
      {
         var btn = args.get_item();
@@ -417,6 +418,7 @@
         }
                 
      }
+    
 
 </script>
  

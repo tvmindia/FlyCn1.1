@@ -374,6 +374,7 @@
     <Content Include="Images\Icons\testprogress.png" />
     <Content Include="Images\Icons\ur.png" />
     <Content Include="Images\Icons\workpack.png" />
+    <Content Include="Images\Lb2.png" />
     <Content Include="Images\smile_1.png" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -381,7 +382,9 @@
     <Content Include="Scripts\jquery.1.9.1.min.js" />
     <Content Include="Scripts\Messages.js" />
     <Content Include="Scripts\ToolBar.js" />
+    <Content Include="Scripts\UserJs\UserValidations.js" />
     <Content Include="Templates\ApprovalMailTemplate.html" />
+    <Content Include="Templates\DeclinedMailTemplate.html" />
     <Content Include="Templates\DocumentApprovalCompleteTemplate.html" />
     <Content Include="Templates\htmlTemplate.html" />
     <Content Include="Content\themes\FlyCnBlue\css\selectize.css" />
@@ -540,7 +543,9 @@
     <Content Include="Templates\InputTemplateContent1.aspx" />
     <Content Include="Templates\InputTemplateContent2.aspx" />
     <Content Include="Templates\OwnershipChangeTemplate.html" />
+    <Content Include="Templates\RejectedMailTemplate.html" />
     <Content Include="test1.aspx" />
+    <Content Include="UserControls\GridviewFilter.ascx" />
     <Content Include="UserControls\MasterPopup.ascx" />
     <Content Include="UserControls\MasterPopupGridview.aspx" />
     <Content Include="UserControls\ToolBar.ascx" />
@@ -916,6 +921,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UIClasses\TabAddEditSettings.cs" />
+    <Compile Include="UserControls\GridviewFilter.ascx.cs">
+      <DependentUpon>GridviewFilter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\GridviewFilter.ascx.designer.cs">
+      <DependentUpon>GridviewFilter.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MasterPopup.ascx.cs">
       <DependentUpon>MasterPopup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
