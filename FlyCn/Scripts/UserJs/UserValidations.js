@@ -1,20 +1,31 @@
 ﻿/*Validation Methods are defined here*/
 
 
-function IsNumeric(e) {
-    var specialKeys = new Array();
-    var count = 0;
-    specialKeys.push(8); //Backspace
-    specialKeys.push(46);//dot operator
-    var keyCode = e.which ? e.which : e.keyCode
-    if (keyCode == '46') {
-        count++;
+function IsNumeric(event)
+{
+    
+   // if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+       // event.preventDefault();
+   // }
+    var re = new RegExp("^[0-9]*[.][0-9]+$");
+  
+    if (event.val().match(re))
+    {
+        //alert("Successful match");
+        event.preventDefault();
     }
-    if (count != 2) {
-        var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+    else
+    {
+        alert("No match");
     }
-    else {
-        ret = false;
-    }
-    return ret;
+}
+
+function isNumberKey(sender, evt) {
+    var txt = sender.value;
+    var dotcontainer = txt.split('.');
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    if (!(dotcontainer.length == 1 && charCode == 46) && charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+
+    return true;
 }

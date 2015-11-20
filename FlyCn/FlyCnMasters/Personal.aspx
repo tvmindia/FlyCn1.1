@@ -3,6 +3,8 @@
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Src="~/UserControls/MasterPopup.ascx" TagPrefix="uc1" TagName="MasterPopup" %>
+
 
 <asp:Content ID="phdPersonalHead" ContentPlaceHolderID="head" runat="server">
 
@@ -23,6 +25,12 @@
 <asp:Content ID="phdPersonalContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
     <script type="text/javascript">
+
+      
+
+
+
+
         function ClearTextBox() {
             $('textarea').empty();
 
@@ -50,7 +58,11 @@
             var Code = document.getElementById('<%=txtCode.ClientID %>').value;
             var Name = document.getElementById('<%=txtName.ClientID %>').value;
             var Nationality = document.getElementById('<%=txtNationality.ClientID %>').value;
-            var Company = document.getElementById('<%=RadComboCompany.ClientID %>').value;
+
+            //var Company = document.getElementById('<%=MasterPopup.ClientID %>').value;
+            var Company = document.getElementById('<%=txtName.ClientID%>').value;
+           
+
             if (Code == "" || Name == "" || Nationality == "" || Company == "") {
 
                 displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
@@ -108,7 +120,7 @@
                 args.set_cancel(!confirm('Do you want to delete ?'));
             }
             if (btn.get_value() == 'Save') {
-
+                debugger;
                 args.set_cancel(!validate());
             }
             if (btn.get_value() == 'Update') {
@@ -139,7 +151,7 @@
                     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
                     </asp:ScriptManager>
 
-                    <telerik:RadGrid ID="dtgPersonnelGrid" runat="server" AllowPaging="true" AllowSorting="true"  PageSize="7"
+                    <telerik:RadGrid ID="dtgPersonnelGrid" runat="server" AllowPaging="true" AllowSorting="true"  PageSize="15"
                         OnNeedDataSource="dtgPersonnelGrid_NeedDataSource" OnItemCommand="dtgPersonnelGrid_ItemCommand"
                         Skin="Silk" CssClass="outerMultiPage"
                         OnPreRender="dtgPersonnelGrid_PreRender">
@@ -172,12 +184,12 @@
                 <div class="col-md-12 Span-One">
                     <div class="col-md-6">
 
-                        <div class="form-group">
+                        <div class="form-group required">
 
-                            <asp:Label ID="lblCode" CssClass="control-label col-md-3" runat="server" Text="Code"></asp:Label>
+                            <asp:Label ID="lblCode" CssClass="control-label col-md-3 " runat="server" Text="Code"></asp:Label>
                             <div class="col-md-9">
                                 <asp:TextBox ID="txtCode" CssClass="form-control" runat="server"></asp:TextBox>
-                                <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
+                                <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;"></span>
                                 <asp:RequiredFieldValidator ID="rfv" runat="server" ErrorMessage="Enter code."
                                     Display="Dynamic" SetFocusOnError="true"
                                     ForeColor="Red"
@@ -217,14 +229,14 @@
                 <div class="col-md-12 Span-One">
                     <div class="col-md-6">
 
-                        <div class="form-group">
+                        <div class="form-group required">
 
 
                             <asp:Label ID="lblName" CssClass="control-label col-md-3" runat="server" Text="Name"></asp:Label>
                             <div class="col-md-9">
 
                                 <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
-                                <span id="span1" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
+                                <span id="span1" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;"></span>
 
 
                             </div>
@@ -259,7 +271,7 @@
                 <div class="col-md-12 Span-One">
                     <div class="col-md-6">
 
-                        <div class="form-group">
+                        <div class="form-group required">
 
 
                             <asp:Label ID="lblNationality" CssClass="control-label col-md-3" runat="server" Text="Nationality"></asp:Label>
@@ -267,7 +279,7 @@
                             <div class="col-md-9">
 
                                 <asp:TextBox ID="txtNationality" CssClass="form-control" runat="server"></asp:TextBox>
-                                <span id="span3" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
+                                <span id="span3" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;"></span>
 
                             </div>
                         </div>
@@ -324,24 +336,28 @@
                                 <div class="col-md-12 Span-One ">
                                     <div class="col-md-6 ">
 
-                                        <div class="form-group">
-
+                                       
+                                            <div class="form-group required">
                                             <asp:Label ID="lblCompany" CssClass="control-label col-md-3" runat="server" Text="Company"></asp:Label>
-
-
-
+                                            
                                             <div class="col-md-9">
-
-                                                <telerik:RadComboBox ID="RadComboCompany" runat="server" Width="170px"
+                                    
+                    <uc1:MasterPopup runat="server" id="MasterPopup" tableName="M_Company" textField="CompName" valueField="Code" divName="Company Details" codeHeader="Company Code" nameHeader="Company Name"/>
+                  
+           
+                                                    
+                                       <%--  <telerik:RadComboBox ID="RadComboCompany" runat="server" Width="170px"
                                                     EmptyMessage="Select a Company" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
                                                     EnableVirtualScrolling="true" OnItemsRequested="RadComboCompany_ItemsRequested"  sort="Ascending">
-                                                </telerik:RadComboBox>
-                                                <span id="span4" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
+                                                </telerik:RadComboBox>--%>
+
+                                              <%--<span id="span4" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;"></span>--%>
 
                                             </div>
                                         </div>
                                         <%-- </form>--%>
                                     </div>
+
                                     <div class="col-md-6">
                                         <%--    <form class="form-horizontal" role="form">--%>
                                         <div class="form-group">
@@ -504,6 +520,10 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
+
+
+                                   
+
                                     <div class="col-md-6">
                                         <%--    <form class="form-horizontal" role="form">--%>
                                         <div class="form-group">
@@ -519,9 +539,10 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                    </div>
+
+                            
+                                   
 
                        <div class="accordion-container"> <a href="#" class="accordion-toggle">Qualification
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
@@ -537,8 +558,10 @@
                                 <%-- </div>--%>
                             </div>
                         </div>
-                    </div>                
-                 </div>
+                                 
+            
+          </div>
+                              </div>
                 <hr />
 
 
