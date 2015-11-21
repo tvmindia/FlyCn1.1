@@ -143,9 +143,11 @@ namespace FlyCn.Approvels
             hiddenFieldDocumentType.Value = item.GetDataKeyValue("DocumentType").ToString();
             hiddenFieldDocumentNo.Value = item.GetDataKeyValue("DocumentNo").ToString();
             lblDocumentNo.Text = item.GetDataKeyValue("DocumentNo").ToString();
+            lblRevisionNo.Text = item.GetDataKeyValue("RevisionNo").ToString();
             lblCreatedDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("DocCreatedDate"));
             lblProjectno.Text = item.GetDataKeyValue("ProjectNo").ToString();
             lblDocumentType.Text = item.GetDataKeyValue("DocumentType").ToString();
+            lblDocumentTitle.Text = item.GetDataKeyValue("DocumentTitle").ToString();
             lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("DocumentDate"));
             lblDocOwner.Text = item.GetDataKeyValue("DocumentOwner").ToString();
             lblCreatedBy.Text = item.GetDataKeyValue("DocCreatedBy").ToString();

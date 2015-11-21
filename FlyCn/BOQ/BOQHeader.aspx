@@ -187,10 +187,15 @@
                                          <div class="col-md-7">
                                              <asp:Label ID="lblDocumentStatus" CssClass="DocStatusLabel" runat="server"    ClientIDMode="Static"></asp:Label>
                                          </div>
-
+                                         <div class="col-md-5">
+                                          
+                                              <asp:LinkButton ID="LinkButton1" OnClick="lnkbtnApprovalList" runat="server">ApproverList</asp:LinkButton>
+                                         </div>
+                                         
+                                       <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
+                                      <iframe id="ContentApprovers" runat="server" style="width: 1000px; height: 600px;"></iframe>
+                                      </div>
                                     </div>
-                               
-                                   
                                      <div class="content white">
                                        <div class="accordion-container">
                                          <a href="#" class="accordion-toggle" id="IDAccordion">Details<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
