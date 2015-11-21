@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Input</title>
-     <!-----bootstrap css--->
+ <%--    <!-----bootstrap css--->
     <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
     <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
     <!-----bootstrap css--->
@@ -20,7 +20,7 @@
     <!-----main css--->
     <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
     <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />
-    <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />--%>
     <!-----main css--->
     <!----jquery here jquery 1.11.3.min.js in ifrme has been disabled inorder to work dialog popup here---->
    <%--  <script src="../Content/themes/FlyCnBlue/js/jquery.js"></script>--%>
@@ -152,6 +152,9 @@
                                 <div class="col-md-12 Span-One">
 
                                      <div class="col-md-6">
+                                         <div class="col-md-12 infoBox">
+                                            <div class="col-md-12 infoBoxTitle">Document Details</div>
+                                               <div class="col-md-12">&nbsp;</div>
                                          <div class="col-md-5">
                                              <asp:Label ID="lblProjectnumber" runat="server" Text="Project No"></asp:Label>
                                          </div>
@@ -237,12 +240,16 @@
                                       <iframe id="ContentDocDetails" runat="server" style="width: 1000px; height: 600px;"></iframe>
                                       </div>
                                       </div>
-                                
+                                  </div>
+                                 
                                    <div class="col-md-6">
-                                        <div class="col-md-4">
+                                         <div class="col-md-12 infoBox">
+                                            <div class="col-md-12 infoBoxTitle"> Approval Details</div>
+                                               <div class="col-md-12">&nbsp;</div>
+                                        <div class="col-md-12">
                                          <asp:Label ID="lblRemarks" runat="server" Text="Approver Remarks"></asp:Label>
                                         </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-12">
                                     <div class="form-group">
                                      <asp:TextBox ID="txtRemarks" CssClass="form-control" runat="server" TextMode="MultiLine" MaxLength="250"></asp:TextBox>
                                      <asp:Label ID="lblValidationMsg" runat="server" Text=""></asp:Label>
@@ -250,7 +257,7 @@
 
                                     </div>
                                   
-                                    <div class="col-md-3">
+                                    <div class="col-md-12">
                                         <!--Telerik Radlistbox-->
                                         <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" ItemStyle-HorizontalAlign="Center" AlternatingItemStyle-HorizontalAlign="Center"  AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="500px" OnNeedDataSource="dtgApprovers_NeedDataSource">
                                         <HeaderStyle  HorizontalAlign="Center" />
@@ -270,7 +277,7 @@
                                         </MasterTableView>
                                         </telerik:RadGrid>
                                     </div>
-                             
+                             </div>
                                 </div>
                                         
                                     
