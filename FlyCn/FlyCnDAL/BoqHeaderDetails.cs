@@ -230,7 +230,53 @@ namespace FlyCn.FlyCnDAL
             }
         }
         #endregion UpdateBOQ
-        
+
+        public DataSet GetBOQHeader(Guid RevisionID)
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllBOQDocumentHeaderByRevisionID]";
+                cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = RevisionID;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+                if(ds.Tables[0].Rows.Count>0)
+                {
+                    DataRow dr = ds.Tables[0].Rows[0];
+                    DocumentDate =Convert.ToDateTime(dr["DocumentDate"]);
+                    RevisionNo = dr["RevisionNo"].ToString();
+                    DocumentTitle = dr["DocumentTitle"].ToString();
+                    Remarks = dr["Remarks"].ToString();
+                    //UpdatedBy = dr["UpdatedBy"].ToString();
+                    //UpdatedDate = dr["UpdatedDate"].ToString();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+            return ds;
+        }
 
         #endregion Billofquantitymethods
 

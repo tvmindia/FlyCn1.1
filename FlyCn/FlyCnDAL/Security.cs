@@ -359,24 +359,25 @@ namespace FlyCn.FlyCnDAL
         public string LoginSecurityCheck(string mode, string username, ToolBar pagecontrols)
            {
 
-            if (username == "gopika")
+               if (username == "gopika" )
+            //   || username == "amrutha" || username == "albert" || username == "anija")
 
-                return "r" ;
+                   return "rdew";
             else
             if (username == "amrutha")
-                return "w";
+               return "w";
             else
             if (username == "albert")
-                return "rd"; 
+               return "rd"; 
             else
             if(username=="anija")
-            {
+           {
                 return "e";
             }
             else
             if (username == "aa")
             {
-                return "rdew";
+                return "r";
             }
            
             
