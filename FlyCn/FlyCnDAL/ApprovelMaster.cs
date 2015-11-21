@@ -207,35 +207,6 @@ using Messages = FlyCn.UIClasses.Messages;
         }
         #endregion  getDataFromVarifierMasterDetailsByRevisoinId
 
-        public DataTable getEmailIdFromVarifierMasterDetailsByRevisoinId(string RevisionID, string ApprovalID)
-        {
-            DataTable datatableobj = null;
-            SqlConnection con = null;
-            try
-            {
-                dbConnection dcon = new dbConnection();
-                con = dcon.GetDBConnection();
-                SqlCommand cmd = new SqlCommand("GetEmailIdByRevisionId", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@RevisionId", RevisionID);
-               
-                cmd.Parameters.AddWithValue("@ApprovalId", ApprovalID);
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = cmd;
-                datatableobj = new DataTable();
-                adapter.Fill(datatableobj);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                con.Close();
-            }
-            return datatableobj;
-        }
-
         #region getDataFromApprovalLogByLogId
         public DataTable getDataFromApprovalLogByLogId(string LogId)
         {

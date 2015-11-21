@@ -100,6 +100,8 @@ namespace FlyCn.FlyCnDAL
            
         }
 
+      
+
         public void LoadInputScreen(RadPane myContentPane)
         {
            myContentPane.ContentUrl = "BOQHeader.aspx";

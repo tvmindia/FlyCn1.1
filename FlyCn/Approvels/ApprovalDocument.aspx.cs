@@ -18,11 +18,9 @@ namespace FlyCn.Approvels
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
         string verifierEmail=null;
-        int verifierLevel;
         ApprovelMaster approvelMaster;
        
         #endregion Global Variables
-
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -72,7 +70,6 @@ namespace FlyCn.Approvels
 
         }
         #endregion dtgPendingApprovalGrid_NeedDataSource
-
         #region dtgPendingApprovalGridBind
         public void PendingApprovalGridBind()
         {
@@ -234,7 +231,6 @@ namespace FlyCn.Approvels
          
         }
         #endregion ToolBar_onClick
-
         #region TabChange
         //changing tab to pending tab after action
         public void TabChange()
@@ -264,7 +260,6 @@ namespace FlyCn.Approvels
                     mailstatus=approvelMaster.RejectApprovalMaster(approvid);
                     switch (mailstatus)//calling mail function according to the status
                     {
-                        
                         case 1://@@need to change
                             // mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
                             break;
@@ -286,7 +281,6 @@ namespace FlyCn.Approvels
 
         }
         #endregion Reject_method
-
         #region Decline_method
 
         public void Decline()
@@ -303,7 +297,7 @@ namespace FlyCn.Approvels
                     approvelMaster.ApprovalDate = System.DateTime.Now;
                     approvelMaster.Remarks = txtRemarks.Text;
                     mailstatus=approvelMaster.DeclineApprovalMaster(approvid);
-                    switch (mailstatus)//calling mail function according to the status
+                    switch (mailstatus)//calling mail function according to the mailstatus
                     {
                         case 1:
                            mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value);
@@ -315,17 +309,18 @@ namespace FlyCn.Approvels
                 }
                 catch (Exception ex)
                 {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
                     throw ex;
                 }
 
                 finally
                 {
-                    dtgPendingApprovalGrid.DataBind();
+                    dtgPendingApprovalGrid.Rebind();
                 }
             }
         }
         #endregion  Decline_method
-
         #region Approve_method
         public void Approve()//Approves the document
         {
@@ -372,6 +367,7 @@ namespace FlyCn.Approvels
 
 
         #endregion Approve_method
+
 
         #region lnkbtnDetail_Click
         protected void lnkbtnDetail_Click(object sender, EventArgs e)
@@ -462,7 +458,7 @@ namespace FlyCn.Approvels
 
 
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);

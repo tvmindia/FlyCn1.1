@@ -151,6 +151,7 @@
     <Content Include="Approvels\ApprovalDocument.aspx" />
     <Content Include="Approvels\Approvals.aspx" />
     <Content Include="Approvels\ApprovalScreen.aspx" />
+    <Content Include="Approvels\Approvers.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="Approvels\DocDetails.aspx" />
     <Content Include="bin\AjaxControlToolkit.dll" />
@@ -518,7 +519,9 @@
     <Content Include="UserControls\MasterPopupGridview.aspx" />
     <Content Include="UserControls\ToolBar.ascx" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
@@ -566,6 +569,13 @@
     </Compile>
     <Compile Include="Approvels\ApprovalScreen.aspx.designer.cs">
       <DependentUpon>ApprovalScreen.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Approvels\Approvers.aspx.cs">
+      <DependentUpon>Approvers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvels\Approvers.aspx.designer.cs">
+      <DependentUpon>Approvers.aspx</DependentUpon>
     </Compile>
     <Compile Include="Approvels\CloseDocument.aspx.cs">
       <DependentUpon>CloseDocument.aspx</DependentUpon>
