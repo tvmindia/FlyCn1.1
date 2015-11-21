@@ -13,6 +13,7 @@ using Messages = FlyCn.UIClasses.Messages;
     public class ApprovelMaster
     {
         ErrorHandling eObj = new ErrorHandling();
+
         #region GeneralProperties
         public string RevisionID
         {
@@ -78,6 +79,22 @@ using Messages = FlyCn.UIClasses.Messages;
             set;
         }
 
+        public string CreatedDate
+        {
+            get;
+            set;
+        }
+        public string IsLevelMandatory
+        {
+            get;
+            set;
+        }
+        public int ApprovalLevel
+        {
+            get;
+            set;
+        }
+
         #endregion GeneralProperties
 
         #region getDataFromApprovelLevel
@@ -98,6 +115,28 @@ using Messages = FlyCn.UIClasses.Messages;
         }
 
         #endregion getDataFromApprovelLevel
+
+        #region GetAllDataFromApprovalMaster
+
+        public void GetAllDataFromApprovalMaster(string ApprovalId)
+        {
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetAllDataFromApprovalMaster", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ApprovalID",ApprovalId);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            datatableobj = new DataTable();
+            adapter.Fill(datatableobj);
+            DataRow dr = datatableobj.Rows[0];
+            ApprovalLevel = Convert.ToInt32(dr["VerifierLevel"]);
+            con.Close();
+        }
+        
+        #endregion GetAllDataFromApprovalMaster
 
         #region getDataFromVarifierMaster
         public DataTable getDataFromVarifierMaster(int Level, string documentType, string projectNo)

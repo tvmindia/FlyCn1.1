@@ -7,6 +7,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Configuration;
 using System.IO;
+using System.Web.SessionState;
  
 namespace FlyCn.FlyCnDAL
 {
@@ -64,12 +65,16 @@ namespace FlyCn.FlyCnDAL
                     Guid revId;
                     Guid.TryParse(Revisionid, out revId);
                     domObj.GetDocumentDetailsByRevisionID(revId);
+                    approvalObj.getDataFromApprovelLevel();
+                    
                     DataTable dt = new DataTable();
                     dt = approvalObj.GetApprovalLogId(approvalId);
                     string logId = dt.Rows[0]["LogId"].ToString();
                     Guid logid = new Guid(logId);
                     string userName = approvalObj.GetUserNameByLogId(logId);
                     string localhost = WebConfigurationManager.AppSettings["server name"];
+                    approvalObj.GetAllDataFromApprovalMaster(approvalId);
+                    int ApprovalLevel = approvalObj.ApprovalLevel;
                     MailMessage Msg = new MailMessage();
                     // Sender e-mail address.
                     Msg.From = new MailAddress("info.thrithvam@gmail.com");
@@ -78,7 +83,7 @@ namespace FlyCn.FlyCnDAL
                     string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/ApprovalMailTemplate.html");
                    
                     string body=fileName;
-                   
+
                     string link="http://"+localhost+"/Approvels/Approvals.aspx?logid=" + logId + "";
                     if (System.IO.File.Exists(fileName) == true)
                     {
@@ -86,11 +91,13 @@ namespace FlyCn.FlyCnDAL
                         objReader = new System.IO.StreamReader(fileName);
                   
                         body = objReader.ReadToEnd();
+                        body = body.Replace("$APPROVALLEVEL$", ApprovalLevel.ToString());
                         body=body.Replace("$USERNAME$", verifierMailIdName);
                         body=body.Replace("$DOCTYPE$",domObj.DocumentType);
                         body=body.Replace("$DOCNO$",domObj.DocumentNo);
                         body=body.Replace("$DOCOWNER$",domObj.DocumentOwner);
-                        body = body.Replace("$DOCDATE$", domObj.CreatedDate.ToString("dd MMM, yyyy"));
+                        body = body.Replace("$DOCDATE$", domObj.DocDate.ToString("dd -MMM- yyyy"));
+                        body = body.Replace("$REVISIONNUM$",domObj.RevNo);
                         body=body.Replace("$LINK$",link);
 
                     }
@@ -246,6 +253,8 @@ namespace FlyCn.FlyCnDAL
                 domObj.GetDocumentDetailsByRevisionID(revId);
                 ApprovelMaster approvalObj = new ApprovelMaster();
                 DataTable dt = new DataTable();
+                approvalObj.GetAllDataFromApprovalMaster(ApprovalID);
+                int ApprovalLevel = approvalObj.ApprovalLevel;
 
                 string MailTo = userobj.UserEMail;
                 MailMessage Msg = new MailMessage();
@@ -262,11 +271,13 @@ namespace FlyCn.FlyCnDAL
                     objReader = new System.IO.StreamReader(fileName);
 
                     body = objReader.ReadToEnd();
+                    body = body.Replace("$APPROVALLEVEL$", ApprovalLevel.ToString());
                     body = body.Replace("$DOCTYPE$", domObj.DocumentType);
                     body = body.Replace("$DOCNO$", domObj.DocumentNo);
                     body = body.Replace("$USERNAME$", userobj.UserName);
                     body = body.Replace("$DOCOWNER$", domObj.DocumentOwner);
-                    body = body.Replace("$DOCDATE$", domObj.CreatedDate.ToString("dd- MMM- yyyy"));
+                    body = body.Replace("$DOCDATE$", domObj.DocDate.ToString("dd- MMM- yyyy"));
+                    body = body.Replace("$REVISIONNUM$",domObj.RevNo);
 
                 }
                 Msg.Subject = "Document already approved " + domObj.DocumentNo;
@@ -320,7 +331,7 @@ namespace FlyCn.FlyCnDAL
         #endregion GeneralEmailSending
 
         #region ChangeOwnershipAcknowledgement
-        public void ChangeOwnershipAcknowledgement(string RevisionID, string MssgTo,string username,string Remarks)
+        public void ChangeOwnershipAcknowledgement(string RevisionID, string MssgTo, string username, string Remarks)
         {
             try
             {
@@ -342,19 +353,21 @@ namespace FlyCn.FlyCnDAL
                     Msg.To.Add(MailTo);
                     string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/OwnershipChangeTemplate.html");
                     string body = fileName;
-                    
+                   
                     if (System.IO.File.Exists(fileName) == true)
                     {
                         System.IO.StreamReader objReader;
                         objReader = new System.IO.StreamReader(fileName);
 
                         body = objReader.ReadToEnd();
+                        
                         body = body.Replace("$DOCUMENTTYPE$", domObj.DocumentType);
                         body = body.Replace("$DOCUMENTNUMBER$",domObj.DocumentNo);
                         body = body.Replace("$USERNAME$",MssgTo);
                         body = body.Replace("$DOCUMENTOWNER$",domObj.DocumentOwner);
-                        body = body.Replace("$DOCDATE$", domObj.CreatedDate.ToString("dd- MMM- yyyy"));
+                        body = body.Replace("$DOCDATE$", domObj.DocDate.ToString("dd- MMM- yyyy"));
                         body = body.Replace("$Remarks$", Remarks);
+                        body = body.Replace("$REVISIONNUM$",domObj.RevNo);
                        
                     }
                     Msg.Subject = "Ownership Change " + domObj.DocumentNo ;
@@ -381,12 +394,13 @@ namespace FlyCn.FlyCnDAL
         #endregion ChangeOwnershipAcknowledgement
 
         #region DocumentApprovalCompleted
-        public void DocumentApprovalCompleted(string RevisionID, string MssgTo, string username)
+        public void DocumentApprovalCompleted(string RevisionID, string MssgTo, string username, string ApprovalID)
         {
             try
             {
                 Users userobj = new Users(MssgTo);
                 DocumentMaster domObj = new DocumentMaster();
+                ApprovelMaster approvalObj = new ApprovelMaster();
                 Guid revId;
                 Guid.TryParse(RevisionID, out revId);
                 domObj.GetDocumentDetailsByRevisionID(revId);
@@ -396,7 +410,8 @@ namespace FlyCn.FlyCnDAL
                 Msg.From = new MailAddress("info.thrithvam@gmail.com");
                 // Recipient e-mail address.
                 Msg.To.Add(MailTo);
-               
+                approvalObj.GetAllDataFromApprovalMaster(ApprovalID);
+                int ApprovalLevel = approvalObj.ApprovalLevel;
                 string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/DocumentApprovalCompleteTemplate.html");
                 string body = fileName;
                 if (System.IO.File.Exists(fileName) == true)
@@ -406,10 +421,10 @@ namespace FlyCn.FlyCnDAL
                     body = objReader.ReadToEnd();
                     body = body.Replace("$USERNAME$", username);
                     body = body.Replace("$DOCUMENTNUMBER$", domObj.DocumentNo);
-                    body = body.Replace("$DOCDATE$", domObj.CreatedDate.ToString("dd- MMM- yyyy"));
+                    body = body.Replace("$DOCDATE$", domObj.DocDate.ToString("dd- MMM- yyyy"));
                     body = body.Replace("$APPROVALDATE$", domObj.ApprovedDate.ToString("dd- MMM- yyyy"));
                     body = body.Replace("$DOCUMENTTYPE$", domObj.DocumentType);
-                   
+                    body = body.Replace("$APPROVALLEVEL$", ApprovalLevel.ToString());
                 }
                 Msg.Subject = "Document Approval Completed " + domObj.DocumentNo;
 
@@ -435,16 +450,21 @@ namespace FlyCn.FlyCnDAL
         #endregion DocumentApprovalCompleted
 
         #region RejectMail
-        public void RejectMail(string RevisionID, string UserName, string OwnerName, string Reason)
+        public void RejectMail(string RevisionID, string UserName, string OwnerName, string Reason, string ApprovalID)
         {
             try
             {
                 Users userobj = new Users(OwnerName);
                 DocumentMaster domObj = new DocumentMaster();
+                ApprovelMaster approvalObj = new ApprovelMaster();
+                approvalObj.GetAllDataFromApprovalMaster(ApprovalID);
                 Guid revId;
                 Guid.TryParse(RevisionID, out revId);
                 domObj.GetDocumentDetailsByRevisionID(revId);
-                ApprovelMaster approvalObj = new ApprovelMaster();
+
+              
+             
+               
                 DataTable dt = new DataTable();
 
                 string MailTo = userobj.UserEMail;
@@ -456,6 +476,9 @@ namespace FlyCn.FlyCnDAL
                 string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/RejectedMailTemplate.html");
                 string body = fileName;
 
+              
+                int ApprovalLevel = approvalObj.ApprovalLevel;
+
                 if (System.IO.File.Exists(fileName) == true)
                 {
                     System.IO.StreamReader objReader;
@@ -466,8 +489,10 @@ namespace FlyCn.FlyCnDAL
                     body = body.Replace("$DOCNO$", domObj.DocumentNo);
                     body = body.Replace("$USERNAME$", UserName);
                     body = body.Replace("$DOCOWNER$", domObj.DocumentOwner);
-                    body = body.Replace("$DOCDATE$", domObj.CreatedDate.ToString("dd- MMM- yyyy"));
+                    body = body.Replace("$DOCDATE$", domObj.DocDate.ToString("dd- MMM- yyyy"));
                     body = body.Replace("$Reason$", Reason);
+                    body = body.Replace("$APPROVALLEVEL$", ApprovalLevel.ToString());
+                    body = body.Replace("$REVISIONNUM$", domObj.RevNo);
 
                 }
                 Msg.Subject = "Document Rejected " + domObj.DocumentNo;
@@ -494,7 +519,7 @@ namespace FlyCn.FlyCnDAL
         #endregion RejectMail
 
         #region DeclineMail   MssgTo
-        public void DeclineMail(string Revisionid, string MssgTo, string verifierMailIdName)
+        public void DeclineMail(string Revisionid, string MssgTo, string verifierMailIdName, string ApprovalID)
         {
             try
             {
@@ -515,6 +540,8 @@ namespace FlyCn.FlyCnDAL
                 string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/DeclinedMailTemplate.html");
                 string body = fileName;
 
+                approvalObj.GetAllDataFromApprovalMaster(ApprovalID);
+                int ApprovalLevel = approvalObj.ApprovalLevel;
                 if (System.IO.File.Exists(fileName) == true)
                 {
                     System.IO.StreamReader objReader;
@@ -526,7 +553,9 @@ namespace FlyCn.FlyCnDAL
                     body = body.Replace("$DOCNO$", domObj.DocumentNo);
                     body = body.Replace("$USERNAME$", MssgTo);
                     body = body.Replace("$DOCOWNER$", domObj.DocumentOwner);
-                    body = body.Replace("$DOCDATE$", domObj.CreatedDate.ToString("dd- MMM- yyyy"));
+                    body = body.Replace("$DOCDATE$", domObj.DocDate.ToString("dd- MMM- yyyy"));
+                    body = body.Replace("$APPROVALLEVEL$", ApprovalLevel.ToString());
+                    body = body.Replace("$REVISIONNUM$", domObj.RevNo);
                    // body = body.Replace("$Reason$", Remarks);
 
                 }

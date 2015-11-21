@@ -269,7 +269,7 @@ namespace FlyCn.Approvels
                             // mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
                             break;
                         case 2:
-                            mailSending.RejectMail(hiddenFieldRevisionID.Value,UA.userName, hiddenFieldDocOwner.Value, txtRemarks.Text);
+                            mailSending.RejectMail(hiddenFieldRevisionID.Value,UA.userName, hiddenFieldDocOwner.Value, txtRemarks.Text,hiddenFieldApprovalID.Value);
                             // mailSending.RejectMail(hiddenFieldRevisionID.Value,hiddenFieldDocumentNo.Value, hiddenFieldDocOwner.Value, UA.userName);
                             break;
                     }
@@ -309,7 +309,7 @@ namespace FlyCn.Approvels
                            mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value);
                             break;
                         case 2:
-                            mailSending.DeclineMail(hiddenFieldRevisionID.Value, hiddenFieldDocOwner.Value, UA.userName);
+                            mailSending.DeclineMail(hiddenFieldRevisionID.Value, hiddenFieldDocOwner.Value, UA.userName,hiddenFieldApprovalID.Value);
                             break;
                      }
                 }
@@ -345,14 +345,14 @@ namespace FlyCn.Approvels
                         mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value);
                         break;
                     case 2:
-                        mailSending.DocumentApprovalCompleted(hiddenFieldRevisionID.Value, hiddenFieldDocOwner.Value, UA.userName);
+                        mailSending.DocumentApprovalCompleted(hiddenFieldRevisionID.Value, hiddenFieldDocOwner.Value, UA.userName,hiddenFieldApprovalID.Value);
                         break;
                     case 4:
                         mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value);
                         mailSending.SendMailToSameLevelVarifiers(hiddenFieldRevisionID.Value,approvid);
                         break;
                     case 5:
-                        mailSending.DocumentApprovalCompleted(hiddenFieldRevisionID.Value, hiddenFieldDocOwner.Value, UA.userName);
+                        mailSending.DocumentApprovalCompleted(hiddenFieldRevisionID.Value, hiddenFieldDocOwner.Value, UA.userName,hiddenFieldApprovalID.Value);
                         mailSending.SendMailToSameLevelVarifiers(hiddenFieldRevisionID.Value,approvid);
                         break;
                }

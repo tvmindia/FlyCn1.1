@@ -19,6 +19,7 @@ namespace FlyCn.DocumentRelated
         string _Documentno;
         string _RevisionId;
         string _Remarks;
+        string _ApprovalId;
         protected void Page_Load(object sender, EventArgs e)
         {
             _DocId = Request.QueryString["DocumentId"];
