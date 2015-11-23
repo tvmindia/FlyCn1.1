@@ -425,6 +425,7 @@ namespace FlyCn.FlyCnDAL
                     body = body.Replace("$APPROVALDATE$", domObj.ApprovedDate.ToString("dd- MMM- yyyy"));
                     body = body.Replace("$DOCUMENTTYPE$", domObj.DocumentType);
                     body = body.Replace("$APPROVALLEVEL$", ApprovalLevel.ToString());
+                    body = body.Replace("$REVISIONNUM$",domObj.RevNo);
                 }
                 Msg.Subject = "Document Approval Completed " + domObj.DocumentNo;
 
@@ -487,7 +488,7 @@ namespace FlyCn.FlyCnDAL
                     body = objReader.ReadToEnd();
                     body = body.Replace("$DOCTYPE$", domObj.DocumentType);
                     body = body.Replace("$DOCNO$", domObj.DocumentNo);
-                    body = body.Replace("$USERNAME$", UserName);
+                    body = body.Replace("$USERNAME$", OwnerName);
                     body = body.Replace("$DOCOWNER$", domObj.DocumentOwner);
                     body = body.Replace("$DOCDATE$", domObj.DocDate.ToString("dd- MMM- yyyy"));
                     body = body.Replace("$Reason$", Reason);
@@ -549,7 +550,7 @@ namespace FlyCn.FlyCnDAL
 
                     body = objReader.ReadToEnd();
                     body = body.Replace("$DOCTYPE$", domObj.DocumentType);
-                    body = body.Replace("$USERNAME$", verifierMailIdName);
+                 
                     body = body.Replace("$DOCNO$", domObj.DocumentNo);
                     body = body.Replace("$USERNAME$", MssgTo);
                     body = body.Replace("$DOCOWNER$", domObj.DocumentOwner);
