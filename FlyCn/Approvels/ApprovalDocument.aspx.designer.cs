@@ -175,6 +175,24 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.HiddenField hiddenFieldDocOwner;
         
         /// <summary>
+        /// lblRevisionNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRevisionNumber;
+        
+        /// <summary>
+        /// lblRevisionNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRevisionNo;
+        
+        /// <summary>
         /// lblDocumentOwner control.
         /// </summary>
         /// <remarks>
@@ -191,6 +209,24 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDocOwner;
+        
+        /// <summary>
+        /// lblDocTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocTitle;
+        
+        /// <summary>
+        /// lblDocumentTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocumentTitle;
         
         /// <summary>
         /// lblDocType control.
@@ -299,6 +335,15 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlIframe ContentDocDetails;
+        
+        /// <summary>
+        /// lblRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRemarks;
         
         /// <summary>
         /// txtRemarks control.

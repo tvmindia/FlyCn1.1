@@ -315,6 +315,7 @@
 
             //------------------------For Security-----------------------------------------------//
             debugger;
+            DisableButtons();
                 if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "EditData")
                 { 
                

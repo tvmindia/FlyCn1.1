@@ -486,6 +486,22 @@ transition: .25s ease;
 }
 
 
+.infoBox {
+    background: #ECF9F2; /* Old browsers */
+    border-radius: 10px;
+    padding: 15px;
+    padding-top: 10px;
+}
+.infoBoxTitle {
+    text-align: left;
+    font-size: medium;
+    font-weight: 400;
+    border-bottom-style: inset;
+    border-bottom-width: thin;
+    border-bottom-color: #00CC99;
+}
+
+
 .large-background {
     background-image: url('../Images/bg3.jpg');
 
