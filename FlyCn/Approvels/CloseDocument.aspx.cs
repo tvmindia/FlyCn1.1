@@ -9,6 +9,8 @@ using System.Data;
 using System.Web.UI.HtmlControls;
 using System.Net.Mail;
 using System.Threading;
+using DocStatus = FlyCn.DocumentSettings.DocumentStatusSettings;
+
 namespace FlyCn.Approvels
 {
     public partial class CloseDocument : System.Web.UI.Page
@@ -35,9 +37,9 @@ namespace FlyCn.Approvels
             string caption = "Select Document Varifiers ";
             //caption = caption.Replace(":)", "<img src='/Images/smile_1.png' alt='Happy!' />");
             lblCaption.Text = caption;
-
+            string tryhdj = DocStatus.Closed;
             PlaceLabels();
-          
+         
 
         }
 
@@ -105,7 +107,7 @@ namespace FlyCn.Approvels
         }
         #endregion PlaceLabels
 
-      
+        #region FillSelectBoxData
         public void FillSelectBoxData()
         {
             string documentType = _DocumentType;
@@ -212,6 +214,9 @@ namespace FlyCn.Approvels
             hdfSelectBox10.Value = FieldValueLevel10;
         }
 
+        #endregion FillSelectBoxData
+
+        #region CloseDocumentButtonClick
         protected void btnCloseDocument_Click(object sender, EventArgs e)
         {
 
@@ -427,6 +432,10 @@ namespace FlyCn.Approvels
            //boqObj.Page.();
          
         }
+
+        #endregion CloseDocumentButtonClick
+
+        #region InsertOperation
         public void InsertOperation(string levelId, int Level, byte isLevelManadatory)
         {
             ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
@@ -449,8 +458,8 @@ namespace FlyCn.Approvels
 
         }
 
+        #endregion InsertOperation
 
-       
 
     }
 }
