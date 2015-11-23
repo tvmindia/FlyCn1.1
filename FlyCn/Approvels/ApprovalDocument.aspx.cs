@@ -380,6 +380,8 @@ namespace FlyCn.Approvels
             string date=  lblCreatedDate.Text;
             ContentDocDetails.Attributes["src"] = "DocDetails.aspx?Revisionid=" + Revisionid + "&Documentno=" + hiddenFieldDocumentNo.Value + "&DocumentType=" + hiddenFieldDocumentType.Value + "&CreatedBy=" + cretedby +"&Createddate="  + date;//iframe page BOQDetails.aspx is called with query string revisonid
             ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenNewProjectWizard", "OpenNewProjectWizard();", true);
+
+             
         }
         #endregion lnkbtnDetail_Click
 

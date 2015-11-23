@@ -394,22 +394,23 @@
         
         var btn = args.get_item();
         debugger;
-        if (btn.get_value() == 'Approve')
+        if (btn.get_value() == 'Approve')//remarks is not mandatory for approve button
         {
-            var valbool=validateText();
-            args.set_cancel(!valbool);
+            var valbool = validateText();
+            args.set_cancel(valbool);
          
         }
-        if (btn.get_value() == 'Decline')
+        if (btn.get_value() == 'Decline')//remarks is mandatory for Decline button
         {
-           
-            args.set_cancel(false);
+            
+            var valbool = validateText();
+            args.set_cancel(!valbool);
         }
 
-        if (btn.get_value() == 'Reject')
+        if (btn.get_value() == 'Reject')//remarks is mandatory for Reject button
         {
-           
-            args.set_cancel(false);
+            var valbool = validateText();
+            args.set_cancel(!valbool);
         }
     }
 
