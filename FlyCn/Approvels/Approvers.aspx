@@ -4,12 +4,9 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-
-
-
-
+     <asp:Label ID="lblApproverTitle" runat="server" Text="Approvers on this Revision" Font-Bold="true"></asp:Label>
      <div id="bodyDiv">
+           <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
        <!--Telerik Radlistbox-->
        <telerik:RadGrid ID="dtgApprovers" runat="server" CellSpacing="0" GridLines="None" ItemStyle-HorizontalAlign="Center" AlternatingItemStyle-HorizontalAlign="Center"  AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false"  PageSize="10" Width="500px" OnNeedDataSource="dtgApprovers_NeedDataSource">
          <HeaderStyle  HorizontalAlign="Center" />
@@ -29,21 +26,5 @@
         </MasterTableView>
       </telerik:RadGrid>
      </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </asp:Content>
