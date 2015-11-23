@@ -62,14 +62,14 @@ namespace FlyCn.BOQ
                 RadMultiPage1.SelectedIndex = 1;
                 BOQPopulate(_RevisionId);
             }
-            else
-            {
-                TabAddEditSettings tabs = new TabAddEditSettings();
-                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
-                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                tabs.ResetTabCaptions(tab, tab1);
-                RadMultiPage1.SelectedIndex = 0;
-            }
+            //else
+            //{
+            //    TabAddEditSettings tabs = new TabAddEditSettings();
+            //    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+            //    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+            //    tabs.ResetTabCaptions(tab, tab1);
+            //    RadMultiPage1.SelectedIndex = 0;
+            //}
         }
         public void DisableBOQHeaderTextBox()
         {

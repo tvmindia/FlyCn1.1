@@ -154,6 +154,7 @@
     <Content Include="Approvels\Approvers.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="Approvels\DocDetails.aspx" />
+    <Content Include="Approvels\RejectedDocument.aspx" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
@@ -591,6 +592,13 @@
     </Compile>
     <Compile Include="Approvels\DocDetails.aspx.designer.cs">
       <DependentUpon>DocDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Approvels\RejectedDocument.aspx.cs">
+      <DependentUpon>RejectedDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvels\RejectedDocument.aspx.designer.cs">
+      <DependentUpon>RejectedDocument.aspx</DependentUpon>
     </Compile>
     <Compile Include="DocumentRelated\ReviseDocument.aspx.cs">
       <DependentUpon>ReviseDocument.aspx</DependentUpon>
