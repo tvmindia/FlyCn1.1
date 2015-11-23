@@ -699,7 +699,7 @@ using Messages = FlyCn.UIClasses.Messages;
 
         #endregion GetUserNameByLogId
 
-
+        #region GetAllDocumentStatus
         public DataTable GetAllDocumentStatus()
         {
             SqlConnection con = null;
@@ -714,6 +714,45 @@ using Messages = FlyCn.UIClasses.Messages;
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "GetApprovelStatus";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+            return dt;
+        }
+
+        #endregion GetAllDocumentStatus
+
+        public DataTable GetRejectedVarifierDetailsByRevisionId(string revisionId)
+        {
+            SqlConnection con = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetRejectedVarifierDetailsByRevisionId";
+                cmd.Parameters.AddWithValue("@RevisionId", revisionId);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 dt = new DataTable();

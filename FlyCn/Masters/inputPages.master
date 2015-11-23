@@ -342,22 +342,29 @@
           
         
             //alert(hdn.value);
-            if (hiddenFieldRevisionID.value != "" && hiddenDocumentStatus.value == "0" && (hiddenFieldOwner.value == hiddenusername.value)) {
+            if (hiddenFieldRevisionID.value != "" && hiddenDocumentStatus.value == approvalStatus.Draft && (hiddenFieldOwner.value == hiddenusername.value)) {
                
                 document.getElementById('IframeContent').src = "../Approvels/CloseDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value + '&DocumentNo=' + DocumentNo.value + '&hiddenFieldOwner=' + hiddenFieldOwner.value + '&hiddendocumentDate=' + hiddendocumentDate;
              
                 CloseDocumentWindow();
             }
-
-          
+            else if (hiddenFieldRevisionID.value != "" && hiddenDocumentStatus.value == approvalStatus.REJECTEDFORAMENDMENT && (hiddenFieldOwner.value == hiddenusername.value))
+            {
+                document.getElementById('IframeContent').src = "../Approvels/RejectedDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value + '&DocumentNo=' + DocumentNo.value + '&hiddenFieldOwner=' + hiddenFieldOwner.value + '&hiddendocumentDate=' + hiddendocumentDate;
+                CloseDocumentWindow();
+            }
         }
 
         function DeleteNode() {
         
             var tree = $find("<%= rtvLeftMenu.ClientID %>");
+            var firstnode = tree.findNodeByValue("4");
             var node = tree.findNodeByValue("123");
             tree.trackChanges();
             node.get_parent().get_nodes().remove(node);
+            if (firstnode.get_selected()) {
+                firstnode.unselect();
+            }
             //... or by ordinal position    
             //node.get_parent().get_nodes().removeAt(0);    
             //... or remove all nodes at one time
@@ -419,7 +426,7 @@
      document.getElementById('HiddenFieldDoctype').value = DocumentType.value;
           
             var hiddenDocumentStatus = contentWindow.document.getElementById('hiddenStatusValue');
-            if (hiddenFieldRevisionID.value != "" && hiddenDocumentStatus.value == "4" && (hiddenFieldOwner.value == hiddenusername.value)) {
+            if (hiddenFieldRevisionID.value != "" && hiddenDocumentStatus.value == approvalStatus.Approved && (hiddenFieldOwner.value == hiddenusername.value)) {
        
          document.getElementById('IframeReviseDocument').src = "../DocumentRelated/ReviseDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value + '&DocumentNo=' + DocumentNo.value + '&RevisionNumber=' + RevisionNumber.value;
 
