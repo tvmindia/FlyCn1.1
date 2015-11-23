@@ -17,6 +17,7 @@
          </ClientSettings>
         <MasterTableView AutoGenerateColumns="False">
         <Columns>
+               
          <telerik:GridBoundColumn HeaderText="ApprovalID" DataField="ApprovalID" UniqueName="ApprovalID" Display="false"></telerik:GridBoundColumn>
          <telerik:GridBoundColumn HeaderText="RevisionID" DataField="RevisionID" UniqueName="RevisionID" Display="false"></telerik:GridBoundColumn>
          <telerik:GridBoundColumn HeaderText="Level" DataField="VerifierLevel" ItemStyle-Width="50px" UniqueName="VerifierLevel"></telerik:GridBoundColumn>
