@@ -134,15 +134,7 @@ namespace FlyCn.BOQ
           {
               try
               {
-                  Guid RevID;
-                  DataSet ds = new DataSet();
-                  bOQHeaderDetails = new BOQHeaderDetails();
-                  Revisionid = hdfRevisionId.Value;//Getting revision id from hiddenfield
-                  Guid.TryParse(Revisionid, out RevID);
-                  bOQHeaderDetails.bOQDetails.RevisionID = RevID;
-                  bOQHeaderDetails.bOQDetails.ProjectNo = UA.projectNo;
-                  ds = bOQHeaderDetails.bOQDetails.GetAllBOQDetails();
-                  dtgBOQDetailGrid.DataSource = ds;
+                 
                   dtgBOQDetailGrid.Rebind();
 
                   if ((hdfDocumentStatus.Value == DocStatus.Approved) || (hdfDocumentStatus.Value == DocStatus.Closed))
@@ -155,6 +147,7 @@ namespace FlyCn.BOQ
               {
                   var page = HttpContext.Current.CurrentHandler as Page;
                   eObj.ErrorData(ex, page);
+                  throw ex;
               }
            
           }
@@ -176,6 +169,7 @@ namespace FlyCn.BOQ
               {
                   var page = HttpContext.Current.CurrentHandler as Page;
                   eObj.ErrorData(ex, page);
+                  throw ex;
               }
 
           }
@@ -255,6 +249,7 @@ namespace FlyCn.BOQ
               {
                   var page = HttpContext.Current.CurrentHandler as Page;
                   eObj.ErrorData(ex, page);
+                  throw ex;
               }
 
 

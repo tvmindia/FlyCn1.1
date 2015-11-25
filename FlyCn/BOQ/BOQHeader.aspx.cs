@@ -46,7 +46,12 @@ namespace FlyCn.BOQ
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
             BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString(); 
              BOQObj.DocumentOwner = hiddenDocumentOwner.Value;
-             _RevisionId = Request.QueryString["RevisionId"];
+             if (Request.QueryString["RevisionId"] != null)
+             {
+                 _RevisionId = Request.QueryString["RevisionId"];
+                 hiddenFieldRevisionID.Value = _RevisionId;
+             }
+          
             //BOQObj.BindTree(RadTreeView tview);
             hiddenFieldDocumentType.Value = "BOQ";
             ContentIframe.Style["display"] = "none";//iframe disabling
