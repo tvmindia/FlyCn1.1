@@ -44,7 +44,7 @@ namespace FlyCn.Approvels
         {
             try
             {
-                dtgApprovers.Rebind();
+                //dtgApprovers.Rebind();
 
             }
             catch (Exception ex)
@@ -66,7 +66,7 @@ namespace FlyCn.Approvels
             if (paramrevisionid != Guid.Empty)
             {
               ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(paramrevisionid);
-              dtgApprovers.DataSource = ds;
+              //dtgApprovers.DataSource = ds;
             }
         }
         #endregion ApproverBind

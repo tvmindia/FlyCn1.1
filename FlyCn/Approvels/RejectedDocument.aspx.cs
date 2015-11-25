@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using FlyCn.FlyCnDAL;
+using System.Web.UI.HtmlControls;
 namespace FlyCn.Approvels
 {
     public partial class RejectedDocument : System.Web.UI.Page
@@ -28,16 +29,41 @@ namespace FlyCn.Approvels
             _HiddenFieldOwner = Request.QueryString["hiddenFieldOwner"];
             _HiddendocumentDate = Request.QueryString["hiddendocumentDate"];
             DataTable DtverifierDetails = new DataTable();
+            HtmlTable ht = new HtmlTable();
 
+            ht.Attributes.Add("class", "table table-bordered");
+            //ht.Border = 1;
+            ht.BorderColor = "#5F9EA0";
+            ht.Width="400px";       
             ApprovelMaster apprvlObj = new ApprovelMaster();
             DtverifierDetails = apprvlObj.GetRejectedVarifierDetailsByRevisionId(_RevisionID);
-            string FieldValueLevel1 = "";
             int totalrows = DtverifierDetails.Rows.Count;
             for (int j = 0; j < totalrows; j++)
             {
-                FieldValueLevel1 = FieldValueLevel1 + DtverifierDetails.Rows[j]["UserName"] + ",";
+                     HtmlTableRow tr1 = new HtmlTableRow();
+
+                     tr1.Attributes.Add("Class", "infoBox");
+                //tr1.Attributes.Add("class", "success");
+            HtmlTableCell tc1 = new HtmlTableCell();
+            tc1.Style.Add("color", "black");
+            tc1.Width = "30px";
+            tc1.Height = "30px";
+            HtmlTableCell tc2 = new HtmlTableCell();
+            tc2.Width = "30px";
+            tc2.Height = "30px";
+            tc2.Style.Add("color", "black");
+            tc2.InnerText = "New Table";
+                
+                tc1.InnerText = DtverifierDetails.Rows[j]["UserName"].ToString();
+                tc2.InnerText = DtverifierDetails.Rows[j]["VerifierEmail"].ToString();
+                tr1.Controls.Add(tc1);
+                tr1.Controls.Add(tc2);
+                ht.Controls.Add(tr1);
+
+                label1Id.Controls.Add(ht);
             }
-            lblApproversName.Text = FieldValueLevel1.TrimEnd(',');
+
+           
         }
 
         protected void btnCloseDocument_Click(object sender, EventArgs e)
@@ -49,6 +75,7 @@ namespace FlyCn.Approvels
             DtverifierDetails = apprvlObj.GetRejectedVarifierDetailsByRevisionId(_RevisionID);
            
             int totalrows = DtverifierDetails.Rows.Count;
+
             for (int j = 0; j < totalrows; j++)
             {
              string verifierId=   DtverifierDetails.Rows[j]["VerifierID"].ToString();
@@ -77,6 +104,7 @@ namespace FlyCn.Approvels
             string projectNo = UA.projectNo;
             ApprovelMasterobj.IsLevelManadatory = isLevelManadatory;
             ApprovelMasterobj.InsertApprovelMaster();
+            hiddenCloseFlag.Value = "1";
             ApprovelMasterobj.InsertApprovalLog();
 
 

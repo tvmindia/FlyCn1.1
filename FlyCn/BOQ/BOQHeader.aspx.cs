@@ -142,6 +142,7 @@ namespace FlyCn.BOQ
                   //  docdtObj=  docObj.GetRevisionIdByDocumentNo(DocumentNo);
 
                     RadMultiPage1.SelectedIndex = 1;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.RevisionHistory();", true);
                   
                         string revisionid = item.GetDataKeyValue("RevisionID").ToString();
                     BOQPopulate(revisionid);
