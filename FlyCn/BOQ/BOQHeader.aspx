@@ -278,6 +278,7 @@
         var tab = args.get_tab();
         if (tab.get_value() == '2')
         {
+            alert(32);
             hideMe();
 
           //Clear Text boxes When New tab clicks

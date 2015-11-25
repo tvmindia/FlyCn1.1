@@ -99,17 +99,6 @@
 
              var node = args.get_node();
              node.toggle();
-             
-         <%--    var treeView = $find("<%= rtvLeftMenu.ClientID %>");
-
-            var selectedNode = treeView.get_selectedNode();
-            var selectNodeText = selectedNode.get_text();--%>
-            //var DocumentTypeForHeading = document.getElementById('HiddenFieldDoctype').value;
-            //var hiddenNodeId = document.getElementById('hiddenNodeId');
-             //hiddenNodeId.innerText = selectNodeText;
-             //var node = args.get_node();
-         //alert(    selectedNode(node.get_text(), "content", node.get_value()));
-          
          }
 
          function sayalert()
@@ -156,7 +145,18 @@
                 return false;
             }
         }
+        function windowCloseChangeOwnerShipCallback() {
+            var frame = document.getElementById('IframeChangeOwner');
+            var innerDoc = frame.contentDocument || frame.contentWindow.document;
+            var input = innerDoc.getElementById('hiddenCloseFlag');
 
+            if (input.value == 1) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
         function ChangeOwnershipWindow() {
            
             try {
@@ -164,8 +164,16 @@
                     title: "Change Ownership",
                     width: 780,
                     height: 300,
-                    buttons: {}, modal: true
+                    buttons: {}, modal: true,
+                    beforeClose: function (event, ui) {
+                        var reload = windowCloseChangeOwnerShipCallback();
+                        if (reload == true) {
+                            location.reload(true);
+                        }
+                    },
+
                 });
+               
                 return false
             }
             catch (X) {
