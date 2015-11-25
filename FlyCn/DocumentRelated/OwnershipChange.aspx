@@ -26,6 +26,7 @@
        </div>
             </div>
 
+    <asp:HiddenField ID="hiddenCloseFlag" runat="server"  ClientIDMode="Static"/>
       
 
 

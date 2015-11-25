@@ -87,7 +87,7 @@ namespace FlyCn.FlyCnDAL
            RadTreeNode rtn3 = new RadTreeNode("Revise Document", "");
            rtn3.Target = "contentPane";
             myTree.Nodes.Add(rtn3);
-            rtn3.Attributes.Add("onclick", "ReviseDocument(" + 0 + ")");
+            rtn3.Attributes.Add("onclick", "ReviseDocument()");
            RadTreeNode rtn4 = new RadTreeNode("Revision History", "");
            //rtn4.Nodes.Add(new RadTreeNode("child1"));
            //rtn4.Nodes.Add(new RadTreeNode("child2"));
