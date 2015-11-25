@@ -156,6 +156,64 @@ namespace FlyCn.Approvels
         }
 
         #endregion ActionItemCommand
+        #region PendingApprovalGridBindByLogID
+        public void PendingApprovalGridBindByLogID(string logID)//approval detail bind during login bypass from mail
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                approvelMaster = new ApprovelMaster();
+                Guid LogID;
+                Guid.TryParse(logID, out LogID);
+                if (LogID != Guid.Empty)
+                {
+                    ds = approvelMaster.GetAllPendingApprovalsByLogID(LogID);
+                    if (ds.Tables.Count > 0)
+                    {
+                        DataTable dt = ds.Tables[0];
+                        if (dt.Rows.Count > 0)
+                        {
+                            hiddenFieldDocOwner.Value = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
+                            hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                            hiddenFieldApprovalID.Value = ds.Tables[0].Rows[0]["ApprovalID"].ToString();
+                            hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
+                            hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+                            hiddenFieldDocumentType.Value = ds.Tables[0].Rows[0]["DocumentType"].ToString();
+                            hiddenFieldDocumentNo.Value = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
+                            hiddenFieldRevisionNo.Value = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
+                            lblDocumentNo.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
+                            lblCreatedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocCreatedDate"]);
+                            lblProjectno.Text = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
+                            lblDocumentType.Text = ds.Tables[0].Rows[0]["DocumentType"].ToString();
+                            lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocumentDate"]);
+                            lblDocOwner.Text = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
+                            lblDocumentTitle.Text = ds.Tables[0].Rows[0]["DocumentTitle"].ToString();
+                            lblCreatedBy.Text = ds.Tables[0].Rows[0]["DocCreatedBy"].ToString();
+                            lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["CreatedDate"]);
+                            lblRevisionNo.Text = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
+
+                        }
+                        else
+                        {
+                            RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                            tab.Selected = true;
+                            tab.Text = "Pending";
+                            RadMultiPage1.SelectedIndex = 0;
+                        }
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+
+        }
+        #endregion PendingApprovalGridBindByLogID
 
         #region dtgApprovers_NeedDataSource
         protected void dtgApprovers_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -273,6 +331,8 @@ namespace FlyCn.Approvels
                 }
                 catch (Exception ex)
                 {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
                     throw ex;
                 }
                 finally
@@ -417,62 +477,7 @@ namespace FlyCn.Approvels
         }
         #endregion ToolBarVisibility
 
-        #region PendingApprovalGridBindByLogID
-        public void PendingApprovalGridBindByLogID(string logID)//approval detail bind during login bypass from mail
-        {
-            try
-            {
-                DataSet ds = new DataSet();
-                approvelMaster = new ApprovelMaster();
-                Guid LogID;
-                Guid.TryParse(logID, out LogID);
-                if (LogID != Guid.Empty)
-                {
-                    ds = approvelMaster.GetAllPendingApprovalsByLogID(LogID);
-                    if (ds.Tables.Count > 0)
-                    {
-                        DataTable dt = ds.Tables[0];
-                        if (dt.Rows.Count > 0)
-                {
-                    hiddenFieldDocOwner.Value = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
-                    hiddenFiedldProjectno.Value = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
-                    hiddenFieldApprovalID.Value = ds.Tables[0].Rows[0]["ApprovalID"].ToString();
-                    hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
-                    hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
-                    hiddenFieldDocumentType.Value = ds.Tables[0].Rows[0]["DocumentType"].ToString();
-                    hiddenFieldDocumentNo.Value = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
-                    hiddenFieldRevisionNo.Value = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
-                    lblDocumentNo.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
-                    lblCreatedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocCreatedDate"]);
-                    lblProjectno.Text = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
-                    lblDocumentType.Text = ds.Tables[0].Rows[0]["DocumentType"].ToString();
-                    lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocumentDate"]);
-                    lblDocOwner.Text = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
-                    lblCreatedBy.Text = ds.Tables[0].Rows[0]["DocCreatedBy"].ToString();
-                    lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["CreatedDate"]);
-                    lblRevisionNo.Text = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
-                }
-                        else
-                        {
-                            RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
-                            tab.Selected = true;
-                            tab.Text = "Pending";
-                            RadMultiPage1.SelectedIndex = 0;
-                        }
-                    }
-                }
-
-
-            }
-            catch(Exception ex)
-            {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
-                throw ex;
-            }
-
-        }
-        #endregion PendingApprovalGridBindByLogID
+       
 
     }
 }
