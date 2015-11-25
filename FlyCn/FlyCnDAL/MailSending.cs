@@ -425,7 +425,7 @@ namespace FlyCn.FlyCnDAL
                     body = body.Replace("$APPROVALDATE$", domObj.ApprovedDate.ToString("dd- MMM- yyyy"));
                     body = body.Replace("$DOCUMENTTYPE$", domObj.DocumentType);
                     body = body.Replace("$APPROVALLEVEL$", ApprovalLevel.ToString());
-                    body = body.Replace("$REVISIONNUM$",domObj.RevNo);
+                    body = body.Replace("$REVISIONNUM$", domObj.RevNo);
                 }
                 Msg.Subject = "Document Approval Completed " + domObj.DocumentNo;
 
