@@ -380,6 +380,8 @@ namespace FlyCn.Approvels
             string date=  lblCreatedDate.Text;
             ContentDocDetails.Attributes["src"] = "DocDetails.aspx?Revisionid=" + Revisionid + "&Documentno=" + hiddenFieldDocumentNo.Value + "&DocumentType=" + hiddenFieldDocumentType.Value + "&CreatedBy=" + cretedby +"&Createddate="  + date;//iframe page BOQDetails.aspx is called with query string revisonid
             ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenNewProjectWizard", "OpenNewProjectWizard();", true);
+
+             
         }
         #endregion lnkbtnDetail_Click
 
@@ -439,6 +441,7 @@ namespace FlyCn.Approvels
                     hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
                     hiddenFieldDocumentType.Value = ds.Tables[0].Rows[0]["DocumentType"].ToString();
                     hiddenFieldDocumentNo.Value = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
+                    hiddenFieldRevisionNo.Value = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
                     lblDocumentNo.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
                     lblCreatedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["DocCreatedDate"]);
                     lblProjectno.Text = ds.Tables[0].Rows[0]["ProjectNo"].ToString();
@@ -447,6 +450,7 @@ namespace FlyCn.Approvels
                     lblDocOwner.Text = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
                     lblCreatedBy.Text = ds.Tables[0].Rows[0]["DocCreatedBy"].ToString();
                     lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", ds.Tables[0].Rows[0]["CreatedDate"]);
+                    lblRevisionNo.Text = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
                 }
                         else
                         {

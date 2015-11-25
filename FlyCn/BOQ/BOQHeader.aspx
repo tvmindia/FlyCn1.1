@@ -10,7 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Input</title>
-    <script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>
+   <!-----  <script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>-->
+     <script src="../Scripts/jquery-1.8.2.js"></script>
+     <script src="../Scripts/jquery-1.8.2.min.js"></script>
+     <script src="../Scripts/jquery-ui-1.8.24.js"></script>
+     <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -101,11 +105,11 @@
                                                 <asp:HiddenField ID="hiddenFieldDocumentType" runat="server" ClientIDMode="Static" />
                                                 <asp:HiddenField ID="hiddenDocumentOwner" runat="server" ClientIDMode="Static" />
                                                 <asp:HiddenField ID="hiddenUsername" runat="server" ClientIDMode="Static" />
-                                                 <asp:HiddenField ID="hiddenRevisionNumber" runat="server" ClientIDMode="Static" />
-                                                 <asp:HiddenField ID="hiddenStatusValue" runat="server" ClientIDMode="Static" />
-                                                  <asp:HiddenField ID="hiddenDocumentNo" runat="server" ClientIDMode="Static" />
-                                                    <asp:HiddenField ID="HiddenRevisionIdCollection" runat="server" ClientIDMode="Static" />
-                                                  <asp:HiddenField ID="hiddendocumentDate" runat="server" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="hiddenRevisionNumber" runat="server" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="hiddenStatusValue" runat="server" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="hiddenDocumentNo" runat="server" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="HiddenRevisionIdCollection" runat="server" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="hiddendocumentDate" runat="server" ClientIDMode="Static" />
                                            
                                                  </div>
                                         </div>
@@ -188,8 +192,7 @@
                                              <asp:Label ID="lblDocumentStatus" CssClass="DocStatusLabel" runat="server"    ClientIDMode="Static"></asp:Label>
                                          </div>
                                          <div class="col-md-5">
-                                          
-                                              <asp:LinkButton ID="LinkButton1" OnClick="lnkbtnApprovalList" runat="server">ApproverList</asp:LinkButton>
+                                            <input type="button" onclick="linkbuttonClient();" value="ApproverList" />
                                          </div>
                                          
                                        <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
@@ -200,7 +203,7 @@
                                        <div class="accordion-container">
                                          <a href="#" class="accordion-toggle" id="IDAccordion">Details<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                                          <div class="accordion-content">
-                                         <iframe id="ContentIframe" name="BOQDetails" style="height: 600px; width: 100%; overflow: hidden;" runat="server"></iframe>
+                                         <iframe id="ContentIframe" name="BOQDetails" style="height: 200px; width: 100%; overflow: hidden;" runat="server"></iframe>
                                          </div>
                                        </div>
                                       </div>
@@ -220,6 +223,13 @@
 
     <!--<JavaScrict>-->
     <script type="text/javascript">
+
+        function linkbuttonClient() {
+            var Revisionid = document.getElementById('<%=hiddenFieldRevisionID.ClientID %>').value;
+            window.open("../Approvels/Approvers.aspx?Revisionid=" + Revisionid, 'Approvers', "height=200,width=500");
+        }
+
+
         function validate() {
             var Clientdocumentno = document.getElementById('<%=txtClientdocumentno.ClientID %>').value;
         var Revisionno = document.getElementById('<%=txtRevisionno.ClientID %>').value;
@@ -229,13 +239,9 @@
         if (Clientdocumentno == "" || Revisionno == "" || DocumentDate == "" || Documenttitle == "" || Remarks == "") {
 
             displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
-
             return false;
-
         }
-
         else {
-
             return true;
         }
     }
@@ -314,7 +320,7 @@
             tab1.set_text("New");
             tab1.set_imageUrl('../Images/Icons/NewIcon.png');
          //   CallFnOnParent();
-            debugger;
+            
             parent.DeleteNode();
             //document.getElementById("ctl00_ContentPlaceHolder1_pnlCriteriaSearch").value;
             }
@@ -430,7 +436,7 @@
         }
         function DisableBOQHeaderTextBox()
         {
-            debugger;
+       
             var v1 = document.getElementById('<%=txtdatepicker.ClientID %>');
             //v1.setAttribute("readonly", "readonly");
             v1 = document.getElementById('<%=txtClientdocumentno.ClientID %>');
@@ -464,7 +470,9 @@
             e.removeAttribute("readonly", 0);
             //Enable header textboxess
         }
-    
+
+       
+     
 
 
     </script>

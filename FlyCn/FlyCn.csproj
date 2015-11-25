@@ -300,6 +300,7 @@
     <Content Include="Content\themes\FlyCnRider\Splitter.FlyCnRider.css" />
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="DocumentRelated\OwnershipChange.aspx" />
+    <Content Include="EngineeredDataList\EnggDataList.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\Download.png" />
     <Content Include="Images\flycnLogo.png" />
@@ -472,6 +473,8 @@
     <Content Include="Content\themes\FlyCnRed\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\themes\FlyCnRed\fonts\FontAwesome.otf" />
     <Content Include="bin\FlyCn.dll.config" />
+    <None Include="Properties\PublishProfiles\FlyCnPublish.pubxml" />
+    <None Include="Properties\PublishProfiles\FlyCnPublish1.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="ProjectParameters\AddNewProject.aspx" />
     <Content Include="ProjectParameters\Main.aspx" />
@@ -693,6 +696,13 @@
     </Compile>
     <Compile Include="EIL\PunchList.aspx.designer.cs">
       <DependentUpon>PunchList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EngineeredDataList\EnggDataList.aspx.cs">
+      <DependentUpon>EnggDataList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EngineeredDataList\EnggDataList.aspx.designer.cs">
+      <DependentUpon>EnggDataList.aspx</DependentUpon>
     </Compile>
     <Compile Include="FlyCnDAL\Activities.cs">
       <SubType>Code</SubType>
