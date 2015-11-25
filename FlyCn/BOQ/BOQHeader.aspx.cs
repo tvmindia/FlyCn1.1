@@ -341,7 +341,6 @@ namespace FlyCn.BOQ
                 boqHeaderDetails.UpdateBOQ();
                 if (revisionID != Guid.Empty)
                 {
-
                     ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + revisionID;//iframe page BOQDetails.aspx is called with query string revisonid
                     //ScriptManager.RegisterStartupScript(this.GetType(), "Add", "OpenDetailAccordion();", true);//Accordian calling BOQdetail slide down
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Update", "OpenDetailAccordion();", true);
@@ -486,15 +485,6 @@ namespace FlyCn.BOQ
             }
         }
         #endregion BOQPopulate
-
-        #region lnkbtnApprovallist
-        protected void lnkbtnApprovalList(object sender, EventArgs e)
-        {
-            string Revisionid = hiddenFieldRevisionID.Value;
-            ContentApprovers.Attributes["src"] = "Approvers.aspx?Revisionid=" + Revisionid;//iframe page BOQDetails.aspx is called with query string revisonid
-
-        }
-        #endregion lnkbtnApprovallist
 
         #endregion Methods
 

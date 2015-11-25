@@ -178,6 +178,7 @@
                                              <asp:HiddenField ID="hiddenFieldDocumentType" runat="server" ClientIDMode="Static"/>
                                              <asp:HiddenField ID="hiddenFieldDocumentNo" runat="server" ClientIDMode="Static" />
                                              <asp:HiddenField ID="hiddenFieldDocOwner" runat="server" ClientIDMode="Static" />
+                                             <asp:HiddenField ID="hiddenFieldRevisionNo" runat="server" ClientIDMode="Static" />
                                            </div>
                                          </div>
                                          <div class="col-md-5">
@@ -368,48 +369,47 @@
            }
 
        }
-    function validateText()
-    {
-        debugger;
-        var Remarks = document.getElementById('<%=txtRemarks.ClientID %>').value;
-        if(Remarks == "")
-        {
-            document.getElementById('<%= lblValidationMsg.ClientID %>').innerHTML = 'Please Fill the Remarks...!';
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-          
-    }
+  
     function ToolBarVisibility()
     {
         <%=ToolBarApprovalDoc.ClientID %>_SetApproveVisible(true);
         <%=ToolBarApprovalDoc.ClientID %>_SetDeclineVisible(true);
         <%=ToolBarApprovalDoc.ClientID %>_SetRejectVisible(true);
     }
+    function validateText() {
+       
+        var Remarks = document.getElementById('<%=txtRemarks.ClientID %>').value;
+        if (Remarks == "") {
+            document.getElementById('<%= lblValidationMsg.ClientID %>').innerHTML = 'Please Fill the Remarks...!';
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
     function OnClientButtonClickingApproval(sender, args)
     {
         
         var btn = args.get_item();
-        debugger;
-        if (btn.get_value() == 'Approve')
+       
+        if (btn.get_value() == 'Approve')//remarks is not mandatory for approve button
         {
-            var valbool=validateText();
-            args.set_cancel(!valbool);
+        
+            args.set_cancel(false);
          
         }
-        if (btn.get_value() == 'Decline')
+        if (btn.get_value() == 'Decline')//remarks is mandatory for Decline button
         {
-           
-            args.set_cancel(false);
+            
+            var valbool = validateText();
+            args.set_cancel(!valbool);
         }
 
-        if (btn.get_value() == 'Reject')
+        if (btn.get_value() == 'Reject')//remarks is mandatory for Reject button
         {
-           
-            args.set_cancel(false);
+            var valbool = validateText();
+            args.set_cancel(!valbool);
         }
     }
 
