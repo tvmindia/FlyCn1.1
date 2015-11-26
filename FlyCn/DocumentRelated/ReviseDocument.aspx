@@ -102,6 +102,6 @@
 
    </div>
    </div>
-    <asp:HiddenField ID="hiddenflag" runat="server" ClientIDMode="Static" Value="0" />
+    <asp:HiddenField ID="popuprefreshRequired" runat="server" ClientIDMode="Static" Value="0" />
 </asp:Content>
 

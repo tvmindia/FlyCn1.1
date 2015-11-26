@@ -16,6 +16,8 @@ namespace FlyCn.Approvels
         string _DocumentNo;
         string _RevisionNumber;
         int flag = 0;
+
+        #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
          
@@ -32,29 +34,41 @@ namespace FlyCn.Approvels
             txtRevisionNo.Text = revisionObj.resultbox;
         }
 
+        #endregion Page_Load
+
+        #region ReviseDocumentButton_Click
         protected void ReviseDocumentButton_Click(object sender, EventArgs e)
         {
 
-            FlyCn.FlyCnDAL.ReviseDocument reviseObj = new FlyCnDAL.ReviseDocument();      
+            InsertReviseDocument();
+            
+        }
+        #endregion ReviseDocumentButton_Click
+
+        #region InsertReviseDocument
+        public void InsertReviseDocument()
+        {
+            FlyCn.FlyCnDAL.ReviseDocument reviseObj = new FlyCnDAL.ReviseDocument();
             //reviseObj.RevisionID = txtRevisionId.Text;
             reviseObj.RevisionStatus = 0;
             reviseObj.Remarks = txtRemarks.Text;
-            reviseObj.CreatedDate = txtdatepicker.Value;         
+            reviseObj.CreatedDate = txtdatepicker.Value;
             reviseObj.DocumentNo = _DocumentNo;
             reviseObj.RevisionNo = txtRevisionNo.Text;
             DataTable dtobj = new DataTable();
             dtobj = reviseObj.GetDocumentIdByNo();
             reviseObj.DocumentId = dtobj.Rows[0]["DocumentID"].ToString();
             reviseObj.RevisionID = dtobj.Rows[0]["LatestRevisionID"].ToString();
-            int result=reviseObj.InsertReviseDocument();
-            if(result==1)
+            int result = reviseObj.InsertReviseDocument();
+            if (result == 1)
             {
                 ReviseDocumentButton.Visible = false;
-                hiddenflag.Value ="1";
-              
-               
+                popuprefreshRequired.Value = "1";
+
+
             }
-            
         }
+
+        #endregion InsertReviseDocument
     }
 }

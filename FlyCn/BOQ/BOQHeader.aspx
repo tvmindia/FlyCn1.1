@@ -110,6 +110,7 @@
                                                 <asp:HiddenField ID="hiddenDocumentNo" runat="server" ClientIDMode="Static" />
                                                 <asp:HiddenField ID="HiddenRevisionIdCollection" runat="server" ClientIDMode="Static" />
                                                 <asp:HiddenField ID="hiddendocumentDate" runat="server" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="HiddenTabStatus" runat="server" ClientIDMode="Static" />
                                            
                                                  </div>
                                         </div>
@@ -290,7 +291,7 @@
         var tab = args.get_tab();
         if (tab.get_value() == '2')
         {
-            alert(32);
+           
             hideMe();
 
           //Clear Text boxes When New tab clicks
@@ -325,17 +326,16 @@
             }
          }
             if (tab.get_value() == "1")
-            {
-            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-            var tab = tabStrip.findTabByValue("1");
-            tab.select();
-            var tab1 = tabStrip.findTabByValue("2");
-            tab1.set_text("New");
-            tab1.set_imageUrl('../Images/Icons/NewIcon.png');
-         //   CallFnOnParent();
-            
-            parent.DeleteNode();
-            //document.getElementById("ctl00_ContentPlaceHolder1_pnlCriteriaSearch").value;
+
+            {               
+                document.getElementById('<%=HiddenTabStatus.ClientID %>').value="1";             
+                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+                var tab = tabStrip.findTabByValue("1");
+                tab.select();
+                var tab1 = tabStrip.findTabByValue("2");
+                tab1.set_text("New");
+                tab1.set_imageUrl('../Images/Icons/NewIcon.png');            
+                parent.RevisionHistroyDeleteNode();               
             }
 
          }
@@ -349,26 +349,7 @@
             document.getElementById('<%=txtRemarks.ClientID %>').value = "";
             document.getElementById('<%=lblDocumentStatus.ClientID%>').innerHTML = "";
         }
-        function GetRadWindow() {
-            alert(111);
-            var oWindow = null;
-            if (window.radWindow) oWindow = window.radWindow;
-            else if (window.frameElement.radWindow) oWindow = window.frameElement.radWindow;
-            return oWindow;
-        }
-        function CallFnOnParent() {
-            GetRadWindow().BrowserWindow.DeleteNode();
-            // Tip: you can pass an argument to provide data to the called function
-        }
-
-        function CallFn() {
-            // Get a reference to the RadWindow (see Example 2 for the GetRadWindow function)
-            var oWnd = GetRadWindow();
-            // get a reference to the second RadWindow       
-            var dialogB = oWnd.get_windowManager().getWindowByName("RadWindow1");
-            // by using get_contentFrame, call the predefined function
-            dialogB.get_contentFrame().contentWindow.CalledFn();
-        }
+      
 
     function OnClientButtonClicking(sender, args) {
         var btn = args.get_item();

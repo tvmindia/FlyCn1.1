@@ -220,6 +220,15 @@ namespace FlyCn.BOQ {
         protected global::System.Web.UI.WebControls.TextBox txtDocOwner;
         
         /// <summary>
+        /// HiddenTabStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenTabStatus;
+        
+        /// <summary>
         /// lblClientdocumentnot control.
         /// </summary>
         /// <remarks>

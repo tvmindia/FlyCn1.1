@@ -48,7 +48,7 @@ namespace FlyCn.BOQ
              BOQObj.DocumentOwner = hiddenDocumentOwner.Value;
              if (Request.QueryString["RevisionId"] != null)
              {
-                 _RevisionId = Request.QueryString["RevisionId"];
+             _RevisionId = Request.QueryString["RevisionId"];
                  hiddenFieldRevisionID.Value = _RevisionId;
              }
           
@@ -61,20 +61,31 @@ namespace FlyCn.BOQ
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
             if (_RevisionId != null)
             {
+              if(HiddenTabStatus.Value!="1")
+              {         
                 TabAddEditSettings tabs = new TabAddEditSettings();
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                 tabs.EditTab(tab);
                 RadMultiPage1.SelectedIndex = 1;
                 BOQPopulate(_RevisionId);
             }
-            //else
-            //{
-            //    TabAddEditSettings tabs = new TabAddEditSettings();
-            //    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
-            //    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-            //    tabs.ResetTabCaptions(tab, tab1);
-            //    RadMultiPage1.SelectedIndex = 0;
-            //}
+                else
+              {
+                  TabAddEditSettings tabs = new TabAddEditSettings();
+                  RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                  RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                  tabs.ResetTabCaptions(tab, tab1);
+                  RadMultiPage1.SelectedIndex = 0;
+              }
+            }
+            else
+            {
+                TabAddEditSettings tabs = new TabAddEditSettings();
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tabs.ResetTabCaptions(tab, tab1);
+                RadMultiPage1.SelectedIndex = 0;
+            }
         }
         public void DisableBOQHeaderTextBox()
         {
