@@ -46,17 +46,10 @@ namespace FlyCn.BOQ
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
             BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString(); 
              BOQObj.DocumentOwner = hiddenDocumentOwner.Value;
-             //_RevisionId = "";
              if (Request.QueryString["RevisionId"] != null)
              {
-                 _RevisionId = Request.QueryString["RevisionId"];
+             _RevisionId = Request.QueryString["RevisionId"];
                  hiddenFieldRevisionID.Value = _RevisionId;
-                 //Request.QueryString["RevisionId"] = null;
-             }
-             else if (hiddenRevisionNumber.Value!="")
-             {
-                 _RevisionId = hiddenRevisionNumber.Value;
-             
              }
           
             //BOQObj.BindTree(RadTreeView tview);
@@ -75,7 +68,7 @@ namespace FlyCn.BOQ
                 tabs.EditTab(tab);
                 RadMultiPage1.SelectedIndex = 1;
                 BOQPopulate(_RevisionId);
-              }
+            }
                 else
               {
                   TabAddEditSettings tabs = new TabAddEditSettings();

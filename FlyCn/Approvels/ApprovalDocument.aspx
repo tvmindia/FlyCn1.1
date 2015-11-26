@@ -116,7 +116,7 @@
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
                                         </ClientSettings>
-                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="ApprovalID,RevisionID,DocumentID,ProjectNo,DocumentNo,CreatedDate,DocCreatedBy,DocumentType,DocCreatedDate,DocCreatedBy,DocumentOwner,DocumentDate,VerifierLevel,RevisionNo,DocumentTitle">
+                                        <MasterTableView AutoGenerateColumns="False" AllowSorting="true" DataKeyNames="ApprovalID,RevisionID,DocumentID,ProjectNo,DocumentNo,CreatedDate,DocCreatedBy,DocumentType,DocCreatedDate,DocCreatedBy,DocumentOwner,DocumentDate,VerifierLevel,RevisionNo,DocumentTitle">
                                             <Columns>
                                                
                                                 <telerik:GridBoundColumn HeaderText="ApprovalID" DataField="ApprovalID" UniqueName="ApprovalID" Display="false"></telerik:GridBoundColumn>

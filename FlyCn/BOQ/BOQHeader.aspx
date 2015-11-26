@@ -52,7 +52,7 @@
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
                                        
                                         </ClientSettings>
-                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="DocumentID,ProjectNo,RevisionID">
+                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="DocumentID,ProjectNo,RevisionID" AllowSorting="true">
                                             <Columns>
                                                 <telerik:GridTemplateColumn UniqueName="CheckBoxTemplateColumn">
                                                     <ItemTemplate>
