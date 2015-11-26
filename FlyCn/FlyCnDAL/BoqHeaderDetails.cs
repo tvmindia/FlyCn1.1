@@ -204,7 +204,6 @@ namespace FlyCn.FlyCnDAL
                     //not successfull
                     var page = HttpContext.Current.CurrentHandler as Page;
                     eObj.UpdationSuccessData(page,"Not Updated");
-                   
                 }
                 else
                 {

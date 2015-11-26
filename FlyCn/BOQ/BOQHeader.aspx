@@ -115,6 +115,18 @@
                                         </div>
 
                                     </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <asp:Label ID="lblDocOwner" CssClass="control-label col-md-5" runat="server" Text="Document Owner"></asp:Label>   
+                                            <div class="col-md-7">
+                                                <asp:TextBox ID="txtDocOwner" Enabled="false" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                              
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-6">
 
                                         <div class="form-group">

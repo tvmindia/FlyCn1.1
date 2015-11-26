@@ -400,6 +400,7 @@ namespace FlyCn.BOQ
                 hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
                 hiddenDocumentOwner.Value = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
                 //hiddenfield
+                txtDocOwner.Text = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
                 txtDocumentno.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
                 hiddenDocumentNo.Value = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
                 txtClientdocumentno.Text = ds.Tables[0].Rows[0]["ClientDocNo"].ToString();
