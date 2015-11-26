@@ -38,7 +38,7 @@
         
 
          </div>
-      <asp:HiddenField ID="hiddenCloseFlag" runat="server"  ClientIDMode="Static"/>
+      <asp:HiddenField ID="popuprefreshRequired" runat="server"  ClientIDMode="Static"/>
     <div>
 
     </div>

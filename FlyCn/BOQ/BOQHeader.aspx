@@ -315,22 +315,15 @@
          }
             if (tab.get_value() == "1")
 
-            {
-               
-                document.getElementById('<%=HiddenTabStatus.ClientID %>').value="1";
-             
-              
-              
+            {               
+                document.getElementById('<%=HiddenTabStatus.ClientID %>').value="1";             
                 var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
                 var tab = tabStrip.findTabByValue("1");
                 tab.select();
                 var tab1 = tabStrip.findTabByValue("2");
                 tab1.set_text("New");
-                tab1.set_imageUrl('../Images/Icons/NewIcon.png');
-        
-            
-                parent.DeleteNode();
-               
+                tab1.set_imageUrl('../Images/Icons/NewIcon.png');            
+                parent.RevisionHistroyDeleteNode();               
             }
 
          }

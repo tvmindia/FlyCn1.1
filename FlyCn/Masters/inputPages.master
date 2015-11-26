@@ -92,10 +92,11 @@
     <script src="../Scripts/jquery-ui-1.8.24.js"></script>
     <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>
     <script src="../Scripts/Messages.js"></script>
-    
+      <%--------User Defind Javascript Functions------------%>
 
     <script type="text/javascript">
-
+       
+       <%--------Close Document PopUp Start------------%>
         function CloseDocumentWindow() {
             var DocumentTypeForHeading = document.getElementById('HiddenFieldDoctype').value;
             var frame = document.getElementById('IframeContent');
@@ -119,6 +120,11 @@
                 alert(X.message);
             }
         }
+
+      <%---------Close Document PopUp End -------------%>
+
+      <%-------All popup close button refresh Start ---%>
+       
         function OnPopupRefresh(frame) {
 
             var innerDoc = frame.contentDocument || frame.contentWindow.document;
@@ -131,7 +137,9 @@
                 return false;
             }
         }
+      <%-------All popup close button refresh End -----%>
 
+      <%-------ChangeOwnership PopupWindow Start-------%>
         function ChangeOwnershipWindow() {
             var frame = document.getElementById('IframeChangeOwner');
             try {
@@ -155,7 +163,9 @@
                 alert(X.message);
             }
         }
+      <%-------ChangeOwnership PopupWindow End----------%>
 
+      <%-------ReviseDocumentWindow PopupWindow Start---%>
         function ReviseDocumentWindow() {
 
             var DocumentTypeForHeading = document.getElementById('HiddenFieldDoctype').value;
@@ -182,17 +192,15 @@
                 alert(X.message);
             }
         }
+      <%-------ReviseDocumentWindow PopupWindow End-----%>
 
-
-
-        function RevisionHistory() {
-
-
+      <%-- display current document all revisions in left tree --%>
+        function RevisionHistory()
+        {
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
             var iframe = pane.getExtContentElement();
             var contentWindow = iframe.contentWindow;
-
             var hiddenDocumentStatus = contentWindow.document.getElementById('hiddenStatusValue');
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
@@ -200,83 +208,59 @@
             var DocumentNo = contentWindow.document.getElementById('hiddenDocumentNo');
             var HiddenRevisionIdCollection = contentWindow.document.getElementById('HiddenRevisionIdCollection');
             var HiddenDocumentNo = document.getElementById('HiddenDocumentNo');
-       
-
-
-            if ((hiddenFieldRevisionID.value != "") && (hiddenDocumentStatus.value == approvalStatus.Approved || hiddenDocumentStatus.value == approvalStatus.Draft || hiddenDocumentStatus.value == approvalStatus.Closed || hiddenDocumentStatus.value == approvalStatus.DECLINED || hiddenDocumentStatus.value == approvalStatus.REJECTEDFORAMENDMENT || hiddenDocumentStatus.value == approvalStatus.APPROVEDBYOTHERS) && (hiddenFieldOwner.value == hiddenusername.value)) {
-
-                
+            if ((hiddenFieldRevisionID.value != "") && (hiddenDocumentStatus.value == approvalStatus.Approved || hiddenDocumentStatus.value == approvalStatus.Draft || hiddenDocumentStatus.value == approvalStatus.Closed || hiddenDocumentStatus.value == approvalStatus.DECLINED || hiddenDocumentStatus.value == approvalStatus.REJECTEDFORAMENDMENT || hiddenDocumentStatus.value == approvalStatus.APPROVEDBYOTHERS) && (hiddenFieldOwner.value == hiddenusername.value))
+            {
                 var tree = $find("<%= rtvLeftMenu.ClientID %>");
-                    var radNode = tree.findNodeByValue("4");
-                    var childrenNode = new Telerik.Web.UI.RadTreeNode();
-
-                    childrenNode.set_text(DocumentNo.value);
-
-                    childrenNode.set_value("123");
-                    radNode.get_nodes().add(childrenNode);
-                    tree.commitChanges();
-                    var radNode2 = tree.findNodeByValue("123");
-
-
-
-
-                    var NodeArray = new Array();
-                    NodeArray = HiddenRevisionIdCollection.value.split('||');
-
-                    var childnode;
-                    for (var x = 0; x < NodeArray.length; x++) {
-                        var aTemp = NodeArray[x].split("=");
-
-                        if (aTemp.length == 2) {
-
-                            var childrenNode2 = childnode + x;
-
-                            childrenNode2 = new Telerik.Web.UI.RadTreeNode();
-                            childrenNode2.set_text(aTemp[0]);
-
-                            childrenNode2.set_target("contentPane");
-                            childrenNode2.set_navigateUrl('BOQHeader.aspx?RevisionId=' + aTemp[1]);
-                           
-                            radNode2.get_nodes().add(childrenNode2);
-
-                            tree.commitChanges();
-                        }
-
-
+                var radNode = tree.findNodeByValue("rtn4");
+                var childrenNode = new Telerik.Web.UI.RadTreeNode();
+                childrenNode.set_text(DocumentNo.value);
+                childrenNode.set_value("rtn4DocNoChild");
+                radNode.get_nodes().add(childrenNode);
+                tree.commitChanges();
+                var radNode2 = tree.findNodeByValue("rtn4DocNoChild");
+                var NodeArray = new Array();
+                NodeArray = HiddenRevisionIdCollection.value.split('||');
+                var childnode;
+                for (var x = 0; x < NodeArray.length; x++) {
+                    var aTemp = NodeArray[x].split("=");
+                    if (aTemp.length == 2) {
+                        var childrenNode2 = childnode + x;
+                        childrenNode2 = new Telerik.Web.UI.RadTreeNode();
+                        childrenNode2.set_text(aTemp[0]);
+                        childrenNode2.set_target("contentPane");
+                        childrenNode2.set_navigateUrl('BOQHeader.aspx?RevisionId=' + aTemp[1]);
+                        radNode2.get_nodes().add(childrenNode2);
+                        tree.commitChanges();
                     }
-                    var nodes = tree.get_allNodes();
-                   
                 }
-
-
+                var nodes = tree.get_allNodes();
             }
+        }
 
 
 
-
-            function hideMe() {
-
-                var s = document.getElementById("Errorbox");
-                document.getElementById("Errorbox").style.visibility = "hidden";
-                var divId = document.getElementById("masterDiv");
-
-                document.getElementById("lblErrorInfo").innerHTML = "";
-            }
-            function hideMeAlert() {
-
+    <%-- display current document all revisions in left tree End --%>
+    <%-- For Hiding Alert Box --%> 
+        function hideMeAlert()
+        {
                 var alrt = document.getElementById("CommonAlertBox");
                 document.getElementById("CommonAlertBox").style.visibility = "hidden";
-
-
                 document.getElementById("<%=lblAlertMsg.ClientID%>").innerHTML = "";
         }
-        function AlertMsg(msg) {
+        <%-- For Hiding Alert Box end --%> 
+
+        <%-- Common AlertBox messeges --%> 
+        function AlertMsg(msg)
+        {
 
             var altmsg = document.getElementById("CommonAlertBox");
             document.getElementById("CommonAlertBox").style.visibility = "visible";
             document.getElementById("<%=lblAlertMsg.ClientID%>").innerText = msg;
         }
-        function CloseDocument(revisionid) {
+        <%-- Common AlertBox messeges End --%> 
+        <%-- Set CloseDocument iframe scr with parameters --%> 
+        function CloseDocument(revisionid)
+        {
 
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
@@ -289,35 +273,29 @@
             var DocumentType = contentWindow.document.getElementById('hiddenFieldDocumentType');
             var DocumentNo = contentWindow.document.getElementById('hiddenDocumentNo');
             var hiddendocumentDate = contentWindow.document.getElementById('hiddendocumentDate').value;
-
-
             document.getElementById('HiddenFieldDoctype').value = DocumentType.value;
-            var hiddenDocumentStatus = contentWindow.document.getElementById('hiddenStatusValue');
-
-
-            //alert(hdn.value);
-            if (hiddenFieldRevisionID.value != "" && hiddenDocumentStatus.value == approvalStatus.Draft && (hiddenFieldOwner.value == hiddenusername.value)) {
-
+            var hiddenDocumentStatus = contentWindow.document.getElementById('hiddenStatusValue');          
+            if (hiddenFieldRevisionID.value != "" && hiddenDocumentStatus.value == approvalStatus.Draft && (hiddenFieldOwner.value == hiddenusername.value))
+            {
                 document.getElementById('IframeContent').src = "../Approvels/CloseDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value + '&DocumentNo=' + DocumentNo.value + '&hiddenFieldOwner=' + hiddenFieldOwner.value + '&hiddendocumentDate=' + hiddendocumentDate;
 
-                CloseDocumentWindow();
+                CloseDocumentWindow();// call popup
             }
             else if (hiddenFieldRevisionID.value != "" && hiddenDocumentStatus.value == approvalStatus.REJECTEDFORAMENDMENT && (hiddenFieldOwner.value == hiddenusername.value)) {
                 document.getElementById('IframeContent').src = "../Approvels/RejectedDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value + '&DocumentNo=' + DocumentNo.value + '&hiddenFieldOwner=' + hiddenFieldOwner.value + '&hiddendocumentDate=' + hiddendocumentDate;
-                CloseDocumentWindow();
+                CloseDocumentWindow();// call popup
             }
         }
-
-        function DeleteNode() {
+        <%-- Set CloseDocument iframe scr with parameters  End--%> 
+        <%-- delete revisionhistrory tree node childs - call this function from BOQ Header View Tab click--%> 
+        function RevisionHistroyDeleteNode() {
 
 
 
             var tree = $find("<%= rtvLeftMenu.ClientID %>");
-            var firstnode = tree.findNodeByValue("4");
-            var node = tree.findNodeByValue("123");
+            var firstnode = tree.findNodeByValue("rtn4");
+            var node = tree.findNodeByValue("rtn4DocNoChild");
             node.get_parent().get_nodes().remove(node);
-
-            //firstnode.get_nodes().clear();
 
             tree.trackChanges();
 
@@ -328,7 +306,11 @@
             }
             tree.commitChanges();
         }
-        function ChangeOwner() {
+        <%-- delete revisionhistrory tree node childs-end--%> 
+
+        <%-- Set OwnershipChange iframe scr with parameters --%> 
+        function ChangeOwner()
+        {
 
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
@@ -344,16 +326,18 @@
             if (hiddenFieldOwner.value != hiddenusername.value) {
                 
                 document.getElementById('IframeChangeOwner').src = "../DocumentRelated/OwnershipChange.aspx?DocumentId=" + hiddendocumentid.value + '&Username=' + hiddenusername.value + '&Ownername=' + hiddenFieldOwner.value + '&DocumentNo=' + DocumentNo.value + '&RevisionId=' + hiddenFieldRevisionID.value;
-                ChangeOwnershipWindow();
+                ChangeOwnershipWindow();// call popup
             }
 
 
 
         }
+        <%-- Set OwnershipChange iframe scr with parameters  End--%> 
 
-        function DisableTreeNode(nodeclassname) {
-            debugger;
 
+        function DisableTreeNode(nodeclassname)
+        {
+     
             document.getElementsByClassName(nodeclassname)[0].style.DisableTreeNode = true;
             document.getElementsByClassName(nodeclassname)[0].style.color = "gray";
 
@@ -365,8 +349,9 @@
 
         }
 
-
-        function ReviseDocument() {
+        <%-- Set ReviseDocument iframe scr with parameters  --%> 
+        function ReviseDocument()
+        {
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
             var iframe = pane.getExtContentElement();
@@ -385,12 +370,14 @@
 
                 document.getElementById('IframeReviseDocument').src = "../DocumentRelated/ReviseDocument.aspx?RevisionID=" + hiddenFieldRevisionID.value + '&DocumentID=' + DocumentID.value + '&DocumentType=' + DocumentType.value + '&DocumentNo=' + DocumentNo.value + '&RevisionNumber=' + RevisionNumber.value;
 
-                ReviseDocumentWindow();
+                ReviseDocumentWindow();//call pop up
             }
 
         }
+        <%-- Set ReviseDocument iframe scr with parameters --end --%> 
     </script>
 
+  <%--------User Defind Javascript Functions----end--------%>
 
 
     <div id="Errorbox" runat="server" class="div1">
@@ -498,8 +485,8 @@
     <asp:HiddenField ID="HiddenFieldOwner" runat="server" ClientIDMode="Static" />
     <asp:HiddenField ID="HiddenFieldLogin" runat="server" ClientIDMode="Static" />
     <asp:HiddenField ID="hiddenNodeId" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="HiddenDocumentNo" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="HiddenDocStatus" runat="server" ClientIDMode="Static" />
+   <%-- <asp:HiddenField ID="HiddenDocumentNo" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="HiddenDocStatus" runat="server" ClientIDMode="Static" />--%>
 </asp:Content>
 
 
