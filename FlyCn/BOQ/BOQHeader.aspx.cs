@@ -46,7 +46,19 @@ namespace FlyCn.BOQ
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
             BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString(); 
              BOQObj.DocumentOwner = hiddenDocumentOwner.Value;
-             _RevisionId = Request.QueryString["RevisionId"];
+             //_RevisionId = "";
+             if (Request.QueryString["RevisionId"] != null)
+             {
+                 _RevisionId = Request.QueryString["RevisionId"];
+                 hiddenFieldRevisionID.Value = _RevisionId;
+                 //Request.QueryString["RevisionId"] = null;
+             }
+             else if (hiddenRevisionNumber.Value!="")
+             {
+                 _RevisionId = hiddenRevisionNumber.Value;
+             
+             }
+          
             //BOQObj.BindTree(RadTreeView tview);
             hiddenFieldDocumentType.Value = "BOQ";
             ContentIframe.Style["display"] = "none";//iframe disabling
@@ -56,20 +68,31 @@ namespace FlyCn.BOQ
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
             if (_RevisionId != null)
             {
+              if(HiddenTabStatus.Value!="1")
+              {         
                 TabAddEditSettings tabs = new TabAddEditSettings();
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                 tabs.EditTab(tab);
                 RadMultiPage1.SelectedIndex = 1;
                 BOQPopulate(_RevisionId);
+              }
+                else
+              {
+                  TabAddEditSettings tabs = new TabAddEditSettings();
+                  RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                  RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                  tabs.ResetTabCaptions(tab, tab1);
+                  RadMultiPage1.SelectedIndex = 0;
+              }
             }
-            //else
-            //{
-            //    TabAddEditSettings tabs = new TabAddEditSettings();
-            //    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
-            //    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-            //    tabs.ResetTabCaptions(tab, tab1);
-            //    RadMultiPage1.SelectedIndex = 0;
-            //}
+            else
+            {
+                TabAddEditSettings tabs = new TabAddEditSettings();
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tabs.ResetTabCaptions(tab, tab1);
+                RadMultiPage1.SelectedIndex = 0;
+            }
         }
         public void DisableBOQHeaderTextBox()
         {
