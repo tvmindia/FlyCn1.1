@@ -50,7 +50,7 @@ namespace FlyCn.Approvels
             if(result==1)
             {
                 ReviseDocumentButton.Visible = false;
-                hiddenflag.Value ="1";
+                popuprefreshRequired.Value = "1";
               
                
             }

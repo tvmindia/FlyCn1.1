@@ -424,7 +424,7 @@ namespace FlyCn.Approvels
                 }
 
             }
-            hiddenCloseFlag.Value = "1";
+            popuprefreshRequired.Value = "1";
             FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
 
            MailSendingobj.SendMailToNextLevelVarifiers(_RevisionID);

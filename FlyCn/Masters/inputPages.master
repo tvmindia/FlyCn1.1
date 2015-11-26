@@ -122,7 +122,7 @@
         function OnPopupRefresh(frame) {
 
             var innerDoc = frame.contentDocument || frame.contentWindow.document;
-            var input = innerDoc.getElementById('hiddenCloseFlag');
+            var input = innerDoc.getElementById('popuprefreshRequired');
 
             if (input.value == 1) {
                 return true;
