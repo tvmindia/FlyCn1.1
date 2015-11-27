@@ -511,6 +511,8 @@ using Messages = FlyCn.UIClasses.Messages;
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
+            
+
             }
             catch (Exception ex)
             {
@@ -522,12 +524,10 @@ using Messages = FlyCn.UIClasses.Messages;
             {
                 if (con != null)
                 {
-
                     con.Dispose();
-
                 }
             }
-            return ds;
+            return ds;//ds returning can be used at code behind
         }
         #endregion GetAllPendingApprovalsByApprovalID
 

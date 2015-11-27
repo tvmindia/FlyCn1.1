@@ -20,7 +20,8 @@ namespace FlyCn.Masters
            
            // ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(userName)", true);
 
-            if (Session[Const.LoginSession] == null) {
+            if (Session[Const.LoginSession] == null) 
+            {
                 if (GetCurrentPageName() == Const.HomePage || GetCurrentPageName().ToUpper() == Const.Default.ToUpper())
                 {
                    
@@ -28,7 +29,9 @@ namespace FlyCn.Masters
                     lnkLoginLogout.Attributes.Add("onclick", "return openLogin('slow')");
                 
                 }
-           else if(GetCurrentPageName()==Const.ApprovalPageURL)
+                else if (GetCurrentPageName() == Const.ApprovalPageURL)
+                {
+                    if (Request.QueryString["logid"] != null)
                     {
                         LogId = Request.QueryString["logid"];
                         ApprovelMaster approvalmasterObj = new ApprovelMaster();
@@ -40,23 +43,24 @@ namespace FlyCn.Masters
                         else
                         {
                             FlyCnDAL.Security.UserAuthendication UA = new FlyCnDAL.Security.UserAuthendication(userName, 1);
-                           
+
                             if (UA.ValidUser)
                             {
                                 Session.Add(Const.LoginSession, UA);
                                 lblError.Text = "";
                                 setLogoutAndUserName(UA);
                             }
-                            else {
+                            else
+                            {
                                 Response.Redirect(Const.HomePageURL);
                             }
                         }
                     }
-                    
-                else 
+                }
+                else
                 {
-               
-                   Response.Redirect(Const.HomePageURL);
+
+                    Response.Redirect(Const.HomePageURL);
                 }
 
               

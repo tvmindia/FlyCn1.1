@@ -36,13 +36,29 @@ namespace FlyCn.Approvels
                 {
                     dtgPendingApprovalGrid.Rebind();
                     string logIDMail = Request.QueryString["logid"];
+                    
                     if (logIDMail != null)//during the call from a mail
                     {
-                        RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
-                        tab.Selected = true;
-                        tab.Text = "Approval";
-                        RadMultiPage1.SelectedIndex = 1;
-                        PendingApprovalGridBindByLogID(logIDMail);
+                         ApprovelMaster approvalmasterObj = new ApprovelMaster();
+                         string userName = approvalmasterObj.GetUserNameByLogId(logIDMail);//username of mail sent user
+                         if (userName != UA.userName)//not the same user logined
+                         {
+                             RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                             tab.Selected = true;
+                             tab.Text = "Pending";
+                             RadMultiPage1.SelectedIndex = 0;//redirecting user to pending grid
+                                   
+                         }
+                        if(userName == UA.userName)
+                        {
+                            RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                            tab.Selected = true;
+                            tab.Text = "Approval";
+                            RadMultiPage1.SelectedIndex = 1;
+                            PendingApprovalGridBindByLogID(logIDMail);
+                        }
+                    
+                      
                     }
                 }
                 ToolBarApprovalDoc.OnClientButtonClicking = "OnClientButtonClickingApproval";
