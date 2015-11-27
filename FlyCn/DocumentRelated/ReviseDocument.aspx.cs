@@ -10,12 +10,14 @@ namespace FlyCn.Approvels
 {
     public partial class ReviseDocument : System.Web.UI.Page
     {
+        #region globelveriables
         string _RevisionID;
         string _DocumentID;
         string _DocumentType;
         string _DocumentNo;
         string _RevisionNumber;
         int flag = 0;
+        #endregion globelveriables
 
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
