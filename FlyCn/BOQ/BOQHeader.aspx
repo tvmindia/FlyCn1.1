@@ -342,6 +342,7 @@
         function ClearBOQHeaderTexBox()
         {
             document.getElementById('<%=txtDocumentno.ClientID %>').value = "------System Generated Code------";
+            document.getElementById('<%=txtDocOwner.ClientID%>').value = "-------Document Owner-------";
             document.getElementById('<%=txtClientdocumentno.ClientID %>').value = "";
             document.getElementById('<%=txtRevisionno.ClientID %>').value = "";
             $('#datepicker').datepicker('update', '');
