@@ -98,6 +98,7 @@
      
     <script src="../Content/themes/FlyCnBlue/js/bootstrap.min.js"></script>
     <script src="../Content/themes/FlyCnBlue/js/bootstrap-datepicker.js"></script>
+        <script src="../Scripts/ToolBar.js"></script>
     <script type="text/javascript">
         function ClearTextBox() {
             $('textarea').empty();
@@ -106,62 +107,34 @@
         }
         //---------For Security-------------//
 
-        function EnableButtonsForNew(security) 
+        function EnableButtonsForNew() 
             {
          
-            if (security.indexOf("w") > -1)
-            {
-                AddMode("<%= ToolBar.ClientID %>");
-            }
-            else if
-                 (security.indexOf("a") > -1)
-            {
-                AddMode("<%= ToolBar.ClientID %>");
-            }
-            else if
-                 (security.indexOf("r") > -1)
-            {
-                DisableButtons();
-            }
-      
-        }
+           
+            AddMode("<%= ToolBar.ClientID %>");      
+              }
 
-            function EnableButtonsForEdit(security)
+            function EnableButtonsForEdit()
                 {
-                   if (document.getElementById('<%= hdnSecurity.ClientID %>').value=="w")
-                    {
-                        EnableButtonsForNew(document.getElementById('<%= hdnSecurity.ClientID %>').value);
-                   }
-                else
-                if (security.indexOf("e")>-1)
-                    {
+     
                         EditMode("<%= ToolBar.ClientID %>");
-                    }
-                    else if
-                    (security.indexOf("r")>-1)
-                    {
-                        DisableButtons();
-                    }
-                   if(security.indexOf("d")>-1)
-                    {
-                        DeleteButtonEnable(security);
-                    }
-          
-
-                }
+                   
+            }
+        
         function DisableButtons()
         {
           
                 DisableAll("<%= ToolBar.ClientID %>");
           
                 }
-        function DeleteButtonEnable(security)
+        function DeleteButtonEnable()
         {
            
-            if (security.indexOf("d") > -1) {
+          if(PageSecurity.isDelete)
                 EnableButtonsWithDelete("<%= ToolBar.ClientID %>");
-            }
+            
         }
+
         //---------------------------------------------------------//
 
 
@@ -183,67 +156,79 @@
             </script>
     <script type="text/javascript">
 
-       //-----------------For  Security-------------------------//
+        //-----------------For  Security-------------------------//
+        function SecurityTabSelecting(eventArgs)
+        {
+            var security = document.getElementById("hdnSecurityMaster").value;
+            var tab = eventArgs.get_tab();
+            PageSecurityCheck(security);
+            if (PageSecurity.isWriteOnly) {
+
+                if (tab.get_text() == "New") {
+                    EnableButtonsForNew();
+
+                    eventArgs.set_cancel(false);
+                }
+
+            }
+            else
+                if (PageSecurity.isEditOnly) {
+                    EnableButtonsForEdit();
+                    if (tab.get_text() == "New") {
+                        AlertMsg(messages.EditModeNewClick);
+
+
+                        eventArgs.set_cancel(true);
+                    }
+
+                }
+                else
+                    if (PageSecurity.isAddOnly) {
+
+                        if (tab.get_text() == "New")
+
+                            eventArgs.set_cancel(false);
+                        EnableButtonsForNew();
+                    }
+                    else if (PageSecurity.isReadOnly) {
+
+                        if (tab.get_text() == "New") {
+                            AlertMsg(messages.EditModeNewClick);
+
+
+                            eventArgs.set_cancel(true);
+                        }
+
+                    }
+
+        }
+
+
+        function OnCommand(sender, args) {
+            debugger;
+            var value = args.get_commandName();
+            if (value == "EditData") {
+                EnableButtonsForEdit();
+            }
+     else
+                if (value == "ViewDetailColumn") {
+                    DisableAll();
+                }
+        }
+        //-----------------------------------------------------------//
         function OnClientTabSelecting(sender, eventArgs) {
             debugger;
-            var tab = eventArgs.get_tab();
-            var security=document.getElementById('<%= hdnSecurity.ClientID %>').value;
-           
-    if (security.indexOf("w") > -1)
-            {
-               
-                if (tab.get_text() == "New")
-                   
-                eventArgs.set_cancel(false);
-                EnableButtonsForNew(security);
-    }
-    else
-        if (security.indexOf("e") > -1) {
-            EnableButtonsForEdit(security);
-            if (tab.get_text() == "New") {
-                AlertMsg(messages.EditModeNewClick);
-
-
-                eventArgs.set_cancel(true);
-            }
-
-        }
-        else
-            if(security.indexOf("a") > -1)
-            {
-               
-                if (tab.get_text() == "New")
-                   
-                    eventArgs.set_cancel(false);
-                EnableButtonsForNew(security);
-            }
-            else if (security.indexOf("r") > -1)
-            {
-                EnableButtonsForEdit(security);
-                if (tab.get_text() == "New") {
-                    AlertMsg(messages.EditModeNewClick);
-
-                   
-                    eventArgs.set_cancel(true);
-                }
-           
-            }
-
+            SecurityTabSelecting(eventArgs);
+       
         }
         
-        //-----------------------------------------------------------//
+    
 
 
         function onClientTabSelected(sender, args) {
             if (tab.get_value() == '2') {
          
-                //------------------------For Security------------------------------------------//
-
-                var security= document.getElementById('<%= hdnSecurity.ClientID %>').value;
-
-                EnableButtonsForNew(security);
-                //------------------------------------------------------------------------------//
-
+             
                 try {
 
                     if (document.getElementById("<%= grdFileUpload.ClientID %>") != null)
@@ -315,20 +300,24 @@
 
             //------------------------For Security-----------------------------------------------//
             debugger;
+            var security = document.getElementById("hdnSecurityMaster").value;
             DisableButtons();
-                if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "EditData")
-                { 
-               
-                    var security=document.getElementById('<%= hdnSecurity.ClientID %>').value;
-                    EnableButtonsForEdit(security);
-
-                }
-            if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "ViewDetailColumn")
+            //Page Postback
+            if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "EditData")
             {
-                var security = document.getElementById('<%= hdnSecurity.ClientID %>').value;
-                DisableButtons();
+                EnableButtonsForEdit();
             }
+            else
+                if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "ViewDetailColumn")
+                {
+                    DisableButtons();
+                }
+        
             //----------------------------------------------------------------------------------//
+            id = document.getElementById('IDAccordion');
+
+            OpenDetailAccordion(id);
+
 
             $('.accordion-toggle').on('click', function (event) {
 
@@ -353,16 +342,6 @@
             });       
             
         });
-</script>
-    <script type="text/javascript">
-     
-        $(document).ready(function () {
-            id = document.getElementById('IDAccordion');
-
-            OpenDetailAccordion(id);
-
-        });
-
 
 
         function OpenDetailAccordion(id) {
@@ -426,12 +405,12 @@
 
                                     <telerik:RadGrid ID="dtgManageProjectGrid" runat="server" CellSpacing="0"
                                         GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true" OnItemCommand="dtgManageProjectGrid_ItemCommand"
-                                        PageSize="10" Width="100%" Skin="Silk">
+                                        PageSize="10" Width="100%" Skin="Silk" >
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType">
                                             <Columns>
                                                 <telerik:GridButtonColumn CommandName="EditData" ItemStyle-Width="10px" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png"></telerik:GridButtonColumn>
                                                 <telerik:GridButtonColumn CommandName="DeleteColumn" Text="Delete" UniqueName="DeleteColumn" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" ConfirmDialogType="RadWindow" ConfirmText="Are you sure, you want to delete this item ?">  </telerik:GridButtonColumn>
-                                                <telerik:GridButtonColumn CommandName="ViewDetailColumn" Text="ViewDetails" UniqueName="ViewDetailColumn"  ButtonType="ImageButton" Display="false" ImageUrl="~/Images/Document Next-WF.png" ConfirmDialogType="RadWindow" ></telerik:GridButtonColumn>
+                                                <telerik:GridButtonColumn CommandName="ViewDetailColumn" Text="ViewDetails" UniqueName="ViewDetailColumn"  ButtonType="ImageButton" Display="false" ImageUrl="~/Images/Document Next-WF.png"  ></telerik:GridButtonColumn>
                   
                                                 <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="ID No" DataField="IDNo" UniqueName="IDNo"></telerik:GridBoundColumn>
