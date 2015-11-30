@@ -20,6 +20,9 @@ namespace FlyCn.BOQ
         string Revisionid, Itemidstring, QueryTimeStatus, latestStatus;
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            SecurityCheck();
+            ToolBarVisibility(4);
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             Revisionid = Request.QueryString["Revisionid"];
             QueryTimeStatus = Request.QueryString["QueryTimeStatus"];
@@ -244,6 +247,57 @@ namespace FlyCn.BOQ
                           dtgBOQDetailGrid.Rebind();
                       }
                   }
+
+                  if (e.CommandName == "ViewDetailColumn")
+                  {
+                      //ToolBarVisibility(2);
+                      RadTab tab = (RadTab)RadTabStripBOQDetail.FindTabByValue("2");
+                      GridDataItem item = e.Item as GridDataItem;
+                      tab.Selected = true;
+                      tab.Text = "Details";
+                      RadMultiPageBOQDetail.SelectedIndex = 1;
+                      string ProjectNo = item.GetDataKeyValue("ProjectNo").ToString();
+
+                      DataSet ds = new DataSet();
+                      bOQHeaderDetails = new BOQHeaderDetails();
+
+                     
+                      Guid.TryParse(item.GetDataKeyValue("ItemID").ToString(), out Itemid);
+                      bOQHeaderDetails.bOQDetails.ItemID = Itemid;
+                      ds = bOQHeaderDetails.bOQDetails.GetBOQDetailsByItemID();
+                     
+                      hdfItemId.Value = ds.Tables[0].Rows[0]["ItemID"].ToString();
+                      hdfRevisionId.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
+                   
+                      txtItemDescription.Text = ds.Tables[0].Rows[0]["ItemDescription"].ToString();
+                      txtQuantity.Text = ds.Tables[0].Rows[0]["Quantity"].ToString();
+                      txtUnit.Text= ds.Tables[0].Rows[0]["Unit"].ToString();
+                      txtNormalHours.Text = ds.Tables[0].Rows[0]["NormHours"].ToString();
+                      txtLabourRate.Text = ds.Tables[0].Rows[0]["LabourRate"].ToString();
+                      txtLabourRateType.Text = ds.Tables[0].Rows[0]["LabourRateType"].ToString();
+                      txtMaterialRate.Text = ds.Tables[0].Rows[0]["MaterialRate"].ToString();
+                      txtUDFRate1.Text = ds.Tables[0].Rows[0]["UDFRate1"].ToString();
+                      txtUDFRateType1.Text = ds.Tables[0].Rows[0]["UDFRateType1"].ToString();
+                      txtUDFRate2.Text = ds.Tables[0].Rows[0]["UDFRate2"].ToString();
+                      txtUDFRateType2.Text = ds.Tables[0].Rows[0]["UDFRateType2"].ToString();
+                      txtUDFRate3.Text = ds.Tables[0].Rows[0]["UDFRate3"].ToString();
+                      txtUDFRateType3.Text = ds.Tables[0].Rows[0]["UDFRateType3"].ToString();
+                      txtUDFRate4.Text = ds.Tables[0].Rows[0]["UDFRate4"].ToString();
+                      txtUDFRateType4.Text = ds.Tables[0].Rows[0]["UDFRateType4"].ToString();
+                      txtUDFRate5.Text = ds.Tables[0].Rows[0]["UDFRate5"].ToString();
+                      txtUDFRateType5.Text = ds.Tables[0].Rows[0]["UDFRateType5"].ToString();
+                      txtGroup1.Text = ds.Tables[0].Rows[0]["Group1"].ToString();
+                      txtGroup2.Text = ds.Tables[0].Rows[0]["Group2"].ToString();
+                      txtGroup3.Text = ds.Tables[0].Rows[0]["Group3"].ToString();
+                      txtGroup4.Text = ds.Tables[0].Rows[0]["Group4"].ToString();
+                      txtGroup5.Text = ds.Tables[0].Rows[0]["Group5"].ToString();
+
+
+                  
+                          ToolBarVisibility(4);////Disable display of Toolbar
+                   
+                      
+                  }
               }
               catch (Exception ex)
               {
@@ -393,6 +447,48 @@ namespace FlyCn.BOQ
              }
 
          }
+         #region SecurityCheck
+         public void SecurityCheck()
+         {
+             string logicalObject = "BOQDetails";
+
+             FlyCnDAL.Security.PageSecurity PS = new Security.PageSecurity(logicalObject, this);
+
+             if (PS.isWrite == true)
+             {
+                 dtgBOQDetailGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
+                 //  dtgBOQGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
+             }
+             else
+                 if (PS.isEdit == true)
+                 {
+                     dtgBOQDetailGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
+                     dtgBOQDetailGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
+                 }
+                 else if (PS.isAdd == true)
+                 {
+                     dtgBOQDetailGrid.MasterTableView.GetColumn("EditData").Display = false;
+                 }
+                 else if (PS.isRead == true)
+                 {
+                     dtgBOQDetailGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = true;
+                     dtgBOQDetailGrid.MasterTableView.GetColumn("EditData").Display = false;
+                     ToolBarVisibility(4);
+                     dtgBOQDetailGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
+                 }
+
+                 else if (PS.isDenied == true)
+                 {
+                     HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=accessdenied", true);
+                 }
+             if (PS.isDelete == true)
+             {
+                 dtgBOQDetailGrid.MasterTableView.GetColumn("DeleteColumn").Display = true;
+             }
+
+         }
+         #endregion SecurityCheck
+
 
     }
 }
