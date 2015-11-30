@@ -43,18 +43,22 @@ namespace FlyCn.EIL
             //----------- Register Toolbar Server & Client side events ----------------//
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
+            //----------- Page Security Checking ----------------//
+
+            SecurityCheck();
+ 
             //-------------------------------------------------------------------------//
           
             if (!IsPostBack)
             {
-
+             
                 LoadComboBox();
                 if (Request.QueryString["Mode"] != null) {
 
                     hdnMode.Value = Request.QueryString["Mode"].ToString();
                 }
-                SecurityCheck();
 
+                
            }
                
       
@@ -62,10 +66,7 @@ namespace FlyCn.EIL
            
         
         }
-        #endregion Page_Load
-
-      
-     
+        #endregion Page_Load  
 
         #region ToolBar_OnClick
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
@@ -123,14 +124,14 @@ namespace FlyCn.EIL
             if (e.CommandName == "EditData")
             {
 
-                UIClasses.Const Const = new UIClasses.Const();
-                FlyCnDAL.Security.UserAuthendication UA;
-                HttpContext context = HttpContext.Current;
-                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
-                string usrname = UA.userName;
-                string result;
-                result = sObj.LoginSecurityCheck(hdnMode.Value, usrname, ToolBar);
-                hdnSecurity.Value = result;
+                //UIClasses.Const Const = new UIClasses.Const();
+                //FlyCnDAL.Security.UserAuthendication UA;
+                //HttpContext context = HttpContext.Current;
+                //UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                //string usrname = UA.userName;
+                //string result;
+                //result = sObj.LoginSecurityCheck(hdnMode.Value, usrname, ToolBar);
+                //hdnSecurity.Value = result;
                
                 hdnAccessMode.Value = "EditData";
           
@@ -1664,52 +1665,45 @@ namespace FlyCn.EIL
         #endregion Title
         #endregion Methods
 
-        //--For Security purpose---
+        //--For Security purpose--- 
         #region SecurityCheck
         public void SecurityCheck()
         {
-
-            UIClasses.Const Const = new UIClasses.Const();
-            FlyCnDAL.Security.UserAuthendication UA;
-
-
-            var page = HttpContext.Current.CurrentHandler as Page;
-            HttpContext context = HttpContext.Current;
-            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
-            string usrname = UA.userName;
-
-            string result = sObj.LoginSecurityCheck(hdnMode.Value, usrname, ToolBar);
-            hdnSecurity.Value = result;
-            if (result.Contains("w"))
+            string logicalObject = "ConstructionPunchList";
+        
+            FlyCnDAL.Security.PageSecurity PS=new Security.PageSecurity(logicalObject,this);
+        
+            if(PS.isWrite==true)
             {
-            
-                dtgManageProjectGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
-
-            }
-            else if (result.Contains("e"))
-            {
+                dtgManageProjectGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
                 dtgManageProjectGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
             }
-            else if(result.Contains("a"))
-            {
-                dtgManageProjectGrid.MasterTableView.GetColumn("EditData").Display = false;
-            }
-            else if (result.Contains("r"))
-            {
-                dtgManageProjectGrid.MasterTableView.GetColumn("ViewDetailColumn").Display =true;
-                dtgManageProjectGrid.MasterTableView.GetColumn("EditData").Display = false;
-                dtgManageProjectGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;             
-            }
-            else if (result.Contains(""))
-            {
-                HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=accessdenied", true);
-            }
-           
-            if (result.Contains("d"))
+            else
+                if(PS.isEdit==true)
+                {
+                    dtgManageProjectGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
+                    dtgManageProjectGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
+                }
+                else if(PS.isAdd==true)
+                {
+                    dtgManageProjectGrid.MasterTableView.GetColumn("EditData").Display = false;
+                }
+                else if(PS.isRead==true)
+                {
+                    dtgManageProjectGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = true;
+                    dtgManageProjectGrid.MasterTableView.GetColumn("EditData").Display = false;
+                    dtgManageProjectGrid.MasterTableView.GetColumn("DeleteColumn").Display = false; 
+                }
+          
+                else if(PS.isDenied==true)
+                {
+                    HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=accessdenied", true);
+                }
+            if(PS.isDelete==true)
             {
                 dtgManageProjectGrid.MasterTableView.GetColumn("DeleteColumn").Display = true;
             }
-        
+           
         }
         #endregion SecurityCheck
     }
