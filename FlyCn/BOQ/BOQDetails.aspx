@@ -338,6 +338,34 @@
 
  <script type="text/javascript">
     
+
+     function HeaderUncheck(obj) {
+         var IsChecked = obj.checked;
+         if (!IsChecked) {
+             var chkBox = $('input[id$="Chkheader"]');
+             chkBox[0].checked = false;
+         }
+
+     }
+     function Check(obj) {
+
+         var IsChecked = obj.checked;
+         var grid = $find("<%=dtgBOQDetailGrid.ClientID %>");
+         var MasterTable = grid.get_masterTableView();
+         var Rows = MasterTable.get_dataItems();
+         if (IsChecked == true) {
+             for (var i = 0; i < Rows.length; i++) {
+                 MasterTable.get_dataItems()[i].findElement("ChkChild").checked = true;
+             }
+         }
+
+         if (IsChecked == false) {
+             for (var i = 0; i < Rows.length; i++) {
+                 MasterTable.get_dataItems()[i].findElement("ChkChild").checked = false;
+             }
+         }
+     }
+
      
      function onClientTabSelectedBOQDetail(sender, args)
      {
