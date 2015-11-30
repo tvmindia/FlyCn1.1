@@ -9,10 +9,14 @@ using System.Data;
 using System.Web.UI.HtmlControls;
 using System.Net.Mail;
 using System.Threading;
+using DocStatus = FlyCn.DocumentSettings.DocumentStatusSettings;
+
 namespace FlyCn.Approvels
 {
     public partial class CloseDocument : System.Web.UI.Page
     {
+        #region globalveriable
+
         string _RevisionID;
         string _DocumentID;
         string _DocumentType;
@@ -22,6 +26,9 @@ namespace FlyCn.Approvels
         int count = 0;
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
+        #endregion globalveriable
+
+        #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
@@ -30,17 +37,15 @@ namespace FlyCn.Approvels
             _DocumentType = Request.QueryString["DocumentType"];
             _DocumentNo = Request.QueryString["DocumentNo"];
             _HiddenFieldOwner = Request.QueryString["hiddenFieldOwner"];
-            _HiddendocumentDate = Request.QueryString["hiddendocumentDate"];
-            //string caption = "Select Your Varifiers :)";
-            string caption = "Select Document Varifiers ";
-            //caption = caption.Replace(":)", "<img src='/Images/smile_1.png' alt='Happy!' />");
-            lblCaption.Text = caption;
-
+            _HiddendocumentDate = Request.QueryString["hiddendocumentDate"];          
+            string caption = "Select Document Varifiers ";           
+            lblCaption.Text = caption;           
             PlaceLabels();
-          
+         
 
         }
 
+        #endregion Page_Load
 
         #region PlaceLabels
         public void PlaceLabels()
@@ -105,12 +110,12 @@ namespace FlyCn.Approvels
         }
         #endregion PlaceLabels
 
-      
+        #region FillSelectBoxData
         public void FillSelectBoxData()
         {
             string documentType = _DocumentType;
             string projectNo = UA.projectNo;
-            //int varifierLevel =0;
+         
             ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
 
             DataTable VarifierdtLevel1 = new DataTable();
@@ -121,8 +126,8 @@ namespace FlyCn.Approvels
             {
                 FieldValueLevel1 = FieldValueLevel1 + VarifierdtLevel1.Rows[j]["VerifierID"] + "=" + VarifierdtLevel1.Rows[j]["VerifierEmail"] + "||";
             }
-            hdfSelectBox1.Value = FieldValueLevel1;
-            //selecttools1.Items.Insert(0, "Select"); 
+            hdfSelectBox1.Value = FieldValueLevel1;//from this hidden field fill data to select box in jvascrip(client side)
+         
 
             DataTable VarifierdtLevel2 = new DataTable();
             VarifierdtLevel2 = ApprovelMasterobj.getDataFromVarifierMaster(2, documentType, projectNo);
@@ -212,16 +217,54 @@ namespace FlyCn.Approvels
             hdfSelectBox10.Value = FieldValueLevel10;
         }
 
+        #endregion FillSelectBoxData
+
+        #region CloseDocumentButtonClick
         protected void btnCloseDocument_Click(object sender, EventArgs e)
         {
+            CloseDocumentClickToInsert();       
+        }
+
+        #endregion CloseDocumentButtonClick
+
+        #region InsertOperation to approvel master
+
+        public void InsertOperation(string levelId, int Level, byte isLevelManadatory)
+        {
+            ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
+           
+            string documentType = _DocumentType;
+            string projectNo = UA.projectNo;
+            System.Guid guid = System.Guid.NewGuid();
+            ApprovelMasterobj.ApprovalID = guid.ToString();
+            ApprovelMasterobj.DocumentID = _DocumentID;
+            ApprovelMasterobj.RevisionID = _RevisionID;
+            ApprovelMasterobj.VerifierID = levelId;
+            ApprovelMasterobj.VerifierLevel = Level;
+            ApprovelMasterobj.CreatedBy = UA.userName;
+            ApprovelMasterobj.ApprovalStatus = 1;
+            ApprovelMasterobj.IsLevelManadatory = isLevelManadatory;
+            int result = ApprovelMasterobj.InsertApprovelMaster();
+            if(result==1)
+            {
+                popuprefreshRequired.Value = "1";
+                ApprovelMasterobj.InsertApprovalLog();
+            }
+           
 
 
+        }
 
+        #endregion InsertOperation to approvel master
+
+        #region CloseDocumentClickToInsert
+        public void CloseDocumentClickToInsert()
+        {
             byte isLevelManadatory = 0;
             string level1IdData;
             string level1Id;
 
-            level1IdData = Request.Form["Level1"];
+            level1IdData = Request.Form["Level1"];//take selected data from select box 
             if (level1IdData != null)
             {
                 List<string> level1List = level1IdData.Split(',').ToList<string>();
@@ -419,38 +462,11 @@ namespace FlyCn.Approvels
                 }
 
             }
-            hiddenCloseFlag.Value = "1";
+           
             FlyCn.FlyCnDAL.MailSending MailSendingobj = new MailSending();
 
-           MailSendingobj.SendMailToNextLevelVarifiers(_RevisionID);
-           //FlyCn.BOQ.BOQHeader boqObj = new BOQ.BOQHeader();
-           //boqObj.Page.();
-         
+            MailSendingobj.SendMailToNextLevelVarifiers(_RevisionID);
         }
-        public void InsertOperation(string levelId, int Level, byte isLevelManadatory)
-        {
-            ApprovelMaster ApprovelMasterobj = new ApprovelMaster();
-           
-            string documentType = _DocumentType;
-            string projectNo = UA.projectNo;
-            System.Guid guid = System.Guid.NewGuid();
-            ApprovelMasterobj.ApprovalID = guid.ToString();
-            ApprovelMasterobj.DocumentID = _DocumentID;
-            ApprovelMasterobj.RevisionID = _RevisionID;
-            ApprovelMasterobj.VerifierID = levelId;
-            ApprovelMasterobj.VerifierLevel = Level;
-            ApprovelMasterobj.CreatedBy = UA.userName;
-            ApprovelMasterobj.ApprovalStatus = 1;
-            ApprovelMasterobj.IsLevelManadatory = isLevelManadatory;
-
-            ApprovelMasterobj.InsertApprovelMaster();
-            ApprovelMasterobj.InsertApprovalLog();
-
-
-        }
-
-
-       
-
+        #endregion CloseDocumentClickToInsert
     }
 }

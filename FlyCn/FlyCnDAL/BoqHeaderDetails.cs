@@ -80,22 +80,17 @@ namespace FlyCn.FlyCnDAL
             RadTreeNode rtn2 = new RadTreeNode("Ownership Change", "");
             rtn2.Target = "contentPane";
             rtn2.Value = "2";
-            myTree.Nodes.Add(rtn2);
-            //rtn2.Attributes.Add("OnLoad", "ChangeOwnerOnload()");
-            rtn2.Attributes.Add("onclick", "ChangeOwner()");
-           
+            myTree.Nodes.Add(rtn2);       
+            rtn2.Attributes.Add("onclick", "ChangeOwner()");           
            RadTreeNode rtn3 = new RadTreeNode("Revise Document", "");
            rtn3.Target = "contentPane";
             myTree.Nodes.Add(rtn3);
-           rtn3.Attributes.Add("onclick", "ReviseDocument()");
-           RadTreeNode rtn4 = new RadTreeNode("Revision History", "");
-           //rtn4.Nodes.Add(new RadTreeNode("child1"));
-           //rtn4.Nodes.Add(new RadTreeNode("child2"));
-           //rtn4.Nodes.Add(new RadTreeNode("child3"));
+            rtn3.Attributes.Add("onclick", "ReviseDocument()");
+           RadTreeNode rtn4 = new RadTreeNode("Revision History", "");      
            rtn4.Target = "contentPane";
-           rtn4.Value = "4";
+           rtn4.Value = "rtn4";
            myTree.Nodes.Add(rtn4);
-           rtn4.Attributes.Add("onclick", "RevisionHistory()");
+           //rtn4.Attributes.Add("onclick", "RevisionHistory()");
 
            
         }
@@ -204,7 +199,6 @@ namespace FlyCn.FlyCnDAL
                     //not successfull
                     var page = HttpContext.Current.CurrentHandler as Page;
                     eObj.UpdationSuccessData(page,"Not Updated");
-                   
                 }
                 else
                 {
@@ -230,7 +224,53 @@ namespace FlyCn.FlyCnDAL
             }
         }
         #endregion UpdateBOQ
-        
+
+        public DataSet GetBOQHeader(Guid RevisionID)
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllBOQDocumentHeaderByRevisionID]";
+                cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = RevisionID;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+                if(ds.Tables[0].Rows.Count>0)
+                {
+                    DataRow dr = ds.Tables[0].Rows[0];
+                    DocumentDate =Convert.ToDateTime(dr["DocumentDate"]);
+                    RevisionNo = dr["RevisionNo"].ToString();
+                    DocumentTitle = dr["DocumentTitle"].ToString();
+                    Remarks = dr["Remarks"].ToString();
+                    //UpdatedBy = dr["UpdatedBy"].ToString();
+                    //UpdatedDate = dr["UpdatedDate"].ToString();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+            return ds;
+        }
 
         #endregion Billofquantitymethods
 

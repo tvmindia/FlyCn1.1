@@ -116,7 +116,7 @@
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
                                         </ClientSettings>
-                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="ApprovalID,RevisionID,DocumentID,ProjectNo,DocumentNo,CreatedDate,DocCreatedBy,DocumentType,DocCreatedDate,DocCreatedBy,DocumentOwner,DocumentDate,VerifierLevel">
+                                        <MasterTableView AutoGenerateColumns="False" AllowSorting="true" DataKeyNames="ApprovalID,RevisionID,DocumentID,ProjectNo,DocumentNo,CreatedDate,DocCreatedBy,DocumentType,DocCreatedDate,DocCreatedBy,DocumentOwner,DocumentDate,VerifierLevel,RevisionNo,DocumentTitle">
                                             <Columns>
                                                
                                                 <telerik:GridBoundColumn HeaderText="ApprovalID" DataField="ApprovalID" UniqueName="ApprovalID" Display="false"></telerik:GridBoundColumn>
@@ -125,9 +125,9 @@
                                                 <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo" Display="false"></telerik:GridBoundColumn>
                                                
                                                 <telerik:GridBoundColumn HeaderText="DocumentNo" DataField="DocumentNo" ItemStyle-Width="15%" UniqueName="DocumentNo"></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="Revision No" DataField="RevisionNo" ItemStyle-Width="15%" UniqueName="RevisionNo"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Revision No" DataField="RevisionNo" ItemStyle-Width="15%" UniqueName="RevisionNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Document Type" DataField="DocumentType" ItemStyle-Width="10%" UniqueName="DocumentType"></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="Document Title" DataField="DocumentTitle" ItemStyle-Width="20%" UniqueName="DocumentTitle"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Document Title" DataField="DocumentTitle" ItemStyle-Width="20%" UniqueName="DocumentTitle"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Closed Date" DataField="CreatedDate" ItemStyle-Width="15%" UniqueName="CreatedDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Level" DataField="VerifierLevel" ItemStyle-Width="10%" UniqueName="VerifierLevel"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Closed By" DataField="CreatedBy" ItemStyle-Width="15%"  UniqueName="CreatedBy"></telerik:GridBoundColumn>
@@ -178,7 +178,16 @@
                                              <asp:HiddenField ID="hiddenFieldDocumentType" runat="server" ClientIDMode="Static"/>
                                              <asp:HiddenField ID="hiddenFieldDocumentNo" runat="server" ClientIDMode="Static" />
                                              <asp:HiddenField ID="hiddenFieldDocOwner" runat="server" ClientIDMode="Static" />
+                                             <asp:HiddenField ID="hiddenFieldRevisionNo" runat="server" ClientIDMode="Static" />
                                            </div>
+                                         </div>
+                                         <div class="col-md-5">
+                                               <asp:Label ID="lblRevisionNumber" runat="server" Text="Revision No"></asp:Label>
+                                         </div>
+                                         <div class="col-md-7">
+                                            <div class="form-group">
+                                                 <asp:Label ID="lblRevisionNo" runat="server" Text="" Font-Bold="true"></asp:Label>
+                                            </div>
                                          </div>
                                           <div class="col-md-5">
                                              <asp:Label ID="lblDocumentOwner" runat="server" Text="Document Owner"></asp:Label>
@@ -187,6 +196,14 @@
                                              <div class="form-group">
                                                  <asp:Label ID="lblDocOwner" runat="server" Text="" Font-Bold="true"></asp:Label>
                                              </div>
+                                         </div>
+                                         <div class="col-md-5">
+                                             <asp:Label ID="lblDocTitle" runat="server" Text="Document Title"></asp:Label>
+                                         </div>
+                                         <div class="col-md-7">
+                                               <div class="form-group">
+                                                   <asp:Label ID="lblDocumentTitle" runat="server" Text="" Font-Bold="true"></asp:Label>
+                                               </div>
                                          </div>
                                              <div class="col-md-5">
                                              <asp:Label ID="lblDocType" runat="server" Text="Document Type"></asp:Label>
@@ -277,7 +294,7 @@
                                         </MasterTableView>
                                         </telerik:RadGrid>
                                     </div>
-                             </div>
+                                </div>
                                 </div>
                                         
                                     
@@ -352,48 +369,47 @@
            }
 
        }
-    function validateText()
-    {
-        debugger;
-        var Remarks = document.getElementById('<%=txtRemarks.ClientID %>').value;
-        if(Remarks == "")
-        {
-            document.getElementById('<%= lblValidationMsg.ClientID %>').innerHTML = 'Please Fill the Remarks...!';
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-          
-    }
+  
     function ToolBarVisibility()
     {
         <%=ToolBarApprovalDoc.ClientID %>_SetApproveVisible(true);
         <%=ToolBarApprovalDoc.ClientID %>_SetDeclineVisible(true);
         <%=ToolBarApprovalDoc.ClientID %>_SetRejectVisible(true);
     }
+    function validateText() {
+       
+        var Remarks = document.getElementById('<%=txtRemarks.ClientID %>').value;
+        if (Remarks == "") {
+            document.getElementById('<%= lblValidationMsg.ClientID %>').innerHTML = 'Please Fill the Remarks...!';
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
     function OnClientButtonClickingApproval(sender, args)
     {
         
         var btn = args.get_item();
-        debugger;
-        if (btn.get_value() == 'Approve')
+       
+        if (btn.get_value() == 'Approve')//remarks is not mandatory for approve button
         {
-            var valbool=validateText();
-            args.set_cancel(!valbool);
+        
+            args.set_cancel(false);
          
         }
-        if (btn.get_value() == 'Decline')
+        if (btn.get_value() == 'Decline')//remarks is mandatory for Decline button
         {
-           
-            args.set_cancel(false);
+            
+            var valbool = validateText();
+            args.set_cancel(!valbool);
         }
 
-        if (btn.get_value() == 'Reject')
+        if (btn.get_value() == 'Reject')//remarks is mandatory for Reject button
         {
-           
-            args.set_cancel(false);
+            var valbool = validateText();
+            args.set_cancel(!valbool);
         }
     }
 

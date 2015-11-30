@@ -364,8 +364,6 @@
              }
          }
          if (tab.get_value() == "1") {
-
-
              var tabStrip = $find("<%= RadTabStripBOQDetail.ClientID %>");
              var tab = tabStrip.findTabByValue("1");
              tab.select();
@@ -384,10 +382,33 @@
          });
              
      }
+
+
+     function OnClientButtonClickingDetail(sender, args) {
+         var btn = args.get_item();
+         if (btn.get_value() == 'Save') {
+
+             args.set_cancel(!validate());
+         }
+         if (btn.get_value() == 'Update') {
+
+             args.set_cancel(!validate());
+         }
+
+         if (btn.get_value() == "Delete") {
+
+         }
+
+     }
+
      function validate() {
+      
          var ItemDescription = document.getElementById('<%=txtItemDescription.ClientID %>').value;
+         ItemDescription=trimString(ItemDescription);
          var Quantity = document.getElementById('<%=txtQuantity.ClientID %>').value;
+         Quantity=trimString(Quantity);
          var Unit = document.getElementById('<%=txtUnit.ClientID %>').value;
+         Unit=trimString(Unit);
          if (ItemDescription == "" || Quantity == "" || Unit == "")
          {
              displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
@@ -398,26 +419,6 @@
          }
      }
 
-     function OnClientButtonClickingDetail(sender, args)
-     {
-        var btn = args.get_item();
-        if (btn.get_value() == 'Save')
-        {
-           
-           args.set_cancel(!validate());
-        }
-        if (btn.get_value() == 'Update') 
-        {
-           
-           args.set_cancel(!validate());
-        }
-
-        if (btn.get_value() == "Delete") 
-        {
-         
-        }
-                
-     }
     
 
 </script>

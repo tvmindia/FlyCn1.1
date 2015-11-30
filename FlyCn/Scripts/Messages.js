@@ -20,7 +20,7 @@ var approvalStatus = {
     Closed: "1",
     Approved: "4",
     DECLINED: "2",
-    REJECTEDFORMENDMENT: "3",
+    REJECTEDFORAMENDMENT: "3",
     APPROVEDBYOTHERS: "5",
     DECLINEDBYOTHERS: "6",
     REJECTEDBYOTHERS: "7"

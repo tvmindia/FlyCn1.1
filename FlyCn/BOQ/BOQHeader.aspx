@@ -10,7 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Input</title>
-    <script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>
+   <!-----  <script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>-->
+     <script src="../Scripts/jquery-1.8.2.js"></script>
+     <script src="../Scripts/jquery-1.8.2.min.js"></script>
+     <script src="../Scripts/jquery-ui-1.8.24.js"></script>
+     <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -48,7 +52,7 @@
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
                                        
                                         </ClientSettings>
-                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="DocumentID,ProjectNo,RevisionID">
+                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="DocumentID,ProjectNo,RevisionID" AllowSorting="true">
                                             <Columns>
                                                 <telerik:GridTemplateColumn UniqueName="CheckBoxTemplateColumn">
                                                     <ItemTemplate>
@@ -101,16 +105,29 @@
                                                 <asp:HiddenField ID="hiddenFieldDocumentType" runat="server" ClientIDMode="Static" />
                                                 <asp:HiddenField ID="hiddenDocumentOwner" runat="server" ClientIDMode="Static" />
                                                 <asp:HiddenField ID="hiddenUsername" runat="server" ClientIDMode="Static" />
-                                                 <asp:HiddenField ID="hiddenRevisionNumber" runat="server" ClientIDMode="Static" />
-                                                 <asp:HiddenField ID="hiddenStatusValue" runat="server" ClientIDMode="Static" />
-                                                  <asp:HiddenField ID="hiddenDocumentNo" runat="server" ClientIDMode="Static" />
-                                                    <asp:HiddenField ID="HiddenRevisionIdCollection" runat="server" ClientIDMode="Static" />
-                                                  <asp:HiddenField ID="hiddendocumentDate" runat="server" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="hiddenRevisionNumber" runat="server" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="hiddenStatusValue" runat="server" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="hiddenDocumentNo" runat="server" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="HiddenRevisionIdCollection" runat="server" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="hiddendocumentDate" runat="server" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="HiddenTabStatus" runat="server" ClientIDMode="Static" />
                                            
                                                  </div>
                                         </div>
 
                                     </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <asp:Label ID="lblDocOwner" CssClass="control-label col-md-5" runat="server" Text="Document Owner"></asp:Label>   
+                                            <div class="col-md-7">
+                                                <asp:TextBox ID="txtDocOwner" Enabled="false" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                              
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -187,15 +204,19 @@
                                          <div class="col-md-7">
                                              <asp:Label ID="lblDocumentStatus" CssClass="DocStatusLabel" runat="server"    ClientIDMode="Static"></asp:Label>
                                          </div>
-
+                                         <div class="col-md-5">
+                                            <input type="button" onclick="linkbuttonClient();" value="ApproverList" />
+                                         </div>
+                                         
+                                       <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
+                                      <iframe id="ContentApprovers" runat="server" style="width: 1000px; height: 600px;"></iframe>
+                                      </div>
                                     </div>
-                               
-                                   
                                      <div class="content white">
                                        <div class="accordion-container">
                                          <a href="#" class="accordion-toggle" id="IDAccordion">Details<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                                          <div class="accordion-content">
-                                         <iframe id="ContentIframe" name="BOQDetails" style="height: 600px; width: 100%; overflow: hidden;" runat="server"></iframe>
+                                         <iframe id="ContentIframe" name="BOQDetails" style="height: 200px; width: 100%; overflow: hidden;" runat="server"></iframe>
                                          </div>
                                        </div>
                                       </div>
@@ -215,6 +236,13 @@
 
     <!--<JavaScrict>-->
     <script type="text/javascript">
+
+        function linkbuttonClient() {
+            var Revisionid = document.getElementById('<%=hiddenFieldRevisionID.ClientID %>').value;
+            window.open("../Approvels/Approvers.aspx?Revisionid=" + Revisionid, 'Approvers', "height=200,width=500");
+        }
+
+
         function validate() {
             var Clientdocumentno = document.getElementById('<%=txtClientdocumentno.ClientID %>').value;
         var Revisionno = document.getElementById('<%=txtRevisionno.ClientID %>').value;
@@ -224,13 +252,9 @@
         if (Clientdocumentno == "" || Revisionno == "" || DocumentDate == "" || Documenttitle == "" || Remarks == "") {
 
             displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
-
             return false;
-
         }
-
         else {
-
             return true;
         }
     }
@@ -267,6 +291,7 @@
         var tab = args.get_tab();
         if (tab.get_value() == '2')
         {
+           
             hideMe();
 
           //Clear Text boxes When New tab clicks
@@ -301,23 +326,23 @@
             }
          }
             if (tab.get_value() == "1")
-            {
-            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-            var tab = tabStrip.findTabByValue("1");
-            tab.select();
-            var tab1 = tabStrip.findTabByValue("2");
-            tab1.set_text("New");
-            tab1.set_imageUrl('../Images/Icons/NewIcon.png');
-         //   CallFnOnParent();
-            debugger;
-            parent.DeleteNode();
-            //document.getElementById("ctl00_ContentPlaceHolder1_pnlCriteriaSearch").value;
+
+            {               
+                document.getElementById('<%=HiddenTabStatus.ClientID %>').value="1";             
+                var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+                var tab = tabStrip.findTabByValue("1");
+                tab.select();
+                var tab1 = tabStrip.findTabByValue("2");
+                tab1.set_text("New");
+                tab1.set_imageUrl('../Images/Icons/NewIcon.png');            
+                parent.RevisionHistroyDeleteNode();               
             }
 
          }
         function ClearBOQHeaderTexBox()
         {
             document.getElementById('<%=txtDocumentno.ClientID %>').value = "------System Generated Code------";
+            document.getElementById('<%=txtDocOwner.ClientID%>').value = "-------Document Owner-------";
             document.getElementById('<%=txtClientdocumentno.ClientID %>').value = "";
             document.getElementById('<%=txtRevisionno.ClientID %>').value = "";
             $('#datepicker').datepicker('update', '');
@@ -325,26 +350,7 @@
             document.getElementById('<%=txtRemarks.ClientID %>').value = "";
             document.getElementById('<%=lblDocumentStatus.ClientID%>').innerHTML = "";
         }
-        function GetRadWindow() {
-            alert(111);
-            var oWindow = null;
-            if (window.radWindow) oWindow = window.radWindow;
-            else if (window.frameElement.radWindow) oWindow = window.frameElement.radWindow;
-            return oWindow;
-        }
-        function CallFnOnParent() {
-            GetRadWindow().BrowserWindow.DeleteNode();
-            // Tip: you can pass an argument to provide data to the called function
-        }
-
-        function CallFn() {
-            // Get a reference to the RadWindow (see Example 2 for the GetRadWindow function)
-            var oWnd = GetRadWindow();
-            // get a reference to the second RadWindow       
-            var dialogB = oWnd.get_windowManager().getWindowByName("RadWindow1");
-            // by using get_contentFrame, call the predefined function
-            dialogB.get_contentFrame().contentWindow.CalledFn();
-        }
+      
 
     function OnClientButtonClicking(sender, args) {
         var btn = args.get_item();
@@ -425,7 +431,7 @@
         }
         function DisableBOQHeaderTextBox()
         {
-            debugger;
+       
             var v1 = document.getElementById('<%=txtdatepicker.ClientID %>');
             //v1.setAttribute("readonly", "readonly");
             v1 = document.getElementById('<%=txtClientdocumentno.ClientID %>');
@@ -459,7 +465,9 @@
             e.removeAttribute("readonly", 0);
             //Enable header textboxess
         }
-    
+
+       
+     
 
 
     </script>

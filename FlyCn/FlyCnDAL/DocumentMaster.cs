@@ -76,6 +76,23 @@ namespace FlyCn.FlyCnDAL
             set;
         }
 
+        public DateTime DocDate
+        {
+            get;
+            set;
+        }
+        public string DocTitle
+        {
+            get;
+            set;
+        }
+        public string RevNo
+        {
+            get;
+            set;
+        }
+
+
         #endregion documentmasterproperties
 
         #region RevisionMasterproperties
@@ -124,6 +141,7 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion RevisionMasterproperties
 
+    
         #region Documentmastermethods
         #region AddNewDocument
         /// <summary>
@@ -305,6 +323,7 @@ namespace FlyCn.FlyCnDAL
         {
             SqlConnection con = null;
             DataSet ds = null;
+            RevisionID = RevID;
             try
             {
                 dbConnection dcon = new dbConnection();
@@ -354,9 +373,13 @@ namespace FlyCn.FlyCnDAL
                     }
                     
                     Description = dr["Description"].ToString();
-                    Remarks = dr["Remarks"].ToString();     
+                    Remarks = dr["Remarks"].ToString();
+                    GetOtherDetailsBasedonDocType(DocumentType);
                 
                 }
+
+
+
 
 
                 //-----------------------------------------------
@@ -375,6 +398,22 @@ namespace FlyCn.FlyCnDAL
                 }
             }
         }
+
+        public void GetOtherDetailsBasedonDocType(string DocType) {
+
+            switch (DocType)
+            {
+                case "BOQ":
+                    BOQHeaderDetails BOQdoc=new BOQHeaderDetails();
+                    BOQdoc.GetBOQHeader(RevisionID);
+                    DocDate =Convert.ToDateTime(BOQdoc.DocumentDate);
+                    RevNo = BOQdoc.RevisionNo;
+                    DocTitle = BOQdoc.DocumentTitle;
+
+                    break;
+            }
+        }
+
         #endregion GetDocumentDetailsByRevisionID
 
         #region EditOwnershipName
