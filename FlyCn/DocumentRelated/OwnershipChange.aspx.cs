@@ -46,6 +46,7 @@ namespace FlyCn.DocumentRelated
                    var page = HttpContext.Current.CurrentHandler as Page;
                    var master = page.Master;
                    eObj.UpdationSuccessData(page);
+                   hiddenCloseFlag.Value = "1";
                }
             }
           catch(Exception ex)
