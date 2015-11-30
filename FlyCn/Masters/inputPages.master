@@ -232,8 +232,8 @@
             var HiddenRevisionIdCollection = contentWindow.document.getElementById('HiddenRevisionIdCollection');
             var HiddenDocumentNo = document.getElementById('HiddenDocumentNo');
             
-            if (HiddenDocumentNo.value != DocumentNo.value)
-            {
+            //if (HiddenDocumentNo.value != DocumentNo.value)
+            //{
                 if ((hiddenFieldRevisionID.value != "") && (hiddenDocumentStatus.value == approvalStatus.Approved || hiddenDocumentStatus.value == approvalStatus.Draft || hiddenDocumentStatus.value == approvalStatus.Closed || hiddenDocumentStatus.value == "2" || hiddenDocumentStatus.value == "3" || hiddenDocumentStatus.value == "5") && (hiddenFieldOwner.value == hiddenusername.value))
                 {
             var tree = $find("<%= rtvLeftMenu.ClientID %>");
@@ -293,7 +293,7 @@
                
               
              
-            }
+            //}
             }
         }
 
@@ -357,7 +357,7 @@
             var tree = $find("<%= rtvLeftMenu.ClientID %>");
             var node = tree.findNodeByValue("123");
             tree.trackChanges();
-            node.get_parent().get_nodes().remove(node);
+         //   node.get_parent().get_nodes().remove(node);
             //... or by ordinal position    
             //node.get_parent().get_nodes().removeAt(0);    
             //... or remove all nodes at one time
