@@ -157,20 +157,19 @@ namespace FlyCn.FlyCnDAL
                  
                       
                 hdnSecurityField.Value = result;
-                    
-                    
-
-
-
-                      if (result.Contains("w"))
-                  isWrite = true;
-              else if (result.Contains("e"))
+                if (result.Contains("w"))
+                    isWrite = true;
+                else 
+                    if (result.Contains("e"))
                   isEdit = true;
-              else if (result.Contains("a"))
+              else 
+                        if (result.Contains("a"))
                   isAdd = true;
-              else if (result.Contains("r"))
+              else 
+                            if (result.Contains("r"))
                   isRead = true;
-              else if (result.Contains(""))
+              else
+                                if (result.Contains(""))
                   isDenied = true;
                 if(result.Contains("d"))
                 isDelete=true;
