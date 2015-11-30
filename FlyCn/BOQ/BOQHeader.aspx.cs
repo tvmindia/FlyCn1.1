@@ -38,8 +38,9 @@ namespace FlyCn.BOQ
         
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
-        {      
-
+        {
+            SecurityCheck();
+            ToolBarVisibility(4);
             BOQHeaderDetails  BOQObj= new BOQHeaderDetails();         
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
@@ -161,6 +162,28 @@ namespace FlyCn.BOQ
                         //BOQPopulate(revisionid);
                     
                 }
+                else
+                    if (e.CommandName == "ViewDetailColumn")//EditDoc  is named because Radgrid has its own definition for Edit
+                    {
+                        ToolBarVisibility(4);
+                        RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                        GridDataItem item = e.Item as GridDataItem;
+                        tab.Selected = true;
+                        tab.Text = "Details";
+                        string DocumentNo = hiddenDocumentNo.Value;
+                        DataTable docdtObj = new DataTable();
+                        FlyCn.FlyCnDAL.DocumentMaster docObj = new DocumentMaster();
+                        //  docdtObj=  docObj.GetRevisionIdByDocumentNo(DocumentNo);
+
+                        RadMultiPage1.SelectedIndex = 1;
+                       
+
+
+
+
+                        //BOQPopulate(revisionid);
+
+                    }
             }
             catch (Exception ex)
             {
@@ -494,6 +517,48 @@ namespace FlyCn.BOQ
             }
         }
         #endregion BOQPopulate
+
+        #region SecurityCheck
+        public void SecurityCheck()
+        {
+            string logicalObject = "BOQHeader";
+
+            FlyCnDAL.Security.PageSecurity PS = new Security.PageSecurity(logicalObject, this);
+
+            if (PS.isWrite == true)
+            {
+                dtgBOQGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
+              //  dtgBOQGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
+            }
+            else
+                if (PS.isEdit == true)
+                {
+                    dtgBOQGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
+                  //  dtgBOQGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
+                }
+                else if (PS.isAdd == true)
+                {
+                    dtgBOQGrid.MasterTableView.GetColumn("EditData").Display = false;
+                }
+                else if (PS.isRead == true)
+                {
+                    dtgBOQGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = true;
+                    dtgBOQGrid.MasterTableView.GetColumn("EditData").Display = false;
+                    ToolBarVisibility(4);
+                 //   dtgBOQGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
+                }
+
+                else if (PS.isDenied == true)
+                {
+                    HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=accessdenied", true);
+                }
+            if (PS.isDelete == true)
+            {
+              //  dtgBOQGrid.MasterTableView.GetColumn("DeleteColumn").Display = true;
+            }
+
+        }
+        #endregion SecurityCheck
 
         #endregion Methods
 
