@@ -1253,7 +1253,7 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
                                                     <asp:ButtonField ButtonType="Image" ImageUrl="~/Images/Cancel.png" CommandName="Delete" Text="Delete" Visible="True" />
                                                     <asp:TemplateField>
                                                         <ItemTemplate>
-                                                            <asp:ImageButton ID="imageButtonDownload" ImageUrl="~/Images/Download.png" Text="Download" Visible="True" runat="server" OnClick="imageButtonDownload_Click" />
+                                                            <asp:ImageButton ID="imageButtonDownload" ImageUrl="~/Images/Download-02-WF.png" Text="Download" Visible="True" runat="server" OnClick="imageButtonDownload_Click" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                 </Columns>

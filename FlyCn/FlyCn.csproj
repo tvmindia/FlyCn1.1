@@ -302,6 +302,9 @@
     <Content Include="DocumentRelated\OwnershipChange.aspx" />
     <Content Include="EngineeredDataList\EnggDataList.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
+    <Content Include="Images\Document Next-WF.png" />
+    <Content Include="Images\Document-Download-01.png" />
+    <Content Include="Images\Download-02-WF.png" />
     <Content Include="Images\Download.png" />
     <Content Include="Images\flycnLogo.png" />
     <Content Include="Images\gladsmall.png" />
@@ -733,6 +736,7 @@
     <Compile Include="FlyCnDAL\dbConnection.cs" />
     <Compile Include="FlyCnDAL\DocumentMaster.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
+    <Compile Include="FlyCnDAL\ExcelTemplate.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
     <Compile Include="FlyCnDAL\MailSending.cs" />
     <Compile Include="FlyCnDAL\MasterData.cs" />

@@ -132,7 +132,7 @@ namespace FlyCn.EIL
                 //string result;
                 //result = sObj.LoginSecurityCheck(hdnMode.Value, usrname, ToolBar);
                 //hdnSecurity.Value = result;
-               
+                btnUpload.Enabled = true;
                 hdnAccessMode.Value = "EditData";
           
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
