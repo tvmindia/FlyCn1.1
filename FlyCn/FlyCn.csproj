@@ -716,6 +716,7 @@
     <Compile Include="FlyCnDAL\dbConnection.cs" />
     <Compile Include="FlyCnDAL\DocumentMaster.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
+    <Compile Include="FlyCnDAL\ExcelTemplate.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
     <Compile Include="FlyCnDAL\MailSending.cs" />
     <Compile Include="FlyCnDAL\MasterData.cs" />
