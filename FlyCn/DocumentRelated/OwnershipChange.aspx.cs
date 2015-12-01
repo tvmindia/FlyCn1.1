@@ -44,9 +44,11 @@ namespace FlyCn.DocumentRelated
                mObj.ChangeOwnershipAcknowledgement(_RevisionId, _Ownername, _Username, _Remarks);
                if (result == 1)
                {
+                   popuprefreshRequired.Value = "1";
                    var page = HttpContext.Current.CurrentHandler as Page;
                    var master = page.Master;
                    eObj.UpdationSuccessData(page);
+                 //  hiddenCloseFlag.Value = "1";
                }
             }
           catch(Exception ex)

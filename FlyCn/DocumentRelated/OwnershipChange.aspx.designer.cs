@@ -31,6 +31,15 @@ namespace FlyCn.DocumentRelated {
         protected global::System.Web.UI.WebControls.TextBox txtRemarks;
         
         /// <summary>
+        /// lblDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDescription;
+        
+        /// <summary>
         /// btnAcquire control.
         /// </summary>
         /// <remarks>
@@ -38,5 +47,23 @@ namespace FlyCn.DocumentRelated {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAcquire;
+        
+        /// <summary>
+        /// popuprefreshRequired control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField popuprefreshRequired;
+        
+        /// <summary>
+        /// hiddenCloseFlag control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hiddenCloseFlag;
     }
 }

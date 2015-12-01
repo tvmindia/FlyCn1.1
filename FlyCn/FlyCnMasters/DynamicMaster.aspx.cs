@@ -414,131 +414,133 @@ namespace FlyCn.FlyCnMasters
             //string sdw = dt.Rows[0][0].ToString();
             GridDataItem item = e.Item as GridDataItem;
             //string strId = item.GetDataKeyValue(sdw).ToString();
-
-            DataTable datatbl = new DataTable();
-            string Key = "";
-            string primarykeys = "";
-            string ID = "";
-            string KeyValue = "";
-            string sdw = "";
-            datatbl = systabledefenitionobj.GetPrimarykeys(_mode);
-            for (int i = 0; i < datatbl.Rows.Count; i++)
+            if (item != null)
             {
-                Key = datatbl.Rows[i]["Field_Name"].ToString();
-                primarykeys = primarykeys + Key + ",";
-
-                ID = item.GetDataKeyValue(Key).ToString();
-                KeyValue = KeyValue + ID + ",";
-
-
-
-            }
-            primarykeys = primarykeys.TrimEnd(',', ' ');
-            KeyValue = KeyValue.TrimEnd(',', ' ');
-            HiddenField.Value = primarykeys;
-            HiddenField1.Value = KeyValue;
-            int result;
-            if (e.CommandName == "Delete")
-            {
-
-
-
-
-                result = dynamicmasteroperationobj.DeleteMasterData(primarykeys, _mode, KeyValue);
-                if (result == 1)
+                DataTable datatbl = new DataTable();
+                string Key = "";
+                string primarykeys = "";
+                string ID = "";
+                string KeyValue = "";
+                string sdw = "";
+                datatbl = systabledefenitionobj.GetPrimarykeys(_mode);
+                for (int i = 0; i < datatbl.Rows.Count; i++)
                 {
-                    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
-                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                    TabAddEditSettings tabs = new TabAddEditSettings();
-                    tabs.Addtab(tab, tab1);
-                    RadMultiPage1.SelectedIndex = 0;
+                    Key = datatbl.Rows[i]["Field_Name"].ToString();
+                    primarykeys = primarykeys + Key + ",";
+
+                    ID = item.GetDataKeyValue(Key).ToString();
+                    KeyValue = KeyValue + ID + ",";
+
+
+
                 }
-                else
+                primarykeys = primarykeys.TrimEnd(',', ' ');
+                KeyValue = KeyValue.TrimEnd(',', ' ');
+                HiddenField.Value = primarykeys;
+                HiddenField1.Value = KeyValue;
+                int result;
+                if (e.CommandName == "Delete")
                 {
 
-                    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
-                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                    TabAddEditSettings tabs = new TabAddEditSettings();
-                    tabs.Addtab(tab, tab1);
-                    RadMultiPage1.SelectedIndex = 0;
+
+
+
+                    result = dynamicmasteroperationobj.DeleteMasterData(primarykeys, _mode, KeyValue);
+                    if (result == 1)
+                    {
+                        RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                        RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                        TabAddEditSettings tabs = new TabAddEditSettings();
+                        tabs.Addtab(tab, tab1);
+                        RadMultiPage1.SelectedIndex = 0;
+                    }
+                    else
+                    {
+
+                        RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                        RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                        TabAddEditSettings tabs = new TabAddEditSettings();
+                        tabs.Addtab(tab, tab1);
+                        RadMultiPage1.SelectedIndex = 0;
+                    }
                 }
-            }
-            else if (e.CommandName == "EditData")
-            {
-
-                TabAddEditSettings tabs = new TabAddEditSettings();
-                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
-                tabs.EditTab(tab);
-                RadMultiPage1.SelectedIndex = 1;
-                ToolBar.AddButton.Visible = false;
-                ToolBar.SaveButton.Visible = false;
-                ToolBar.UpdateButton.Visible = true;
-                ToolBar.DeleteButton.Visible = true;
-                DataTable dst = new DataTable();
-
-                dst = dynamicmasteroperationobj.FillMasterData(primarykeys, _mode, UA.projectNo, KeyValue);
-                FlyCnDAL.SystemDefenitionDetails sm = new FlyCnDAL.SystemDefenitionDetails();
-                datatableobj.Columns.Add("Values", typeof(String));
-
-                for (int f = 0; f < dst.Columns.Count; f++)
+                else if (e.CommandName == "EditData")
                 {
 
-                    if (datatableobj.Rows[f]["Field_DataType"].ToString() == "U" | datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
-                    { 
+                    TabAddEditSettings tabs = new TabAddEditSettings();
+                    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                    tabs.EditTab(tab);
+                    RadMultiPage1.SelectedIndex = 1;
+                    ToolBar.AddButton.Visible = false;
+                    ToolBar.SaveButton.Visible = false;
+                    ToolBar.UpdateButton.Visible = true;
+                    ToolBar.DeleteButton.Visible = true;
+                    DataTable dst = new DataTable();
 
-                        string boxname = datatableobj.Rows[f]["Field_Name"].ToString();
-                        HiddenField hf = (HiddenField)placeholder.FindControl("hf" + datatableobj.Rows[f]["Field_Name"]);
-                        hf.Value = dst.Rows[0][boxname].ToString();
-                    }
+                    dst = dynamicmasteroperationobj.FillMasterData(primarykeys, _mode, UA.projectNo, KeyValue);
+                    FlyCnDAL.SystemDefenitionDetails sm = new FlyCnDAL.SystemDefenitionDetails();
+                    datatableobj.Columns.Add("Values", typeof(String));
 
-                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "V")
+                    for (int f = 0; f < dst.Columns.Count; f++)
                     {
 
-                        datatableobj.Rows[f]["Values"] = UA.userName;
-                    }
-
-                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
-                    {
-
-                        string boxname = datatableobj.Rows[f]["Field_Name"].ToString();
-                        CheckBox box = (CheckBox)placeholder.FindControl("chk" + datatableobj.Rows[f]["Field_Name"]);
-                        box.Checked =Convert.ToBoolean( dst.Rows[0][boxname].ToString());
-                    }
-                   
-                   else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
-                    {
-                        string boxname = datatableobj.Rows[f]["Field_Name"].ToString();
-                        TextBox box = (TextBox)placeholder.FindControl("txt" + datatableobj.Rows[f]["Field_Name"]);
-                        box.Text = dst.Rows[0][boxname].ToString();
-
-                    }
-                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "C" | datatableobj.Rows[f]["Field_DataType"].ToString() == "N")
-                    {
-                        string boxname = datatableobj.Rows[f]["Field_Name"].ToString();
-                        RadComboBox combo = (RadComboBox)placeholder.FindControl("cmb" + datatableobj.Rows[f]["Field_Name"]);
-                        string TableName = datatableobj.Rows[f]["Ref_TableName"].ToString();
-                        string Name = datatableobj.Rows[f]["Ref_SelectField"].ToString();
-                        string Code = datatableobj.Rows[f]["Ref_JoinField"].ToString();
-                        DataTable dtable = dynamicmasteroperationobj.GetComboBoxDataById(dst.Rows[0][boxname].ToString(), TableName, Name, Code);
-                        if (dtable.Rows.Count > 0)
+                        if (datatableobj.Rows[f]["Field_DataType"].ToString() == "U" | datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
                         {
-                            combo.Text = dtable.Rows[0][Name].ToString();
-                            //  combo.SelectedValue = dst.Rows[0][boxname].ToString();
-                            combo.SelectedValue = dtable.Rows[0][Code].ToString();
-                            string s = combo.Text;
-                            string b = combo.SelectedValue;
-                        }
-                        else
-                        {
-                            combo.Text = "";
-                            combo.SelectedValue = "";
 
+                            string boxname = datatableobj.Rows[f]["Field_Name"].ToString();
+                            HiddenField hf = (HiddenField)placeholder.FindControl("hf" + datatableobj.Rows[f]["Field_Name"]);
+                            hf.Value = dst.Rows[0][boxname].ToString();
                         }
 
+                        else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "V")
+                        {
+
+                            datatableobj.Rows[f]["Values"] = UA.userName;
+                        }
+
+                        else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
+                        {
+
+                            string boxname = datatableobj.Rows[f]["Field_Name"].ToString();
+                            CheckBox box = (CheckBox)placeholder.FindControl("chk" + datatableobj.Rows[f]["Field_Name"]);
+                            box.Checked = Convert.ToBoolean(dst.Rows[0][boxname].ToString());
+                        }
+
+                        else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
+                        {
+                            string boxname = datatableobj.Rows[f]["Field_Name"].ToString();
+                            TextBox box = (TextBox)placeholder.FindControl("txt" + datatableobj.Rows[f]["Field_Name"]);
+                            box.Text = dst.Rows[0][boxname].ToString();
+
+                        }
+                        else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "C" | datatableobj.Rows[f]["Field_DataType"].ToString() == "N")
+                        {
+                            string boxname = datatableobj.Rows[f]["Field_Name"].ToString();
+                            RadComboBox combo = (RadComboBox)placeholder.FindControl("cmb" + datatableobj.Rows[f]["Field_Name"]);
+                            string TableName = datatableobj.Rows[f]["Ref_TableName"].ToString();
+                            string Name = datatableobj.Rows[f]["Ref_SelectField"].ToString();
+                            string Code = datatableobj.Rows[f]["Ref_JoinField"].ToString();
+                            DataTable dtable = dynamicmasteroperationobj.GetComboBoxDataById(dst.Rows[0][boxname].ToString(), TableName, Name, Code);
+                            if (dtable.Rows.Count > 0)
+                            {
+                                combo.Text = dtable.Rows[0][Name].ToString();
+                                //  combo.SelectedValue = dst.Rows[0][boxname].ToString();
+                                combo.SelectedValue = dtable.Rows[0][Code].ToString();
+                                string s = combo.Text;
+                                string b = combo.SelectedValue;
+                            }
+                            else
+                            {
+                                combo.Text = "";
+                                combo.SelectedValue = "";
+
+                            }
+
+                        }
                     }
+
+
                 }
-
-
             }
         }
         #endregion  dtgDynamicMasterGrid_ItemCommand

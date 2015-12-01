@@ -98,6 +98,10 @@ using Messages = FlyCn.UIClasses.Messages;
         #endregion GeneralProperties
 
         #region getDataFromApprovelLevel
+        /// <summary>
+        /// get all active approvers detail to fill select box
+        /// </summary>
+        /// <returns></returns>
         public DataTable getDataFromApprovelLevel()
         {
             DataTable datatableobj = null;
@@ -139,6 +143,13 @@ using Messages = FlyCn.UIClasses.Messages;
         #endregion GetAllDataFromApprovalMaster
 
         #region getDataFromVarifierMaster
+        /// <summary>
+        /// select verifiers from corresponding level
+        /// </summary>
+        /// <param name="Level"></param>
+        /// <param name="documentType"></param>
+        /// <param name="projectNo"></param>
+        /// <returns></returns>
         public DataTable getDataFromVarifierMaster(int Level, string documentType, string projectNo)
         {
             DataTable datatableobj = null;
@@ -207,6 +218,7 @@ using Messages = FlyCn.UIClasses.Messages;
         }
         #endregion  getDataFromVarifierMasterDetailsByRevisoinId
 
+        #region getEmailIdFromVarifierMasterDetailsByRevisoinId
         public DataTable getEmailIdFromVarifierMasterDetailsByRevisoinId(string RevisionID, string ApprovalID)
         {
             DataTable datatableobj = null;
@@ -235,6 +247,7 @@ using Messages = FlyCn.UIClasses.Messages;
             }
             return datatableobj;
         }
+        #endregion getEmailIdFromVarifierMasterDetailsByRevisoinId
 
         #region getDataFromApprovalLogByLogId
         public DataTable getDataFromApprovalLogByLogId(string LogId)
@@ -259,6 +272,11 @@ using Messages = FlyCn.UIClasses.Messages;
         #endregion getDataFromApprovalLogByLogId
 
         #region InsertApprovelMaster
+        /// <summary>
+        ///  Insert datas to approvel master table log table when close button 
+        ///  click in close document popup
+        /// </summary>
+        /// <returns></returns>
         public int InsertApprovelMaster()
         {
            
@@ -339,6 +357,7 @@ using Messages = FlyCn.UIClasses.Messages;
         }
 
         #endregion InsertApprovalLog
+
         #region RejectApprovalMaster
         public int RejectApprovalMaster(string Approvalid)
         {
@@ -384,6 +403,7 @@ using Messages = FlyCn.UIClasses.Messages;
             }
         }
         #endregion RejectApprovalMaster
+
         #region DeclineApprovalMaster
         public int DeclineApprovalMaster(string Approvalid)//t
         {
@@ -474,6 +494,7 @@ using Messages = FlyCn.UIClasses.Messages;
             }
         }
         #endregion UpdateApprovalMaster
+
         #region GetAllPendingApprovalsByApprovalID
         public DataSet GetAllPendingApprovalsByLogID(Guid LogID)//new get for login bypass
         {
@@ -490,6 +511,8 @@ using Messages = FlyCn.UIClasses.Messages;
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
+            
+
             }
             catch (Exception ex)
             {
@@ -501,12 +524,10 @@ using Messages = FlyCn.UIClasses.Messages;
             {
                 if (con != null)
                 {
-
                     con.Dispose();
-
                 }
             }
-            return ds;
+            return ds;//ds returning can be used at code behind
         }
         #endregion GetAllPendingApprovalsByApprovalID
 
@@ -620,12 +641,14 @@ using Messages = FlyCn.UIClasses.Messages;
         }
 
         #endregion LoadInputScreen
+
         #region LoadInputScreenwithlogid
         public void LoadInputScreen(RadPane myContentPane,string logid)
         {
             myContentPane.ContentUrl = "ApprovalDocument.aspx?logid=" + logid;
         }
         #endregion LoadInputScreenwithlogid
+
         #region GetDocDetailList
 
         public DataTable GetDocDetailList(string revid, string type)
@@ -806,6 +829,12 @@ using Messages = FlyCn.UIClasses.Messages;
 
         #endregion GetAllDocumentStatus
 
+        #region GetRejectedVarifierDetailsByRevisionId
+        /// <summary>
+        /// get document rejected verifiers detais by revisionId
+        /// </summary>
+        /// <param name="revisionId"></param>
+        /// <returns></returns>
         public DataTable GetRejectedVarifierDetailsByRevisionId(string revisionId)
         {
             SqlConnection con = null;
@@ -842,5 +871,6 @@ using Messages = FlyCn.UIClasses.Messages;
             }
             return dt;
         }
+        #endregion GetRejectedVarifierDetailsByRevisionId
     }
 }

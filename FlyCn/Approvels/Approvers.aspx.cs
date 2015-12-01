@@ -17,7 +17,10 @@ namespace FlyCn.Approvels
         DataSet ds=null;
         protected void Page_Load(object sender, EventArgs e)
         {
-            revid = Request.QueryString["Revisionid"];//from BOQ header
+            if (Request.QueryString["Revisionid"] != null)
+            {
+                revid = Request.QueryString["Revisionid"];//from BOQ header
+            }
         }
 
         #region dtgApprovers_NeedDataSource
@@ -44,7 +47,7 @@ namespace FlyCn.Approvels
         {
             try
             {
-              dtgApprovers.Rebind();
+                //dtgApprovers.Rebind();
 
             }
             catch (Exception ex)
@@ -68,6 +71,8 @@ namespace FlyCn.Approvels
               ds = approvelMaster.GetAllPendingApprovalsByVerifierLevel(paramrevisionid);
               dtgApprovers.DataSource = ds;
             }
+          
+            
         }
         #endregion ApproverBind
 

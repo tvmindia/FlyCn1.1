@@ -21,7 +21,7 @@ namespace FlyCn.FlyCnDAL
             con = dcon.GetDBConnection();
 
 
-            SqlCommand cmd = new SqlCommand("GetModules", con);
+            SqlCommand cmd = new SqlCommand("GetAllModules", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
             SqlDataAdapter adapter = new SqlDataAdapter();
@@ -30,7 +30,12 @@ namespace FlyCn.FlyCnDAL
             adapter.Fill(dataset);
             con.Close();
             return dataset;
-        
+       
         }
+
+
+
+
+
     }
 }

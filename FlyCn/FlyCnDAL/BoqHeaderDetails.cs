@@ -80,22 +80,17 @@ namespace FlyCn.FlyCnDAL
             RadTreeNode rtn2 = new RadTreeNode("Ownership Change", "");
             rtn2.Target = "contentPane";
             rtn2.Value = "2";
-            myTree.Nodes.Add(rtn2);
-            //rtn2.Attributes.Add("OnLoad", "ChangeOwnerOnload()");
-            rtn2.Attributes.Add("onclick", "ChangeOwner()");
-           
+            myTree.Nodes.Add(rtn2);       
+            rtn2.Attributes.Add("onclick", "ChangeOwner()");           
            RadTreeNode rtn3 = new RadTreeNode("Revise Document", "");
            rtn3.Target = "contentPane";
             myTree.Nodes.Add(rtn3);
-           rtn3.Attributes.Add("onclick", "ReviseDocument()");
-           RadTreeNode rtn4 = new RadTreeNode("Revision History", "");
-           //rtn4.Nodes.Add(new RadTreeNode("child1"));
-           //rtn4.Nodes.Add(new RadTreeNode("child2"));
-           //rtn4.Nodes.Add(new RadTreeNode("child3"));
+            rtn3.Attributes.Add("onclick", "ReviseDocument()");
+           RadTreeNode rtn4 = new RadTreeNode("Revision History", "");      
            rtn4.Target = "contentPane";
-           rtn4.Value = "4";
+           rtn4.Value = "rtn4";
            myTree.Nodes.Add(rtn4);
-           rtn4.Attributes.Add("onclick", "RevisionHistory()");
+           //rtn4.Attributes.Add("onclick", "RevisionHistory()");
 
            
         }
@@ -204,7 +199,6 @@ namespace FlyCn.FlyCnDAL
                     //not successfull
                     var page = HttpContext.Current.CurrentHandler as Page;
                     eObj.UpdationSuccessData(page,"Not Updated");
-                   
                 }
                 else
                 {

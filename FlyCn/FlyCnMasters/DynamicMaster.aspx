@@ -6,39 +6,17 @@
 <asp:Content ID="phdDynamicMasterHead" ContentPlaceHolderID="head" runat="server">
       <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <%-- <style type="text/css">
-        .RadWindow .rwDialogPopup {
-            color: Blue !important;
-            /*customizing popup window;*/
-        }
-
-        .RadWindow .rwWindowContent .rwPopupButton .rwInnerSpan {
-            color: Red !important;
-            /* customizing the text in popup window;*/
-        }
-    </style>
-    <script></script>--%>
-
-
-
-
-    
-
- 
-    
-     
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />   
 </asp:Content>
 <asp:Content ID="phdDynamicMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script src="../Scripts/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">
-        function ClearTextBox() {
+        function ClearTextBox()
+        {
             $('textarea').empty();
 
             $("input:text").val('');
         }
-
-
         function EnableButtonsForNew() {
             <%=ToolBar.ClientID %>_SetAddVisible(false);
             <%=ToolBar.ClientID %>_SetSaveVisible(true);
