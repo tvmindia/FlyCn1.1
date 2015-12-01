@@ -13,13 +13,13 @@ namespace FlyCn.FlyCnMasters {
     public partial class UserMaster {
         
         /// <summary>
-        /// ScriptManager1 control.
+        /// GridviewFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::FlyCn.UserControls.GridviewFilter GridviewFilter;
         
         /// <summary>
         /// RadTabStrip1 control.
@@ -47,6 +47,15 @@ namespace FlyCn.FlyCnMasters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView rpList;
+        
+        /// <summary>
+        /// upGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upGrid;
         
         /// <summary>
         /// dtgUserMaster control.

@@ -335,6 +335,7 @@
     <Content Include="Images\Download.png" />
     <Content Include="Images\flycnLogo.png" />
     <Content Include="Images\gladsmall.png" />
+    <Content Include="Images\HideSearch.png" />
     <Content Include="Images\Icons\activity.png" />
     <Content Include="Images\Icons\approve.png" />
     <Content Include="Images\Icons\approveToolbarIcon.png" />
@@ -375,6 +376,11 @@
     <Content Include="Images\Icons\ur.png" />
     <Content Include="Images\Icons\workpack.png" />
     <Content Include="Images\Lb2.png" />
+    <Content Include="Images\LogoSearchMagnifyingGlass.png" />
+    <Content Include="Images\plus1.png" />
+    <Content Include="Images\refresh.png" />
+    <Content Include="Images\RefreshSearch.png" />
+    <Content Include="Images\Search.png" />
     <Content Include="Images\smile_1.png" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -923,6 +929,7 @@
     <Compile Include="UIClasses\TabAddEditSettings.cs" />
     <Compile Include="UserControls\GridviewFilter.ascx.cs">
       <DependentUpon>GridviewFilter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControls\GridviewFilter.ascx.designer.cs">
       <DependentUpon>GridviewFilter.ascx</DependentUpon>

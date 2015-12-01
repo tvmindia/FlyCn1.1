@@ -9,10 +9,15 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 
+
 namespace FlyCn.FlyCnMasters
 {
     public partial class UserMaster : System.Web.UI.Page
     {
+       
+        public int NumberOfTimesNeedDataSourceCalled = 0;
+
+
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
         ErrorHandling eObj = new ErrorHandling();
@@ -21,7 +26,24 @@ namespace FlyCn.FlyCnMasters
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
+            //if (IsPostBack)
+            //    LoadGrid();
+
+            GridviewFilter.onClick += new EventHandler(GridviewFilter_onClick);
+            //GridviewFilter.searchClickFromAddClick += new EventHandler(GridviewFilter_onClick);
+
         }
+
+
+
+   protected void   GridviewFilter_onClick(object sender, EventArgs e)
+        {
+            NumberOfTimesNeedDataSourceCalled = 1;
+            LoadGrid();
+            upGrid.Update();
+        }
+
+
 
            #region  ToolBar_onClick
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
@@ -38,22 +60,55 @@ namespace FlyCn.FlyCnMasters
 
         protected void dtgUserMaster_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+           
+            LoadGrid();
+       
+        }
+
+        void LoadGrid()
+        {
             Security securityObj = new Security();
             DataTable dtable = new DataTable();
             try
             {
                 dtable = securityObj.GetUser();
+                string searchQuery = GridviewFilter.WhereCondition;
 
-                dtgUserMaster.DataSource = dtable;
+                if (searchQuery != null)
+                {
+                    DataRow[] test = dtable.Select(searchQuery);
+                    dtgUserMaster.DataSource = test;
+
+                    //int rowLength = test.Length;
+           
+                    //if(rowLength == 0)
+                    //{
+                    //    lblSearchErrorMsg.Text = "Sorry! Searched item not found";
+                    //}
+
+
+                    dtgUserMaster.DataBind();
+
+                }
+                else {
+                    dtgUserMaster.DataSource = dtable;
+
+                    if (NumberOfTimesNeedDataSourceCalled == 1)
+                    {
+
+                        dtgUserMaster.DataBind();
+                    }
+                }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                //lblSearchErrorMsg.Text = "Error";
+
                 var page = HttpContext.Current.CurrentHandler as Page;
                 var master = page.Master;
                 eObj.ErrorData(ex, page);
             }
-       
         }
 
         #endregion dtgUserMaster_NeedDataSource
@@ -85,21 +140,39 @@ namespace FlyCn.FlyCnMasters
          #region  dtgUserMaster_PreRender
          protected void dtgUserMaster_PreRender(object sender, EventArgs e)
          {
-             dtgUserMaster.MasterTableView.GetColumn("PassWord").Visible = false;
+             try
+             {
 
-             dtgUserMaster.Rebind();
+                 dtgUserMaster.MasterTableView.GetColumn("PassWord").Visible = false;
+
+
+
+                 dtgUserMaster.Rebind();
+             }
+             catch (Exception exc)
+             {
+                 ErrorHandling ObjError = new ErrorHandling();
+                 ObjError.ErrorData(exc, this);
+                // throw;
+             }
+            
+           
+         
          }
 
          #endregion  dtgUserMaster_PreRender
 
          protected void dtgUserMaster_ItemCommand(object source, GridCommandEventArgs e)
          {
-             Security securityObj = new Security();
-             GridDataItem item = e.Item as GridDataItem;
-             string strId = item.GetDataKeyValue("UserName").ToString();
+            
 
              if (e.CommandName == "Delete")
              {
+
+                 Security securityObj = new Security();
+                 GridDataItem item = e.Item as GridDataItem;
+                 string strId = item.GetDataKeyValue("UserName").ToString();
+
                  string UserName = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["UserName"].ToString();
                  string PassWord = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["PassWord"].ToString();
 
