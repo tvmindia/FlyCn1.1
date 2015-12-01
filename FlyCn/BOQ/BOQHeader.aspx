@@ -242,15 +242,21 @@
             var Revisionid = document.getElementById('<%=hiddenFieldRevisionID.ClientID %>').value;
             window.open("../Approvels/Approvers.aspx?Revisionid=" + Revisionid, 'Approvers', "height=200,width=500");
         }
+     
 
-
-        function validate() {
+        function validate()
+        {
             var Clientdocumentno = document.getElementById('<%=txtClientdocumentno.ClientID %>').value;
-        var Revisionno = document.getElementById('<%=txtRevisionno.ClientID %>').value;
-        var DocumentDate = document.getElementById('<%=txtdatepicker.ClientID %>').value;
-        var Documenttitle = document.getElementById('<%=txtDocumenttitle.ClientID %>').value;
-        var Remarks = document.getElementById('<%=txtRemarks.ClientID%>').value;
-        if (Clientdocumentno == "" || Revisionno == "" || DocumentDate == "" || Documenttitle == "" || Remarks == "") {
+          
+            var Revisionno = document.getElementById('<%=txtRevisionno.ClientID %>').value;
+            Revisionno = trimString(Revisionno);
+            var DocumentDate = document.getElementById('<%=txtdatepicker.ClientID %>').value;
+            DocumentDate = trimString(DocumentDate);
+            var Documenttitle = document.getElementById('<%=txtDocumenttitle.ClientID %>').value;
+            Documenttitle = trimString(Documenttitle);
+            var Remarks = document.getElementById('<%=txtRemarks.ClientID%>').value;
+            Remarks = trimString(Remarks);
+            if (Revisionno == "" || DocumentDate == "" || Documenttitle == "" || Remarks == "") {
 
             displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
             return false;

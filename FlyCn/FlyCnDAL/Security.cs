@@ -419,29 +419,29 @@ namespace FlyCn.FlyCnDAL
         public string LoginSecurityCheck(string username)
            {
 
-               if (username == "gopika" )
+               if (username == "UserF" )
             //   || username == "amrutha" || username == "albert" || username == "anija")
 
                    return "rdew";
             else
-            if (username == "amrutha")
+            if (username == "UserW")
                return "w";
             else
-            if (username == "albert")
+            if (username == "UserRD")
                return "rd"; 
             else
-            if(username=="anija")
+            if(username=="UserE")
            {
                 return "e";
             }
             else
-            if (username == "aa")
+            if (username == "UserR")
             {
                 return "r";
             }
 
 
-               return "";
+               return "rdew";
         }
 
         public void ReadOnly(ToolBar pagecontrols)
