@@ -71,6 +71,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
      <script src="../Scripts/ToolBar.js"></script>
+    <script src="../Scripts/Messages.js"></script>
     <title>Input</title>
   <%--  <!-----bootstrap css--->
     <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
@@ -97,42 +98,137 @@
      
     <script src="../Content/themes/FlyCnBlue/js/bootstrap.min.js"></script>
     <script src="../Content/themes/FlyCnBlue/js/bootstrap-datepicker.js"></script>
+        <script src="../Scripts/ToolBar.js"></script>
     <script type="text/javascript">
         function ClearTextBox() {
             $('textarea').empty();
 
             $("input:text").val('');
         }
-        function EnableButtonsForNew() {
-            <%-- <%=ToolBar.ClientID %>_SetAddVisible(false);
-            <%=ToolBar.ClientID %>_SetSaveVisible(true);
-            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
-            <%=ToolBar.ClientID %>_SetDeleteVisible(false);--%>
-           // var toolbar= var toolBar = $find("<%= ToolBar.ClientID %>");
-            AddMode("<%= ToolBar.ClientID %>");
-        }
-        function SelectTabList() {
-            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-            var tab = tabStrip.findTabByValue("1");
-            tab.select();
+        //---------For Security-------------//
+
+        function EnableButtonsForNew() 
+            {
+         
+           
+            AddMode("<%= ToolBar.ClientID %>");      
+              }
+
+            function EnableButtonsForEdit()
+                {
+     
+                        EditMode("<%= ToolBar.ClientID %>");
+                   
+            }
+        
+        function DisableButtons()
+        {
+          
+                DisableAll("<%= ToolBar.ClientID %>");
+          
+                }
+        function DeleteButtonEnable()
+        {
+           
+          if(PageSecurity.isDelete)
+                EnableButtonsWithDelete("<%= ToolBar.ClientID %>");
+            
         }
 
-        function SetTabNewTextAndIcon() {
-            var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-            var tab1 = tabStrip.findTabByValue("2");
-            tab1.set_text("New");
-            tab1.set_imageUrl('../Images/Icons/NewIcon.png');
-        }
-    </script>
+        //---------------------------------------------------------//
+
+
+
+                function SelectTabList() {
+                    var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+                    var tab = tabStrip.findTabByValue("1");
+                    tab.select();
+                }
+
+                function SetTabNewTextAndIcon() {
+                    var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+                    var tab1 = tabStrip.findTabByValue("2");
+                    tab1.set_text("New");
+                    tab1.set_imageUrl('../Images/Icons/NewIcon.png');
+                }
+            
+            
+            </script>
     <script type="text/javascript">
+
+        //-----------------For  Security-------------------------//
+        function SecurityTabSelecting(eventArgs)
+        {
+            var security = document.getElementById("hdnSecurityMaster").value;
+            var tab = eventArgs.get_tab();
+            PageSecurityCheck(security);
+            if (PageSecurity.isWriteOnly) {
+
+                if (tab.get_text() == "New") {
+                    EnableButtonsForNew();
+
+                    eventArgs.set_cancel(false);
+                }
+
+            }
+            else
+                if (PageSecurity.isEditOnly) {
+                    EnableButtonsForEdit();
+                    if (tab.get_text() == "New") {
+                        AlertMsg(messages.EditModeNewClick);
+
+
+                        eventArgs.set_cancel(true);
+                    }
+
+                }
+                else
+                    if (PageSecurity.isAddOnly) {
+
+                        if (tab.get_text() == "New")
+
+                            eventArgs.set_cancel(false);
+                        EnableButtonsForNew();
+                    }
+                    else if (PageSecurity.isReadOnly) {
+
+                        if (tab.get_text() == "New") {
+                            AlertMsg(messages.EditModeNewClick);
+
+
+                            eventArgs.set_cancel(true);
+                        }
+
+                    }
+
+        }
+
+
+        function OnCommand(sender, args) {
+            debugger;
+            var value = args.get_commandName();
+            if (value == "EditData") {
+                EnableButtonsForEdit();
+            }
+     else
+                if (value == "ViewDetailColumn") {
+                    DisableAll();
+                }
+        }
+        //-----------------------------------------------------------//
+        function OnClientTabSelecting(sender, eventArgs) {
+            debugger;
+            SecurityTabSelecting(eventArgs);
+       
+        }
+        
+    
 
 
         function onClientTabSelected(sender, args) {
-            var tab = args.get_tab();
             if (tab.get_value() == '2') {
-                //ClearTextBox();
-                EnableButtonsForNew();
-
+         
+             
                 try {
 
                     if (document.getElementById("<%= grdFileUpload.ClientID %>") != null)
@@ -175,14 +271,14 @@
     <script type="text/javascript">
 
         function validate() {
-            //try{
+      
 
             debugger;
             var IdNo = document.getElementById("<%=txtIDno.ClientID %>").value;
 
             if (IdNo == "") {
 
-                //   document.getElementById("<%=lblerror.ClientID %>").innerHTML = "Please Fill all the Mandatory fields";
+             
                 displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
                 return false;
 
@@ -197,7 +293,32 @@
 
 
     <script type="text/javascript">
+       
+       
+          
         $(document).ready(function () {
+
+            //------------------------For Security-----------------------------------------------//
+            debugger;
+            var security = document.getElementById("hdnSecurityMaster").value;
+            DisableButtons();
+            //Page Postback
+            if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "EditData")
+            {
+                EnableButtonsForEdit();
+            }
+            else
+                if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "ViewDetailColumn")
+                {
+                    DisableButtons();
+                }
+        
+            //----------------------------------------------------------------------------------//
+            id = document.getElementById('IDAccordion');
+
+            OpenDetailAccordion(id);
+
+
             $('.accordion-toggle').on('click', function (event) {
 
                 event.preventDefault();
@@ -217,17 +338,10 @@
                 } else {
                     accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
                 }
-            });
+               
+            });       
+            
         });
-</script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            id = document.getElementById('IDAccordion');
-
-            OpenDetailAccordion(id);
-
-        });
-
 
 
         function OpenDetailAccordion(id) {
@@ -255,11 +369,12 @@
 
 
     <asp:Label ID="lblTitle" runat="server" Text="" CssClass="PageHeading"></asp:Label>
-
+   
+   
     <hr />
-
+         
     <div class="container" style="width: 100%">
-        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
+        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" OnClientTabSelecting="OnClientTabSelecting"
             CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
 
             <Tabs>
@@ -268,12 +383,14 @@
             </Tabs>
         </telerik:RadTabStrip>
         <div id="content">
+                <%-- For Security ViewDetailColumn--%>
             <div class="contentTopBar"></div>
             <table style="width:100%">
                 <tr>
                     <td>&nbsp
                     </td>
                     <td>
+                   
 
                         <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
                             <telerik:RadPageView ID="rpList" runat="server">
@@ -288,18 +405,19 @@
 
                                     <telerik:RadGrid ID="dtgManageProjectGrid" runat="server" CellSpacing="0"
                                         GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true" OnItemCommand="dtgManageProjectGrid_ItemCommand"
-                                        PageSize="10" Width="100%" Skin="Silk">
+                                        PageSize="10" Width="100%" Skin="Silk" >
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType">
                                             <Columns>
                                                 <telerik:GridButtonColumn CommandName="EditData" ItemStyle-Width="10px" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png"></telerik:GridButtonColumn>
-                                                <telerik:GridButtonColumn CommandName="DeleteColumn" Text="Delete" UniqueName="DeleteColumn" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" ConfirmDialogType="RadWindow" ConfirmText="Are you sure, you want to delete this item ?">
-                                                </telerik:GridButtonColumn>
+                                                <telerik:GridButtonColumn CommandName="DeleteColumn" Text="Delete" UniqueName="DeleteColumn" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" ConfirmDialogType="RadWindow" ConfirmText="Are you sure, you want to delete this item ?">  </telerik:GridButtonColumn>
+                                                <telerik:GridButtonColumn CommandName="ViewDetailColumn" Text="ViewDetails" UniqueName="ViewDetailColumn"  ButtonType="ImageButton" Display="false" ImageUrl="~/Images/Document Next-WF.png"  ></telerik:GridButtonColumn>
+                  
                                                 <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="ID No" DataField="IDNo" UniqueName="IDNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="LinkIDNo" DataField="LinkIDNo" UniqueName="LinkIDNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="EILType" DataField="EILType" UniqueName="EILType"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="OpenBy" DataField="OpenBy" UniqueName="OpenBy"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="OpenDt" DataField="OpenDt" UniqueName="OpenDt" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="OpenDt" DataField="OpenDt" UniqueName="OpenDt" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
 
                                             </Columns>
                                         </MasterTableView>
@@ -1135,7 +1253,7 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
                                                     <asp:ButtonField ButtonType="Image" ImageUrl="~/Images/Cancel.png" CommandName="Delete" Text="Delete" Visible="True" />
                                                     <asp:TemplateField>
                                                         <ItemTemplate>
-                                                            <asp:ImageButton ID="imageButtonDownload" ImageUrl="~/Images/Download.png" Text="Download" Visible="True" runat="server" OnClick="imageButtonDownload_Click" />
+                                                            <asp:ImageButton ID="imageButtonDownload" ImageUrl="~/Images/Download-02-WF.png" Text="Download" Visible="True" runat="server" OnClick="imageButtonDownload_Click" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                 </Columns>
@@ -1226,8 +1344,9 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
         </div>
  
 
-    
+     <asp:HiddenField ID="hdnAccessMode" runat="server" />
     <asp:HiddenField ID="hdnMode" runat="server" />
+       <asp:HiddenField ID="hdnSecurity" runat="server" />
 </asp:Content>
 
 

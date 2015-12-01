@@ -9,15 +9,7 @@
 
     <script src="../Content/themes/FlyCnBlue/js/bootstrap.min.js"></script>
     <script src="../Content/themes/FlyCnBlue/js/bootstrap-datepicker.js"></script>
-    <script>
-        $(function () {
-            $("#datepicker").datepicker({
-                autoclose: true,
-                todayHighlight: true
-            }).datepicker('update', new Date());;
-        });
-
-    </script>
+   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -51,9 +43,9 @@
                     <div class="form-group required">
                         <asp:Label ID="lblRevisedDate" CssClass="control-label col-md-5" runat="server" Text="Revised Date"></asp:Label>
                         <div class="col-md-7">
-                            <div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
-                                <input id="txtdatepicker" class="form-control" type="text" runat="server" />
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            <div id="datepicker" class="input-group date" data-date-format="dd-M-yyyy">
+                                <input id="txtdatepicker" class="form-control" type="text" runat="server" readonly="readonly" />
+                                <span class="input-group-addon dateicon"><i class="glyphicon glyphicon-calendar"></i></span>
                             </div>
 
                         </div>
@@ -93,7 +85,7 @@
    <div style="height:150px;">
      
                  
-                       <asp:Button class="buttonroundCorner" ID="ReviseDocumentButton" runat="server" Text="Revise Document" 
+                       <asp:Button class="buttonroundCorner" ID="ReviseDocumentButton" OnClientClick="return clientReviseDocumentButton();"  runat="server" Text="Revise Document" 
                 Width="250px" Height="36px" OnClick="ReviseDocumentButton_Click"   />
                   
           
@@ -102,6 +94,41 @@
 
    </div>
    </div>
-    <asp:HiddenField ID="hiddenflag" runat="server" ClientIDMode="Static" Value="0" />
+    <asp:HiddenField ID="popuprefreshRequired" runat="server" ClientIDMode="Static" Value="0" />
+
+
+ <script type="text/javascript">
+         $(function () {
+             $("#datepicker").datepicker({
+                 autoclose: true,
+                 todayHighlight: true
+             }).datepicker('update', new Date());;
+         });
+
+
+         function validate() {
+
+             var datepicker = document.getElementById('<%=txtdatepicker.ClientID %>').value;
+             datepicker = trimString(datepicker);
+             var RevisionNo = document.getElementById('<%=txtRevisionNo.ClientID %>').value;
+             RevisionNo = trimString(RevisionNo);
+             var Remarks = document.getElementById('<%=txtRemarks.ClientID %>').value;
+             Remarks = trimString(Remarks);
+             if (datepicker == "" || RevisionNo == "" || Remarks == "") {
+                 displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+                 return false;
+             }
+             else {
+                 return true;
+             }
+         }
+     function clientReviseDocumentButton()
+     {
+         return validate();
+     }
+
+
+    </script>
+
 </asp:Content>
 

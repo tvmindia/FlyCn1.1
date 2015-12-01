@@ -44,19 +44,26 @@
        }
 
        function hideMe() {
- 
+
            var s = document.getElementById("Errorbox");
            document.getElementById("Errorbox").style.visibility = "hidden";
            var divId = document.getElementById("masterDiv");
-        
-           document.getElementById("lblErrorInfo").innerHTML="";
+
+           document.getElementById("lblErrorInfo").innerHTML = "";
        }
-       function AlertMsg(msg)
-       {
+       function AlertMsg(msg) {
            var message = msg;
            var alert = document.getElementById("CommonAlertBox");
            document.getElementById("CommonAlertBox").style.visibility = "visible";
            document.getElementById("lblAlertMsg").innerHTML = message;
+       }
+       function hideMeAlert() {
+           debugger;
+           var alrt = document.getElementById("CommonAlertBox");
+           document.getElementById("CommonAlertBox").style.visibility = "hidden";
+
+
+           document.getElementById("lblAlertMsg").innerHTML = "";
        }
     </script>
    
@@ -78,20 +85,29 @@
                 </tr>
             </table>
         </div> 
-  <div  id="CommonAlertBox" style="visibility:hidden" runat="server" class="CommonAlerts"  >
-            <table style="width: 100%;background-color: transparent;vertical-align:middle">                
+    <div id="CommonAlertBox" style="visibility:hidden;z-index:5" class="CommonAlerts">
+        <table style="background-color: transparent; vertical-align: middle; width: 100%">
+            <tr>
+                <td style="color: #E4E1E1; font-size: small">Alert !!
+                </td>
+            </tr>
                 <tr> 
-                    <td style="text-align: left;width:90%">
-                       <asp:Label ID="lblAlertMsg" runat="server"></asp:Label>
+                <td style="width: 80%; color: black">
+                    <asp:Label ID="lblAlertMsg" runat="server"></asp:Label>
                     </td>
-                     <td colspan="3" style="text-align: right;width:10%;vertical-align:middle;text-align:center;border-color:black;">
-                        <span onclick="hideMe();" class="closeButton">OK</span>  <%-- <img src="../Images/Close1.png" onclick="hideMe();" style="height:15px;width:15px"/>--%>                   
-                    </td>
+                 
                 </tr>
+              
+            <tr>
+                <td style="text-align: center; border-color: black; color: black; padding-right: 10px">
+                     <br />
+                    <span onclick="hideMeAlert();" class="OkButton">&nbsp&nbsp OK &nbsp&nbsp</span></td>
+            </tr>
             </table>
         </div> 
+
      
-     
+    
      <div id="masterDiv" runat="server"> 
       
 
@@ -99,11 +115,11 @@
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">   
                  <asp:HiddenField ID="HiddenFieldLogin" runat="server" ClientIDMode="Static" />
     <asp:HiddenField ID="HiddenContentPage" runat="server" ClientIDMode="Static" />    
+  
+  <asp:HiddenField ID="hdnSecuritySubpage" runat="server" ClientIDMode="Static" /> 
         </asp:ContentPlaceHolder> 
+         <asp:HiddenField ID="hdnSecurityMaster" runat="server" ClientIDMode="static" /> 
         </form>
        </div>
-
-    
-   
 </body>
 </html>

@@ -6,11 +6,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 
 namespace FlyCn.FlyCnDAL
 {
+    
     public class Security
     {
 
@@ -19,6 +21,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+    
 
         public string PassWord
         {
@@ -49,10 +52,14 @@ namespace FlyCn.FlyCnDAL
         }
         public class PageSecurity
         {
-            private bool isRead;
-            private bool isWrite;
-            private bool isDelete;
-            private string isExecute;
+            public bool isRead;
+            public bool isWrite;
+            public bool isDelete;
+            public string isExecute;
+            public bool isEdit;
+            public bool isAdd;
+            public bool isDenied;
+
 
 
             Boolean Read
@@ -62,6 +69,27 @@ namespace FlyCn.FlyCnDAL
                     return isRead;
                 }
 
+            }
+            Boolean Denied
+            {
+                get
+                {
+                    return isDenied;
+                }
+            }
+            Boolean Add
+            {
+                get
+                {
+                    return isAdd;
+                }
+            }
+            Boolean Edit
+            {
+                get
+                {
+                    return isEdit;
+                }
             }
             Boolean Write
             {
@@ -104,28 +132,65 @@ namespace FlyCn.FlyCnDAL
                     ReadOnly = value;
                 }
             }
-
-            public PageSecurity(string pageName, string userName)
+            
+            public PageSecurity(string pageName, Page objPage)
             {
+      
 
-
-                //will be changed to db date based n page soon
-                if (userName == "User3")
-                {
-                    isRead = true;
-                    isWrite = false;
-                    isDelete = false;
-                    isExecute = "";
-                }
-                else
-                {
-
-                    isRead = true;
+              var  MasterValue = objPage.Master;
+              ContentPlaceHolder mpContentPlaceHolder1; 
+              mpContentPlaceHolder1 = (ContentPlaceHolder)MasterValue.FindControl("ContentPlaceHolder1");
+              var hdnSecurityField = (HiddenField)MasterValue.FindControl("hdnSecurityMaster");
+          //    var hdnSecuritySubpage = (HiddenField)mpContentPlaceHolder1.FindControl("hdnSecurity");
+              UIClasses.Const Const = new UIClasses.Const();
+              FlyCnDAL.Security.UserAuthendication UA;
+              var page = HttpContext.Current.CurrentHandler as Page;
+              HttpContext context = HttpContext.Current;
+              UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+              string usrname = UA.userName;
+              Security sObj = new Security();
+              string result;
+              
+     
+              result = sObj.LoginSecurityCheck(usrname);
+         
+                 
+                      
+                hdnSecurityField.Value = result;
+                if (result.Contains("w"))
                     isWrite = true;
-                    isDelete = true;
-                    isExecute = "X";
-                }
+                else 
+                    if (result.Contains("e"))
+                  isEdit = true;
+              else 
+                        if (result.Contains("a"))
+                  isAdd = true;
+              else 
+                            if (result.Contains("r"))
+                  isRead = true;
+              else
+                                if (result.Contains(""))
+                  isDenied = true;
+                if(result.Contains("d"))
+                isDelete=true;
+           
+                //will be changed to db date based n page soon
+                //if (userName == "User3")
+                //{
+                //    isRead = true;
+                //    isWrite = false;
+                //    isDelete = false;
+                //    isExecute = "";
+                //}
+                //else
+                //{
 
+                //    isRead = true;
+                //    isWrite = true;
+                //    isDelete = true;
+                //    isExecute = "X";
+                //}
+            
             }
 
         }
@@ -150,7 +215,7 @@ namespace FlyCn.FlyCnDAL
             }
 
 
-            public  UserAuthendication(String userName,int specialAccessCode)
+            public UserAuthendication(String userName, int specialAccessCode)
             {
                 isValidUser = true;
                 userN = userName;
@@ -351,21 +416,45 @@ namespace FlyCn.FlyCnDAL
             }
             return 0;
         }
-        public void LoginSecurityCheck(Page page, string username, ToolBar pagecontrols)
-        {
+        public string LoginSecurityCheck(string username)
+           {
 
-            if (username == "gopika")
+               if (username == "UserF" )
+            //   || username == "amrutha" || username == "albert" || username == "anija")
 
-                ReadOnly(pagecontrols);
-            if (username == "amrutha")
-                AddEditOnly(pagecontrols);
+                   return "rdew";
+            else
+            if (username == "UserW")
+               return "w";
+            else
+            if (username == "UserRD")
+               return "rd"; 
+            else
+            if(username=="UserE")
+           {
+                return "e";
+            }
+            else
+            if (username == "UserR")
+            {
+                return "r";
+            }
 
 
+               return "rdew";
         }
 
         public void ReadOnly(ToolBar pagecontrols)
         {
-            DisableAllControls(pagecontrols);
+            //DisableAllControls(pagecontrols);
+
+            pagecontrols.AddButton.Visible = false;
+            pagecontrols.EditButton.Visible = false;
+            pagecontrols.DeclineButton.Visible = false;
+            pagecontrols.DeleteButton.Visible = false;
+            pagecontrols.ApproveButton.Visible = false;
+            pagecontrols.RejectButton.Visible = false;
+            pagecontrols.SaveButton.Visible = false;
      
 
         }

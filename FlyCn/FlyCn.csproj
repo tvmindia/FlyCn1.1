@@ -151,8 +151,10 @@
     <Content Include="Approvels\ApprovalDocument.aspx" />
     <Content Include="Approvels\Approvals.aspx" />
     <Content Include="Approvels\ApprovalScreen.aspx" />
+    <Content Include="Approvels\Approvers.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="Approvels\DocDetails.aspx" />
+    <Content Include="Approvels\RejectedDocument.aspx" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
@@ -178,39 +180,6 @@
     <Content Include="bin\Telerik.Web.UI.Skins.dll" />
     <Content Include="bin\WebGrease.dll" />
     <Content Include="DocumentRelated\ReviseDocument.aspx" />
-    <Content Include="DocumentSettings\bin\Antlr3.Runtime.dll" />
-    <Content Include="DocumentSettings\bin\AspNet.ScriptManager.jQuery.dll" />
-    <Content Include="DocumentSettings\bin\AspNet.ScriptManager.jQuery.UI.Combined.dll" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.AspNet.dll" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.AspNet.xml" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.Core.dll" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.Core.xml" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OAuth.Consumer.dll" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OAuth.Consumer.xml" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OAuth.dll" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OAuth.xml" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OpenId.dll" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OpenId.RelyingParty.xml" />
-    <Content Include="DocumentSettings\bin\DotNetOpenAuth.OpenId.xml" />
-    <Content Include="DocumentSettings\bin\EntityFramework.dll" />
-    <Content Include="DocumentSettings\bin\EntityFramework.xml" />
-    <Content Include="DocumentSettings\bin\FlyCn.dll" />
-    <Content Include="DocumentSettings\bin\FlyCn.pdb" />
-    <Content Include="DocumentSettings\bin\Microsoft.AspNet.FriendlyUrls.dll" />
-    <Content Include="DocumentSettings\bin\Microsoft.AspNet.FriendlyUrls.xml" />
-    <Content Include="DocumentSettings\bin\Microsoft.AspNet.Membership.OpenAuth.dll" />
-    <Content Include="DocumentSettings\bin\Microsoft.AspNet.Membership.OpenAuth.xml" />
-    <Content Include="DocumentSettings\bin\Microsoft.AspNet.Web.Optimization.WebForms.dll" />
-    <Content Include="DocumentSettings\bin\Microsoft.ScriptManager.MSAjax.dll" />
-    <Content Include="DocumentSettings\bin\Microsoft.ScriptManager.WebForms.dll" />
-    <Content Include="DocumentSettings\bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="DocumentSettings\bin\System.Web.Optimization.dll" />
-    <Content Include="DocumentSettings\bin\System.Web.Providers.dll" />
-    <Content Include="DocumentSettings\bin\Telerik.Web.UI.dll" />
-    <Content Include="DocumentSettings\bin\Telerik.Web.UI.Skins.dll" />
-    <Content Include="DocumentSettings\bin\Telerik.Web.UI.XML" />
-    <Content Include="DocumentSettings\bin\WebGrease.dll" />
     <Content Include="BOQ\BOQ.aspx" />
     <Content Include="BOQ\BOQDetails.aspx" />
     <Content Include="BOQ\BOQHeader.aspx" />
@@ -331,7 +300,11 @@
     <Content Include="Content\themes\FlyCnRider\Splitter.FlyCnRider.css" />
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="DocumentRelated\OwnershipChange.aspx" />
+    <Content Include="EngineeredDataList\EnggDataList.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
+    <Content Include="Images\Document Next-WF.png" />
+    <Content Include="Images\Document-Download-01.png" />
+    <Content Include="Images\Download-02-WF.png" />
     <Content Include="Images\Download.png" />
     <Content Include="Images\flycnLogo.png" />
     <Content Include="Images\gladsmall.png" />
@@ -342,18 +315,33 @@
     <Content Include="Images\Icons\approveToolbarIconDisabled.png" />
     <Content Include="Images\Icons\arrow-right3232.png" />
     <Content Include="Images\Icons\boq.png" />
+    <Content Include="Images\Icons\Cables And Drum16.png" />
+    <Content Include="Images\Icons\Cables And Drum48.png" />
+    <Content Include="Images\Icons\Civil16.png" />
+    <Content Include="Images\Icons\Civil48.png" />
     <Content Include="Images\Icons\complete.png" />
     <Content Include="Images\Icons\construction.png" />
     <Content Include="Images\Icons\ConstructionReq.png" />
+    <Content Include="Images\Icons\ControlSystem16.png" />
+    <Content Include="Images\Icons\ControlSystem48.png" />
     <Content Include="Images\Icons\cp.png" />
     <Content Include="Images\Icons\declineToolbarIcon.png" />
     <Content Include="Images\Icons\declineToolbarIconDisabled.png" />
     <Content Include="Images\Icons\delaylog.png" />
+    <Content Include="Images\Icons\Electrical16.png" />
+    <Content Include="Images\Icons\Electrical48.png" />
     <Content Include="Images\Icons\EnggData.png" />
     <Content Include="Images\Icons\handover.png" />
     <Content Include="Images\Icons\inspect.png" />
+    <Content Include="Images\Icons\Instrumentation16.png" />
+    <Content Include="Images\Icons\Instrumentation48.png" />
     <Content Include="Images\Icons\itp.png" />
+    <Content Include="Images\Icons\mail3232.png" />
+    <Content Include="Images\Icons\Mechanical16.png" />
+    <Content Include="Images\Icons\Mechanical48.png" />
     <Content Include="Images\Icons\ncr.png" />
+    <Content Include="Images\Icons\pipe16.png" />
+    <Content Include="Images\Icons\Pipe48.png" />
     <Content Include="Images\Icons\PredefinedReport.png" />
     <Content Include="Images\Icons\preserve.png" />
     <Content Include="Images\Icons\progress.png" />
@@ -372,6 +360,8 @@
     <Content Include="Images\Icons\subscribe.png" />
     <Content Include="Images\Icons\system.png" />
     <Content Include="Images\Icons\task.png" />
+    <Content Include="Images\Icons\TeleCommunication16.png" />
+    <Content Include="Images\Icons\TeleCommunication48.png" />
     <Content Include="Images\Icons\testprogress.png" />
     <Content Include="Images\Icons\ur.png" />
     <Content Include="Images\Icons\workpack.png" />
@@ -509,6 +499,8 @@
     <Content Include="Content\themes\FlyCnRed\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\themes\FlyCnRed\fonts\FontAwesome.otf" />
     <Content Include="bin\FlyCn.dll.config" />
+    <None Include="Properties\PublishProfiles\FlyCnPublish.pubxml" />
+    <None Include="Properties\PublishProfiles\FlyCnPublish1.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="ProjectParameters\AddNewProject.aspx" />
     <Content Include="ProjectParameters\Main.aspx" />
@@ -550,13 +542,16 @@
     <Content Include="Templates\InputTemplateContent2.aspx" />
     <Content Include="Templates\OwnershipChangeTemplate.html" />
     <Content Include="Templates\RejectedMailTemplate.html" />
+    <Content Include="Templates\SameLevelVerifierTemplate.html" />
     <Content Include="test1.aspx" />
     <Content Include="UserControls\GridviewFilter.ascx" />
     <Content Include="UserControls\MasterPopup.ascx" />
     <Content Include="UserControls\MasterPopupGridview.aspx" />
     <Content Include="UserControls\ToolBar.ascx" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
@@ -605,6 +600,13 @@
     <Compile Include="Approvels\ApprovalScreen.aspx.designer.cs">
       <DependentUpon>ApprovalScreen.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Approvels\Approvers.aspx.cs">
+      <DependentUpon>Approvers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvels\Approvers.aspx.designer.cs">
+      <DependentUpon>Approvers.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Approvels\CloseDocument.aspx.cs">
       <DependentUpon>CloseDocument.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -618,6 +620,13 @@
     </Compile>
     <Compile Include="Approvels\DocDetails.aspx.designer.cs">
       <DependentUpon>DocDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Approvels\RejectedDocument.aspx.cs">
+      <DependentUpon>RejectedDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvels\RejectedDocument.aspx.designer.cs">
+      <DependentUpon>RejectedDocument.aspx</DependentUpon>
     </Compile>
     <Compile Include="DocumentRelated\ReviseDocument.aspx.cs">
       <DependentUpon>ReviseDocument.aspx</DependentUpon>
@@ -714,6 +723,13 @@
     <Compile Include="EIL\PunchList.aspx.designer.cs">
       <DependentUpon>PunchList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EngineeredDataList\EnggDataList.aspx.cs">
+      <DependentUpon>EnggDataList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EngineeredDataList\EnggDataList.aspx.designer.cs">
+      <DependentUpon>EnggDataList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FlyCnDAL\Activities.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -726,6 +742,7 @@
     <Compile Include="FlyCnDAL\dbConnection.cs" />
     <Compile Include="FlyCnDAL\DocumentMaster.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
+    <Compile Include="FlyCnDAL\ExcelTemplate.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
     <Compile Include="FlyCnDAL\MailSending.cs" />
     <Compile Include="FlyCnDAL\MasterData.cs" />

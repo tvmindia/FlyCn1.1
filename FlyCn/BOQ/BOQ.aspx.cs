@@ -20,7 +20,7 @@ namespace FlyCn.BOQ
             FlyCnDAL.BOQHeaderDetails objBOQ = new FlyCnDAL.BOQHeaderDetails();
 
             RadTreeView tview = ip.FindLeftTree(this);
-            tview.Attributes.Add("onclick", "ClientNodeClicked(event)");
+            //tview.Attributes.Add("onclick", "ClientNodeClicked(event)");
            
             objBOQ.BindTree(tview);
 

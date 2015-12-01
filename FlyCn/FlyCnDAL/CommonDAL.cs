@@ -35,7 +35,7 @@ using FlyCn.UserControls;
 
 namespace FlyCn.FlyCnDAL
 {
-    public class CommonDAL 
+    public class CommonDAL
 
     {
         #region Public Properties

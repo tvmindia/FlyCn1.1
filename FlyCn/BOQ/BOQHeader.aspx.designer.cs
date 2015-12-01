@@ -202,6 +202,33 @@ namespace FlyCn.BOQ {
         protected global::System.Web.UI.WebControls.HiddenField hiddendocumentDate;
         
         /// <summary>
+        /// HiddenTabStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenTabStatus;
+        
+        /// <summary>
+        /// lblDocOwner control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocOwner;
+        
+        /// <summary>
+        /// txtDocOwner control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDocOwner;
+        
+        /// <summary>
         /// lblClientdocumentnot control.
         /// </summary>
         /// <remarks>
@@ -299,6 +326,15 @@ namespace FlyCn.BOQ {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDocumentStatus;
+        
+        /// <summary>
+        /// ContentApprovers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlIframe ContentApprovers;
         
         /// <summary>
         /// ContentIframe control.

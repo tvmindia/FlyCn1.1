@@ -26,6 +26,11 @@ function isNumberKey(sender, evt) {
     var charCode = (evt.which) ? evt.which : event.keyCode;
     if (!(dotcontainer.length == 1 && charCode == 46) && charCode > 31 && (charCode < 48 || charCode > 57))
         return false;
-
+    //else portion
     return true;
+}
+
+//removes blank space left and right
+function trimString(stringToTrim) {
+    return stringToTrim.replace(/^\s+|\s+$/g, "");
 }

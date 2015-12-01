@@ -79,6 +79,7 @@
 
     function <%= ClientID%>_SetVisibleButton(id, value) {
         //debugger;
+      
         var toolBar = $find("<%= CommonToolBar.ClientID %>");
         var btnItems = toolBar.get_items();
         if (id == 'Add') {
