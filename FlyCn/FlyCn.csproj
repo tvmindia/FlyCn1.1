@@ -301,6 +301,8 @@
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="DocumentRelated\OwnershipChange.aspx" />
     <Content Include="EngineeredDataList\EnggDataList.aspx" />
+    <Content Include="ExcelImport\ImportStatus.aspx" />
+    <Content Include="ExcelImport\ImportStatusList.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\Download.png" />
     <Content Include="Images\flycnLogo.png" />
@@ -704,6 +706,20 @@
     <Compile Include="EngineeredDataList\EnggDataList.aspx.designer.cs">
       <DependentUpon>EnggDataList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ExcelImport\ImportStatus.aspx.cs">
+      <DependentUpon>ImportStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ExcelImport\ImportStatus.aspx.designer.cs">
+      <DependentUpon>ImportStatus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExcelImport\ImportStatusList.aspx.cs">
+      <DependentUpon>ImportStatusList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ExcelImport\ImportStatusList.aspx.designer.cs">
+      <DependentUpon>ImportStatusList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FlyCnDAL\Activities.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -716,6 +732,7 @@
     <Compile Include="FlyCnDAL\dbConnection.cs" />
     <Compile Include="FlyCnDAL\DocumentMaster.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
+    <Compile Include="FlyCnDAL\ExcelImport.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
     <Compile Include="FlyCnDAL\MailSending.cs" />
     <Compile Include="FlyCnDAL\MasterData.cs" />
