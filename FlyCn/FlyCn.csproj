@@ -301,6 +301,7 @@
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="DocumentRelated\OwnershipChange.aspx" />
     <Content Include="EngineeredDataList\EnggDataList.aspx" />
+    <Content Include="ExcelImport\ExcelImport.aspx" />
     <Content Include="ExcelImport\ImportErrorDetails.aspx" />
     <Content Include="ExcelImport\ImportErrorList.aspx" />
     <Content Include="ExcelImport\ImportStatus.aspx" />
@@ -733,6 +734,13 @@
     </Compile>
     <Compile Include="EngineeredDataList\EnggDataList.aspx.designer.cs">
       <DependentUpon>EnggDataList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExcelImport\ExcelImport.aspx.cs">
+      <DependentUpon>ExcelImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ExcelImport\ExcelImport.aspx.designer.cs">
+      <DependentUpon>ExcelImport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ExcelImport\ImportErrorDetails.aspx.cs">
       <DependentUpon>ImportErrorDetails.aspx</DependentUpon>

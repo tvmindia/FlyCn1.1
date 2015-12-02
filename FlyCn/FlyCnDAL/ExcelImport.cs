@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
+using Telerik.Web.UI;
 
 namespace FlyCn.FlyCnDAL
 {
@@ -435,5 +436,36 @@ namespace FlyCn.FlyCnDAL
 
 
 #endregion methods
+
+
+
+
+
+
+
+        public void BindTree(RadTreeView myTree)
+        {
+            myTree.Nodes.Clear();
+            RadTreeNode rtn = new RadTreeNode("ImportErrorList", "0");
+            rtn.NavigateUrl = "../ExcelImport/ImportErrorList.aspx";
+            rtn.Target = "contentPane";
+            myTree.Nodes.Add(rtn);
+
+
+            rtn = new RadTreeNode("ImportStatusList", "1");
+            rtn.NavigateUrl = "../ExcelImport/ImportStatusList.aspx";
+            rtn.Target = "contentPane";
+            myTree.Nodes.Add(rtn);
+
+          
+
+        }
+        public void LoadInputScreen(RadPane myContentPane)
+        {
+            myContentPane.ContentUrl = "InputTemplateContent1.aspx";
+        }
+
+
+
     }
 }
