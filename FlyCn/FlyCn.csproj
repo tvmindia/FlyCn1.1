@@ -301,6 +301,7 @@
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="DocumentRelated\OwnershipChange.aspx" />
     <Content Include="EngineeredDataList\EnggDataList.aspx" />
+    <Content Include="ExcelImport\ExcelImport.aspx" />
     <Content Include="ExcelImport\ImportErrorDetails.aspx" />
     <Content Include="ExcelImport\ImportErrorList.aspx" />
     <Content Include="ExcelImport\ImportStatus.aspx" />
@@ -734,6 +735,13 @@
     <Compile Include="EngineeredDataList\EnggDataList.aspx.designer.cs">
       <DependentUpon>EnggDataList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ExcelImport\ExcelImport.aspx.cs">
+      <DependentUpon>ExcelImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ExcelImport\ExcelImport.aspx.designer.cs">
+      <DependentUpon>ExcelImport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ExcelImport\ImportErrorDetails.aspx.cs">
       <DependentUpon>ImportErrorDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -774,6 +782,7 @@
     <Compile Include="FlyCnDAL\dbConnection.cs" />
     <Compile Include="FlyCnDAL\DocumentMaster.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
+    <Compile Include="FlyCnDAL\ExcelImport.cs" />
     <Compile Include="FlyCnDAL\ExcelTemplate.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
     <Compile Include="FlyCnDAL\MailSending.cs" />
