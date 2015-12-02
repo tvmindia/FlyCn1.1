@@ -175,8 +175,8 @@
 
                         <tr>
 
-                            <td style="width: 60%"></td>
-                            <td style="width: 40%;">
+                            <td style="width: 30%"></td>
+                            <td style="width: 70%;">
 
                                  
 

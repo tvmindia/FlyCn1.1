@@ -301,6 +301,10 @@
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="DocumentRelated\OwnershipChange.aspx" />
     <Content Include="EngineeredDataList\EnggDataList.aspx" />
+    <Content Include="ExcelImport\ImportErrorDetails.aspx" />
+    <Content Include="ExcelImport\ImportErrorList.aspx" />
+    <Content Include="ExcelImport\ImportStatus.aspx" />
+    <Content Include="ExcelImport\ImportStatusList.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\Document Next-WF.png" />
     <Content Include="Images\Document-Download-01.png" />
@@ -729,6 +733,34 @@
     </Compile>
     <Compile Include="EngineeredDataList\EnggDataList.aspx.designer.cs">
       <DependentUpon>EnggDataList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExcelImport\ImportErrorDetails.aspx.cs">
+      <DependentUpon>ImportErrorDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ExcelImport\ImportErrorDetails.aspx.designer.cs">
+      <DependentUpon>ImportErrorDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExcelImport\ImportErrorList.aspx.cs">
+      <DependentUpon>ImportErrorList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ExcelImport\ImportErrorList.aspx.designer.cs">
+      <DependentUpon>ImportErrorList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExcelImport\ImportStatus.aspx.cs">
+      <DependentUpon>ImportStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ExcelImport\ImportStatus.aspx.designer.cs">
+      <DependentUpon>ImportStatus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExcelImport\ImportStatusList.aspx.cs">
+      <DependentUpon>ImportStatusList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ExcelImport\ImportStatusList.aspx.designer.cs">
+      <DependentUpon>ImportStatusList.aspx</DependentUpon>
     </Compile>
     <Compile Include="FlyCnDAL\Activities.cs">
       <SubType>Code</SubType>
