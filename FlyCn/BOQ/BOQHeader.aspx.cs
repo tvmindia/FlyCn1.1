@@ -292,7 +292,6 @@ namespace FlyCn.BOQ
 
         }
        #endregion ToolBarVisibility
-
         #region insert
         public void AddNewBOQ()
         {
