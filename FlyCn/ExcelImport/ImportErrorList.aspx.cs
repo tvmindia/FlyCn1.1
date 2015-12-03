@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+using Telerik.Web.UI;
 
 namespace FlyCn.ExcelImport
 {
@@ -11,7 +13,44 @@ namespace FlyCn.ExcelImport
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(!IsPostBack)
+            {
+                BindData();
+            }
+        }
 
+        public void BindData()
+        {
+            DataTable ds = new DataTable();
+
+            FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
+            ds = detailsObj.getErrorDetails("56b5d6e1-9fb7-4e87-b85f-c554a3902e16");
+            RadGrid1_ErrorList.DataSource = ds;
+            try
+            {
+                RadGrid1_ErrorList.DataBind();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem item = e.Item as GridDataItem;
+                    string StatusId = item.GetDataKeyValue("Status_Id").ToString();
+                    Response.Redirect("ImportErrorDetails.aspx?StatusId=" + StatusId);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
