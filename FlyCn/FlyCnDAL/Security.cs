@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 
@@ -20,10 +21,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        string w;
-        string r;
-        string e;
-        string empty = "";
+    
 
         public string PassWord
         {
@@ -54,10 +52,14 @@ namespace FlyCn.FlyCnDAL
         }
         public class PageSecurity
         {
-            private bool isRead;
-            private bool isWrite;
-            private bool isDelete;
-            private string isExecute;
+            public bool isRead;
+            public bool isWrite;
+            public bool isDelete;
+            public string isExecute;
+            public bool isEdit;
+            public bool isAdd;
+            public bool isDenied;
+
 
 
             Boolean Read
@@ -67,6 +69,27 @@ namespace FlyCn.FlyCnDAL
                     return isRead;
                 }
 
+            }
+            Boolean Denied
+            {
+                get
+                {
+                    return isDenied;
+                }
+            }
+            Boolean Add
+            {
+                get
+                {
+                    return isAdd;
+                }
+            }
+            Boolean Edit
+            {
+                get
+                {
+                    return isEdit;
+                }
             }
             Boolean Write
             {
@@ -109,28 +132,65 @@ namespace FlyCn.FlyCnDAL
                     ReadOnly = value;
                 }
             }
-
-            public PageSecurity(string pageName, string userName)
+            
+            public PageSecurity(string pageName, Page objPage)
             {
+      
 
-
-                //will be changed to db date based n page soon
-                if (userName == "User3")
-                {
-                    isRead = true;
-                    isWrite = false;
-                    isDelete = false;
-                    isExecute = "";
-                }
-                else
-                {
-
-                    isRead = true;
+              var  MasterValue = objPage.Master;
+              ContentPlaceHolder mpContentPlaceHolder1; 
+              mpContentPlaceHolder1 = (ContentPlaceHolder)MasterValue.FindControl("ContentPlaceHolder1");
+              var hdnSecurityField = (HiddenField)MasterValue.FindControl("hdnSecurityMaster");
+          //    var hdnSecuritySubpage = (HiddenField)mpContentPlaceHolder1.FindControl("hdnSecurity");
+              UIClasses.Const Const = new UIClasses.Const();
+              FlyCnDAL.Security.UserAuthendication UA;
+              var page = HttpContext.Current.CurrentHandler as Page;
+              HttpContext context = HttpContext.Current;
+              UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+              string usrname = UA.userName;
+              Security sObj = new Security();
+              string result;
+              
+     
+              result = sObj.LoginSecurityCheck(usrname);
+         
+                 
+                      
+                hdnSecurityField.Value = result;
+                if (result.Contains("w"))
                     isWrite = true;
-                    isDelete = true;
-                    isExecute = "X";
-                }
+                else 
+                    if (result.Contains("e"))
+                  isEdit = true;
+              else 
+                        if (result.Contains("a"))
+                  isAdd = true;
+              else 
+                            if (result.Contains("r"))
+                  isRead = true;
+              else
+                                if (result.Contains(""))
+                  isDenied = true;
+                if(result.Contains("d"))
+                isDelete=true;
+           
+                //will be changed to db date based n page soon
+                //if (userName == "User3")
+                //{
+                //    isRead = true;
+                //    isWrite = false;
+                //    isDelete = false;
+                //    isExecute = "";
+                //}
+                //else
+                //{
 
+                //    isRead = true;
+                //    isWrite = true;
+                //    isDelete = true;
+                //    isExecute = "X";
+                //}
+            
             }
 
         }
@@ -356,32 +416,32 @@ namespace FlyCn.FlyCnDAL
             }
             return 0;
         }
-        public string LoginSecurityCheck(string mode, string username, ToolBar pagecontrols)
+        public string LoginSecurityCheck(string username)
            {
 
-               if (username == "gopika" )
+               if (username == "UserF" )
             //   || username == "amrutha" || username == "albert" || username == "anija")
 
                    return "rdew";
             else
-            if (username == "amrutha")
+            if (username == "UserW")
                return "w";
             else
-            if (username == "albert")
+            if (username == "UserRD")
                return "rd"; 
             else
-            if(username=="anija")
+            if(username=="UserE")
            {
                 return "e";
             }
             else
-            if (username == "aa")
+            if (username == "UserR")
             {
                 return "r";
             }
-           
-            
-            return empty;
+
+
+               return "rdew";
         }
 
         public void ReadOnly(ToolBar pagecontrols)

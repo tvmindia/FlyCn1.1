@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
   
    <div id="bodyDiv">
-        <div class="contentTopBar"></div>
+        <div class="contentTopBar">&nbsp;</div>
   
  
            <div class="col-md-12 Span-One">
@@ -37,7 +37,7 @@
             </div>
 
     <asp:HiddenField ID="popuprefreshRequired" runat="server"  ClientIDMode="Static"/>
-      
+    <asp:HiddenField ID="hiddenCloseFlag" runat="server" ClientIDMode="Static"/>
 
 
 </asp:Content>

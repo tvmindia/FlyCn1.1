@@ -20,11 +20,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true">
     </asp:ScriptManager>
-
+    <script src="../Scripts/ToolBar.js"></script>
+    <script src="../Scripts/Messages.js"></script>
     <div class="container" style="width: 100%">
         <!-----FORM SECTION---->
         <!-----SECTION TABLE---->
-        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="200px" OnClientTabSelected="onClientTabSelected"
+        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="200px" OnClientTabSelected="onClientTabSelected" OnClientTabSelecting="OnClientTabSelecting"
             CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
 
             <Tabs>
@@ -65,7 +66,7 @@
 
                                                 <telerik:GridButtonColumn CommandName="EditDoc" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
                                                 </telerik:GridButtonColumn>
-
+                                                 <telerik:GridButtonColumn CommandName="ViewDetailColumn" Text="ViewDetails" UniqueName="ViewDetailColumn"  ButtonType="ImageButton" Display="false" ImageUrl="~/Images/Document Next-WF.png"  ></telerik:GridButtonColumn>
                                                 <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo" Display="false"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="DocumentID" DataField="DocumentID" UniqueName="DocumentID" Display="false"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="RevisionID" DataField="RevisionID" UniqueName="RevisionID" Display="false"></telerik:GridBoundColumn>
@@ -241,15 +242,21 @@
             var Revisionid = document.getElementById('<%=hiddenFieldRevisionID.ClientID %>').value;
             window.open("../Approvels/Approvers.aspx?Revisionid=" + Revisionid, 'Approvers', "height=200,width=500");
         }
+     
 
-
-        function validate() {
+        function validate()
+        {
             var Clientdocumentno = document.getElementById('<%=txtClientdocumentno.ClientID %>').value;
-        var Revisionno = document.getElementById('<%=txtRevisionno.ClientID %>').value;
-        var DocumentDate = document.getElementById('<%=txtdatepicker.ClientID %>').value;
-        var Documenttitle = document.getElementById('<%=txtDocumenttitle.ClientID %>').value;
-        var Remarks = document.getElementById('<%=txtRemarks.ClientID%>').value;
-        if (Clientdocumentno == "" || Revisionno == "" || DocumentDate == "" || Documenttitle == "" || Remarks == "") {
+          
+            var Revisionno = document.getElementById('<%=txtRevisionno.ClientID %>').value;
+            Revisionno = trimString(Revisionno);
+            var DocumentDate = document.getElementById('<%=txtdatepicker.ClientID %>').value;
+            DocumentDate = trimString(DocumentDate);
+            var Documenttitle = document.getElementById('<%=txtDocumenttitle.ClientID %>').value;
+            Documenttitle = trimString(Documenttitle);
+            var Remarks = document.getElementById('<%=txtRemarks.ClientID%>').value;
+            Remarks = trimString(Remarks);
+            if (Revisionno == "" || DocumentDate == "" || Documenttitle == "" || Remarks == "") {
 
             displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
             return false;
@@ -286,6 +293,51 @@
         }
     }
 
+        function OnClientTabSelecting(sender, eventArgs) {
+
+            var tab = eventArgs.get_tab();
+            debugger;
+            var security = document.getElementById("hdnSecurityMaster").value;
+            var user = document.getElementById('<%=hiddenUsername.ClientID%>');
+            var owner = document.getElementById('<%=hiddenDocumentOwner.ClientID%>');
+          
+            PageSecurityCheck(security);
+            if (PageSecurity.isWriteOnly) {
+                if (tab.get_text() == "New") {
+
+
+                    eventArgs.set_cancel(false);
+                }
+            }
+            else
+                if (PageSecurity.isReadOnly) {
+                    if (tab.get_text() == "New") {
+                        AlertMsg(messages.EditModeNewClick);
+
+                        eventArgs.set_cancel(true);
+                    }
+                    else 
+                        if (tab.get_text() == "Details")
+                        {
+                             <%=ToolBar.ClientID %>_SetEditVisible(false);
+                            <%=ToolBar.ClientID %>_SetAddVisible(false);
+                            <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                            <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                        }
+                }
+                else if (PageSecurity.isEditOnly) {
+                    if (tab.get_text() == "New") {
+
+                        AlertMsg(messages.EditModeNewClick);
+                        eventArgs.set_cancel(true);
+                    }
+                }
+
+
+
+                }
+        
         function onClientTabSelected(sender, args) {
 
         var tab = args.get_tab();
@@ -298,11 +350,17 @@
             ClearBOQHeaderTexBox();
          //Clear Text boxes When New tab clicks
           try {
+          var security = document.getElementById("hdnSecurityMaster").value;
+          PageSecurityCheck(security);
+        
+            if ((PageSecurity.isWriteOnly)) {
+
                 <%=ToolBar.ClientID %>_SetEditVisible(false);
                 <%=ToolBar.ClientID %>_SetAddVisible(false);
                 <%=ToolBar.ClientID %>_SetSaveVisible(true);
                 <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                 <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+}
               }
             catch (x)
             {
@@ -342,6 +400,7 @@
         function ClearBOQHeaderTexBox()
         {
             document.getElementById('<%=txtDocumentno.ClientID %>').value = "------System Generated Code------";
+            document.getElementById('<%=txtDocOwner.ClientID%>').value = "-------Document Owner-------";
             document.getElementById('<%=txtClientdocumentno.ClientID %>').value = "";
             document.getElementById('<%=txtRevisionno.ClientID %>').value = "";
             $('#datepicker').datepicker('update', '');
@@ -378,7 +437,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             
-     
+
             $('.accordion-toggle').on('click', function (event) {
 
                 event.preventDefault();          
@@ -452,6 +511,7 @@
             }
         function EnableBOQHeaderTextBox()
         {
+           
             //Enable header textboxess
             var e = document.getElementById('<%=txtClientdocumentno.ClientID %>');
             e.removeAttribute("readonly", 0);
@@ -464,6 +524,7 @@
             e = document.getElementById('<%=txtRemarks.ClientID %>');
             e.removeAttribute("readonly", 0);
             //Enable header textboxess
+
         }
 
        
@@ -478,6 +539,7 @@
 <script>
     $(function () {
       
+
         $("#datepicker").datepicker({
             autoclose: true,
             clearBtn:true,

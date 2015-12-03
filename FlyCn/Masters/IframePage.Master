@@ -107,7 +107,7 @@
         </div> 
 
      
-     
+    
      <div id="masterDiv" runat="server"> 
       
 
@@ -115,7 +115,10 @@
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">   
                  <asp:HiddenField ID="HiddenFieldLogin" runat="server" ClientIDMode="Static" />
     <asp:HiddenField ID="HiddenContentPage" runat="server" ClientIDMode="Static" />    
+  
+  <asp:HiddenField ID="hdnSecuritySubpage" runat="server" ClientIDMode="Static" /> 
         </asp:ContentPlaceHolder> 
+         <asp:HiddenField ID="hdnSecurityMaster" runat="server" ClientIDMode="static" /> 
         </form>
        </div>
 </body>

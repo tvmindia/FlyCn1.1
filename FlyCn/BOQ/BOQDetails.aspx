@@ -18,12 +18,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-
+    <script src="../Scripts/ToolBar.js"></script>
+    <script src="../Scripts/Messages.js"></script>
   <div class="container" style="width: 100%">
         <!-----FORM SECTION---->
         <!-----SECTION TABLE---->
 
-        <telerik:RadTabStrip ID="RadTabStripBOQDetail" runat="server" MultiPageID="RadMultiPageBOQDetail" Width="150px" OnClientTabSelected="onClientTabSelectedBOQDetail"
+        <telerik:RadTabStrip ID="RadTabStripBOQDetail" runat="server" MultiPageID="RadMultiPageBOQDetail" Width="150px" OnClientTabSelected="onClientTabSelectedBOQDetail" OnClientTabSelecting="OnClientTabSelecting"
             CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
 
             <Tabs>
@@ -71,7 +72,7 @@
                                                 </telerik:GridButtonColumn>
                                                 <telerik:GridButtonColumn CommandName="DeleteDoc" Text="Delete" UniqueName="DeleteColumn" Display="true" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" ConfirmDialogType="RadWindow" ConfirmText="Are you sure, you want to delete this item ?">
                                                 </telerik:GridButtonColumn>
-
+                                                     <telerik:GridButtonColumn CommandName="ViewDetailColumn" Text="ViewDetails" UniqueName="ViewDetailColumn"  ButtonType="ImageButton" Display="false" ImageUrl="~/Images/Document Next-WF.png"  ></telerik:GridButtonColumn>
                                                 <telerik:GridBoundColumn HeaderText="RevisionID" DataField="RevisionID" UniqueName="RevisionID" Display="false"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Item ID" DataField="ItemID" UniqueName="ItemID" Display="false"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Item No" DataField="ItemNo" UniqueName="ItemNo"></telerik:GridBoundColumn>
@@ -337,10 +338,53 @@
 <!--<JavaScrict>-->
 
  <script type="text/javascript">
-    
+     function OnClientTabSelecting(sender, eventArgs) {
+
+         var tab = eventArgs.get_tab();
+         debugger;
+         var security = document.getElementById("hdnSecurityMaster").value;
+        
+         PageSecurityCheck(security);
+         if (PageSecurity.isWriteOnly) {
+             if (tab.get_text() == "New") {
+
+
+                 eventArgs.set_cancel(false);
+             }
+         }
+         else
+             if (PageSecurity.isReadOnly) {
+                 if (tab.get_text() == "New") {
+                     AlertMsg(messages.EditModeNewClick);
+
+                     eventArgs.set_cancel(true);
+                 }
+                 else
+                     if (tab.get_text() == "Details") {
+                         <%=ToolBarBOQDetail.ClientID %>_SetEditVisible(false);
+                         <%=ToolBarBOQDetail.ClientID %>_SetAddVisible(false);
+                         <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(false);
+                         <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
+                         <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
+                     }
+             }
+             else if (PageSecurity.isEditOnly) {
+                 if (tab.get_text() == "New") {
+
+                     AlertMsg(messages.EditModeNewClick);
+                     eventArgs.set_cancel(true);
+                 }
+             }
+
+
+
+     }
      
      function onClientTabSelectedBOQDetail(sender, args)
      {
+         var security = document.getElementById("hdnSecurityMaster").value;
+         PageSecurityCheck(security);
+
          var tab = args.get_tab();
          if (tab.get_value() == '2') {
              //Clear Text boxes When New tab clicks
@@ -349,23 +393,25 @@
              hideMe();
              //Clear Text boxes When New tab clicks
           if ((document.getElementById('<%=hdfDocumentStatus.ClientID %>').value == "1") || (document.getElementById('<%=hdfDocumentStatus.ClientID %>').value == "4"))
-             {
+          {
+           
+
                      <%=ToolBarBOQDetail.ClientID %>_SetAddVisible(false);
                      <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(false);
                      <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
                      <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
              }
              else
-             {
-                     <%=ToolBarBOQDetail.ClientID %>_SetAddVisible(false);
-                     <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(true);
-                     <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
-                     <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
+          {
+              if (PageSecurity.isWriteOnly) {
+                  <%=ToolBarBOQDetail.ClientID %>_SetAddVisible(false);
+                  <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(true);
+                  <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
+                  <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
+              }
              }
          }
          if (tab.get_value() == "1") {
-
-
              var tabStrip = $find("<%= RadTabStripBOQDetail.ClientID %>");
              var tab = tabStrip.findTabByValue("1");
              tab.select();
@@ -384,10 +430,33 @@
          });
              
      }
+
+
+     function OnClientButtonClickingDetail(sender, args) {
+         var btn = args.get_item();
+         if (btn.get_value() == 'Save') {
+
+             args.set_cancel(!validate());
+         }
+         if (btn.get_value() == 'Update') {
+
+             args.set_cancel(!validate());
+         }
+
+         if (btn.get_value() == "Delete") {
+
+         }
+
+     }
+
      function validate() {
+      
          var ItemDescription = document.getElementById('<%=txtItemDescription.ClientID %>').value;
+         ItemDescription=trimString(ItemDescription);
          var Quantity = document.getElementById('<%=txtQuantity.ClientID %>').value;
+         Quantity=trimString(Quantity);
          var Unit = document.getElementById('<%=txtUnit.ClientID %>').value;
+         Unit=trimString(Unit);
          if (ItemDescription == "" || Quantity == "" || Unit == "")
          {
              displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
@@ -398,26 +467,6 @@
          }
      }
 
-     function OnClientButtonClickingDetail(sender, args)
-     {
-        var btn = args.get_item();
-        if (btn.get_value() == 'Save')
-        {
-           
-           args.set_cancel(!validate());
-        }
-        if (btn.get_value() == 'Update') 
-        {
-           
-           args.set_cancel(!validate());
-        }
-
-        if (btn.get_value() == "Delete") 
-        {
-         
-        }
-                
-     }
     
 
 </script>
