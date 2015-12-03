@@ -789,6 +789,7 @@
     </Compile>
     <Compile Include="FlyCnDAL\dbConnection.cs" />
     <Compile Include="FlyCnDAL\DocumentMaster.cs" />
+    <Compile Include="FlyCnDAL\EnggDataList.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
     <Compile Include="FlyCnDAL\ExcelImport.cs" />
     <Compile Include="FlyCnDAL\ExcelTemplate.cs" />
