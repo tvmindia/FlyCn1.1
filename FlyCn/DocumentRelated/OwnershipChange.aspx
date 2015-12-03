@@ -26,7 +26,7 @@
        <br />
         <br />
     
-       <div>
+       <div class="popupButtonContainer">
            <br />
            <br />
           
