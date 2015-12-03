@@ -156,7 +156,7 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion Public Properties
 
-            #region methods
+#region methods
 
         #region Initialize Excel Import Details
         /// <summary>
@@ -351,9 +351,6 @@ namespace FlyCn.FlyCnDAL
             return 1;
         }
         #endregion UpdateExcelImportDetails
-
-       
-
 
 #endregion methods
 

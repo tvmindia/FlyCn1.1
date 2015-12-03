@@ -385,7 +385,7 @@ namespace FlyCn.FlyCnDAL
             /// </summary>
             /// <param name="TableName"></param>
             /// <returns>Dataset</returns>
-            public DataSet getTableDefinition(string TableName)
+            public DataSet GetTableDefinition(string TableName)
             {
 
                 SqlConnection con = new SqlConnection();
@@ -394,6 +394,9 @@ namespace FlyCn.FlyCnDAL
                 DataSet myRec = new DataSet();
 
                 dbConnection dcon = new dbConnection();
+                try
+                {
+
                 con = dcon.GetDBConnection();
 
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -402,8 +405,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.Connection = con;
                 da.SelectCommand = cmd;
 
-                try
-                {
+                
                     con.Open();
                     cmd.ExecuteNonQuery();
                     da.Fill(myRec);
@@ -428,7 +430,7 @@ namespace FlyCn.FlyCnDAL
             /// </summary>
             /// <param name="TableName"></param>
             /// <returns>Procedure Name</returns>
-            public string getProcedureName(string TableName)
+            public string GetProcedureName(string TableName)
             {
                 string procName = "";
                 SqlConnection con = new SqlConnection();
