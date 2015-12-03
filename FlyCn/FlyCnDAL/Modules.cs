@@ -213,10 +213,5 @@ namespace FlyCn.FlyCnDAL
             }
         }
         #endregion Method to get Procedure Name
-
-
-
-
-
     }
 }

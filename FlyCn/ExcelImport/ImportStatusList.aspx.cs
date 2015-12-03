@@ -59,5 +59,35 @@ namespace FlyCn.ExcelImport
         {
             BindData();
         }
+
+        protected void RadGrid2_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            BindCompletedDetails();
+        }
+
+        #region BindCompletedDetails()
+        public void BindCompletedDetails()
+        {
+          
+           
+
+            FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
+
+            DataSet ds = new DataSet();
+            ds = detailsObj.getDistictExcelImportDetails("4cd93ccc-7c83-4ca7-8641-3cea4b30d3d3");
+            RadGrid2.DataSource = ds.Tables[0];
+            try
+            {
+                RadGrid1.DataBind();
+            }
+            catch (Exception)
+            {
+
+                //  throw;
+            }
+
+
+        }
+        #endregion BindCompletedDetails()
     }
 }

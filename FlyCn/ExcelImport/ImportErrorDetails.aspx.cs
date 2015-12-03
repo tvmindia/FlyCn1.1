@@ -24,7 +24,7 @@ namespace FlyCn.ExcelImport
             DataTable ds = new DataTable();
 
             FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
-            ds = detailsObj.getErrorDetails("56b5d6e1-9fb7-4e87-b85f-c554a3902e16");
+            ds = detailsObj.getErrorDetails();
             RadGrid1_ErrorDetails.DataSource = ds;
             try
             {
