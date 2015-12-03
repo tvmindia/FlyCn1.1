@@ -308,6 +308,7 @@
     <Content Include="ExcelImport\ImportErrorList.aspx" />
     <Content Include="ExcelImport\ImportStatus.aspx" />
     <Content Include="ExcelImport\ImportStatusList.aspx" />
+    <Content Include="Fileupload.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\Document Next-WF.png" />
     <Content Include="Images\Document-Download-01.png" />
@@ -786,6 +787,13 @@
     </Compile>
     <Compile Include="ExcelImport\ImportStatusList.aspx.designer.cs">
       <DependentUpon>ImportStatusList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Fileupload.aspx.cs">
+      <DependentUpon>Fileupload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fileupload.aspx.designer.cs">
+      <DependentUpon>Fileupload.aspx</DependentUpon>
     </Compile>
     <Compile Include="FlyCnDAL\Activities.cs">
       <SubType>Code</SubType>

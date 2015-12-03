@@ -366,13 +366,12 @@ namespace FlyCn.FlyCnDAL
             cmd.Parameters.AddWithValue("@StatusId", StatusId);
             cmd.Connection = con;
             da.SelectCommand = cmd;
-           
+       
             da.Fill(myRec);
             con.Close();
             return myRec;
         }
         #endregion getDistictExcelImportDetails   
-
 
 #endregion methods
 

@@ -8,15 +8,18 @@ using System.Web.UI;
 
 namespace FlyCn.FlyCnDAL
 {
+
     public class Modules
     {
         ErrorHandling eObj = new ErrorHandling();
-        DataSet dataset = null;
+        DataSet ds = null;
         SqlConnection con = null;
         //previous
         public string cmbTextField = "ModuleID";
         public string cmbValueField = "ModuleDesc";
         //previous
+
+        #region ModulesProperties
 
         public string ModuleID
         {
@@ -86,11 +89,6 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public string ImportProperty
-        {
-            get;
-            set;
-        }
 
         public string IS_ALLOWED_FOR_SCOPE_DEFN//nvarchar(1)
         {
@@ -98,7 +96,11 @@ namespace FlyCn.FlyCnDAL
             set;
         }
 
+        #endregion ModulesProperties
 
+
+        #region ModulesMethods
+        #region GetModules
         public DataSet GetModules()
         {
             try
@@ -109,10 +111,10 @@ namespace FlyCn.FlyCnDAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = cmd;
-                dataset = new DataSet();
-                adapter.Fill(dataset);
+                ds = new DataSet();
+                adapter.Fill(ds);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
@@ -125,85 +127,68 @@ namespace FlyCn.FlyCnDAL
                     con.Close();
                 }
             }
-
-          
-            return dataset;
-       
+            return ds;
         }
+        #endregion GetModules
 
-        #region Method to get table definition
-        /// <summary>
-        /// Get The Table Definition
-        /// </summary>
-        /// <param name="TableName"></param>
-        /// <returns>Dataset</returns>
-        public DataSet getTableDefinition(string TableName)
+        #region GetModuleByModuleID
+        public DataSet GetModule(string moduleID)
         {
-
-            SqlConnection con = new SqlConnection();
-            SqlCommand cmd = new SqlCommand();
-            SqlDataAdapter da = new SqlDataAdapter();
-            DataSet myRec = new DataSet();
-
-            dbConnection dcon = new dbConnection();
-            con = dcon.GetDBConnection();
-
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "SelectTable";
-            cmd.Parameters.Add("@tablename", SqlDbType.NVarChar).Value = TableName;
-            cmd.Connection = con;
-            da.SelectCommand = cmd;
-
             try
             {
-                con.Open();
-                cmd.ExecuteNonQuery();
-                da.Fill(myRec);
-                return myRec;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("GetModuleByModuleID", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@ModuleID", SqlDbType.NVarChar, 10).Value = moduleID;
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                ds = new DataSet();
+                adapter.Fill(ds);
+
+                if (ds.Tables[0].Rows.Count > 0)
+            {
+                    ModuleID = ds.Tables[0].Rows[0]["ModuleID"].ToString();
+                    ModuleDesc = ds.Tables[0].Rows[0]["ModuleDesc"].ToString();
+                    ModuleType = ds.Tables[0].Rows[0]["ModuleType"].ToString();
+                    CreateCategory_YN = ds.Tables[0].Rows[0]["CreateCategory_YN"].ToString();
+                    BaseTable = ds.Tables[0].Rows[0]["BaseTable"].ToString();
+                    TrackingTable = ds.Tables[0].Rows[0]["TrackingTable"].ToString();
+                    ModuleUniqueKey = ds.Tables[0].Rows[0]["ModuleUniqueKey"].ToString();
+                    ModuleWebForm = ds.Tables[0].Rows[0]["ModuleWebForm"].ToString();
+                    MenuLevel_1_Page = ds.Tables[0].Rows[0]["MenuLevel_1_Page"].ToString();
+                    ReportModuleLink = ds.Tables[0].Rows[0]["ReportModuleLink"].ToString();
+                    int disorder;
+                    int.TryParse(ds.Tables[0].Rows[0]["DisplayOrder"].ToString(), out disorder);
+                    DisplayOrder = disorder;
+                    ModuleIconURL = ds.Tables[0].Rows[0]["ModuleIconURL"].ToString();
+                    ModuleIconURLsmall = ds.Tables[0].Rows[0]["ModuleIconURLsmall"].ToString();
+                    IS_ALLOWED_FOR_SCOPE_DEFN = ds.Tables[0].Rows[0]["IS_ALLOWED_FOR_SCOPE_DEFN"].ToString();
+                }
+
             }
             catch (Exception ex)
             {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
                 throw ex;
             }
             finally
             {
+                if (con != null)
+                {
                 con.Close();
-                con.Dispose();
             }
-
         }
-        #endregion Method to get table definition
-
-        #region Method to get Procedure Name
-        /// <summary>
-        /// Get The Procedure Name From DataBase
-        /// </summary>
-        /// <param name="TableName"></param>
-        /// <returns>Procedure Name</returns>
-        public string getProcedureName(string TableName)
-        {
-            string procName = "";
-            SqlConnection con = new SqlConnection();
-            SqlCommand cmd = new SqlCommand();
-
-            dbConnection dcon = new dbConnection();
-            con = dcon.GetDBConnection();
-
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "GetProcedureName";
-            cmd.Parameters.Add("@tablename", SqlDbType.NVarChar).Value = TableName;
-            cmd.Parameters.Add("@propertyName", SqlDbType.NVarChar).Value = ImportProperty;
-            cmd.Connection = con;
-
-            try
-            {
-                con.Open();
-                procName = cmd.ExecuteScalar().ToString();
-                return procName;
+            return ds;
             }
-            catch (Exception ex)
-            {
-                throw ex;
+
+        #endregion GetModuleByModuleID
+
+       
+        #endregion ModulesMethods
+
+
 
             }
             finally
