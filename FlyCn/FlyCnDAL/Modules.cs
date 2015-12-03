@@ -86,6 +86,11 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+        public string ImportProperty
+        {
+            get;
+            set;
+        }
 
         public string IS_ALLOWED_FOR_SCOPE_DEFN//nvarchar(1)
         {
