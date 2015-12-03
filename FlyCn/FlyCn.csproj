@@ -301,6 +301,7 @@
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="DocumentRelated\OwnershipChange.aspx" />
     <Content Include="EngineeredDataList\EnggDataList.aspx" />
+    <Content Include="EngineeredDataList\EnggDatalistBaseTable.aspx" />
     <Content Include="EngineeredDataList\EnggDataListLandingPage.aspx" />
     <Content Include="ExcelImport\ExcelImport.aspx" />
     <Content Include="ExcelImport\ImportErrorDetails.aspx" />
@@ -735,6 +736,13 @@
     </Compile>
     <Compile Include="EngineeredDataList\EnggDataList.aspx.designer.cs">
       <DependentUpon>EnggDataList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EngineeredDataList\EnggDatalistBaseTable.aspx.cs">
+      <DependentUpon>EnggDatalistBaseTable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EngineeredDataList\EnggDatalistBaseTable.aspx.designer.cs">
+      <DependentUpon>EnggDatalistBaseTable.aspx</DependentUpon>
     </Compile>
     <Compile Include="EngineeredDataList\EnggDataListLandingPage.aspx.cs">
       <DependentUpon>EnggDataListLandingPage.aspx</DependentUpon>
