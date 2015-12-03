@@ -20,7 +20,7 @@
           <div role="tabpanel" class="tab-pane active" id="home">
           <div class="table-responsive">
             <div class="contentTopBar"></div>
-             <telerik:radgrid ID="RadGrid1" runat="server" >
+             <telerik:radgrid ID="RadGrid1" runat="server" OnItemCommand="RadGrid1_ItemCommand" OnNeedDataSource="RadGrid1_NeedDataSource">
               <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
