@@ -103,8 +103,9 @@
             try {
                 $("#CloseDocumentPopup").dialog({
                     title: "Close Document - " + DocumentTypeForHeading,
-                    width: 780,
+                    width: 740,
                     height: 500,
+                    resizable: false,
                     buttons: {}, modal: true,
                     beforeClose: function (event, ui) {
                         var reload = OnPopupRefresh(frame);
@@ -468,9 +469,9 @@
         </telerik:RadSplitter>
     </div>
 
-    <div id="CloseDocumentPopup" style="display: none; height: 700px!important; overflow: auto; overflow-x: hidden;">
+    <div id="CloseDocumentPopup" style="display: none;  overflow-x: hidden; overflow-y:hidden ">
 
-        <iframe id="IframeContent" style="width: 1300px; height: inherit;"></iframe>
+        <iframe id="IframeContent" style="width:750px; height: inherit; overflow-y:hidden;"></iframe>
     </div>
 
     <div id="ChangeOwnerShip" style="width: 1000px!important; overflow-x: hidden;">
