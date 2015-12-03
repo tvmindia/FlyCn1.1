@@ -419,6 +419,7 @@
             
         }
         if (btn.get_value() == 'Update') {
+            parent.RevisionHistroyDeleteNode();
 
             args.set_cancel(!validate());
         }
