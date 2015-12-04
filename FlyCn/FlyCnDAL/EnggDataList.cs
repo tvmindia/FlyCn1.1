@@ -16,11 +16,30 @@ namespace FlyCn.FlyCnDAL
             HttpContext context = HttpContext.Current;
             UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
             myTree.Nodes.Clear();
-            //RadTreeNode rtn1 = new RadTreeNode("sample", "");
-            //rtn1.Target = "contentPane";
-            //myTree.Nodes.Add(rtn1);
+            RadTreeNode rtn1 = new RadTreeNode("Data Import Wizard", "");
+            rtn1.Target = "contentPane";
+            myTree.Nodes.Add(rtn1);
+            RadTreeNode rtn2 = new RadTreeNode("Direct Import", "");
+            rtn2.Target = "contentPane";
+            myTree.Nodes.Add(rtn2);
+            RadTreeNode rtn3 = new RadTreeNode("View Data", "");
+            rtn3.Target = "contentPane";
+            myTree.Nodes.Add(rtn3);
             
         }
+
+        public void BindTreeF(RadTreeView myTree)
+        {
+
+            UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+            myTree.Nodes.Clear();
+          
+
+        }
+
 
         public void LoadInputScreen(RadPane myContentPane)
         {

@@ -19,12 +19,12 @@ namespace FlyCn.EngineeredDataList
             Modules moduleObj = new Modules();
             DataSet ds = new DataSet();
             ds = moduleObj.GetModules();
-             
+
 
             string myInnerHtml = "<div>" +
            "<table class='TileTable'  >" +
            " <tr>" +
-                "<td style =" + "width:60%>" +
+                "<td style =" + "width:100%>" +
                     "<div style=" + "width:100%;>" +
                         "<table style=" + "width:100%;>" +
                             "<tr>";
@@ -36,14 +36,15 @@ namespace FlyCn.EngineeredDataList
             {
                 cols = cols + 1;
                 myInnerHtml = myInnerHtml + Environment.NewLine;
-               
-                   
 
-                    myInnerHtml = myInnerHtml + "<td class='Tiles" +"'  >";
+
+
+                myInnerHtml = myInnerHtml + "<td class='EnggDatalistIcons" + "'>";
                     string img = ds.Tables[0].Rows[f]["ModuleIconURL"].ToString();
                     string desc = ds.Tables[0].Rows[f]["ModuleDesc"].ToString();
-                    //myInnerHtml = myInnerHtml + " <table class='TileIcon'> <tr><td>" + "<img" + " src=" + "'" + img + "'" + " onclick" + "=" + "bindimage('" + ds.Tables[0].Rows[f]["menuId"].ToString() + "','" + desc + "') border=" + "0" + " alt=Submission Form" + "/></td></tr>" +
-                    //"<tr> <td>  <span class=" + "description" + ">" + desc + "</span> </td> </tr> </table></td>";
+                    myInnerHtml = myInnerHtml + " <table class='TileIcon' style='height:110px'> <tr><td  style='height:100px;border=0' 'vertical-align: bottom;'>" + " <a href='EnggDatalistBaseTable.aspx?Id={1}'>"+ "<img" + " src=" + "'" + img 
+                        + "'" +  "','" + desc + "' border=" + "0" + " alt=Submission Form" + "/></a></td></tr>" +
+                    "<tr> <td  style='height:10px;vertical-align: top;'>  <span class=" + "description" + ">" + desc + "</span> </td> </tr> </table></td>";
                 
                 
 
@@ -54,7 +55,23 @@ namespace FlyCn.EngineeredDataList
                     rows = rows + 1;
                     cols = 0;
                 }
+
+             
+      
             }
+                myInnerHtml = myInnerHtml +
+                 "</tr>" +
+                     " </table>" +
+                  "</div>" +
+              "</td>" +
+
+          " <td >" +
+
+            "</td>" +
+                         " </tr>" +
+    "  </table>" +
+"  </div> ";
+                    body.Controls.Add(new LiteralControl(myInnerHtml));
         }
     }
 }
