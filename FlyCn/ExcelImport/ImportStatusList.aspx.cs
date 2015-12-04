@@ -13,11 +13,13 @@ namespace FlyCn.ExcelImport
 {
     public partial class ImportStatusList : System.Web.UI.Page
     {
+        string StatusID;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 BindData();
+               
             }
 
         }
@@ -92,5 +94,7 @@ namespace FlyCn.ExcelImport
 
         }
         #endregion BindCompletedDetails()
+
+      
     }
 }
