@@ -44,6 +44,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -308,6 +311,7 @@
     <Content Include="ExcelImport\ImportErrorList.aspx" />
     <Content Include="ExcelImport\ImportStatus.aspx" />
     <Content Include="ExcelImport\ImportStatusList.aspx" />
+    <Content Include="Fileupload.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\Document Next-WF.png" />
     <Content Include="Images\Document-Download-01.png" />
@@ -389,6 +393,7 @@
     <Content Include="Templates\ApprovalMailTemplate.html" />
     <Content Include="Templates\DeclinedMailTemplate.html" />
     <Content Include="Templates\DocumentApprovalCompleteTemplate.html" />
+    <Content Include="Templates\ExcelImportTemplate.html" />
     <Content Include="Templates\htmlTemplate.html" />
     <Content Include="Content\themes\FlyCnBlue\css\selectize.css" />
     <Content Include="Content\themes\FlyCnBlue\css\style.css" />
@@ -785,6 +790,13 @@
     </Compile>
     <Compile Include="ExcelImport\ImportStatusList.aspx.designer.cs">
       <DependentUpon>ImportStatusList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Fileupload.aspx.cs">
+      <DependentUpon>Fileupload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fileupload.aspx.designer.cs">
+      <DependentUpon>Fileupload.aspx</DependentUpon>
     </Compile>
     <Compile Include="FlyCnDAL\Activities.cs">
       <SubType>Code</SubType>

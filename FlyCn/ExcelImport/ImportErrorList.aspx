@@ -8,10 +8,15 @@
      <div class="PageHeading">Error List</div>
     <div class="container inputMainContainer"  >
   <div class="col-md-12"   >
-       
+         <ul id="tabs">
+      <li><a href="#" name="tab1">Error List</a></li>
+             </ul>
     <div id="content"  >
-         
-             <telerik:radgrid ID="RadGrid1_ErrorList" runat="server" >
+          <div id="tab1"  >
+              <div role="tabpanel" class="tab-pane active" id="home">
+          <div class="table-responsive">
+            <div class="contentTopBar"></div>
+             <telerik:radgrid ID="RadGrid1_ErrorList" runat="server"  OnItemCommand="RadGrid1_ItemCommand">
               <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
@@ -26,17 +31,20 @@
                                                 <telerik:GridButtonColumn CommandName="Select" ButtonType="ImageButton"   Text="Select" UniqueName="EditData">
                                                 </telerik:GridButtonColumn>
 
-                                                <telerik:GridBoundColumn HeaderText="Status ID" DataField="Status_Id" UniqueName="Status_Id" Display="false"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Status ID" DataField="Status_ID" UniqueName="Status_ID" Display="false"></telerik:GridBoundColumn>
                                                   <telerik:GridBoundColumn HeaderText="File Name" DataField="File_Name" UniqueName="File_Name" ></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Key Field" DataField="Key_Field" UniqueName="Key_Field" Display="false"></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="Error Description" DataField="Error_Description" UniqueName="Error_Description" Display="false"></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="Error_Count" DataField="Error_Count" UniqueName="Error_Count" Display="false"></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="Start Time" DataField="Start_Time" UniqueName="Start_Time" Display="false" ></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Key Field" DataField="Key_Field" UniqueName="Key_Field" ></telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Error Description" DataField="Error_Description" UniqueName="Error_Description" ></telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Error_Count" DataField="Error_Count" UniqueName="Error_Count" ></telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Start Time" DataField="Start_Time" UniqueName="Start_Time"  ></telerik:GridBoundColumn>
                                                 
                                             </Columns>
                                         </MasterTableView>
         </telerik:radgrid>
                </div>
+                  </div>
+              </div>
+        </div>
         </div>
       </div>
 </asp:Content>

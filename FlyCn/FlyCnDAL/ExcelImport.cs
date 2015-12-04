@@ -156,7 +156,7 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion Public Properties
 
-#region methods
+            #region methods
 
         #region Initialize Excel Import Details
         /// <summary>
@@ -233,7 +233,7 @@ namespace FlyCn.FlyCnDAL
         #endregion Update Excel Import Details
 
         #region Error Details
-        public DataTable getErrorDetails(string statusID)
+        public DataTable getErrorDetails()
         {
              DataTable datatableobj = null;
             SqlConnection con = null;
@@ -241,7 +241,7 @@ namespace FlyCn.FlyCnDAL
             con = dcon.GetDBConnection();
             SqlCommand cmd = new SqlCommand("SelectExcelImportErrorDetails", con);
             cmd.CommandType = CommandType.StoredProcedure;   
-            cmd.Parameters.AddWithValue("@Status_Id",statusID);
+           // cmd.Parameters.AddWithValue("@Status_Id",statusID);
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = cmd;
             datatableobj = new DataTable();
@@ -257,6 +257,7 @@ namespace FlyCn.FlyCnDAL
         /// </summary>
         /// <param name="id"></param>
         /// <returns>DataSet</returns>
+
         public DataSet getExcelImportDetailsById(string id)
         {
             SqlConnection con = new SqlConnection();
@@ -272,7 +273,7 @@ namespace FlyCn.FlyCnDAL
             cmd.Parameters.AddWithValue("@StatusId", id);
             cmd.Connection = con;
             da.SelectCommand = cmd;
-            con.Open();
+            //con.Open();
             da.Fill(myRec);
             con.Close();
 
@@ -351,91 +352,31 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion UpdateExcelImportDetails
 
-        #region Method to get Procedure Name
-        /// <summary>
-        /// Get The Procedure Name From DataBase
-        /// </summary>
-        /// <param name="TableName"></param>
-        /// <returns>Procedure Name</returns>
-        public string getProcedureName(string TableName)
+        #region getDistictExcelImportDetails
+        public DataSet getDistictExcelImportDetails(string StatusId)
         {
-            string procName = "";
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
-           
-             dbConnection dcon=new dbConnection();
-            con = dcon.GetDBConnection();
-
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "GetProcedureName";
-            cmd.Parameters.Add("@tablename", SqlDbType.NVarChar).Value = TableName;
-            cmd.Parameters.Add("@propertyName", SqlDbType.NVarChar).Value = ImportProperty;
-            cmd.Connection = con;
-
-            try
-            {
-                con.Open();
-                procName = cmd.ExecuteScalar().ToString();
-                return procName;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-
-            }
-            finally
-            {
-                con.Close();
-                con.Dispose();
-            }
-        }
-        #endregion Method to get Procedure Name
-
-        #region Method to get table definition
-        /// <summary>
-        /// Get The Table Definition
-        /// </summary>
-        /// <param name="TableName"></param>
-        /// <returns>Dataset</returns>
-        public DataSet getTableDefinition(string TableName)
-        {
-
-            SqlConnection con = new SqlConnection();
-            SqlCommand cmd = new SqlCommand();
-            SqlDataAdapter da = new SqlDataAdapter();
             DataSet myRec = new DataSet();
-
-             dbConnection dcon=new dbConnection();
+            SqlDataAdapter da = new SqlDataAdapter();
+            dbConnection dcon = new dbConnection();
             con = dcon.GetDBConnection();
-
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "SelectTable";
-            cmd.Parameters.Add("@tablename", SqlDbType.NVarChar).Value = TableName;
+            cmd.CommandText = "SelectCompletedExcelImportDetails";
+            cmd.Parameters.AddWithValue("@StatusId", StatusId);
             cmd.Connection = con;
             da.SelectCommand = cmd;
-
-            try
-            {
-                con.Open();
-                cmd.ExecuteNonQuery();
-                da.Fill(myRec);
-                return myRec;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                con.Close();
-                con.Dispose();
-            }
-
+       
+            da.Fill(myRec);
+            con.Close();
+            return myRec;
         }
-        #endregion Method to get table definition
-
+        #endregion getDistictExcelImportDetails   
 
 #endregion methods
+
+
+
 
 
 
