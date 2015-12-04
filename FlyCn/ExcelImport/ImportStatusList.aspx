@@ -1,25 +1,59 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="ImportStatusList.aspx.cs" Inherits="FlyCn.ExcelImport.ImportStatusList" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <script src="../Scripts/jquery-1.8.2.js"></script>
+     <script src="../Scripts/jquery-1.8.2.min.js"></script>
+     <script src="../Scripts/jquery-ui-1.8.24.js"></script>
+     <script src="../Scripts/jquery-ui-1.8.24.min.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
-</asp:ScriptManager>
-     <div class="PageHeading">Status List</div>
-    <div class="container inputMainContainer"  >
-  <div class="col-md-12"   >
-        <ul id="tabs">
-      <li><a href="#" name="tab1">Ongoing</a></li>
-      <li><a href="#" name="tab2">Completed</a></li>
-             </ul>
-    <div id="content"  >
-         <div id="tab1"  >
-          <div role="tabpanel" class="tab-pane active" id="home">
-          <div class="table-responsive">
+     <style type="text/css">
+
+
+        .headings {
+            font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 15px;
+            font-style: normal;
+            color: #009933;
+        }
+
+        td.myclass {
+            text-align: left;
+            width: 100px;
+        }
+
+        td.size {
+            text-align: left;
+            width: 200px;
+        }
+
+        
+        
+    </style>
+     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true"> 
+    </asp:ScriptManager>
+
+    <div class="container" style="width: 100%">
+         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
+
+            <Tabs>
+                <telerik:RadTab Text="Ongoing" PageViewID="rpList" Value="1" Width="150px" runat="server" Selected="True"></telerik:RadTab>
+                <telerik:RadTab Text="Completed" PageViewID="rpApproval" Value="2" Width="150px" runat="server"></telerik:RadTab>
+            </Tabs>
+          </telerik:RadTabStrip>
+
+
+        <div id="content">
             <div class="contentTopBar"></div>
+               <table style="width: 100%">
+                <tr>
+                  <td>
+                       <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
+                        <telerik:RadPageView ID="rpList" runat="server">
+                        <div id="divList" style="width: 100%;text-align:center">
              <telerik:radgrid ID="RadGrid1" runat="server" OnItemCommand="RadGrid1_ItemCommand" OnNeedDataSource="RadGrid1_NeedDataSource">
               <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
@@ -29,8 +63,7 @@
                                        
                                         </ClientSettings>
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="Status_Id">
-                                            <Columns>
-                                               
+                                            <Columns>                                              
 
                                                 <telerik:GridButtonColumn CommandName="Select" ButtonType="ImageButton"   Text="Select" UniqueName="EditData">
                                                 </telerik:GridButtonColumn>
@@ -54,14 +87,17 @@
                                             </Columns>
                                         </MasterTableView>
         </telerik:radgrid>
-               </div>
-        </div>
-      </div>
-         <div id="tab2"  > 
-        <div role="tabpanel" class="tab-pane active" id="Div1">
-              <div class="table-responsive">
+              </div>
+                        </telerik:RadPageView>
+
+
+      
+         <telerik:RadPageView ID="rpApproval" runat="server">
+                                 
+        
+              <div>
             <div class="contentTopBar"></div>
-                  <telerik:radgrid ID="RadGrid2" runat="server" >
+                  <telerik:radgrid ID="RadGrid2" runat="server" OnNeedDataSource="RadGrid2_NeedDataSource">
               <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
@@ -95,30 +131,38 @@
                                             </Columns>
                                         </MasterTableView>
         </telerik:radgrid>
+                   </div>
+                          
+                    </telerik:RadPageView>
+                          
+                          </telerik:RadMultiPage>
+                        </td>
+              </tr>
+           </table>
+                      </div>
                   </div>
-            </div>
-             </div>
-        </div>
-      </div>
-        </div>
-     <script>
-       $(document).ready(function () {
-           $("#content").find("[id^='tab']").hide(); // Hide all content
-           $("#tabs li:first").attr("id", "current"); // Activate the first tab
-           $("#content #tab1").fadeIn(); // Show first tab's content
+       
+    <script type="text/javascript">
+        
 
-           $('#tabs a').click(function (e) {
-               e.preventDefault();
-               if ($(this).closest("li").attr("id") == "current") { //detection for current tab
-                   return;
-               }
-               else {
-                   $("#content").find("[id^='tab']").hide(); // Hide all content
-                   $("#tabs li").attr("id", ""); //Reset id's
-                   $(this).parent().attr("id", "current"); // Activate this
-                   $('#' + $(this).attr('name')).fadeIn(); // Show content for the current tab
-               }
-           });
-       });
-</script> 
+       
+            function onClientTabSelected(sender, args) {
+                debugger;
+                var tab = args.get_tab();
+                if (tab.get_value() == '2') {
+
+                   
+                }
+                if (tab.get_value() == "1") {
+
+                    
+                    var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+                    var tab = tabStrip.findTabByValue("1");
+                    tab.select();
+                }
+
+            }
+    
+    
+</script>
 </asp:Content>

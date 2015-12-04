@@ -14,6 +14,8 @@
         </style>
     </head>
   
+    <form id="form1" runat="server">
+  
     <div style="margin: 0; padding: 0; min-width: 100%!important;">
     <div style="border-style: solid; border-color: inherit; border-width: medium; margin: 0; padding: 0; min-width: 100%!important; height:27px; color:lightseagreen; background:lightseagreen; text-align:center;"> <label style="color:white; vertical-align:central; font-family: 'Segoe UI Light'; font-size:18px"> Document For Approvel</label></div>
         <div style="background-color:#f6f8f1; text-align:left;">
@@ -37,6 +39,9 @@
                         <tr>
                             <td style="height:50px;padding-left:190px">
                           <a href='http://localhost:40922/Approvels/Approvals.aspx'">Link To Document</a>
+                                <br />
+                                <asp:Button ID="btn_ExcelMail" runat="server" OnClick="btn_ExcelMail_Click" Text="Send Excel Mail" />
+                                <br />
                                
                             </td>
                         </tr>
@@ -51,5 +56,8 @@
         </table>
    
         </div>
+    
+ </form>
+
     
 </html>

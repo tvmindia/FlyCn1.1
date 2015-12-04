@@ -519,6 +519,63 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion RejectMail
 
+        #region SendExcelImportMail
+
+        public void SendExcelImportMail(string StatusID,string userName)
+        {
+            try
+            {
+               // Users userobj = new Users(MssgTo);
+                ExcelImport exObj = new ExcelImport();
+                exObj.getExcelImportDetailsById(StatusID);
+                string MailTo = "AnijaGeorge@gmail.com";
+                MailMessage Msg = new MailMessage();
+                // Sender e-mail address.
+                Msg.From = new MailAddress("info.thrithvam@gmail.com");
+                // Recipient e-mail address.
+                Msg.To.Add(MailTo);
+                string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/ExcelImportTemplate.html");
+                string body = fileName;
+
+                if (System.IO.File.Exists(fileName) == true)
+                {
+                    System.IO.StreamReader objReader;
+                    objReader = new System.IO.StreamReader(fileName);
+
+                    body = objReader.ReadToEnd();
+                    body = body.Replace("$FileName$", exObj.FileName);
+                    body = body.Replace("$TotalCount$", exObj.TotalCount.ToString());
+                    body = body.Replace("$InsertStatus$", exObj.InsertStatus.ToString());
+                    body = body.Replace("$LastUpdatedTime$", exObj.LastUpdatedTime.ToString("dd- MMM- yyyy HH:MM:s"));
+                    body = body.Replace("$ProcessedCount$", exObj.Processed_Count.ToString());
+                    body = body.Replace("$ErrorCount$", exObj.ErrorCount.ToString());
+                    body = body.Replace("$USERNAME$", userName);
+                    
+
+                }
+               
+
+                Msg.Body = body;
+
+                Msg.IsBodyHtml = true;
+                // your remote SMTP server IP.
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.Credentials = new System.Net.NetworkCredential("info.thrithvam", "thrithvam@2015");
+                smtp.EnableSsl = true;
+                smtp.Send(Msg);
+                Msg = null;
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion SendExcelImportMail
+
         #region DeclineMail   MssgTo
         public void DeclineMail(string Revisionid, string MssgTo, string verifierMailIdName, string ApprovalID)
         {
