@@ -40,10 +40,10 @@ namespace FlyCn
           {
              if (ExcelUploader.HasFile)
              {
-               file_name = ExcelUploader.FileName.ToString();
-               location = path + file_name;
-               DeleteDuplicateFile(location);//deletes the file if the same file name exists in the folder
-               ExcelUploader.SaveAs(location);
+               importObj.fileName = ExcelUploader.FileName.ToString();
+               importObj.fileLocation = path + importObj.fileName;
+               DeleteDuplicateFile(importObj.fileLocation);//deletes the file if the same file name exists in the folder
+               ExcelUploader.SaveAs(importObj.fileLocation);
         
                //Thread excelImportThread = new Thread(new ThreadStart(importObj.ImportExcelFile));
                //excelImportThread.Start();
