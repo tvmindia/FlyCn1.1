@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using FlyCn.FlyCnDAL;
+using System.Web.UI.HtmlControls;
 namespace FlyCn.EngineeredDataList
 {
     public partial class EnggDataListLandingPage : System.Web.UI.Page
@@ -34,6 +35,9 @@ namespace FlyCn.EngineeredDataList
 
             for (int f = 0; f < ds.Tables[0].Rows.Count; f++)
             {
+                //HtmlGenericControl div = new HtmlGenericControl("div");
+                //div.ID = "div" + ds.Tables[0].Rows[f]["ModuleDesc"].ToString();
+                //div.Attributes.Add("class", "control-label col-md-3");
                 cols = cols + 1;
                 myInnerHtml = myInnerHtml + Environment.NewLine;
 
@@ -42,10 +46,13 @@ namespace FlyCn.EngineeredDataList
                 myInnerHtml = myInnerHtml + "<td class='EnggDatalistIcons" + "'>";
                     string img = ds.Tables[0].Rows[f]["ModuleIconURL"].ToString();
                     string desc = ds.Tables[0].Rows[f]["ModuleDesc"].ToString();
-                    myInnerHtml = myInnerHtml + " <table class='TileIcon' style='height:110px'> <tr><td  style='height:100px;border=0' 'vertical-align: bottom;'>" + " <a href='EnggDatalistBaseTable.aspx?Id={1}'>"+ "<img" + " src=" + "'" + img 
-                        + "'" +  "','" + desc + "' border=" + "0" + " alt=Submission Form" + "/></a></td></tr>" +
-                    "<tr> <td  style='height:10px;vertical-align: top;'>  <span class=" + "description" + ">" + desc + "</span> </td> </tr> </table></td>";
+                  
+                    myInnerHtml = myInnerHtml + " <table class='TileIcon' style='height:110px'> <tr><td  style='height:100px;border=0' 'vertical-align: bottom;'>" +
+                        " <a href='EnggDatalistBaseTable.aspx?Id="+ds.Tables[0].Rows[f]["ModuleID"].ToString() +"'" + "'" + "'" + ">" + "<img" + " src=" + "'" + img
+                           + "'" + "','" + desc + "' border=" + "0" + " alt=Submission Form" + "/></a></td></tr>" +
+                       "<tr> <td  style='height:10px;vertical-align: top;'>  <span class=" + "description" + ">" + desc + "</span> </td> </tr> </table></td>";
                 
+
                 
 
                 if ((f + 1) % 3 == 0)
