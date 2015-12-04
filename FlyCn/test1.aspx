@@ -14,6 +14,8 @@
         </style>
     </head>
   
+    <form id="form1" runat="server">
+  
     <div style="margin: 0; padding: 0; min-width: 100%!important;">
     <div style="border-style: solid; border-color: inherit; border-width: medium; margin: 0; padding: 0; min-width: 100%!important; height:27px; color:lightseagreen; background:lightseagreen; text-align:center;"> <label style="color:white; vertical-align:central; font-family: 'Segoe UI Light'; font-size:18px"> Document For Approvel</label></div>
         <div style="background-color:#f6f8f1; text-align:left;">
@@ -51,5 +53,11 @@
         </table>
    
         </div>
+    
+        <p>
+            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+        </p>
+ </form>
+
     
 </html>
