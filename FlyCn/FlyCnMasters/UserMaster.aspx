@@ -4,7 +4,9 @@
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-       <!-----bootstrap css--->
+    <%@ Register Src="~/UserControls/GridviewFilter.ascx" TagPrefix="uc1" TagName="GridviewFilter" %>
+
+    <!-----bootstrap css--->
    <%-- <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
     <link href="Content/themes/FlyCnBlue/css/datepicker.css" rel="stylesheet" type="text/css" />
     <!-----bootstrap css--->
@@ -17,10 +19,13 @@
     <link href="../Content/themes/FlyCnBlue/css/style.css" rel="stylesheet" type="text/css" />
     <link href="../Content/themes/FlyCnRed_Rad/TabStrip.FlyCnRed_Rad.css" rel="stylesheet" />--%>
     <!-----main css--->
-  
+ 
 
 </asp:Content>
+
+ 
 <asp:Content ID="phdUserMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+      <uc1:GridviewFilter runat="server" id="GridviewFilter" tableName="M_USERS"/>
          <script type="text/javascript">
              function ClearTextBox() {
                  $('textarea').empty();
@@ -89,9 +94,8 @@
         }
             </script>
       <div class="container"  style="width: 100%">
-          
-                    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
-                    </asp:ScriptManager>
+         
+                  
     <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
         CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
         <Tabs>
@@ -106,13 +110,16 @@
             <telerik:RadPageView ID="rpList" runat="server">
                 <div id="divList">
 
+                    <asp:UpdatePanel ID="upGrid" runat="server" UpdateMode="Conditional">
+                   <ContentTemplate>
+                      
 
-                   
-
-                    <telerik:RadGrid ID="dtgUserMaster" runat="server" AllowPaging="true" AllowSorting="true"  PageSize="7"
+                    <telerik:RadGrid ID="dtgUserMaster" runat="server" AllowPaging="true" AllowSorting="true"  PageSize="15"
                         OnNeedDataSource="dtgUserMaster_NeedDataSource" 
                         Skin="Silk" CssClass="outerMultiPage"  OnPreRender="dtgUserMaster_PreRender"  OnItemCommand="dtgUserMaster_ItemCommand"
                         >
+                       
+
                         <MasterTableView DataKeyNames="UserName,PassWord">
 
                             <Columns>
@@ -125,6 +132,9 @@
                         </MasterTableView>
 
                     </telerik:RadGrid>
+
+                        </ContentTemplate>
+</asp:UpdatePanel>
 
 
                 </div>

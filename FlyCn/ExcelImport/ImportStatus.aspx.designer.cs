@@ -7,225 +7,288 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FlyCn.FlyCnMasters {
+namespace FlyCn.ExcelImport {
     
     
-    public partial class UserMaster {
+    public partial class ImportStatus {
         
         /// <summary>
-        /// GridviewFilter control.
+        /// ScriptManager2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::FlyCn.UserControls.GridviewFilter GridviewFilter;
+        protected global::System.Web.UI.ScriptManager ScriptManager2;
         
         /// <summary>
-        /// RadTabStrip1 control.
+        /// Timer4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
+        protected global::System.Web.UI.Timer Timer4;
         
         /// <summary>
-        /// RadMultiPage1 control.
+        /// UpdatePanel7 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadMultiPage RadMultiPage1;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel7;
         
         /// <summary>
-        /// rpList control.
+        /// lbl_ProjNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView rpList;
+        protected global::System.Web.UI.WebControls.Label lbl_ProjNo;
         
         /// <summary>
-        /// upGrid control.
+        /// lbl_ProjNo1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upGrid;
+        protected global::System.Web.UI.WebControls.Label lbl_ProjNo1;
         
         /// <summary>
-        /// dtgUserMaster control.
+        /// lbl_FileName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid dtgUserMaster;
+        protected global::System.Web.UI.WebControls.Label lbl_FileName;
         
         /// <summary>
-        /// rpAddEdit control.
+        /// lbl_FileName1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView rpAddEdit;
+        protected global::System.Web.UI.WebControls.Label lbl_FileName1;
         
         /// <summary>
-        /// ToolBar control.
+        /// lbl_TableName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::FlyCn.UserControls.ToolBar ToolBar;
+        protected global::System.Web.UI.WebControls.Label lbl_TableName;
         
         /// <summary>
-        /// lblUserName control.
+        /// lbl_TableName1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUserName;
+        protected global::System.Web.UI.WebControls.Label lbl_TableName1;
         
         /// <summary>
-        /// txtUserName control.
+        /// lbl_TotalCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUserName;
+        protected global::System.Web.UI.WebControls.Label lbl_TotalCount;
         
         /// <summary>
-        /// usernameReq control.
+        /// lbl_TotalCount1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator usernameReq;
+        protected global::System.Web.UI.WebControls.Label lbl_TotalCount1;
         
         /// <summary>
-        /// lblPassWord control.
+        /// lbl_StartTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPassWord;
+        protected global::System.Web.UI.WebControls.Label lbl_StartTime;
         
         /// <summary>
-        /// txtPassWord control.
+        /// lbl_StartTime1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassWord;
+        protected global::System.Web.UI.WebControls.Label lbl_StartTime1;
         
         /// <summary>
-        /// span1 control.
+        /// lbl_InsertCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span1;
+        protected global::System.Web.UI.WebControls.Label lbl_InsertCount;
         
         /// <summary>
-        /// passwordReq control.
+        /// lbl_InsertCount1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator passwordReq;
+        protected global::System.Web.UI.WebControls.Label lbl_InsertCount1;
         
         /// <summary>
-        /// lblConfirmPassWord control.
+        /// lbl_UpdateCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblConfirmPassWord;
+        protected global::System.Web.UI.WebControls.Label lbl_UpdateCount;
         
         /// <summary>
-        /// txtConfirmPassWord control.
+        /// lbl_UpdateCount1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtConfirmPassWord;
+        protected global::System.Web.UI.WebControls.Label lbl_UpdateCount1;
         
         /// <summary>
-        /// confirmPasswordReq control.
+        /// lbl_ErrorCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator confirmPasswordReq;
+        protected global::System.Web.UI.WebControls.Label lbl_ErrorCount;
         
         /// <summary>
-        /// comparePasswords control.
+        /// lbl_ErrorCount1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator comparePasswords;
+        protected global::System.Web.UI.WebControls.Label lbl_ErrorCount1;
         
         /// <summary>
-        /// lblEmailId control.
+        /// lbl_LastUpdatedTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmailId;
+        protected global::System.Web.UI.WebControls.Label lbl_LastUpdatedTime;
         
         /// <summary>
-        /// txtEmailId control.
+        /// lbl_LastUpdatedTime1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmailId;
+        protected global::System.Web.UI.WebControls.Label lbl_LastUpdatedTime1;
         
         /// <summary>
-        /// span4 control.
+        /// lbl_TimeRemaining control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span4;
+        protected global::System.Web.UI.WebControls.Label lbl_TimeRemaining;
         
         /// <summary>
-        /// EmailReq control.
+        /// lbl_TimeRemaining1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator EmailReq;
+        protected global::System.Web.UI.WebControls.Label lbl_TimeRemaining1;
         
         /// <summary>
-        /// regEmail control.
+        /// lbl_UserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator regEmail;
+        protected global::System.Web.UI.WebControls.Label lbl_UserName;
+        
+        /// <summary>
+        /// lbl_UserName1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_UserName1;
+        
+        /// <summary>
+        /// lbl_InsertStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_InsertStatus;
+        
+        /// <summary>
+        /// lbl_InsertStatus1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_InsertStatus1;
+        
+        /// <summary>
+        /// lbl_Remarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Remarks;
+        
+        /// <summary>
+        /// lbl_Remarks1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Remarks1;
+        
+        /// <summary>
+        /// lbl_Timeelapsed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Timeelapsed;
+        
+        /// <summary>
+        /// lbl_TimeElapsed1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_TimeElapsed1;
     }
 }
