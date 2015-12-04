@@ -441,10 +441,6 @@ namespace FlyCn.FlyCnMasters
                 int result;
                 if (e.CommandName == "Delete")
                 {
-
-
-
-
                     result = dynamicmasteroperationobj.DeleteMasterData(primarykeys, _mode, KeyValue);
                     if (result == 1)
                     {

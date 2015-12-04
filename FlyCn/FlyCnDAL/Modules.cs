@@ -188,8 +188,5 @@ namespace FlyCn.FlyCnDAL
        
         #endregion ModulesMethods
 
-
-
-           
     }
 }

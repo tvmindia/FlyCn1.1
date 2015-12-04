@@ -44,6 +44,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -303,6 +306,7 @@
     <Content Include="EngineeredDataList\EnggDataList.aspx" />
     <Content Include="EngineeredDataList\EnggDatalistBaseTable.aspx" />
     <Content Include="EngineeredDataList\EnggDataListLandingPage.aspx" />
+    <Content Include="EngineeredDataList\EnggViewData.aspx" />
     <Content Include="ExcelImport\ExcelImport.aspx" />
     <Content Include="ExcelImport\ImportErrorDetails.aspx" />
     <Content Include="ExcelImport\ImportErrorList.aspx" />
@@ -753,6 +757,13 @@
     <Compile Include="EngineeredDataList\EnggDataListLandingPage.aspx.designer.cs">
       <DependentUpon>EnggDataListLandingPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EngineeredDataList\EnggViewData.aspx.cs">
+      <DependentUpon>EnggViewData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EngineeredDataList\EnggViewData.aspx.designer.cs">
+      <DependentUpon>EnggViewData.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ExcelImport\ExcelImport.aspx.cs">
       <DependentUpon>ExcelImport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -807,9 +818,10 @@
     <Compile Include="FlyCnDAL\dbConnection.cs" />
     <Compile Include="FlyCnDAL\DocumentMaster.cs" />
     <Compile Include="FlyCnDAL\EnggDataList.cs" />
+    <Compile Include="FlyCnDAL\EngineeredViewList.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
-    <Compile Include="FlyCnDAL\ExcelImport.cs" />
     <Compile Include="FlyCnDAL\ExcelTemplate.cs" />
+    <Compile Include="FlyCnDAL\ImportFile.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
     <Compile Include="FlyCnDAL\MailSending.cs" />
     <Compile Include="FlyCnDAL\MasterData.cs" />
@@ -826,6 +838,7 @@
     <Compile Include="FlyCnDAL\SystemDefenitionDetails.cs" />
     <Compile Include="FlyCnDAL\Template.cs" />
     <Compile Include="FlyCnDAL\Users.cs" />
+    <Compile Include="FlyCnDAL\ValidationExcel.cs" />
     <Compile Include="FlyCnMasters\DynamicMaster.aspx.cs">
       <DependentUpon>DynamicMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

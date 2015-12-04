@@ -209,6 +209,17 @@ iframe {
     height: 125px;
     cursor: pointer;
 }
+.EnggDatalistIcons {
+    color: white;
+    border-radius: 25px;
+    /*#FF6666;*/
+    vertical-align: bottom;
+    text-align: center;
+    width: 125px;
+    height: 125px;
+    cursor: pointer;
+     
+}
     .Tiles:hover {
     background-color: #DC4753;
 }
