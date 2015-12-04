@@ -188,15 +188,5 @@ namespace FlyCn.FlyCnDAL
        
         #endregion ModulesMethods
 
-
-
-            }
-            finally
-            {
-                con.Close();
-                con.Dispose();
-            }
-        }
-        #endregion Method to get Procedure Name
     }
 }
