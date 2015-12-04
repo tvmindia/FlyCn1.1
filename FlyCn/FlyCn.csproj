@@ -44,6 +44,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -301,6 +304,7 @@
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="DocumentRelated\OwnershipChange.aspx" />
     <Content Include="EngineeredDataList\EnggDataList.aspx" />
+    <Content Include="EngineeredDataList\EnggViewData.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="Images\Document Next-WF.png" />
     <Content Include="Images\Document-Download-01.png" />
@@ -706,6 +710,13 @@
     </Compile>
     <Compile Include="EngineeredDataList\EnggDataList.aspx.designer.cs">
       <DependentUpon>EnggDataList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EngineeredDataList\EnggViewData.aspx.cs">
+      <DependentUpon>EnggViewData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EngineeredDataList\EnggViewData.aspx.designer.cs">
+      <DependentUpon>EnggViewData.aspx</DependentUpon>
     </Compile>
     <Compile Include="FlyCnDAL\Activities.cs">
       <SubType>Code</SubType>
