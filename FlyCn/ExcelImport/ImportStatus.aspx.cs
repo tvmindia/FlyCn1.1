@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlyCn.FlyCnDAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,8 @@ namespace FlyCn.ExcelImport
     public partial class ImportStatus : System.Web.UI.Page
     {
         string statusId;
-        FlyCnDAL.ExcelImport exObj = new FlyCnDAL.ExcelImport();
+        //FlyCnDAL.ExcelImport exObj = new FlyCnDAL.ExcelImport();
+        ImportFile exObj = new ImportFile();
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack)

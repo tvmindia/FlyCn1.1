@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using Telerik.Web.UI;
+using FlyCn.FlyCnDAL;
 
 namespace FlyCn.ExcelImport
 {
@@ -23,7 +24,8 @@ namespace FlyCn.ExcelImport
         {
             DataTable ds = new DataTable();
 
-            FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
+           // FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
+            ImportFile detailsObj = new ImportFile();
             ds = detailsObj.getErrorDetails();
             RadGrid1_ErrorDetails.DataSource = ds;
             try

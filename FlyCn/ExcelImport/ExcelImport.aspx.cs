@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
-
+using FlyCn.FlyCnDAL;
 namespace FlyCn.ExcelImport
 {
     public partial class ExcelImport : System.Web.UI.Page
@@ -13,7 +13,8 @@ namespace FlyCn.ExcelImport
         protected void Page_Load(object sender, EventArgs e)
         {
             UIClasses.InputPages ip = new UIClasses.InputPages();
-            FlyCnDAL.ExcelImport objex = new FlyCnDAL.ExcelImport();
+           // FlyCnDAL.ExcelImport objex = new FlyCnDAL.ExcelImport();
+            ImportFile objex = new ImportFile();
 
             RadTreeView tview = ip.FindLeftTree(this);
             objex.BindTree(tview);
