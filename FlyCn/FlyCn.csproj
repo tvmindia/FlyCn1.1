@@ -306,6 +306,7 @@
     <Content Include="EngineeredDataList\EnggDataList.aspx" />
     <Content Include="EngineeredDataList\EnggDatalistBaseTable.aspx" />
     <Content Include="EngineeredDataList\EnggDataListLandingPage.aspx" />
+    <Content Include="EngineeredDataList\EnggViewData.aspx" />
     <Content Include="ExcelImport\ExcelImport.aspx" />
     <Content Include="ExcelImport\ImportErrorDetails.aspx" />
     <Content Include="ExcelImport\ImportErrorList.aspx" />
@@ -756,6 +757,13 @@
     <Compile Include="EngineeredDataList\EnggDataListLandingPage.aspx.designer.cs">
       <DependentUpon>EnggDataListLandingPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EngineeredDataList\EnggViewData.aspx.cs">
+      <DependentUpon>EnggViewData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EngineeredDataList\EnggViewData.aspx.designer.cs">
+      <DependentUpon>EnggViewData.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ExcelImport\ExcelImport.aspx.cs">
       <DependentUpon>ExcelImport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -810,6 +818,7 @@
     <Compile Include="FlyCnDAL\dbConnection.cs" />
     <Compile Include="FlyCnDAL\DocumentMaster.cs" />
     <Compile Include="FlyCnDAL\EnggDataList.cs" />
+    <Compile Include="FlyCnDAL\EngineeredViewList.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
     <Compile Include="FlyCnDAL\ExcelImport.cs" />
     <Compile Include="FlyCnDAL\ExcelTemplate.cs" />
