@@ -526,7 +526,8 @@ namespace FlyCn.FlyCnDAL
             try
             {
                // Users userobj = new Users(MssgTo);
-                ExcelImport exObj = new ExcelImport();
+               // ExcelImport exObj = new ExcelImport();
+                ImportFile exObj = new ImportFile();
                 exObj.getExcelImportDetailsById(StatusID);
                 string MailTo = "AnijaGeorge@gmail.com";
                 MailMessage Msg = new MailMessage();
