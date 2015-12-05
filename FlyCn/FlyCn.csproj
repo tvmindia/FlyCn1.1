@@ -820,8 +820,8 @@
     <Compile Include="FlyCnDAL\EnggDataList.cs" />
     <Compile Include="FlyCnDAL\EngineeredViewList.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
-    <Compile Include="FlyCnDAL\ExcelImport.cs" />
     <Compile Include="FlyCnDAL\ExcelTemplate.cs" />
+    <Compile Include="FlyCnDAL\ImportFile.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
     <Compile Include="FlyCnDAL\MailSending.cs" />
     <Compile Include="FlyCnDAL\MasterData.cs" />
@@ -838,6 +838,7 @@
     <Compile Include="FlyCnDAL\SystemDefenitionDetails.cs" />
     <Compile Include="FlyCnDAL\Template.cs" />
     <Compile Include="FlyCnDAL\Users.cs" />
+    <Compile Include="FlyCnDAL\ValidationExcel.cs" />
     <Compile Include="FlyCnMasters\DynamicMaster.aspx.cs">
       <DependentUpon>DynamicMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

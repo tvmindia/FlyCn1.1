@@ -8,7 +8,7 @@
      <div class="PageHeading">Error List</div>
     <div class="container inputMainContainer"  >
   <div class="col-md-12"   >
-         <ul id="tabs">
+         <ul>
       <li><a href="#" name="tab1">Error List</a></li>
              </ul>
     <div id="content"  >

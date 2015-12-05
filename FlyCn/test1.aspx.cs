@@ -1,11 +1,12 @@
-﻿using FlyCn.FlyCnDAL;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using FlyCn.FlyCnDAL;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace FlyCn
 {
@@ -21,33 +22,21 @@ namespace FlyCn
             url = Request.Url.Port;
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void btn_ExcelMail_Click(object sender, EventArgs e)
         {
-
-            string FileName = "E:\\Myfile.xlsx";
-            string path = Server.MapPath("exportedfiles\\");
-            ExcelTemplate etObj = new ExcelTemplate();
-            etObj.GenerateExcelTemplate("C00001", "BASE_Electrical");
-                string file = FileName + path;
-          //     Response.TransmitFile(Server.MapPath(FileName));
-       //     Response.End();
-
-
-            //// CHECK IF THE FOLDER EXISTS.
-            //if (Directory.Exists(path))
-            //{
-            //    // CHECK IF THE FILE EXISTS.
-            //    if (File.Exists(path + "EmployeeDetails.xlsx"))
-            //    {
-            //        // SHOW (NOT DOWNLOAD) THE EXCEL FILE.
-            //        Microsoft.Office.Interop.Excel.Application xlAppToView = new Microsoft.Office.Interop.Excel.Application();
-            //        xlAppToView.Workbooks.Open(path + "EmployeeDetails.xlsx");
-            //        xlAppToView.Visible = true;
-
-            //    }
-            //}
-
-
+            string StatusID = "4cd93ccc-7c83-4ca7-8641-3cea4b30d3d3";
+            MailSending MailObj = new MailSending();
+            //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
+            ImportFile detailsObj = new ImportFile();
+            DataSet ds = new DataSet();
+           
+            ds=detailsObj.getExcelImportDetailsById(StatusID);
+            
+           
+                MailObj.SendExcelImportMail(StatusID, detailsObj.UserName);
+            
         }
+       
+        
     }
 }
