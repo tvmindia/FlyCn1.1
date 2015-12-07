@@ -39,6 +39,9 @@
                         <tr>
                             <td style="height:50px;padding-left:190px">
                           <a href='http://localhost:40922/Approvels/Approvals.aspx'">Link To Document</a>
+                                <br />
+                                <asp:Button ID="btn_ExcelMail" runat="server" OnClick="btn_ExcelMail_Click" Text="Send Excel Mail" />
+                                <br />
                                
                             </td>
                         </tr>
@@ -54,9 +57,6 @@
    
         </div>
     
-        <p>
-            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
-        </p>
  </form>
 
     

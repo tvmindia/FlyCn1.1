@@ -4,15 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using FlyCn.FlyCnDAL;
 namespace FlyCn
 {
     public partial class Fileupload : System.Web.UI.Page
     {
         public string file_name;
-       // UpdatedExcelImport importObj = new UpdatedExcelImport();
-       // Constants constantsObj = new Constants();
+        
+       //Constants constantsObj = new Constants();
        // ExcelImportDetailsDAL exObj = new ExcelImportDetailsDAL();
+        ImportFile importObj = new ImportFile();
+        
 
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
@@ -31,25 +33,28 @@ namespace FlyCn
         #region btn_upload_Click
         protected void btn_upload_Click(object sender, EventArgs e)
         {
-            string path = Server.MapPath("~/Content/Fileupload/").ToString();
-            string location="";
+           // importObj.tableName = constantsObj.TableName;
+           // importObj.fileName = "file";
+         
+           
+           
           try
           {
              if (ExcelUploader.HasFile)
              {
-               file_name = ExcelUploader.FileName.ToString();
-               location = path + file_name;
-               DeleteDuplicateFile(location);//deletes the file if the same file name exists in the folder
-               ExcelUploader.SaveAs(location);
-        
+               string path = Server.MapPath("~/Content/Fileupload/").ToString();
+               importObj.fileName = ExcelUploader.FileName.ToString();
+               importObj.fileLocation = path + importObj.fileName;
+               importObj.temporaryFolder = path;
+               DeleteDuplicateFile(importObj.fileLocation);//deletes the file if the same file name exists in the folder
+               ExcelUploader.SaveAs(importObj.fileLocation);
+               importObj.testFile = importObj.fileName;
+               importObj.ExcelFileName = importObj.fileName;
                //Thread excelImportThread = new Thread(new ThreadStart(importObj.ImportExcelFile));
                //excelImportThread.Start();
-               // importObj.ImportExcelFile();
+               importObj.ImportExcelFile();
                lblMsg.Text = "Thread started";
-
              }//end of hasfile if
-
-
           }//end try
           catch (Exception ex)
           {
