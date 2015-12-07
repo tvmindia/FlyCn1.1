@@ -104,11 +104,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public string ImportProperty
-        {
-            get;
-            set;
-        }
+      
         #endregion  Public Properties
 
             ErrorHandling eObj = new ErrorHandling();
@@ -438,7 +434,6 @@ namespace FlyCn.FlyCnDAL
                 string procName = "";
                 SqlConnection con = null;
                 SqlCommand cmd = null;
-
                 dbConnection dcon = null; 
                 try
                 {
@@ -450,8 +445,10 @@ namespace FlyCn.FlyCnDAL
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "GetProcedureName";
                     cmd.Parameters.Add("@tablename", SqlDbType.NVarChar).Value = TableName;
-                    cmd.Parameters.Add("@propertyName", SqlDbType.NVarChar).Value = ImportProperty;
-                    procName = cmd.ExecuteScalar().ToString();
+                    SqlParameter ouputprocedurename = cmd.Parameters.Add("@procedurename", SqlDbType.NVarChar, 50);
+                    ouputprocedurename.Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                    procName =ouputprocedurename.Value.ToString();
                     return procName;
                 }
                 catch(Exception ex)
