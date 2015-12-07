@@ -20,7 +20,7 @@ namespace FlyCn.EngineeredDataList
             Modules moduleObj = new Modules();
             DataSet ds = new DataSet();
             ds = moduleObj.GetModules();
-
+            string tabhtml = "";
 
             string myInnerHtml = "<div>" +
            "<table class='TileTable'  >" +
@@ -35,22 +35,27 @@ namespace FlyCn.EngineeredDataList
 
             for (int f = 0; f < ds.Tables[0].Rows.Count; f++)
             {
-                //HtmlGenericControl div = new HtmlGenericControl("div");
-                //div.ID = "div" + ds.Tables[0].Rows[f]["ModuleDesc"].ToString();
-                //div.Attributes.Add("class", "control-label col-md-3");
+                tabhtml = " <li style='width:80px;' ><a" + " <a href='EnggDatalistBaseTable.aspx?Id=" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "'" + "'" + "'" + ">" +"<img" + " src=" + "'" + ds.Tables[0].Rows[f]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "</p>" + "</a></li>";
+
+                horizonaltab.Controls.Add(new LiteralControl(tabhtml));
+
+                //HtmlGenericControl divcontrol = new HtmlGenericControl("div");
+                //divcontrol.ID = "div" + ds.Tables[0].Rows[f]["ModuleDesc"].ToString();
+                //divcontrol.InnerText = ds.Tables[0].Rows[f]["ModuleIconURLsmall"].ToString();
+                //divcontrol.Attributes.Add("class", "tab tab2");
+                
                 cols = cols + 1;
                 myInnerHtml = myInnerHtml + Environment.NewLine;
 
-
-
+            
                 myInnerHtml = myInnerHtml + "<td class='EnggDatalistIcons" + "'>";
                     string img = ds.Tables[0].Rows[f]["ModuleIconURL"].ToString();
                     string desc = ds.Tables[0].Rows[f]["ModuleDesc"].ToString();
                   
                     myInnerHtml = myInnerHtml + " <table class='TileIcon' style='height:110px'> <tr><td  style='height:100px;border=0' 'vertical-align: bottom;'>" +
                         " <a href='EnggDatalistBaseTable.aspx?Id="+ds.Tables[0].Rows[f]["ModuleID"].ToString() +"'" + "'" + "'" + ">" + "<img" + " src=" + "'" + img
-                           + "'" + "','" + desc + "' border=" + "0" + " alt=Submission Form" + "/></a></td></tr>" +
-                       "<tr> <td  style='height:10px;vertical-align: top;'>  <span class=" + "description" + ">" + desc + "</span> </td> </tr> </table></td>";
+                           + "'" + "','" + desc + "' border=" + "0" + " alt=Submission Form" + "/><p>" + desc + "</p></a></td></tr>" +
+                      "</table></td>";
                 
 
                 
@@ -63,7 +68,7 @@ namespace FlyCn.EngineeredDataList
                     cols = 0;
                 }
 
-             
+               
       
             }
                 myInnerHtml = myInnerHtml +
@@ -78,7 +83,11 @@ namespace FlyCn.EngineeredDataList
                          " </tr>" +
     "  </table>" +
 "  </div> ";
+           
                     body.Controls.Add(new LiteralControl(myInnerHtml));
+           
+
+          
         }
     }
 }
