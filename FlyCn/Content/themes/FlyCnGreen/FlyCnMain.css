@@ -464,7 +464,16 @@ transition: .25s ease;
     height:30px;
    
 } 
-
+.btnDivCommon {
+    background-color: #008B8B;
+    color: white;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    width: 100px;
+    text-align: center;
+}
  .popupButtonContainer
  {
      text-align:center;

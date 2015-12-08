@@ -479,7 +479,16 @@ transition: .25s ease;
     height:30px;
     margin-top:26px;
 }
- 
+ .btnDivCommon {
+    background-color: #AD141C;
+    color: white;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    width: 100px;
+    text-align: center;
+}
  .Verifiercaption {
             font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             vertical-align: middle;

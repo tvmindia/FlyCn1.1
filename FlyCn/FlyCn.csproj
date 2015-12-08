@@ -303,7 +303,6 @@
     <Content Include="Content\themes\FlyCnRider\Splitter.FlyCnRider.css" />
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="DocumentRelated\OwnershipChange.aspx" />
-    <Content Include="EngineeredDataList\DataImportSecondWizard.aspx" />
     <Content Include="EngineeredDataList\EnggDataList.aspx" />
     <Content Include="EngineeredDataList\EnggDatalistBaseTable.aspx" />
     <Content Include="EngineeredDataList\EnggDataListLandingPage.aspx" />
@@ -736,13 +735,6 @@
     </Compile>
     <Compile Include="EIL\PunchList.aspx.designer.cs">
       <DependentUpon>PunchList.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="EngineeredDataList\DataImportSecondWizard.aspx.cs">
-      <DependentUpon>DataImportSecondWizard.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="EngineeredDataList\DataImportSecondWizard.aspx.designer.cs">
-      <DependentUpon>DataImportSecondWizard.aspx</DependentUpon>
     </Compile>
     <Compile Include="EngineeredDataList\EnggDataList.aspx.cs">
       <DependentUpon>EnggDataList.aspx</DependentUpon>
