@@ -303,11 +303,9 @@
     <Content Include="Content\themes\FlyCnRider\Splitter.FlyCnRider.css" />
     <Content Include="Content\themes\FlyCnRider\Splitter\FlyCnSplitter.gif" />
     <Content Include="DocumentRelated\OwnershipChange.aspx" />
-    <Content Include="EngineeredDataList\DataImportSecondWizard.aspx" />
     <Content Include="EngineeredDataList\EnggDataList.aspx" />
     <Content Include="EngineeredDataList\EnggDatalistBaseTable.aspx" />
     <Content Include="EngineeredDataList\EnggDataListLandingPage.aspx" />
-    <Content Include="EngineeredDataList\EnggDataListValidatePage.aspx" />
     <Content Include="EngineeredDataList\EnggViewData.aspx" />
     <Content Include="ExcelImport\ExcelImport.aspx" />
     <Content Include="ExcelImport\ImportErrorDetails.aspx" />
@@ -738,13 +736,6 @@
     <Compile Include="EIL\PunchList.aspx.designer.cs">
       <DependentUpon>PunchList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EngineeredDataList\DataImportSecondWizard.aspx.cs">
-      <DependentUpon>DataImportSecondWizard.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="EngineeredDataList\DataImportSecondWizard.aspx.designer.cs">
-      <DependentUpon>DataImportSecondWizard.aspx</DependentUpon>
-    </Compile>
     <Compile Include="EngineeredDataList\EnggDataList.aspx.cs">
       <DependentUpon>EnggDataList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -765,13 +756,6 @@
     </Compile>
     <Compile Include="EngineeredDataList\EnggDataListLandingPage.aspx.designer.cs">
       <DependentUpon>EnggDataListLandingPage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="EngineeredDataList\EnggDataListValidatePage.aspx.cs">
-      <DependentUpon>EnggDataListValidatePage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="EngineeredDataList\EnggDataListValidatePage.aspx.designer.cs">
-      <DependentUpon>EnggDataListValidatePage.aspx</DependentUpon>
     </Compile>
     <Compile Include="EngineeredDataList\EnggViewData.aspx.cs">
       <DependentUpon>EnggViewData.aspx</DependentUpon>
