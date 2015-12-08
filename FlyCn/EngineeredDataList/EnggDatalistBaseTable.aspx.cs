@@ -17,7 +17,7 @@ namespace FlyCn.EngineeredDataList
         protected void Page_Load(object sender, EventArgs e)
         {
              _moduleId = Request.QueryString["Id"];
-
+             //hiddenModuleId.Value = _moduleId;
             Modules moduleObj = new Modules();
             DataSet dsobj = new DataSet();
             dsobj = moduleObj.GetModule(_moduleId);
@@ -42,5 +42,13 @@ namespace FlyCn.EngineeredDataList
            
            
         }
+
+        //protected void btnNext_Click(object sender, EventArgs e)
+        //{
+        
+        //         body.Style["display"] = "none";
+        //         IframeDataImport.Attributes["src"] = "DataImportSecondWizard.aspx?Id=" + _moduleId;
+         
+        //}
     }
 }

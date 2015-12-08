@@ -41,6 +41,21 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
       <div id="content">
              <div class="contentTopBar"></div>
+          <div id="containerTab"   runat="server" style="width:100%;">
+
+           <ul class="list-inline" id="horizonaltab"  runat="server" style="width:100%">
+ 
+ <%-- <li ><a href="#"><img src="../Images/Icons/Civil16.png" /></a></li>
+  <li ><a href="#"><img src="../Images/Icons/Civil48.png" /></a></li>
+  <li><a href="#"><img src="../Images/Icons/Civil48.png" /></a></li>--%>
+</ul>
+     <%-- <a  href="EnggDatalistBaseTable.aspx"  > <div class="tab tab1">Tab 1</div></a>
+      <a  href="EnggDatalistBaseTable.aspx"  > <div class="tab tab2">Tab 1</div></a>
+            <a  href="EnggDatalistBaseTable.aspx"  > <div class="tab tab2">Tab 1q</div></a>
+               <a  href="EnggDatalistBaseTable.aspx"  >   <div class="tab tab2">Tab 1</div></a>
+                <a  href="EnggDatalistBaseTable.aspx"  >  <div class="tab tab2">Tab 1</div></a>
+                <a  href="EnggDatalistBaseTable.aspx"  >  <div class="tab tab2">Tab 1</div></a>--%>
+</div>
    <div id="body" runat="server" class="container table-responsive" style="width: 100%; height:100%; margin-left:50px;" >
     <%--<div style="width:100%">
   <div style="width:543px;">
@@ -56,21 +71,7 @@
 </div>--%>
 
 
-       <div id="containerTab"   runat="server" style="width:100%;">
-
-           <ul class="list-inline" id="horizonaltab"  runat="server" style="width:100%">
- 
- <%-- <li ><a href="#"><img src="../Images/Icons/Civil16.png" /></a></li>
-  <li ><a href="#"><img src="../Images/Icons/Civil48.png" /></a></li>
-  <li><a href="#"><img src="../Images/Icons/Civil48.png" /></a></li>--%>
-</ul>
-     <%-- <a  href="EnggDatalistBaseTable.aspx"  > <div class="tab tab1">Tab 1</div></a>
-      <a  href="EnggDatalistBaseTable.aspx"  > <div class="tab tab2">Tab 1</div></a>
-            <a  href="EnggDatalistBaseTable.aspx"  > <div class="tab tab2">Tab 1q</div></a>
-               <a  href="EnggDatalistBaseTable.aspx"  >   <div class="tab tab2">Tab 1</div></a>
-                <a  href="EnggDatalistBaseTable.aspx"  >  <div class="tab tab2">Tab 1</div></a>
-                <a  href="EnggDatalistBaseTable.aspx"  >  <div class="tab tab2">Tab 1</div></a>--%>
-</div>
+       
        <%--<div  >
               <ul class="result">
         <li><div id="a">This is red</div></li>

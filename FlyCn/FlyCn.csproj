@@ -307,6 +307,7 @@
     <Content Include="EngineeredDataList\EnggDataList.aspx" />
     <Content Include="EngineeredDataList\EnggDatalistBaseTable.aspx" />
     <Content Include="EngineeredDataList\EnggDataListLandingPage.aspx" />
+    <Content Include="EngineeredDataList\EnggDataListValidatePage.aspx" />
     <Content Include="EngineeredDataList\EnggViewData.aspx" />
     <Content Include="ExcelImport\ExcelImport.aspx" />
     <Content Include="ExcelImport\ImportErrorDetails.aspx" />
@@ -764,6 +765,13 @@
     </Compile>
     <Compile Include="EngineeredDataList\EnggDataListLandingPage.aspx.designer.cs">
       <DependentUpon>EnggDataListLandingPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EngineeredDataList\EnggDataListValidatePage.aspx.cs">
+      <DependentUpon>EnggDataListValidatePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EngineeredDataList\EnggDataListValidatePage.aspx.designer.cs">
+      <DependentUpon>EnggDataListValidatePage.aspx</DependentUpon>
     </Compile>
     <Compile Include="EngineeredDataList\EnggViewData.aspx.cs">
       <DependentUpon>EnggViewData.aspx</DependentUpon>
