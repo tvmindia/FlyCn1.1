@@ -44,17 +44,7 @@ namespace FlyCn.FlyCnDAL
               
                 ExcelWorkBook = ExcelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
                 
-              
-                //string sPath = Server.MapPath("exportedfiles\\");
-
-                //Response.AppendHeader("Content-Disposition", "attachment; filename=EmployeeDetails.xlsx");
-                //Response.TransmitFile(sPath + "EmployeeDetails.xlsx");
-                //Response.End();
-
-                //if (!Directory.Exists(path))   // CHECK IF THE FOLDER EXISTS. IF NOT, CREATE A NEW FOLDER.
-                //{
-                //    Directory.CreateDirectory(path);
-                //}
+             
               string filename= "E:Myfile.xlsx";
            
                 List<string> SheetNames = new List<string>();
@@ -62,7 +52,11 @@ namespace FlyCn.FlyCnDAL
                 SheetNames.Add("Field Description");
                 int colIndex = 1;
                 int rowIndex = 1;
+
+             
+              //  ExcelWorkSheet.Columns.ColumnWidth = 21.00;
                 var rows = ds.Tables[0].Rows;
+              
                 for (int i = 1; i < 2; i++)
                     ExcelWorkBook.Worksheets.Add();
                
@@ -70,48 +64,44 @@ namespace FlyCn.FlyCnDAL
                     ExcelWorkSheet = ExcelWorkBook.Worksheets[1];
                     foreach (DataRow row in rows)
                     {
+                        ExcelWorkSheet.Columns.AutoFit();
                         string name = Convert.ToString(row["Field_Name"]);
                        
                         ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
+
+                       
                         rowIndex++;
                     }
                
                     ExcelWorkSheet.Name = SheetNames[0];
 
                 //---------------------Second Sheet----------------------------//
-
+                  
                      colIndex = 1;
                      rowIndex = 1;
 
                     ExcelWorkSheet = ExcelWorkBook.Worksheets[2];
                     foreach (DataRow row in rows)
                     {
+                        ExcelWorkSheet.Columns.AutoFit();
                         string name = Convert.ToString(row["Field_Name"]);
                        
                         ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
-                        colIndex++;
+                         string isMandatory = Convert.ToString(row["ExcelMustFields"]);
                   
-                  
-
-                    }
-                    colIndex = 1;
-                    rowIndex = 2;
-                    foreach (DataRow row in rows)
-                    {
-                        string description = Convert.ToString(row["Field_Description"]);
-                     
                       
-                        ExcelWorkSheet.Cells[colIndex, rowIndex].Value = description;
-
-                       
-                     
-                       
+                         if (isMandatory == "Y")
+                         {
+                             ExcelWorkSheet.Cells[colIndex, rowIndex+1].Value = "*";
+                             //ExcelWorkSheet.Cells[colIndex, rowIndex + 1].style("color", "red");
+                             ExcelWorkSheet.Cells[colIndex, rowIndex + 1].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+                         }
                         colIndex++;
-                    }
-
-
-               
                   
+                  
+
+                    }
+                          
 
                     ExcelWorkSheet.Name = SheetNames[1];
                     ExcelWorkBook.SaveCopyAs(@"E:\Copy_Myfile.xlsx");

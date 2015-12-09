@@ -730,7 +730,7 @@ namespace FlyCn.FlyCnDAL
         /// </summary>
         /// <param name="dsFile"></param>
         /// <returns>success or failure</returns>
-        private int InsertExcelFile(DataSet dsFile)
+        public int InsertExcelFile(DataSet dsFile)
         {
             try
             {
