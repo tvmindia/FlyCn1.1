@@ -53,6 +53,7 @@ namespace FlyCn.FlyCnDAL
                 // DAL.ExcelImportDetailsDAL detailsDal = new DAL.ExcelImportDetailsDAL(status_Id);
                 // List<ExcelValidationModel> lmd = new List<ExcelValidationModel>();
                 CommonDAL stdDal = new CommonDAL();
+                ImportFile importfile = new ImportFile();
                 try
                 {
                     dsTable = stdDal.GetTableDefinition("M_Location");
@@ -110,7 +111,7 @@ namespace FlyCn.FlyCnDAL
 
                         }
 
-                        else if (FieldDataType == "S" && !isAlpha(dr[FieldName].ToString()))
+                        else if (FieldDataType == "S" && !isAlphaNumeric(dr[FieldName].ToString()))
                         {
                             flag = true;
                             errorDescLists.Append(comma);
@@ -123,7 +124,7 @@ namespace FlyCn.FlyCnDAL
 
                     if (flag == true)
                     {
-                        //detailsDal.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString());
+                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString());
                         return -1;
                     }
                     else return 1;
