@@ -4,6 +4,8 @@
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
+<%@ Register Src="~/UserControls/GridviewFilter.ascx" TagPrefix="uc1" TagName="GridviewFilter" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <%-- Registration--%>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -18,10 +20,28 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true">
-    </asp:ScriptManager>
+    <asp:ScriptManager ID="scmFilter" runat="server"  ></asp:ScriptManager>
+     <%-- <asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true">
+       
+    </asp:ScriptManager>--%>
+
+   
+
+     
+
+  
+
+     
+
     <script src="../Scripts/ToolBar.js"></script>
     <script src="../Scripts/Messages.js"></script>
+     <uc1:GridviewFilter runat="server" ID="GridviewFilter" tableName="vBOQDocumentHeader" />
+
+                      <asp:UpdatePanel ID="upGrid" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+
+                    
+
     <div class="container" style="width: 100%">
         <!-----FORM SECTION---->
         <!-----SECTION TABLE---->
@@ -42,8 +62,12 @@
 
                         <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
                             <telerik:RadPageView ID="rpList" runat="server">
-
+                       
                                 <div id="divList" style="width: 100%;text-align:center">
+                                  <%--  <asp:Label ID="lblresultReturned" runat="server" Text="Label"></asp:Label>--%>
+
+                            
+                              
                                     <telerik:RadGrid ID="dtgBOQGrid" runat="server" CellSpacing="0" GridLines="None" OnNeedDataSource="dtgBOQGrid_NeedDataSource" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" OnItemCommand="dtgBOQGrid_ItemCommand"
                                         PageSize="10" Width="99%"  >
                                         <HeaderStyle  HorizontalAlign="Center" />
@@ -83,12 +107,25 @@
                                         </MasterTableView>
 
                                     </telerik:RadGrid>
+
+                        
+     <%--                                            <Triggers>
+    <asp:AsyncPostBackTrigger ControlID="dtgBOQGrid" EventName="ItemCommand" />
+</Triggers>--%>
+                     
                                 </div>
                             </telerik:RadPageView>
                              <!-----SECTION TABLE---->
                              <!---SECTION ONE--->
                             <telerik:RadPageView ID="rpAddEdit" runat="server">
-                                <uc1:ToolBar runat="server" ID="ToolBar" />
+
+                                 <uc1:ToolBar runat="server" ID="ToolBar" />
+
+
+                               
+
+                                
+
                                 <div class="col-md-12 Span-One">
                                   
                                     <div class="col-md-6">
@@ -231,6 +268,11 @@
                 </tr>
             </table>
         </div>
+
+    </ContentTemplate>
+                                </asp:UpdatePanel>
+
+
         </div>
         <!-----FORM SECTION---->
     
@@ -343,8 +385,11 @@
         var tab = args.get_tab();
         if (tab.get_value() == '2')
         {
-           
+            <%--document.getElementById('<%=hdnPostbackOnItemCommand.ClientID %>').value = "1";--%>
             hideMe();
+           <%-- var hiddenPostBack = document.getElementById('<%=GridviewFilter.FindControl("hdnPostbackOnItemCommand").ClientID %>');
+            var hiddenPostBackValue = hiddenPostBack.value();
+            hiddenPostBackValue = "View";--%>
 
           //Clear Text boxes When New tab clicks
             ClearBOQHeaderTexBox();

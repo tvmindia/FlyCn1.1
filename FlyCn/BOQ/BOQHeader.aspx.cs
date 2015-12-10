@@ -22,6 +22,8 @@ namespace FlyCn.BOQ
 {
     public partial class BOQHeader : System.Web.UI.Page
     {
+        public int NumberOfTimesNeedDataSourceCalled = 0;
+
         #region Global Variables
         DocumentMaster documentMaster;
         string _RevisionId;
@@ -39,12 +41,22 @@ namespace FlyCn.BOQ
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
+
+
             SecurityCheck();
             ToolBarVisibility(4);
             BOQHeaderDetails  BOQObj= new BOQHeaderDetails();         
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
+
+
+            GridviewFilter.onClick += new EventHandler(GridviewFilter_onClick);
+
+
+
+
+
             BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString(); 
              BOQObj.DocumentOwner = hiddenDocumentOwner.Value;
              if (Request.QueryString["RevisionId"] != null)
@@ -80,6 +92,18 @@ namespace FlyCn.BOQ
               }
             }
          }
+
+
+        protected void GridviewFilter_onClick(object sender, EventArgs e)
+        {
+            NumberOfTimesNeedDataSourceCalled = 1;
+
+            BinddtgBOQGrid();
+
+//To update the gridview after binding filtered data
+             upGrid.Update();
+        }
+
         public void DisableBOQHeaderTextBox()
         {
             txtClientdocumentno.Attributes.Add("readonly","readonly");
@@ -137,10 +161,14 @@ namespace FlyCn.BOQ
         #region dtgBOQGrid_ItemCommand
         protected void dtgBOQGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
+            HiddenField hdnPostbackOnItemCommand = (HiddenField)GridviewFilter.FindControl("hdnPostbackOnItemCommand");
+            hdnPostbackOnItemCommand.Value = "True";
+
             try
             {//Only Edit functionality is needed in BOQheader so no delete
                 if (e.CommandName == "EditDoc")//EditDoc  is named because Radgrid has its own definition for Edit
                 {
+                    
                     RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                     GridDataItem item = e.Item as GridDataItem;
                     tab.Selected = true;
@@ -165,6 +193,7 @@ namespace FlyCn.BOQ
                 else
                     if (e.CommandName == "ViewDetailColumn")//EditDoc  is named because Radgrid has its own definition for Edit
                     {
+                        hdnPostbackOnItemCommand.Value = "View";
                         ToolBarVisibility(4);
                         RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                         GridDataItem item = e.Item as GridDataItem;
@@ -389,16 +418,64 @@ namespace FlyCn.BOQ
         #region BinddtgBOQGrid
         public void BinddtgBOQGrid()
         {
+            int resultReturnedCount=0;
             try
             {
                 DataSet ds = new DataSet();
+                DataTable dtable = new DataTable();
+
                 documentMaster = new DocumentMaster();
                 ds = documentMaster.GetAllBOQDocumentHeader(UA.projectNo, "BOQ");
                 dtgBOQGrid.DataSource = ds;
+
+                dtable =ds.Tables[0];
+                
+                string searchQuery = GridviewFilter.WhereCondition;
+
+                if (searchQuery != null)
+                {
+                    DataRow[] test = dtable.Select(searchQuery);
+                    dtgBOQGrid.DataSource = test;
+                    dtgBOQGrid.DataBind();
+
+                    resultReturnedCount = dtgBOQGrid.Items.Count;
+
+                    Label lblResultReturnedCount = (Label) GridviewFilter.FindControl("lblResultReturnedCount");
+
+                    if (0 == resultReturnedCount)
+                    {
+                        lblResultReturnedCount.Text = "No result found!";
+                        lblResultReturnedCount.ForeColor = System.Drawing.Color.Red;
+                    }
+
+                    else
+                    {
+                        lblResultReturnedCount.Text = "Result Returned : " + resultReturnedCount.ToString();
+                        lblResultReturnedCount.ForeColor = System.Drawing.Color.Gray;
+                    }
+
+                   
+                    //lblresultReturned.Text = resultReturnedCount.ToString();
+                    
+                    //Response.Write(resultReturnedCount);
+                }
+
+                else
+                {
+                    if (NumberOfTimesNeedDataSourceCalled == 1)
+                    {
+                        dtgBOQGrid.DataBind();
+                    }
+                }
+
             }
             catch (Exception ex)
             {
+                //var page = HttpContext.Current.CurrentHandler as Page;
+                //eObj.ErrorData(ex, page);
+
                 var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
                 eObj.ErrorData(ex, page);
             }
         }

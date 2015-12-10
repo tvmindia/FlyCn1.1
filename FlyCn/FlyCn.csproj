@@ -185,7 +185,7 @@
     <Content Include="BOQ\BOQHeader.aspx" />
     <Content Include="Content\FlyCnMain.css" />
     <Content Include="Content\Home.css" />
-    <Content Include="Content\Site.css" />
+    <Content Include="EIL\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -371,6 +371,7 @@
     <Content Include="Images\Icons\workpack.png" />
     <Content Include="Images\Lb2.png" />
     <Content Include="Images\LogoSearchMagnifyingGlass.png" />
+    <Content Include="Images\Minus.png" />
     <Content Include="Images\plus1.png" />
     <Content Include="Images\refresh.png" />
     <Content Include="Images\RefreshSearch.png" />
