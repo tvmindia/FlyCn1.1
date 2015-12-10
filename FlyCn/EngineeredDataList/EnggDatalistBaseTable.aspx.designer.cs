@@ -13,6 +13,15 @@ namespace FlyCn.EngineeredDataList {
     public partial class EnggDatalistBaseTable {
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
         /// Heading control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace FlyCn.EngineeredDataList {
         protected global::System.Web.UI.WebControls.Label lblModule;
         
         /// <summary>
+        /// NavItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NavItem;
+        
+        /// <summary>
         /// body control.
         /// </summary>
         /// <remarks>
@@ -49,15 +67,6 @@ namespace FlyCn.EngineeredDataList {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl body;
         
         /// <summary>
-        /// lblCaption control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCaption;
-        
-        /// <summary>
         /// btnExcelIimport control.
         /// </summary>
         /// <remarks>
@@ -65,24 +74,6 @@ namespace FlyCn.EngineeredDataList {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnExcelIimport;
-        
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-        
-        /// <summary>
-        /// Label2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
         /// DataImportFileUpload control.
@@ -112,13 +103,112 @@ namespace FlyCn.EngineeredDataList {
         protected global::System.Web.UI.WebControls.Label lblUploadGridHeading;
         
         /// <summary>
-        /// Label3 control.
+        /// dtgUploadGridUpdatepanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.UpdatePanel dtgUploadGridUpdatepanel;
+        
+        /// <summary>
+        /// dtgUploadGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid dtgUploadGrid;
+        
+        /// <summary>
+        /// lblVupldFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVupldFile;
+        
+        /// <summary>
+        /// lblVupldFilename control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVupldFilename;
+        
+        /// <summary>
+        /// lblVtotlrows control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVtotlrows;
+        
+        /// <summary>
+        /// lblVtotltowcount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVtotltowcount;
+        
+        /// <summary>
+        /// lblVexisting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVexisting;
+        
+        /// <summary>
+        /// lblVexistingCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVexistingCount;
+        
+        /// <summary>
+        /// lblVNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVNew;
+        
+        /// <summary>
+        /// lblVNewCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVNewCount;
+        
+        /// <summary>
+        /// lblVErrors control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVErrors;
+        
+        /// <summary>
+        /// lblVErrorsCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVErrorsCount;
         
         /// <summary>
         /// LbtnImportStatus control.
@@ -130,6 +220,78 @@ namespace FlyCn.EngineeredDataList {
         protected global::System.Web.UI.WebControls.LinkButton LbtnImportStatus;
         
         /// <summary>
+        /// lblIupldFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIupldFile;
+        
+        /// <summary>
+        /// lblIupldFileName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIupldFileName;
+        
+        /// <summary>
+        /// lblITotlrows control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblITotlrows;
+        
+        /// <summary>
+        /// lblITotlrowsCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblITotlrowsCount;
+        
+        /// <summary>
+        /// lblIExisting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIExisting;
+        
+        /// <summary>
+        /// lblIExistingCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIExistingCount;
+        
+        /// <summary>
+        /// lblINew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblINew;
+        
+        /// <summary>
+        /// lblINewCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblINewCount;
+        
+        /// <summary>
         /// lbtnErrors control.
         /// </summary>
         /// <remarks>
@@ -137,5 +299,14 @@ namespace FlyCn.EngineeredDataList {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbtnErrors;
+        
+        /// <summary>
+        /// lblIerrorCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIerrorCount;
     }
 }
