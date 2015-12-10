@@ -43,11 +43,11 @@ namespace FlyCn.FlyCnDAL
             /// </summary>
             /// <param name="datarow from the result dataset of the excel file"></param>
             /// <returns>success/failure and error datatable</returns>
-            public int excelDatasetValidation(DataRow dr)
+            public int excelDatasetValidation(DataRow dr, DataSet dsTable)
             {
                 DataTable dtError = CreateErrorTable();
                 DataSet dsError = new DataSet();
-                DataSet dsTable = new DataSet();
+              
                 // DAL.Constants constantList = new DAL.Constants();
                 // DAL.ExcelImportDAL stdDal = new DAL.ExcelImportDAL();
                 // DAL.ExcelImportDetailsDAL detailsDal = new DAL.ExcelImportDetailsDAL(status_Id);
@@ -56,7 +56,6 @@ namespace FlyCn.FlyCnDAL
                 ImportFile importfile = new ImportFile();
                 try
                 {
-                    dsTable = stdDal.GetTableDefinition("M_Location");
                     DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
                     DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
 
@@ -251,15 +250,15 @@ namespace FlyCn.FlyCnDAL
 
 
 
-            public bool ValidateExcelDataStructure(DataSet dsFile)
+            public bool ValidateExcelDataStructure(DataSet dsFile, DataSet dsTable)
             {
                 try
                 {
-                    DataSet dsTable = new DataSet();
+                   // DataSet dsTable = new DataSet();
                     //   DAL.Constants constantList = new DAL.Constants();
                     //  DAL.ExcelImportDAL stdDal = new DAL.ExcelImportDAL();
                     CommonDAL stdDal = new CommonDAL();
-                    dsTable = stdDal.GetTableDefinition("M_Location");
+                   // dsTable = stdDal.GetTableDefinition("M_Location");
                     for (int i = dsTable.Tables[0].Rows.Count - 1; i >= 0; i--)
                     {
                         bool res;

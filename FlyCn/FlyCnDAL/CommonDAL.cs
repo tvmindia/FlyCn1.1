@@ -422,6 +422,67 @@ namespace FlyCn.FlyCnDAL
 
             }
             #endregion Method to get table definition
+     
+            #region GetTableDefinitionByModuleID
+             /// <summary>
+            /// Get The Table Definition
+            /// </summary>
+            /// <param name="moduleID"></param>
+            /// <returns>Dataset</returns>
+            public DataSet GetTableDefinitionByModuleID(string moduleID)
+            {
+
+                SqlConnection con = null;
+                DataSet ds = null;
+                SqlDataAdapter sda = null;
+                SqlCommand cmd = null;
+                try
+                {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetTableDefinitionByModuleID";
+                cmd.Parameters.Add("@ModuleID", SqlDbType.NVarChar).Value = moduleID;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                SqlParameter outputparameter = new SqlParameter("@tablename", SqlDbType.NVarChar, 50);
+                cmd.Parameters.Add(outputparameter);
+                outputparameter.Direction = ParameterDirection.Output;
+                sda.Fill(ds);
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                //    UpdateCount = Convert.ToInt32(ds.Tables[0].Rows[0]["Update_Count"]);
+
+                //}
+                //SqlParameter outputparameter = cmd.Parameters.Add("@tablename", SqlDbType.NVarChar, 50);
+              
+                tableName = outputparameter.Value.ToString();
+                return ds;
+                }
+                catch (Exception ex)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
+                    throw ex;
+                }
+                finally
+                {
+                    if (con != null)
+                    {
+                        con.Close();
+                        con.Dispose();
+                    }
+                }
+
+            }
+
+           #endregion GetTableDefinitionByModuleID
+
+           
+
 
             #region Method to get Procedure Name
             /// <summary>
