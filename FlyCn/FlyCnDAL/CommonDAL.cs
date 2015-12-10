@@ -445,10 +445,10 @@ namespace FlyCn.FlyCnDAL
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "GetProcedureName";
                     cmd.Parameters.Add("@tablename", SqlDbType.NVarChar).Value = TableName;
-                    SqlParameter ouputprocedurename = cmd.Parameters.Add("@procedurename", SqlDbType.NVarChar, 50);
+                    SqlParameter ouputprocedurename = cmd.Parameters.Add("@procedurename", SqlDbType.NVarChar,50);
                     ouputprocedurename.Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
-                    procName =ouputprocedurename.Value.ToString();
+                    procName = ouputprocedurename.Value.ToString();
                     return procName;
                 }
                 catch(Exception ex)

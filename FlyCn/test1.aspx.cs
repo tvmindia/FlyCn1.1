@@ -36,6 +36,12 @@ namespace FlyCn
                 MailObj.SendExcelImportMail(StatusID, detailsObj.UserName);
             
         }
+
+        protected void Unnamed1_Click(object sender, EventArgs e)
+        {
+            ExcelTemplate eObj = new ExcelTemplate();
+            eObj.GenerateExcelTemplate("C00001","BASE_Electrical");
+        }
        
         
     }

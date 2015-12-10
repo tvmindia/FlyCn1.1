@@ -730,7 +730,7 @@ namespace FlyCn.FlyCnDAL
         /// </summary>
         /// <param name="dsFile"></param>
         /// <returns>success or failure</returns>
-        private int InsertExcelFile(DataSet dsFile)
+        public int InsertExcelFile(DataSet dsFile)
         {
             try
             {
@@ -758,6 +758,12 @@ namespace FlyCn.FlyCnDAL
 
                 for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
                 {
+
+                    string prjnost=dsFile.Tables[0].Rows[i]["ProjectNo"].ToString();
+                    string codep=dsFile.Tables[0].Rows[i]["Code"].ToString();
+                    string descriptionp=dsFile.Tables[0].Rows[i]["Description"].ToString();
+                    string areap=dsFile.Tables[0].Rows[i]["Area"].ToString();
+
                     Thread.Sleep(200);
                     StringBuilder keyFieldLists = new StringBuilder();
                     StringBuilder errorDescLists = new StringBuilder();
