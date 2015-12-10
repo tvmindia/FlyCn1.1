@@ -95,6 +95,21 @@
       <%--------User Defind Javascript Functions------------%>
 
     <script type="text/javascript">
+
+        function OnEnggDataListTreeBinding() {
+            alert(2);
+            treeView = $find("<%= rtvLeftMenu.ClientID %>");
+            alert(3);
+      
+            var node = new Telerik.Web.UI.RadTreeNode();
+            alert(4);
+            node.set_text("New Node");
+            node.set_value("rtn1");
+            alert(5);
+            tree.get_nodes().insert(0, node);
+            alert(6)
+            tree.commitChanges();
+        }
        
        <%--------Close Document PopUp Start------------%>
         function CloseDocumentWindow() {

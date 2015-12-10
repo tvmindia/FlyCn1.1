@@ -11,8 +11,10 @@ namespace FlyCn.EngineeredDataList
 {
     public partial class EnggDataListLandingPage : System.Web.UI.Page
     {
+        string _tree;
         protected void Page_Load(object sender, EventArgs e)
         {
+          //_tree = Request.QueryString["tree"];
             PlaceLandingPageIcons();
         }
          public void PlaceLandingPageIcons()
@@ -21,7 +23,11 @@ namespace FlyCn.EngineeredDataList
             DataSet ds = new DataSet();
             ds = moduleObj.GetModules();
             string tabhtml = "";
-
+            string tabliFirst = "";
+            tabliFirst = " <li style='width:80px;' >" + " <a href='EnggDataListLandingPage.aspx"+ "'" + "'" + "'" + ">" + "<img" + " src=" + "'" +
+                ds.Tables[0].Rows[4]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>"
+                + "All" + "</p>" + "</a></li>";
+           
             string myInnerHtml = "<div>" +
            "<table class='TileTable'  >" +
            " <tr>" +
@@ -32,7 +38,7 @@ namespace FlyCn.EngineeredDataList
 
             int rows = 1;
             int cols = 0;
-
+            horizonaltab.Controls.Add(new LiteralControl(tabliFirst));
             for (int f = 0; f < ds.Tables[0].Rows.Count; f++)
             {
                 tabhtml = " <li style='width:80px;' ><a" + " <a href='EnggDatalistBaseTable.aspx?Id=" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "'" + "'" + "'" + ">" +"<img" + " src=" + "'" + ds.Tables[0].Rows[f]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "</p>" + "</a></li>";

@@ -19,7 +19,11 @@ margin-top:60%;
      font-size:14px;
      margin-left:40px;
  }
-
+ .menu{width: 300px; height: 25; font-size: 18px;}
+  .menu li{list-style: none; float: left; margin-right: 4px; padding: 5px;}
+  .menu li:hover, .menu li.active {
+        background-color: #f90;
+    }
  /*.line {
   padding-right: 20px;
   border-right: 1px solid #cfc7c0;
@@ -50,19 +54,45 @@ ul.departments li a::selection { color:blue}
  .selected {
     background-color: blue;
 }
+ a
+ {
+color:brown;
+ }
+ 
+#nav {  
+
+}  
+
+#nav li { 
+
+    
+}  
+
+#nav li a {  
+    color: #39aea8;  
+   
+ }  
+
+
+
+ul, li {  
+margin: 0; padding: 0;  
+}  
+
+ul#nav li a:link,ul#nav li a:visited {
+color:green;
+text-decoration:solid;
+}
+
+ul#nav li a:hover,ul#nav li a:active {
+color:  #f4ba51 ;
+text-decoration:solid;
+}
     </style>
 
        <script>
-           $(document).ready(function () {             
-               $('#menu ul li a').click(function () {
-                   $('#menu ul li a').removeClass('selected');
-                   $(this).addClass('selected');
-               });
-           });
-           //$('.departments').on('click', function () {
-           //    $('.departments').removeClass('ul.departments  li a ');
-           //    $(this).addClass('li a.selected ');
-           //});
+          
+           
            function UploadNextClick()
            {
                document.getElementById("Upload").style.display = "none";
@@ -95,7 +125,12 @@ ul.departments li a::selection { color:blue}
                document.getElementById("DivValidate").style.display = "none";
             
            }
-          
+           
+           //function codeAddress() {
+           //    alert('ok');
+           //    parent.OnEnggDataListTreeBinding();
+           //}
+           //window.onload = codeAddress;
        </script>
  
 </asp:Content>
@@ -109,11 +144,7 @@ ul.departments li a::selection { color:blue}
               <li style="width:130px;">
 
               </li>
-              <li style="width:80px;">
-                  <a href='EnggDataListLandingPage.aspx'>
-                  <img src="../Images/Icons/pipe16.png" />
-                  <p>All</p></a>
-              </li>
+              
              </ul>
     </div>
               <table style="margin-left:30px;">
@@ -132,8 +163,11 @@ ul.departments li a::selection { color:blue}
 
                       </td>
                       <td style="width:100%">
-                        <div id="menu">
-                           <ul  class=" departments list-inline" id="NavItem"  runat="server" style="width:100%;" >
+                        <div id="nav"  >
+                           <ul  class="list-inline" id="NavItem"  runat="server" style="width:100%;" >
+                               <li>
+
+                               </li>
               <li ><a href="#" onclick= 'GenerateTemplateDivShow();'>
                   Generate Template>>
                   </a>
@@ -256,8 +290,9 @@ ul.departments li a::selection { color:blue}
               
                
                      <div class="col-md-6" style="width:50%; border-left:1px solid #cfc7c0;">
-                        
+                      
                  <asp:Label ID="lblUploadGridHeading" runat="server" Text="Choose Fields"></asp:Label>
+                           <div style="overflow-y:scroll; height:190px;">
                            <asp:UpdatePanel ID="dtgUploadGridUpdatepanel" runat="server" UpdateMode="Conditional">
                    <ContentTemplate>
                   <telerik:RadGrid ID="dtgUploadGrid" runat="server"  AllowSorting="true"   Width="30%"
@@ -286,6 +321,7 @@ ul.departments li a::selection { color:blue}
                     </telerik:RadGrid>
                        </ContentTemplate>
                                </asp:UpdatePanel>
+                            </div>
                         </div>
 
                         
@@ -310,52 +346,26 @@ ul.departments li a::selection { color:blue}
 
           <div  style="display:none;margin-left:50px;" id="DivValidate">
 <div class="col-md-12 Span-One" >
+  	
+ 
                     <div class="col-md-6" >
+                      <asp:Label ID="lblValidationErrorRows" runat="server" Text="Validation error rows"></asp:Label>
+                         
+                       <telerik:RadGrid ID="dtgvalidationErros" runat="server"  AllowSorting="true"   Width="50%"
+                        OnNeedDataSource="dtgvalidationErros_NeedDataSource" AllowMultiRowSelection="True" 
+                        Skin="Silk" CssClass="outerMultiPage"  > 
                    
-                         <table class="table table-bordered" style="width:60%;">
-            <tr>
-                <td>
+                       
 
-                </td>
-                <td>
+                        <MasterTableView DataKeyNames="">
 
-                </td>
-            </tr>
-             <tr>
-                <td>
+                            <Columns>
+                       
 
-                </td>
-                <td>
-
-                </td>
-            </tr>
-                             <tr>
-                <td>
-
-                </td>
-                <td>
-
-                </td>
-            </tr>
-                             <tr>
-                <td>
-
-                </td>
-                <td>
-
-                </td>
-            </tr>
-
-                             <tr>
-                <td>
-
-                </td>
-                <td>
-
-                </td>
-            </tr>
-        </table>
-
+                            </Columns>
+                        </MasterTableView>
+                    
+                    </telerik:RadGrid>
                          
                         </div>
                    <%-- <hr />--%>
@@ -500,7 +510,8 @@ Data import started …../Data import success
                              <tr>
                 
                 <td>
-                    <asp:LinkButton ID="LbtnImportStatus" runat="server"  ForeColor="#006699">Import Status</asp:LinkButton>
+                    <a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Import Status</a>
+                   <%-- <asp:LinkButton ID="LbtnImportStatus" runat="server"  ForeColor="#006699"><a href="../ExcelImport/ImportStatusList.aspx" target="_self">Import Status</a></asp:LinkButton>--%>
                 </td>
             </tr>
         </table>

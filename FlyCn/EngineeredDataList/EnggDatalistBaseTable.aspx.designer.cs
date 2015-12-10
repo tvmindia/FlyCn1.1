@@ -121,6 +121,24 @@ namespace FlyCn.EngineeredDataList {
         protected global::Telerik.Web.UI.RadGrid dtgUploadGrid;
         
         /// <summary>
+        /// lblValidationErrorRows control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblValidationErrorRows;
+        
+        /// <summary>
+        /// dtgvalidationErros control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid dtgvalidationErros;
+        
+        /// <summary>
         /// lblVupldFile control.
         /// </summary>
         /// <remarks>
@@ -209,15 +227,6 @@ namespace FlyCn.EngineeredDataList {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblVErrorsCount;
-        
-        /// <summary>
-        /// LbtnImportStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LbtnImportStatus;
         
         /// <summary>
         /// lblIupldFile control.

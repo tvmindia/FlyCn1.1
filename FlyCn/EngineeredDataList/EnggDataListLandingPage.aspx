@@ -48,11 +48,7 @@
                 <li style="width:130px;">
 
               </li>
-              <li style="width:80px;">
-                  <a href='EnggDataListLandingPage.aspx'>
-                  <img src="../Images/Icons/pipe16.png" />
-                  <p>All</p></a>
-              </li>
+            
  <%-- <li ><a href="#"><img src="../Images/Icons/Civil16.png" /></a></li>
   <li ><a href="#"><img src="../Images/Icons/Civil48.png" /></a></li>
   <li><a href="#"><img src="../Images/Icons/Civil48.png" /></a></li>--%>

@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using FlyCn.FlyCnDAL;
 using System.Data;
+using System.Configuration;
 
 namespace FlyCn.EngineeredDataList
 {
@@ -16,13 +17,21 @@ namespace FlyCn.EngineeredDataList
         string _moduleId;
         string _TableName;
         string _ProjectNo;
+       string _tree ;
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
         protected void Page_Load(object sender, EventArgs e)
         {
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             _moduleId = Request.QueryString["Id"];
-            //hiddenModuleId.Value = _moduleId;
+            
+            if (!Page.IsPostBack)
+            {
+
+                //RadTreeView node = new RadTreeView("rvleftmenu");
+                //node.ExpandMode = TreeNodeExpandMode.ServerSideCallBack;
+                //rvleftmenu.Nodes.Add(node);
+            }
             if (_moduleId != null)
             {
 
@@ -36,7 +45,13 @@ namespace FlyCn.EngineeredDataList
                 DataSet ds = new DataSet();
 
                 ds = moduleObj.GetModules();
+                string  tabliFirst = "";
+                tabliFirst = " <li style='width:80px;' >" + " <a href='EnggDataListLandingPage.aspx" + "'" + "'" + "'" + ">" + "<img" + " src=" + "'" +
+                    ds.Tables[0].Rows[4]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>" 
+                    + "All" + "</p>" + "</a></li>";
+                horizonaltab.Controls.Add(new LiteralControl(tabliFirst));
                 string tabhtml = "";
+
                 for (int f = 0; f < ds.Tables[0].Rows.Count; f++)
                 {
                     tabhtml = " <li style='width:80px;' >" + " <a href='EnggDatalistBaseTable.aspx?Id=" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "'" + "'" + "'" + ">" + "<img" + " src=" + "'" + ds.Tables[0].Rows[f]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "</p>" + "</a></li>";
@@ -123,6 +138,17 @@ namespace FlyCn.EngineeredDataList
             ExcelTemplate eObj = new ExcelTemplate();
             eObj.GenerateExcelTemplate(UA.projectNo,_TableName);
         }
+
+        protected void dtgvalidationErros_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            //DataTable dtObj = new DataTable();
+            //ImportFile imlObj = new ImportFile();
+            ////dtObj = imlObj.getErrorDetails();
+
+
+            //dtgvalidationErros.DataSource = dtObj;
+        }
+
 
     }
 }

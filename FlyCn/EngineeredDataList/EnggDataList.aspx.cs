@@ -21,7 +21,7 @@ namespace FlyCn.EngineeredDataList
             objBOQ.BindTree(tview);
 
             RadPane radpane = ip.FindContentPane(this);
-            objBOQ.LoadInputScreen(radpane);
+            objBOQ.LoadInputScreen(radpane,this);
         }
     }
 }
