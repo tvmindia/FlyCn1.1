@@ -12,7 +12,7 @@ namespace FlyCn.EngineeredDataList
     public partial class EnggDataListLandingPage : System.Web.UI.Page
     {
         string _tree;
-        int maxTilesPerRow = 3;
+        int maxTilesPerRow = 4;
         protected void Page_Load(object sender, EventArgs e)
         {
           //_tree = Request.QueryString["tree"];

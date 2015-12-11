@@ -602,8 +602,8 @@ transition: .25s ease;
     vertical-align: middle;
     text-align: center;    
     cursor: pointer;
-    width:220px;
-    height:150px;
+    width:185px;
+    height:135px;
    
     font-size:medium;
      
@@ -641,20 +641,20 @@ transition: .1s ease;
 .borderRB {
     border-right: inset;
     border-bottom: inset;
-    border-width: thin;    
-   border-color:gray;
+    border-width: thin;
+    border-color: #BFBFBF;
 }
 
 .borderB {
    
     border-bottom:inset;
     border-width:thin;
-     border-color:gray;
+    border-color: #BFBFBF;
 }
 
 .borderR {
     
      border-right:inset;
     border-width:thin;
-     border-color:gray;
+     border-color: #BFBFBF;
 }
