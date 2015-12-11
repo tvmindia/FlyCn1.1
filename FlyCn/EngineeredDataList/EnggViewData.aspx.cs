@@ -587,9 +587,13 @@ namespace FlyCn.EngineeredDataList
                 }
                 ImportFile ifobj = new ImportFile();
                 DataSet ds = new DataSet();
+                ds.Tables.Add(datatableobj);
                // ds.Tables.Add(datatableobj);
-                int result = dynamicmasteroperationobj.InsertMasterData(datatableobj, projectNo, _tableName);
-
+              //  int result = dynamicmasteroperationobj.InsertMasterData(datatableobj, projectNo, _tableName);
+                //for (int i = ds.Tables[0].Rows.Count - 1; i >= 0; i--)
+                //{
+                //    int result = ifobj.InsertExcelFile(ds.Tables[0].Rows[i]);
+                //}
                 dtgEnggDataList.Rebind();
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
                 RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
