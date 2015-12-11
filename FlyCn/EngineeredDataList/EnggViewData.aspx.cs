@@ -113,9 +113,7 @@ namespace FlyCn.EngineeredDataList
                         TextBox box = new TextBox();
                         box.Attributes.Add("class", "form-control");
                         box.ID = "txt" + datatableobj.Rows[f]["Field_Name"].ToString();
-
-
-
+                                                        
                         CheckBox checkbox = new CheckBox();
                         checkbox.ID = "chk" + datatableobj.Rows[f]["Field_Name"].ToString();
                         checkbox.Text = "chk" + datatableobj.Rows[f]["Field_Name"].ToString();

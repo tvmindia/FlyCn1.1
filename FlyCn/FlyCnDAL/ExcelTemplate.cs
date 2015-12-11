@@ -101,11 +101,25 @@ namespace FlyCn.FlyCnDAL
                   
 
                     }
-                          
 
+                    ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Note: * marked fields are mandatory";
+                    ExcelWorkSheet.Cells[colIndex, rowIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
                     ExcelWorkSheet.Name = SheetNames[1];
-                    ExcelWorkBook.SaveCopyAs(@"E:\Copy_Myfile.xlsx");
-          
+                  //  ExcelWorkBook.SaveCopyAs(@"E:\Copy_Myfile.xlsx");
+                    string path = @"E:\";
+
+                    string file = path+"ExcelImport_" + tablename;
+                    //ExcelWorkBook.SaveAs(path+file);
+
+
+                   HttpContext.Current.Response.AppendHeader("content-disposition", "attachment; filename=" + file);
+
+                   HttpContext.Current.Response.ContentType = "Application/x-msexcel";
+
+
+
+
+ExcelWorkBook.SaveAs(file);
                    ExcelWorkBook.Close();
                     ExcelApp.Quit();
               
