@@ -39,8 +39,9 @@ namespace FlyCn.BOQ
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
-            SecurityCheck();
             ToolBarVisibility(4);
+            SecurityCheck();
+           
             BOQHeaderDetails  BOQObj= new BOQHeaderDetails();         
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
@@ -141,6 +142,7 @@ namespace FlyCn.BOQ
             {//Only Edit functionality is needed in BOQheader so no delete
                 if (e.CommandName == "EditDoc")//EditDoc  is named because Radgrid has its own definition for Edit
                 {
+                    
                     RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                     GridDataItem item = e.Item as GridDataItem;
                     tab.Selected = true;

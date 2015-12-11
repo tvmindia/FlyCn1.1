@@ -308,6 +308,14 @@
 
                     eventArgs.set_cancel(false);
                 }
+                else
+                    if (tab.get_text() == "Details") {
+                        <%=ToolBar.ClientID %>_SetEditVisible(false);
+                        <%=ToolBar.ClientID %>_SetAddVisible(false);
+                        <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                        <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                        <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                    }
             }
             else
                 if (PageSecurity.isReadOnly) {
@@ -319,12 +327,13 @@
                     else 
                         if (tab.get_text() == "Details")
                         {
-                             <%=ToolBar.ClientID %>_SetEditVisible(false);
+                            <%=ToolBar.ClientID %>_SetEditVisible(false);
                             <%=ToolBar.ClientID %>_SetAddVisible(false);
                             <%=ToolBar.ClientID %>_SetSaveVisible(false);
                             <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                             <%=ToolBar.ClientID %>_SetDeleteVisible(false);
                         }
+                   
                 }
                 else if (PageSecurity.isEditOnly) {
                     if (tab.get_text() == "New") {
@@ -332,6 +341,14 @@
                         AlertMsg(messages.EditModeNewClick);
                         eventArgs.set_cancel(true);
                     }
+                    else 
+                        if (tab.get_text() == "Details") {
+                            <%=ToolBar.ClientID %>_SetEditVisible(false);
+                            <%=ToolBar.ClientID %>_SetAddVisible(false);
+                            <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                            <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                        }
                 }
 
 
@@ -340,7 +357,8 @@
         
         function onClientTabSelected(sender, args) {
 
-        var tab = args.get_tab();
+            var tab = args.get_tab();
+          
         if (tab.get_value() == '2')
         {
            
@@ -361,7 +379,17 @@
                 <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                 <%=ToolBar.ClientID %>_SetDeleteVisible(false);
 }
-              }
+          
+       
+            if((PageSecurity.isReadOnly))
+            {
+                <%=ToolBar.ClientID %>_SetEditVisible(false);
+                <%=ToolBar.ClientID %>_SetAddVisible(false);
+                <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+            }
+            }
             catch (x)
             {
                 alert(x.message);
@@ -373,7 +401,7 @@
                 EnableBOQHeaderTextBox();//remove readonly property from the text boxes
                 v1 = document.getElementById('<%=ContentIframe.ClientID %>');
                 v1.style["display"] = "none";//disabling iframe
-               
+                       
             }
             if ($('#hdfEditStatus').val() == "GridEdit")//here gridedit value is set upon the grid edit event code behind code
             {//this checking determines update is from gridedit so when user clicks on new tab the child iframe should clear
@@ -443,6 +471,8 @@
                 event.preventDefault();          
                 OpenDetailAccordion(this);
             });
+
+         
 
         });
 

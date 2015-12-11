@@ -178,7 +178,7 @@ namespace FlyCn.FlyCnDAL
                 //if (userName == "User3")
                 //{
                 //    isRead = true;
-                //    isWrite = false;
+                //    isWrite = false;                         
                 //    isDelete = false;
                 //    isExecute = "";
                 //}
