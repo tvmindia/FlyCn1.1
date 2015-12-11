@@ -769,7 +769,7 @@ namespace FlyCn.FlyCnDAL
                     else if (res == 1)
                     {
                         int insertResult;
-                        insertResult = InsertExcelFile(dsTable, dsFile.Tables[0].Rows[i], ExcelFileName);
+                        insertResult = InsertExcelFile(dsTable,dsFile.Tables[0].Rows[i]);
                         if (insertResult == 1)
                         {
                             insertcount = insertcount + 1;
@@ -810,7 +810,7 @@ namespace FlyCn.FlyCnDAL
         /// </summary>
         /// <param name="dsFile"></param>
         /// <returns>success or failure</returns>
-        public int InsertExcelFile(DataSet dsTable, DataRow dr, string excelFileName)
+        public int InsertExcelFile(DataSet dsTable,DataRow dr)
         {
             try
             {
@@ -819,7 +819,8 @@ namespace FlyCn.FlyCnDAL
                 CommonDAL tblDef = new CommonDAL();
                 //DAL.Constants constantList = new DAL.Constants();
                 dbConnection dbcon = new dbConnection();
-                //dsTable = tblDef.GetTableDefinition("M_Location");
+               
+                //dsTable = tblDef.GetTableDefinition(TableName);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = tblDef.GetProcedureName(TableName);
                 cmd.Connection = dbcon.GetDBConnection();
