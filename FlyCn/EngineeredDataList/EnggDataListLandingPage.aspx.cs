@@ -12,11 +12,30 @@ namespace FlyCn.EngineeredDataList
     public partial class EnggDataListLandingPage : System.Web.UI.Page
     {
         string _tree;
+        int maxTilesPerRow = 3;
         protected void Page_Load(object sender, EventArgs e)
         {
           //_tree = Request.QueryString["tree"];
             PlaceLandingPageIcons();
         }
+
+        public string getBorderClass(int col,int row,int totrow){
+
+            if (row == totrow && col == maxTilesPerRow)
+                return "";
+            if (row == totrow)
+                return "borderR";
+            if(col<maxTilesPerRow)
+                return "borderRB";
+            if (col == maxTilesPerRow)
+                return "borderB";
+
+
+
+
+            return "";
+        }
+
          public void PlaceLandingPageIcons()
         {
             Modules moduleObj = new Modules();
@@ -27,46 +46,47 @@ namespace FlyCn.EngineeredDataList
             tabliFirst = " <li style='width:80px;' >" + " <a href='EnggDataListLandingPage.aspx"+ "'" + "'" + "'" + ">" + "<img" + " src=" + "'" +
                 ds.Tables[0].Rows[4]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>"
                 + "All" + "</p>" + "</a></li>";
-           
-            string myInnerHtml = "<div>" +
-           "<table class='TileTable'  >" +
-           " <tr>" +
-                "<td style =" + "width:100%>" +
-                    "<div style=" + "width:100%;>" +
-                        "<table style=" + "width:100%;>" +
-                            "<tr>";
+
+            string myInnerHtml = "<div class='EnggTilesContainerDiv'>" +
+           "<table class='EnggTilesContainerTBL'>" +
+           " <tr>";
 
             int rows = 1;
             int cols = 0;
+            int totRows = 0;
+            if ((ds.Tables[0].Rows.Count) % maxTilesPerRow==0) {
+
+                totRows = (ds.Tables[0].Rows.Count) / maxTilesPerRow;
+            } else {
+                totRows = (ds.Tables[0].Rows.Count) / maxTilesPerRow;
+                totRows = totRows + 1;
+            }
+
             horizonaltab.Controls.Add(new LiteralControl(tabliFirst));
             for (int f = 0; f < ds.Tables[0].Rows.Count; f++)
             {
                 tabhtml = " <li style='width:80px;' ><a" + " <a href='EnggDatalistBaseTable.aspx?Id=" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "'" + "'" + "'" + ">" +"<img" + " src=" + "'" + ds.Tables[0].Rows[f]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "</p>" + "</a></li>";
 
-                horizonaltab.Controls.Add(new LiteralControl(tabhtml));
-
-                //HtmlGenericControl divcontrol = new HtmlGenericControl("div");
-                //divcontrol.ID = "div" + ds.Tables[0].Rows[f]["ModuleDesc"].ToString();
-                //divcontrol.InnerText = ds.Tables[0].Rows[f]["ModuleIconURLsmall"].ToString();
-                //divcontrol.Attributes.Add("class", "tab tab2");
+                horizonaltab.Controls.Add(new LiteralControl(tabhtml));                 
                 
                 cols = cols + 1;
-                myInnerHtml = myInnerHtml + Environment.NewLine;
 
-            
-                myInnerHtml = myInnerHtml + "<td class='EnggDatalistIcons" + "'>";
-                    string img = ds.Tables[0].Rows[f]["ModuleIconURL"].ToString();
-                    string desc = ds.Tables[0].Rows[f]["ModuleDesc"].ToString();
-                  
-                    myInnerHtml = myInnerHtml + " <table class='TileIcon' style='height:110px'> <tr><td  style='height:100px;border=0' 'vertical-align: bottom;'>" +
-                        " <a href='EnggDatalistBaseTable.aspx?Id="+ds.Tables[0].Rows[f]["ModuleID"].ToString() +"'" + "'" + "'" + ">" + "<img" + " src=" + "'" + img
-                           + "'" + "','" + desc + "' border=" + "0" + " alt=Submission Form" + "/><p>" + desc + "</p></a></td></tr>" +
-                      "</table></td>";
-                
+                string borderClass = getBorderClass(cols, rows, totRows);
+                myInnerHtml = myInnerHtml + "<td class='EnggDatalistIcons  " + borderClass + "" + "'>";
+                string img = ds.Tables[0].Rows[f]["ModuleIconURL"].ToString();
+                string desc = ds.Tables[0].Rows[f]["ModuleDesc"].ToString();
+                string url = "EnggDatalistBaseTable.aspx?Id=" + ds.Tables[0].Rows[f]["ModuleID"].ToString();
+              
 
-                
+                myInnerHtml = myInnerHtml + " <table class='EnggTileInnerTable'> <tr><td>" +
+                " <a href='"+ url +"'>" + "<img" + " src=" + "'" + img
+                + "'" + "','" + desc + "' border=" + "0" + " alt=Submission Form" + "/></a></td></tr><tr><td style='padding:5px;'>" + desc + "</td></tr>" +
+                "</table></td>";
 
-                if ((f + 1) % 3 == 0)
+
+
+
+                if ((f + 1) % maxTilesPerRow == 0)
                 {
                     myInnerHtml = myInnerHtml + "</tr>" +
                                "  <tr>";
@@ -77,18 +97,11 @@ namespace FlyCn.EngineeredDataList
                
       
             }
-                myInnerHtml = myInnerHtml +
-                 "</tr>" +
-                     " </table>" +
-                  "</div>" +
-              "</td>" +
-
-          " <td >" +
-
-            "</td>" +
-                         " </tr>" +
-    "  </table>" +
-"  </div> ";
+            myInnerHtml = myInnerHtml +
+             "</tr>" +
+                 " </table></div>";
+               
+              
            
                     body.Controls.Add(new LiteralControl(myInnerHtml));
            

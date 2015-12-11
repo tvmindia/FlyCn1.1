@@ -596,3 +596,65 @@ transition: .25s ease;
         cursor:pointer;
 
 }
+
+
+   .EnggDatalistIcons {    
+    vertical-align: middle;
+    text-align: center;    
+    cursor: pointer;
+    width:220px;
+    height:150px;
+   
+    font-size:medium;
+     
+}
+        .EnggDatalistIcons:hover {
+    background-color: #FEFDFA;
+}
+
+.EnggTilesContainerDiv {
+    width:100%;
+    text-align:center;
+    
+}
+.EnggTilesContainerTBL {
+    border:none!important;
+    margin: auto;
+    
+}
+
+.EnggTileInnerTable {
+    width:100%;
+   
+    
+}
+
+.EnggTileInnerTable:hover {
+    
+   -webkit-transform:  scale(1.03);
+-ms-transform: scale(1.1);
+transform:   scale(1.1);
+transition: .1s ease;
+    
+}
+
+.borderRB {
+    border-right: inset;
+    border-bottom: inset;
+    border-width: thin;    
+   border-color:gray;
+}
+
+.borderB {
+   
+    border-bottom:inset;
+    border-width:thin;
+     border-color:gray;
+}
+
+.borderR {
+    
+     border-right:inset;
+    border-width:thin;
+     border-color:gray;
+}
