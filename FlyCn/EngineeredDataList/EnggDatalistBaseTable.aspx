@@ -185,33 +185,18 @@ ul.departments { list-style-type: none; }*/
     </table>
 
     <div class="importWizardContainer">
-    <div id="body" runat="server" class="container table-responsive" style="width: 100%; height: 100%; margin-left: 50px;">
+    <div id="body" runat="server" class="container table-responsive" style="width: 90%; height: 100%; margin-left: 50px;">
 
 
-        <div id="GenerateTemplate">
+        <div id="GenerateTemplate" >
             <div class="col-md-12 Span-One">
-                <table>
-
-
-                    <tr style="height: 30px;">
-                        <td></td>
-                    </tr>
-                    <tr style="height: 30px;">
-                        <td>
-                            <asp:Button ID="btnExcelIimport" runat="server" Text="Get Excel Import" CssClass="buttonExcelImport" OnClick="btnExcelIimport_Click" />
-
-                        </td>
-                    </tr>
-                    <tr style="height: 30px;">
-                        <td></td>
-                    </tr>
-                </table>
+                 <asp:Button class="Flatbutton" style="width:300px" ID="btnExcelIimport" runat="server" Text="Download Excel Template"  OnClick="btnExcelIimport_Click"  />
+                    
 
 
 
 
-
-                <ul style="list-style-type: disc">
+                <ul class="importWizardList">
                     <li>Please save the excel</li>
                     <li>fill the data and make it ready for upload</li>
                     <li>click Next Button to get upload option</li>
@@ -222,19 +207,21 @@ ul.departments { list-style-type: none; }*/
             <table class="buttonTable">
                 <tr>
                     <td>
-
-                        <a href="#" class="buttonNext" onclick="return GenerateTemplateNextClick();">
-                            <div id="btnMainDiv" class="nav btnDivCommon">
-                                Next>>
+                        <div class="Flatbutton" style="width:150px">
+                             <a href="#" class="buttonNext" onclick="return GenerateTemplateNextClick();">
+                            <div id="btnMainDiv" class="nav" style="color:white">
+                                Next &nbsp;<img src="../Images/Icons/RightArrow16.png" />
                             </div>
                         </a>
+                        </div>
+                       
                     </td>
                 </tr>
             </table>
         </div>
 
 
-    </div>
+   
 
     <div id="Upload" style="display: none; margin-left: 50px;">
 
@@ -589,6 +576,8 @@ ul.departments { list-style-type: none; }*/
             </tr>
         </table>
     </div>
+
+         </div>
     </div>
 
 </asp:Content>
