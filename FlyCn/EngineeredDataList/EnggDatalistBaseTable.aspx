@@ -137,13 +137,10 @@ text-decoration:solid;
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
        
-      <div id="content">
-             <div class="contentTopBar"></div>
-    <div id="Heading" runat="server" >
+     
+    <div id="Heading" runat="server" style="width: 90%; text-align: center;margin:20px">
           <ul class="list-inline" id="horizonaltab"  runat="server" style="width:100%;" >
-              <li style="width:130px;">
-
-              </li>
+                <li style="width: 10px;"></li>
               
              </ul>
     </div>
@@ -627,6 +624,6 @@ Data import started …../Data import success
                             </tr>
                          </table>
         </div>
-        </div>
+       
        
 </asp:Content>
