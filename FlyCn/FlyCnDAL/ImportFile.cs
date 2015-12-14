@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Text;
 using System.Data.OleDb;
 using System.Threading;
+using System.Web.Caching;
 
 namespace FlyCn.FlyCnDAL
 {
@@ -605,7 +606,7 @@ namespace FlyCn.FlyCnDAL
         //methods from javad updatedExcelimport
         #region javadmethods
         #region ImportExcelFile
-        public void ImportExcelFile()
+        public DataSet ImportExcelFile()
         {
 
 
@@ -629,7 +630,7 @@ namespace FlyCn.FlyCnDAL
                     if (fileExtensionCheck == 0)
                     {
                         importStatus = -1;
-                        return;
+                        return dsFile=null;
                     }
 
                     else
@@ -658,7 +659,7 @@ namespace FlyCn.FlyCnDAL
                         if (dt == null)
                         {
                             importStatus = -1;
-                            return;
+                            return dsFile = null;
                         }
 
                         String[] excelSheets = new String[dt.Rows.Count];
@@ -682,22 +683,21 @@ namespace FlyCn.FlyCnDAL
                             {
                                 failureMessage = "No data found!";
                                 importStatus = -1;
-                                return;
+                                return dsFile = null;
                             }
                         }
-
                     }
 
                     //Reading Excel File To Dataset
 
-                    int result = InsertExcelFile(dsFile);
+                    //int result = InsertExcelFile(dsFile);
 
-                    if (result == -1)
-                    {
-                        errorMessage = "Invalid Excel";
-                        importStatus = -1;
-                        return;
-                    }
+                    //if (result == -1)
+                    //{
+                    //    errorMessage = "Invalid Excel";
+                    //    importStatus = -1;
+                    //    return;
+                    //}
                 }
             }
             catch (Exception ex)
@@ -709,8 +709,8 @@ namespace FlyCn.FlyCnDAL
 
             }
 
-            importStatus = 1;
-            return;
+           // importStatus = 1;
+            return dsFile;
         }
         #endregion ImportExcelFile
 

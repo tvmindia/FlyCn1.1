@@ -233,7 +233,7 @@ ul.departments { list-style-type: none; }*/
                
                     <asp:FileUpload ID="DataImportFileUpload" runat="server" class="FlatbuttonUpload" width="300px" /> </div>
                   <div class="col-md-2">
-                    <asp:Button ID="btnUpload" runat="server" Text="Upload" class="Flatbutton" Style="width: 80px" /> 
+                    <asp:Button ID="btnUpload" runat="server" Text="Upload" class="Flatbutton" OnClick="btn_upload_Click" Style="width: 80px" /> 
 
 
                      </div>

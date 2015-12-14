@@ -20,18 +20,37 @@ namespace FlyCn.EngineeredDataList
        string _tree ;
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
+        ImportFile importObj = new ImportFile();
+        CommonDAL comDAL = new CommonDAL();
+        Modules moduleObj = new Modules();
+        DataSet tempDS = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
-            _moduleId = Request.QueryString["Id"];
+                _moduleId = Request.QueryString["Id"];
             
-            if (!Page.IsPostBack)
-            {
-
+         
                 //RadTreeView node = new RadTreeView("rvleftmenu");
                 //node.ExpandMode = TreeNodeExpandMode.ServerSideCallBack;
                 //rvleftmenu.Nodes.Add(node);
-            }
+                if (Request.QueryString["Id"] != null)
+                {
+                    moduleObj.ModuleID = Request.QueryString["Id"];
+                    comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
+
+                }
+                else 
+                {
+                    moduleObj.ModuleID = "ELE";
+                    comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
+                    
+                }
+               
+                importObj.ProjectNo = UA.projectNo;
+                importObj.UserName = UA.userName;
+              
+
+          
             if (_moduleId != null)
             {
 
@@ -147,6 +166,72 @@ namespace FlyCn.EngineeredDataList
 
 
             //dtgvalidationErros.DataSource = dtObj;
+        }
+
+        protected void btn_upload_Click(object sender, EventArgs e)
+        {
+
+            importObj.TableName = comDAL.tableName;
+
+            // importObj.fileName = "file";
+            try
+            {
+                if (DataImportFileUpload.HasFile)
+                {
+                    string path = Server.MapPath("~/Content/Fileupload/").ToString();
+                    importObj.fileName = DataImportFileUpload.FileName.ToString();
+                    importObj.fileLocation = path + importObj.fileName;
+                    importObj.temporaryFolder = path;
+                    DeleteDuplicateFile(importObj.fileLocation);//deletes the file if the same file name exists in the folder
+                    DataImportFileUpload.SaveAs(importObj.fileLocation);
+                    importObj.testFile = importObj.fileName;
+                    importObj.ExcelFileName = importObj.fileName;
+                    //Thread excelImportThread = new Thread(new ThreadStart(importObj.ImportExcelFile));
+                    //excelImportThread.Start();
+                    tempDS = new DataSet();
+                    tempDS=importObj.ImportExcelFile();
+                     if (tempDS.Tables[0].Rows.Count>0)
+                     {
+                         ViewState["ExcelDS"] = tempDS;
+                     }
+                     tempDS = null;
+                     tempDS = (DataSet)ViewState["ExcelDS"];
+                    //lblMsg.Text = "Thread started";
+                }//end of hasfile if
+            }//end try
+            catch (Exception ex)
+            {
+               // lblMsg.Text = ex.Message;
+                throw ex;
+            }
+            finally
+            {
+
+            }       
+        }
+
+
+        public bool DeleteDuplicateFile(string location)
+        {
+            if (System.IO.File.Exists(location))
+            {
+                try
+                {
+                    System.IO.File.Delete(location);
+                    return true;
+                }
+
+                catch (Exception ex)
+                {
+                   // lblMsg.Text = "Problem while deleting previous file,Please try again!";
+                    //importObj.importStatus = -1;
+                    throw ex;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
 

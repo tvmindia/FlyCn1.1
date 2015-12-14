@@ -45,7 +45,7 @@ namespace FlyCn.FlyCnDAL
                 ExcelWorkBook = ExcelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
                 
              
-              string filename= "E:Myfile.xlsx";
+            
            
                 List<string> SheetNames = new List<string>();
                 SheetNames.Add("Fields");
@@ -106,22 +106,17 @@ namespace FlyCn.FlyCnDAL
                     ExcelWorkSheet.Cells[colIndex, rowIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
                     ExcelWorkSheet.Name = SheetNames[1];
                   //  ExcelWorkBook.SaveCopyAs(@"E:\Copy_Myfile.xlsx");
-                    string path = @"E:\";
+                  
 
-                    string file = path+"ExcelImport_" + tablename;
+                    string file = "ExcelImport_" + tablename;
                     //ExcelWorkBook.SaveAs(path+file);
+                   //HttpContext.Current.Response.AppendHeader("content-disposition", "attachment; filename=" + file);
 
-
-                   HttpContext.Current.Response.AppendHeader("content-disposition", "attachment; filename=" + file);
-
-                   HttpContext.Current.Response.ContentType = "Application/x-msexcel";
-
-
-
-
-ExcelWorkBook.SaveAs(file);
+                   //HttpContext.Current.Response.ContentType = "Application/x-msexcel";
+                
+                   ExcelWorkBook.SaveAs(file);
                    ExcelWorkBook.Close();
-                    ExcelApp.Quit();
+                   ExcelApp.Quit();
               
                 Marshal.ReleaseComObject(ExcelWorkSheet);
                 Marshal.ReleaseComObject(ExcelWorkBook);
