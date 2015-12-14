@@ -77,7 +77,7 @@ namespace FlyCn.EngineeredDataList
             dtgUploadGrid.MasterTableView.GetColumn("ExcelMustFields").Visible = false;
             dtgUploadGrid.MasterTableView.GetColumn("Field_DataType").Visible = false;
             dtgUploadGrid.MasterTableView.GetColumn("Key_Field").Visible = false;
-
+            dtgUploadGrid.MasterTableView.GetColumn("Field_Name").Visible = false;
             
             
         }

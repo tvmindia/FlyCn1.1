@@ -185,7 +185,7 @@ ul.departments { list-style-type: none; }*/
     </table>
 
     <div class="importWizardContainer">
-    <div id="body" runat="server" class="container table-responsive" style="width: 90%; height: 100%; margin-left: 50px;">
+    <div id="body" runat="server" class="container table-responsive" style="width: 96%; height: 100%; margin-left: 5px;">
 
 
         <div id="GenerateTemplate" >
@@ -223,48 +223,33 @@ ul.departments { list-style-type: none; }*/
 
    
 
-    <div id="Upload" style="display: none; margin-left: 50px;">
+    <div id="Upload" style="display: none; margin-left: 2px;">
 
 
-        <div class="col-md-12 Span-One">
-            <div class="col-md-6">
-                <table>
-                    <tr>
-                        <td></td>
-                    </tr>
+        <div class="col-md-12 Span-One" style="vertical-align:middle">
+            <div class="col-md-4" style="text-align:left;margin-top:5%">
+
+                 <div class="col-md-10">
+               
+                    <asp:FileUpload ID="DataImportFileUpload" runat="server" class="FlatbuttonUpload" width="300px" /> </div>
+                  <div class="col-md-2">
+                    <asp:Button ID="btnUpload" runat="server" Text="Upload" class="Flatbutton" Style="width: 80px" /> 
 
 
-                    <tr style="height: 30px;">
-                        <td>&nbsp
-                        </td>
-                    </tr>
-                    <tr style="height: 30px;">
+                     </div>
 
-                        <td>
-
-                            <asp:FileUpload ID="DataImportFileUpload" runat="server" CssClass="fileUploadbutton" />
-
-                        </td>
-                        <td>
-                            <asp:Button ID="btnUpload" runat="server" Text="Upload" />
-                        </td>
-
-                    </tr>
-                    <tr style="height: 30px;">
-                        <td></td>
-                    </tr>
-                </table>
 
             </div>
+            <div class="col-md-1">&nbsp;</div>
+               <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:250px">&nbsp;</div>
+            <div class="col-md-5" >
 
-
-            <div class="col-md-6" style="width: 50%; border-left: 1px solid #cfc7c0;">
-
-                <asp:Label ID="lblUploadGridHeading" runat="server" Text="Choose Fields"></asp:Label>
-                <div style="overflow-y: scroll; height: 190px;">
+                <asp:Label ID="lblUploadGridHeading" runat="server" Text="Choose Fields" CssClass="subtitle"></asp:Label>
+                <div style="height: 220px;" class="chooseFieldsBox">
+                    <div  style="overflow-y: scroll; height: 200px;">
                     <asp:UpdatePanel ID="dtgUploadGridUpdatepanel" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <telerik:RadGrid ID="dtgUploadGrid" runat="server" AllowSorting="true" Width="30%"
+                            <telerik:RadGrid ID="dtgUploadGrid" runat="server" AllowSorting="true" 
                                 OnNeedDataSource="dtgUploadGrid_NeedDataSource" AllowMultiRowSelection="True"
                                 Skin="Silk" CssClass="outerMultiPage" OnPreRender="dtgUploadGrid_PreRender" OnItemCommand="dtgUploadGrid_ItemCommand"
                                 OnItemDataBound="dtgUploadGrid_ItemDataBound">
@@ -290,14 +275,28 @@ ul.departments { list-style-type: none; }*/
                             </telerik:RadGrid>
                         </ContentTemplate>
                     </asp:UpdatePanel>
+                        </div>
                 </div>
             </div>
 
 
             <%--     <asp:Button ID="btnNext" runat="server" Text="Next>>"  Height="35px" Width="100px"   CssClass="buttonNext" OnClientClick="NextClick()"   />--%>
         </div>
-
         <table class="buttonTable">
+                <tr>
+                    <td>
+                        <div class="Flatbutton" style="width:150px">
+                             <a href="#" class="buttonNext" onclick="return UploadNextClick();">
+                            <div id="Div1" class="nav" style="color:white">
+                                Next &nbsp;<img src="../Images/Icons/RightArrow16.png" />
+                            </div>
+                        </a>
+                        </div>
+                       
+                    </td>
+                </tr>
+            </table>
+        <%--<table class="buttonTable">
             <tr>
                 <td>
                     <a href="#" class="buttonNext" onclick="return UploadNextClick();">
@@ -307,7 +306,7 @@ ul.departments { list-style-type: none; }*/
                     </a>
                 </td>
             </tr>
-        </table>
+        </table>--%>
     </div>
 
 
@@ -316,8 +315,8 @@ ul.departments { list-style-type: none; }*/
         <div class="col-md-12 Span-One">
 
 
-            <div class="col-md-6">
-                <asp:Label ID="lblValidationErrorRows" runat="server" Text="Validation error rows"></asp:Label>
+            <div class="col-md-5">
+                <asp:Label ID="lblValidationErrorRows" runat="server" Text="Validation error rows" CssClass="subtitle"></asp:Label>
 
                 <telerik:RadGrid ID="dtgvalidationErros" runat="server" AllowSorting="true" Width="50%"
                     OnNeedDataSource="dtgvalidationErros_NeedDataSource" AllowMultiRowSelection="True"
@@ -334,90 +333,46 @@ ul.departments { list-style-type: none; }*/
                 </telerik:RadGrid>
 
             </div>
-            <%-- <hr />--%>
+            <div class="col-md-1">&nbsp;</div>
+               <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:250px">&nbsp;</div>
+            
 
-            <div class="col-md-6" style="border-left: 1px solid #cfc7c0;">
+            <div class="col-md-5" >
+                <div class="col-md-12 infoBoxTitle">Details </div>
+                <div class="col-md-12 infoBox"> 
+                    <br />   
+                <div class="col-md-7">
+                    <asp:Label ID="lblVupldFile" runat="server" Text="Uploaded file"></asp:Label>
+                </div>
 
-                <table class="" style="width: 40%;">
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblVupldFile" runat="server" Text="Uploaded file"></asp:Label>
+                <div class="col-md-5">
+                    <asp:Label ID="lblVupldFilename" runat="server" Text="aasasas.xlsx"></asp:Label>
+                </div>
 
+                <div class="col-md-7"><asp:Label ID="lblVtotlrows" runat="server" Text="Total rows"></asp:Label>
+                </div>
+                <div class="col-md-5"> <asp:Label ID="lblVtotltowcount" runat="server" Text="100"></asp:Label>
+                </div>
 
-                        </td>
-                        <td>:
-                        </td>
+                <div class="col-md-7">  <asp:Label ID="lblVexisting" runat="server" Text="Existing"></asp:Label>
+                </div>
+                <div class="col-md-5"> <asp:Label ID="lblVexistingCount" runat="server" Text="25"></asp:Label>
+                </div>
 
-                        <td>
-                            <asp:Label ID="lblVupldFilename" runat="server" Text="aasasas.xlsx"></asp:Label>
+                <div class="col-md-7">    <asp:Label ID="lblVNew" runat="server" Text="New"></asp:Label>
+                </div>
+                <div class="col-md-5"> <asp:Label ID="lblVNewCount" runat="server" Text="75"></asp:Label>
+                </div>
 
+                <div class="col-md-7"> <asp:Label ID="lblVErrors" runat="server" Text="Errors"></asp:Label>
+                </div>
+                <div class="col-md-5"> <asp:Label ID="lblVErrorsCount" runat="server" Text=" 1"></asp:Label>
+                </div>
+                       <br />   <br />
+                    </div>
+                            
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblVtotlrows" runat="server" Text="Total rows"></asp:Label>
-
-
-                        </td>
-                        <td>:
-                        </td>
-                        <td>
-                            <asp:Label ID="lblVtotltowcount" runat="server" Text="100"></asp:Label>
-
-
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblVexisting" runat="server" Text="Existing"></asp:Label>
-
-
-
-                        </td>
-                        <td>:
-                        </td>
-                        <td>
-                            <asp:Label ID="lblVexistingCount" runat="server" Text="25"></asp:Label>
-
-
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblVNew" runat="server" Text="New"></asp:Label>
-
-
-
-                        </td>
-                        <td>:
-                        </td>
-                        <td>
-                            <asp:Label ID="lblVNewCount" runat="server" Text="75"></asp:Label>
-
-
-
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblVErrors" runat="server" Text="Errors"></asp:Label>
-
-
-
-                        </td>
-                        <td>:
-                        </td>
-                        <td>
-                            <asp:Label ID="lblVErrorsCount" runat="server" Text=" 1"></asp:Label>
-
-
-                        </td>
-                    </tr>
-                </table>
+                 
 
 
             </div>
@@ -426,7 +381,22 @@ ul.departments { list-style-type: none; }*/
             <%--  <asp:Button ID="Button2" runat="server" Text="Next>>"  Height="35px" Width="100px"   CssClass="buttonNext"   />--%>
         </div>
 
-        <table class="buttonTable">
+          <table class="buttonTable">
+                <tr>
+                    <td>
+                        <div class="Flatbutton" style="width:150px">
+                             <a href="#" class="buttonNext" onclick="return Import();">
+                            <div id="Div2" class="nav" style="color:white">
+                                Import &nbsp;<img src="../Images/Icons/RightArrow16.png" />
+                            </div>
+                        </a>
+                        </div>
+                       
+                    </td>
+                </tr>
+            </table>
+
+        <%--<table class="buttonTable">
             <tr>
                 <td>
                     <a href="#" class="buttonNext btnDivCommon" onclick="return Import();">
@@ -436,126 +406,65 @@ ul.departments { list-style-type: none; }*/
                     </a>
                 </td>
             </tr>
-        </table>
+        </table>--%>
     </div>
 
 
-    <div style="display: none; margin-left: 50px;" id="Import">
+    <div style="display: none; margin-left: 5px;" id="Import">
         <div class="col-md-12 Span-One">
-            <div class="col-md-6">
+            <div class="col-md-5" style="padding-top:50px">
 
-                <table class="" style="width: 90%;">
+                  <div class="col-md-12">
+                      <asp:Label ID="Label1" runat="server" Text="Thread Started ...." CssClass="subtitle"></asp:Label></div>
+                  <div class="col-md-12">&nbsp;</div>  <div class="col-md-12">&nbsp; </div>
+                <div class="col-md-12 subtitle" style="text-decoration:underline;color:darkblue">
 
-                    <tr style="height: 20px;">
-
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Data import started …../Data import success				
-
-                        </td>
-
-                    </tr>
-                    <tr style="height: 20px;">
-
-
-                        <td></td>
-                    </tr>
-
-                    <tr>
-
-                        <td>
-                            <a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Import Status</a>
-                            <%-- <asp:LinkButton ID="LbtnImportStatus" runat="server"  ForeColor="#006699"><a href="../ExcelImport/ImportStatusList.aspx" target="_self">Import Status</a></asp:LinkButton>--%>
-                        </td>
-                    </tr>
-                </table>
-
+                     <a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+                </div>
+                           
+                           
+                        
 
             </div>
-            <%-- <hr />--%>
+          
+             <div class="col-md-1">&nbsp;</div>
+               <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:250px">&nbsp;</div>
+            <div class="col-md-5"  >
 
-            <div class="col-md-6" style="border-left: 1px solid #cfc7c0;">
+                 <div class="col-md-12 infoBoxTitle">Details </div>
+                <div class="col-md-12 infoBox"> 
+                    <br />   
+                <div class="col-md-7">
+                    <asp:Label ID="Label2" runat="server" Text="Uploaded file"></asp:Label>
+                </div>
 
-                <table class="" style="width: 50%;">
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblIupldFile" runat="server" Text="Uploaded file"></asp:Label>
+                <div class="col-md-5">
+                    <asp:Label ID="Label3" runat="server" Text="aasasas.xlsx"></asp:Label>
+                </div>
 
+                <div class="col-md-7"><asp:Label ID="Label4" runat="server" Text="Total rows"></asp:Label>
+                </div>
+                <div class="col-md-5"> <asp:Label ID="Label5" runat="server" Text="100"></asp:Label>
+                </div>
 
+                <div class="col-md-7">  <asp:Label ID="Label6" runat="server" Text="Existing"></asp:Label>
+                </div>
+                <div class="col-md-5"> <asp:Label ID="Label7" runat="server" Text="25"></asp:Label>
+                </div>
 
-                        </td>
-                        <td>:
-                        </td>
-                        <td>
-                            <asp:Label ID="lblIupldFileName" runat="server" Text="aasasas.xlsx"></asp:Label>
+                <div class="col-md-7">    <asp:Label ID="Label8" runat="server" Text="New"></asp:Label>
+                </div>
+                <div class="col-md-5"> <asp:Label ID="Label9" runat="server" Text="75"></asp:Label>
+                </div>
 
+                <div class="col-md-7"> <asp:Label ID="Label10" runat="server" Text="Errors"></asp:Label>
+                </div>
+                <div class="col-md-5"> <asp:Label ID="Label11" runat="server" Text=" 1"></asp:Label>
+                </div>
+                       <br />   <br />
+                    </div>
+                            
 
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblITotlrows" runat="server" Text="Total rows"></asp:Label>
-
-
-
-                        </td>
-                        <td>:
-                        </td>
-                        <td>
-                            <asp:Label ID="lblITotlrowsCount" runat="server" Text="100"></asp:Label>
-
-
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblIExisting" runat="server" Text="Existing"></asp:Label>
-
-
-
-                        </td>
-                        <td>:
-                        </td>
-                        <td>
-                            <asp:Label ID="lblIExistingCount" runat="server" Text=" 25"></asp:Label>
-
-
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblINew" runat="server" Text="New"></asp:Label>
-
-
-
-                        </td>
-                        <td>:
-                        </td>
-                        <td>
-                            <asp:Label ID="lblINewCount" runat="server" Text="75"></asp:Label>
-
-
-
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <asp:LinkButton ID="lbtnErrors" runat="server" ForeColor="#006699">Errors</asp:LinkButton>
-                        </td>
-                        <td>:
-                        </td>
-                        <td>
-                            <asp:Label ID="lblIerrorCount" runat="server" Text="1"></asp:Label>
-
-
-                        </td>
-                    </tr>
-                </table>
 
 
             </div>
@@ -564,7 +473,24 @@ ul.departments { list-style-type: none; }*/
             <%--  <asp:Button ID="Button2" runat="server" Text="Next>>"  Height="35px" Width="100px"   CssClass="buttonNext"   />--%>
         </div>
 
-        <table class="buttonTable">
+
+         <table class="buttonTable">
+                <tr>
+                    <td>
+                        <div class="Flatbutton" style="width:150px">
+                             <a href="#" class="buttonNext" onclick="return Import();">
+                            <div id="Div3" class="nav" style="color:white">
+                                 Done
+                            </div>
+                        </a>
+                        </div>
+                       
+                    </td>
+                </tr>
+            </table>
+
+
+        <%--<table class="buttonTable">
             <tr>
                 <td>
                     <a href="#" class="buttonNext btnDivCommon">
@@ -574,7 +500,7 @@ ul.departments { list-style-type: none; }*/
                     </a>
                 </td>
             </tr>
-        </table>
+        </table>--%>
     </div>
 
          </div>

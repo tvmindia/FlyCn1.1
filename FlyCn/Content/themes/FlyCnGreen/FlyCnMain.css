@@ -711,3 +711,30 @@ transition: .1s ease;
 }
 
  
+
+.FlatbuttonUpload {
+    border: thin solid #009999;
+    border-radius: 5px;
+    font-family: 'Segoe UI';
+   font-size:large;
+    height: 35px;
+    
+    
+    vertical-align: middle;
+    padding: 5px;
+    margin-top: 30px;
+}
+
+.chooseFieldsBox {
+     border: thin solid #009999;
+    border-radius: 5px;
+    font-family: 'Segoe UI';
+   font-size:small;
+   padding:5px;
+}
+
+
+ .subtitle {
+    font-size:medium;
+      font-family:'Segoe UI';
+}

@@ -11,6 +11,10 @@ iframe {
     text-align: center;
     text-decoration: underline;
 }
+.subtitle {
+    font-size:medium;
+      font-family:'Segoe UI';
+}
 
 .Desc {
     font-size: medium;
@@ -739,5 +743,27 @@ transition: .1s ease;
     background-color: #840000;
     text-shadow: -1px 1px #193047;
 }
+
+.FlatbuttonUpload {
+    border: thin solid #B00000;
+    border-radius: 5px;
+    font-family: 'Segoe UI';
+   font-size:large;
+    height: 35px;
+    
+    
+    vertical-align: middle;
+    padding: 5px;
+    margin-top: 30px;
+}
+
+.chooseFieldsBox {
+     border: thin solid #B00000;
+    border-radius: 5px;
+    font-family: 'Segoe UI';
+   font-size:small;
+   padding:5px;
+}
+
 
  
