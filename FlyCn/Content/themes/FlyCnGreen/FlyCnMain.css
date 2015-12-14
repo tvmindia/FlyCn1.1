@@ -658,3 +658,56 @@ transition: .1s ease;
     border-width:thin;
      border-color: #BFBFBF;
 }
+
+.importWizardContainer {
+    border: thin solid #339966;
+    border-radius: 10px;
+    margin: 20px;
+    margin-top: 2px;
+    padding: 20px;
+    min-height: 300px;
+}
+
+.importWizardList {
+    margin:20px;
+    font-size:medium
+}
+.importWizardList li {
+    margin:2px;
+    
+}
+
+.NavButton {
+
+    font-family:'Segoe UI';
+    font-size:medium;
+}
+
+.Flatbutton {
+    color:white;
+    height:35px;
+    border-radius:5px;
+    color: #fff;
+    background-color: #009999;
+    text-shadow: -1px 1px #417cb8;
+    border: none;
+    text-align:center;
+    vertical-align:middle;
+    font-family:'Segoe UI';
+    font-size:medium;
+    padding:5px;
+    margin-top:30px;
+}
+
+.Flatbutton:hover, .Flatbutton.hover {
+    background-color: #008C8C;
+    text-shadow: -1px 1px #27496d;
+    cursor:pointer;
+}
+
+.Flatbutton:active, .Flatbutton.active {
+    background-color: #006C6C;
+    text-shadow: -1px 1px #193047;
+}
+
+ 
