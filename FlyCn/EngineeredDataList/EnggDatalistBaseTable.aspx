@@ -253,22 +253,13 @@ ul.departments { list-style-type: none; }*/
                                 OnNeedDataSource="dtgUploadGrid_NeedDataSource" AllowMultiRowSelection="True"
                                 Skin="Silk" CssClass="outerMultiPage" OnPreRender="dtgUploadGrid_PreRender" OnItemCommand="dtgUploadGrid_ItemCommand"
                                 OnItemDataBound="dtgUploadGrid_ItemDataBound">
-
-
                                 <MasterTableView DataKeyNames="">
-
                                     <Columns>
                                         <telerik:GridTemplateColumn UniqueName="CheckBoxTemplateColumn" Display="true">
                                             <ItemTemplate>
-                                                <asp:CheckBox ID="CheckBox1" runat="server" OnCheckedChanged="ToggleRowSelection"
-                                                    AutoPostBack="True" Checked="true" />
+                                                <asp:CheckBox ID="CheckBox1" runat="server" OnCheckedChanged="ToggleRowSelection" AutoPostBack="true" Checked="true"/>
                                             </ItemTemplate>
-                                            <HeaderTemplate>
-                                                <asp:CheckBox ID="headerChkbox" runat="server" OnCheckedChanged="ToggleSelectedState" Checked="true"
-                                                    AutoPostBack="True" />
-                                            </HeaderTemplate>
-                                        </telerik:GridTemplateColumn>
-
+                                         </telerik:GridTemplateColumn>
                                     </Columns>
                                 </MasterTableView>
 
@@ -286,11 +277,13 @@ ul.departments { list-style-type: none; }*/
                 <tr>
                     <td>
                         <div class="Flatbutton" style="width:150px">
-                             <a href="#" class="buttonNext" onclick="return UploadNextClick();">
-                            <div id="Div1" class="nav" style="color:white">
-                                Next &nbsp;<img src="../Images/Icons/RightArrow16.png" />
-                            </div>
-                        </a>
+                            
+                                
+                        
+                                 <asp:Button runat="server" class="buttonNext" OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Next"></asp:Button>
+                               <img src="../Images/Icons/RightArrow16.png" />
+                          
+                       
                         </div>
                        
                     </td>

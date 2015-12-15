@@ -28,8 +28,18 @@ namespace FlyCn.EngineeredDataList
         {
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
                 _moduleId = Request.QueryString["Id"];
-            
-         
+                
+                tempDS = (DataSet)ViewState["ExcelDS"];
+                List<string> temp = (List<string>)ViewState["columnNamesVs"];
+                if (temp != null)
+                {
+                    foreach (string str in temp)
+                    {
+                        for (int i = tempDS.Tables[0].Columns.Count - 1; i >= 0; i--)
+                            tempDS.Tables[0].Columns.Remove(str);
+                    }
+                  
+                }
                 //RadTreeView node = new RadTreeView("rvleftmenu");
                 //node.ExpandMode = TreeNodeExpandMode.ServerSideCallBack;
                 //rvleftmenu.Nodes.Add(node);
@@ -108,8 +118,19 @@ namespace FlyCn.EngineeredDataList
             {
                 //((e.Item as GridDataItem)["ExcelMustFields"].Controls[0] as CheckBox).Enabled = false;
 
+                GridDataItem item = e.Item as GridDataItem;
+                if (item["ExcelMustFields"].Text == "Y")
+                {
+                    //string temp = (string)item["Field_Name"].Text;
+                    //item.Display = false;
+                    item.Enabled = false;
+                }
+
             } 
         }
+
+       
+
         protected void dtgUploadGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             if (_moduleId != null)
@@ -124,32 +145,25 @@ namespace FlyCn.EngineeredDataList
               
             }
         }
+    
 
         protected void ToggleRowSelection(object sender, EventArgs e)
         {
+            List<string> columnNames = new List<string>();
             ((sender as CheckBox).NamingContainer as GridItem).Selected = (sender as CheckBox).Checked;
-            bool checkHeader = true;
+            ///bool checkHeader = true;
             foreach (GridDataItem dataItem in dtgUploadGrid.MasterTableView.Items)
             {
                 if (!(dataItem.FindControl("CheckBox1") as CheckBox).Checked)
                 {
-                    checkHeader = false;
-                    break;
+                   // checkHeader = false;
+                    columnNames.Add(dataItem["Field_Name"].Text);
+                    string temp = dataItem["Field_Name"].Text;
                 }
             }
-            GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
-            (headerItem.FindControl("headerChkbox") as CheckBox).Checked = checkHeader;
-        }
-
-
-        protected void ToggleSelectedState(object sender, EventArgs e)
-        {
-            CheckBox headerCheckBox = (sender as CheckBox);
-            foreach (GridDataItem dataItem in dtgUploadGrid.MasterTableView.Items)
-            {
-                (dataItem.FindControl("CheckBox1") as CheckBox).Checked = headerCheckBox.Checked;
-                dataItem.Selected = headerCheckBox.Checked;
-            }
+            ViewState["columnNamesVs"] = columnNames;
+            //GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+            //(headerItem.FindControl("headerChkbox") as CheckBox).Checked = checkHeader;
         }
 
         protected void btnExcelIimport_Click(object sender, EventArgs e)
@@ -232,6 +246,14 @@ namespace FlyCn.EngineeredDataList
             {
                 return false;
             }
+        }
+
+        protected void BtnNext_Click(object sender, EventArgs e)
+        {
+
+
+
+
         }
 
 
