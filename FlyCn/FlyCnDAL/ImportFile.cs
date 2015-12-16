@@ -160,7 +160,27 @@ namespace FlyCn.FlyCnDAL
             Processing = 2,
             Finished = 3
         }
+        public string SheetName
+        {
+            get;
+            set;
+        }
+
+        public string ExcelConnectionString
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
+
+
+
+
+
+
+
+
+
 
         //properties from javad updatedExcelimport
         #region JavadProperties
@@ -614,79 +634,31 @@ namespace FlyCn.FlyCnDAL
             string tempFolder = temporaryFolder;
             //string tempFolder = Path.Combine(HttpRuntime.AppDomainAppPath, "~/Content/");
             DataSet dsFile = new DataSet();
+            String[] excelSheets;
             //DataTable dtError;
             try
             {
                 // Reading Excel File To Dataset
-                if (fileName.Length > 0)
+                if (ExcelFileName.Length > 0)
                 {
-                    int fileExtensionCheck;
-                    //string fileExtension = System.IO.Path.GetExtension(Request.Files[fileName].FileName);
+                    //int fileExtensionCheck;
+                    
                     //ExcelFileName = Request.Files[fileName].FileName;
-                    string fileExtension = System.IO.Path.GetExtension(testFile);
+                    //string fileExtension = System.IO.Path.GetExtension(ExcelFileName);
 
-                    fileExtensionCheck = validationObj.ValidateFileExtension(fileExtension);
+                    //fileExtensionCheck = validationObj.ValidateFileExtension(fileExtension);
 
-                    if (fileExtensionCheck == 0)
-                    {
-                        importStatus = -1;
-                        return dsFile=null;
-                    }
+                    //if (fileExtensionCheck == 0)
+                    //{
+                    //    importStatus = -1;
+                    //    return dsFile=null;
+                    //}
 
-                    else
-                    {
+                    
                         //string fileLocation = tempFolder + Request.Files[fileName].FileName;
-                        fileLocation = tempFolder + testFile;
-                        string excelConnectionString = string.Empty;
-                        if (fileExtension == ".xls")
-                        {
-                            excelConnectionString = System.Configuration.ConfigurationManager.AppSettings["XLS_ConnectionString"];
-                            excelConnectionString = excelConnectionString.Replace("$fileLocation$", fileLocation);
-                        }
-                        //connection String for xlsx file format.
-                        else if (fileExtension == ".xlsx")
-                        {
-                            excelConnectionString = System.Configuration.ConfigurationManager.AppSettings["XLSX_ConnectionString"];
-                            excelConnectionString = excelConnectionString.Replace("$fileLocation$", fileLocation);
-                        }
-
-                        //Create Connection to Excel work book and add oledb namespace
-                        OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
-                        excelConnection.Open();
-                        DataTable dt = new DataTable();
-
-                        dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                        if (dt == null)
-                        {
-                            importStatus = -1;
-                            return dsFile = null;
-                        }
-
-                        String[] excelSheets = new String[dt.Rows.Count];
-                        int t = 0;
-                        //excel data saves in temp file here.
-                        foreach (DataRow row in dt.Rows)
-                        {
-                            excelSheets[t] = row["TABLE_NAME"].ToString();
-                            t++;
-                        }
-                        OleDbConnection excelConnection1 = new OleDbConnection(excelConnectionString);
-                        string query = string.Format("Select * from [{0}]", excelSheets[1]);
-                        using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
-                        {
-                            dataAdapter.Fill(dsFile);
-                            excelConnection.Close();
-
-                            totalCount = dsFile.Tables[0].Rows.Count;
-
-                            if (dsFile.Tables[0].Rows.Count == 0)
-                            {
-                                failureMessage = "No data found!";
-                                importStatus = -1;
-                                return dsFile = null;
-                            }
-                        }
-                    }
+                        //fileLocation = tempFolder + testFile;
+                    excelSheets=OpenExcelFile();
+                    dsFile=ScanExcelFileToDS(excelSheets);
 
                     //Reading Excel File To Dataset
 
@@ -713,6 +685,101 @@ namespace FlyCn.FlyCnDAL
             return dsFile;
         }
         #endregion ImportExcelFile
+
+        public DataSet ScanExcelFileToDS(string[] excelSheets)
+        {
+            DataSet dsFile = new DataSet();
+              OleDbConnection excelConnection1 = new OleDbConnection(ExcelConnectionString);
+            try
+            {
+             
+              
+                excelConnection1.Open();
+                string query = string.Format("Select * from [{0}]", excelSheets[1]);
+                using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
+                {
+                    dataAdapter.Fill(dsFile);
+
+
+                    totalCount = dsFile.Tables[0].Rows.Count;
+
+                    if (dsFile.Tables[0].Rows.Count == 0)
+                    {
+                        failureMessage = "No data found!";
+                        
+                        return dsFile = null;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                excelConnection1.Close();
+            }
+               
+            return dsFile;
+        }
+
+        public string[] OpenExcelFile()
+        {
+            var Request = request;
+            string fileExtension = System.IO.Path.GetExtension(Request.Files[fileName].FileName);
+            ExcelConnectionString = string.Empty;
+            if (fileExtension == ".xls")
+            {
+                ExcelConnectionString = System.Configuration.ConfigurationManager.AppSettings["XLS_ConnectionString"];
+                ExcelConnectionString = ExcelConnectionString.Replace("$fileLocation$", fileLocation);
+            }
+            //connection String for xlsx file format.
+            else if (fileExtension == ".xlsx")
+            {
+                ExcelConnectionString = System.Configuration.ConfigurationManager.AppSettings["XLSX_ConnectionString"];
+                ExcelConnectionString = ExcelConnectionString.Replace("$fileLocation$", fileLocation);
+            }
+
+            //Create Connection to Excel work book and add oledb namespace
+            OleDbConnection excelConnection = new OleDbConnection(ExcelConnectionString);
+            String[] excelSheets=null;
+            try
+            {
+                if (excelConnection.State != ConnectionState.Open)
+                {
+                    excelConnection.Open();
+                }
+                DataTable dt = new DataTable();
+
+                dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                if ((dt.Rows.Count > 0) && (dt != null))
+                {
+                    excelSheets = new String[dt.Rows.Count];
+                    int t = 0;
+                    //excel data saves in temp file here.
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        excelSheets[t] = row["TABLE_NAME"].ToString();
+                        t++;
+                    }
+                   SheetName= excelSheets[1];
+                }
+               
+              
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                excelConnection.Close();
+            }
+            return excelSheets;
+        }
+
+        
+
 
         #region Inserting Data From Dataset to Database
 

@@ -8,6 +8,7 @@ using Telerik.Web.UI;
 using FlyCn.FlyCnDAL;
 using System.Data;
 using System.Configuration;
+using System.Threading;
 
 namespace FlyCn.EngineeredDataList
 {
@@ -21,25 +22,18 @@ namespace FlyCn.EngineeredDataList
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
         ImportFile importObj = new ImportFile();
+        ValidationExcel validationObj = new ValidationExcel();
         CommonDAL comDAL = new CommonDAL();
         Modules moduleObj = new Modules();
         DataSet tempDS = null;
+        DataSet dsTable = null;
+        List<string> columnNames = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
+                UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
                 _moduleId = Request.QueryString["Id"];
                 
-                tempDS = (DataSet)ViewState["ExcelDS"];
-                List<string> temp = (List<string>)ViewState["columnNamesVs"];
-                if (temp != null)
-                {
-                    foreach (string str in temp)
-                    {
-                        for (int i = tempDS.Tables[0].Columns.Count - 1; i >= 0; i--)
-                            tempDS.Tables[0].Columns.Remove(str);
-                    }
-                  
-                }
+              
                 //RadTreeView node = new RadTreeView("rvleftmenu");
                 //node.ExpandMode = TreeNodeExpandMode.ServerSideCallBack;
                 //rvleftmenu.Nodes.Add(node);
@@ -149,19 +143,19 @@ namespace FlyCn.EngineeredDataList
 
         protected void ToggleRowSelection(object sender, EventArgs e)
         {
-            List<string> columnNames = new List<string>();
-            ((sender as CheckBox).NamingContainer as GridItem).Selected = (sender as CheckBox).Checked;
-            ///bool checkHeader = true;
-            foreach (GridDataItem dataItem in dtgUploadGrid.MasterTableView.Items)
-            {
-                if (!(dataItem.FindControl("CheckBox1") as CheckBox).Checked)
-                {
-                   // checkHeader = false;
-                    columnNames.Add(dataItem["Field_Name"].Text);
-                    string temp = dataItem["Field_Name"].Text;
-                }
-            }
-            ViewState["columnNamesVs"] = columnNames;
+            //List<string> columnNames = new List<string>();
+            //((sender as CheckBox).NamingContainer as GridItem).Selected = (sender as CheckBox).Checked;
+            /////bool checkHeader = true;
+            //foreach (GridDataItem dataItem in dtgUploadGrid.MasterTableView.Items)
+            //{
+            //    if (!(dataItem.FindControl("CheckBox1") as CheckBox).Checked)
+            //    {
+            //       // checkHeader = false;
+            //        columnNames.Add(dataItem["Field_Name"].Text);
+            //        string temp = dataItem["Field_Name"].Text;
+            //    }
+            //}
+            //ViewState["columnNamesVs"] = columnNames;
             //GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
             //(headerItem.FindControl("headerChkbox") as CheckBox).Checked = checkHeader;
         }
@@ -193,23 +187,48 @@ namespace FlyCn.EngineeredDataList
                 if (DataImportFileUpload.HasFile)
                 {
                     string path = Server.MapPath("~/Content/Fileupload/").ToString();
-                    importObj.fileName = DataImportFileUpload.FileName.ToString();
-                    importObj.fileLocation = path + importObj.fileName;
-                    importObj.temporaryFolder = path;
-                    DeleteDuplicateFile(importObj.fileLocation);//deletes the file if the same file name exists in the folder
-                    DataImportFileUpload.SaveAs(importObj.fileLocation);
-                    importObj.testFile = importObj.fileName;
-                    importObj.ExcelFileName = importObj.fileName;
+                    
+                    string fileName = DataImportFileUpload.FileName.ToString();
+                    hdfFileName.Value = fileName;
+                    string fileLocation = path + fileName;
+                    hdfFileLocation.Value = fileLocation;
+                    string fileExtension = System.IO.Path.GetExtension(fileName);
+
+                    int fileExtensionCheck=validationObj.ValidateFileExtension(fileExtension);
+
+                    if (fileExtensionCheck != 0)//&&(sheetname=="Electrical")
+                    {
+                        DeleteDuplicateFile(fileLocation);//deletes the file if the same file name exists in the folder
+                        DataImportFileUpload.SaveAs(fileLocation);
+                        importObj.OpenExcelFile();
+                        if (importObj.SheetName == "Fields")
+                        {
+                            bool columnExistCheck = validationObj.ValidateExcelDataStructure(tempDS, dsTable);
+                        }
+                        else
+                        {
+                            return;//invalid sheet name
+                        }
+                    }
+                    else
+                    {
+                        return;//invalid file extension
+                    }
+                   
+                    //importObj.temporaryFolder = path;
+                   
+                    //importObj.testFile = importObj.fileName;
+                    //importObj.ExcelFileName = importObj.fileName;
                     //Thread excelImportThread = new Thread(new ThreadStart(importObj.ImportExcelFile));
                     //excelImportThread.Start();
-                    tempDS = new DataSet();
-                    tempDS=importObj.ImportExcelFile();
-                     if (tempDS.Tables[0].Rows.Count>0)
-                     {
-                         ViewState["ExcelDS"] = tempDS;
-                     }
-                     tempDS = null;
-                     tempDS = (DataSet)ViewState["ExcelDS"];
+                    //tempDS = new DataSet();
+                    //tempDS=importObj.ImportExcelFile();
+                    // if (tempDS.Tables[0].Rows.Count>0)
+                    // {
+                    //     ViewState["ExcelDS"] = tempDS;
+                    // }
+                    // tempDS = null;
+                    // tempDS = (DataSet)ViewState["ExcelDS"];
                     //lblMsg.Text = "Thread started";
                 }//end of hasfile if
             }//end try
@@ -251,10 +270,59 @@ namespace FlyCn.EngineeredDataList
         protected void BtnNext_Click(object sender, EventArgs e)
         {
 
-
-
+            //Thread excelImportThread = new Thread(new ThreadStart(importObj.ImportExcelFile));
+            //excelImportThread.Start();
+            tempDS = new DataSet();
+            importObj.ExcelFileName = hdfFileName.Value;
+            importObj.fileLocation = hdfFileLocation.Value;
+            tempDS=importObj.ImportExcelFile();
+            CheckBoxColumns();//getting the fieldnames that has been uncheced
+            RemoveColumnFromDS(tempDS);
+            dsTable = comDAL.GetTableDefinition(comDAL.tableName);
+           // bool columnExistCheck = validationObj.ValidateExcelDataStructure(tempDS, dsTable);
 
         }
+
+
+        public void CheckBoxColumns()
+        {
+          
+            GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+            if(headerItem!=null)
+            {
+                foreach (GridDataItem dataItem in dtgUploadGrid.MasterTableView.Items)
+                {
+                    if (!(dataItem.FindControl("CheckBox1") as CheckBox).Checked)
+                    {
+                        // checkHeader = false;
+                        columnNames.Add(dataItem["Field_Name"].Text);
+                        string temp = dataItem["Field_Name"].Text;
+                    }
+                }
+            }
+       }
+        
+       public void RemoveColumnFromDS(DataSet tempDS)
+        {
+            DataSet checkds = new DataSet();
+            checkds = tempDS;
+            if ((columnNames != null) && (checkds != null))
+            {
+              foreach (string str in columnNames)
+               {
+                 for (int i = checkds.Tables[0].Columns.Count - 1; i >= 0; i--)
+                  {
+                    DataColumn column = checkds.Tables[0].Columns[i];
+                    if (column.ColumnName == str)
+                     {
+                       tempDS.Tables[0].Columns.Remove(str);
+                       break;
+                     }
+                  } 
+               }
+            }
+        }
+
 
 
     }

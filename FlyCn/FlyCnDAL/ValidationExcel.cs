@@ -234,7 +234,7 @@ namespace FlyCn.FlyCnDAL
             {
                 try
                 {
-                    for (int i = 0; i < dsFile.Tables[0].Columns.Count; i++)
+                    for (int i = dsFile.Tables[0].Columns.Count - 1; i >= 0; i--)
                     {
                         if (cName == dsFile.Tables[0].Columns[i].ColumnName.ToString())
                             return true;

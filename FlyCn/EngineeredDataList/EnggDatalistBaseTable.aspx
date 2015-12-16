@@ -257,7 +257,7 @@ ul.departments { list-style-type: none; }*/
                                     <Columns>
                                         <telerik:GridTemplateColumn UniqueName="CheckBoxTemplateColumn" Display="true">
                                             <ItemTemplate>
-                                                <asp:CheckBox ID="CheckBox1" runat="server" OnCheckedChanged="ToggleRowSelection" AutoPostBack="true" Checked="true"/>
+                                                <asp:CheckBox ID="CheckBox1" runat="server" OnCheckedChanged="ToggleRowSelection" AutoPostBack="false" Checked="true"/>
                                             </ItemTemplate>
                                          </telerik:GridTemplateColumn>
                                     </Columns>
@@ -278,7 +278,9 @@ ul.departments { list-style-type: none; }*/
                     <td>
                         <div class="Flatbutton" style="width:150px">
                             
-                                
+                                  <asp:HiddenField ID="hdfFileName" runat="server" />
+                                  <asp:HiddenField ID="hdfFileLocation" runat="server" />
+
                         
                                  <asp:Button runat="server" class="buttonNext" OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Next"></asp:Button>
                                <img src="../Images/Icons/RightArrow16.png" />
