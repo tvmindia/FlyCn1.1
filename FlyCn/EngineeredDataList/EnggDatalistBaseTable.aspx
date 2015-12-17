@@ -99,7 +99,7 @@ ul.departments { list-style-type: none; }*/
                 text-decoration: solid;
             }
     </style>
-
+    <script src="../Scripts/UserJs/UserValidations.js"></script>
     <script>
 
 
@@ -138,11 +138,41 @@ ul.departments { list-style-type: none; }*/
         //    parent.OnEnggDataListTreeBinding();
         //}
         //window.onload = codeAddress;
+
+
+        $(document).ready(function () {
+
+
+          
+
+
+
+        });
+
+
+     
     </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+    <script>
+        function validateExcel() {
+
+            var fileUpload = document.getElementById('<%=DataImportFileUpload.ClientID%>');
+            var Extension = fileUpload.value.substring(fileUpload.value.lastIndexOf('.') + 1).toLowerCase();
+            var flag=validateExcelExtension(Extension)
+            if (flag!=false) {
+                return true;
+            }
+            else {
+                var lblmsg = document.getElementById('<%=lblMsg.ClientID%>');
+                lblmsg.innerHTML = "Kindly Upload file types of xlsx or xls";
+                return false;
+            }
+
+        }
+    </script>
 
 
     <div id="Heading" runat="server" style="width: 90%; text-align: center; margin: 20px">
@@ -155,7 +185,7 @@ ul.departments { list-style-type: none; }*/
         <tr>
             <td style="width:30%">
                 <asp:Label ID="lblModule" runat="server" CssClass="PageHeading"></asp:Label>
-            </td>
+           </td>
             <td style="text-align:right;vertical-align:bottom">
 
                   <div id="nav" class="NavButton">
@@ -233,11 +263,11 @@ ul.departments { list-style-type: none; }*/
                
                     <asp:FileUpload ID="DataImportFileUpload" runat="server" class="FlatbuttonUpload" width="300px" /> </div>
                   <div class="col-md-2">
-                    <asp:Button ID="btnUpload" runat="server" Text="Upload" class="Flatbutton" OnClick="btn_upload_Click" Style="width: 80px" /> 
-
-
-                     </div>
-
+                    <asp:Button ID="btnUpload" runat="server" Text="Upload" class="Flatbutton" OnClientClick="return validateExcel()" OnClick="btn_upload_Click" Style="width: 80px" /> 
+                 </div>
+                 <div>
+                   <asp:Label ID="lblMsg" runat="server" Text="" Font-Bold="true"></asp:Label>
+                 </div>
 
             </div>
             <div class="col-md-1">&nbsp;</div>
@@ -280,8 +310,6 @@ ul.departments { list-style-type: none; }*/
                             
                                   <asp:HiddenField ID="hdfFileName" runat="server" />
                                   <asp:HiddenField ID="hdfFileLocation" runat="server" />
-
-                        
                                  <asp:Button runat="server" class="buttonNext" OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Next"></asp:Button>
                                <img src="../Images/Icons/RightArrow16.png" />
                           

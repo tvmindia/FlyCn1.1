@@ -9,7 +9,7 @@ using FlyCn.FlyCnDAL;
 using System.Data;
 using System.Configuration;
 using System.Threading;
-
+using SheetStatus = FlyCn.DocumentSettings.DocumentStatusSettings;
 namespace FlyCn.EngineeredDataList
 {
     
@@ -28,6 +28,7 @@ namespace FlyCn.EngineeredDataList
         DataSet tempDS = null;
         DataSet dsTable = null;
         List<string> columnNames = new List<string>();
+        string currentSheet = null;
         protected void Page_Load(object sender, EventArgs e)
         {
                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
@@ -41,14 +42,14 @@ namespace FlyCn.EngineeredDataList
                 {
                     moduleObj.ModuleID = Request.QueryString["Id"];
                     comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
-
+                    DynamicSheet();
                 }
-                else 
-                {
-                    moduleObj.ModuleID = "ELE";
-                    comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
+                //else 
+                //{
+                //    moduleObj.ModuleID = "ELE";
+                //    comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
                     
-                }
+                //}
                
                 importObj.ProjectNo = UA.projectNo;
                 importObj.UserName = UA.userName;
@@ -122,9 +123,6 @@ namespace FlyCn.EngineeredDataList
 
             } 
         }
-
-       
-
         protected void dtgUploadGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             if (_moduleId != null)
@@ -140,7 +138,6 @@ namespace FlyCn.EngineeredDataList
             }
         }
     
-
         protected void ToggleRowSelection(object sender, EventArgs e)
         {
             //List<string> columnNames = new List<string>();
@@ -180,38 +177,70 @@ namespace FlyCn.EngineeredDataList
         {
 
             importObj.TableName = comDAL.tableName;
-
+            DataSet dsFile = null;
             // importObj.fileName = "file";
             try
             {
                 if (DataImportFileUpload.HasFile)
                 {
+                    String[] excelSheets = null;
                     string path = Server.MapPath("~/Content/Fileupload/").ToString();
                     
                     string fileName = DataImportFileUpload.FileName.ToString();
                     hdfFileName.Value = fileName;
+                    importObj.fileName = fileName;
                     string fileLocation = path + fileName;
+                    importObj.fileLocation = fileLocation;
                     hdfFileLocation.Value = fileLocation;
                     string fileExtension = System.IO.Path.GetExtension(fileName);
 
                     int fileExtensionCheck=validationObj.ValidateFileExtension(fileExtension);
-
+                    
                     if (fileExtensionCheck != 0)//&&(sheetname=="Electrical")
                     {
                         DeleteDuplicateFile(fileLocation);//deletes the file if the same file name exists in the folder
                         DataImportFileUpload.SaveAs(fileLocation);
-                        importObj.OpenExcelFile();
-                        if (importObj.SheetName == "Fields")
+                        excelSheets=importObj.OpenExcelFile();
+                        if (excelSheets != null)
                         {
-                            bool columnExistCheck = validationObj.ValidateExcelDataStructure(tempDS, dsTable);
+                            if (importObj.SheetName == currentSheet)
+                            {
+                                dsFile = new DataSet();
+                                dsFile = importObj.ScanExcelFileToDS(excelSheets);
+                                dsTable = comDAL.GetTableDefinition(comDAL.tableName);
+                                bool columnExistCheck = validationObj.ValidateExcelDataStructure(dsFile, dsTable);
+                                if (columnExistCheck == true)
+                                {
+                                    
+                                }
+                                if (columnExistCheck == false)
+                                {
+                                    DeleteDuplicateFile(fileLocation);
+                                    lblMsg.Text = "Sheet does not have valid structure,Please Make sure..";
+                                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "GenerateTemplateNextClick();", true);
+                                    return;//excel structrue not valid
+                                }
+                            }
+                            else
+                            {
+                                lblMsg.Text = "Sheet Name is Invalid";
+                                DeleteDuplicateFile(fileLocation);
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "GenerateTemplateNextClick();", true);
+                                return;//invalid sheet name
+                            }
                         }
                         else
                         {
+                            lblMsg.Text = "Either sheet name or sheet description is missing";
+                            DeleteDuplicateFile(fileLocation);
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "GenerateTemplateNextClick();", true);
                             return;//invalid sheet name
                         }
                     }
                     else
                     {
+                        lblMsg.Text = "Please Upload file types of xlsx or xls";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "GenerateTemplateNextClick();", true);
                         return;//invalid file extension
                     }
                    
@@ -231,6 +260,9 @@ namespace FlyCn.EngineeredDataList
                     // tempDS = (DataSet)ViewState["ExcelDS"];
                     //lblMsg.Text = "Thread started";
                 }//end of hasfile if
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "GenerateTemplateNextClick();", true);
+
             }//end try
             catch (Exception ex)
             {
@@ -322,6 +354,40 @@ namespace FlyCn.EngineeredDataList
                }
             }
         }
+
+
+        public void DynamicSheet()
+       {
+            switch(moduleObj.ModuleID)
+            {
+                case "CIV":
+                    currentSheet = SheetStatus.CIV;
+                    break;
+
+                case "ELE":
+                    currentSheet = SheetStatus.ELE;
+                    break;
+                case "CAD":
+                    currentSheet = SheetStatus.CAD;
+                    break;
+                case "CTL":
+                    currentSheet = SheetStatus.CTL;
+                    break;
+                case "INS":
+                    currentSheet = SheetStatus.INS;
+                    break;
+                case "MEC":
+                    currentSheet = SheetStatus.MEC;
+                    break;
+                case "PIP":
+                    currentSheet = SheetStatus.PIP;
+                    break;
+                case "TEL":
+                    currentSheet = SheetStatus.TEL;
+                    break;
+
+            }
+       }
 
 
 

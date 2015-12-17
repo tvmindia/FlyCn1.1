@@ -10,6 +10,7 @@ using System.Text;
 using System.Data.OleDb;
 using System.Threading;
 using System.Web.Caching;
+using System.IO;
 
 namespace FlyCn.FlyCnDAL
 {
@@ -161,6 +162,11 @@ namespace FlyCn.FlyCnDAL
             Finished = 3
         }
         public string SheetName
+        {
+            get;
+            set;
+        }
+        public string SheetDescription
         {
             get;
             set;
@@ -695,7 +701,7 @@ namespace FlyCn.FlyCnDAL
              
               
                 excelConnection1.Open();
-                string query = string.Format("Select * from [{0}]", excelSheets[1]);
+                string query = string.Format("Select * from [{0}]", excelSheets[0]);
                 using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
                 {
                     dataAdapter.Fill(dsFile);
@@ -725,8 +731,10 @@ namespace FlyCn.FlyCnDAL
 
         public string[] OpenExcelFile()
         {
-            var Request = request;
-            string fileExtension = System.IO.Path.GetExtension(Request.Files[fileName].FileName);
+           // Path.GetExtension(yourPath); // returns .exe
+           // Path.GetFileNameWithoutExtension(yourPath); // returns File
+           // Path.GetFileName(yourPath); // returns File.exe
+            string fileExtension =Path.GetExtension(fileName);
             ExcelConnectionString = string.Empty;
             if (fileExtension == ".xls")
             {
@@ -752,17 +760,28 @@ namespace FlyCn.FlyCnDAL
                 DataTable dt = new DataTable();
 
                 dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                if ((dt.Rows.Count > 0) && (dt != null))
+                if ((dt.Rows.Count==2) && (dt != null))
                 {
                     excelSheets = new String[dt.Rows.Count];
-                    int t = 0;
+                   // int t = 0;
                     //excel data saves in temp file here.
+                   // foreach (DataRow row in dt.Rows)
+//for (int i = 0; i < dt.Rows.Count;i++ )
+                   // {
+                      //  excelSheets[i] = row["TABLE_NAME"].ToString();
+                     //   SheetName = excelSheets[i];
+                        //t++;
+                   // }
+                    int t = 0;
                     foreach (DataRow row in dt.Rows)
                     {
                         excelSheets[t] = row["TABLE_NAME"].ToString();
                         t++;
                     }
-                   SheetName= excelSheets[1];
+                    SheetName = excelSheets[0];
+                    SheetDescription = excelSheets[1];
+                    SheetName = SheetName.TrimEnd('$');
+               
                 }
                
               

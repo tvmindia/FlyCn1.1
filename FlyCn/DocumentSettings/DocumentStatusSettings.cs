@@ -41,6 +41,48 @@ namespace FlyCn.DocumentSettings
         
             #endregion DocumentStatusSettings
 
+
+        #region ExcelSheetNames
+        public static string CIV
+        {
+            get { return "Civil"; }//returns module description of tables from modules
+        }
+
+        public static string ELE
+        {
+            get { return "Electrical"; }
+        }
+        public static string CAD
+        {
+            get { return "Cable and Drum";}
+        }
+
+        public static string CTL
+        {
+            get { return "Control Systems"; }
+        }
+
+        public static string INS
+        {
+            get { return "Instrumentation"; }
+        }
+
+        public static string MEC
+        {
+            get { return "Mechanical"; }
+        }
+
+        public static string PIP
+        {
+            get { return "Piping"; }
+        }
+
+        public static string TEL
+        {
+            get { return "Telecommunication"; }
+        }
+        #endregion ExcelSheetNames
+
     }
     #endregion DocumentStatusSettings class
 }

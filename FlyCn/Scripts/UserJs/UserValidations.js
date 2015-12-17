@@ -34,3 +34,13 @@ function isNumberKey(sender, evt) {
 function trimString(stringToTrim) {
     return stringToTrim.replace(/^\s+|\s+$/g, "");
 }
+
+
+
+//function to validate Excel file extension
+function validateExcelExtension(ext) {
+    if (!/(\xls|\xlsx|\XLS|\XLSX)$/i.test(ext)) {
+        return false;
+    }
+    return true;
+}
