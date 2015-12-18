@@ -138,26 +138,14 @@ ul.departments { list-style-type: none; }*/
         //    parent.OnEnggDataListTreeBinding();
         //}
         //window.onload = codeAddress;
-
-
-        $(document).ready(function () {
-
-
-          
-
-
-
-        });
-
-
-     
     </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <script>
-        function validateExcel() {
+          
+           function validateExcel() {
 
             var fileUpload = document.getElementById('<%=DataImportFileUpload.ClientID%>');
             var Extension = fileUpload.value.substring(fileUpload.value.lastIndexOf('.') + 1).toLowerCase();
@@ -168,17 +156,37 @@ ul.departments { list-style-type: none; }*/
             else {
                 var lblmsg = document.getElementById('<%=lblMsg.ClientID%>');
                 lblmsg.innerHTML = "Kindly Upload file types of xlsx or xls";
+                //var upload = document.getElementById('Gridandbutton');
+                //upload.style.display = "none";
+                DisableGridandButton();
                 return false;
             }
+           }
+        function DisableGridandButton()
+        {
+           // dtgUploadGrid.get_element().disabled = "disabled";
+            var disdtg = $find("<%=dtgUploadGrid.ClientID%>");
+            //disdtg.disabled = "disabled";
+            DisableGrid(disdtg);
+            alert("rr");
+            document.getElementById('<%= btnValidate.ClientID %>').disabled = true;
 
         }
+
+        //function EnableGridandButton()
+        //{
+        //   // document.getElementById("btnValidate").disabled = true;
+        //    alert("js");
+        //   // var upload = document.getElementById('Gridandbutton');
+        //   // upload.style.display = "";
+        // }
     </script>
 
 
     <div id="Heading" runat="server" style="width: 90%; text-align: center; margin: 20px">
         <ul class="list-inline" id="horizonaltab" runat="server" style="width: 100%;">
             <li style="width: 10px;"></li>
-
+                
         </ul>
     </div>
     <table style="width:100%">
@@ -271,12 +279,15 @@ ul.departments { list-style-type: none; }*/
 
             </div>
             <div class="col-md-1">&nbsp;</div>
-               <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:250px">&nbsp;</div>
-            <div class="col-md-5" >
+            <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:250px">&nbsp;</div>
 
+
+         
+            <div class="col-md-5" id="Gridandbutton">
+                <%--<div >--%>
                 <asp:Label ID="lblUploadGridHeading" runat="server" Text="Choose Fields" CssClass="subtitle"></asp:Label>
-                <div style="height: 220px;" class="chooseFieldsBox">
-                    <div  style="overflow-y: scroll; height: 200px;">
+              <div style="height: 220px;" class="chooseFieldsBox">
+                <div  style="overflow-y: scroll; height: 200px;">
                     <asp:UpdatePanel ID="dtgUploadGridUpdatepanel" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <telerik:RadGrid ID="dtgUploadGrid" runat="server" AllowSorting="true" 
@@ -297,28 +308,32 @@ ul.departments { list-style-type: none; }*/
                         </ContentTemplate>
                     </asp:UpdatePanel>
                         </div>
-                </div>
-            </div>
-
-
-            <%--     <asp:Button ID="btnNext" runat="server" Text="Next>>"  Height="35px" Width="100px"   CssClass="buttonNext" OnClientClick="NextClick()"   />--%>
-        </div>
-        <table class="buttonTable">
+                    
+             </div>
+               <%-- <table class="buttonTable">
                 <tr>
-                    <td>
+                    <td>--%>
                         <div class="Flatbutton" style="width:150px">
-                            
-                                  <asp:HiddenField ID="hdfFileName" runat="server" />
-                                  <asp:HiddenField ID="hdfFileLocation" runat="server" />
-                                 <asp:Button runat="server" class="buttonNext" OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Next"></asp:Button>
+                               <asp:Button ID="btnValidate" runat="server" class="buttonNext" OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Validate"></asp:Button>
                                <img src="../Images/Icons/RightArrow16.png" />
                           
                        
                         </div>
-                       
-                    </td>
+                        
+                  <%--  </td>
                 </tr>
-            </table>
+            </table>--%>
+             
+                
+            <%--</div>--%>
+           </div>
+            
+            <%--     <asp:Button ID="btnNext" runat="server" Text="Next>>"  Height="35px" Width="100px"   CssClass="buttonNext" OnClientClick="NextClick()"   />--%>
+          
+           
+            </div>
+
+         
         <%--<table class="buttonTable">
             <tr>
                 <td>
@@ -332,8 +347,7 @@ ul.departments { list-style-type: none; }*/
         </table>--%>
     </div>
 
-
-
+     
     <div style="display: none; margin-left: 50px;" id="DivValidate">
         <div class="col-md-12 Span-One">
 
@@ -528,5 +542,9 @@ ul.departments { list-style-type: none; }*/
 
          </div>
     </div>
+       <asp:HiddenField ID="hdfFileName" runat="server" />
+                         <asp:HiddenField ID="hdfFileLocation" runat="server" />
 
+
+   
 </asp:Content>

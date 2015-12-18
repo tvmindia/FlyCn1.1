@@ -822,12 +822,12 @@ namespace FlyCn.FlyCnDAL
                 DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
                 DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
                 //validationObj.status_Id = importDetailsObj.status_Id;
-                bool columnExistCheck = validationObj.ValidateExcelDataStructure(dsFile, dsTable);
+                //bool columnExistCheck = validationObj.ValidateExcelDataStructure(dsFile, dsTable);
 
-                if (columnExistCheck == false)
-                {
-                    return -1;
-                }
+                //if (columnExistCheck == false)
+                //{
+                //    return -1;
+                //}
 
                 InitializeExcelImportDetails(testFile, totalCount);
 

@@ -44,3 +44,72 @@ function validateExcelExtension(ext) {
     }
     return true;
 }
+
+
+
+function DisableGrid(gridCtrl) {
+    alert("validate start");
+    gridCtrl.get_element().disabled = "disabled";
+    gridCtrl.ClientSettings.Selecting.AllowRowSelect = false;
+    gridCtrl.ClientSettings.Resizing.AllowColumnResize = false;
+    gridCtrl.ClientSettings.Resizing.AllowRowResize = false;
+    gridCtrl.ClientSettings.AllowColumnsReorder = false;
+    gridCtrl.ClientSettings.AllowDragToGroup = false;
+    gridCtrl.ClientSettings.EnablePostBackOnRowClick = false;
+    var links = gridCtrl.get_element().getElementsByTagName("a");
+    var images = gridCtrl.get_element().getElementsByTagName("img");
+    var inputs = gridCtrl.get_element().getElementsByTagName("input");
+    var sortButtons = gridCtrl.get_element().getElementsByTagName("span");
+    for (var i = 0; i < links.length; i++) {
+        links[i].href = "";
+        links[i].onclick = function () {
+            return false;
+        }
+    }
+    for (var i = 0; i < images.length; i++) {
+        images[i].onclick = function () {
+            return false;
+        }
+    }
+    for (var i = 0; i < sortButtons.length; i++) {
+        sortButtons[i].onclick = function () {
+            return false;
+        }
+    }
+    for (var i = 0; i < inputs.length; i++) {
+        switch (inputs[i].type) {
+            case "button":
+                inputs[i].onclick = function () {
+                    return false;
+                }
+                break;
+            case "checkbox":
+                inputs[i].disabled = "disabled";
+                break;
+            case "radio":
+                inputs[i].disabled = "disabled";
+                break;
+            case "text":
+                inputs[i].disabled = "disabled";
+                break;
+            case "password":
+                inputs[i].disabled = "disabled";
+                break;
+            case "image":
+                inputs[i].onclick = function () {
+                    return false;
+                }
+                break;
+            case "file":
+                inputs[i].disabled = "disabled";
+                break;
+            default:
+                break;
+        }
+    }
+    var scrollArea = gridCtrl.GridDataDiv;
+    if (scrollArea) {
+        scrollArea.disabled = "disabled";
+    }
+    alert("validate end");
+}

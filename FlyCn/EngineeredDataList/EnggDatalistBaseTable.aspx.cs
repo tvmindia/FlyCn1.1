@@ -10,6 +10,7 @@ using System.Data;
 using System.Configuration;
 using System.Threading;
 using SheetStatus = FlyCn.DocumentSettings.DocumentStatusSettings;
+using System.IO;
 namespace FlyCn.EngineeredDataList
 {
     
@@ -29,6 +30,7 @@ namespace FlyCn.EngineeredDataList
         DataSet dsTable = null;
         List<string> columnNames = new List<string>();
         string currentSheet = null;
+        bool columnExistCheck=false;
         protected void Page_Load(object sender, EventArgs e)
         {
                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
@@ -43,6 +45,7 @@ namespace FlyCn.EngineeredDataList
                     moduleObj.ModuleID = Request.QueryString["Id"];
                     comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
                     DynamicSheet();
+                    DisableButtonandGrid();//disables button and grid initially
                 }
                 //else 
                 //{
@@ -120,9 +123,10 @@ namespace FlyCn.EngineeredDataList
                     //item.Display = false;
                     item.Enabled = false;
                 }
-
+              
             } 
         }
+        
         protected void dtgUploadGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             if (_moduleId != null)
@@ -208,10 +212,14 @@ namespace FlyCn.EngineeredDataList
                                 dsFile = new DataSet();
                                 dsFile = importObj.ScanExcelFileToDS(excelSheets);
                                 dsTable = comDAL.GetTableDefinition(comDAL.tableName);
-                                bool columnExistCheck = validationObj.ValidateExcelDataStructure(dsFile, dsTable);
+                                columnExistCheck = validationObj.ValidateExcelDataStructure(dsFile, dsTable);
                                 if (columnExistCheck == true)
                                 {
-                                    
+                                   
+                                    lblMsg.Text = "Successfully Uploaded!";
+                                    ScriptManager.RegisterStartupScript(this, GetType(), "Upload", "GenerateTemplateNextClick();", true);
+                                    EnaableButtonandGrid();
+                                    return;
                                 }
                                 if (columnExistCheck == false)
                                 {
@@ -275,6 +283,19 @@ namespace FlyCn.EngineeredDataList
             }       
         }
 
+        public void DisableButtonandGrid()
+        {
+            dtgUploadGrid.Enabled = false;
+            btnValidate.Enabled = false;
+
+        }
+
+        public void EnaableButtonandGrid()
+        {
+            dtgUploadGrid.Enabled = true;
+            btnValidate.Enabled = true;
+
+        }
 
         public bool DeleteDuplicateFile(string location)
         {
@@ -304,16 +325,30 @@ namespace FlyCn.EngineeredDataList
 
             //Thread excelImportThread = new Thread(new ThreadStart(importObj.ImportExcelFile));
             //excelImportThread.Start();
-            tempDS = new DataSet();
             importObj.ExcelFileName = hdfFileName.Value;
             importObj.fileLocation = hdfFileLocation.Value;
-            tempDS=importObj.ImportExcelFile();
-            CheckBoxColumns();//getting the fieldnames that has been uncheced
-            RemoveColumnFromDS(tempDS);
-            dsTable = comDAL.GetTableDefinition(comDAL.tableName);
-           // bool columnExistCheck = validationObj.ValidateExcelDataStructure(tempDS, dsTable);
+            importObj.fileName = importObj.ExcelFileName;
+           if(File.Exists(importObj.fileLocation))
+            {
+                try
+                {
+                    tempDS = new DataSet();
+                    tempDS = importObj.ImportExcelFile();
+                    CheckBoxColumns();//getting the fieldnames that has been uncheced
+                    RemoveColumnFromDS(tempDS);
 
-        }
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+                
+           }
+       }
 
 
         public void CheckBoxColumns()
