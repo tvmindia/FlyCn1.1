@@ -234,7 +234,7 @@ namespace FlyCn.FlyCnDAL
             {
                 try
                 {
-                    for (int i = 0; i < dsFile.Tables[0].Columns.Count; i++)
+                    for (int i = dsFile.Tables[0].Columns.Count - 1; i >= 0; i--)
                     {
                         if (cName == dsFile.Tables[0].Columns[i].ColumnName.ToString())
                             return true;
@@ -254,12 +254,7 @@ namespace FlyCn.FlyCnDAL
             {
                 try
                 {
-                   // DataSet dsTable = new DataSet();
-                    //   DAL.Constants constantList = new DAL.Constants();
-                    //  DAL.ExcelImportDAL stdDal = new DAL.ExcelImportDAL();
-                    CommonDAL stdDal = new CommonDAL();
-                   // dsTable = stdDal.GetTableDefinition("M_Location");
-                    for (int i = dsTable.Tables[0].Rows.Count - 1; i >= 0; i--)
+                   for (int i = dsTable.Tables[0].Rows.Count - 1; i >= 0; i--)
                     {
                         bool res;
                         string FieldName = dsTable.Tables[0].Rows[i]["Field_Name"].ToString();

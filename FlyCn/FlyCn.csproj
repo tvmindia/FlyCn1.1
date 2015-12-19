@@ -366,6 +366,7 @@
     <Content Include="Images\Icons\quality.png" />
     <Content Include="Images\Icons\rejectToolbarIcon.png" />
     <Content Include="Images\Icons\rejectToolbarIconDisabled.png" />
+    <Content Include="Images\Icons\RightArrow16.png" />
     <Content Include="Images\Icons\road.png" />
     <Content Include="Images\Icons\roles.png" />
     <Content Include="Images\Icons\setup.png" />

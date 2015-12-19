@@ -8,7 +8,9 @@ using Telerik.Web.UI;
 using FlyCn.FlyCnDAL;
 using System.Data;
 using System.Configuration;
-
+using System.Threading;
+using SheetStatus = FlyCn.DocumentSettings.DocumentStatusSettings;
+using System.IO;
 namespace FlyCn.EngineeredDataList
 {
     
@@ -20,18 +22,43 @@ namespace FlyCn.EngineeredDataList
        string _tree ;
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
+        ImportFile importObj = new ImportFile();
+        ValidationExcel validationObj = new ValidationExcel();
+        CommonDAL comDAL = new CommonDAL();
+        Modules moduleObj = new Modules();
+        DataSet tempDS = null;
+        DataSet dsTable = null;
+        List<string> columnNames = new List<string>();
+        string currentSheet = null;
+        bool columnExistCheck=false;
         protected void Page_Load(object sender, EventArgs e)
         {
-            UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
-            _moduleId = Request.QueryString["Id"];
-            
-            if (!Page.IsPostBack)
-            {
-
+                UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
+                _moduleId = Request.QueryString["Id"];
+                
+              
                 //RadTreeView node = new RadTreeView("rvleftmenu");
                 //node.ExpandMode = TreeNodeExpandMode.ServerSideCallBack;
                 //rvleftmenu.Nodes.Add(node);
-            }
+                if (Request.QueryString["Id"] != null)
+                {
+                    moduleObj.ModuleID = Request.QueryString["Id"];
+                    comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
+                    DynamicSheet();
+                    DisableButtonandGrid();//disables button and grid initially
+                }
+                //else 
+                //{
+                //    moduleObj.ModuleID = "ELE";
+                //    comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
+                    
+                //}
+               
+                importObj.ProjectNo = UA.projectNo;
+                importObj.UserName = UA.userName;
+              
+
+          
             if (_moduleId != null)
             {
 
@@ -77,7 +104,7 @@ namespace FlyCn.EngineeredDataList
             dtgUploadGrid.MasterTableView.GetColumn("ExcelMustFields").Visible = false;
             dtgUploadGrid.MasterTableView.GetColumn("Field_DataType").Visible = false;
             dtgUploadGrid.MasterTableView.GetColumn("Key_Field").Visible = false;
-
+            dtgUploadGrid.MasterTableView.GetColumn("Field_Name").Visible = false;
             
             
         }
@@ -89,8 +116,17 @@ namespace FlyCn.EngineeredDataList
             {
                 //((e.Item as GridDataItem)["ExcelMustFields"].Controls[0] as CheckBox).Enabled = false;
 
+                GridDataItem item = e.Item as GridDataItem;
+                if (item["ExcelMustFields"].Text == "Y")
+                {
+                    //string temp = (string)item["Field_Name"].Text;
+                    //item.Display = false;
+                    item.Enabled = false;
+                }
+              
             } 
         }
+        
         protected void dtgUploadGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             if (_moduleId != null)
@@ -105,32 +141,24 @@ namespace FlyCn.EngineeredDataList
               
             }
         }
-
+    
         protected void ToggleRowSelection(object sender, EventArgs e)
         {
-            ((sender as CheckBox).NamingContainer as GridItem).Selected = (sender as CheckBox).Checked;
-            bool checkHeader = true;
-            foreach (GridDataItem dataItem in dtgUploadGrid.MasterTableView.Items)
-            {
-                if (!(dataItem.FindControl("CheckBox1") as CheckBox).Checked)
-                {
-                    checkHeader = false;
-                    break;
-                }
-            }
-            GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
-            (headerItem.FindControl("headerChkbox") as CheckBox).Checked = checkHeader;
-        }
-
-
-        protected void ToggleSelectedState(object sender, EventArgs e)
-        {
-            CheckBox headerCheckBox = (sender as CheckBox);
-            foreach (GridDataItem dataItem in dtgUploadGrid.MasterTableView.Items)
-            {
-                (dataItem.FindControl("CheckBox1") as CheckBox).Checked = headerCheckBox.Checked;
-                dataItem.Selected = headerCheckBox.Checked;
-            }
+            //List<string> columnNames = new List<string>();
+            //((sender as CheckBox).NamingContainer as GridItem).Selected = (sender as CheckBox).Checked;
+            /////bool checkHeader = true;
+            //foreach (GridDataItem dataItem in dtgUploadGrid.MasterTableView.Items)
+            //{
+            //    if (!(dataItem.FindControl("CheckBox1") as CheckBox).Checked)
+            //    {
+            //       // checkHeader = false;
+            //        columnNames.Add(dataItem["Field_Name"].Text);
+            //        string temp = dataItem["Field_Name"].Text;
+            //    }
+            //}
+            //ViewState["columnNamesVs"] = columnNames;
+            //GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+            //(headerItem.FindControl("headerChkbox") as CheckBox).Checked = checkHeader;
         }
 
         protected void btnExcelIimport_Click(object sender, EventArgs e)
@@ -148,6 +176,254 @@ namespace FlyCn.EngineeredDataList
 
             //dtgvalidationErros.DataSource = dtObj;
         }
+
+        protected void btn_upload_Click(object sender, EventArgs e)
+        {
+
+            importObj.TableName = comDAL.tableName;
+            DataSet dsFile = null;
+            // importObj.fileName = "file";
+            try
+            {
+                if (DataImportFileUpload.HasFile)
+                {
+                    String[] excelSheets = null;
+                    string path = Server.MapPath("~/Content/Fileupload/").ToString();
+                    
+                    string fileName = DataImportFileUpload.FileName.ToString();
+                    hdfFileName.Value = fileName;
+                    importObj.fileName = fileName;
+                    string fileLocation = path + fileName;
+                    importObj.fileLocation = fileLocation;
+                    hdfFileLocation.Value = fileLocation;
+                    string fileExtension = System.IO.Path.GetExtension(fileName);
+
+                    int fileExtensionCheck=validationObj.ValidateFileExtension(fileExtension);
+                    
+                    if (fileExtensionCheck != 0)//&&(sheetname=="Electrical")
+                    {
+                        DeleteDuplicateFile(fileLocation);//deletes the file if the same file name exists in the folder
+                        DataImportFileUpload.SaveAs(fileLocation);
+                        excelSheets=importObj.OpenExcelFile();
+                        if (excelSheets != null)
+                        {
+                            if (importObj.SheetName == currentSheet)
+                            {
+                                dsFile = new DataSet();
+                                dsFile = importObj.ScanExcelFileToDS(excelSheets);
+                                dsTable = comDAL.GetTableDefinition(comDAL.tableName);
+                                columnExistCheck = validationObj.ValidateExcelDataStructure(dsFile, dsTable);
+                                if (columnExistCheck == true)
+                                {
+                                   
+                                    lblMsg.Text = "Successfully Uploaded!";
+                                    ScriptManager.RegisterStartupScript(this, GetType(), "Upload", "GenerateTemplateNextClick();", true);
+                                    EnaableButtonandGrid();
+                                    return;
+                                }
+                                if (columnExistCheck == false)
+                                {
+                                    DeleteDuplicateFile(fileLocation);
+                                    lblMsg.Text = "Sheet does not have valid structure,Please Make sure..";
+                                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "GenerateTemplateNextClick();", true);
+                                    return;//excel structrue not valid
+                                }
+                            }
+                            else
+                            {
+                                lblMsg.Text = "Sheet Name is Invalid";
+                                DeleteDuplicateFile(fileLocation);
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "GenerateTemplateNextClick();", true);
+                                return;//invalid sheet name
+                            }
+                        }
+                        else
+                        {
+                            lblMsg.Text = "Either sheet name or sheet description is missing";
+                            DeleteDuplicateFile(fileLocation);
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "GenerateTemplateNextClick();", true);
+                            return;//invalid sheet name
+                        }
+                    }
+                    else
+                    {
+                        lblMsg.Text = "Please Upload file types of xlsx or xls";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "GenerateTemplateNextClick();", true);
+                        return;//invalid file extension
+                    }
+                   
+                    //importObj.temporaryFolder = path;
+                   
+                    //importObj.testFile = importObj.fileName;
+                    //importObj.ExcelFileName = importObj.fileName;
+                    //Thread excelImportThread = new Thread(new ThreadStart(importObj.ImportExcelFile));
+                    //excelImportThread.Start();
+                    //tempDS = new DataSet();
+                    //tempDS=importObj.ImportExcelFile();
+                    // if (tempDS.Tables[0].Rows.Count>0)
+                    // {
+                    //     ViewState["ExcelDS"] = tempDS;
+                    // }
+                    // tempDS = null;
+                    // tempDS = (DataSet)ViewState["ExcelDS"];
+                    //lblMsg.Text = "Thread started";
+                }//end of hasfile if
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "GenerateTemplateNextClick();", true);
+
+            }//end try
+            catch (Exception ex)
+            {
+               // lblMsg.Text = ex.Message;
+                throw ex;
+            }
+            finally
+            {
+
+            }       
+        }
+
+        public void DisableButtonandGrid()
+        {
+            dtgUploadGrid.Enabled = false;
+            btnValidate.Enabled = false;
+
+        }
+
+        public void EnaableButtonandGrid()
+        {
+            dtgUploadGrid.Enabled = true;
+            btnValidate.Enabled = true;
+
+        }
+
+        public bool DeleteDuplicateFile(string location)
+        {
+            if (System.IO.File.Exists(location))
+            {
+                try
+                {
+                    System.IO.File.Delete(location);
+                    return true;
+                }
+
+                catch (Exception ex)
+                {
+                   // lblMsg.Text = "Problem while deleting previous file,Please try again!";
+                    //importObj.importStatus = -1;
+                    throw ex;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        protected void BtnNext_Click(object sender, EventArgs e)
+        {
+
+            //Thread excelImportThread = new Thread(new ThreadStart(importObj.ImportExcelFile));
+            //excelImportThread.Start();
+            importObj.ExcelFileName = hdfFileName.Value;
+            importObj.fileLocation = hdfFileLocation.Value;
+            importObj.fileName = importObj.ExcelFileName;
+           if(File.Exists(importObj.fileLocation))
+            {
+                try
+                {
+                    tempDS = new DataSet();
+                    tempDS = importObj.ImportExcelFile();
+                    CheckBoxColumns();//getting the fieldnames that has been uncheced
+                    RemoveColumnFromDS(tempDS);
+
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+                
+           }
+       }
+
+
+        public void CheckBoxColumns()
+        {
+          
+            GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+            if(headerItem!=null)
+            {
+                foreach (GridDataItem dataItem in dtgUploadGrid.MasterTableView.Items)
+                {
+                    if (!(dataItem.FindControl("CheckBox1") as CheckBox).Checked)
+                    {
+                        // checkHeader = false;
+                        columnNames.Add(dataItem["Field_Name"].Text);
+                        string temp = dataItem["Field_Name"].Text;
+                    }
+                }
+            }
+       }
+        
+       public void RemoveColumnFromDS(DataSet tempDS)
+        {
+            DataSet checkds = new DataSet();
+            checkds = tempDS;
+            if ((columnNames != null) && (checkds != null))
+            {
+              foreach (string str in columnNames)
+               {
+                 for (int i = checkds.Tables[0].Columns.Count - 1; i >= 0; i--)
+                  {
+                    DataColumn column = checkds.Tables[0].Columns[i];
+                    if (column.ColumnName == str)
+                     {
+                       tempDS.Tables[0].Columns.Remove(str);
+                       break;
+                     }
+                  } 
+               }
+            }
+        }
+
+
+        public void DynamicSheet()
+       {
+            switch(moduleObj.ModuleID)
+            {
+                case "CIV":
+                    currentSheet = SheetStatus.CIV;
+                    break;
+
+                case "ELE":
+                    currentSheet = SheetStatus.ELE;
+                    break;
+                case "CAD":
+                    currentSheet = SheetStatus.CAD;
+                    break;
+                case "CTL":
+                    currentSheet = SheetStatus.CTL;
+                    break;
+                case "INS":
+                    currentSheet = SheetStatus.INS;
+                    break;
+                case "MEC":
+                    currentSheet = SheetStatus.MEC;
+                    break;
+                case "PIP":
+                    currentSheet = SheetStatus.PIP;
+                    break;
+                case "TEL":
+                    currentSheet = SheetStatus.TEL;
+                    break;
+
+            }
+       }
+
 
 
     }

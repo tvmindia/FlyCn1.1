@@ -32,57 +32,22 @@
    border-radius:20px 10px 0 0;
 }
    </style>
-  <%-- <style>
-        ul.result li div#a{ color: red; }
-        ul.result li div#b{ color: green; }
-        ul.result li div#c{ color: blue; }
-    </style>  --%>
+ 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-      <div id="content">
-             <div class="contentTopBar"></div>
-          <div id="containerTab"   runat="server" style="width:100%;">
+     
+        <div id="containerTab" runat="server" style="width: 90%; text-align: center;margin:20px">
 
-           <ul class="list-inline" id="horizonaltab"  runat="server" style="width:100%">
- 
-                <li style="width:130px;">
+            <ul class="list-inline" id="horizonaltab" runat="server" style="width: 100%">
 
-              </li>
-            
- <%-- <li ><a href="#"><img src="../Images/Icons/Civil16.png" /></a></li>
-  <li ><a href="#"><img src="../Images/Icons/Civil48.png" /></a></li>
-  <li><a href="#"><img src="../Images/Icons/Civil48.png" /></a></li>--%>
-</ul>
-     <%-- <a  href="EnggDatalistBaseTable.aspx"  > <div class="tab tab1">Tab 1</div></a>
-      <a  href="EnggDatalistBaseTable.aspx"  > <div class="tab tab2">Tab 1</div></a>
-            <a  href="EnggDatalistBaseTable.aspx"  > <div class="tab tab2">Tab 1q</div></a>
-               <a  href="EnggDatalistBaseTable.aspx"  >   <div class="tab tab2">Tab 1</div></a>
-                <a  href="EnggDatalistBaseTable.aspx"  >  <div class="tab tab2">Tab 1</div></a>
-                <a  href="EnggDatalistBaseTable.aspx"  >  <div class="tab tab2">Tab 1</div></a>--%>
-</div>
-   <div id="body" runat="server" class="container table-responsive" style="width: 100%; height:100%; margin-left:50px;" >
-    <%--<div style="width:100%">
-  <div style="width:543px;">
-    First pane. <a href="#third">open third tab</a>
-  </div>
-  <div>
-    Second pane. You can open other tabs with normal
-    <a href="#first">anchor links</a>
-  </div>
-  <div>
-    Third tab content
-  </div>
-</div>--%>
+                <li style="width: 10px;"></li>
 
 
-       
-       <%--<div  >
-              <ul class="result">
-        <li><div id="a">This is red</div></li>
-        <li><div id="b">This is green</div></li>
-        <li><div id="c">This is blue</div></li>
-    </ul>
-       </div>--%>
-   </div>
-          </div>
+            </ul>
+
+        </div>
+    <br />
+        <div id="body" runat="server" class="container table-responsive" style="width: 100%; height: 100%;">
+        </div>
+     
 </asp:Content>
