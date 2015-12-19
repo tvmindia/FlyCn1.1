@@ -820,7 +820,7 @@ namespace FlyCn.FlyCnDAL
                 //DAL.Constants constantList = new DAL.Constants();
                 dbConnection dbcon = new dbConnection();
                
-                //dsTable = tblDef.GetTableDefinition(TableName);
+            //   dsTable = tblDef.GetTableDefinition(TableName);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = tblDef.GetProcedureName(TableName);
                 cmd.Connection = dbcon.GetDBConnection();
@@ -828,6 +828,7 @@ namespace FlyCn.FlyCnDAL
                 {
                     string paramName = dsTable.Tables[0].Rows[j]["Field_Name"].ToString();
                     string type = dsTable.Tables[0].Rows[j]["Field_DataType"].ToString();
+              
                     object paramValue = dr[paramName];
 
                     if (type == "D")

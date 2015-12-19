@@ -9,14 +9,24 @@ using Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
 using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
+
+
+
+
 
 namespace FlyCn.FlyCnDAL
 {
+
     public class ExcelTemplate
     {
+
+
+
+
         public void GenerateExcelTemplate(string projno, string tablename)
         {
-          
+
             SqlConnection con = null;
             SqlDataAdapter daObj;
             DataSet ds = new DataSet();
@@ -40,89 +50,110 @@ namespace FlyCn.FlyCnDAL
                 Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
                 Workbook ExcelWorkBook = null;
                 Worksheet ExcelWorkSheet = null;
-               
-              
+
+
                 ExcelWorkBook = ExcelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
-                
-             
-              string filename= "E:Myfile.xlsx";
-           
+
+
+                string filename = "E:Myfile.xlsx";
+
                 List<string> SheetNames = new List<string>();
                 SheetNames.Add("Fields");
                 SheetNames.Add("Field Description");
                 int colIndex = 1;
                 int rowIndex = 1;
 
-             
-              //  ExcelWorkSheet.Columns.ColumnWidth = 21.00;
+
+                //  ExcelWorkSheet.Columns.ColumnWidth = 21.00;
                 var rows = ds.Tables[0].Rows;
-              
+
                 for (int i = 1; i < 2; i++)
                     ExcelWorkBook.Worksheets.Add();
-               
-                //--------------------   First Sheet------------------------------//
-                    ExcelWorkSheet = ExcelWorkBook.Worksheets[1];
-                    foreach (DataRow row in rows)
-                    {
-                        ExcelWorkSheet.Columns.AutoFit();
-                        string name = Convert.ToString(row["Field_Name"]);
-                       
-                        ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
 
-                       
-                        rowIndex++;
-                    }
-               
-                    ExcelWorkSheet.Name = SheetNames[0];
+                //--------------------   First Sheet------------------------------//
+                ExcelWorkSheet = ExcelWorkBook.Worksheets[1];
+                foreach (DataRow row in rows)
+                {
+                    ExcelWorkSheet.Columns.AutoFit();
+                    string name = Convert.ToString(row["Field_Name"]);
+
+                    ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
+
+
+                    rowIndex++;
+                }
+
+                ExcelWorkSheet.Name = SheetNames[0];
 
                 //---------------------Second Sheet----------------------------//
-                  
-                     colIndex = 1;
-                     rowIndex = 1;
 
-                    ExcelWorkSheet = ExcelWorkBook.Worksheets[2];
-                    foreach (DataRow row in rows)
+                colIndex = 1;
+                rowIndex = 1;
+
+                ExcelWorkSheet = ExcelWorkBook.Worksheets[2];
+                foreach (DataRow row in rows)
+                {
+                    ExcelWorkSheet.Columns.AutoFit();
+                    string name = Convert.ToString(row["Field_Name"]);
+
+                    ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
+                    string isMandatory = Convert.ToString(row["ExcelMustFields"]);
+
+
+                    if (isMandatory == "Y")
                     {
-                        ExcelWorkSheet.Columns.AutoFit();
-                        string name = Convert.ToString(row["Field_Name"]);
-                       
-                        ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
-                         string isMandatory = Convert.ToString(row["ExcelMustFields"]);
-                  
-                      
-                         if (isMandatory == "Y")
-                         {
-                             ExcelWorkSheet.Cells[colIndex, rowIndex+1].Value = "*";
-                             //ExcelWorkSheet.Cells[colIndex, rowIndex + 1].style("color", "red");
-                             ExcelWorkSheet.Cells[colIndex, rowIndex + 1].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
-                         }
-                        colIndex++;
-                  
-                  
-
+                        ExcelWorkSheet.Cells[colIndex, rowIndex + 1].Value = "*";
+                        //ExcelWorkSheet.Cells[colIndex, rowIndex + 1].style("color", "red");
+                        ExcelWorkSheet.Cells[colIndex, rowIndex + 1].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
                     }
-
-                    ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Note: * marked fields are mandatory";
-                    ExcelWorkSheet.Cells[colIndex, rowIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
-                    ExcelWorkSheet.Name = SheetNames[1];
-                  //  ExcelWorkBook.SaveCopyAs(@"E:\Copy_Myfile.xlsx");
-                    string path = @"E:\";
-
-                    string file = path+"ExcelImport_" + tablename;
-                    //ExcelWorkBook.SaveAs(path+file);
-
-
-                   HttpContext.Current.Response.AppendHeader("content-disposition", "attachment; filename=" + file);
-
-                   HttpContext.Current.Response.ContentType = "Application/x-msexcel";
+                    colIndex++;
 
 
 
+                }
 
-ExcelWorkBook.SaveAs(file);
-                   ExcelWorkBook.Close();
-                    ExcelApp.Quit();
-              
+                ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Note: * marked fields are mandatory";
+                ExcelWorkSheet.Cells[colIndex, rowIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+                ExcelWorkSheet.Name = SheetNames[1];
+                //  ExcelWorkBook.SaveCopyAs(@"E:\Copy_Myfile.xlsx");
+                //  string path = @"E:\";
+
+                string file = "ExcelImport_" + tablename;
+                //ExcelWorkBook.SaveAs(path+file);
+
+
+                //Stream myStream;
+                //SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+                //saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                //saveFileDialog1.FilterIndex = 2;
+                //saveFileDialog1.RestoreDirectory = true;
+
+                //if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                //{
+                //    if ((myStream = saveFileDialog1.OpenFile()) != null)
+                //    {
+                      //  ExcelWorkBook.SaveAs(file);
+                        // Code to write the stream goes here.
+                //        myStream.Close();
+                //    }
+                //}
+
+
+                   ////  HttpContext.Current.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                   //  HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=SqlExport.xlsx");
+                   //     using (MemoryStream MyMemoryStream = new MemoryStream())
+                   //     {
+                            ExcelWorkBook.SaveAs(file);
+                        //    MyMemoryStream.WriteTo(HttpContext.Current.Response.OutputStream);
+                        //    HttpContext.Current.Response.Flush();
+                        //    HttpContext.Current.Response.End();
+                        //}
+
+                // ExcelWorkBook.SaveAs(file);
+                ExcelWorkBook.Close();
+                ExcelApp.Quit();
+
                 Marshal.ReleaseComObject(ExcelWorkSheet);
                 Marshal.ReleaseComObject(ExcelWorkBook);
                 Marshal.ReleaseComObject(ExcelApp);
@@ -133,12 +164,13 @@ ExcelWorkBook.SaveAs(file);
                 Console.WriteLine("Exception: " + exHandle.Message);
                 Console.ReadLine();
             }
-           
+
 
         }
-       
-    }
 
+
+
+    }
 }
                
             

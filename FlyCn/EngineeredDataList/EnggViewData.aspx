@@ -31,7 +31,10 @@
            
         //}
 
-      }
+        }
+
+
+
      
    function ClearTextBox()
    {
@@ -45,12 +48,15 @@
           <%=ToolBar.ClientID %>_SetSaveVisible(true);
           <%=ToolBar.ClientID %>_SetUpdateVisible(false);
           <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+          <%=ToolBar.ClientID %>_SetEditVisible(false);
+
       }
 
         function SelectTabList() {
             debugger;
           var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
-          var tab = tabStrip.findTabByValue("1");
+            var tab = tabStrip.findTabByValue("1");
+        
           tab.select();
       }
 
@@ -80,7 +86,8 @@
           }
 
           if (tab.get_value() == "1") {//List tab selected
-                  <%=ToolBar.ClientID %>_SetAddVisible(false);
+              debugger;
+              <%=ToolBar.ClientID %>_SetAddVisible(false);
               <%=ToolBar.ClientID %>_SetSaveVisible(false);
               <%=ToolBar.ClientID %>_SetUpdateVisible(false);
               <%=ToolBar.ClientID %>_SetDeleteVisible(false);
@@ -99,7 +106,7 @@
         </script>
 
 
-      <div class="container">
+      <div class="container" style="width:100%">
           <asp:Label ID="lblTableName" runat="server" Text=""></asp:Label>
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
             CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
@@ -129,12 +136,12 @@
                                     </asp:ScriptManager>
                                        
                                     <telerik:RadGrid ID="dtgEnggDataList" runat="server"  OnItemCommand="dtgEnggDataList_ItemCommand"   OnPreRender="dtgEnggDataList_PreRender"   OnNeedDataSource="dtgEnggDataList_NeedDataSource"  
-                                Skin="Silk" CssClass="myclass"  Style="width:100%" >
+                                Skin="Silk" width="100%">
                                 <MasterTableView DataKeyNames="" CssClass="myclass">
 
                                     <Columns>
                                         <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png">
-                                        </telerik:GridButtonColumn>
+                                        </telerik:GridButtonColumn> 
                                        
 
                                     </Columns>
