@@ -68,8 +68,10 @@ namespace FlyCn.FlyCnDAL
                     {
                         string FieldName = item["Field_Name"].ToString();
                         string FieldDataType = item["Field_DataType"].ToString();
+                        string temp = dr[FieldName].ToString().Trim();
 
-                        if (dr[FieldName].ToString().Trim() == "" || dr[FieldName] == null)
+                        //if (dr[FieldName].ToString().Trim() == "" || dr[FieldName] == null)
+                        if (dr[FieldName].ToString().Trim() == "" || string.IsNullOrEmpty(dr[FieldName].ToString()))
                         {
 
                             flag = true;

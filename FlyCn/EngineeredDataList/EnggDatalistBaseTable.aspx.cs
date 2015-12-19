@@ -169,12 +169,10 @@ namespace FlyCn.EngineeredDataList
 
         protected void dtgvalidationErros_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            //DataTable dtObj = new DataTable();
-            //ImportFile imlObj = new ImportFile();
-            ////dtObj = imlObj.getErrorDetails();
+            DataSet ds = new DataSet();
 
-
-            //dtgvalidationErros.DataSource = dtObj;
+            ds = importObj.getErrorDetails();
+            dtgvalidationErros.DataSource = ds;
         }
 
         protected void btn_upload_Click(object sender, EventArgs e)
@@ -219,6 +217,7 @@ namespace FlyCn.EngineeredDataList
                                     lblMsg.Text = "Successfully Uploaded!";
                                     ScriptManager.RegisterStartupScript(this, GetType(), "Upload", "GenerateTemplateNextClick();", true);
                                     EnaableButtonandGrid();
+                                    CheckBoxAllCheck();
                                     return;
                                 }
                                 if (columnExistCheck == false)
@@ -336,6 +335,7 @@ namespace FlyCn.EngineeredDataList
                     tempDS = importObj.ImportExcelFile();
                     CheckBoxColumns();//getting the fieldnames that has been uncheced
                     RemoveColumnFromDS(tempDS);
+                    ValidateDataStructure(tempDS);
 
                 }
                 catch(Exception ex)
@@ -349,7 +349,32 @@ namespace FlyCn.EngineeredDataList
                 
            }
        }
+        public void CheckBoxAllCheck()
+        {
+            GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+            if (headerItem != null)
+            {
+                 bool checkHeader = true;
+                foreach (GridDataItem dataItem in dtgUploadGrid.MasterTableView.Items)
+                {
+                    if (!(dataItem.FindControl("CheckBox1") as CheckBox).Checked)
+                    {
 
+                        (dataItem.FindControl("CheckBox1") as CheckBox).Checked = checkHeader;
+                       // dataItem.Selected = headerCheckBox.Checked;
+                    }
+                }
+            }
+        }
+
+        public void ValidateDataStructure(DataSet dsFile)
+        {
+            dsTable = comDAL.GetTableDefinition(comDAL.tableName);
+            for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
+            {
+                validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable);
+            }
+        }
 
         public void CheckBoxColumns()
         {

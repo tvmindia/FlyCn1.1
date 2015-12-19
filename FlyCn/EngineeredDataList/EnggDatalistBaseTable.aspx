@@ -168,7 +168,6 @@ ul.departments { list-style-type: none; }*/
             var disdtg = $find("<%=dtgUploadGrid.ClientID%>");
             //disdtg.disabled = "disabled";
             DisableGrid(disdtg);
-            alert("rr");
             document.getElementById('<%= btnValidate.ClientID %>').disabled = true;
 
         }
@@ -355,15 +354,17 @@ ul.departments { list-style-type: none; }*/
             <div class="col-md-5">
                 <asp:Label ID="lblValidationErrorRows" runat="server" Text="Validation error rows" CssClass="subtitle"></asp:Label>
 
-                <telerik:RadGrid ID="dtgvalidationErros" runat="server" AllowSorting="true" Width="50%"
-                    OnNeedDataSource="dtgvalidationErros_NeedDataSource" AllowMultiRowSelection="True"
-                    Skin="Silk" CssClass="outerMultiPage">
-
-
+                <telerik:RadGrid ID="dtgvalidationErros" runat="server" AllowSorting="true" Width="50%" OnNeedDataSource="dtgvalidationErros_NeedDataSource" AllowMultiRowSelection="True" Skin="Silk" CssClass="outerMultiPage">
 
                     <MasterTableView DataKeyNames="">
 
                         <Columns>
+                              <telerik:GridButtonColumn CommandName="EditRec" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Detail" UniqueName="EditRec">
+                              </telerik:GridButtonColumn>
+                              <telerik:GridBoundColumn HeaderText="StatusID" DataField="Status_ID" UniqueName="Status_ID" Display="false"></telerik:GridBoundColumn>
+                              <telerik:GridBoundColumn HeaderText="Key Field" DataField="Key_Field" UniqueName="Key_Field"></telerik:GridBoundColumn>
+                              <telerik:GridBoundColumn HeaderText="Description" DataField="Error_Description" UniqueName="Error_Description"></telerik:GridBoundColumn>
+                             
                         </Columns>
                     </MasterTableView>
 

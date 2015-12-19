@@ -391,9 +391,9 @@ namespace FlyCn.FlyCnDAL
         #endregion Update Excel Import Details
 
         #region Error Details
-        public DataTable getErrorDetails()
+        public DataSet getErrorDetails()
         {
-            DataTable datatableobj = null;
+            DataSet datatableobj = null;
             SqlConnection con = null;
             dbConnection dcon = new dbConnection();
             try
@@ -406,7 +406,7 @@ namespace FlyCn.FlyCnDAL
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = cmd;
-                datatableobj = new DataTable();
+                datatableobj = new DataSet();
                 adapter.Fill(datatableobj);
             }
             catch (Exception ex)
