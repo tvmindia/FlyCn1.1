@@ -77,7 +77,7 @@
                                                 <telerik:GridBoundColumn HeaderText="Document Date" DataField="DocumentDate" UniqueName="DocumentDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Document Owner" DataField="DocumentOwner" UniqueName="DocumentOwner"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Created Date" DataField="CreatedDate" UniqueName="CreatedDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="Revision Date" DataField="RevisionDate" UniqueName="RevisionDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Revision Date" DataField="RevisionDate" UniqueName="RevisionDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Document Status" DataField="DocumentStatus" UniqueName="DocumentStatus"></telerik:GridBoundColumn>
                                             </Columns>
                                         </MasterTableView>
@@ -356,7 +356,7 @@
                 }
         
         function onClientTabSelected(sender, args) {
-
+            debugger;
             var tab = args.get_tab();
           
         if (tab.get_value() == '2')
@@ -383,6 +383,7 @@
        
             if((PageSecurity.isReadOnly))
             {
+             
                 <%=ToolBar.ClientID %>_SetEditVisible(false);
                 <%=ToolBar.ClientID %>_SetAddVisible(false);
                 <%=ToolBar.ClientID %>_SetSaveVisible(false);

@@ -25,6 +25,8 @@ namespace FlyCn.EngineeredDataList
         TabAddEditSettings tabs = new TabAddEditSettings();
         ErrorHandling eObj = new ErrorHandling();
         DataTable datatableobj = new DataTable();
+        //UIClasses.Const Const = new UIClasses.Const();
+        HttpContext context = HttpContext.Current;
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
         FlyCnDAL.SystemDefenitionDetails systabledefenitionobj = new FlyCnDAL.SystemDefenitionDetails();
@@ -32,6 +34,7 @@ namespace FlyCn.EngineeredDataList
 
         protected void Page_Load(object sender, EventArgs e)
         {
+          
             ToolBarVisibility(4);
             //--------------------------------------------------------
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
@@ -139,13 +142,16 @@ namespace FlyCn.EngineeredDataList
                             RadComboBox combo = new RadComboBox();
                             //combo.Attributes.Add("class", "span1 col-md-1 form-control");
                             combo.ID = "cmb" + datatableobj.Rows[f]["Field_Name"].ToString();
-
+                           
                             combo.EnableLoadOnDemand = true;
                             combo.ItemsRequested += new RadComboBoxItemsRequestedEventHandler(combo_ItemsRequested);
                             cell.Controls.Add(lbl);
                             cell1.Controls.Add(combo);
+                            //combo.Items.Insert(0, new RadComboBoxItem("Select", string.Empty));
+                            combo.Items[0].Text = "Select";
                             row.Cells.Add(cell);
                             row.Cells.Add(cell1);
+                    
                         }
                         table.Rows.Add(row);
                         placeholder.Controls.Add(table);
@@ -192,7 +198,7 @@ namespace FlyCn.EngineeredDataList
                         {
 
                             HtmlGenericControl divcontrol = new HtmlGenericControl("div");
-                            //  divYogesh.Attributes.Add("class", "myClass");
+                        
 
 
                             HiddenField hf = new HiddenField();
@@ -323,8 +329,8 @@ namespace FlyCn.EngineeredDataList
                     ToolBar.UpdateButton.Visible = true;
                     ToolBar.DeleteButton.Visible = true;
                     DataTable dst = new DataTable();
-
-                    dst = dynamicmasteroperationobj.FillMasterData(primarykeys, _tableName, "C00001", KeyValue);
+                    UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
+                    dst = dynamicmasteroperationobj.FillMasterData(primarykeys, _tableName, UA.projectNo, KeyValue);
                     FlyCnDAL.SystemDefenitionDetails sm = new FlyCnDAL.SystemDefenitionDetails();
                     datatableobj.Columns.Add("Values", typeof(String));
 
@@ -400,8 +406,9 @@ namespace FlyCn.EngineeredDataList
 
         protected void dtgEnggDataList_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+            UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
          
-            datatableobj = dynamicmasteroperationobj.BindMasters(_tableName, "C00001");
+            datatableobj = dynamicmasteroperationobj.BindMasters(_tableName, UA.projectNo);
             dtgEnggDataList.DataSource = datatableobj;
         }
 
@@ -461,15 +468,17 @@ namespace FlyCn.EngineeredDataList
                 Insert();
                 ToolBarVisibility(1);
                 dtgEnggDataList.Rebind();
+                ToolBarVisibility(4);
                 //calling js function DisableBOQHeaderTextBox()to make text box readonly
         
 
             }
             if (e.Item.Value == "Update")
             {
-                Update();
+             
                 ToolBarVisibility(1);
-               
+                Update();
+                ToolBarVisibility(4);
             }
             if (e.Item.Value == "Edit")
             {
@@ -479,6 +488,7 @@ namespace FlyCn.EngineeredDataList
                 tab.Selected = true;
                 tab.Text = "Edit";
                 RadMultiPage1.SelectedIndex = 1;
+                ToolBarVisibility(4);
             }
             if (e.Item.Value == "Delete")
             {
@@ -534,13 +544,18 @@ namespace FlyCn.EngineeredDataList
         {
             try
             {
-                string projectNo = "C00001";
-                datatableobj = systabledefenitionobj.GetComboBoxDetails(_tableName);
-                datatableobj.Columns.Add("Values", typeof(String));
+                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                string projectNo =UA.projectNo;
+              datatableobj = systabledefenitionobj.GetComboBoxDetails(_tableName);
+            datatableobj.Columns.Add("Values", typeof(String));
+
+              DataTable dtObj=new DataTable();
 
 
                 for (int f = 0; f < datatableobj.Rows.Count; f++)
                 {
+                  
+
                     if (datatableobj.Rows[f]["Field_DataType"].ToString() == "U")
                     {
                         System.Guid guid = System.Guid.NewGuid();
@@ -552,11 +567,14 @@ namespace FlyCn.EngineeredDataList
 
                         datatableobj.Rows[f]["Values"] = UA.userName;
                     }
-                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
-                    {
-                        //  string date = System.DateTime.Now.ToString();
-                        datatableobj.Rows[f]["Values"] = System.DateTime.Now.ToString("MM/dd/yyyy");
-                    }
+                    //else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
+                    //{
+
+                    //    TextBox box = (TextBox)placeholder.FindControl("txt" + datatableobj.Rows[f]["Field_Name"]);
+                    //    datatableobj.Rows[f]["Values"] = box.Text;
+
+                     
+                    //}
                     else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
                     {
 
@@ -568,32 +586,76 @@ namespace FlyCn.EngineeredDataList
 
                     else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
                     {
-                        TextBox box = (TextBox)placeholder.FindControl("txt" +datatableobj.Rows[f]["Field_Name"] );
+                        TextBox box = (TextBox)placeholder.FindControl("txt" + datatableobj.Rows[f]["Field_Name"]);
 
                         datatableobj.Rows[f]["Values"] = box.Text;
-                        //if( primarykeys==  datatableobj.Rows[f]["Field_Name"])
-                        //{
-                        //   if( box.Text == "")
-                        //   {
-                        //       Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "Validate();", true);
-                        //   }
-                        //}
+
                     }
                     else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "C" | datatableobj.Rows[f]["Field_DataType"].ToString() == "N")
                     {
                         RadComboBox combo = (RadComboBox)placeholder.FindControl("cmb" + datatableobj.Rows[f]["Field_Name"]);
-                        datatableobj.Rows[f]["Values"] = combo.SelectedValue;
+                        
+                        if ( combo.SelectedValue == "")
+                        {
+
+                            datatableobj.Rows[f]["Values"] = DBNull.Value;
+                        }
+                        else
+                        {
+                            datatableobj.Rows[f]["Values"] = combo.SelectedValue;
+                          
+                        }
+                        
                     }
+
+
                 }
+                DataRow row1 = dtObj.NewRow();
+                DataRow row = dtObj.NewRow();
+                DataColumn column0 = new DataColumn();
+                column0.ColumnName = "ProjectNo";
+                column0.DataType = System.Type.GetType("System.String");
+                column0.Caption = "ProjectNo";
+                dtObj.Columns.Add(column0);
+    
+                dtObj.Rows.Add(UA.projectNo);
+               
+                for (int r = 0; r < datatableobj.Rows.Count; r++)
+                {
+                    string tempfield = datatableobj.Rows[r]["Field_Name"].ToString();
+                    string fieldtype = datatableobj.Rows[r]["Field_DataType"].ToString();
+                    DataColumn column = new DataColumn();
+                    column.ColumnName = tempfield;
+                    column.DataType = System.Type.GetType("System.String");
+                    column.Caption = tempfield;
+                    dtObj.Columns.Add(column);
+                 
+                    object value = datatableobj.Rows[r]["Values"];
+
+                    dtObj.Rows[0][tempfield] = value;
+                  
+
+              
+                }
+
+
+                int result;
                 ImportFile ifobj = new ImportFile();
+
+                CommonDAL tblDef = new CommonDAL();
                 DataSet ds = new DataSet();
-                ds.Tables.Add(datatableobj);
-               // ds.Tables.Add(datatableobj);
-              //  int result = dynamicmasteroperationobj.InsertMasterData(datatableobj, projectNo, _tableName);
-                //for (int i = ds.Tables[0].Rows.Count - 1; i >= 0; i--)
-                //{
-                //    int result = ifobj.InsertExcelFile(ds.Tables[0].Rows[i]);
-                //}
+                tblDef.tableName = _tableName;
+                ifobj.TableName = _tableName;
+                ds = tblDef.GetTableDefinition(tblDef.tableName);
+
+                foreach (DataRow r in dtObj.Rows)
+                {
+                    result = ifobj.InsertExcelFile(ds, r);
+                }
+               // int result = dynamicmasteroperationobj.InsertMasterData(datatableobj, projectNo, _tableName);
+               
+                    
+                
                 dtgEnggDataList.Rebind();
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
                 RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
@@ -635,7 +697,7 @@ namespace FlyCn.EngineeredDataList
             try
             {
 
-
+                DataTable dtObj = new DataTable();
                 DataSet dts = new DataSet();
                 FlyCnDAL.SystemDefenitionDetails sds = new FlyCnDAL.SystemDefenitionDetails();
                 dts = sds.getData(_tableName);
@@ -685,19 +747,74 @@ namespace FlyCn.EngineeredDataList
                     if (datatableobj.Rows[f]["Field_DataType"].ToString() == "C" | datatableobj.Rows[f]["Field_DataType"].ToString() == "N")
                     {
                         RadComboBox combo = (RadComboBox)placeholder.FindControl("cmb" + datatableobj.Rows[f]["Field_Name"]);
-                        if (combo.SelectedValue != "")
+                       
+
+                        if (combo.SelectedValue == "")
+                        {
+
+                            datatableobj.Rows[f]["Values"] = DBNull.Value;
+                        }
+                        else
                         {
                             datatableobj.Rows[f]["Values"] = combo.SelectedValue;
 
                         }
-                        else
-                        {
-
-                            datatableobj.Rows[f]["Values"] = null;
-                        }
                     }
+
                 }
-                int result = dynamicmasteroperationobj.UpdateMaster(datatableobj,_tableName, sdw);
+                DataRow row1 = dtObj.NewRow();
+                DataRow row = dtObj.NewRow();
+                DataColumn column0 = new DataColumn();
+                column0.ColumnName = "ProjectNo";
+                column0.DataType = System.Type.GetType("System.String");
+                column0.Caption = "ProjectNo";
+                dtObj.Columns.Add(column0);
+                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                dtObj.Rows.Add(UA.projectNo);
+
+                for (int r = 0; r < datatableobj.Rows.Count; r++)
+                {
+                    string tempfield = datatableobj.Rows[r]["Field_Name"].ToString();
+                    string fieldtype = datatableobj.Rows[r]["Field_DataType"].ToString();
+                    DataColumn column = new DataColumn();
+                    column.ColumnName = tempfield;
+                    column.DataType = System.Type.GetType("System.String");
+                    column.Caption = tempfield;
+                    dtObj.Columns.Add(column);
+
+                    object value = datatableobj.Rows[r]["Values"];
+
+                    dtObj.Rows[0][tempfield] = value;
+
+
+
+                }
+
+
+                int result;
+                ImportFile ifobj = new ImportFile();
+
+                CommonDAL tblDef = new CommonDAL();
+                DataSet ds = new DataSet();
+                tblDef.tableName = _tableName;
+                ifobj.TableName = _tableName;
+                ds = tblDef.GetTableDefinition(tblDef.tableName);
+
+                foreach (DataRow r in dtObj.Rows)
+                {
+                    result = ifobj.InsertExcelFile(ds, r);
+                }
+                // int result = dynamicmasteroperationobj.InsertMasterData(datatableobj, projectNo, _tableName);
+
+
+
+                dtgEnggDataList.Rebind();
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tabs.ResetTabCaptions(tab, tab1);
+                //tab.Selected = true;
+                RadMultiPage1.SelectedIndex = 0;
+               
                
             }
             catch (Exception ex)

@@ -172,7 +172,7 @@ namespace FlyCn.BOQ
                         GridDataItem item = e.Item as GridDataItem;
                         tab.Selected = true;
                         tab.Text = "Details";
-                        //string DocumentNo = hiddenDocumentNo.Value;
+                        //string DocumentNo = hiddenDocumentNo.Value; 
                        // DataTable docdtObj = new DataTable();
                       //  FlyCn.FlyCnDAL.DocumentMaster docObj = new DocumentMaster();
                       //  docdtObj=  docObj.GetRevisionIdByDocumentNo(DocumentNo);
@@ -294,6 +294,7 @@ namespace FlyCn.BOQ
 
         }
        #endregion ToolBarVisibility
+
         #region insert
         public void AddNewBOQ()
         {
@@ -387,7 +388,7 @@ namespace FlyCn.BOQ
         }
 
         #endregion UpdateBOQ
-
+         
         #region BinddtgBOQGrid
         public void BinddtgBOQGrid()
         {
