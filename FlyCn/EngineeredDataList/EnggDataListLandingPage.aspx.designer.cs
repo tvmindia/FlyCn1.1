@@ -13,6 +13,24 @@ namespace FlyCn.EngineeredDataList {
     public partial class EnggDataListLandingPage {
         
         /// <summary>
+        /// containerTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl containerTab;
+        
+        /// <summary>
+        /// horizonaltab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl horizonaltab;
+        
+        /// <summary>
         /// body control.
         /// </summary>
         /// <remarks>

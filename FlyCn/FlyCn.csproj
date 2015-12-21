@@ -55,6 +55,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -365,6 +366,7 @@
     <Content Include="Images\Icons\quality.png" />
     <Content Include="Images\Icons\rejectToolbarIcon.png" />
     <Content Include="Images\Icons\rejectToolbarIconDisabled.png" />
+    <Content Include="Images\Icons\RightArrow16.png" />
     <Content Include="Images\Icons\road.png" />
     <Content Include="Images\Icons\roles.png" />
     <Content Include="Images\Icons\setup.png" />

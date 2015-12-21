@@ -30,6 +30,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 using FlyCn.UserControls;
+using System.Web.UI;
 
 #endregion Included Namespaces
 
@@ -103,11 +104,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public string ImportProperty
-        {
-            get;
-            set;
-        }
+      
         #endregion  Public Properties
 
             ErrorHandling eObj = new ErrorHandling();
@@ -388,41 +385,104 @@ namespace FlyCn.FlyCnDAL
             public DataSet GetTableDefinition(string TableName)
             {
 
-                SqlConnection con = new SqlConnection();
-                SqlCommand cmd = new SqlCommand();
-                SqlDataAdapter da = new SqlDataAdapter();
-                DataSet myRec = new DataSet();
-
-                dbConnection dcon = new dbConnection();
+                SqlConnection con = null;
+                DataSet ds = null;
+                SqlDataAdapter sda = null;
+                SqlCommand cmd = null;
+               
                 try
                 {
-
+                dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
-
+                cmd = new SqlCommand();
+                cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SelectTable";
                 cmd.Parameters.Add("@tablename", SqlDbType.NVarChar).Value = TableName;
-                cmd.Connection = con;
-                da.SelectCommand = cmd;
-
-                
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    da.Fill(myRec);
-                    return myRec;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+                return ds;
                 }
                 catch (Exception ex)
                 {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
                     throw ex;
                 }
                 finally
                 {
-                    con.Close();
-                    con.Dispose();
+                    if (con != null)
+                    {
+                        con.Close();
+                        con.Dispose();
+                    }
                 }
 
             }
             #endregion Method to get table definition
+     
+            #region GetTableDefinitionByModuleID
+             /// <summary>
+            /// Get The Table Definition
+            /// </summary>
+            /// <param name="moduleID"></param>
+            /// <returns>Dataset</returns>
+            public DataSet GetTableDefinitionByModuleID(string moduleID)
+            {
+
+                SqlConnection con = null;
+                DataSet ds = null;
+                SqlDataAdapter sda = null;
+                SqlCommand cmd = null;
+                try
+                {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetTableDefinitionByModuleID";
+                cmd.Parameters.Add("@ModuleID", SqlDbType.NVarChar).Value = moduleID;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                SqlParameter outputparameter = new SqlParameter("@tablename", SqlDbType.NVarChar, 50);
+                cmd.Parameters.Add(outputparameter);
+                outputparameter.Direction = ParameterDirection.Output;
+                sda.Fill(ds);
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                //    UpdateCount = Convert.ToInt32(ds.Tables[0].Rows[0]["Update_Count"]);
+
+                //}
+                //SqlParameter outputparameter = cmd.Parameters.Add("@tablename", SqlDbType.NVarChar, 50);
+              
+                tableName = outputparameter.Value.ToString();
+                return ds;
+                }
+                catch (Exception ex)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
+                    throw ex;
+                }
+                finally
+                {
+                    if (con != null)
+                    {
+                        con.Close();
+                        con.Dispose();
+                    }
+                }
+
+            }
+
+           #endregion GetTableDefinitionByModuleID
+
+           
+
 
             #region Method to get Procedure Name
             /// <summary>
@@ -433,34 +493,38 @@ namespace FlyCn.FlyCnDAL
             public string GetProcedureName(string TableName)
             {
                 string procName = "";
-                SqlConnection con = new SqlConnection();
-                SqlCommand cmd = new SqlCommand();
-
-                dbConnection dcon = new dbConnection();
-                con = dcon.GetDBConnection();
-
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "GetProcedureName";
-                cmd.Parameters.Add("@tablename", SqlDbType.NVarChar).Value = TableName;
-                cmd.Parameters.Add("@propertyName", SqlDbType.NVarChar).Value = ImportProperty;
-                cmd.Connection = con;
-
+                SqlConnection con = null;
+                SqlCommand cmd = null;
+                dbConnection dcon = null; 
                 try
                 {
-                    con.Open();
-                    procName = cmd.ExecuteScalar().ToString();
+                    dcon = new dbConnection();
+                    con = new SqlConnection();
+                    con = dcon.GetDBConnection();
+                    cmd=new SqlCommand();
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "GetProcedureName";
+                    cmd.Parameters.Add("@tablename", SqlDbType.NVarChar).Value = TableName;
+                    SqlParameter ouputprocedurename = cmd.Parameters.Add("@procedurename", SqlDbType.NVarChar,50);
+                    ouputprocedurename.Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                    procName = ouputprocedurename.Value.ToString();
                     return procName;
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
                     throw ex;
-
                 }
-                finally
+                finally 
                 {
-                    con.Close();
-                    con.Dispose();
+                    if(con!=null)
+                    {
+                        con.Close();
+                    }
                 }
+               
+              
             }
             #endregion Method to get Procedure Name
 

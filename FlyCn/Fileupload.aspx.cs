@@ -14,12 +14,26 @@ namespace FlyCn
        //Constants constantsObj = new Constants();
        // ExcelImportDetailsDAL exObj = new ExcelImportDetailsDAL();
         ImportFile importObj = new ImportFile();
-        
-
+        CommonDAL comDAL = new CommonDAL();
+        Modules moduleObj = new Modules();
+        UIClasses.Const Const = new UIClasses.Const();
+        FlyCnDAL.Security.UserAuthendication UA;
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
+            UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
 
+            //if (Request.QueryString["ModuleID"] != null)
+            //{
+            //    moduleObj.ModuleID = Request.QueryString["ModuleID"];
+            //    comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
+               
+            //}
+            moduleObj.ModuleID = "ELE";
+            importObj.ProjectNo = "C00001";//UA.projectNo;
+            importObj.UserName = "albert";//UA.userName;
+            comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
+           
         }
         #endregion Page_Load
 
@@ -33,26 +47,32 @@ namespace FlyCn
         #region btn_upload_Click
         protected void btn_upload_Click(object sender, EventArgs e)
         {
+
+
+
+            importObj.TableName = comDAL.tableName;
+            
+           // importObj.fileName = "file";
          
-            string path = Server.MapPath("~/Content/Fileupload/").ToString();
-            string location="";
+           
+           
           try
           {
              if (ExcelUploader.HasFile)
              {
-               file_name = ExcelUploader.FileName.ToString();
-               location = path + file_name;
-               DeleteDuplicateFile(location);//deletes the file if the same file name exists in the folder
-               ExcelUploader.SaveAs(location);
-        
+               string path = Server.MapPath("~/Content/Fileupload/").ToString();
+               importObj.fileName = ExcelUploader.FileName.ToString();
+               importObj.fileLocation = path + importObj.fileName;
+               importObj.temporaryFolder = path;
+               DeleteDuplicateFile(importObj.fileLocation);//deletes the file if the same file name exists in the folder
+               ExcelUploader.SaveAs(importObj.fileLocation);
+               importObj.testFile = importObj.fileName;
+               importObj.ExcelFileName = importObj.fileName;
                //Thread excelImportThread = new Thread(new ThreadStart(importObj.ImportExcelFile));
                //excelImportThread.Start();
                importObj.ImportExcelFile();
                lblMsg.Text = "Thread started";
-
              }//end of hasfile if
-
-
           }//end try
           catch (Exception ex)
           {

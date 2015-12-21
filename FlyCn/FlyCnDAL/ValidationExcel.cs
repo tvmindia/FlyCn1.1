@@ -43,88 +43,97 @@ namespace FlyCn.FlyCnDAL
             /// </summary>
             /// <param name="datarow from the result dataset of the excel file"></param>
             /// <returns>success/failure and error datatable</returns>
-            public int excelDatasetValidation(DataRow dr)
+            public int excelDatasetValidation(DataRow dr, DataSet dsTable)
             {
                 DataTable dtError = CreateErrorTable();
                 DataSet dsError = new DataSet();
-                DataSet dsTable = new DataSet();
+              
                 // DAL.Constants constantList = new DAL.Constants();
                 // DAL.ExcelImportDAL stdDal = new DAL.ExcelImportDAL();
                 // DAL.ExcelImportDetailsDAL detailsDal = new DAL.ExcelImportDetailsDAL(status_Id);
                 // List<ExcelValidationModel> lmd = new List<ExcelValidationModel>();
-
-                //dsTable = stdDal.getTableDefinition(constantList.TableName);
-                DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
-                DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
-
-                StringBuilder keyFieldLists = new StringBuilder();
-                StringBuilder errorDescLists = new StringBuilder();
-                bool flag = false;
-                string keyField = GetInvalidKeyField(keyFieldRow, dr);
-                string comma = "";
-                foreach (var item in result)
+                CommonDAL stdDal = new CommonDAL();
+                ImportFile importfile = new ImportFile();
+                try
                 {
-                    string FieldName = item["Field_Name"].ToString();
-                    string FieldDataType = item["Field_DataType"].ToString();
+                    DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
+                    DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
 
-                    if (dr[FieldName].ToString().Trim() == "" || dr[FieldName] == null)
+                    StringBuilder keyFieldLists = new StringBuilder();
+                    StringBuilder errorDescLists = new StringBuilder();
+                    bool flag = false;
+                    string keyField = GetInvalidKeyField(keyFieldRow, dr);
+                    string comma = "";
+                    foreach (var item in result)
                     {
+                        string FieldName = item["Field_Name"].ToString();
+                        string FieldDataType = item["Field_DataType"].ToString();
+                        string temp = dr[FieldName].ToString().Trim();
 
-                        flag = true;
-                        errorDescLists.Append(comma);
-                        errorDescLists.Append(FieldName);
-                        errorDescLists.Append(" Field Is Empty");
-                        comma = ",";
+                        //if (dr[FieldName].ToString().Trim() == "" || dr[FieldName] == null)
+                        if (dr[FieldName].ToString().Trim() == "" || string.IsNullOrEmpty(dr[FieldName].ToString()))
+                        {
+
+                            flag = true;
+                            errorDescLists.Append(comma);
+                            errorDescLists.Append(FieldName);
+                            errorDescLists.Append(" Field Is Empty");
+                            comma = ",";
+
+                        }
+
+                        else if (FieldDataType == "D" && !ValidateDate(dr[FieldName].ToString()))
+                        {
+                            flag = true;
+                            errorDescLists.Append(comma);
+                            errorDescLists.Append(FieldName);
+                            errorDescLists.Append("is Invalid");
+                            comma = ",";
+
+                        }
+
+                        else if (FieldDataType == "A" && !isAlphaNumeric(dr[FieldName].ToString()))
+                        {
+                            flag = true;
+                            errorDescLists.Append(comma);
+                            errorDescLists.Append(FieldName);
+                            errorDescLists.Append(" is invalid");
+                            comma = ",";
+
+                        }
+
+                        else if (FieldDataType == "N" && !isNumber(dr[FieldName].ToString()))
+                        {
+                            flag = true;
+                            errorDescLists.Append(comma);
+                            errorDescLists.Append(FieldName);
+                            errorDescLists.Append(" is invalid");
+                            comma = ",";
+
+                        }
+
+                        else if (FieldDataType == "S" && !isAlphaNumeric(dr[FieldName].ToString()))
+                        {
+                            flag = true;
+                            errorDescLists.Append(comma);
+                            errorDescLists.Append(FieldName);
+                            errorDescLists.Append(" is invalid");
+                            comma = ",";
+                        }
 
                     }
 
-                    else if (FieldDataType == "D" && !ValidateDate(dr[FieldName].ToString()))
+                    if (flag == true)
                     {
-                        flag = true;
-                        errorDescLists.Append(comma);
-                        errorDescLists.Append(FieldName);
-                        errorDescLists.Append("is Invalid");
-                        comma = ",";
-
+                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString());
+                        return -1;
                     }
-
-                    else if (FieldDataType == "A" && !isAlphaNumeric(dr[FieldName].ToString()))
-                    {
-                        flag = true;
-                        errorDescLists.Append(comma);
-                        errorDescLists.Append(FieldName);
-                        errorDescLists.Append(" is invalid");
-                        comma = ",";
-
-                    }
-
-                    else if (FieldDataType == "N" && !isNumber(dr[FieldName].ToString()))
-                    {
-                        flag = true;
-                        errorDescLists.Append(comma);
-                        errorDescLists.Append(FieldName);
-                        errorDescLists.Append(" is invalid");
-                        comma = ",";
-
-                    }
-
-                    else if (FieldDataType == "S" && !isAlpha(dr[FieldName].ToString()))
-                    {
-                        flag = true;
-                        errorDescLists.Append(comma);
-                        errorDescLists.Append(FieldName);
-                        errorDescLists.Append(" is invalid");
-                        comma = ",";
-                    }
-
+                    else return 1;
                 }
-
-                if (flag == true)
+                catch(Exception ex)
                 {
-                    //detailsDal.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString());
-                    return -1;
+                    throw ex;
                 }
-                else return 1;
             }
 
             /// <summary>
@@ -225,10 +234,17 @@ namespace FlyCn.FlyCnDAL
             /// <returns></returns>
             public bool ExcelDataStructureValidation(string cName, DataSet dsFile)
             {
-                for (int i = 0; i < dsFile.Tables[0].Columns.Count; i++)
+                try
                 {
-                    if (cName == dsFile.Tables[0].Columns[i].ColumnName.ToString())
-                        return true;
+                    for (int i = dsFile.Tables[0].Columns.Count - 1; i >= 0; i--)
+                    {
+                        if (cName == dsFile.Tables[0].Columns[i].ColumnName.ToString())
+                            return true;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
                 }
 
                 return false;
@@ -236,21 +252,24 @@ namespace FlyCn.FlyCnDAL
 
 
 
-            public bool ValidateExcelDataStructure(DataSet dsFile)
+            public bool ValidateExcelDataStructure(DataSet dsFile, DataSet dsTable)
             {
-                DataSet dsTable = new DataSet();
-                //   DAL.Constants constantList = new DAL.Constants();
-                //  DAL.ExcelImportDAL stdDal = new DAL.ExcelImportDAL();
-                //  dsTable = stdDal.getTableDefinition(constantList.TableName);
-                for (int i = dsTable.Tables[0].Rows.Count - 1; i >= 0; i--)
+                try
                 {
-                    bool res;
-                    string FieldName = dsTable.Tables[0].Rows[i]["Field_Name"].ToString();
-                    res = ExcelDataStructureValidation(FieldName, dsFile);
-                    if (!res)
+                   for (int i = dsTable.Tables[0].Rows.Count - 1; i >= 0; i--)
                     {
-                        return false;
+                        bool res;
+                        string FieldName = dsTable.Tables[0].Rows[i]["Field_Name"].ToString();
+                        res = ExcelDataStructureValidation(FieldName, dsFile);
+                        if (!res)
+                        {
+                            return false;
+                        }
                     }
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
                 }
 
                 return true;

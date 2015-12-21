@@ -138,12 +138,9 @@ namespace FlyCn.ExcelImport
         #region BindCompletedDetails()
         public void BindCompletedDetails()
         {
-          
-           
-
+   
             //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();
-
             DataSet ds = new DataSet();
             ds = detailsObj.getDistictExcelImportDetailsByUserName("TestUser");
             RadGrid2.DataSource = ds.Tables[0];

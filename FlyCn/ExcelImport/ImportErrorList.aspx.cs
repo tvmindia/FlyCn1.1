@@ -22,7 +22,7 @@ namespace FlyCn.ExcelImport
         #region BindData()
         public void BindData()
         {
-            DataTable ds = new DataTable();
+            DataSet ds = new DataSet();
 
             //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();

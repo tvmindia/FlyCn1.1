@@ -21,7 +21,7 @@ namespace FlyCn.ExcelImport
             {
                 statusId = Request.QueryString["statusId"];
                 exObj.getExcelImportDetailsById(statusId);
-                lbl_ProjNo1.Text = exObj.ProjNo;
+                lbl_ProjNo1.Text = exObj.ProjectNo;
                 lbl_FileName1.Text = exObj.FileName;
                 lbl_TableName1.Text = exObj.TableName;
                 lbl_TotalCount1.Text = Convert.ToString(exObj.TotalCount);

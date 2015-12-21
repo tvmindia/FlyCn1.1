@@ -26,7 +26,8 @@ namespace FlyCn
         {
             string StatusID = "4cd93ccc-7c83-4ca7-8641-3cea4b30d3d3";
             MailSending MailObj = new MailSending();
-           ImportFile detailsObj = new ImportFile();
+            //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
+            ImportFile detailsObj = new ImportFile();
             DataSet ds = new DataSet();
            
             ds=detailsObj.getExcelImportDetailsById(StatusID);
@@ -34,6 +35,12 @@ namespace FlyCn
            
                 MailObj.SendExcelImportMail(StatusID, detailsObj.UserName);
             
+        }
+
+        protected void Unnamed1_Click(object sender, EventArgs e)
+        {
+            ExcelTemplate eObj = new ExcelTemplate();
+            eObj.GenerateExcelTemplate("C00001","BASE_Electrical");
         }
        
         

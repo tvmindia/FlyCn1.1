@@ -23,6 +23,7 @@ namespace FlyCn.FlyCnDAL
             rtn2.Target = "contentPane";
             myTree.Nodes.Add(rtn2);
             RadTreeNode rtn3 = new RadTreeNode("View Data", "");
+            rtn3.NavigateUrl = "../EngineeredDataList/EnggViewData.aspx";
             rtn3.Target = "contentPane";
             myTree.Nodes.Add(rtn3);
             
@@ -41,9 +42,11 @@ namespace FlyCn.FlyCnDAL
         }
 
 
-        public void LoadInputScreen(RadPane myContentPane)
+        public void LoadInputScreen(RadPane myContentPane, System.Web.UI.Page pg)
         {
-            myContentPane.ContentUrl = "EnggDataListLandingPage.aspx";
+            var master = pg;
+
+            myContentPane.ContentUrl = "EnggDataListLandingPage.aspx?tree=" + pg;
         }
     }
 }
