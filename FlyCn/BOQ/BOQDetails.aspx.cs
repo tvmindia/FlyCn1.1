@@ -20,7 +20,7 @@ namespace FlyCn.BOQ
         string Revisionid, Itemidstring, QueryTimeStatus, latestStatus;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           
             SecurityCheck();
             ToolBarVisibility(4);
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
@@ -49,6 +49,9 @@ namespace FlyCn.BOQ
                     tab.Text = "New";
                     RadMultiPageBOQDetail.SelectedIndex = 1;
                     ToolBarVisibility(1);//Save button visible
+                  //  Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.linkbuttonClient();", false);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
+            
                 }
             }
         }
@@ -68,6 +71,7 @@ namespace FlyCn.BOQ
                  RadTabStripBOQDetail.SelectedIndex = 1;
                  ToolBarVisibility(1);
                  ScriptManager.RegisterStartupScript(this, this.GetType(), "ClearTextBox", "ClearTexBox();", true);
+                
                  
              }
 

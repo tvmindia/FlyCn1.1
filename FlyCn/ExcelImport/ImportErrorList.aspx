@@ -3,12 +3,28 @@
     <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik"%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <style>
+        #tabs li a {
+	
+	color:#000000;
+	
+
+	display:block;
+
+	
+	text-decoration:none;
+	
+	
+	
+}
+    </style>
+    
      <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
 </asp:ScriptManager>
      <div class="PageHeading">Error List</div>
     <div class="container inputMainContainer"  >
   <div class="col-md-12"   >
-         <ul>
+         <ul id="tabs">
       <li><a href="#" name="tab1">Error List</a></li>
              </ul>
     <div id="content"  >
@@ -28,15 +44,15 @@
                                             <Columns>
                                                
 
-                                                <telerik:GridButtonColumn CommandName="Select" ButtonType="ImageButton"   Text="Select" UniqueName="EditData">
+                                                <telerik:GridButtonColumn CommandName="Select" ButtonType="ImageButton" ImageUrl="~/Images/Document Next-WF.png" UniqueName="EditData">
                                                 </telerik:GridButtonColumn>
 
                                                 <telerik:GridBoundColumn HeaderText="Status ID" DataField="Status_ID" UniqueName="Status_ID" Display="false"></telerik:GridBoundColumn>
+                                                  <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjNo" UniqueName="ProjNo" ></telerik:GridBoundColumn>
                                                   <telerik:GridBoundColumn HeaderText="File Name" DataField="File_Name" UniqueName="File_Name" ></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Key Field" DataField="Key_Field" UniqueName="Key_Field" ></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="Error Description" DataField="Error_Description" UniqueName="Error_Description" ></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Table Name" DataField="Table_Name" UniqueName="Table_Name" ></telerik:GridBoundColumn>
                                                  <telerik:GridBoundColumn HeaderText="Error_Count" DataField="Error_Count" UniqueName="Error_Count" ></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="Start Time" DataField="Start_Time" UniqueName="Start_Time"  ></telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Completed Time" DataField="Last_Updated_Time" UniqueName="Last_Updated_Time"  ></telerik:GridBoundColumn>
                                                 
                                             </Columns>
                                         </MasterTableView>

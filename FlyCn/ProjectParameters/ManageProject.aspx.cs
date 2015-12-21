@@ -11,6 +11,7 @@ using Telerik.Web.UI;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
+using System.Web.UI.HtmlControls;
 
 namespace FlyCn.ProjectParameters
 {
@@ -24,9 +25,33 @@ namespace FlyCn.ProjectParameters
         {
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
+            if (!IsPostBack)
+            {
+                AlertData();
+            }
         }
         #endregion  pageload
 
+        public void AlertData()
+        {
+
+
+            var pg = HttpContext.Current.CurrentHandler as Page;
+            var master = pg.Master;
+            ContentPlaceHolder mpContentPlaceHolder;
+            //  Label error = (Label)master.FindControl("lblErrorInfo");
+            mpContentPlaceHolder = (ContentPlaceHolder)master.FindControl("MainBody");
+            HtmlControl divMask = (HtmlControl)master.FindControl("CommonAlertBox");
+            HtmlControl divMask1 = (HtmlControl)master.FindControl("Errorbox");
+            divMask1.Style.Remove("visibility");
+            divMask.Style.Remove("visibility");
+            //divMask.Style.Add("display","none");
+            divMask.Style["display"] = "none";
+            divMask1.Style["display"] = "none";
+         //   divMask.Attributes["class"] = "ErrormsgBoxes";
+            //  error.Text = ex.Message;
+
+        }
         #region  ToolBar_onClick
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {

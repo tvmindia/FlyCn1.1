@@ -3,14 +3,32 @@
     <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik"%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+     <style>
+        #tabs li a {
+	
+	color:#000000;
+	
+
+	display:block;
+
+	
+	text-decoration:none;
+	
+	
+	
+}
+    </style>
+    
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
 </asp:ScriptManager>
      <div class="PageHeading">Error Details</div>
     <div class="container inputMainContainer"  >
   <div class="col-md-12"   >
-       
+        <ul id="tabs">
+      <li><a href="#" name="tab1">Error Details</a></li>
+             </ul>
     <div id="content"  >
-         
+           <div id="tab1"  >
              <telerik:radgrid ID="RadGrid1_ErrorDetails" runat="server" >
               <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
@@ -23,15 +41,15 @@
                                             <Columns>
 
                                                
-                                                  <telerik:GridBoundColumn HeaderText="File Name" DataField="File_Name" UniqueName="File_Name" ></telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="File Name" DataField="File_Name" UniqueName="File_Name" ></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Key Field" DataField="Key_Field" UniqueName="Key_Field" ></telerik:GridBoundColumn>
                                                  <telerik:GridBoundColumn HeaderText="Error Description" DataField="Error_Description" UniqueName="Error_Description"></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="Error_Count" DataField="Error_Count" UniqueName="Error_Count" ></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="Start Time" DataField="Start_Time" UniqueName="Start_Time"  ></telerik:GridBoundColumn>
+                   
                                                 
                                             </Columns>
                                         </MasterTableView>
         </telerik:radgrid>
+               </div>
                </div>
         </div>
       </div>
