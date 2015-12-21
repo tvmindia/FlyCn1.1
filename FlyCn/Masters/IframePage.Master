@@ -31,7 +31,7 @@
        function displayMessage(type, msg) {
 
            var s = document.getElementById("Errorbox");
-           document.getElementById("Errorbox").style.visibility = "visible";
+           document.getElementById("Errorbox").style.display = "";
            var divId = document.getElementById("masterDiv");
            document.getElementById("lblErrorInfo").innerHTML = msg;
            if (type == 'SUCCESS') {
@@ -46,7 +46,7 @@
        function hideMe() {
 
            var s = document.getElementById("Errorbox");
-           document.getElementById("Errorbox").style.visibility = "hidden";
+           document.getElementById("Errorbox").style.display = "none";
            var divId = document.getElementById("masterDiv");
 
            document.getElementById("lblErrorInfo").innerHTML = "";
@@ -54,13 +54,13 @@
        function AlertMsg(msg) {
            var message = msg;
            var alert = document.getElementById("CommonAlertBox");
-           document.getElementById("CommonAlertBox").style.visibility = "visible";
+           document.getElementById("CommonAlertBox").style.display = "";
            document.getElementById("lblAlertMsg").innerHTML = message;
        }
        function hideMeAlert() {
            debugger;
            var alrt = document.getElementById("CommonAlertBox");
-           document.getElementById("CommonAlertBox").style.visibility = "hidden";
+           document.getElementById("CommonAlertBox").style.display = "none";
 
 
            document.getElementById("lblAlertMsg").innerHTML = "";
@@ -74,18 +74,18 @@
 <body>
      
           <div  id="Errorbox" style="visibility:hidden" runat="server" class="ErrormsgBoxes"  >
-            <table style="width: 100%;background-color: transparent;vertical-align:middle">                
+            <table style="width: 100%; background-color: transparent;vertical-align:middle">                
                 <tr> 
-                    <td style="text-align: left;width:90%">
+                    <td style="text-align: left;width:90% ;top:-100px">
                        <asp:Label ID="lblErrorInfo" runat="server"  ></asp:Label>
                     </td>
-                     <td style="text-align: right;width:10%;vertical-align:middle">
+                     <td style="text-align: right;width:10%;vertical-align:middle;top:-100px">
                         <span onclick="hideMe();" class="closeButton">x</span>  <%-- <img src="../Images/Close1.png" onclick="hideMe();" style="height:15px;width:15px"/>--%>                   
                     </td>
                 </tr>
             </table>
         </div> 
-    <div id="CommonAlertBox" style="visibility:hidden;z-index:5" class="CommonAlerts">
+    <div id="CommonAlertBox" style="visibility:hidden" runat="server" class="CommonAlerts">
         <table style="background-color: transparent; vertical-align: middle; width: 100%">
             <tr>
                 <td style="color: #E4E1E1; font-size: small">Alert !!

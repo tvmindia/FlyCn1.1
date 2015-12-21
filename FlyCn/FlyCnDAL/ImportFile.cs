@@ -345,7 +345,7 @@ namespace FlyCn.FlyCnDAL
         #endregion Update Excel Import Details
 
         #region Error Details
-        public DataTable getErrorDetails()
+        public DataTable getErrorDetails(string userName)
         {
             DataTable datatableobj = null;
             SqlConnection con = null;
@@ -353,7 +353,7 @@ namespace FlyCn.FlyCnDAL
             con = dcon.GetDBConnection();
             SqlCommand cmd = new SqlCommand("SelectExcelImportErrorDetails", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            // cmd.Parameters.AddWithValue("@Status_Id",statusID);
+            cmd.Parameters.AddWithValue("@userName", userName);
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = cmd;
             datatableobj = new DataTable();
@@ -362,6 +362,44 @@ namespace FlyCn.FlyCnDAL
             return datatableobj;
         }
         #endregion Error Details
+
+        #region getDistinctErrorDetails
+        public DataTable getDistinctErrorDetails(string statusID)
+        {
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("SelectDistinctExcelImportErrorDetails", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Status_Id", statusID);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            datatableobj = new DataTable();
+            adapter.Fill(datatableobj);
+            con.Close();
+            return datatableobj;
+        }
+        #endregion getDistinctErrorDetails
+
+        #region GetAllExcelImportDetails
+        public DataSet getAllExcelImportDetails(string userName)
+        {
+            DataSet datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("SelectAllExcelImportDetails", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserName", userName);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            datatableobj = new DataSet();
+            adapter.Fill(datatableobj);
+            con.Close();
+            return datatableobj;
+        }
+        #endregion GetAllExcelImportDetails
 
         #region getExcelImportDetailsById
         /// <summary>
@@ -484,6 +522,27 @@ namespace FlyCn.FlyCnDAL
             return myRec;
         }
         #endregion getDistictExcelImportDetails
+
+        #region getDistictExcelImportDetailsByUserName
+        public DataSet getDistictExcelImportDetailsByUserName(string userName)
+        {
+            SqlConnection con = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            DataSet myRec = new DataSet();
+            SqlDataAdapter da = new SqlDataAdapter();
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "SelectCompletedExcelImportDetailsByUserName";
+            cmd.Parameters.AddWithValue("@UserName", userName);
+            cmd.Connection = con;
+            da.SelectCommand = cmd;
+
+            da.Fill(myRec);
+            con.Close();
+            return myRec;
+        }
+        #endregion getDistictExcelImportDetailsByUserName
 
         #region BindTree
 

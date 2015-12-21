@@ -19,14 +19,14 @@ namespace FlyCn.ExcelImport
                 BindData();
             }
         }
-
+        #region BindData()
         public void BindData()
         {
             DataTable ds = new DataTable();
 
             //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();
-            ds = detailsObj.getErrorDetails();
+            ds = detailsObj.getErrorDetails("testuser");
             RadGrid1_ErrorList.DataSource = ds;
             try
             {
@@ -37,7 +37,9 @@ namespace FlyCn.ExcelImport
 
             }
         }
+        #endregion BindData()
 
+        #region RadGrid1_ItemCommand()
         protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
         {
             try
@@ -54,5 +56,6 @@ namespace FlyCn.ExcelImport
                 throw ex;
             }
         }
+        #endregion RadGrid1_ItemCommand
     }
 }

@@ -100,6 +100,7 @@
         function CloseDocumentWindow() {
             var DocumentTypeForHeading = document.getElementById('HiddenFieldDoctype').value;
             var frame = document.getElementById('IframeContent');
+           
             try {
                 $("#CloseDocumentPopup").dialog({
                     title: "Close Document - " + DocumentTypeForHeading,
@@ -164,6 +165,8 @@
                 alert(X.message);
             }
         }
+     
+
       <%-------ChangeOwnership PopupWindow End----------%>
 
       <%-------ReviseDocumentWindow PopupWindow Start---%>
@@ -244,8 +247,12 @@
     <%-- For Hiding Alert Box --%> 
         function hideMeAlert()
         {
+            
+            var splitter = $find("<%= RadSplitter1.ClientID %>");
+        
                 var alrt = document.getElementById("CommonAlertBox");
                 document.getElementById("CommonAlertBox").style.visibility = "hidden";
+                
                 document.getElementById("<%=lblAlertMsg.ClientID%>").innerHTML = "";
         }
         <%-- For Hiding Alert Box end --%> 
@@ -262,6 +269,7 @@
         <%-- Set CloseDocument iframe scr with parameters --%> 
         function CloseDocument(revisionid)
         {
+
 
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
@@ -310,9 +318,10 @@
         <%-- delete revisionhistrory tree node childs-end--%> 
 
         <%-- Set OwnershipChange iframe scr with parameters --%> 
+        
         function ChangeOwner()
         {
-
+           
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
 
@@ -335,7 +344,34 @@
         }
         <%-- Set OwnershipChange iframe scr with parameters  End--%> 
 
+       
+        function linkbuttonClient() {
+            
+           
+          
+            var splitter = $find("<%= RadSplitter1.ClientID %>");
+            var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
+            var iframe = pane.getExtContentElement();
+            var contentWindow = iframe.contentWindow;
+            var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
+           
+            window.open("../Approvels/Approvers.aspx?Revisionid=" + hiddenFieldRevisionID.value, 'Approvers', "height=200,width=500");
+            
+        }
+      
+        function showTreeNode()
+        {
+      
+       var tree = $find("<%= rtvLeftMenu.ClientID %>");
+            tree.set_visible(true);
+           
+        }
+        function HideTreeNode() {
 
+            var tree = $find("<%= rtvLeftMenu.ClientID %>");
+            tree.set_visible(false);
+
+        }
         function DisableTreeNode(nodeclassname)
         {
      
@@ -376,6 +412,9 @@
 
         }
         <%-- Set ReviseDocument iframe scr with parameters --end --%> 
+
+      
+
     </script>
 
   <%--------User Defind Javascript Functions----end--------%>
@@ -423,12 +462,12 @@
     <div id="masterDiv" runat="server">
     </div>
 
-    <div class="RadSplitterDiv">
+    <div class="RadSplitterDiv" >
         <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
 
         <telerik:RadSplitter ID="RadSplitter1" runat="server" Height="105%" Width="99%" Skin="FlyCnSplitter" EnableEmbeddedSkins="false" Style="overflow-x: hidden">
             <telerik:RadPane ID="RadPane1" runat="server" Width="150" Height="100%">
-                <telerik:RadTreeView ID="rtvLeftMenu" runat="server">
+                <telerik:RadTreeView ID="rtvLeftMenu" runat="server" style="visibility:hidden">
                     <Nodes>
                         <telerik:RadTreeNode CssClass="Desc">
                             <NodeTemplate>
@@ -481,6 +520,10 @@
     <div id="ReviseDocumentPopUp" style="display: none; width: 1000px!important; overflow-x: hidden; overflow-y: hidden;">
 
         <iframe id="IframeReviseDocument" style="width: 2000px; height: inherit;"></iframe>
+    </div
+    <div id="ApprovalDocumentPopUp" style="display: none; width: 1000px!important; overflow-x: hidden; overflow-y: hidden;">
+
+        <iframe id="IframeApprovalDocument" style="width: 2000px; height: inherit;"></iframe>
     </div>
     <asp:HiddenField ID="HiddenFieldDoctype" runat="server" ClientIDMode="Static" />
     <asp:HiddenField ID="HiddenFieldOwner" runat="server" ClientIDMode="Static" />

@@ -59,6 +59,8 @@ namespace FlyCn.BOQ
             Context.Items["DocumentOwner"] = hiddenDocumentOwner.Value;
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtMid');", true);
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtTop');", true);
+          //  Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.HideTreeNode();", true);
+           // Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.linkbuttonClient();", false);
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
             if (_RevisionId != null)
             {
@@ -149,16 +151,16 @@ namespace FlyCn.BOQ
                     DataTable docdtObj=new DataTable();
                     FlyCn.FlyCnDAL.DocumentMaster docObj = new DocumentMaster();
                   //  docdtObj=  docObj.GetRevisionIdByDocumentNo(DocumentNo);
-
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     RadMultiPage1.SelectedIndex = 1;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.RevisionHistory();", true);
                   
                         string revisionid = item.GetDataKeyValue("RevisionID").ToString();
                     BOQPopulate(revisionid);
 
-                 
-                       
-                   
+
+                    //RadTab node = (RadTab)RadTabStrip1.FindTabByValue("rtn5");
+                    //node.Visible = true;
                         //BOQPopulate(revisionid);
                     
                 }
@@ -166,6 +168,7 @@ namespace FlyCn.BOQ
                     if (e.CommandName == "ViewDetailColumn")//EditDoc  is named because Radgrid has its own definition for Edit
                     {
                         ToolBarVisibility(4);
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.HideTreeNode();", true);
                         RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                         GridDataItem item = e.Item as GridDataItem;
                         tab.Selected = true;
@@ -207,6 +210,7 @@ namespace FlyCn.BOQ
                 tab.Text = "New";
                 RadMultiPage1.SelectedIndex = 1;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "ClearTextBox", "ClearBOQHeaderTexBox();", true);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
                 ToolBarVisibility(3);
                 ContentIframe.Style["display"] = "none";
 
@@ -455,6 +459,7 @@ namespace FlyCn.BOQ
                 if ((ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Closed) || (ds.Tables[0].Rows[0]["LatestStatus"].ToString() == DocStatus.Approved))
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtMid');", true);
+                    
                 }
                 if (UA.userName != hiddenDocumentOwner.Value)
                 {

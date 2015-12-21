@@ -462,10 +462,7 @@ namespace FlyCn.FlyCnDAL
                 Guid revId;
                 Guid.TryParse(RevisionID, out revId);
                 domObj.GetDocumentDetailsByRevisionID(revId);
-
-              
-             
-               
+           
                 DataTable dt = new DataTable();
 
                 string MailTo = userobj.UserEMail;
@@ -511,7 +508,6 @@ namespace FlyCn.FlyCnDAL
                 Msg = null;
             }
 
-
             catch (Exception ex)
             {
                 throw ex;
@@ -525,9 +521,10 @@ namespace FlyCn.FlyCnDAL
         {
             try
             {
-               // Users userobj = new Users(MssgTo);
-                ExcelImport exObj = new ExcelImport();
-                exObj.getExcelImportDetailsById(StatusID);
+                // Users userobj = new Users(MssgTo);
+                ImportFile exObj = new ImportFile();
+                DataSet ds = new DataSet();
+                ds = exObj.getExcelImportDetailsById(StatusID);
                 string MailTo = "AnijaGeorge@gmail.com";
                 MailMessage Msg = new MailMessage();
                 // Sender e-mail address.
@@ -536,39 +533,42 @@ namespace FlyCn.FlyCnDAL
                 Msg.To.Add(MailTo);
                 string fileName = System.Web.Hosting.HostingEnvironment.MapPath("/Templates/ExcelImportTemplate.html");
                 string body = fileName;
-
-                if (System.IO.File.Exists(fileName) == true)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    System.IO.StreamReader objReader;
-                    objReader = new System.IO.StreamReader(fileName);
+                    if (System.IO.File.Exists(fileName) == true)
+                    {
+                        System.IO.StreamReader objReader;
+                        objReader = new System.IO.StreamReader(fileName);
 
-                    body = objReader.ReadToEnd();
-                    body = body.Replace("$FileName$", exObj.FileName);
-                    body = body.Replace("$TotalCount$", exObj.TotalCount.ToString());
-                    body = body.Replace("$InsertStatus$", exObj.InsertStatus.ToString());
-                    body = body.Replace("$LastUpdatedTime$", exObj.LastUpdatedTime.ToString("dd- MMM- yyyy HH:MM:s"));
-                    body = body.Replace("$ProcessedCount$", exObj.Processed_Count.ToString());
-                    body = body.Replace("$ErrorCount$", exObj.ErrorCount.ToString());
-                    body = body.Replace("$USERNAME$", userName);
-                    
+                        body = objReader.ReadToEnd();
+                        body = body.Replace("$FileName$", exObj.FileName);
+                        body = body.Replace("$TotalCount$", exObj.TotalCount.ToString());
+                        body = body.Replace("$InsertCount$", exObj.InsertCount.ToString());
+                        body = body.Replace("$CompletedTime$", exObj.LastUpdatedTime.ToString("dd- MMM- yyyy HH:MM:s"));
+                        body = body.Replace("$UpdatedCount$", exObj.UpdateCount.ToString());
+                        body = body.Replace("$ErrorCount$", exObj.ErrorCount.ToString());
+                        body = body.Replace("$USERNAME$", userName);
+                        
+
+
+                    }
+
+                    Msg.Subject = "File Imported " + exObj.ExcelFileName;
+                    Msg.Body = body;
+
+                    Msg.IsBodyHtml = true;
+                    // your remote SMTP server IP.
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.Credentials = new System.Net.NetworkCredential("info.thrithvam", "thrithvam@2015");
+                    smtp.EnableSsl = true;
+                    smtp.Send(Msg);
+                    Msg = null;
 
                 }
-               
-
-                Msg.Body = body;
-
-                Msg.IsBodyHtml = true;
-                // your remote SMTP server IP.
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.Credentials = new System.Net.NetworkCredential("info.thrithvam", "thrithvam@2015");
-                smtp.EnableSsl = true;
-                smtp.Send(Msg);
-                Msg = null;
-
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

@@ -20,13 +20,16 @@ namespace FlyCn.ExcelImport
             }
 
         }
+
+        #region BindData()
         public void BindData()
         {
             DataTable ds = new DataTable();
-
+            ImportStatusList imp = new ImportStatusList();
+            string id = Request.QueryString["StatusId"];
            // FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();
-            ds = detailsObj.getErrorDetails();
+            ds = detailsObj.getDistinctErrorDetails(id);
             RadGrid1_ErrorDetails.DataSource = ds;
             try
             {
@@ -37,5 +40,6 @@ namespace FlyCn.ExcelImport
 
             }
         }
+        #endregion BindData()
     }
 }

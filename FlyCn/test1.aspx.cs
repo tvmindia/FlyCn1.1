@@ -26,7 +26,7 @@ namespace FlyCn
         {
             string StatusID = "4cd93ccc-7c83-4ca7-8641-3cea4b30d3d3";
             MailSending MailObj = new MailSending();
-            FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
+           ImportFile detailsObj = new ImportFile();
             DataSet ds = new DataSet();
            
             ds=detailsObj.getExcelImportDetailsById(StatusID);

@@ -14,6 +14,7 @@ namespace FlyCn.ExcelImport
     public partial class ImportStatusList : System.Web.UI.Page
     {
         string StatusID;
+       // string userName = "TestUser";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -30,7 +31,7 @@ namespace FlyCn.ExcelImport
             //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();
 
-            ds = detailsObj.getExcelImportDetailsById("ef4958d2-1f76-4fdb-ad0d-011864373a0b");
+            ds = detailsObj.getAllExcelImportDetails("TestUser");
             RadGrid1.DataSource = ds.Tables[0];
             try
             {
@@ -59,6 +60,71 @@ namespace FlyCn.ExcelImport
             }
         }
 
+        //protected void RadGrid1_ItemDataBound(object sender, RadMenuEventArgs e)
+        //{
+          
+        //   // e.Item.NavigateUrl = "/ExcelImport/ImportErrorDetails.aspx?StatusID=" + StatusID;
+        //}
+
+        protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = (GridDataItem)e.Item;
+
+                HyperLink lblVisitNo = (HyperLink)e.Item.FindControl("Error_Count1");
+                if (lblVisitNo.Text!="0")
+                {
+                   // RadGrid1.MasterTableView = System.Drawing.Color.Blue;
+                    GridDataItem item = e.Item as GridDataItem;
+                    item["Error_Count"].ForeColor = System.Drawing.Color.Blue;
+                    string StatusId = item.GetDataKeyValue("Status_Id").ToString();
+                    //LinkButton lbk = (LinkButton)dataItem.FindControl("Error_Count1");
+                    string id = lblVisitNo.Text;
+                    lblVisitNo.NavigateUrl = "~/ExcelImport/ImportErrorDetails.aspx?StatusId=" + StatusId;
+                   
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        protected void RadGrid2_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = (GridDataItem)e.Item;
+                HyperLink lblVisitNo = (HyperLink)e.Item.FindControl("Error_Count1");
+                if (lblVisitNo.Text!="0")
+                {
+                GridDataItem item = e.Item as GridDataItem;
+                    string StatusId = item.GetDataKeyValue("Status_Id").ToString();
+                    //LinkButton lbk = (LinkButton)dataItem.FindControl("Error_Count1");
+                    lblVisitNo.NavigateUrl = "~/ExcelImport/ImportErrorDetails.aspx?StatusId=" + StatusId;
+                }
+            }
+        }
+
+        protected void RadGrid2_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem item = e.Item as GridDataItem;
+                    string StatusId = item.GetDataKeyValue("Status_Id").ToString();
+                    Response.Redirect("ImportStatus.aspx?StatusId=" + StatusId);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             BindData();
@@ -79,7 +145,7 @@ namespace FlyCn.ExcelImport
             ImportFile detailsObj = new ImportFile();
 
             DataSet ds = new DataSet();
-            ds = detailsObj.getDistictExcelImportDetails("4cd93ccc-7c83-4ca7-8641-3cea4b30d3d3");
+            ds = detailsObj.getDistictExcelImportDetailsByUserName("TestUser");
             RadGrid2.DataSource = ds.Tables[0];
             try
             {
@@ -95,6 +161,7 @@ namespace FlyCn.ExcelImport
         }
         #endregion BindCompletedDetails()
 
-      
+        
+
     }
 }

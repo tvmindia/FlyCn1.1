@@ -13,6 +13,8 @@ namespace FlyCn.ExcelImport
         string statusId;
         //FlyCnDAL.ExcelImport exObj = new FlyCnDAL.ExcelImport();
         ImportFile exObj = new ImportFile();
+
+        #region Page_Load()
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack)
@@ -30,12 +32,18 @@ namespace FlyCn.ExcelImport
                 lbl_LastUpdatedTime1.Text = Convert.ToString(exObj.LastUpdatedTime);
                 lbl_UserName1.Text = exObj.UserName;
                 lbl_InsertStatus1.Text = Convert.ToString(exObj.InsertStatus);
-                lbl_Remarks1.Text = exObj.Remarks;
+                lbl_Remarks1.Text =exObj.Remarks;
+                if(lbl_Remarks1.Text=="")
+                {
+                    lbl_Remarks1.Text = "none";
+                }
                 lbl_TimeElapsed1.Text = exObj.TimeElapsed;
                 lbl_TimeRemaining1.Text = exObj.TimeRemaining;
-            }
+             }
         }
+        #endregion Page_Load()
 
+        #region UpdateTimer2_Tick()
         protected void UpdateTimer2_Tick(object sender, EventArgs e)
         {
             statusId = Request.QueryString["statusId"];
@@ -47,5 +55,6 @@ namespace FlyCn.ExcelImport
             lbl_TimeElapsed1.Text = exObj.TimeElapsed;
             lbl_UpdateCount1.Text = exObj.UpdateCount.ToString();
         }
+        #endregion UpdateTimer2_Tick()
     }
 }

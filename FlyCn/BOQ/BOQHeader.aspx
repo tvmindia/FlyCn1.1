@@ -205,9 +205,7 @@
                                          <div class="col-md-7">
                                              <asp:Label ID="lblDocumentStatus" CssClass="DocStatusLabel" runat="server"    ClientIDMode="Static"></asp:Label>
                                          </div>
-                                         <div class="col-md-5">
-                                            <input type="button" onclick="linkbuttonClient();" value="ApproverList" />
-                                         </div>
+                                        
                                          
                                        <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
                                       <iframe id="ContentApprovers" runat="server" style="width: 1000px; height: 600px;"></iframe>
@@ -237,11 +235,7 @@
 
     <!--<JavaScrict>-->
     <script type="text/javascript">
-
-        function linkbuttonClient() {
-            var Revisionid = document.getElementById('<%=hiddenFieldRevisionID.ClientID %>').value;
-            window.open("../Approvels/Approvers.aspx?Revisionid=" + Revisionid, 'Approvers', "height=200,width=500");
-        }
+        
      
 
         function validate()
@@ -296,7 +290,7 @@
         function OnClientTabSelecting(sender, eventArgs) {
 
             var tab = eventArgs.get_tab();
-            debugger;
+            
             var security = document.getElementById("hdnSecurityMaster").value;
             var user = document.getElementById('<%=hiddenUsername.ClientID%>');
             var owner = document.getElementById('<%=hiddenDocumentOwner.ClientID%>');
@@ -304,8 +298,7 @@
             PageSecurityCheck(security);
             if (PageSecurity.isWriteOnly) {
                 if (tab.get_text() == "New") {
-
-
+              
                     eventArgs.set_cancel(false);
                 }
             }
@@ -339,11 +332,14 @@
                 }
         
         function onClientTabSelected(sender, args) {
-
+           
         var tab = args.get_tab();
         if (tab.get_value() == '2')
         {
            
+            parent.HideTreeNode();
+            //var txtCont = Page.Master.Master.FindControl("rtvLeftMenu").ClientID ;
+            //alert(txtCont);
             hideMe();
 
           //Clear Text boxes When New tab clicks
@@ -385,7 +381,8 @@
          }
             if (tab.get_value() == "1")
 
-            {               
+            {
+                parent.HideTreeNode();
                 document.getElementById('<%=HiddenTabStatus.ClientID %>').value="1";             
                 var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
                 var tab = tabStrip.findTabByValue("1");
