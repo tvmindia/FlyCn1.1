@@ -16,27 +16,27 @@ namespace FlyCn.ExcelImport
         {
             if(!IsPostBack)
             {
-                BindData();
+              //  BindData();
             }
         }
 
-        public void BindData()
-        {
-            DataSet ds = new DataSet();
+        //public void BindData()
+        //{
+        //    DataSet ds = new DataSet();
 
-            //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
-            ImportFile detailsObj = new ImportFile();
-            ds = detailsObj.getErrorDetails();
-            RadGrid1_ErrorList.DataSource = ds;
-            try
-            {
-                RadGrid1_ErrorList.DataBind();
-            }
-            catch (Exception)
-            {
+        //    //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
+        //    ImportFile detailsObj = new ImportFile();
+        //    ds = detailsObj.getErrorDetails();
+        //    RadGrid1_ErrorList.DataSource = ds;
+        //    try
+        //    {
+        //        RadGrid1_ErrorList.DataBind();
+        //    }
+        //    catch (Exception)
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
         protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
         {

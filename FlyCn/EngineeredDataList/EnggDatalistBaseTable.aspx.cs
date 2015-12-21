@@ -169,10 +169,7 @@ namespace FlyCn.EngineeredDataList
 
         protected void dtgvalidationErros_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataSet ds = new DataSet();
-
-            ds = importObj.getErrorDetails();
-            dtgvalidationErros.DataSource = ds;
+            GridErrorvalidateBind(validationObj.importfile.status_Id);
         }
 
         protected void btn_upload_Click(object sender, EventArgs e)
@@ -327,6 +324,7 @@ namespace FlyCn.EngineeredDataList
             importObj.ExcelFileName = hdfFileName.Value;
             importObj.fileLocation = hdfFileLocation.Value;
             importObj.fileName = importObj.ExcelFileName;
+            
            if(File.Exists(importObj.fileLocation))
             {
                 try
@@ -336,7 +334,13 @@ namespace FlyCn.EngineeredDataList
                     CheckBoxColumns();//getting the fieldnames that has been uncheced
                     RemoveColumnFromDS(tempDS);
                     ValidateDataStructure(tempDS);
-
+                    hdfstatusID.Value = validationObj.importfile.status_Id.ToString();
+                    lblVupldFilename.Text = importObj.ExcelFileName;
+                   
+                    lblVErrorsCount.Text=validationObj.importfile.errorCount.ToString();
+                    GridErrorvalidateBind(validationObj.importfile.status_Id);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "UploadNextClick();", true);
+                 
                 }
                 catch(Exception ex)
                 {
@@ -344,11 +348,20 @@ namespace FlyCn.EngineeredDataList
                 }
                 finally
                 {
-
+                    
                 }
                 
            }
        }
+        public void GridErrorvalidateBind(Guid _statusid)
+        {
+            if (_statusid != Guid.Empty)
+            {
+                DataSet ds = new DataSet();
+                ds = importObj.getErrorDetails(_statusid);
+                dtgvalidationErros.DataSource = ds;
+            }
+        }
         public void CheckBoxAllCheck()
         {
             GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
@@ -369,10 +382,17 @@ namespace FlyCn.EngineeredDataList
 
         public void ValidateDataStructure(DataSet dsFile)
         {
+            //hidddnef=validationObj.importfile.status_Id;
             dsTable = comDAL.GetTableDefinition(comDAL.tableName);
             for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
             {
-                validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable);
+                int res;
+                res=validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable);
+                if (res == -1)
+                {
+                    validationObj.importfile.errorCount = validationObj.importfile.errorCount + 1;
+                    //errorCount = errorCount + 1;
+                }
             }
         }
 
@@ -448,6 +468,29 @@ namespace FlyCn.EngineeredDataList
 
             }
        }
+
+        protected void dtgvalidationErros_PreRender(object sender, EventArgs e)
+        {
+            dtgvalidationErros.Rebind();
+        }
+
+        protected void btnImport_Click(object sender, EventArgs e)
+        {
+            importObj.ExcelFileName = hdfFileName.Value;
+            importObj.fileLocation = hdfFileLocation.Value;
+            importObj.fileName = importObj.ExcelFileName;
+            tempDS = new DataSet();
+            tempDS = importObj.ImportExcelFile();
+           // RemoveColumnFromDS(tempDS);
+            //ValidateDataStructure(tempDS);
+            importObj.TableName = comDAL.tableName;
+            if (hdfstatusID.Value != null)
+            {
+                importObj.status_Id = Guid.Parse(hdfstatusID.Value);
+            }
+            importObj.InsertFile(tempDS);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "Import();", true);
+        }
 
 
 

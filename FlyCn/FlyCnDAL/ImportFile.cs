@@ -29,19 +29,19 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public ImportFile()
-        {
+        //public ImportFile()
+        //{
 
-            status_Id = Guid.NewGuid();
+        //    status_Id = Guid.NewGuid();
 
-        }
+        //}
 
-        public ImportFile(Guid StatusId)
-        {
+        //public ImportFile(Guid StatusId)
+        //{
 
-            status_Id = StatusId;
+        //    status_Id = StatusId;
 
-        }
+        //}
         public string ExcelFileName
         {
             get;
@@ -190,7 +190,7 @@ namespace FlyCn.FlyCnDAL
 
         //properties from javad updatedExcelimport
         #region JavadProperties
-        ValidationExcel validationObj = new ValidationExcel();
+        //ValidationExcel validationObj = new ValidationExcel();
         public string errorMessage
         {
             get;
@@ -391,33 +391,36 @@ namespace FlyCn.FlyCnDAL
         #endregion Update Excel Import Details
 
         #region Error Details
-        public DataSet getErrorDetails()
+        public DataSet getErrorDetails(Guid status_Id)
         {
             DataSet datatableobj = null;
             SqlConnection con = null;
-            dbConnection dcon = new dbConnection();
-            try
+            dbConnection dcon = null;
+            if (status_Id != Guid.Empty)
             {
-                con = dcon.GetDBConnection();
-                SqlCommand cmd = new SqlCommand("SelectExcelImportErrorDetails", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                // cmd.Parameters.AddWithValue("@Status_Id",statusID);
-                cmd.Parameters.AddWithValue("@userName", UserName);
-
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = cmd;
-                datatableobj = new DataSet();
-                adapter.Fill(datatableobj);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (con != null)
+                try
                 {
-                    con.Close();
+                    dcon = new dbConnection();
+                    con = dcon.GetDBConnection();
+                    SqlCommand cmd = new SqlCommand("SelectExcelImportErrorDetails", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Status_Id", SqlDbType.UniqueIdentifier).Value = status_Id;
+                    //cmd.Parameters.AddWithValue("@userName", UserName);
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    adapter.SelectCommand = cmd;
+                    datatableobj = new DataSet();
+                    adapter.Fill(datatableobj);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (con != null)
+                    {
+                        con.Close();
+                    }
                 }
             }
 
@@ -505,7 +508,11 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@Import_Status_Id", status_Id);
                 cmd.Parameters.AddWithValue("@Key_Field", KeyField);
                 cmd.Parameters.AddWithValue("@Error_Description", ErrorDescription);
+                SqlParameter outparamstatusid = cmd.Parameters.Add("@OutStatus_Id", SqlDbType.UniqueIdentifier);
+                outparamstatusid.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
+                status_Id=Guid.Parse(outparamstatusid.Value.ToString());
+
             }
             catch (Exception ex)
             {
@@ -807,11 +814,11 @@ namespace FlyCn.FlyCnDAL
         /// </summary>
         /// <param name="dsFile"></param>
         /// <returns>success or failure</returns>
-        public int InsertExcelFile(DataSet dsFile)
+        public int InsertFile(DataSet dsFile)
         {
             try
             {
-                DataTable dtError = validationObj.CreateErrorTable();
+                //DataTable dtError = validationObj.CreateErrorTable();
                 DataSet dsTable = new DataSet();
                 //DAL.Constants constantList = new DAL.Constants();
                 // DAL.ExcelImportDAL importDal = new DAL.ExcelImportDAL();
@@ -829,7 +836,7 @@ namespace FlyCn.FlyCnDAL
                 //    return -1;
                 //}
 
-                InitializeExcelImportDetails(testFile, totalCount);
+                InitializeExcelImportDetails(ExcelFileName, totalCount);
 
                 dbcon.ConnectDB();
 
@@ -843,17 +850,17 @@ namespace FlyCn.FlyCnDAL
                     string Equipment_Nop = dsFile.Tables[0].Rows[i]["Equipment_No"].ToString();
                     //to know temp
 
-                    Thread.Sleep(200);
+                    //Thread.Sleep(200);
                     
-                    int res;
+                    //int res;
 
-                    res = validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable);
-                    if (res == -1)
-                    {
-                        errorCount = errorCount + 1;
-                    }
-                    else if (res == 1)
-                    {
+                   // res = validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable);
+                    //if (res == -1)
+                    //{
+                    //    errorCount = errorCount + 1;
+                    //}
+                    //else if (res == 1)
+                   // {
                         int insertResult;
                         insertResult = InsertExcelFile(dsTable,dsFile.Tables[0].Rows[i]);
                         if (insertResult == 1)
@@ -864,12 +871,12 @@ namespace FlyCn.FlyCnDAL
                         {
                             updateCount = updateCount + 1;
                         }
-                    }
-                    UpdateExcelImportDetails(UserName,ProjectNo,TableName, testFile, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Processing);
+                 //   }
+                    UpdateExcelImportDetails(UserName,ProjectNo,TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Processing);
 
                 }
 
-                UpdateExcelImportDetails(UserName, ProjectNo, TableName, testFile, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Finished);
+                UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Finished);
                 dbcon.DisconectDB();
             }
             catch (Exception ex)

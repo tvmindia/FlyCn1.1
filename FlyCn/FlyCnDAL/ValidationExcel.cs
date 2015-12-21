@@ -14,7 +14,7 @@ namespace FlyCn.FlyCnDAL
         {
 
             #region Public Properties
-
+            public ImportFile importfile = new ImportFile();
             public string errorMessage
             {
                 get;
@@ -53,7 +53,7 @@ namespace FlyCn.FlyCnDAL
                 // DAL.ExcelImportDetailsDAL detailsDal = new DAL.ExcelImportDetailsDAL(status_Id);
                 // List<ExcelValidationModel> lmd = new List<ExcelValidationModel>();
                 CommonDAL stdDal = new CommonDAL();
-                ImportFile importfile = new ImportFile();
+                //ImportFile importfile = new ImportFile();
                 try
                 {
                     DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
