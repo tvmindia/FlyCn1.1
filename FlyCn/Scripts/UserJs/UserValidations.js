@@ -48,7 +48,7 @@ function validateExcelExtension(ext) {
 
 
 function DisableGrid(gridCtrl) {
-    alert("validate start");
+   
     gridCtrl.get_element().disabled = "disabled";
     gridCtrl.ClientSettings.Selecting.AllowRowSelect = false;
     gridCtrl.ClientSettings.Resizing.AllowColumnResize = false;
@@ -111,5 +111,5 @@ function DisableGrid(gridCtrl) {
     if (scrollArea) {
         scrollArea.disabled = "disabled";
     }
-    alert("validate end");
+   
 }

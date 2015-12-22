@@ -77,7 +77,7 @@
                                                 <telerik:GridBoundColumn HeaderText="Document Date" DataField="DocumentDate" UniqueName="DocumentDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Document Owner" DataField="DocumentOwner" UniqueName="DocumentOwner"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Created Date" DataField="CreatedDate" UniqueName="CreatedDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Revision Date" DataField="RevisionDate" UniqueName="RevisionDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Revision Date" DataField="RevisionDate" UniqueName="RevisionDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Document Status" DataField="DocumentStatus" UniqueName="DocumentStatus"></telerik:GridBoundColumn>
                                             </Columns>
                                         </MasterTableView>
@@ -205,9 +205,7 @@
                                          <div class="col-md-7">
                                              <asp:Label ID="lblDocumentStatus" CssClass="DocStatusLabel" runat="server"    ClientIDMode="Static"></asp:Label>
                                          </div>
-                                         <div class="col-md-5">
-                                            <input type="button" onclick="linkbuttonClient();" value="ApproverList" />
-                                         </div>
+                                         
                                          
                                        <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
                                       <iframe id="ContentApprovers" runat="server" style="width: 1000px; height: 600px;"></iframe>
@@ -238,10 +236,6 @@
     <!--<JavaScrict>-->
     <script type="text/javascript">
 
-        function linkbuttonClient() {
-            var Revisionid = document.getElementById('<%=hiddenFieldRevisionID.ClientID %>').value;
-            window.open("../Approvels/Approvers.aspx?Revisionid=" + Revisionid, 'Approvers', "height=200,width=500");
-        }
      
 
         function validate()
@@ -296,7 +290,7 @@
         function OnClientTabSelecting(sender, eventArgs) {
 
             var tab = eventArgs.get_tab();
-            debugger;
+            
             var security = document.getElementById("hdnSecurityMaster").value;
             var user = document.getElementById('<%=hiddenUsername.ClientID%>');
             var owner = document.getElementById('<%=hiddenDocumentOwner.ClientID%>');
@@ -304,7 +298,6 @@
             PageSecurityCheck(security);
             if (PageSecurity.isWriteOnly) {
                 if (tab.get_text() == "New") {
-
 
                     eventArgs.set_cancel(false);
                 }
@@ -315,7 +308,7 @@
                         <%=ToolBar.ClientID %>_SetSaveVisible(false);
                         <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                         <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-                    }
+            }
             }
             else
                 if (PageSecurity.isReadOnly) {
@@ -327,7 +320,7 @@
                     else 
                         if (tab.get_text() == "Details")
                         {
-                            <%=ToolBar.ClientID %>_SetEditVisible(false);
+                             <%=ToolBar.ClientID %>_SetEditVisible(false);
                             <%=ToolBar.ClientID %>_SetAddVisible(false);
                             <%=ToolBar.ClientID %>_SetSaveVisible(false);
                             <%=ToolBar.ClientID %>_SetUpdateVisible(false);
@@ -357,11 +350,14 @@
         
         function onClientTabSelected(sender, args) {
             debugger;
-            var tab = args.get_tab();
+        var tab = args.get_tab();
           
         if (tab.get_value() == '2')
         {
            
+            parent.HideTreeNode();
+            //var txtCont = Page.Master.Master.FindControl("rtvLeftMenu").ClientID ;
+            //alert(txtCont);
             hideMe();
 
           //Clear Text boxes When New tab clicks
@@ -390,7 +386,7 @@
                 <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                 <%=ToolBar.ClientID %>_SetDeleteVisible(false);
             }
-            }
+              }
             catch (x)
             {
                 alert(x.message);
@@ -402,7 +398,7 @@
                 EnableBOQHeaderTextBox();//remove readonly property from the text boxes
                 v1 = document.getElementById('<%=ContentIframe.ClientID %>');
                 v1.style["display"] = "none";//disabling iframe
-                       
+               
             }
             if ($('#hdfEditStatus').val() == "GridEdit")//here gridedit value is set upon the grid edit event code behind code
             {//this checking determines update is from gridedit so when user clicks on new tab the child iframe should clear
@@ -415,6 +411,7 @@
             if (tab.get_value() == "1")
 
             {               
+                parent.HideTreeNode();
                 document.getElementById('<%=HiddenTabStatus.ClientID %>').value="1";             
                 var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
                 var tab = tabStrip.findTabByValue("1");

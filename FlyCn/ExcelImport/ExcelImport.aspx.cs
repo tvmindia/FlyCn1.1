@@ -10,6 +10,7 @@ namespace FlyCn.ExcelImport
 {
     public partial class ExcelImport : System.Web.UI.Page
     {
+        #region Page_Load()
         protected void Page_Load(object sender, EventArgs e)
         {
             UIClasses.InputPages ip = new UIClasses.InputPages();
@@ -21,5 +22,6 @@ namespace FlyCn.ExcelImport
 
             ip.DefaultTreeNode(this, 1);
         }
+        #endregion Page_Load()
     }
 }

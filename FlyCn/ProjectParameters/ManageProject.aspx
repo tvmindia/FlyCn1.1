@@ -9,7 +9,8 @@
     </script>
     <script src="../Scripts/jquery-ui-1.8.24.js"></script>
     <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
-
+      <script src="../Scripts/ToolBar.js"></script>
+    <script src="../Scripts/Messages.js"></script>
     <script type="text/javascript">
         //$("[id*=btnModalPopup]").live("click", function () {
         function PopUp() {
@@ -20,11 +21,11 @@
     <style type="text/css">
         .ui-dialog-title {
             padding-left: 15em;
-            color: white;
+            color: green;
         }
 
         .ui-dialog-titlebar {
-            background: transparent;
+            background: #ffffff;
             border: none;
         }
 
@@ -33,17 +34,17 @@
         }
 
         .ui-dialog {
-            box-shadow: 0px 2px 7px #292929;
-            -moz-box-shadow: 0px 2px 7px #292929;
-            -webkit-box-shadow: 0px 2px 7px #292929;
+            box-shadow: 0px 2px 7px #ffffff;
+            -moz-box-shadow: 0px 2px 7px #ffffff;
+            -webkit-box-shadow: 0px 2px 7px #ffffff;
             border-radius: 15px;
             -moz-border-radius: 15px;
             -webkit-border-radius: 15px;
-            background: #f2f2f2;
+            background: #FFFFFF;
             z-index: 50;
             /*background:transparent;*/
             /*background: rgba(34,34,34,0.75);*/
-            background: rgba(36,85,99,.9);
+            background: rgb(255, 255, 255);
             border: 1px solid #fff;
         }
 
@@ -53,7 +54,12 @@
             font-style: normal;
             color: #009933;
         }
-
+        .content {
+            border: 1px solid #FFFFFF;
+            width: 91%;
+            padding: 5px;
+            margin: 0px 0 0 5px;
+        }
         td.myclass {
             text-align: left;
             width: 100px;
@@ -109,8 +115,8 @@
                 $("#modal_dialog").dialog({
 
                     title: "Project Wizard",
-                    width: 780,
-                    height: 700,
+                    width: 790,
+                    height: 800,
                     buttons: {}, modal: true
 
 
@@ -179,16 +185,15 @@
 
 
 
-    <p class="PageHeading">
-        Manage Project
-    </p>
+     <asp:Label ID="lblTitle" runat="server" Text="Manage Project" CssClass="PageHeading"></asp:Label>
+   
+   
+    
+      <div class="container" style="width: 100%">
+   
 
-    <hr />
-
-    <div class="inputMainContainer">
-        <div class="innerDiv">
             <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelecting="OnClientTabSelecting" OnClientTabSelected="onClientTabSelected"
-                CausesValidation="false" SelectedIndex="0" Skin="Silk">
+                CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
 
                 <Tabs>
                     <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
@@ -196,7 +201,14 @@
 
                 </Tabs>
             </telerik:RadTabStrip>
-
+           <div id="content">
+                <%-- For Security ViewDetailColumn--%>
+            <div class="contentTopBar"></div>
+            <table style="width:100%">
+                <tr>
+                    <td>&nbsp
+                    </td>
+                    <td>
 
             <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
 
@@ -206,15 +218,19 @@
                         <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
                         </asp:ScriptManager>
 
-                        <telerik:RadGrid ID="dtgManageProjectGrid" runat="server" AllowPaging="true" CellSpacing="0" GridLines="None" OnItemCommand="dtgManageProjectGrid_ItemCommand" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" OnPreRender="dtgManageProjectGrid_PreRender" PageSize="10" Skin="Silk" Width="984px">
+                        <telerik:RadGrid ID="dtgManageProjectGrid" runat="server" CellSpacing="0" 
+                             AllowPaging="true" GridLines="None" OnItemCommand="dtgManageProjectGrid_ItemCommand" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" OnPreRender="dtgManageProjectGrid_PreRender"
+                             PageSize="10" Skin="Silk" Width="100%">
                             <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo">
                                 <Columns>
+                                     
+                                    <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="EditData" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData"></telerik:GridButtonColumn>
                                     <telerik:GridBoundColumn DataField="ProjectNo" HeaderText="Project No" UniqueName="ProjectNo"></telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="ProjectName" HeaderText="Project Name" UniqueName="ProjectName"></telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="ProjectLocation" HeaderText="Location" UniqueName="ProjectLocation"></telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="Active" HeaderText="Active" UniqueName="Active"></telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="CompName" HeaderText="Company Name" UniqueName="CompName"></telerik:GridBoundColumn>
-                                    <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="EditData" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData"></telerik:GridButtonColumn>
+                                   
                                 </Columns>
                             </MasterTableView>
                         </telerik:RadGrid>
@@ -226,6 +242,15 @@
 
                     <uc1:ToolBar runat="server" ID="ToolBar" />
 
+                     <%-- Tracking Details--%>
+                                               <div class="accordion-container"> <a href="#" class="accordion-toggle" id="IDAccordion">Project Wizard 
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a> </div>
+
+  <div class="accordion-content"> 
+                                      <div class="col-md-12">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                    
                     <table>
                         <tr>
                             <td>&nbsp&nbsp</td>
@@ -568,16 +593,24 @@
                             </td>
                         </tr>
                     </table>
+                                          </div>
+                                        </div>
+                                          </div>
 
-
+      </div>
                 </telerik:RadPageView>
 
             </telerik:RadMultiPage>
-            <div id="modal_dialog" style="display: none; width: 1000px!important; height: 700px!important; overflow: hidden; overflow-x: hidden;">
+            <div id="modal_dialog" style="display: none; width: 1000px!important; height: 1000px!important; overflow: hidden; overflow-x: hidden;">
 
                 <iframe src="AddNewProject.aspx" style="width: 1300px; height: 700px;"></iframe>
 
             </div>
+                           </td>
+                </tr>
+            </table>
         </div>
+     
     </div>
-</asp:Content>
+    
+ </asp:Content>

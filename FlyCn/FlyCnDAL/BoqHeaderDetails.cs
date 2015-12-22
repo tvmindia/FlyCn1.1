@@ -75,24 +75,30 @@ namespace FlyCn.FlyCnDAL
            myTree.Nodes.Clear();
            RadTreeNode rtn1 = new RadTreeNode("CloseDocument", "");
            rtn1.Target = "contentPane";
+           rtn1.Value = "rtn1";
            myTree.Nodes.Add(rtn1);
            rtn1.Attributes.Add("onclick", "CloseDocument(" + 5 + ")");
             RadTreeNode rtn2 = new RadTreeNode("Ownership Change", "");
             rtn2.Target = "contentPane";
+          //  rtn2.Value = "rtn2";
             rtn2.Value = "2";
             myTree.Nodes.Add(rtn2);       
             rtn2.Attributes.Add("onclick", "ChangeOwner()");           
            RadTreeNode rtn3 = new RadTreeNode("Revise Document", "");
            rtn3.Target = "contentPane";
+           rtn3.Value = "rtn3";
             myTree.Nodes.Add(rtn3);
             rtn3.Attributes.Add("onclick", "ReviseDocument()");
            RadTreeNode rtn4 = new RadTreeNode("Revision History", "");      
            rtn4.Target = "contentPane";
            rtn4.Value = "rtn4";
            myTree.Nodes.Add(rtn4);
-           //rtn4.Attributes.Add("onclick", "RevisionHistory()");
-
-           
+           RadTreeNode rtn5 = new RadTreeNode("Approver List", "");
+           rtn5.Target = "contentPane";
+           rtn5.Value = "rtn5";
+           myTree.Nodes.Add(rtn5);
+           rtn5.Attributes.Add("onclick", "linkbuttonClient()");
+           //rtn5.Visible = false;
         }
 
       
@@ -100,6 +106,7 @@ namespace FlyCn.FlyCnDAL
         public void LoadInputScreen(RadPane myContentPane)
         {
            myContentPane.ContentUrl = "BOQHeader.aspx";
+            
         }
         #region AddNewBOQ
         /// <summary>

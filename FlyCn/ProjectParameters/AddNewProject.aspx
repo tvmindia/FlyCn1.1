@@ -7,39 +7,37 @@
 
     </script>
     <script type="text/javascript">
-    function validate() {
-        //try{       
+        function validate() {
+            //try{       
             var ProjectNo = document.getElementById("<%=txtProjectNo.ClientID %>").value;
        
       <%--  document.getElementById("<%=txtProjectNo.ClientID %>").value;--%>
-     //   document.getElementById("txtProjectNo");
+        //   document.getElementById("txtProjectNo");
         var ProjectName = document.getElementById("<%=txtProjectName.ClientID %>").value;
         var ProjectLocation = document.getElementById("<%=txtProjectLocation.ClientID %>").value;
         var ProjectManager = document.getElementById("<%=txtProjectManager.ClientID %>").value;
 
-        if (ProjectNo == "" || ProjectName == "" || ProjectLocation == "" || ProjectManager == "") 
-        {
-           
-           
-            document.getElementById("<%=hidddenErrormsg.ClientID %>").value =messages.MandatoryFieldsGeneral ;
-           
+        if (ProjectNo == "" || ProjectName == "" || ProjectLocation == "" || ProjectManager == "") {
+
+
+            document.getElementById("<%=hidddenErrormsg.ClientID %>").value = messages.MandatoryFieldsGeneral;
+
         }
-                //document.getElementById(<%--"<%=lblerrormsg.ClientID %--%>>").style.display="none"
+            //document.getElementById(<%--"<%=lblerrormsg.ClientID %--%>>").style.display="none"
           <%--      return false;
             }--%>
-            else
-            {
+        else {
             document.getElementById("<%=hidddenErrormsg.ClientID %>").value = "";
-               
-            }
 
-           
+        }
+
+
         //}
         //catch(X)
         //{
         //    alert(X.message);
         //}
-        }
+    }
     </script>
     <script>
         function displayMessagePopUp(type, msg) {
@@ -48,7 +46,7 @@
             document.getElementById("<%=ErrorBoxPopUp.ClientID %>").style.visibility = "visible";
             var divId = document.getElementById("masterDiv");
             document.getElementById("<%=lblErrorInfoPopUp.ClientID %>").innerHTML = msg;
-           
+
             if (type == 'SUCCESS') {
                 document.getElementById("<%=ErrorBoxPopUp.ClientID %>").className = "Succesmsgboxes";
             }
@@ -68,9 +66,9 @@
         }
     </script>
     <script>
-    function Finalvalidate() {
-        //document.getElementById("<%=lblerrormsg.ClientID %>").innerHTML =
-      
+        function Finalvalidate() {
+            //document.getElementById("<%=lblerrormsg.ClientID %>").innerHTML =
+
         var lblerror = document.getElementById("<%=hidddenErrormsg.ClientID %>").value;;
 
         if (lblerror == "") {
@@ -197,6 +195,7 @@
         table {
             border-collapse: collapse;
             width: 100%;
+
         }
 
         th, td {
@@ -214,7 +213,7 @@
         td, label {
             min-height: 100%;
             font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: white;
+            color: black;
         }
 
             td.myclass {
@@ -226,7 +225,7 @@
             font-size: 10px;
             border-bottom: thin;
             border-bottom-style: dotted;
-            border-bottom-color: gray;
+            border-bottom-color:black;
             height: 1px;
         }
 
@@ -239,7 +238,7 @@
             border-radius: 5px;
             float: left;
             display: block;
-            background-color: #B2CCCC;
+            background-color: black;
             padding: 4px 18px 4px 18px;
         }
 
@@ -256,7 +255,9 @@
             margin-left: auto;
             font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 17px;
+
         }
+       
 
         .Successmsg {
             vertical-align: top;
@@ -273,14 +274,13 @@
 
 
     <div id="bodyDiv">
-        <div >
-            <div id="ErrorBoxPopUp" style="visibility: hidden; height: 2px;" runat="server" class="ErrormsgBoxes">
-                <table style="width: 100%; background-color: transparent; height: 10px">
+      <div id="ErrorBoxPopUp" style="visibility: hidden; height: 20px" runat="server" class="ErrormsgBoxes">
+                <table style="width: 100%; background-color: white; height: 0px">
                     <tr>
                         <td style="text-align: center; width: 90%; vertical-align: top">
                             <asp:Label ID="lblErrorInfoPopUp" runat="server"></asp:Label>
                         </td>
-                        <td style="text-align: left; vertical-align: top; width: 10%">
+                        <td style="text-align: left; vertical-align: top;  width: 10%">
                             <%--<span onclick="hideMeForPopUp();" class="closeButton" style="text-align:left; vertical-align:top;">X</span>  --%>
                             <img src="../Images/Close1.png" onclick="hideMeForPopUp();" style="height: 15px; width: 15px" />
                         </td>
@@ -290,10 +290,10 @@
             <asp:Menu ID="Menu1" runat="server" CssClass="" OnMenuItemClick="Menu1_MenuItemClick" Orientation="Horizontal"
                 Style="left: 0px; position: relative; top: 22px" Height="80px" Width="800px">
                 <StaticMenuStyle HorizontalPadding="0px" VerticalPadding="0px" />
-                <StaticSelectedStyle BackColor="#C0C0C0" BorderStyle="Solid" ForeColor="#006666" BorderColor="#669999" BorderWidth="1px" />
+                <StaticSelectedStyle BackColor="#f7ffe7" BorderStyle="Solid" ForeColor="#006666" BorderColor="#ffffff" BorderWidth="1px" />
                 <%--BorderColor="#C0C0FF"--%>
-                <StaticMenuItemStyle Width="240px" Height="18px" BackColor="#808080" BorderStyle="Solid" BorderWidth="1px"
-                    BorderColor="#148BB3" ForeColor="White" CssClass="Clicked" />
+                <StaticMenuItemStyle Width="240px" Height="18px" BackColor="white" BorderStyle="Solid" BorderWidth="1px"
+                    BorderColor="#ffffff" ForeColor="#006666" CssClass="Clicked" />
                 <%--BorderWidth="20px"--%>
 
                 <Items>
@@ -301,15 +301,15 @@
                     <asp:MenuItem Text="Company & Client Details" Value="1"></asp:MenuItem>
                     <asp:MenuItem Text="Advanced Info" Value="2"></asp:MenuItem>
                 </Items>
-                <StaticHoverStyle BackColor="Silver" />
+                <StaticHoverStyle BackColor="#e7f7ff" />
                 <%--  <StaticMenuItemStyle  BorderColor="#C0C0FF" BorderStyle="Solid" BorderWidth="1px" /> --%>
             </asp:Menu>
 
         </div>
-        <asp:Label ID="lblerrormsg" CssClass="Successmsg" runat="server" Text="" ForeColor="Red"></asp:Label>
+        <asp:Label ID="lblerrormsg" CssClass="Successmsg" runat="server" Text="" ForeColor="white"></asp:Label>
         <asp:HiddenField ID="hidddenErrormsg" runat="server" />
 
-        <div style="width: 750px; height: 450px; background-color: transparent; overflow-y: auto; scrollbar-base-color: rgba(36,85,99,.9)">
+        <div style="width: 750px; height: 450px; background-color: white; overflow-y: auto; scrollbar-base-color: rgba(36,85,99,.9);z-index:5">
 
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
@@ -321,6 +321,10 @@
                                     <tr>
                                         <td></td>
                                         <td>
+
+
+                                            <asp:Label ID="Label1" CssClass="headings" runat="server" Text="Base Details"></asp:Label>
+                                            <br />
                                             <table style="width: 100%;">
                                                 <tr>
                                                     <td>
