@@ -353,21 +353,25 @@ ul.departments { list-style-type: none; }*/
 
             <div class="col-md-5">
                 <asp:Label ID="lblValidationErrorRows" runat="server" Text="Validation error rows" CssClass="subtitle"></asp:Label>
+                 <div style="height: 220px;" class="chooseFieldsBox">
+                <div  style="overflow-y: scroll; height: 200px;">
+                     <telerik:RadGrid ID="dtgvalidationErros" runat="server"   AllowSorting="true" Width="100%"
+                       OnNeedDataSource="dtgvalidationErros_NeedDataSource"
+                      OnPreRender="dtgvalidationErros_PreRender" AllowMultiRowSelection="True" Skin="Silk" CssClass="outerMultiPage">
 
-                <telerik:RadGrid ID="dtgvalidationErros" runat="server"   AllowSorting="true" Width="50%" OnNeedDataSource="dtgvalidationErros_NeedDataSource" OnPreRender="dtgvalidationErros_PreRender" AllowMultiRowSelection="True" Skin="Silk" CssClass="outerMultiPage">
 
-                    <MasterTableView DataKeyNames="Status_ID" RetrieveAllDataFields="false" AutoGenerateColumns="false">
-
-                        <Columns>
-                             
+                    <MasterTableView DataKeyNames="Status_ID" AutoGenerateColumns="false" ShowHeadersWhenNoRecords="true" NoDetailRecordsText="No Errors">
+                         <Columns>
+                              <telerik:GridBoundColumn HeaderText="Key Field" DataField="Key_Field" UniqueName="Key_Field" ItemStyle-Width="50%"></telerik:GridBoundColumn>
+                              <telerik:GridBoundColumn HeaderText="Description" DataField="Error_Description" UniqueName="Error_Description" ItemStyle-Width="50%"></telerik:GridBoundColumn>
                               <telerik:GridBoundColumn HeaderText="Serial No" DataField="Sl_No" UniqueName="Sl_No" Display="false"></telerik:GridBoundColumn>
                               <telerik:GridBoundColumn HeaderText="StatusID" DataField="Status_ID" UniqueName="Status_ID" Display="false"></telerik:GridBoundColumn>
-                              <telerik:GridBoundColumn HeaderText="Key Field" DataField="Key_Field" UniqueName="Key_Field"></telerik:GridBoundColumn>
-                              <telerik:GridBoundColumn HeaderText="Description" DataField="Error_Description" UniqueName="Error_Description"></telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
 
                 </telerik:RadGrid>
+                </div>
+                </div>
 
             </div>
             <div class="col-md-1">&nbsp;</div>
@@ -495,34 +499,31 @@ ul.departments { list-style-type: none; }*/
                 </div>
 
                 <div class="col-md-5">
-                    <asp:Label ID="Label3" runat="server" Text="aasasas.xlsx"></asp:Label>
+                    <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
                 </div>
 
                 <div class="col-md-7"><asp:Label ID="Label4" runat="server" Text="Total rows"></asp:Label>
                 </div>
-                <div class="col-md-5"> <asp:Label ID="Label5" runat="server" Text="100"></asp:Label>
+                <div class="col-md-5"> <asp:Label ID="Label5" runat="server" Text=""></asp:Label>
                 </div>
 
                 <div class="col-md-7">  <asp:Label ID="Label6" runat="server" Text="Existing"></asp:Label>
                 </div>
-                <div class="col-md-5"> <asp:Label ID="Label7" runat="server" Text="25"></asp:Label>
+                <div class="col-md-5"> <asp:Label ID="Label7" runat="server" Text=""></asp:Label>
                 </div>
 
                 <div class="col-md-7">    <asp:Label ID="Label8" runat="server" Text="New"></asp:Label>
                 </div>
-                <div class="col-md-5"> <asp:Label ID="Label9" runat="server" Text="75"></asp:Label>
+                <div class="col-md-5"> <asp:Label ID="Label9" runat="server" Text=""></asp:Label>
                 </div>
 
                 <div class="col-md-7"> <asp:Label ID="Label10" runat="server" Text="Errors"></asp:Label>
                 </div>
-                <div class="col-md-5"> <asp:Label ID="Label11" runat="server" Text=" 1"></asp:Label>
+                <div class="col-md-5"> <asp:Label ID="Label11" runat="server" Text=""></asp:Label>
                 </div>
                        <br />   <br />
                     </div>
-                            
-
-
-
+  
             </div>
 
 
@@ -561,9 +562,11 @@ ul.departments { list-style-type: none; }*/
 
          </div>
     </div>
-       <asp:HiddenField ID="hdfFileName" runat="server" />
-       <asp:HiddenField ID="hdfFileLocation" runat="server" />
-       <asp:HiddenField ID="hdfstatusID" runat="server" />
+       <asp:HiddenField ID="hdfFileName" runat="server"/>
+       <asp:HiddenField ID="hdfFileLocation" runat="server"/>
+       <asp:HiddenField ID="hdfstatusID" runat="server"/>
+       <asp:HiddenField ID="hdfremovedField" runat="server"/>
+       <asp:HiddenField ID="hdfErrorRow" runat="server" />
 
 
    

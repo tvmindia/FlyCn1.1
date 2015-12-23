@@ -31,7 +31,7 @@ namespace FlyCn.ExcelImport
             //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();
 
-            ds = detailsObj.getAllExcelImportDetails("TestUser");
+           // ds = detailsObj.getAllExcelImportDetails("TestUser");
             RadGrid1.DataSource = ds.Tables[0];
             try
             {
@@ -142,7 +142,7 @@ namespace FlyCn.ExcelImport
             //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();
             DataSet ds = new DataSet();
-            ds = detailsObj.getDistictExcelImportDetailsByUserName("TestUser");
+            //ds = detailsObj.getDistictExcelImportDetailsByUserName("TestUser");
             RadGrid2.DataSource = ds.Tables[0];
             try
             {

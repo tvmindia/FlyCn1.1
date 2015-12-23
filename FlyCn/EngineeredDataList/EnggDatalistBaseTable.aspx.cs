@@ -354,13 +354,32 @@ namespace FlyCn.EngineeredDataList
            }
        }
         public void GridErrorvalidateBind(Guid _statusid)
-        {
+        {//hdfErrorRow
+            
+            DataSet ds = new DataSet();
             if (_statusid != Guid.Empty)
             {
-                DataSet ds = new DataSet();
+               
+              
                 ds = importObj.getErrorDetails(_statusid);
                 dtgvalidationErros.DataSource = ds;
+                string temp = "";
+
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    //temp = temp + ds.Tables[0].Rows[0]["Key_Field"].ToString()+ "||";
+                    temp = temp + dr["Key_Field"].ToString() + "||";
+                }
+
+
+                hdfErrorRow.Value = temp;
+                
             }
+
+            if (dtgvalidationErros.DataSource == null)
+            {
+                dtgvalidationErros.DataSource = new string[] { };
+            }  
         }
         public void CheckBoxAllCheck()
         {
@@ -398,7 +417,7 @@ namespace FlyCn.EngineeredDataList
 
         public void CheckBoxColumns()
         {
-          
+          string temp="";
             GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
             if(headerItem!=null)
             {
@@ -408,9 +427,10 @@ namespace FlyCn.EngineeredDataList
                     {
                         // checkHeader = false;
                         columnNames.Add(dataItem["Field_Name"].Text);
-                        string temp = dataItem["Field_Name"].Text;
+                        temp = temp + dataItem["Field_Name"].Text + "||";
                     }
                 }
+                hdfremovedField.Value = temp;
             }
        }
         
@@ -491,8 +511,5 @@ namespace FlyCn.EngineeredDataList
             importObj.InsertFile(tempDS);
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "Import();", true);
         }
-
-
-
     }
 }
