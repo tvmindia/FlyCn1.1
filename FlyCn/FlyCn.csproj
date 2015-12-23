@@ -386,6 +386,7 @@
     <Content Include="Images\RefreshSearch.png" />
     <Content Include="Images\Search.png" />
     <Content Include="Images\smile_1.png" />
+    <Content Include="Images\View-Incident.png" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.11.3.min.js" />

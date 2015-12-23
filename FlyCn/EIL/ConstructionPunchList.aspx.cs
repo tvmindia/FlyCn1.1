@@ -48,7 +48,7 @@ namespace FlyCn.EIL
             SecurityCheck();
  
             //-------------------------------------------------------------------------//
-          
+            ToolBarVisibility(4);
             if (!IsPostBack)
             {
              
@@ -123,7 +123,7 @@ namespace FlyCn.EIL
    
             if (e.CommandName == "EditData")
             {
-
+                ToolBarVisibility(2);
                 //UIClasses.Const Const = new UIClasses.Const();
                 //FlyCnDAL.Security.UserAuthendication UA;
                 //HttpContext context = HttpContext.Current;
@@ -383,6 +383,7 @@ namespace FlyCn.EIL
             //--For Security purpose---
              if (e.CommandName == "ViewDetailColumn")
              {
+                 ToolBarVisibility(4);
                  hdnAccessMode.Value = "ViewDetailColumn";
 
                  RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
@@ -706,6 +707,48 @@ namespace FlyCn.EIL
             Download(filePath);
         }
         #endregion imageButtonDownload_Click
+        #region ToolBarVisibility
+        public void ToolBarVisibility(int order)
+        {
+            switch (order)
+            {
+                case 1://after adding what should be visible
+                    ToolBar.AddButton.Visible = true;
+                    ToolBar.SaveButton.Visible = false;
+                    ToolBar.UpdateButton.Visible = false;
+                    ToolBar.EditButton.Visible = true;
+                    ToolBar.DeleteButton.Visible = false;
+                    break;
+                case 2:
+                    ToolBar.AddButton.Visible = true;
+                    ToolBar.SaveButton.Visible = false;
+                    ToolBar.UpdateButton.Visible = true;
+                    ToolBar.EditButton.Visible = false;
+                    ToolBar.DeleteButton.Visible = false;
+                    break;
+
+                case 3:
+                    ToolBar.AddButton.Visible = false;
+                    ToolBar.SaveButton.Visible = true;
+                    ToolBar.UpdateButton.Visible = false;
+                    ToolBar.EditButton.Visible = false;
+                    ToolBar.DeleteButton.Visible = false;
+                    break;
+
+
+                case 4://toally invicible
+                    ToolBar.AddButton.Visible = false;
+                    ToolBar.SaveButton.Visible = false;
+                    ToolBar.UpdateButton.Visible = false;
+                    ToolBar.EditButton.Visible = false;
+                    ToolBar.DeleteButton.Visible = false;
+                    break;
+
+            }
+
+        }
+        #endregion ToolBarVisibility
+
 
         #endregion Events
 
