@@ -707,7 +707,7 @@ namespace FlyCn.EIL
             Download(filePath);
         }
         #endregion imageButtonDownload_Click
-        #region ToolBarVisibility
+        #region ToolBarVisibility n
         public void ToolBarVisibility(int order)
         {
             switch (order)

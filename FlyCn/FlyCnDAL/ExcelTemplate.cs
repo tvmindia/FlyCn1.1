@@ -21,7 +21,7 @@ namespace FlyCn.FlyCnDAL
     public class ExcelTemplate
     {
 
-
+        ErrorHandling eObj = new ErrorHandling();
 
 
         public void GenerateExcelTemplate(string projno, string tablename)
@@ -55,7 +55,6 @@ namespace FlyCn.FlyCnDAL
                 ExcelWorkBook = ExcelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
 
 
-                string filename = "E:Myfile.xlsx";
 
                 List<string> SheetNames = new List<string>();
                 SheetNames.Add("Fields");
@@ -161,10 +160,10 @@ namespace FlyCn.FlyCnDAL
             catch (Exception exHandle)
             {
 
-                Console.WriteLine("Exception: " + exHandle.Message);
-                Console.ReadLine();
+ 
+                throw exHandle;
             }
-
+            
 
         }
 
