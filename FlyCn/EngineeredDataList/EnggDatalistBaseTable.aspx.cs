@@ -31,6 +31,7 @@ namespace FlyCn.EngineeredDataList
         List<string> columnNames = new List<string>();
         string currentSheet = null;
         bool columnExistCheck=false;
+        ErrorHandling eObj = new ErrorHandling();
         protected void Page_Load(object sender, EventArgs e)
         {
                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
@@ -163,8 +164,18 @@ namespace FlyCn.EngineeredDataList
 
         protected void btnExcelIimport_Click(object sender, EventArgs e)
         {
-            ExcelTemplate eObj = new ExcelTemplate();
-            eObj.GenerateExcelTemplate(UA.projectNo,_TableName);
+            try
+            {
+                ExcelTemplate eObj = new ExcelTemplate();
+                eObj.GenerateExcelTemplate(UA.projectNo, _TableName);
+            }
+            catch(Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+               
+            }
+           
         }
 
         protected void dtgvalidationErros_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
