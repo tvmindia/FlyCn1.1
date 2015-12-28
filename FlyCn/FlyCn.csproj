@@ -1065,6 +1065,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\ExcelTemplate\" />
     <Folder Include="Content\Fileupload\" />
     <Folder Include="Images\ProjectImages\" />
   </ItemGroup>
