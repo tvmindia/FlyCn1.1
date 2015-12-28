@@ -114,44 +114,38 @@ namespace FlyCn.FlyCnDAL
                 ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Note: * marked fields are mandatory";
                 ExcelWorkSheet.Cells[colIndex, rowIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
                 ExcelWorkSheet.Name = SheetNames[1];
-                //  ExcelWorkBook.SaveCopyAs(@"E:\Copy_Myfile.xlsx");
-                //  string path = @"E:\";
+          
 
                 string file = "ExcelImport_" + tablename;
-                //ExcelWorkBook.SaveAs(path+file);
 
 
-                //Stream myStream;
-                //SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
-                //saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                //saveFileDialog1.FilterIndex = 2;
-                //saveFileDialog1.RestoreDirectory = true;
+                string path = ("~/Content/ExcelTemplate/");
 
-                //if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                //{
-                //    if ((myStream = saveFileDialog1.OpenFile()) != null)
-                //    {
-                      //  ExcelWorkBook.SaveAs(file);
-                        // Code to write the stream goes here.
-                //        myStream.Close();
-                //    }
-                //}
+                HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
+                HttpContext.Current.Response.AddHeader("content-disposition",
+                                                "attachment;filename=" + file);
 
 
-                   ////  HttpContext.Current.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                   //  HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=SqlExport.xlsx");
-                   //     using (MemoryStream MyMemoryStream = new MemoryStream())
-                   //     {
-                            ExcelWorkBook.SaveAs(file);
-                        //    MyMemoryStream.WriteTo(HttpContext.Current.Response.OutputStream);
-                        //    HttpContext.Current.Response.Flush();
-                        //    HttpContext.Current.Response.End();
-                        //}
+                string filepath = path + file + ".xlsx";
+                if (System.IO.File.Exists(filepath))
+                {
+                    System.IO.File.Delete(filepath);
+                }
+                else
+                {
 
-                // ExcelWorkBook.SaveAs(file);
-                ExcelWorkBook.Close();
-                ExcelApp.Quit();
+
+                    ExcelWorkBook.SaveAs(HttpContext.Current.Server.MapPath(filepath));
+                    ExcelWorkBook.Close();
+                    ExcelApp.Quit();
+
+
+                    HttpContext.Current.Response.TransmitFile(HttpContext.Current.Server.MapPath(filepath));
+                    HttpContext.Current.Response.End();
+
+
+                } 
 
                 Marshal.ReleaseComObject(ExcelWorkSheet);
                 Marshal.ReleaseComObject(ExcelWorkBook);
@@ -159,11 +153,12 @@ namespace FlyCn.FlyCnDAL
             }
             catch (Exception exHandle)
             {
+               
 
  
                 throw exHandle;
             }
-            
+     
 
         }
 
