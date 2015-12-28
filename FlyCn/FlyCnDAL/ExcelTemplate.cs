@@ -30,8 +30,10 @@ namespace FlyCn.FlyCnDAL
             SqlConnection con = null;
             SqlDataAdapter daObj;
             DataSet ds = new DataSet();
+            string errorstatus="";
             try
             {
+                errorstatus = "started";
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 UIClasses.Const Const = new UIClasses.Const();
@@ -46,14 +48,15 @@ namespace FlyCn.FlyCnDAL
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(ds);
                 Microsoft.Office.Interop.Excel.Range excelCellrange;
-
+                errorstatus = "Creating App";
                 Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
                 Workbook ExcelWorkBook = null;
                 Worksheet ExcelWorkSheet = null;
 
 
                 ExcelWorkBook = ExcelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
-
+                errorstatus = "Created";
 
 
                 List<string> SheetNames = new List<string>();
@@ -135,7 +138,7 @@ namespace FlyCn.FlyCnDAL
                 else
                 {
 
-
+                    errorstatus = "saving";
                     ExcelWorkBook.SaveAs(HttpContext.Current.Server.MapPath(filepath));
                     ExcelWorkBook.Close();
                     ExcelApp.Quit();
@@ -143,7 +146,7 @@ namespace FlyCn.FlyCnDAL
 
                     HttpContext.Current.Response.TransmitFile(HttpContext.Current.Server.MapPath(filepath));
                     HttpContext.Current.Response.End();
-
+                    errorstatus = "saved";
 
                 } 
 
@@ -153,10 +156,8 @@ namespace FlyCn.FlyCnDAL
             }
             catch (Exception exHandle)
             {
-               
-
- 
-                throw exHandle;
+                
+                throw new Exception(exHandle.Message + errorstatus);
             }
      
 
