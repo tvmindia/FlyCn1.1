@@ -562,12 +562,10 @@ ul.departments { list-style-type: none; }*/
 
          </div>
     </div>
+       <asp:HiddenField ID="hdfTableName" runat="server" />
        <asp:HiddenField ID="hdfFileName" runat="server"/>
        <asp:HiddenField ID="hdfFileLocation" runat="server"/>
        <asp:HiddenField ID="hdfstatusID" runat="server"/>
        <asp:HiddenField ID="hdfremovedField" runat="server"/>
        <asp:HiddenField ID="hdfErrorRow" runat="server" />
-
-
-   
 </asp:Content>
