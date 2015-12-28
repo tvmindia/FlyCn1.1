@@ -387,6 +387,7 @@
     <Content Include="Images\Search.png" />
     <Content Include="Images\smile_1.png" />
     <Content Include="Images\View-Incident.png" />
+    <Content Include="MenuTopBar.aspx" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.11.3.min.js" />
@@ -935,6 +936,13 @@
     </Compile>
     <Compile Include="Menu.aspx.designer.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MenuTopBar.aspx.cs">
+      <DependentUpon>MenuTopBar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MenuTopBar.aspx.designer.cs">
+      <DependentUpon>MenuTopBar.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectParameters\AddNewProject.aspx.cs">
       <DependentUpon>AddNewProject.aspx</DependentUpon>
