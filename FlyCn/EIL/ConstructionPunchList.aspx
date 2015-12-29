@@ -300,10 +300,10 @@
 
             //------------------------For Security-----------------------------------------------//
             debugger;
-            var security = document.getElementById("hdnSecurityMaster").value;
-            DisableButtons();
+            //var security = document.getElementById("hdnSecurityMaster").value;
+            //DisableButtons();
             //Page Postback
-            if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "EditData")
+           <%-- if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "EditData")
             {
                 EnableButtonsForEdit();
             }
@@ -311,7 +311,7 @@
                 if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "ViewDetailColumn")
                 {
                     DisableButtons();
-                }
+                }--%>
         
             //----------------------------------------------------------------------------------//
             id = document.getElementById('IDAccordion');
@@ -1331,6 +1331,7 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
                                         <td>&nbsp;</td>
                                     </tr>
                                 </table>
+
 
 
                             </telerik:RadPageView>

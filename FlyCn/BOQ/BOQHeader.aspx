@@ -23,7 +23,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
    <%-- <asp:ScriptManager ID="scmFilter" runat="server" ></asp:ScriptManager>--%>
 
-      <asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true">
+    <asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true">
        
     </asp:ScriptManager>
 
@@ -61,7 +61,7 @@
 
                         <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
                             <telerik:RadPageView ID="rpList" runat="server">
-                       
+
                                 <div id="divList" style="width: 100%;text-align:center">
                                   <%--  <asp:Label ID="lblresultReturned" runat="server" Text="Label"></asp:Label>--%>
 
@@ -120,7 +120,7 @@
                             <telerik:RadPageView ID="rpAddEdit" runat="server">
 
                                 
-                             <uc1:ToolBar runat="server" ID="ToolBar" />
+                                <uc1:ToolBar runat="server" ID="ToolBar" />
 
                                 <div class="col-md-12 Span-One">
                                   
@@ -238,9 +238,7 @@
                                          <div class="col-md-7">
                                              <asp:Label ID="lblDocumentStatus" CssClass="DocStatusLabel" runat="server"    ClientIDMode="Static"></asp:Label>
                                          </div>
-                                         <div class="col-md-5">
-                                            <input type="button" onclick="linkbuttonClient();" value="ApproverList" />
-                                         </div>
+                                         
                                          
                                        <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
                                       <iframe id="ContentApprovers" runat="server" style="width: 1000px; height: 600px;"></iframe>
@@ -269,7 +267,7 @@
               
         
         </div>
-          </div>
+        </div>
   <%--</ContentTemplate>
                                 </asp:UpdatePanel>--%>
       
@@ -279,10 +277,6 @@
     <!--<JavaScrict>-->
     <script type="text/javascript">
 
-        function linkbuttonClient() {
-            var Revisionid = document.getElementById('<%=hiddenFieldRevisionID.ClientID %>').value;
-            window.open("../Approvels/Approvers.aspx?Revisionid=" + Revisionid, 'Approvers', "height=200,width=500");
-        }
      
 
         function validate()
@@ -337,7 +331,7 @@
         function OnClientTabSelecting(sender, eventArgs) {
 
             var tab = eventArgs.get_tab();
-            debugger;
+            
             var security = document.getElementById("hdnSecurityMaster").value;
             var user = document.getElementById('<%=hiddenUsername.ClientID%>');
             var owner = document.getElementById('<%=hiddenDocumentOwner.ClientID%>');
@@ -346,9 +340,16 @@
             if (PageSecurity.isWriteOnly) {
                 if (tab.get_text() == "New") {
 
-
                     eventArgs.set_cancel(false);
                 }
+                else
+                    if (tab.get_text() == "Details") {
+                        <%=ToolBar.ClientID %>_SetEditVisible(false);
+                        <%=ToolBar.ClientID %>_SetAddVisible(false);
+                        <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                        <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                        <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+            }
             }
             else
                 if (PageSecurity.isReadOnly) {
@@ -366,6 +367,7 @@
                             <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                             <%=ToolBar.ClientID %>_SetDeleteVisible(false);
                         }
+                   
                 }
                 else if (PageSecurity.isEditOnly) {
                     if (tab.get_text() == "New") {
@@ -373,6 +375,14 @@
                         AlertMsg(messages.EditModeNewClick);
                         eventArgs.set_cancel(true);
                     }
+                    else 
+                        if (tab.get_text() == "Details") {
+                            <%=ToolBar.ClientID %>_SetEditVisible(false);
+                            <%=ToolBar.ClientID %>_SetAddVisible(false);
+                            <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                            <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                        }
                 }
 
 
@@ -380,10 +390,15 @@
                 }
         
         function onClientTabSelected(sender, args) {
-
+            debugger;
         var tab = args.get_tab();
+
         if (tab.get_value() == '2')
         {
+           
+            parent.HideTreeNode();
+            //var txtCont = Page.Master.Master.FindControl("rtvLeftMenu").ClientID ;
+            //alert(txtCont);
             <%--document.getElementById('<%=hdnPostbackOnItemCommand.ClientID %>').value = "1";--%>
             hideMe();
            <%-- var hiddenPostBack = document.getElementById('<%=GridviewFilter.FindControl("hdnPostbackOnItemCommand").ClientID %>');
@@ -405,6 +420,17 @@
                 <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                 <%=ToolBar.ClientID %>_SetDeleteVisible(false);
 }
+          
+       
+            if((PageSecurity.isReadOnly))
+            {
+             
+                <%=ToolBar.ClientID %>_SetEditVisible(false);
+                <%=ToolBar.ClientID %>_SetAddVisible(false);
+                <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+            }
               }
             catch (x)
             {
@@ -430,6 +456,7 @@
             if (tab.get_value() == "1")
 
             {               
+                parent.HideTreeNode();
                 document.getElementById('<%=HiddenTabStatus.ClientID %>').value="1";             
                 var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
                 var tab = tabStrip.findTabByValue("1");
@@ -465,9 +492,9 @@
         if (btn.get_value() == 'Update') {
             try {
 
-                parent.RevisionHistroyDeleteNode();
+            parent.RevisionHistroyDeleteNode();
 
-                args.set_cancel(!validate());
+            args.set_cancel(!validate());
             } catch (X) { alert(x)}
             
         }
@@ -491,6 +518,8 @@
                 event.preventDefault();          
                 OpenDetailAccordion(this);
             });
+
+         
 
         });
 

@@ -14,12 +14,26 @@ namespace FlyCn
        //Constants constantsObj = new Constants();
        // ExcelImportDetailsDAL exObj = new ExcelImportDetailsDAL();
         ImportFile importObj = new ImportFile();
-        
-
+        CommonDAL comDAL = new CommonDAL();
+        Modules moduleObj = new Modules();
+        UIClasses.Const Const = new UIClasses.Const();
+        FlyCnDAL.Security.UserAuthendication UA;
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
+            UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
 
+            //if (Request.QueryString["ModuleID"] != null)
+            //{
+            //    moduleObj.ModuleID = Request.QueryString["ModuleID"];
+            //    comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
+               
+            //}
+            moduleObj.ModuleID = "ELE";
+            importObj.ProjectNo = "C00001";//UA.projectNo;
+            importObj.UserName = "albert";//UA.userName;
+            comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
+           
         }
         #endregion Page_Load
 
@@ -33,7 +47,11 @@ namespace FlyCn
         #region btn_upload_Click
         protected void btn_upload_Click(object sender, EventArgs e)
         {
-           // importObj.tableName = constantsObj.TableName;
+
+
+
+            importObj.TableName = comDAL.tableName;
+            
            // importObj.fileName = "file";
          
            

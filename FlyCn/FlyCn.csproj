@@ -55,6 +55,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -365,6 +366,7 @@
     <Content Include="Images\Icons\quality.png" />
     <Content Include="Images\Icons\rejectToolbarIcon.png" />
     <Content Include="Images\Icons\rejectToolbarIconDisabled.png" />
+    <Content Include="Images\Icons\RightArrow16.png" />
     <Content Include="Images\Icons\road.png" />
     <Content Include="Images\Icons\roles.png" />
     <Content Include="Images\Icons\setup.png" />
@@ -385,6 +387,8 @@
     <Content Include="Images\RefreshSearch.png" />
     <Content Include="Images\Search.png" />
     <Content Include="Images\smile_1.png" />
+    <Content Include="Images\View-Incident.png" />
+    <Content Include="MenuTopBar.aspx" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.11.3.min.js" />
@@ -934,6 +938,13 @@
     <Compile Include="Menu.aspx.designer.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
     </Compile>
+    <Compile Include="MenuTopBar.aspx.cs">
+      <DependentUpon>MenuTopBar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MenuTopBar.aspx.designer.cs">
+      <DependentUpon>MenuTopBar.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ProjectParameters\AddNewProject.aspx.cs">
       <DependentUpon>AddNewProject.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1063,6 +1074,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\ExcelTemplate\" />
     <Folder Include="Content\Fileupload\" />
     <Folder Include="Images\ProjectImages\" />
   </ItemGroup>

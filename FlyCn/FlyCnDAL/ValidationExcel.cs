@@ -14,7 +14,7 @@ namespace FlyCn.FlyCnDAL
         {
 
             #region Public Properties
-
+            public ImportFile importfile = new ImportFile();
             public string errorMessage
             {
                 get;
@@ -43,20 +43,19 @@ namespace FlyCn.FlyCnDAL
             /// </summary>
             /// <param name="datarow from the result dataset of the excel file"></param>
             /// <returns>success/failure and error datatable</returns>
-            public int excelDatasetValidation(DataRow dr)
+            public int excelDatasetValidation(DataRow dr, DataSet dsTable)
             {
                 DataTable dtError = CreateErrorTable();
                 DataSet dsError = new DataSet();
-                DataSet dsTable = new DataSet();
+              
                 // DAL.Constants constantList = new DAL.Constants();
                 // DAL.ExcelImportDAL stdDal = new DAL.ExcelImportDAL();
                 // DAL.ExcelImportDetailsDAL detailsDal = new DAL.ExcelImportDetailsDAL(status_Id);
                 // List<ExcelValidationModel> lmd = new List<ExcelValidationModel>();
                 CommonDAL stdDal = new CommonDAL();
-                ImportFile importfile = new ImportFile();
+                //ImportFile importfile = new ImportFile();
                 try
                 {
-                    dsTable = stdDal.GetTableDefinition("M_Location");
                     DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
                     DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
 
@@ -69,8 +68,10 @@ namespace FlyCn.FlyCnDAL
                     {
                         string FieldName = item["Field_Name"].ToString();
                         string FieldDataType = item["Field_DataType"].ToString();
+                        string temp = dr[FieldName].ToString().Trim();
 
-                        if (dr[FieldName].ToString().Trim() == "" || dr[FieldName] == null)
+                        //if (dr[FieldName].ToString().Trim() == "" || dr[FieldName] == null)
+                        if (dr[FieldName].ToString().Trim() == "" || string.IsNullOrEmpty(dr[FieldName].ToString()))
                         {
 
                             flag = true;
@@ -235,7 +236,7 @@ namespace FlyCn.FlyCnDAL
             {
                 try
                 {
-                    for (int i = 0; i < dsFile.Tables[0].Columns.Count; i++)
+                    for (int i = dsFile.Tables[0].Columns.Count - 1; i >= 0; i--)
                     {
                         if (cName == dsFile.Tables[0].Columns[i].ColumnName.ToString())
                             return true;
@@ -251,16 +252,11 @@ namespace FlyCn.FlyCnDAL
 
 
 
-            public bool ValidateExcelDataStructure(DataSet dsFile)
+            public bool ValidateExcelDataStructure(DataSet dsFile, DataSet dsTable)
             {
                 try
                 {
-                    DataSet dsTable = new DataSet();
-                    //   DAL.Constants constantList = new DAL.Constants();
-                    //  DAL.ExcelImportDAL stdDal = new DAL.ExcelImportDAL();
-                    CommonDAL stdDal = new CommonDAL();
-                    dsTable = stdDal.GetTableDefinition("M_Location");
-                    for (int i = dsTable.Tables[0].Rows.Count - 1; i >= 0; i--)
+                   for (int i = dsTable.Tables[0].Rows.Count - 1; i >= 0; i--)
                     {
                         bool res;
                         string FieldName = dsTable.Tables[0].Rows[i]["Field_Name"].ToString();

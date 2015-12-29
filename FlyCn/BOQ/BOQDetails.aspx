@@ -355,7 +355,7 @@
          if (PageSecurity.isWriteOnly) {
              if (tab.get_text() == "New") {
 
-
+              
                  eventArgs.set_cancel(false);
              }
          }
@@ -394,6 +394,11 @@
 
          var tab = args.get_tab();
          if (tab.get_value() == '2') {
+             debugger;
+             var tree = page.Master;
+             alert(tree);
+            <%-- var txtCont = document.getElementById('<%= Page.Master.Master.FindControl("rtvLeftMenu").ClientID %>');
+             alert(txtCont);--%>
              //Clear Text boxes When New tab clicks
              //new clicked 
              ClearTexBox();

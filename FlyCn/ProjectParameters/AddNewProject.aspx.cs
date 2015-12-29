@@ -4,24 +4,35 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 
 namespace FlyCn.ProjectParameters
 {
     public partial class AddNewProject : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+      
+       
+        public void AlertData()
         {
 
-        }
-        protected void RadTabStrip1_TabClick(object sender, Telerik.Web.UI.RadTabStripEventArgs e)
-        {
 
+            var pg = HttpContext.Current.CurrentHandler as Page;
+            var master = pg.Master;
+            ContentPlaceHolder mpContentPlaceHolder;
+            //  Label error = (Label)master.FindControl("lblErrorInfo");
+            mpContentPlaceHolder = (ContentPlaceHolder)master.FindControl("MainBody");
+            HtmlControl divMask = (HtmlControl)master.FindControl("CommonAlertBox");
+            HtmlControl divMask1 = (HtmlControl)master.FindControl("Errorbox");
+            divMask1.Style.Remove("visibility");
+            divMask.Style.Remove("visibility");
+            //divMask.Style.Add("display","none");
+            divMask.Style["display"] = "none";
+            divMask1.Style["display"] = "none";
+            //   divMask.Attributes["class"] = "ErrormsgBoxes";
+            //  error.Text = ex.Message;
         }
 
-        protected void Menu1_MenuItemClick(object sender, MenuEventArgs e)
-        {
-
-        }
+     
 
         protected void btnFinish_Click(object sender, EventArgs e)
         {
@@ -194,6 +205,19 @@ namespace FlyCn.ProjectParameters
         protected void btnSkipFinish_Click(object sender, EventArgs e)
         {
             InsertData();
+        }
+
+
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            AlertData();
+        }
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                AlertData();
+            }
         }
     }
 }

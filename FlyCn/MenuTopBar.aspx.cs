@@ -4,19 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using FlyCn.FlyCnDAL;
-namespace FlyCn.Masters
+
+namespace FlyCn
 {
-    public partial class inputPages : System.Web.UI.MasterPage
+    public partial class MenuTopBar : System.Web.UI.Page
     {
-       
         protected void Page_Load(object sender, EventArgs e)
         {
 
-         
         }
-
-
-     
     }
 }

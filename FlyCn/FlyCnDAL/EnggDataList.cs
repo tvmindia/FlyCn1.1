@@ -42,9 +42,11 @@ namespace FlyCn.FlyCnDAL
         }
 
 
-        public void LoadInputScreen(RadPane myContentPane)
+        public void LoadInputScreen(RadPane myContentPane, System.Web.UI.Page pg)
         {
-            myContentPane.ContentUrl = "EnggDataListLandingPage.aspx";
+            var master = pg;
+
+            myContentPane.ContentUrl = "EnggDataListLandingPage.aspx?tree=" + pg;
         }
     }
 }
