@@ -481,6 +481,7 @@ namespace FlyCn.EngineeredDataList
                //{
                 
                //       for (int i = checkds.Tables[0].Rows.Count - 1; i >= 0; i--)
+
                //       {
                //         DataRow dr = checkds.Tables[0].Rows[i];
                //         string[] words = str.Split(',');
@@ -491,17 +492,23 @@ namespace FlyCn.EngineeredDataList
                //         }
                //       }
                //}
-               string temp="";
+              
                for (int i = checkds.Tables[0].Rows.Count - 1; i >= 0; i--)
                {
+                   string temp = "";
                    DataRow dr = checkds.Tables[0].Rows[i];
-                   temp = dr["projectno"].ToString() + "," + dr["tagno"].ToString();
+                   //temp = dr["ProjectNo"].ToString() + "," + dr["TagNo"].ToString();
+                   foreach(DataRow drw in keyFieldRow)
+                   {
+                       temp = temp + dr[drw["Field_Name"].ToString()].ToString() + ","; //drw[""].ToString() + "," + dr["TagNo"].ToString();
+                   }
+                   temp = temp.TrimEnd(',');
                    if(ErrorRows.Contains(temp))
                    {
                        dr.Delete();
                    }
                }//end of for loop
-
+               checkds.AcceptChanges();
            }
        }
 

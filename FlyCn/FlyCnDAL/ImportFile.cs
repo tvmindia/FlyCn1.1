@@ -845,9 +845,9 @@ namespace FlyCn.FlyCnDAL
                     //to know temp
                     string ProjectNoP = dsFile.Tables[0].Rows[i]["ProjectNo"].ToString();
                     string ModuleIDP = dsFile.Tables[0].Rows[i]["ModuleID"].ToString();
-                    string TO_SystemP = dsFile.Tables[0].Rows[i]["TO_System"].ToString();
-                    string TO_SubSystemP = dsFile.Tables[0].Rows[i]["TO_SubSystem"].ToString();
-                    string Equipment_Nop = dsFile.Tables[0].Rows[i]["Equipment_No"].ToString();
+                    //string TO_SystemP = dsFile.Tables[0].Rows[i]["TO_System"].ToString();
+                    //string TO_SubSystemP = dsFile.Tables[0].Rows[i]["TO_SubSystem"].ToString();
+                    //string Equipment_Nop = dsFile.Tables[0].Rows[i]["Equipment_No"].ToString();
                     //to know temp
 
                     //Thread.Sleep(200);
@@ -907,13 +907,12 @@ namespace FlyCn.FlyCnDAL
         {
             try
             {
-                SqlCommand cmd = new SqlCommand();
-                //DAL.ExcelImportDAL stdDal = new DAL.ExcelImportDAL();
-                CommonDAL tblDef = new CommonDAL();
-                //DAL.Constants constantList = new DAL.Constants();
+               SqlCommand cmd = new SqlCommand();
+               //DAL.ExcelImportDAL stdDal = new DAL.ExcelImportDAL();
+               CommonDAL tblDef = new CommonDAL();
+               //DAL.Constants constantList = new DAL.Constants();
                 dbConnection dbcon = new dbConnection();
-               
-            //   dsTable = tblDef.GetTableDefinition(TableName);
+               //dsTable = tblDef.GetTableDefinition(TableName);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = tblDef.GetProcedureName(TableName);
                 cmd.Connection = dbcon.GetDBConnection();
@@ -921,15 +920,25 @@ namespace FlyCn.FlyCnDAL
                 {
                     string paramName = dsTable.Tables[0].Rows[j]["Field_Name"].ToString();
                     string type = dsTable.Tables[0].Rows[j]["Field_DataType"].ToString();
-              
-                    object paramValue = dr[paramName];
-
-                    if (type == "D")
+                   if((dr.Table.Columns.Contains(paramName))!=true)
                     {
-                        cmd.Parameters.AddWithValue(paramName, Convert.ToDateTime(paramValue));
+                        //?dr[paramName].ToString(): "";
+                        continue;
+
                     }
-                    else
-                        cmd.Parameters.AddWithValue(paramName, paramValue);
+                   else
+                   {
+                       
+                       object paramValue = dr[paramName];
+
+                       if (type == "D")
+                       {
+                           cmd.Parameters.AddWithValue(paramName, Convert.ToDateTime(paramValue));
+                       }
+                       else
+                           cmd.Parameters.AddWithValue(paramName, paramValue);
+                   }
+
                 }
                 cmd.Parameters.AddWithValue("@Updated_By", UserName);
                 cmd.Parameters.AddWithValue("@Updated_Date", System.DateTime.Now);
@@ -945,6 +954,7 @@ namespace FlyCn.FlyCnDAL
                 {
                     return 1;
                 }
+               
             }
             catch (Exception ex)
             {
