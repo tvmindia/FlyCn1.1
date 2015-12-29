@@ -25,6 +25,7 @@
 
  
 <asp:Content ID="phdUserMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager ID="scmFilter" runat="server"></asp:ScriptManager>
       <uc1:GridviewFilter runat="server" id="GridviewFilter" tableName="M_USERS"/>
          <script type="text/javascript">
              function ClearTextBox() {

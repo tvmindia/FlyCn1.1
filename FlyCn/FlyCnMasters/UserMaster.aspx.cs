@@ -16,7 +16,7 @@ namespace FlyCn.FlyCnMasters
     {
        
         public int NumberOfTimesNeedDataSourceCalled = 0;
-
+        public int ItemCommandFiredOrNot = 0;
 
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
@@ -67,6 +67,8 @@ namespace FlyCn.FlyCnMasters
 
         void LoadGrid()
         {
+            int resultReturnedCount = 0;
+
             Security securityObj = new Security();
             DataTable dtable = new DataTable();
             try
@@ -78,16 +80,24 @@ namespace FlyCn.FlyCnMasters
                 {
                     DataRow[] test = dtable.Select(searchQuery);
                     dtgUserMaster.DataSource = test;
-
-                    //int rowLength = test.Length;
-           
-                    //if(rowLength == 0)
-                    //{
-                    //    lblSearchErrorMsg.Text = "Sorry! Searched item not found";
-                    //}
-
-
                     dtgUserMaster.DataBind();
+
+//To display no of result returned ,otherwise to display no result found
+                    resultReturnedCount = dtgUserMaster.Items.Count;
+                    Label lblResultReturnedCount = (Label)GridviewFilter.FindControl("lblResultReturnedCount");
+
+                    if (0 == resultReturnedCount)
+                    {
+                        lblResultReturnedCount.Text = "No result found!";
+                        lblResultReturnedCount.ForeColor = System.Drawing.Color.Red;
+                    }
+
+                    else
+                    {
+                        lblResultReturnedCount.Text = "Result Returned : " + resultReturnedCount.ToString();
+                        lblResultReturnedCount.ForeColor = System.Drawing.Color.Gray;
+                    }
+                   
 
                 }
                 else {
@@ -164,7 +174,8 @@ namespace FlyCn.FlyCnMasters
 
          protected void dtgUserMaster_ItemCommand(object source, GridCommandEventArgs e)
          {
-            
+             HiddenField hdnPostbackOnItemCommand = (HiddenField)GridviewFilter.FindControl("hdnPostbackOnItemCommand");
+             hdnPostbackOnItemCommand.Value = "True";
 
              if (e.CommandName == "Delete")
              {
