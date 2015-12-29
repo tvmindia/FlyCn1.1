@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Providers.Entities;
 using Microsoft.Office.Interop.Excel;
-using System.Runtime.InteropServices;
+using System.Runtime.InteropServices; 
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -127,13 +127,14 @@ namespace FlyCn.FlyCnDAL
 
                 HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
                 HttpContext.Current.Response.AddHeader("content-disposition",
-                                                "attachment;filename=" + file);
+                                                "attachment;filename=" + file + ".xlsx");
 
 
                 string filepath = path + file + ".xlsx";
-                if (System.IO.File.Exists(filepath))
+                if (File.Exists(filepath))
                 {
-                    System.IO.File.Delete(filepath);
+                    File.Delete(filepath);
+                   // System.IO.File.Delete(filepath);
                 }
                 else
                 {
