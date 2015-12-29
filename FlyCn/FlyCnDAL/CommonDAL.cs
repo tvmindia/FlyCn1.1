@@ -30,6 +30,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 using FlyCn.UserControls;
+using System.Web.UI;
 
 #endregion Included Namespaces
 
@@ -103,7 +104,7 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-
+      
         #endregion  Public Properties
 
             ErrorHandling eObj = new ErrorHandling();
@@ -373,6 +374,98 @@ namespace FlyCn.FlyCnDAL
             }
 
             #endregion Get Where Condition 
+
+
+            #region Method to get table definition
+            /// <summary>
+            /// Get The Table Definition
+            /// </summary>
+            /// <param name="TableName"></param>
+            /// <returns>Dataset</returns>
+            public DataSet GetTableDefinition(string TableName)
+            {
+
+                SqlConnection con = null;
+                DataSet ds = null;
+                SqlDataAdapter sda = null;
+                SqlCommand cmd = null;
+               
+                try
+                {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectTable";
+                cmd.Parameters.Add("@tablename", SqlDbType.NVarChar).Value = TableName;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+                return ds;
+                }
+                catch (Exception ex)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
+                    throw ex;
+                }
+                finally
+                {
+                    if (con != null)
+                    {
+                        con.Close();
+                        con.Dispose();
+                    }
+                }
+
+            }
+            #endregion Method to get table definition
+
+            #region Method to get Procedure Name
+            /// <summary>
+            /// Get The Procedure Name From DataBase
+            /// </summary>
+            /// <param name="TableName"></param>
+            /// <returns>Procedure Name</returns>
+            public string GetProcedureName(string TableName)
+            {
+                string procName = "";
+                SqlConnection con = null;
+                SqlCommand cmd = null;
+                dbConnection dcon = null; 
+                try
+                {
+                    dcon = new dbConnection();
+                    con = new SqlConnection();
+                    con = dcon.GetDBConnection();
+                    cmd=new SqlCommand();
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "GetProcedureName";
+                    cmd.Parameters.Add("@tablename", SqlDbType.NVarChar).Value = TableName;
+                    SqlParameter ouputprocedurename = cmd.Parameters.Add("@procedurename", SqlDbType.NVarChar,50);
+                    ouputprocedurename.Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                    procName = ouputprocedurename.Value.ToString();
+                    return procName;
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+                finally 
+                {
+                    if(con!=null)
+                    {
+                        con.Close();
+                    }
+                }
+               
+              
+            }
+            #endregion Method to get Procedure Name
 
             #endregion CommonDALMethods
     }

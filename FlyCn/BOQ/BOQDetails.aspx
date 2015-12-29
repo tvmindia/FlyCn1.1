@@ -32,6 +32,10 @@
                 <telerik:RadTab Text="New" PageViewID="rpBOQDetailAddEdit" Value="2" Width="75px" Height="25px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"></telerik:RadTab>
             </Tabs>
         </telerik:RadTabStrip>
+
+        <%-- <asp:UpdatePanel ID="upGrid" runat="server" UpdateMode="Always">
+                <ContentTemplate>  --%>
+
         <div id="content">
             <div class="contentTopBar"></div>
             <table style="width: 100%">
@@ -331,6 +335,9 @@
         </tr>
        </table>
    </div>
+     
+<%--                    </ContentTemplate>
+            </asp:UpdatePanel>--%>
 </div>
 
 

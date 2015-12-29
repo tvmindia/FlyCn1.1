@@ -5,23 +5,21 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
-
-namespace FlyCn.EngineeredDataList
+using FlyCn.FlyCnDAL;
+namespace FlyCn.ExcelImport
 {
-    public partial class EnggDataList : System.Web.UI.Page
+    public partial class ExcelImport : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             UIClasses.InputPages ip = new UIClasses.InputPages();
-            FlyCnDAL.EnggDataList objBOQ = new FlyCnDAL.EnggDataList();
+           // FlyCnDAL.ExcelImport objex = new FlyCnDAL.ExcelImport();
+            ImportFile objex = new ImportFile();
 
             RadTreeView tview = ip.FindLeftTree(this);
-            //tview.Attributes.Add("onclick", "ClientNodeClicked(event)");
+            objex.BindTree(tview);
 
-            objBOQ.BindTree(tview);
-
-            RadPane radpane = ip.FindContentPane(this);
-            objBOQ.LoadInputScreen(radpane);
+            ip.DefaultTreeNode(this, 1);
         }
     }
 }

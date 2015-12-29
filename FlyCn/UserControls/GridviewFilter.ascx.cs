@@ -64,11 +64,17 @@ namespace FlyCn.UserControls
             set;
         }
 
+        //public string hiddenPostBackValue
+        //{
+        //    get;
+        //    set;
+        //}
 
         #endregion Public Properties
         public int flag = 0; //Variable which holds values 0 or 1 depending on remove button clicked or not , if clicked it gets value 1
 
         public event EventHandler onClick;
+
 
         //public event EventHandler searchClickFromAddClick;
         FlyCnDAL.CommonDAL CommonDALobj = new FlyCnDAL.CommonDAL();
@@ -304,7 +310,7 @@ namespace FlyCn.UserControls
                 AsyncPostBackTrigger trigger = new AsyncPostBackTrigger();
                 trigger.ControlID = "ddlColumnName";
                 trigger.EventName = "SelectedIndexChanged";
-                updatepanel.Triggers.Add(trigger);
+                //updatepanel.Triggers.Add(trigger);
          }
         #endregion Page Load
 

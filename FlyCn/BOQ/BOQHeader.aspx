@@ -4,15 +4,16 @@
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
-<%@ Register Src="~/UserControls/GridviewFilter.ascx" TagPrefix="uc1" TagName="GridviewFilter" %>
+<%--<%@ Register Src="~/UserControls/GridviewFilter.ascx" TagPrefix="uc1" TagName="GridviewFilter" %>--%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
     <%-- Registration--%>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Input</title>
-   <!-----  <script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>-->
+     <%--<script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>--%>
      <script src="../Scripts/jquery-1.8.2.js"></script>
      <script src="../Scripts/jquery-1.8.2.min.js"></script>
      <script src="../Scripts/jquery-ui-1.8.24.js"></script>
@@ -20,33 +21,27 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:ScriptManager ID="scmFilter" runat="server"  ></asp:ScriptManager>
-     <%-- <asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true">
+   <%-- <asp:ScriptManager ID="scmFilter" runat="server" ></asp:ScriptManager>--%>
+
+      <asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true">
        
-    </asp:ScriptManager>--%>
+    </asp:ScriptManager>
 
-   
-
-     
-
-  
-
-     
-
+    
     <script src="../Scripts/ToolBar.js"></script>
     <script src="../Scripts/Messages.js"></script>
-     <uc1:GridviewFilter runat="server" ID="GridviewFilter" tableName="vBOQDocumentHeader" />
-
-                      <asp:UpdatePanel ID="upGrid" runat="server" UpdateMode="Conditional">
-                <ContentTemplate>
-
-                    
-
+     
+     
+   <%--  <uc1:GridviewFilter runat="server" ID="GridviewFilter" tableName="vBOQDocumentHeader" />--%>
+         <%--<asp:UpdatePanel ID="upGrid" runat="server" UpdateMode="Always" >
+                <ContentTemplate>   --%>     
+   
     <div class="container" style="width: 100%">
+
         <!-----FORM SECTION---->
         <!-----SECTION TABLE---->
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="200px" OnClientTabSelected="onClientTabSelected" OnClientTabSelecting="OnClientTabSelecting"
-            CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
+            CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false"  >
 
             <Tabs>
                 <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="100px" Height="25px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
@@ -54,7 +49,11 @@
             </Tabs>
         </telerik:RadTabStrip>
         <div id="content">
+
+
             <div class="contentTopBar"></div>
+
+           
             <table style="width: 100%">
                 <tr>
                      
@@ -117,14 +116,11 @@
                             </telerik:RadPageView>
                              <!-----SECTION TABLE---->
                              <!---SECTION ONE--->
+                                
                             <telerik:RadPageView ID="rpAddEdit" runat="server">
 
-                                 <uc1:ToolBar runat="server" ID="ToolBar" />
-
-
-                               
-
                                 
+                             <uc1:ToolBar runat="server" ID="ToolBar" />
 
                                 <div class="col-md-12 Span-One">
                                   
@@ -264,16 +260,19 @@
                             </telerik:RadPageView>
 
                         </telerik:RadMultiPage>
+                         
                     </td>
                 </tr>
             </table>
+
+ 
+              
+        
         </div>
-
-    </ContentTemplate>
-                                </asp:UpdatePanel>
-
-
-        </div>
+          </div>
+  <%--</ContentTemplate>
+                                </asp:UpdatePanel>--%>
+      
         <!-----FORM SECTION---->
     
 
@@ -464,8 +463,13 @@
             
         }
         if (btn.get_value() == 'Update') {
+            try {
 
-            args.set_cancel(!validate());
+                parent.RevisionHistroyDeleteNode();
+
+                args.set_cancel(!validate());
+            } catch (X) { alert(x)}
+            
         }
 
         if (btn.get_value() == 'Edit') {

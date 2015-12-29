@@ -76,6 +76,7 @@ namespace FlyCn.FlyCnDAL
              Label Success = (Label)master1.FindControl("lblErrorInfo");
              divMask1.Attributes["class"] = "Succesmsgboxes";
              Success.Text = msg;//message comes from the insert function
+
          }
         public void UpdationSuccessData(Page pg)
          {
@@ -86,7 +87,14 @@ namespace FlyCn.FlyCnDAL
              divMask1.Style["visibility"] = "visible";// divMask1.Style["display"] = "";
              Label Success = (Label)master1.FindControl("lblErrorInfo");
              divMask1.Attributes["class"] = "Succesmsgboxes";
-             Success.Text = "Successfully Updated";  
+             Success.Text = "Successfully Updated";
+
+             //ContentPlaceHolder mpContentPlaceHoldertest;
+             //mpContentPlaceHoldertest = (ContentPlaceHolder)master1.FindControl("ContentPlaceHolder1");
+             //((UpdatePanel)mpContentPlaceHoldertest.FindControl("upsuccessMessage")).Update(); 
+             //(master1.FindControl("lblErrorInfo") as Label).Text = "Service Deleted";
+             //UpdatePanel upsuccessMessage = (UpdatePanel)master1.FindControl("upsuccessMessage");
+             //upsuccessMessage.Update();
          }
 
         public void UpdationSuccessData(Page pg,string msg)//if update fails

@@ -7,342 +7,306 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FlyCn.BOQ {
+namespace FlyCn.EngineeredDataList {
     
     
-    public partial class BOQHeader {
+    public partial class EnggDatalistBaseTable {
         
         /// <summary>
-        /// ScriptManager2 control.
+        /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager2;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// RadTabStrip1 control.
+        /// Heading control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Heading;
         
         /// <summary>
-        /// RadMultiPage1 control.
+        /// horizonaltab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadMultiPage RadMultiPage1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl horizonaltab;
         
         /// <summary>
-        /// rpList control.
+        /// lblModule control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView rpList;
+        protected global::System.Web.UI.WebControls.Label lblModule;
         
         /// <summary>
-        /// dtgBOQGrid control.
+        /// NavItem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid dtgBOQGrid;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NavItem;
         
         /// <summary>
-        /// rpAddEdit control.
+        /// body control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView rpAddEdit;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl body;
         
         /// <summary>
-        /// ToolBar control.
+        /// btnExcelIimport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::FlyCn.UserControls.ToolBar ToolBar;
+        protected global::System.Web.UI.WebControls.Button btnExcelIimport;
         
         /// <summary>
-        /// lblDocumentno control.
+        /// DataImportFileUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDocumentno;
+        protected global::System.Web.UI.WebControls.FileUpload DataImportFileUpload;
         
         /// <summary>
-        /// txtDocumentno control.
+        /// btnUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDocumentno;
+        protected global::System.Web.UI.WebControls.Button btnUpload;
         
         /// <summary>
-        /// hiddenFiedldProjectno control.
+        /// lblUploadGridHeading control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenFiedldProjectno;
+        protected global::System.Web.UI.WebControls.Label lblUploadGridHeading;
         
         /// <summary>
-        /// hiddenFieldDocumentID control.
+        /// dtgUploadGridUpdatepanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenFieldDocumentID;
+        protected global::System.Web.UI.UpdatePanel dtgUploadGridUpdatepanel;
         
         /// <summary>
-        /// hiddenFieldRevisionID control.
+        /// dtgUploadGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenFieldRevisionID;
+        protected global::Telerik.Web.UI.RadGrid dtgUploadGrid;
         
         /// <summary>
-        /// hdfEditStatus control.
+        /// lblVupldFile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdfEditStatus;
+        protected global::System.Web.UI.WebControls.Label lblVupldFile;
         
         /// <summary>
-        /// hiddenFieldDocumentType control.
+        /// lblVupldFilename control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenFieldDocumentType;
+        protected global::System.Web.UI.WebControls.Label lblVupldFilename;
         
         /// <summary>
-        /// hiddenDocumentOwner control.
+        /// lblVtotlrows control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenDocumentOwner;
+        protected global::System.Web.UI.WebControls.Label lblVtotlrows;
         
         /// <summary>
-        /// hiddenUsername control.
+        /// lblVtotltowcount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenUsername;
+        protected global::System.Web.UI.WebControls.Label lblVtotltowcount;
         
         /// <summary>
-        /// hiddenRevisionNumber control.
+        /// lblVexisting control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenRevisionNumber;
+        protected global::System.Web.UI.WebControls.Label lblVexisting;
         
         /// <summary>
-        /// hiddenStatusValue control.
+        /// lblVexistingCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenStatusValue;
+        protected global::System.Web.UI.WebControls.Label lblVexistingCount;
         
         /// <summary>
-        /// hiddenDocumentNo control.
+        /// lblVNew control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenDocumentNo;
+        protected global::System.Web.UI.WebControls.Label lblVNew;
         
         /// <summary>
-        /// HiddenRevisionIdCollection control.
+        /// lblVNewCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenRevisionIdCollection;
+        protected global::System.Web.UI.WebControls.Label lblVNewCount;
         
         /// <summary>
-        /// hiddendocumentDate control.
+        /// lblVErrors control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddendocumentDate;
+        protected global::System.Web.UI.WebControls.Label lblVErrors;
         
         /// <summary>
-        /// HiddenTabStatus control.
+        /// lblVErrorsCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenTabStatus;
+        protected global::System.Web.UI.WebControls.Label lblVErrorsCount;
         
         /// <summary>
-        /// lblDocOwner control.
+        /// LbtnImportStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDocOwner;
+        protected global::System.Web.UI.WebControls.LinkButton LbtnImportStatus;
         
         /// <summary>
-        /// txtDocOwner control.
+        /// lblIupldFile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDocOwner;
+        protected global::System.Web.UI.WebControls.Label lblIupldFile;
         
         /// <summary>
-        /// lblClientdocumentnot control.
+        /// lblIupldFileName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblClientdocumentnot;
+        protected global::System.Web.UI.WebControls.Label lblIupldFileName;
         
         /// <summary>
-        /// txtClientdocumentno control.
+        /// lblITotlrows control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtClientdocumentno;
+        protected global::System.Web.UI.WebControls.Label lblITotlrows;
         
         /// <summary>
-        /// lblRevisionno control.
+        /// lblITotlrowsCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRevisionno;
+        protected global::System.Web.UI.WebControls.Label lblITotlrowsCount;
         
         /// <summary>
-        /// txtRevisionno control.
+        /// lblIExisting control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRevisionno;
+        protected global::System.Web.UI.WebControls.Label lblIExisting;
         
         /// <summary>
-        /// lblDocumentdate control.
+        /// lblIExistingCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDocumentdate;
+        protected global::System.Web.UI.WebControls.Label lblIExistingCount;
         
         /// <summary>
-        /// txtdatepicker control.
+        /// lblINew control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtdatepicker;
+        protected global::System.Web.UI.WebControls.Label lblINew;
         
         /// <summary>
-        /// lblDocumenttitle control.
+        /// lblINewCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDocumenttitle;
+        protected global::System.Web.UI.WebControls.Label lblINewCount;
         
         /// <summary>
-        /// txtDocumenttitle control.
+        /// lbtnErrors control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDocumenttitle;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnErrors;
         
         /// <summary>
-        /// lblRemarks control.
+        /// lblIerrorCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRemarks;
-        
-        /// <summary>
-        /// txtRemarks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
-        
-        /// <summary>
-        /// lblDocumentStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDocumentStatus;
-        
-        /// <summary>
-        /// ContentApprovers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlIframe ContentApprovers;
-        
-        /// <summary>
-        /// ContentIframe control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlIframe ContentIframe;
+        protected global::System.Web.UI.WebControls.Label lblIerrorCount;
     }
 }

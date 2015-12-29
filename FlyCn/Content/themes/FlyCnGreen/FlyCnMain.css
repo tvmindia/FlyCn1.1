@@ -458,13 +458,27 @@ transition: .25s ease;
     text-align :center;
     font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 5px 10px 10px 10px;
-    padding-left:30px;
-    margin-left:230px;
+   
    font-size:17px;
     width:100px;
     height:30px;
-    margin-top:26px;
+   
 } 
+.btnDivCommon {
+    background-color: #008B8B;
+    color: white;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    width: 100px;
+    text-align: center;
+}
+ .popupButtonContainer
+ {
+     text-align:center;
+     width:60%;
+ }
  
 
  .Verifiercaption {

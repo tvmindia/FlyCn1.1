@@ -7,27 +7,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FlyCn {
+namespace FlyCn.EngineeredDataList {
     
     
-    public partial class test1 {
+    public partial class EnggDataListLandingPage {
         
         /// <summary>
-        /// form1 control.
+        /// containerTab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl containerTab;
         
         /// <summary>
-        /// btn_ExcelMail control.
+        /// horizonaltab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_ExcelMail;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl horizonaltab;
+        
+        /// <summary>
+        /// body control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl body;
     }
 }

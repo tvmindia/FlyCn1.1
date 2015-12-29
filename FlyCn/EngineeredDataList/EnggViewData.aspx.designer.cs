@@ -7,144 +7,108 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FlyCn.Masters {
+namespace FlyCn.EngineeredDataList {
     
     
-    public partial class inputPages {
+    public partial class EnggViewData {
         
         /// <summary>
-        /// RadScriptManager1 control.
+        /// lblTableName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
+        protected global::System.Web.UI.WebControls.Label lblTableName;
         
         /// <summary>
-        /// upsuccessMessage control.
+        /// RadTabStrip1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upsuccessMessage;
+        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
         
         /// <summary>
-        /// Errorbox control.
+        /// ToolBar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Errorbox;
+        protected global::FlyCn.UserControls.ToolBar ToolBar;
         
         /// <summary>
-        /// lblErrorInfo control.
+        /// RadMultiPage1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorInfo;
+        protected global::Telerik.Web.UI.RadMultiPage RadMultiPage1;
         
         /// <summary>
-        /// lblAlertMsg control.
+        /// rpList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAlertMsg;
+        protected global::Telerik.Web.UI.RadPageView rpList;
         
         /// <summary>
-        /// masterDiv control.
+        /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl masterDiv;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// RadSplitter1 control.
+        /// dtgEnggDataList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadSplitter RadSplitter1;
+        protected global::Telerik.Web.UI.RadGrid dtgEnggDataList;
         
         /// <summary>
-        /// RadPane1 control.
+        /// rpAddEdit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadPane RadPane1;
+        protected global::Telerik.Web.UI.RadPageView rpAddEdit;
         
         /// <summary>
-        /// rtvLeftMenu control.
+        /// placeholder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTreeView rtvLeftMenu;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl placeholder;
         
         /// <summary>
-        /// RadSplitbar1 control.
+        /// HiddenField control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadSplitBar RadSplitbar1;
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField;
         
         /// <summary>
-        /// contentPane control.
+        /// HiddenField1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadPane contentPane;
-        
-        /// <summary>
-        /// HiddenFieldDoctype control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenFieldDoctype;
-        
-        /// <summary>
-        /// HiddenFieldOwner control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenFieldOwner;
-        
-        /// <summary>
-        /// HiddenFieldLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenFieldLogin;
-        
-        /// <summary>
-        /// hiddenNodeId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenNodeId;
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
     }
 }

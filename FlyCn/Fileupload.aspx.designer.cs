@@ -7,72 +7,63 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FlyCn.ExcelImport {
+namespace FlyCn {
     
     
-    public partial class ImportStatusList {
+    public partial class Fileupload {
         
         /// <summary>
-        /// ScriptManager1 control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// RadTabStrip1 control.
+        /// ExcelUploader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
+        protected global::System.Web.UI.WebControls.FileUpload ExcelUploader;
         
         /// <summary>
-        /// RadMultiPage1 control.
+        /// btn_upload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadMultiPage RadMultiPage1;
+        protected global::System.Web.UI.WebControls.Button btn_upload;
         
         /// <summary>
-        /// rpList control.
+        /// lblMsg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView rpList;
+        protected global::System.Web.UI.WebControls.Label lblMsg;
         
         /// <summary>
-        /// RadGrid1 control.
+        /// GridView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid1;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
         
         /// <summary>
-        /// rpApproval control.
+        /// Link_btn_ShowDetail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView rpApproval;
-        
-        /// <summary>
-        /// RadGrid2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid2;
+        protected global::System.Web.UI.WebControls.LinkButton Link_btn_ShowDetail;
     }
 }
