@@ -135,6 +135,11 @@ namespace FlyCn.FlyCnDAL
                 {
                     File.Delete(HttpContext.Current.Server.MapPath(filepath));
                    // System.IO.File.Delete(filepath);
+                    ExcelWorkBook.SaveAs(HttpContext.Current.Server.MapPath(filepath));
+                    ExcelWorkBook.Close();
+                    ExcelApp.Quit();
+                    HttpContext.Current.Response.TransmitFile(HttpContext.Current.Server.MapPath(filepath));
+                    HttpContext.Current.Response.End();
                 }
                 else
                 {
