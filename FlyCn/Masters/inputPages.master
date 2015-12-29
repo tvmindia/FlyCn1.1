@@ -490,7 +490,7 @@
     </div>
 
     <div class="RadSplitterDiv" >
-        <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
+      <%--  <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>--%>
 
         <telerik:RadSplitter ID="RadSplitter1" runat="server" Height="105%" Width="99%" Skin="FlyCnSplitter" EnableEmbeddedSkins="false" Style="overflow-x: hidden">
             <telerik:RadPane ID="RadPane1" runat="server" Width="150" Height="100%">
