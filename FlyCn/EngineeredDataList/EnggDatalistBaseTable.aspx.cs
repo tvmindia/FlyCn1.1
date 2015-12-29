@@ -19,7 +19,7 @@ namespace FlyCn.EngineeredDataList
         string _moduleId;
         string _TableName;
         string _ProjectNo;
-       string _tree ;
+        string _tree;
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
         ImportFile importObj = new ImportFile();
@@ -477,20 +477,31 @@ namespace FlyCn.EngineeredDataList
            DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
            if ((ErrorRows != null) && (checkds != null))
            {
-               foreach (string str in ErrorRows)
-               {
+               //foreach (string str in ErrorRows)
+               //{
                 
-                      for (int i = checkds.Tables[0].Rows.Count - 1; i >= 0; i--)
-                      {
-                        DataRow dr = checkds.Tables[0].Rows[i];
-                        string[] words = str.Split(',');
-                        if (dr["name"] ==str)
-                        {
-                            dr.Delete();///////////////////////////////////////////////
-                            break;
-                        }
-                      }
-               }
+               //       for (int i = checkds.Tables[0].Rows.Count - 1; i >= 0; i--)
+               //       {
+               //         DataRow dr = checkds.Tables[0].Rows[i];
+               //         string[] words = str.Split(',');
+               //         if (dr["projectno"] ==str)
+               //         {
+               //             dr.Delete();
+               //             break;
+               //         }
+               //       }
+               //}
+               string temp="";
+               for (int i = checkds.Tables[0].Rows.Count - 1; i >= 0; i--)
+               {
+                   DataRow dr = checkds.Tables[0].Rows[i];
+                   temp = dr["projectno"].ToString() + "," + dr["tagno"].ToString();
+                   if(ErrorRows.Contains(temp))
+                   {
+                       dr.Delete();
+                   }
+               }//end of for loop
+
            }
        }
 
