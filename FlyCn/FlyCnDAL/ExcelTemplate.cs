@@ -131,9 +131,9 @@ namespace FlyCn.FlyCnDAL
 
 
                 string filepath = path + file + ".xlsx";
-                if (File.Exists(filepath))
+                if (File.Exists(HttpContext.Current.Server.MapPath(filepath)))
                 {
-                    File.Delete(filepath);
+                    File.Delete(HttpContext.Current.Server.MapPath(filepath));
                    // System.IO.File.Delete(filepath);
                 }
                 else
