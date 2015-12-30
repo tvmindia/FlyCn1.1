@@ -190,7 +190,7 @@
     <Content Include="BOQ\BOQHeader.aspx" />
     <Content Include="Content\FlyCnMain.css" />
     <Content Include="Content\Home.css" />
-    <Content Include="Content\Site.css" />
+    <Content Include="EIL\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -382,11 +382,14 @@
     <Content Include="Images\Icons\workpack.png" />
     <Content Include="Images\Lb2.png" />
     <Content Include="Images\LogoSearchMagnifyingGlass.png" />
+    <Content Include="Images\Minus.png" />
     <Content Include="Images\plus1.png" />
     <Content Include="Images\refresh.png" />
     <Content Include="Images\RefreshSearch.png" />
     <Content Include="Images\Search.png" />
     <Content Include="Images\smile_1.png" />
+    <Content Include="Images\View-Incident.png" />
+    <Content Include="MenuTopBar.aspx" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.11.3.min.js" />
@@ -944,6 +947,13 @@
     <Compile Include="Menu.aspx.designer.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
     </Compile>
+    <Compile Include="MenuTopBar.aspx.cs">
+      <DependentUpon>MenuTopBar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MenuTopBar.aspx.designer.cs">
+      <DependentUpon>MenuTopBar.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ProjectParameters\AddNewProject.aspx.cs">
       <DependentUpon>AddNewProject.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1080,6 +1090,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\ExcelTemplate\" />
     <Folder Include="Content\Fileupload\" />
     <Folder Include="Images\ProjectImages\" />
   </ItemGroup>

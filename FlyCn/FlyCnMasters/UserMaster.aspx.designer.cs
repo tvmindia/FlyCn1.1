@@ -13,6 +13,15 @@ namespace FlyCn.FlyCnMasters {
     public partial class UserMaster {
         
         /// <summary>
+        /// scmFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager scmFilter;
+        
+        /// <summary>
         /// GridviewFilter control.
         /// </summary>
         /// <remarks>

@@ -1,5 +1,4 @@
-﻿
-<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="ConstructionPunchList.aspx.cs" Inherits="FlyCn.EIL.ConstructionPunchList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="ConstructionPunchList.aspx.cs" Inherits="FlyCn.EIL.ConstructionPunchList" %>
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
@@ -300,10 +299,10 @@
         $(document).ready(function () {
             //------------------------For Security-----------------------------------------------//
             debugger;
-            var security = document.getElementById("hdnSecurityMaster").value;
-            DisableButtons();
+            //var security = document.getElementById("hdnSecurityMaster").value;
+            //DisableButtons();
             //Page Postback
-            if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "EditData")
+           <%-- if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "EditData")
             {
                 EnableButtonsForEdit();
             }
@@ -311,7 +310,7 @@
                 if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "ViewDetailColumn")
                 {
                     DisableButtons();
-                }
+                }--%>
         
             //----------------------------------------------------------------------------------//
             id = document.getElementById('IDAccordion');
