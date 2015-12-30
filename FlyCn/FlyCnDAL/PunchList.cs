@@ -392,8 +392,14 @@ namespace FlyCn.FlyCnDAL
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
 
-                string selectQuery = "select ProjectNo,IDNo,LinkIDNo,EILType,OpenBy,OpenDt from EIL where EILType= '" + EILType + "'";
-                daObj = new SqlDataAdapter(selectQuery, con);
+                string selectQuery = "GetEILDetails";
+                SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
+                cmdSelect.Parameters.AddWithValue("@type", EILType);
+            
+                daObj = new SqlDataAdapter(cmdSelect);
+               
+      
                 daObj.Fill(dt);
 
             }
