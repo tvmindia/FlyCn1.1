@@ -886,7 +886,7 @@ namespace FlyCn.FlyCnDAL
                     //string ModuleIDP = dsFile.Tables[0].Rows[i]["ModuleID"].ToString();
                  
 
-                    //Thread.Sleep(200);
+                    Thread.Sleep(200);
                     
                     //int res;
 
