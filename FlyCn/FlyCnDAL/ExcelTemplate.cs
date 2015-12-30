@@ -23,12 +23,56 @@ namespace FlyCn.FlyCnDAL
 
         ErrorHandling eObj = new ErrorHandling();
 
+        //public string GetSheetName(string tablename)
+        //{
 
+        //    SqlConnection con = null;
+        //    SqlDataAdapter daObj;
+          
+          
+        //    DataSet ds = new DataSet();
+        //    string procName = "";
+        //    string fieldName = "";
+
+        //    try
+        //    {
+             
+        //        dbConnection dcon = new dbConnection();
+        //        con = dcon.GetDBConnection();
+        //        UIClasses.Const Const = new UIClasses.Const();
+        //        FlyCnDAL.Security.UserAuthendication UA;
+        //        HttpContext context = HttpContext.Current;
+        //        UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+        //        string selectQuery = "GetProcedureName";
+        //        SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+        //        cmdSelect.CommandType = CommandType.StoredProcedure;
+              
+        //        cmdSelect.Parameters.AddWithValue("@tablename", tablename);
+        //        daObj = new SqlDataAdapter(cmdSelect);
+        //        daObj.Fill(ds);
+        //        SqlParameter ouputprocedurename = cmdSelect.Parameters.Add("@procedurename", SqlDbType.NVarChar, 50);
+        //        ouputprocedurename.Direction = ParameterDirection.Output;
+        //        cmdSelect.ExecuteNonQuery();
+        //        procName = ouputprocedurename.Value.ToString();
+        //        SqlParameter ouputFieldName = cmdSelect.Parameters.Add("@sheetname", SqlDbType.NVarChar, 50);
+        //        ouputFieldName.Direction = ParameterDirection.Output;
+        //        cmdSelect.ExecuteNonQuery();
+        //        procName = ouputprocedurename.Value.ToString();
+
+        //        return fieldName;
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
         public void GenerateExcelTemplate(string projno, string tablename)
         {
 
             SqlConnection con = null;
             SqlDataAdapter daObj;
+          
+          
             DataSet ds = new DataSet();
             string errorstatus="";
             try
@@ -40,13 +84,18 @@ namespace FlyCn.FlyCnDAL
                 FlyCnDAL.Security.UserAuthendication UA;
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
-                string selectQuery = "procSelectFieldsFromSYS_TableDefinitionByTable_NameProjectNo";
+                string selectQuery = "SelectFieldsFromSYS_TableDefinitionByTable_NameProjectNo";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
                 cmdSelect.CommandType = CommandType.StoredProcedure;
                 cmdSelect.Parameters.AddWithValue("@projno", projno);
                 cmdSelect.Parameters.AddWithValue("@tablename", tablename);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(ds);
+                CommonDAL cObj = new CommonDAL();
+                cObj.GetProcedureName(tablename);
+                string sheetname=cObj.ExcelSheetName;
+               
+
                 Microsoft.Office.Interop.Excel.Range excelCellrange;
                 errorstatus = "Creating App";
                 Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
@@ -60,7 +109,8 @@ namespace FlyCn.FlyCnDAL
 
 
                 List<string> SheetNames = new List<string>();
-                SheetNames.Add(tablename);
+
+                SheetNames.Add(sheetname);
                 SheetNames.Add("Field Description");
                 int colIndex = 1;
                 int rowIndex = 1;
