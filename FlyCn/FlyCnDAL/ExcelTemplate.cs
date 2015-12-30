@@ -60,7 +60,7 @@ namespace FlyCn.FlyCnDAL
 
 
                 List<string> SheetNames = new List<string>();
-                SheetNames.Add("Fields");
+                SheetNames.Add(tablename);
                 SheetNames.Add("Field Description");
                 int colIndex = 1;
                 int rowIndex = 1;
