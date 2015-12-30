@@ -143,7 +143,7 @@
       <%-------All popup close button refresh Start ---%>
        
         function OnPopupRefresh(frame) {
-
+          
             var innerDoc = frame.contentDocument || frame.contentWindow.document;
             var input = innerDoc.getElementById('popuprefreshRequired');
 
@@ -182,7 +182,36 @@
         }
      
 
-      <%-------ChangeOwnership PopupWindow End----------%>
+        <%-------ChangeOwnership PopupWindow End----------%>
+
+         <%-------DocumentAttachment PopupWindow Start-------%>
+        function DocumentAttachmentWindow() {
+            debugger;
+            var frame = document.getElementById('IframeDocumentAttachment');
+            try {
+                $("#DocumentAttachment").dialog({
+                    title: "Document Attachment",
+                    width: 780,
+                    height: 300,
+                    buttons: {}, modal: true,
+                    beforeClose: function (event, ui) {
+                        var reload = OnPopupRefresh(frame);
+                        if (reload == true) {
+                            location.reload(true);
+                        }
+                    },
+
+                });
+
+                return false
+            }
+            catch (X) {
+                alert(X.message);
+            }
+        }
+
+
+        <%-------DocumentAttachment PopupWindow End----------%>
 
       <%-------ReviseDocumentWindow PopupWindow Start---%>
         function ReviseDocumentWindow() {
@@ -361,6 +390,7 @@
         }
         <%-- Set OwnershipChange iframe scr with parameters  End--%> 
 
+
        
         function linkbuttonClient() {
             
@@ -374,6 +404,22 @@
            
             window.open("../Approvels/Approvers.aspx?Revisionid=" + hiddenFieldRevisionID.value, 'Approvers', "height=200,width=500");
             
+        }
+
+        function AttachmentlinkClick()
+        {
+            debugger;
+            var splitter = $find("<%= RadSplitter1.ClientID %>");
+            var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
+            var iframe = pane.getExtContentElement();
+            var contentWindow = iframe.contentWindow;
+            var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
+            var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
+            var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
+          
+                document.getElementById('IframeDocumentAttachment').src = "../Approvels/DocumentAttachments.aspx?RevisionId=" + hiddenFieldRevisionID.value;
+                DocumentAttachmentWindow();
+           
         }
       
         function showTreeNode()
@@ -544,10 +590,14 @@
 
         <iframe id="IframeChangeOwner" style="width: 1300px; height: inherit;"></iframe>
     </div>
+    <div id="DocumentAttachment" style="width: 1000px!important; overflow-x: hidden;">
+
+        <iframe id="IframeDocumentAttachment" style="width: 1300px; height: inherit;"></iframe>
+    </div>
     <div id="ReviseDocumentPopUp" style="display: none; width: 1000px!important; overflow-x: hidden; overflow-y: hidden;">
 
         <iframe id="IframeReviseDocument" style="width: 2000px; height: inherit;"></iframe>
-    </div
+    </div>
     <div id="ApprovalDocumentPopUp" style="display: none; width: 1000px!important; overflow-x: hidden; overflow-y: hidden;">
 
         <iframe id="IframeApprovalDocument" style="width: 2000px; height: inherit;"></iframe>

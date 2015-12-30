@@ -234,7 +234,9 @@
                                      <div class="col-md-6">&nbsp;</div>
                                       <div class="col-md-6"></div>
                                       <div class="col-md-6">
-                                         <div class="col-md-5"></div>
+                                         <div class="col-md-5">
+                                             <a id="attachhref" href="#" onclick="AttachFunction();">ATTACHMENTS</a>
+                                         </div>
                                          <div class="col-md-7">
                                              <asp:Label ID="lblDocumentStatus" CssClass="DocStatusLabel" runat="server"    ClientIDMode="Static"></asp:Label>
                                          </div>
@@ -277,7 +279,10 @@
     <!--<JavaScrict>-->
     <script type="text/javascript">
 
-     
+        function AttachFunction()
+        {
+            parent.AttachmentlinkClick()
+        }
 
         function validate()
         {
@@ -390,7 +395,7 @@
                 }
         
         function onClientTabSelected(sender, args) {
-            debugger;
+           
         var tab = args.get_tab();
 
         if (tab.get_value() == '2')
@@ -470,6 +475,7 @@
          }
         function ClearBOQHeaderTexBox()
         {
+           
             document.getElementById('<%=txtDocumentno.ClientID %>').value = "------System Generated Code------";
             document.getElementById('<%=txtDocOwner.ClientID%>').value = "-------Document Owner-------";
             document.getElementById('<%=txtClientdocumentno.ClientID %>').value = "";
@@ -511,7 +517,7 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            
+          
 
             $('.accordion-toggle').on('click', function (event) {
 
@@ -527,6 +533,7 @@
 
         function OpenDetailAccordion(id)
         {
+            
             if (id != undefined)//accordion called from accordion click functionjs
             {
                 var accordion = $(id);

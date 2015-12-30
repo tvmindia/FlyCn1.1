@@ -20,7 +20,7 @@
     
     <style type="text/css">
         .ui-dialog-title {
-            padding-left: 15em;
+            padding-left: 5em;
             color: green;
         }
 
@@ -41,7 +41,7 @@
             -moz-border-radius: 15px;
             -webkit-border-radius: 15px;
             background: #FFFFFF;
-            z-index: 50;
+            z-index: 5;
             /*background:transparent;*/
             /*background: rgba(34,34,34,0.75);*/
             background: rgb(255, 255, 255);
@@ -56,18 +56,18 @@
         }
         .content {
             border: 1px solid #FFFFFF;
-            width: 91%;
+            width: 50%;
             padding: 5px;
             margin: 0px 0 0 5px;
         }
         td.myclass {
             text-align: left;
-            width: 100px;
+            width: 10px;
         }
 
         td.size {
             text-align: left;
-            width: 200px;
+            width: 5px;
         }
     </style>
 
@@ -115,8 +115,8 @@
                 $("#modal_dialog").dialog({
 
                     title: "Project Wizard",
-                    width: 790,
-                    height: 800,
+                    width: 800,
+                    height: 400,
                     buttons: {}, modal: true
 
 
@@ -247,8 +247,8 @@
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a> </div>
 
   <div class="accordion-content"> 
-                                      <div class="col-md-12">
-                                    <div class="col-md-6">
+                                      <div class="col-sm-4">
+                                    <div class="col-sm-4">
                                       <div class="form-group">
                     
                     <table>
@@ -261,14 +261,14 @@
                                             <td class="size">Project No </td>
                                             <td class="size">
                                                 <asp:TextBox ID="txtProjNo" runat="server"></asp:TextBox>
-                                                <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
+                                                <span id="span2" runat="server" style="color: red; font-size: 5px; font-weight: 50; font-family: Trebuchet MS;">*</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Project Name </td>
                                             <td>
                                                 <asp:TextBox ID="txtProjName" runat="server"></asp:TextBox>
-                                                <span id="span1" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
+                                                <span id="span1" runat="server" style="color: red; font-size: 5px; font-weight: 50; font-family: Trebuchet MS;">*</span>
                                             </td>
                                             <td class="myclass">&nbsp;&nbsp;</td>
                                             <td class="size">Project Location </td>
@@ -603,7 +603,7 @@
             </telerik:RadMultiPage>
             <div id="modal_dialog" style="display: none; width: 1000px!important; height: 1000px!important; overflow: hidden; overflow-x: hidden;">
 
-                <iframe src="AddNewProject.aspx" style="width: 1300px; height: 700px;"></iframe>
+                <iframe src="AddNewProject.aspx" style="width: 1000px; height: 500px;"></iframe>
 
             </div>
                            </td>
