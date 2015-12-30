@@ -227,7 +227,7 @@ ul.departments { list-style-type: none; }*/
 
         <div id="GenerateTemplate" >
             <div class="col-md-12 Span-One">
-                 <asp:Button class="Flatbutton" style="width:300px" ID="btnExcelIimport" runat="server" Text="Download Excel Template"  OnClick="btnExcelIimport_Click"  />
+                 <asp:Button class="Flatbutton" style="width:300px" BackColor="Red" ID="btnExcelIimport" runat="server" Text="Download Excel Template"  OnClick="btnExcelIimport_Click"  />
                     
 
 
@@ -270,7 +270,7 @@ ul.departments { list-style-type: none; }*/
                
                     <asp:FileUpload ID="DataImportFileUpload" runat="server" class="FlatbuttonUpload" width="300px" /> </div>
                   <div class="col-md-2">
-                    <asp:Button ID="btnUpload" runat="server" Text="Upload" class="Flatbutton" OnClientClick="return validateExcel()" OnClick="btn_upload_Click" Style="width: 80px" /> 
+                    <asp:Button ID="btnUpload" BackColor="Red" runat="server" Text="Upload" class="Flatbutton" OnClientClick="return validateExcel()" OnClick="btn_upload_Click" Style="width: 80px" /> 
                  </div>
                  <div>
                    <asp:Label ID="lblMsg" runat="server" Text="" Font-Bold="true"></asp:Label>
@@ -313,11 +313,9 @@ ul.departments { list-style-type: none; }*/
                 <tr>
                     <td>--%>
                         <div class="Flatbutton" style="width:150px">
-                               <asp:Button ID="btnValidate" runat="server" class="buttonNext" OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Validate"></asp:Button>
+                               <asp:Button ID="btnValidate" runat="server" class="buttonNext" BackColor="Red" OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Validate"></asp:Button>
                                <img src="../Images/Icons/RightArrow16.png" />
-                          
-                       
-                        </div>
+                           </div>
                         
                   <%--  </td>
                 </tr>
@@ -426,7 +424,7 @@ ul.departments { list-style-type: none; }*/
                     <td>
           
                         <div class="Flatbutton" style="width:150px">
-                         <asp:Button ID="btnImport" runat="server" class="buttonNext" OnClick="btnImport_Click" OnClientClick="return Import();" Text="Import"></asp:Button>
+                         <asp:Button ID="btnImport" runat="server" BackColor="Red" class="buttonNext" OnClick="btnImport_Click" OnClientClick="return Import();" Text="Import"></asp:Button>
                          <img src="../Images/Icons/RightArrow16.png" />
                         </div>
                       
