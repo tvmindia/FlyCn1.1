@@ -187,14 +187,15 @@
         .input_text {
             border: 1px solid #c0c0c0;
             padding: 4px;
-            font-size: 14px;
+            font-size: 4px;
             color: #000000;
             background-color: #ffffff;
         }
 
         table {
             border-collapse: collapse;
-            width: 100%;
+            width: 80%;
+          
 
         }
 
@@ -205,13 +206,13 @@
         }
 
         th, tr {
-            height: 50px;
+            height: 5px;
             text-align: left;
             vertical-align: bottom;
         }
 
         td, label {
-            min-height: 100%;
+            min-height: 50%;
             font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: black;
         }
@@ -231,7 +232,7 @@
 
         #tdbuttonclass 
         {
-            width: 50px;
+            width: 10px;
         }
 
         .Clicked {
@@ -258,7 +259,14 @@
 
         }
        
-
+        #items
+        {
+           border-bottom: thin;
+            border-bottom-style: solid;
+            border-bottom-color:gray;
+            height: 1px; 
+           
+        }
         .Successmsg {
             vertical-align: top;
         }
@@ -288,11 +296,11 @@
                 </table>
             </div>
             <asp:Menu ID="Menu1" runat="server" CssClass="" OnMenuItemClick="Menu1_MenuItemClick" Orientation="Horizontal"
-                Style="left: 0px; position: relative; top: 22px" Height="80px" Width="800px">
+                Style="left: 0px; position: relative; top: 8px" Height="35px" Width="800px">
                 <StaticMenuStyle HorizontalPadding="0px" VerticalPadding="0px" />
                 <StaticSelectedStyle BackColor="#f7ffe7" BorderStyle="Solid" ForeColor="#006666" BorderColor="#ffffff" BorderWidth="1px" />
                 <%--BorderColor="#C0C0FF"--%>
-                <StaticMenuItemStyle Width="240px" Height="18px" BackColor="white" BorderStyle="Solid" BorderWidth="1px"
+                <StaticMenuItemStyle Width="240px" Height="18px" BackColor="white" BorderStyle="Solid"  BorderWidth="1px"
                     BorderColor="#ffffff" ForeColor="#006666" CssClass="Clicked" />
                 <%--BorderWidth="20px"--%>
 
@@ -302,15 +310,17 @@
                     <asp:MenuItem Text="Advanced Info" Value="2"></asp:MenuItem>
                 </Items>
                 <StaticHoverStyle BackColor="#e7f7ff" />
+                
                 <%--  <StaticMenuItemStyle  BorderColor="#C0C0FF" BorderStyle="Solid" BorderWidth="1px" /> --%>
             </asp:Menu>
-
+       <div id="items">
         </div>
+   
         <asp:Label ID="lblerrormsg" CssClass="Successmsg" runat="server" Text="" ForeColor="white"></asp:Label>
         <asp:HiddenField ID="hidddenErrormsg" runat="server" />
-
-        <div style="width: 750px; height: 450px; background-color: white; overflow-y: auto; scrollbar-base-color: rgba(36,85,99,.9);z-index:5">
-
+     
+        <div style="width: 750px; height: 200px; background-color: white; overflow-y: auto; scrollbar-base-color: rgba(36,85,99,.9);z-index:5">
+           
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
                     <asp:MultiView ID="MultiView1" runat="server">
@@ -1202,7 +1212,7 @@
 
 
 
-
+                              
                         </asp:View>
                     </asp:MultiView>
                 </ContentTemplate>
@@ -1212,7 +1222,8 @@
 
         </div>
 
-
+               <div id="items">
+        </div>
         <table>
 
             <tr>

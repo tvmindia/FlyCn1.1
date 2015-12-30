@@ -165,6 +165,7 @@
     <script>
 
         $(document).ready(function () {
+            parent.showTreeNode();
             $("#content").find("[id^='tab']").hide(); // Hide all content
             $("#tabs li:first").attr("id", "current"); // Activate the first tab
             $("#content #tab1").fadeIn(); // Show first tab's content
