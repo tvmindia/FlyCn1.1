@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
+using FlyCn.UserControls;
 using FlyCn.FlyCnDAL;
 using System.Data;
 using FlyCn.UIClasses;

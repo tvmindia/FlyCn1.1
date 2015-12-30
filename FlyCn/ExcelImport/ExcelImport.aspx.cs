@@ -13,7 +13,6 @@ namespace FlyCn.ExcelImport
         #region Page_Load()
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
             UIClasses.InputPages ip = new UIClasses.InputPages();
            // FlyCnDAL.ExcelImport objex = new FlyCnDAL.ExcelImport();
             ImportFile objex = new ImportFile();

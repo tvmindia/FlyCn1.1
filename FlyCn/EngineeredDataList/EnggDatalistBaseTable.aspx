@@ -102,7 +102,7 @@ ul.departments { list-style-type: none; }*/
     <script src="../Scripts/UserJs/UserValidations.js"></script>
     <script>
 
-       
+
         function UploadNextClick() {
             document.getElementById("Upload").style.display = "none";
             document.getElementById("DivValidate").style.display = "";
@@ -110,7 +110,6 @@ ul.departments { list-style-type: none; }*/
             document.getElementById("Import").style.display = "none";
         }
         function GenerateTemplateNextClick() {
-          
             var firstdiv = document.getElementById("Upload");
             firstdiv.style.display = "";
             document.getElementById("GenerateTemplate").style.display = "none";
@@ -127,7 +126,6 @@ ul.departments { list-style-type: none; }*/
         }
 
         function GenerateTemplateDivShow() {
-            debugger;
             document.getElementById("Upload").style.display = "none";
             document.getElementById("Import").style.display = "none";
             document.getElementById("GenerateTemplate").style.display = "";
@@ -146,7 +144,7 @@ ul.departments { list-style-type: none; }*/
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <script>
-    
+          
            function validateExcel() {
 
             var fileUpload = document.getElementById('<%=DataImportFileUpload.ClientID%>');
@@ -317,7 +315,9 @@ ul.departments { list-style-type: none; }*/
                         <div class="Flatbutton" style="width:150px">
                                <asp:Button ID="btnValidate" runat="server" class="buttonNext" BackColor="Red" OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Validate"></asp:Button>
                                <img src="../Images/Icons/RightArrow16.png" />
-                           </div>
+                          
+                       
+                        </div>
                         
                   <%--  </td>
                 </tr>

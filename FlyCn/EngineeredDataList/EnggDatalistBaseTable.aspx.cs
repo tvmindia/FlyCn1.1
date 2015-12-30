@@ -37,7 +37,7 @@ namespace FlyCn.EngineeredDataList
         {
                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
                 _moduleId = Request.QueryString["Id"];
-                
+
               
                 //RadTreeView node = new RadTreeView("rvleftmenu");
                 //node.ExpandMode = TreeNodeExpandMode.ServerSideCallBack;
@@ -60,6 +60,7 @@ namespace FlyCn.EngineeredDataList
                 importObj.UserName = UA.userName;
               
 
+          
             if (_moduleId != null)
             {
 
@@ -88,6 +89,7 @@ namespace FlyCn.EngineeredDataList
                 }
 
             }
+
 
         }
 
@@ -165,24 +167,20 @@ namespace FlyCn.EngineeredDataList
         {
             try
             {
-            ExcelTemplate eObj = new ExcelTemplate();
+                ExcelTemplate eObj = new ExcelTemplate();
                 eObj.GenerateExcelTemplate(UA.projectNo, _TableName);
-        }
+            }
             catch(Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
-
+               
             }
            
         }
 
         protected void dtgvalidationErros_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable ds = new DataTable();
-
-            ds = importObj.getErrorDetails("testuser");
-            dtgvalidationErros.DataSource = ds;
             GridErrorvalidateBind(validationObj.importfile.status_Id);
         }
 
@@ -338,6 +336,7 @@ namespace FlyCn.EngineeredDataList
             importObj.ExcelFileName = hdfFileName.Value;
             importObj.fileLocation = hdfFileLocation.Value;
             importObj.fileName = importObj.ExcelFileName;
+            
            if(File.Exists(importObj.fileLocation))
             {
                 try
@@ -353,7 +352,7 @@ namespace FlyCn.EngineeredDataList
                     lblVErrorsCount.Text=validationObj.importfile.errorCount.ToString();
                     GridErrorvalidateBind(validationObj.importfile.status_Id);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "UploadNextClick();", true);
-
+                 
                 }
                 catch(Exception ex)
                 {
@@ -387,13 +386,13 @@ namespace FlyCn.EngineeredDataList
 
                 hdfErrorRow.Value = temp;
                 
-                }
-                
+            }
+
             if (dtgvalidationErros.DataSource == null)
             {
                 dtgvalidationErros.DataSource = new string[] { };
-           }
-       }
+            }  
+        }
         public void CheckBoxAllCheck()
         {
             GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
@@ -529,8 +528,8 @@ namespace FlyCn.EngineeredDataList
                 catch(Exception ex)
                 {
                     throw ex;
-                  } 
-               }
+                }
+            }
             if(hdfErrorRow.Value!=null)
             {
                 try
@@ -540,12 +539,12 @@ namespace FlyCn.EngineeredDataList
                     string[] words = temps.Split('|');
                     ErrorRows = new List<string>(words.Length);
                     ErrorRows.AddRange(words);
-            }
+                }
                 catch(Exception ex)
                 {
                     throw ex;
-        }
-
+                }
+                
             }
         }
 
@@ -555,37 +554,28 @@ namespace FlyCn.EngineeredDataList
             {
                 case "CIV":
                     currentSheet = SheetStatus.CIV;
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
                 case "ELE":
                     currentSheet = SheetStatus.ELE;
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
-                  
                     break;
                 case "CAD":
                     currentSheet = SheetStatus.CAD;
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "CTL":
                     currentSheet = SheetStatus.CTL;
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "INS":
                     currentSheet = SheetStatus.INS;
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "MEC":
                     currentSheet = SheetStatus.MEC;
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "PIP":
                     currentSheet = SheetStatus.PIP;
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "TEL":
                     currentSheet = SheetStatus.TEL;
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
             }
@@ -594,7 +584,7 @@ namespace FlyCn.EngineeredDataList
         protected void dtgvalidationErros_PreRender(object sender, EventArgs e)
         {
             dtgvalidationErros.Rebind();
-       }
+        }
 
         protected void btnImport_Click(object sender, EventArgs e)
         {
@@ -606,7 +596,7 @@ namespace FlyCn.EngineeredDataList
             SplitString();
             RemoveColumnFromDS(tempDS);
             RemoveErrorRow(tempDS);
-
+            
 
             //ValidateDataStructure(tempDS);
             importObj.TableName = comDAL.tableName;
