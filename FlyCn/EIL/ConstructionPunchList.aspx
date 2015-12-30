@@ -415,8 +415,8 @@
                                                 <telerik:GridBoundColumn HeaderText="ID No" DataField="IDNo" UniqueName="IDNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="LinkIDNo" DataField="LinkIDNo" UniqueName="LinkIDNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="EILType" DataField="EILType" UniqueName="EILType"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="OpenBy" DataField="OpenBy" UniqueName="OpenBy"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="OpenDt" DataField="OpenDt" UniqueName="OpenDt" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="CreatedBy" DataField="CreatedBy" UniqueName="CreatedBy"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="CreatedDt" DataField="CreatedDt" UniqueName="CreatedDt" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
 
                                             </Columns>
                                         </MasterTableView>
