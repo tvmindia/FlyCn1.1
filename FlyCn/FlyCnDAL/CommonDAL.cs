@@ -104,8 +104,19 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+
+        public string ProcedureName
+        {
+            get;
+            set;
+        }
+        public string ExcelSheetName
+        {
+            get;
+            set;
+        }
       
-        #endregion  Public Properties
+       #endregion  Public Properties
 
             ErrorHandling eObj = new ErrorHandling();
             #region CommonDALMethods
@@ -508,8 +519,11 @@ namespace FlyCn.FlyCnDAL
                     cmd.Parameters.Add("@tablename", SqlDbType.NVarChar).Value = TableName;
                     SqlParameter ouputprocedurename = cmd.Parameters.Add("@procedurename", SqlDbType.NVarChar,50);
                     ouputprocedurename.Direction = ParameterDirection.Output;
+                    SqlParameter outputSheetName = cmd.Parameters.Add("@sheetname", SqlDbType.NVarChar, 50);
+                    outputSheetName.Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
                     procName = ouputprocedurename.Value.ToString();
+                    ExcelSheetName = outputSheetName.Value.ToString();
                     return procName;
                 }
                 catch(Exception ex)

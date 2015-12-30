@@ -14,9 +14,12 @@ namespace FlyCn.ExcelImport
     public partial class ImportStatusList : System.Web.UI.Page
     {
         string StatusID;
+        FlyCnDAL.Security.UserAuthendication UA;
+        UIClasses.Const Const = new UIClasses.Const();
        // string userName = "TestUser";
         protected void Page_Load(object sender, EventArgs e)
         {
+            UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             if (!IsPostBack)
             {
                 BindData();
@@ -31,7 +34,8 @@ namespace FlyCn.ExcelImport
             //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();
 
-           // ds = detailsObj.getAllExcelImportDetails("TestUser");
+            ds = detailsObj.getAllExcelImportDetails(UA.userName);
+             
             RadGrid1.DataSource = ds.Tables[0];
             try
             {
@@ -142,7 +146,7 @@ namespace FlyCn.ExcelImport
             //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();
             DataSet ds = new DataSet();
-            //ds = detailsObj.getDistictExcelImportDetailsByUserName("TestUser");
+            ds = detailsObj.getDistictExcelImportDetailsByUserName(UA.userName);
             RadGrid2.DataSource = ds.Tables[0];
             try
             {
@@ -150,11 +154,8 @@ namespace FlyCn.ExcelImport
             }
             catch (Exception)
             {
-
-                //  throw;
+            //throw;
             }
-
-
         }
         #endregion BindCompletedDetails()
 
