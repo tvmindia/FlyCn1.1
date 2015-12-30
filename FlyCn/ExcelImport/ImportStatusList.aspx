@@ -168,7 +168,7 @@
             $("#content").find("[id^='tab']").hide(); // Hide all content
             $("#tabs li:first").attr("id", "current"); // Activate the first tab
             $("#content #tab1").fadeIn(); // Show first tab's content
-
+            parent.showTreeNode();
             $('#tabs a').click(function (e) {
                 e.preventDefault();
                 if ($(this).closest("li").attr("id") == "current") { //detection for current tab
