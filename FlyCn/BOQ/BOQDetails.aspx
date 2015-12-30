@@ -341,7 +341,7 @@
      function OnClientTabSelecting(sender, eventArgs) {
 
          var tab = eventArgs.get_tab();
-         debugger;
+       
          var security = document.getElementById("hdnSecurityMaster").value;
         
          PageSecurityCheck(security);
@@ -387,7 +387,7 @@
 
          var tab = args.get_tab();
          if (tab.get_value() == '2') {
-             debugger;
+            
              var tree = page.Master;
              alert(tree);
             <%-- var txtCont = document.getElementById('<%= Page.Master.Master.FindControl("rtvLeftMenu").ClientID %>');

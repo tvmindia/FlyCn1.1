@@ -298,7 +298,6 @@
        
           
         $(document).ready(function () {
-
             //------------------------For Security-----------------------------------------------//
             debugger;
             var security = document.getElementById("hdnSecurityMaster").value;
@@ -318,7 +317,7 @@
             id = document.getElementById('IDAccordion');
 
             OpenDetailAccordion(id);
-
+            parent.showTreeNode();
 
             $('.accordion-toggle').on('click', function (event) {
 

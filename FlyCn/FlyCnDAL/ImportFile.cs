@@ -401,7 +401,8 @@ namespace FlyCn.FlyCnDAL
             con = dcon.GetDBConnection();
             SqlCommand cmd = new SqlCommand("SelectExcelImportErrorDetails", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@userName", userName);
+          //  cmd.Parameters.AddWithValue("@userName", userName);
+            cmd.Parameters.AddWithValue("@Status_Id", status_Id);
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = cmd;
             datatableobj = new DataTable();

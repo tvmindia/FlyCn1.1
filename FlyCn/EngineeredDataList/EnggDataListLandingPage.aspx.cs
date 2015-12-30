@@ -38,6 +38,7 @@ namespace FlyCn.EngineeredDataList
 
          public void PlaceLandingPageIcons()
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.HideTreeNode();", true);
             Modules moduleObj = new Modules();
             DataSet ds = new DataSet();
             ds = moduleObj.GetModules();
@@ -46,7 +47,7 @@ namespace FlyCn.EngineeredDataList
             tabliFirst = " <li style='width:80px;' >" + " <a href='EnggDataListLandingPage.aspx"+ "'" + "'" + "'" + ">" + "<img" + " src=" + "'" +
                 ds.Tables[0].Rows[4]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>"
                 + "All" + "</p>" + "</a></li>";
-
+          
             string myInnerHtml = "<div class='EnggTilesContainerDiv'>" +
            "<table class='EnggTilesContainerTBL'>" +
            " <tr>";

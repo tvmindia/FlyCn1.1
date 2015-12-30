@@ -25,7 +25,8 @@ namespace FlyCn.BOQ
         #region Global Variables
         DocumentMaster documentMaster;
         string _RevisionId;
-        BOQHeaderDetails boqHeaderDetails;
+        BOQHeaderDetails boqHeaderDetails,BOQObj;
+       
         ErrorHandling eObj = new ErrorHandling();
        // DocumentStatusSettings dObj;
         UIClasses.Const Const = new UIClasses.Const();
@@ -39,10 +40,11 @@ namespace FlyCn.BOQ
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
+            BOQObj = new BOQHeaderDetails();
             ToolBarVisibility(4);
             SecurityCheck();
            
-            BOQHeaderDetails  BOQObj= new BOQHeaderDetails();         
+                   
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
@@ -52,6 +54,7 @@ namespace FlyCn.BOQ
              {
              _RevisionId = Request.QueryString["RevisionId"];
                  hiddenFieldRevisionID.Value = _RevisionId;
+                 
              }
           
             //BOQObj.BindTree(RadTreeView tview);
@@ -152,12 +155,14 @@ namespace FlyCn.BOQ
                     string DocumentNo = hiddenDocumentNo.Value;
                     DataTable docdtObj=new DataTable();
                     FlyCn.FlyCnDAL.DocumentMaster docObj = new DocumentMaster();
+                   // BOQObj = new BOQHeaderDetails();  
                   //  docdtObj=  docObj.GetRevisionIdByDocumentNo(DocumentNo);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     RadMultiPage1.SelectedIndex = 1;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.RevisionHistory();", true);
                   
                         string revisionid = item.GetDataKeyValue("RevisionID").ToString();
+                       
                     BOQPopulate(revisionid);
 
 

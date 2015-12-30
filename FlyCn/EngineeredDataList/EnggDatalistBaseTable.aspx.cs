@@ -30,12 +30,14 @@ namespace FlyCn.EngineeredDataList
         DataSet dsTable = null;
         List<string> columnNames = new List<string>();
         string currentSheet = null;
+        
         bool columnExistCheck=false;
         protected void Page_Load(object sender, EventArgs e)
         {
+
                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
                 _moduleId = Request.QueryString["Id"];
-                
+
               
                 //RadTreeView node = new RadTreeView("rvleftmenu");
                 //node.ExpandMode = TreeNodeExpandMode.ServerSideCallBack;
@@ -56,9 +58,8 @@ namespace FlyCn.EngineeredDataList
                
                 importObj.ProjectNo = UA.projectNo;
                 importObj.UserName = UA.userName;
-              
 
-          
+               
             if (_moduleId != null)
             {
 
@@ -77,8 +78,9 @@ namespace FlyCn.EngineeredDataList
                     ds.Tables[0].Rows[4]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>" 
                     + "All" + "</p>" + "</a></li>";
                 horizonaltab.Controls.Add(new LiteralControl(tabliFirst));
+               
                 string tabhtml = "";
-
+                
                 for (int f = 0; f < ds.Tables[0].Rows.Count; f++)
                 {
                     tabhtml = " <li style='width:80px;' >" + " <a href='EnggDatalistBaseTable.aspx?Id=" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "'" + "'" + "'" + ">" + "<img" + " src=" + "'" + ds.Tables[0].Rows[f]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "</p>" + "</a></li>";
@@ -87,8 +89,7 @@ namespace FlyCn.EngineeredDataList
                 }
 
             }
-
-
+            
         }
 
         
@@ -169,9 +170,9 @@ namespace FlyCn.EngineeredDataList
 
         protected void dtgvalidationErros_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataSet ds = new DataSet();
+            DataTable ds = new DataTable();
 
-            ds = importObj.getErrorDetails();
+            ds = importObj.getErrorDetails("testuser");
             dtgvalidationErros.DataSource = ds;
         }
 
@@ -422,28 +423,37 @@ namespace FlyCn.EngineeredDataList
             {
                 case "CIV":
                     currentSheet = SheetStatus.CIV;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
                 case "ELE":
                     currentSheet = SheetStatus.ELE;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
+                  
                     break;
                 case "CAD":
                     currentSheet = SheetStatus.CAD;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "CTL":
                     currentSheet = SheetStatus.CTL;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "INS":
                     currentSheet = SheetStatus.INS;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "MEC":
                     currentSheet = SheetStatus.MEC;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "PIP":
                     currentSheet = SheetStatus.PIP;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "TEL":
                     currentSheet = SheetStatus.TEL;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
             }
