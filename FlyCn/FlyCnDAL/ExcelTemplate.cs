@@ -93,7 +93,7 @@ namespace FlyCn.FlyCnDAL
                 daObj.Fill(ds);
                 CommonDAL cObj = new CommonDAL();
                 cObj.GetProcedureName(tablename);
-               
+                string sheetname=cObj.ExcelSheetName;
                
 
                 Microsoft.Office.Interop.Excel.Range excelCellrange;
@@ -110,7 +110,7 @@ namespace FlyCn.FlyCnDAL
 
                 List<string> SheetNames = new List<string>();
 
-                SheetNames.Add(Sheetname);
+                SheetNames.Add(sheetname);
                 SheetNames.Add("Field Description");
                 int colIndex = 1;
                 int rowIndex = 1;
