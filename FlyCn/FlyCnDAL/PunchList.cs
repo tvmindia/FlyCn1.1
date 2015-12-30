@@ -392,8 +392,14 @@ namespace FlyCn.FlyCnDAL
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
 
-                string selectQuery = "select ProjectNo,IDNo,LinkIDNo,EILType,OpenBy,OpenDt from EIL where EILType= '" + EILType + "'";
-                daObj = new SqlDataAdapter(selectQuery, con);
+                string selectQuery = "GetEILDetails";
+                SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
+                cmdSelect.Parameters.AddWithValue("@type", EILType);
+            
+                daObj = new SqlDataAdapter(cmdSelect);
+               
+      
                 daObj.Fill(dt);
 
             }
@@ -462,10 +468,11 @@ namespace FlyCn.FlyCnDAL
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
-                string insertQuery = "procEILInsert";
+                string insertQuery = "EILInsert";
                 SqlCommand cmdInsert = new SqlCommand(insertQuery, con);
                 cmdInsert.CommandType = CommandType.StoredProcedure;
                 cmdInsert.Parameters.AddWithValue("@projectno", UA.projectNo);
+                cmdInsert.Parameters.AddWithValue("@createdby", UA.userName);
                 cmdInsert.Parameters.AddWithValue("@Idno", Idno);
                 cmdInsert.Parameters.AddWithValue("@EILType", EILType);
                 cmdInsert.Parameters.AddWithValue("@openby", mObj.OpenBy);

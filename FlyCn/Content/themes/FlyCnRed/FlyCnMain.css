@@ -764,6 +764,10 @@ transition: .1s ease;
    font-size:small;
    padding:5px;
 }
-
+.buttonValidateAndImport
+{
+    background-color:#B00000;
+    border:none;
+}
 
  

@@ -60,6 +60,7 @@ ul.departments { list-style-type: none; }*/
                 color: brown;
             }
 
+
             ul.departments li a::selection {
                 color: blue;
             }
@@ -313,7 +314,7 @@ ul.departments { list-style-type: none; }*/
                 <tr>
                     <td>--%>
                         <div class="Flatbutton" style="width:150px">
-                               <asp:Button ID="btnValidate" runat="server"  style="background-color:#B00000;border:none" OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Validate"></asp:Button>
+                               <asp:Button ID="btnValidate" runat="server" class="buttonValidateAndImport" OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Validate"></asp:Button>
                                <img src="../Images/Icons/RightArrow16.png" />
                           
                        
