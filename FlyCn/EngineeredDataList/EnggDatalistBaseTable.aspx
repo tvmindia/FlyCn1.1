@@ -313,7 +313,7 @@ ul.departments { list-style-type: none; }*/
                 <tr>
                     <td>--%>
                         <div class="Flatbutton" style="width:150px">
-                               <asp:Button ID="btnValidate" runat="server" class="buttonNext" OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Validate"></asp:Button>
+                               <asp:Button ID="btnValidate" runat="server" style="background-color:#B00000;border:none" OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Validate"></asp:Button>
                                <img src="../Images/Icons/RightArrow16.png" />
                           
                        
@@ -426,7 +426,7 @@ ul.departments { list-style-type: none; }*/
                     <td>
           
                         <div class="Flatbutton" style="width:150px">
-                         <asp:Button ID="btnImport" runat="server" class="buttonNext" OnClick="btnImport_Click" OnClientClick="return Import();" Text="Import"></asp:Button>
+                         <asp:Button ID="btnImport" runat="server" style="background-color:#B00000;border:none" OnClick="btnImport_Click" OnClientClick="return Import();" Text="Import"></asp:Button>
                          <img src="../Images/Icons/RightArrow16.png" />
                         </div>
                       
