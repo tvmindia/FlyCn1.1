@@ -227,7 +227,7 @@ ul.departments { list-style-type: none; }*/
 
         <div id="GenerateTemplate" >
             <div class="col-md-12 Span-One">
-                 <asp:Button class="Flatbutton" style="width:300px" BackColor="Red" ID="btnExcelIimport" runat="server" Text="Download Excel Template"  OnClick="btnExcelIimport_Click"  />
+                 <asp:Button class="Flatbutton" style="width:300px"  ID="btnExcelIimport" runat="server" Text="Download Excel Template"  OnClick="btnExcelIimport_Click"  />
                     
 
 
