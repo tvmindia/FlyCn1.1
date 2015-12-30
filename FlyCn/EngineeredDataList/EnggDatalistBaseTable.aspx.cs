@@ -554,28 +554,36 @@ namespace FlyCn.EngineeredDataList
             {
                 case "CIV":
                     currentSheet = SheetStatus.CIV;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
                 case "ELE":
                     currentSheet = SheetStatus.ELE;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "CAD":
                     currentSheet = SheetStatus.CAD;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "CTL":
                     currentSheet = SheetStatus.CTL;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "INS":
                     currentSheet = SheetStatus.INS;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "MEC":
                     currentSheet = SheetStatus.MEC;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "PIP":
                     currentSheet = SheetStatus.PIP;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "TEL":
                     currentSheet = SheetStatus.TEL;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
             }
