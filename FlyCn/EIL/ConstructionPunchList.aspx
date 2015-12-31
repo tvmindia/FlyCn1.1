@@ -461,8 +461,8 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
-                                <div class="col-md-12 Span-One">
+
+                               
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -489,7 +489,7 @@
                                     </div>
                                 </div>
                                 </div></div>
-
+                                                              
                                  <%-- General Details--%>
                                    <div class="accordion-container"> <a href="#" class="accordion-toggle">General Details
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
@@ -509,7 +509,7 @@
                                             </div>
                                         </div>
                                         <%-- </form>--%>
-                                    </div>
+                                   </div>
 
                                     <div class="col-md-6">
 
@@ -523,10 +523,9 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
 
 
-                                <div class="col-md-12 Span-One">
+
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -560,11 +559,10 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
+                          
 
 
 
-                                <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -589,8 +587,8 @@
                                 </div>
 
                                  </div>
-                                       </div>
-
+                                    
+         </div>
                                   <%-- Location Details--%>
                                              <div class="accordion-container"> <a href="#" class="accordion-toggle">  Location Details 
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
@@ -623,9 +621,9 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
 
-                                <div class="col-md-12 Span-One">
+
+                          
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -653,8 +651,8 @@
                                         <%-- </form>--%>
                                     </div>
                                 </div>
-                                </div></div>
-                               
+                                </div>
+                                                               </div>
                                         <%--System--%>   
                                              <div class="accordion-container"> <a href="#" class="accordion-toggle"> System 
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
@@ -689,9 +687,9 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
+                             
 
-                                <div class="col-md-12 Span-One">
+                               
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -742,9 +740,8 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
+                            
 
-                                <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -772,9 +769,7 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
-
-                                <div class="col-md-12 Span-One">
+                                
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -802,9 +797,9 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
+                             
 
-                                <div class="col-md-12 Span-One">
+                               
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -837,9 +832,8 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
+                              
 
-                                <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -868,8 +862,8 @@
                                         <%-- </form>--%>
                                     </div>
                                 </div>
-                                 </div></div>
-
+                                </div>
+          </div>
                                   <%--Change Request Details--%>
                                 <div class="accordion-container"> <a href="#" class="accordion-toggle"> Change Request Details  
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
@@ -940,9 +934,7 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
-
-                                <div class="col-md-12 Span-One">
+                              
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -1009,10 +1001,7 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
-
-
-                                <div class="col-md-12 Span-One">
+                               
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -1064,9 +1053,7 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
-
-                                <div class="col-md-12 Span-One">
+                               
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -1103,9 +1090,8 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
+                             
 
-                                <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -1141,15 +1127,14 @@
                                             </div>
                                         </div>
                                         <%-- </form>--%>
-                                    </div>
-                                </div>
+
                                  </div></div>
                                   <div class="accordion-container"> <a href="#" class="accordion-toggle">Attachments 
                                             
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                               
                              <div class="accordion-content"> 
-                                <div class="col-md-12 Span-One">
+                            
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -1163,8 +1148,8 @@
                                                
               
                                                  </div>
-                                            </div>  </div></div>
-                                             <div class="col-md-12 Span-One">
+                                            </div>  </div>
+                                           
                                          <div class="col-md-6">
 
                                         <div class="form-group">
@@ -1178,7 +1163,8 @@
                                                   </div>
                                         </div>
                                              </div>
-                                                 </div>
+                                                </div>
+                                      </div></div>
                                         <%-- </form>--%>
                            <table style="width: 100%;">
                                     <tr>
@@ -1263,9 +1249,9 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
                                        </div>
 
                                   
-                                </div>
+                          
 
-                                 </div>
+                              
                                 <table style="width: 100%;">
                                     <tr>
                                         <td>&nbsp;</td>

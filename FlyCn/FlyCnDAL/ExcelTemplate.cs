@@ -85,11 +85,19 @@ namespace FlyCn.FlyCnDAL
                 foreach (DataRow row in rows)
                 {
                     ExcelWorkSheet.Columns.AutoFit();
-                    string name = Convert.ToString(row["Field_Name"]);
+                    string name = Convert.ToString(row["Field_Description"]);
 
                     ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
 
+                    string isMandatory = Convert.ToString(row["ExcelMustFields"]);
 
+
+                    if (isMandatory == "Y")
+                    {
+                     //   ExcelWorkSheet.Cells[colIndex, rowIndex + 1].Value = "*";
+                        //ExcelWorkSheet.Cells[colIndex, rowIndex + 1].style("color", "red");
+                        ExcelWorkSheet.Cells[colIndex, rowIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+                    }
                     rowIndex++;
                 }
 
@@ -99,12 +107,25 @@ namespace FlyCn.FlyCnDAL
 
                 colIndex = 1;
                 rowIndex = 1;
-
+               
                 ExcelWorkSheet = ExcelWorkBook.Worksheets[2];
+                ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Name";
+                colIndex = 1;
+                rowIndex =2;
+                ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Mandatory Fields";
+                colIndex = 1;
+                rowIndex = 3;
+                ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Column Type";
+                colIndex = 1;
+                rowIndex =4;
+                ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Size";
+                ExcelWorkSheet.Cells[1, 4].EntireRow.Font.Bold = true;
+                colIndex = 2;
+                rowIndex = 1;
                 foreach (DataRow row in rows)
                 {
                     ExcelWorkSheet.Columns.AutoFit();
-                    string name = Convert.ToString(row["Field_Name"]);
+                    string name = Convert.ToString(row["Field_Description"]);
 
                     ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
                     string isMandatory = Convert.ToString(row["ExcelMustFields"]);
@@ -118,9 +139,46 @@ namespace FlyCn.FlyCnDAL
                     }
                     colIndex++;
 
+                }
+                colIndex = 2;
+                rowIndex =3;
+                foreach (DataRow row in rows)
+                {
+                    ExcelWorkSheet.Columns.AutoFit();
+                    string name = Convert.ToString(row["Field_DataType"]);
+                    if(name=="S" || name=="C" || name=="A")
+                    {
+                        ExcelWorkSheet.Cells[colIndex, rowIndex].Value ="Text";
+                    }
+                    else
+                        if(name=="D")
+                        {
+                            ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Date";
+                        }
+                  
+                        else
+                            if(name=="N")
+                        {
+                            ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Number";
+                        }
 
+                    colIndex++;
 
                 }
+                colIndex = 2;
+                rowIndex = 4;
+                foreach (DataRow row in rows)
+                {
+                    ExcelWorkSheet.Columns.AutoFit();
+                    string name = Convert.ToString(row["Field_Size"]);
+
+                    ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
+                           
+                    colIndex++;
+
+                }
+
+                rowIndex = 1;
 
                 ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Note: * marked fields are mandatory";
                 ExcelWorkSheet.Cells[colIndex, rowIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
@@ -173,11 +231,7 @@ namespace FlyCn.FlyCnDAL
                 
                 throw new Exception(exHandle.Message + errorstatus);
             }
-     
-
         }
-
-
 
     }
 }
