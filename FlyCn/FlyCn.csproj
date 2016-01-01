@@ -158,6 +158,7 @@
     <Content Include="Approvels\Approvers.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="Approvels\DocDetails.aspx" />
+    <Content Include="Approvels\DocumentAttachments.aspx" />
     <Content Include="Approvels\RejectedDocument.aspx" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\Antlr3.Runtime.dll" />
@@ -189,7 +190,7 @@
     <Content Include="BOQ\BOQHeader.aspx" />
     <Content Include="Content\FlyCnMain.css" />
     <Content Include="Content\Home.css" />
-    <Content Include="Content\Site.css" />
+    <Content Include="EIL\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -381,6 +382,7 @@
     <Content Include="Images\Icons\workpack.png" />
     <Content Include="Images\Lb2.png" />
     <Content Include="Images\LogoSearchMagnifyingGlass.png" />
+    <Content Include="Images\Minus.png" />
     <Content Include="Images\plus1.png" />
     <Content Include="Images\refresh.png" />
     <Content Include="Images\RefreshSearch.png" />
@@ -565,6 +567,7 @@
     <Content Include="UserControls\MasterPopup.ascx" />
     <Content Include="UserControls\MasterPopupGridview.aspx" />
     <Content Include="UserControls\ToolBar.ascx" />
+    <Content Include="UserControls\Uc_FlyCnFileUpload.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -637,6 +640,13 @@
     </Compile>
     <Compile Include="Approvels\DocDetails.aspx.designer.cs">
       <DependentUpon>DocDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Approvels\DocumentAttachments.aspx.cs">
+      <DependentUpon>DocumentAttachments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvels\DocumentAttachments.aspx.designer.cs">
+      <DependentUpon>DocumentAttachments.aspx</DependentUpon>
     </Compile>
     <Compile Include="Approvels\RejectedDocument.aspx.cs">
       <DependentUpon>RejectedDocument.aspx</DependentUpon>
@@ -1063,6 +1073,13 @@
     <Compile Include="UserControls\ToolBar.ascx.designer.cs">
       <DependentUpon>ToolBar.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Uc_FlyCnFileUpload.ascx.cs">
+      <DependentUpon>Uc_FlyCnFileUpload.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Uc_FlyCnFileUpload.ascx.designer.cs">
+      <DependentUpon>Uc_FlyCnFileUpload.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1073,6 +1090,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\ExcelTemplate\" />
     <Folder Include="Content\Fileupload\" />
     <Folder Include="Images\ProjectImages\" />
   </ItemGroup>

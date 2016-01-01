@@ -13,15 +13,6 @@ namespace FlyCn.UserControls {
     public partial class GridviewFilter {
         
         /// <summary>
-        /// scmFilter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager scmFilter;
-        
-        /// <summary>
         /// phFilter control.
         /// </summary>
         /// <remarks>
@@ -112,6 +103,15 @@ namespace FlyCn.UserControls {
         protected global::System.Web.UI.WebControls.ImageButton imgAddIcon;
         
         /// <summary>
+        /// imgRemove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgRemove;
+        
+        /// <summary>
         /// imgbtnSearch control.
         /// </summary>
         /// <remarks>
@@ -139,6 +139,15 @@ namespace FlyCn.UserControls {
         protected global::System.Web.UI.WebControls.GridView gvSearch;
         
         /// <summary>
+        /// lblResultReturnedCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblResultReturnedCount;
+        
+        /// <summary>
         /// hdnClickedOrNot control.
         /// </summary>
         /// <remarks>
@@ -146,5 +155,23 @@ namespace FlyCn.UserControls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnClickedOrNot;
+        
+        /// <summary>
+        /// hdnPostbackOnItemCommand control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnPostbackOnItemCommand;
+        
+        /// <summary>
+        /// hdnRemoveClicked control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnRemoveClicked;
     }
 }

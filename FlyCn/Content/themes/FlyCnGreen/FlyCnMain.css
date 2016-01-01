@@ -738,6 +738,11 @@ transition: .1s ease;
     font-size:medium;
       font-family:'Segoe UI';
 }
+ .buttonValidateAndImport
+{
+       background-color:#009999;
+    border:none;
+}
 
 .smallTile {
     font-size:x-small;

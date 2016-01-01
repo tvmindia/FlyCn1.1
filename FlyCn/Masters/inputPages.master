@@ -95,7 +95,7 @@
       <%--------User Defind Javascript Functions------------%>
 
     <script type="text/javascript">
-
+       
         function OnEnggDataListTreeBinding() {
             alert(2);
             treeView = $find("<%= rtvLeftMenu.ClientID %>");
@@ -143,7 +143,7 @@
       <%-------All popup close button refresh Start ---%>
        
         function OnPopupRefresh(frame) {
-
+          
             var innerDoc = frame.contentDocument || frame.contentWindow.document;
             var input = innerDoc.getElementById('popuprefreshRequired');
 
@@ -182,7 +182,36 @@
         }
      
 
-      <%-------ChangeOwnership PopupWindow End----------%>
+        <%-------ChangeOwnership PopupWindow End----------%>
+
+         <%-------DocumentAttachment PopupWindow Start-------%>
+        function DocumentAttachmentWindow() {
+            debugger;
+            var frame = document.getElementById('IframeDocumentAttachment');
+            try {
+                $("#DocumentAttachment").dialog({
+                    title: "Document Attachment",
+                    width: 780,
+                    height: 300,
+                    buttons: {}, modal: true,
+                    beforeClose: function (event, ui) {
+                        var reload = OnPopupRefresh(frame);
+                        if (reload == true) {
+                            location.reload(true);
+                        }
+                    },
+
+                });
+
+                return false
+            }
+            catch (X) {
+                alert(X.message);
+            }
+        }
+
+
+        <%-------DocumentAttachment PopupWindow End----------%>
 
       <%-------ReviseDocumentWindow PopupWindow Start---%>
         function ReviseDocumentWindow() {
@@ -314,11 +343,13 @@
         <%-- delete revisionhistrory tree node childs - call this function from BOQ Header View Tab click--%> 
         function RevisionHistroyDeleteNode() {
 
-
+            debugger;
+            //var tree = $("#" + '<%=rtvLeftMenu.ClientID%>')
 
             var tree = $find("<%= rtvLeftMenu.ClientID %>");
             var firstnode = tree.findNodeByValue("rtn4");
             var node = tree.findNodeByValue("rtn4DocNoChild");
+            if (node!=null)
             node.get_parent().get_nodes().remove(node);
 
             tree.trackChanges();
@@ -336,7 +367,7 @@
         
         function ChangeOwner()
         {
-           
+
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
 
@@ -359,6 +390,7 @@
         }
         <%-- Set OwnershipChange iframe scr with parameters  End--%> 
 
+
        
         function linkbuttonClient() {
             
@@ -372,6 +404,22 @@
            
             window.open("../Approvels/Approvers.aspx?Revisionid=" + hiddenFieldRevisionID.value, 'Approvers', "height=200,width=500");
             
+        }
+
+        function AttachmentlinkClick()
+        {
+            debugger;
+            var splitter = $find("<%= RadSplitter1.ClientID %>");
+            var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
+            var iframe = pane.getExtContentElement();
+            var contentWindow = iframe.contentWindow;
+            var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
+            var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
+            var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
+          
+                document.getElementById('IframeDocumentAttachment').src = "../Approvels/DocumentAttachments.aspx?RevisionId=" + hiddenFieldRevisionID.value;
+                DocumentAttachmentWindow();
+           
         }
       
         function showTreeNode()
@@ -433,9 +481,11 @@
     </script>
 
   <%--------User Defind Javascript Functions----end--------%>
+      <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
 
-
-    <div id="Errorbox" runat="server" class="div1">
+    <asp:UpdatePanel ID="upsuccessMessage" runat="server" UpdateMode="Always" >
+        <ContentTemplate>
+    <div id="Errorbox" runat="server" class="div1" style="z-index:3">
         <table style="width: 90%; height: 50px; border: groove; border-radius: 5px 6px; background-color: lightgrey">
             <tr>
 
@@ -448,11 +498,19 @@
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblErrorInfo" runat="server" Style="font-size: large; color: red"></asp:Label>
+                    
+                    <asp:Label ID="lblErrorInfo" runat="server" Style="font-size: large; color: red;"></asp:Label>
+             
                 </td>
             </tr>
         </table>
     </div>
+          
+           </ContentTemplate>
+
+        
+        </asp:UpdatePanel>
+      
     <div id="CommonAlertBox" style="visibility: hidden" class="CommonAlerts">
         <table style="background-color: transparent; vertical-align: middle; width: 100%">
             <tr>
@@ -478,7 +536,7 @@
     </div>
 
     <div class="RadSplitterDiv" >
-        <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
+      <%--  <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>--%>
 
         <telerik:RadSplitter ID="RadSplitter1" runat="server" Height="105%" Width="99%" Skin="FlyCnSplitter" EnableEmbeddedSkins="false" Style="overflow-x: hidden">
             <telerik:RadPane ID="RadPane1" runat="server" Width="150" Height="100%">
@@ -532,10 +590,14 @@
 
         <iframe id="IframeChangeOwner" style="width: 1300px; height: inherit;"></iframe>
     </div>
+    <div id="DocumentAttachment" style="width: 1000px!important; overflow-x: hidden;">
+
+        <iframe id="IframeDocumentAttachment" style="width: 1300px; height: inherit;"></iframe>
+    </div>
     <div id="ReviseDocumentPopUp" style="display: none; width: 1000px!important; overflow-x: hidden; overflow-y: hidden;">
 
         <iframe id="IframeReviseDocument" style="width: 2000px; height: inherit;"></iframe>
-    </div
+    </div>
     <div id="ApprovalDocumentPopUp" style="display: none; width: 1000px!important; overflow-x: hidden; overflow-y: hidden;">
 
         <iframe id="IframeApprovalDocument" style="width: 2000px; height: inherit;"></iframe>

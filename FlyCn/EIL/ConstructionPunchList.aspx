@@ -1,5 +1,4 @@
-﻿
-<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="ConstructionPunchList.aspx.cs" Inherits="FlyCn.EIL.ConstructionPunchList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="ConstructionPunchList.aspx.cs" Inherits="FlyCn.EIL.ConstructionPunchList" %>
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
@@ -298,7 +297,6 @@
        
           
         $(document).ready(function () {
-
             //------------------------For Security-----------------------------------------------//
             debugger;
             //var security = document.getElementById("hdnSecurityMaster").value;
@@ -318,7 +316,7 @@
             id = document.getElementById('IDAccordion');
 
             OpenDetailAccordion(id);
-
+            parent.showTreeNode();
 
             $('.accordion-toggle').on('click', function (event) {
 
@@ -417,8 +415,8 @@
                                                 <telerik:GridBoundColumn HeaderText="ID No" DataField="IDNo" UniqueName="IDNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="LinkIDNo" DataField="LinkIDNo" UniqueName="LinkIDNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="EILType" DataField="EILType" UniqueName="EILType"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="OpenBy" DataField="OpenBy" UniqueName="OpenBy"></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="OpenDt" DataField="OpenDt" UniqueName="OpenDt" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="CreatedBy" DataField="CreatedBy" UniqueName="CreatedBy"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="CreatedDt" DataField="CreatedDt" UniqueName="CreatedDt" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
 
                                             </Columns>
                                         </MasterTableView>
@@ -463,8 +461,8 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
-                                <div class="col-md-12 Span-One">
+
+                               
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -491,7 +489,7 @@
                                     </div>
                                 </div>
                                 </div></div>
-
+                                                              
                                  <%-- General Details--%>
                                    <div class="accordion-container"> <a href="#" class="accordion-toggle">General Details
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
@@ -511,7 +509,7 @@
                                             </div>
                                         </div>
                                         <%-- </form>--%>
-                                    </div>
+                                   </div>
 
                                     <div class="col-md-6">
 
@@ -525,10 +523,9 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
 
 
-                                <div class="col-md-12 Span-One">
+
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -562,11 +559,10 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
+                          
 
 
 
-                                <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -591,8 +587,8 @@
                                 </div>
 
                                  </div>
-                                       </div>
-
+                                    
+         </div>
                                   <%-- Location Details--%>
                                              <div class="accordion-container"> <a href="#" class="accordion-toggle">  Location Details 
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
@@ -625,9 +621,9 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
 
-                                <div class="col-md-12 Span-One">
+
+                          
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -655,8 +651,8 @@
                                         <%-- </form>--%>
                                     </div>
                                 </div>
-                                </div></div>
-                               
+                                </div>
+                                                               </div>
                                         <%--System--%>   
                                              <div class="accordion-container"> <a href="#" class="accordion-toggle"> System 
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
@@ -691,9 +687,9 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
+                             
 
-                                <div class="col-md-12 Span-One">
+                               
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -744,9 +740,8 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
+                            
 
-                                <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -774,9 +769,7 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
-
-                                <div class="col-md-12 Span-One">
+                                
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -804,9 +797,9 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
+                             
 
-                                <div class="col-md-12 Span-One">
+                               
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -839,9 +832,8 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
+                              
 
-                                <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -870,8 +862,8 @@
                                         <%-- </form>--%>
                                     </div>
                                 </div>
-                                 </div></div>
-
+                                </div>
+          </div>
                                   <%--Change Request Details--%>
                                 <div class="accordion-container"> <a href="#" class="accordion-toggle"> Change Request Details  
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
@@ -942,9 +934,7 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
-
-                                <div class="col-md-12 Span-One">
+                              
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -1011,10 +1001,7 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
-
-
-                                <div class="col-md-12 Span-One">
+                               
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -1066,9 +1053,7 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
-
-                                <div class="col-md-12 Span-One">
+                               
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -1105,9 +1090,8 @@
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-                                </div>
+                             
 
-                                <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -1143,15 +1127,14 @@
                                             </div>
                                         </div>
                                         <%-- </form>--%>
-                                    </div>
-                                </div>
+
                                  </div></div>
                                   <div class="accordion-container"> <a href="#" class="accordion-toggle">Attachments 
                                             
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                               
                              <div class="accordion-content"> 
-                                <div class="col-md-12 Span-One">
+                            
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -1165,8 +1148,8 @@
                                                
               
                                                  </div>
-                                            </div>  </div></div>
-                                             <div class="col-md-12 Span-One">
+                                            </div>  </div>
+                                           
                                          <div class="col-md-6">
 
                                         <div class="form-group">
@@ -1180,7 +1163,8 @@
                                                   </div>
                                         </div>
                                              </div>
-                                                 </div>
+                                                </div>
+                                      </div></div>
                                         <%-- </form>--%>
                            <table style="width: 100%;">
                                     <tr>
@@ -1265,9 +1249,9 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
                                        </div>
 
                                   
-                                </div>
+                          
 
-                                 </div>
+                              
                                 <table style="width: 100%;">
                                     <tr>
                                         <td>&nbsp;</td>

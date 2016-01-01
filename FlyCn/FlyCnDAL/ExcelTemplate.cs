@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Providers.Entities;
 using Microsoft.Office.Interop.Excel;
-using System.Runtime.InteropServices;
+using System.Runtime.InteropServices; 
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -23,41 +23,52 @@ namespace FlyCn.FlyCnDAL
 
         ErrorHandling eObj = new ErrorHandling();
 
-
+     
         public void GenerateExcelTemplate(string projno, string tablename)
         {
 
             SqlConnection con = null;
             SqlDataAdapter daObj;
+          
+          
             DataSet ds = new DataSet();
+            string errorstatus="";
             try
             {
+                errorstatus = "started";
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 UIClasses.Const Const = new UIClasses.Const();
                 FlyCnDAL.Security.UserAuthendication UA;
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
-                string selectQuery = "procSelectFieldsFromSYS_TableDefinitionByTable_NameProjectNo";
+                string selectQuery = "SelectFieldsFromSYS_TableDefinitionByTable_NameProjectNo";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
                 cmdSelect.CommandType = CommandType.StoredProcedure;
                 cmdSelect.Parameters.AddWithValue("@projno", projno);
                 cmdSelect.Parameters.AddWithValue("@tablename", tablename);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(ds);
-                Microsoft.Office.Interop.Excel.Range excelCellrange;
+                CommonDAL cObj = new CommonDAL();
+                cObj.GetProcedureName(tablename);
+                string sheetname=cObj.ExcelSheetName;
+               
 
+                Microsoft.Office.Interop.Excel.Range excelCellrange;
+                errorstatus = "Creating App";
                 Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
                 Workbook ExcelWorkBook = null;
                 Worksheet ExcelWorkSheet = null;
 
 
                 ExcelWorkBook = ExcelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
-
+                errorstatus = "Created";
 
 
                 List<string> SheetNames = new List<string>();
-                SheetNames.Add("Fields");
+
+                SheetNames.Add(sheetname);
                 SheetNames.Add("Field Description");
                 int colIndex = 1;
                 int rowIndex = 1;
@@ -74,11 +85,19 @@ namespace FlyCn.FlyCnDAL
                 foreach (DataRow row in rows)
                 {
                     ExcelWorkSheet.Columns.AutoFit();
-                    string name = Convert.ToString(row["Field_Name"]);
+                    string name = Convert.ToString(row["Field_Description"]);
 
                     ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
 
+                    string isMandatory = Convert.ToString(row["ExcelMustFields"]);
 
+
+                    if (isMandatory == "Y")
+                    {
+                     //   ExcelWorkSheet.Cells[colIndex, rowIndex + 1].Value = "*";
+                        //ExcelWorkSheet.Cells[colIndex, rowIndex + 1].style("color", "red");
+                        ExcelWorkSheet.Cells[colIndex, rowIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+                    }
                     rowIndex++;
                 }
 
@@ -88,12 +107,25 @@ namespace FlyCn.FlyCnDAL
 
                 colIndex = 1;
                 rowIndex = 1;
-
+               
                 ExcelWorkSheet = ExcelWorkBook.Worksheets[2];
+                ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Name";
+                colIndex = 1;
+                rowIndex =2;
+                ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Mandatory Fields";
+                colIndex = 1;
+                rowIndex = 3;
+                ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Column Type";
+                colIndex = 1;
+                rowIndex =4;
+                ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Size";
+                ExcelWorkSheet.Cells[1, 4].EntireRow.Font.Bold = true;
+                colIndex = 2;
+                rowIndex = 1;
                 foreach (DataRow row in rows)
                 {
                     ExcelWorkSheet.Columns.AutoFit();
-                    string name = Convert.ToString(row["Field_Name"]);
+                    string name = Convert.ToString(row["Field_Description"]);
 
                     ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
                     string isMandatory = Convert.ToString(row["ExcelMustFields"]);
@@ -107,51 +139,88 @@ namespace FlyCn.FlyCnDAL
                     }
                     colIndex++;
 
+                }
+                colIndex = 2;
+                rowIndex =3;
+                foreach (DataRow row in rows)
+                {
+                    ExcelWorkSheet.Columns.AutoFit();
+                    string name = Convert.ToString(row["Field_DataType"]);
+                    if(name=="S" || name=="C" || name=="A")
+                    {
+                        ExcelWorkSheet.Cells[colIndex, rowIndex].Value ="Text";
+                    }
+                    else
+                        if(name=="D")
+                        {
+                            ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Date";
+                        }
+                  
+                        else
+                            if(name=="N")
+                        {
+                            ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Number";
+                        }
 
+                    colIndex++;
 
                 }
+                colIndex = 2;
+                rowIndex = 4;
+                foreach (DataRow row in rows)
+                {
+                    ExcelWorkSheet.Columns.AutoFit();
+                    string name = Convert.ToString(row["Field_Size"]);
+
+                    ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
+                           
+                    colIndex++;
+
+                }
+
+                rowIndex = 1;
 
                 ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Note: * marked fields are mandatory";
                 ExcelWorkSheet.Cells[colIndex, rowIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
                 ExcelWorkSheet.Name = SheetNames[1];
-                //  ExcelWorkBook.SaveCopyAs(@"E:\Copy_Myfile.xlsx");
-                //  string path = @"E:\";
+          
 
                 string file = "ExcelImport_" + tablename;
-                //ExcelWorkBook.SaveAs(path+file);
 
 
-                //Stream myStream;
-                //SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
-                //saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                //saveFileDialog1.FilterIndex = 2;
-                //saveFileDialog1.RestoreDirectory = true;
+                string path = ("~/Content/ExcelTemplate/");
 
-                //if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                //{
-                //    if ((myStream = saveFileDialog1.OpenFile()) != null)
-                //    {
-                      //  ExcelWorkBook.SaveAs(file);
-                        // Code to write the stream goes here.
-                //        myStream.Close();
-                //    }
-                //}
+                HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
+                HttpContext.Current.Response.AddHeader("content-disposition",
+                                                "attachment;filename=" + file + ".xlsx");
 
 
-                   ////  HttpContext.Current.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                   //  HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=SqlExport.xlsx");
-                   //     using (MemoryStream MyMemoryStream = new MemoryStream())
-                   //     {
-                            ExcelWorkBook.SaveAs(file);
-                        //    MyMemoryStream.WriteTo(HttpContext.Current.Response.OutputStream);
-                        //    HttpContext.Current.Response.Flush();
-                        //    HttpContext.Current.Response.End();
-                        //}
+                string filepath = path + file + ".xlsx";
+                if (File.Exists(HttpContext.Current.Server.MapPath(filepath)))
+                {
+                    File.Delete(HttpContext.Current.Server.MapPath(filepath));
+                   // System.IO.File.Delete(filepath);
+                    ExcelWorkBook.SaveAs(HttpContext.Current.Server.MapPath(filepath));
+                    ExcelWorkBook.Close();
+                    ExcelApp.Quit();
+                    HttpContext.Current.Response.TransmitFile(HttpContext.Current.Server.MapPath(filepath));
+                    HttpContext.Current.Response.End();
+                }
+                else
+                {
 
-                // ExcelWorkBook.SaveAs(file);
-                ExcelWorkBook.Close();
-                ExcelApp.Quit();
+                    errorstatus = "saving";
+                    ExcelWorkBook.SaveAs(HttpContext.Current.Server.MapPath(filepath));
+                    ExcelWorkBook.Close();
+                    ExcelApp.Quit();
+
+
+                    HttpContext.Current.Response.TransmitFile(HttpContext.Current.Server.MapPath(filepath));
+                    HttpContext.Current.Response.End();
+                    errorstatus = "saved";
+
+                } 
 
                 Marshal.ReleaseComObject(ExcelWorkSheet);
                 Marshal.ReleaseComObject(ExcelWorkBook);
@@ -159,15 +228,10 @@ namespace FlyCn.FlyCnDAL
             }
             catch (Exception exHandle)
             {
-
- 
-                throw exHandle;
+                
+                throw new Exception(exHandle.Message + errorstatus);
             }
-            
-
         }
-
-
 
     }
 }

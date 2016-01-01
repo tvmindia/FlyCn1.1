@@ -32,6 +32,10 @@
                 <telerik:RadTab Text="New" PageViewID="rpBOQDetailAddEdit" Value="2" Width="75px" Height="25px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"></telerik:RadTab>
             </Tabs>
         </telerik:RadTabStrip>
+
+        <%-- <asp:UpdatePanel ID="upGrid" runat="server" UpdateMode="Always">
+                <ContentTemplate>  --%>
+
         <div id="content">
             <div class="contentTopBar"></div>
             <table style="width: 100%">
@@ -331,6 +335,9 @@
         </tr>
        </table>
    </div>
+     
+<%--                    </ContentTemplate>
+            </asp:UpdatePanel>--%>
 </div>
 
 
@@ -341,7 +348,7 @@
      function OnClientTabSelecting(sender, eventArgs) {
 
          var tab = eventArgs.get_tab();
-         debugger;
+       
          var security = document.getElementById("hdnSecurityMaster").value;
         
          PageSecurityCheck(security);
@@ -387,7 +394,7 @@
 
          var tab = args.get_tab();
          if (tab.get_value() == '2') {
-             debugger;
+            
              var tree = page.Master;
              alert(tree);
             <%-- var txtCont = document.getElementById('<%= Page.Master.Master.FindControl("rtvLeftMenu").ClientID %>');

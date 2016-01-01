@@ -4,13 +4,16 @@
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
+<%--<%@ Register Src="~/UserControls/GridviewFilter.ascx" TagPrefix="uc1" TagName="GridviewFilter" %>--%>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
     <%-- Registration--%>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Input</title>
-   <!-----  <script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>-->
+     <%--<script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>--%>
      <script src="../Scripts/jquery-1.8.2.js"></script>
      <script src="../Scripts/jquery-1.8.2.min.js"></script>
      <script src="../Scripts/jquery-ui-1.8.24.js"></script>
@@ -18,15 +21,27 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+   <%-- <asp:ScriptManager ID="scmFilter" runat="server" ></asp:ScriptManager>--%>
+
     <asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true">
+       
     </asp:ScriptManager>
+
+    
     <script src="../Scripts/ToolBar.js"></script>
     <script src="../Scripts/Messages.js"></script>
+     
+     
+   <%--  <uc1:GridviewFilter runat="server" ID="GridviewFilter" tableName="vBOQDocumentHeader" />--%>
+         <%--<asp:UpdatePanel ID="upGrid" runat="server" UpdateMode="Always" >
+                <ContentTemplate>   --%>     
+   
     <div class="container" style="width: 100%">
+
         <!-----FORM SECTION---->
         <!-----SECTION TABLE---->
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="200px" OnClientTabSelected="onClientTabSelected" OnClientTabSelecting="OnClientTabSelecting"
-            CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
+            CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false"  >
 
             <Tabs>
                 <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="100px" Height="25px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
@@ -34,7 +49,11 @@
             </Tabs>
         </telerik:RadTabStrip>
         <div id="content">
+
+
             <div class="contentTopBar"></div>
+
+           
             <table style="width: 100%">
                 <tr>
                      
@@ -44,6 +63,10 @@
                             <telerik:RadPageView ID="rpList" runat="server">
 
                                 <div id="divList" style="width: 100%;text-align:center">
+                                  <%--  <asp:Label ID="lblresultReturned" runat="server" Text="Label"></asp:Label>--%>
+
+                            
+                              
                                     <telerik:RadGrid ID="dtgBOQGrid" runat="server" CellSpacing="0" GridLines="None" OnNeedDataSource="dtgBOQGrid_NeedDataSource" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" OnItemCommand="dtgBOQGrid_ItemCommand"
                                         PageSize="10" Width="99%"  >
                                         <HeaderStyle  HorizontalAlign="Center" />
@@ -83,12 +106,22 @@
                                         </MasterTableView>
 
                                     </telerik:RadGrid>
+
+                        
+     <%--                                            <Triggers>
+    <asp:AsyncPostBackTrigger ControlID="dtgBOQGrid" EventName="ItemCommand" />
+</Triggers>--%>
+                     
                                 </div>
                             </telerik:RadPageView>
                              <!-----SECTION TABLE---->
                              <!---SECTION ONE--->
+                                
                             <telerik:RadPageView ID="rpAddEdit" runat="server">
+
+                                
                                 <uc1:ToolBar runat="server" ID="ToolBar" />
+
                                 <div class="col-md-12 Span-One">
                                   
                                     <div class="col-md-6">
@@ -201,7 +234,9 @@
                                      <div class="col-md-6">&nbsp;</div>
                                       <div class="col-md-6"></div>
                                       <div class="col-md-6">
-                                         <div class="col-md-5"></div>
+                                         <div class="col-md-5">
+                                             <a id="attachhref" href="#" onclick="AttachFunction();">ATTACHMENTS</a>
+                                         </div>
                                          <div class="col-md-7">
                                              <asp:Label ID="lblDocumentStatus" CssClass="DocStatusLabel" runat="server"    ClientIDMode="Static"></asp:Label>
                                          </div>
@@ -225,18 +260,29 @@
                             </telerik:RadPageView>
 
                         </telerik:RadMultiPage>
+                         
                     </td>
                 </tr>
             </table>
+
+ 
+              
+        
         </div>
         </div>
+  <%--</ContentTemplate>
+                                </asp:UpdatePanel>--%>
+      
         <!-----FORM SECTION---->
     
 
     <!--<JavaScrict>-->
     <script type="text/javascript">
 
-     
+        function AttachFunction()
+        {
+            parent.AttachmentlinkClick()
+        }
 
         function validate()
         {
@@ -349,16 +395,20 @@
                 }
         
         function onClientTabSelected(sender, args) {
-            debugger;
+           
         var tab = args.get_tab();
-          
+
         if (tab.get_value() == '2')
         {
            
             parent.HideTreeNode();
             //var txtCont = Page.Master.Master.FindControl("rtvLeftMenu").ClientID ;
             //alert(txtCont);
+            <%--document.getElementById('<%=hdnPostbackOnItemCommand.ClientID %>').value = "1";--%>
             hideMe();
+           <%-- var hiddenPostBack = document.getElementById('<%=GridviewFilter.FindControl("hdnPostbackOnItemCommand").ClientID %>');
+            var hiddenPostBackValue = hiddenPostBack.value();
+            hiddenPostBackValue = "View";--%>
 
           //Clear Text boxes When New tab clicks
             ClearBOQHeaderTexBox();
@@ -425,6 +475,7 @@
          }
         function ClearBOQHeaderTexBox()
         {
+           
             document.getElementById('<%=txtDocumentno.ClientID %>').value = "------System Generated Code------";
             document.getElementById('<%=txtDocOwner.ClientID%>').value = "-------Document Owner-------";
             document.getElementById('<%=txtClientdocumentno.ClientID %>').value = "";
@@ -445,9 +496,13 @@
             
         }
         if (btn.get_value() == 'Update') {
+            try {
+
             parent.RevisionHistroyDeleteNode();
 
             args.set_cancel(!validate());
+            } catch (X) { alert(x)}
+            
         }
 
         if (btn.get_value() == 'Edit') {
@@ -462,7 +517,7 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            
+          
 
             $('.accordion-toggle').on('click', function (event) {
 
@@ -478,6 +533,7 @@
 
         function OpenDetailAccordion(id)
         {
+            
             if (id != undefined)//accordion called from accordion click functionjs
             {
                 var accordion = $(id);

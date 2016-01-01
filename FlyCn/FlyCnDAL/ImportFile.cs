@@ -427,6 +427,45 @@ namespace FlyCn.FlyCnDAL
             return datatableobj;
         }
         #endregion Error Details
+        #region getAllExcelImportDetails
+        public DataSet getAllExcelImportDetails(string userName)
+        {
+            DataSet datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("SelectAllExcelImportDetails", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserName", userName);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            datatableobj = new DataSet();
+            adapter.Fill(datatableobj);
+            con.Close();
+            return datatableobj;
+        }
+        #endregion getAllExcelImportDetails
+        #region getDistictExcelImportDetailsByUserName
+        public DataSet getDistictExcelImportDetailsByUserName(string userName)
+        {
+            SqlConnection con = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            DataSet myRec = new DataSet();
+            SqlDataAdapter da = new SqlDataAdapter();
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "SelectCompletedExcelImportDetailsByUserName";
+            cmd.Parameters.AddWithValue("@UserName", userName);
+            cmd.Connection = con;
+            da.SelectCommand = cmd;
+
+            da.Fill(myRec);
+            con.Close();
+            return myRec;
+        }
+        #endregion getDistictExcelImportDetailsByUserName
+
 
         #region getExcelImportDetailsById
         /// <summary>
@@ -714,7 +753,7 @@ namespace FlyCn.FlyCnDAL
                     dataAdapter.Fill(dsFile);
 
 
-                    totalCount = dsFile.Tables[0].Rows.Count;
+                    //totalCount = dsFile.Tables[0].Rows.Count;
 
                     if (dsFile.Tables[0].Rows.Count == 0)
                     {
@@ -773,7 +812,7 @@ namespace FlyCn.FlyCnDAL
                    // int t = 0;
                     //excel data saves in temp file here.
                    // foreach (DataRow row in dt.Rows)
-//for (int i = 0; i < dt.Rows.Count;i++ )
+                   //for (int i = 0; i < dt.Rows.Count;i++ )
                    // {
                       //  excelSheets[i] = row["TABLE_NAME"].ToString();
                      //   SheetName = excelSheets[i];
@@ -826,8 +865,8 @@ namespace FlyCn.FlyCnDAL
                 //ExcelImportDetailsDAL importDetailsObj = new ExcelImportDetailsDAL();
                 CommonDAL tblDef = new CommonDAL();
                 dsTable = tblDef.GetTableDefinition(TableName);//temp table name
-                DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
-                DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
+               // DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
+               // DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
                 //validationObj.status_Id = importDetailsObj.status_Id;
                 //bool columnExistCheck = validationObj.ValidateExcelDataStructure(dsFile, dsTable);
 
@@ -835,7 +874,7 @@ namespace FlyCn.FlyCnDAL
                 //{
                 //    return -1;
                 //}
-
+                totalCount = dsFile.Tables[0].Rows.Count;
                 InitializeExcelImportDetails(ExcelFileName, totalCount);
 
                 dbcon.ConnectDB();
@@ -843,14 +882,11 @@ namespace FlyCn.FlyCnDAL
                 for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
                 {
                     //to know temp
-                    string ProjectNoP = dsFile.Tables[0].Rows[i]["ProjectNo"].ToString();
-                    string ModuleIDP = dsFile.Tables[0].Rows[i]["ModuleID"].ToString();
-                    string TO_SystemP = dsFile.Tables[0].Rows[i]["TO_System"].ToString();
-                    string TO_SubSystemP = dsFile.Tables[0].Rows[i]["TO_SubSystem"].ToString();
-                    string Equipment_Nop = dsFile.Tables[0].Rows[i]["Equipment_No"].ToString();
-                    //to know temp
+                    //string ProjectNoP = dsFile.Tables[0].Rows[i]["ProjectNo"].ToString();
+                    //string ModuleIDP = dsFile.Tables[0].Rows[i]["ModuleID"].ToString();
+                 
 
-                    //Thread.Sleep(200);
+                    Thread.Sleep(200);
                     
                     //int res;
 
@@ -907,29 +943,32 @@ namespace FlyCn.FlyCnDAL
         {
             try
             {
-                SqlCommand cmd = new SqlCommand();
-                //DAL.ExcelImportDAL stdDal = new DAL.ExcelImportDAL();
-                CommonDAL tblDef = new CommonDAL();
-                //DAL.Constants constantList = new DAL.Constants();
-                dbConnection dbcon = new dbConnection();
-               
-            //   dsTable = tblDef.GetTableDefinition(TableName);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = tblDef.GetProcedureName(TableName);
-                cmd.Connection = dbcon.GetDBConnection();
+               SqlCommand cmd = new SqlCommand();
+               CommonDAL tblDef = new CommonDAL();
+               dbConnection dbcon = new dbConnection();
+               cmd.CommandType = CommandType.StoredProcedure;
+               cmd.CommandText = tblDef.GetProcedureName(TableName);
+               cmd.Connection = dbcon.GetDBConnection();
                 for (int j = 0; j < dsTable.Tables[0].Rows.Count; j++)
                 {
                     string paramName = dsTable.Tables[0].Rows[j]["Field_Name"].ToString();
                     string type = dsTable.Tables[0].Rows[j]["Field_DataType"].ToString();
-              
-                    object paramValue = dr[paramName];
-
-                    if (type == "D")
+                    if((dr.Table.Columns.Contains(paramName))!=true)
                     {
-                        cmd.Parameters.AddWithValue(paramName, Convert.ToDateTime(paramValue));
+                          continue;
                     }
                     else
-                        cmd.Parameters.AddWithValue(paramName, paramValue);
+                    {
+                       object paramValue = dr[paramName];
+
+                       if (type == "D")
+                       {
+                           cmd.Parameters.AddWithValue(paramName, Convert.ToDateTime(paramValue));
+                       }
+                       else
+                           cmd.Parameters.AddWithValue(paramName, paramValue);
+                   }
+
                 }
                 cmd.Parameters.AddWithValue("@Updated_By", UserName);
                 cmd.Parameters.AddWithValue("@Updated_Date", System.DateTime.Now);
@@ -945,6 +984,7 @@ namespace FlyCn.FlyCnDAL
                 {
                     return 1;
                 }
+               
             }
             catch (Exception ex)
             {

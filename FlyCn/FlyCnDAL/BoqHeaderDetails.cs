@@ -6,6 +6,7 @@ using System.Web;
 using Telerik.Web.UI;
 using System.Data;
 using System.Web.UI;
+using FlyCn.Approvels;
 namespace FlyCn.FlyCnDAL
 {
     public class BOQHeaderDetails
@@ -17,6 +18,12 @@ namespace FlyCn.FlyCnDAL
         #endregion private variables
 
         #region Boqheaderproperty
+
+        public string RevisionID
+        {
+            get;
+            set;
+        }
         public string RevisionNo
         {
             get;
@@ -62,6 +69,27 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+        public string FileName
+        {
+            get;
+            set;
+        }
+        public string FileType
+        {
+            get;
+            set;
+        }
+        public int FileSize
+        {
+            get;
+            set;
+        }
+        public Guid ImageId
+        {
+            get;
+            set;
+        }
+     
        
         #endregion Boqheaderproperty
      
@@ -232,6 +260,56 @@ namespace FlyCn.FlyCnDAL
             }
         }
         #endregion UpdateBOQ
+
+        #region AttachmentDetails
+        public DataSet GetAllAttachment()
+        {
+            DocumentAttachments doc = new DocumentAttachments();
+            SqlConnection con = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllDocAttachmentDetails]";
+                //Guid.Parse(IdUc_FlyCnFileUpload.RevisionID);
+                cmd.Parameters.Add("@paramId", SqlDbType.UniqueIdentifier).Value =Guid.Parse(RevisionID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataRow dr = ds.Tables[0].Rows[0];
+                    ImageId =Guid.Parse(Convert.ToString( dr["ImageID"]));
+                    FileName = dr["FileName"].ToString();
+                    FileSize = Convert.ToInt32(dr["FileSize"]);
+                    FileType = dr["FileType"].ToString();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+            return ds;
+        }
+        #endregion AttachmentDetails
+
 
         public DataSet GetBOQHeader(Guid RevisionID)
         {

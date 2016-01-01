@@ -19,7 +19,7 @@ namespace FlyCn.EngineeredDataList
         string _moduleId;
         string _TableName;
         string _ProjectNo;
-       string _tree ;
+        string _tree;
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
         ImportFile importObj = new ImportFile();
@@ -29,6 +29,7 @@ namespace FlyCn.EngineeredDataList
         DataSet tempDS = null;
         DataSet dsTable = null;
         List<string> columnNames = new List<string>();
+        List<string> ErrorRows = new List<string>();
         string currentSheet = null;
         bool columnExistCheck=false;
         ErrorHandling eObj = new ErrorHandling();
@@ -36,7 +37,7 @@ namespace FlyCn.EngineeredDataList
         {
                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
                 _moduleId = Request.QueryString["Id"];
-                
+
               
                 //RadTreeView node = new RadTreeView("rvleftmenu");
                 //node.ExpandMode = TreeNodeExpandMode.ServerSideCallBack;
@@ -69,7 +70,7 @@ namespace FlyCn.EngineeredDataList
                 dsobj = moduleObj.GetModule(_moduleId);
                 lblModule.Text = dsobj.Tables[0].Rows[0]["ModuleDesc"].ToString();
                 _TableName = dsobj.Tables[0].Rows[0]["BaseTable"].ToString();
-
+                hdfTableName.Value = _TableName;
                 DataSet ds = new DataSet();
 
                 ds = moduleObj.GetModules();
@@ -222,7 +223,7 @@ namespace FlyCn.EngineeredDataList
                                 if (columnExistCheck == true)
                                 {
                                    
-                                    lblMsg.Text = "Successfully Uploaded!";
+                                    //lblMsg.Text = "Successfully Uploaded!";
                                     ScriptManager.RegisterStartupScript(this, GetType(), "Upload", "GenerateTemplateNextClick();", true);
                                     EnaableButtonandGrid();
                                     CheckBoxAllCheck();
@@ -365,7 +366,7 @@ namespace FlyCn.EngineeredDataList
            }
        }
         public void GridErrorvalidateBind(Guid _statusid)
-        {//hdfErrorRow
+        {
             
             DataSet ds = new DataSet();
             if (_statusid != Guid.Empty)
@@ -378,8 +379,7 @@ namespace FlyCn.EngineeredDataList
 
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    //temp = temp + ds.Tables[0].Rows[0]["Key_Field"].ToString()+ "||";
-                    temp = temp + dr["Key_Field"].ToString() + "||";
+                  temp = temp + dr["Key_Field"].ToString() + "|";
                 }
 
 
@@ -404,7 +404,6 @@ namespace FlyCn.EngineeredDataList
                     {
 
                         (dataItem.FindControl("CheckBox1") as CheckBox).Checked = checkHeader;
-                       // dataItem.Selected = headerCheckBox.Checked;
                     }
                 }
             }
@@ -438,7 +437,7 @@ namespace FlyCn.EngineeredDataList
                     {
                         // checkHeader = false;
                         columnNames.Add(dataItem["Field_Name"].Text);
-                        temp = temp + dataItem["Field_Name"].Text + "||";
+                        temp = temp + dataItem["Field_Name"].Text + "|";
                     }
                 }
                 hdfremovedField.Value = temp;
@@ -466,6 +465,71 @@ namespace FlyCn.EngineeredDataList
             }
         }
 
+       public void RemoveErrorRow(DataSet tempDS)
+       {
+           DataSet checkds = new DataSet();
+           checkds = tempDS;
+           DataSet dsTable = new DataSet();
+           CommonDAL tblDef = new CommonDAL();
+           dsTable = tblDef.GetTableDefinition(hdfTableName.Value);//temp table name
+           DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
+           if ((ErrorRows != null) && (checkds != null))
+           {
+                         
+               for (int i = checkds.Tables[0].Rows.Count - 1; i >= 0; i--)
+               {
+                   string temp = "";
+                   DataRow dr = checkds.Tables[0].Rows[i];
+                   //temp = dr["ProjectNo"].ToString() + "," + dr["TagNo"].ToString();
+                   foreach(DataRow drw in keyFieldRow)
+                   {
+                       temp = temp + dr[drw["Field_Name"].ToString()].ToString() + ","; //drw[""].ToString() + "," + dr["TagNo"].ToString();
+                   }
+                   temp = temp.TrimEnd(',');
+                   if(ErrorRows.Contains(temp))
+                   {
+                       dr.Delete();
+                   }
+               }//end of for loop
+               checkds.AcceptChanges();
+           }
+       }
+
+        public void SplitString()
+        {
+             string temps="";
+            if (hdfremovedField.Value != null)
+            {
+                try
+                {
+                    temps = hdfremovedField.Value;
+                    temps = temps.TrimEnd('|');
+                    string[] words = temps.Split('|');
+                    columnNames = new List<string>(words.Length);
+                    columnNames.AddRange(words);
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            if(hdfErrorRow.Value!=null)
+            {
+                try
+                {
+                    temps = hdfErrorRow.Value;
+                    temps = temps.TrimEnd('|');
+                    string[] words = temps.Split('|');
+                    ErrorRows = new List<string>(words.Length);
+                    ErrorRows.AddRange(words);
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+                
+            }
+        }
 
         public void DynamicSheet()
        {
@@ -473,28 +537,36 @@ namespace FlyCn.EngineeredDataList
             {
                 case "CIV":
                     currentSheet = SheetStatus.CIV;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
                 case "ELE":
                     currentSheet = SheetStatus.ELE;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "CAD":
                     currentSheet = SheetStatus.CAD;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "CTL":
                     currentSheet = SheetStatus.CTL;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "INS":
                     currentSheet = SheetStatus.INS;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "MEC":
                     currentSheet = SheetStatus.MEC;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "PIP":
                     currentSheet = SheetStatus.PIP;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "TEL":
                     currentSheet = SheetStatus.TEL;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
             }
@@ -512,14 +584,24 @@ namespace FlyCn.EngineeredDataList
             importObj.fileName = importObj.ExcelFileName;
             tempDS = new DataSet();
             tempDS = importObj.ImportExcelFile();
-           // RemoveColumnFromDS(tempDS);
+            SplitString();
+            RemoveColumnFromDS(tempDS);
+            RemoveErrorRow(tempDS);
+            
+
             //ValidateDataStructure(tempDS);
             importObj.TableName = comDAL.tableName;
             if (hdfstatusID.Value != null)
             {
                 importObj.status_Id = Guid.Parse(hdfstatusID.Value);
             }
-            importObj.InsertFile(tempDS);
+          //  Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
+            //excelImportThread.Start();
+            //importObj.InsertFile(tempDS);
+               new Thread(delegate()
+                    {
+                        importObj.InsertFile(tempDS);
+                    }).Start();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "Import();", true);
         }
     }
