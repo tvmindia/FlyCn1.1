@@ -73,6 +73,12 @@
 
         <%= ClientID%>_SetVisibleButton('Reject', s);
 
+    }
+
+    function <%=ClientID%>_SetAttachVisible(s) {
+
+        <%= ClientID%>_SetVisibleButton('Attach', s);
+
       }
 
 
@@ -190,14 +196,29 @@
 
         if (id == 'Reject') {
             var btn = btnItems.getItem(14);
-            //var sep = btnItems.getItem(9);
+            var sep = btnItems.getItem(15);
             if (value) {
                 btn.set_visible(true);
-               // sep.set_visible(true);
+                sep.set_visible(true);
             }
             else {
                 btn.set_visible(false);
-                //sep.set_visible(false);
+                sep.set_visible(false);
+
+            }
+
+        }
+
+        if (id == 'Attach') {
+            var btn = btnItems.getItem(16);
+            var sep = btnItems.getItem(17);
+            if (value) {
+                btn.set_visible(true);
+                sep.set_visible(true);
+            }
+            else {
+                btn.set_visible(false);
+                sep.set_visible(false);
 
             }
 
@@ -251,29 +272,34 @@ div.RadToolBar_Metro .rtbMiddle
             ImageUrl="~/Images/Icons/deleteToolbarIcon.png" DisabledImageUrl="~/Images/Icons/deleteToolbarIconDisabled.png" >
            
         </telerik:RadToolBarButton>
-              <telerik:RadToolBarButton Value="UpdateEditSeperator" IsSeparator="true" runat="server"    > </telerik:RadToolBarButton>
+              <telerik:RadToolBarButton Value="UpdateEditSeperator" IsSeparator="true" runat="server"  style="display:none"  > </telerik:RadToolBarButton>
          <telerik:RadToolBarButton runat="server" Text="" Value="Edit"    ImagePosition="Left"   ToolTip="Edit"   style="display:none"
             ImageUrl="~/Images/Icons/editToolBarIcon.png" DisabledImageUrl="~/Images/Icons/editToolBarIconDisabled.png" >
            
         </telerik:RadToolBarButton>
 
-          <telerik:RadToolBarButton Value="EditApproveSeperator" IsSeparator="true" runat="server"    > </telerik:RadToolBarButton>
+          <telerik:RadToolBarButton Value="EditApproveSeperator" IsSeparator="true" runat="server"  style="display:none"  > </telerik:RadToolBarButton>
          <telerik:RadToolBarButton runat="server" Text="" Value="Approve"    ImagePosition="Left"   ToolTip="Approve"   style="display:none"
             ImageUrl="~/Images/Icons/approveToolbarIcon.png" DisabledImageUrl="~/Images/Icons/addToolbarIconDisabled.png" >
            
         </telerik:RadToolBarButton>
 
-          <telerik:RadToolBarButton Value="ApproveDeclineSeperator" IsSeparator="true" runat="server"    > </telerik:RadToolBarButton>
+          <telerik:RadToolBarButton Value="ApproveDeclineSeperator" IsSeparator="true" runat="server"   style="display:none" > </telerik:RadToolBarButton>
          <telerik:RadToolBarButton runat="server" Text="" Value="Decline"    ImagePosition="Left"   ToolTip="Decline"   style="display:none"
             ImageUrl="~/Images/Icons/declineToolbarIcon.png" DisabledImageUrl="~/Images/Icons/declineToolbarIconDisabled.png" >
            
         </telerik:RadToolBarButton>
 
-          <telerik:RadToolBarButton Value="DeclineRejectSeperator" IsSeparator="true" runat="server"    > </telerik:RadToolBarButton>
+          <telerik:RadToolBarButton Value="DeclineRejectSeperator" IsSeparator="true" runat="server"   style="display:none" > </telerik:RadToolBarButton>
          <telerik:RadToolBarButton runat="server" Text="" Value="Reject"    ImagePosition="Left"   ToolTip="Reject"   style="display:none"
             ImageUrl="~/Images/Icons/rejectToolbarIcon.png" DisabledImageUrl="~/Images/Icons/rejectToolbarIconDisabled.png" >
-           
-        </telerik:RadToolBarButton>
+             </telerik:RadToolBarButton>
+
+               <telerik:RadToolBarButton Value="RejectAttachSeperator" IsSeparator="true" runat="server"   style="display:none" > </telerik:RadToolBarButton>
+         <telerik:RadToolBarButton runat="server" Text="" Value="Attach"    ImagePosition="Left"   ToolTip="Attach"   style="display:none"
+            ImageUrl="~/Images/Icons/attachToolbarIcon.png" DisabledImageUrl="~/Images/Icons/attachToolbarIconDisabled.png" >
+           </telerik:RadToolBarButton>
+        
 
     </Items>
 </telerik:RadToolBar>
