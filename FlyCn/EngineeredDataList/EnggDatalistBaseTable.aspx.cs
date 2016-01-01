@@ -223,7 +223,7 @@ namespace FlyCn.EngineeredDataList
                                 if (columnExistCheck == true)
                                 {
                                    
-                                    lblMsg.Text = "Successfully Uploaded!";
+                                    //lblMsg.Text = "Successfully Uploaded!";
                                     ScriptManager.RegisterStartupScript(this, GetType(), "Upload", "GenerateTemplateNextClick();", true);
                                     EnaableButtonandGrid();
                                     CheckBoxAllCheck();
