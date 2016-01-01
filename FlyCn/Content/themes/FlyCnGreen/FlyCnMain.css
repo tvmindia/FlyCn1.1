@@ -738,3 +738,7 @@ transition: .1s ease;
     font-size:medium;
       font-family:'Segoe UI';
 }
+
+.smallTile {
+    font-size:x-small;
+}

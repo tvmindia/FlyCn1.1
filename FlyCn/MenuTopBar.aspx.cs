@@ -11,7 +11,10 @@ namespace FlyCn
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            UIClasses.DynamicIcons ui = new UIClasses.DynamicIcons();
 
+            string myInnerHtml = ui.generateTopMenuImages(null);//ui.GenerateImageString(null);
+            maindiv.Controls.Add(new LiteralControl(myInnerHtml));
         }
     }
 }

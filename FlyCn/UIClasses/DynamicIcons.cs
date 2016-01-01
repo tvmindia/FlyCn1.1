@@ -132,6 +132,52 @@ namespace FlyCn.UIClasses
             return myInnerHtml;
         }
 
+        public string generateTopMenuImages(string id) {
+            string result="";
+            try
+            {
+                FlyCnDAL.DynamicIcons da = new FlyCnDAL.DynamicIcons();
+                DataSet ds;
+                if (id == null)
+                {
+
+                    ds = da.getMenuNames();
+                }
+                else
+                {
+                    ds = da.getSubMenuNames(id);
+                }
+
+                result = result + "<div class='row'>";
+                for (int f = 0; f < ds.Tables[0].Rows.Count; f++)
+                {
+                    string colorClass = GetTheme(ds, f);
+                    string img = ds.Tables[0].Rows[f]["imgUrl"].ToString();
+                    string desc = ds.Tables[0].Rows[f]["description"].ToString();
+                    string imgStr = "<img " + "tinyImg" + " src=" + "'" + img + "'" + " onclick" + "=" + "bindimage('" + ds.Tables[0].Rows[f]["menuId"].ToString() + "','" + desc + "','" + colorClass.Trim() + "') border=" + "0" + " alt=Submission Form" + "/>";
+
+                    result = result + "<div class='col-xs-3 Tiles " + colorClass + " smallTile'>" + desc +imgStr + "</div>";
+                    if ((f+1) % 4 == 0) {
+                        result = result + "</div><div class='row'>";
+                    }
+                
+                }
+                result = result + "</div>";
+
+
+
+                return result;
+            }
+            catch (Exception)
+            {
+
+                return "";
+            }
+
+        
+        }
+
+
         public string GenerateMultiSizeImageString(string id)
         {
             
