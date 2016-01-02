@@ -14,31 +14,56 @@ namespace FlyCn.Approvels
     public partial class DocumentAttachments : System.Web.UI.Page
     {
         BOQHeaderDetails boqObj = new BOQHeaderDetails();
+        BOQDetails detailsObj = new BOQDetails();
          public Guid Id;
          public string _RevisionID = "";
+         public string _Type = "";
+         public string ItemID;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["RevisionId"] != null)
             {
                _RevisionID = Request.QueryString["RevisionId"];
-                
+               _Type = Request.QueryString["type"];
+               if (Request.QueryString["ItemID"] != "undefined")
+               {
+                   ItemID = Request.QueryString["ItemID"];
+               }
+               else
+               {
+                   ItemID = "00000000-0000-0000-0000-000000000000";
+               }
             }
             IdUc_FlyCnFileUpload.Id = 5;
             if (!IsPostBack)
             {
+               
                 if (Request.QueryString["RevisionId"] != null)
                 {
                     _RevisionID = Request.QueryString["RevisionId"];
                     hdfRevisionID.Value = _RevisionID;
+                    _Type = Request.QueryString["type"];
+                    boqObj.Type = _Type;
+                    if (Request.QueryString["ItemID"] != "undefined")
+                    {
+                        ItemID = Request.QueryString["ItemID"];
+                    }
+                    else
+                    {
+                        ItemID = "00000000-0000-0000-0000-000000000000";
+                    }
                 }
                 BindData();
-                GridView1.GridLines = GridLines.None;
+              //  GridView1.GridLines = GridLines.None;
                
             }
             hdfRevisionID.Value = _RevisionID;
             IdUc_FlyCnFileUpload.RevisionID = _RevisionID;
             hdfRevisionID.Value = _RevisionID;//////
-            
+           // string type_value = _Type;
+            IdUc_FlyCnFileUpload.type_value = _Type;
+            IdUc_FlyCnFileUpload.ItemID = ItemID;
+            boqObj.Type = _Type;
         }
     
         protected void btnsubmit_Click(object sender, EventArgs e)
@@ -49,13 +74,14 @@ namespace FlyCn.Approvels
         public void BindData()
         
         {
+
             DataSet ds = new DataSet();
-            BOQHeaderDetails boqObj = new BOQHeaderDetails();
+
             boqObj.RevisionID = hdfRevisionID.Value;
+           // boqObj.Type = _Type;
             ds = boqObj.GetAllAttachment();
             GridView1.DataSource = ds;
-        //  Id =Guid.Parse(GridView1.SelectedRow.Cells[0].Text);
-         //   Id =(Guid)ds.Tables[0].Rows[0]["ImageID"];
+       
             try
             {
                 GridView1.DataBind();
@@ -69,7 +95,7 @@ namespace FlyCn.Approvels
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             DataSet ds = new DataSet();
-            BOQHeaderDetails boqObj = new BOQHeaderDetails();
+           // BOQHeaderDetails boqObj = new BOQHeaderDetails();
             boqObj.RevisionID = hdfRevisionID.Value;
             ds = boqObj.GetAllAttachment();
             //Id = (Guid)ds.Tables[0].Rows[0]["ImageID"];

@@ -4,15 +4,39 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   
-     <table>
-            <tr>
-                <td> <uc1:uc_flycnfileupload runat="server" ID="IdUc_FlyCnFileUpload" /></td>
-           
-                <td><asp:Button ID="btnsubmit" runat="server" Text="Upload" OnClick="btnsubmit_Click" /></td>
-            </tr>
+   <style>
+       #table1
+       {
+          margin-left:15%;
+
+       }
+        .tblList
+       {
+          margin-left:15%;
+       
+        padding:15px;
+        
+       }
+
+         .Grid, .Grid th, .Grid td
+{
+    border:1px solid #DCDCDC;
+  
+}
+
+
+   </style>
+   <table id="table1">
+       <tr>
+          <td>   <uc1:uc_flycnfileupload runat="server" ID="IdUc_FlyCnFileUpload" /></td>
+           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+             <td>  <asp:Button ID="btnsubmit" runat="server" Text="Upload" OnClick="btnsubmit_Click" /></td>
+           </tr>
+           </table>
+    <br />
+         <table id="table2" class="tblList">
     <tr><td>
-         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" Height="111px" Width="293px" DataKeyNames="ImageID">
+         <asp:GridView ID="GridView1"  CssClass="Grid"    runat="server" CellPadding="5" CellSpacing="10" AutoGenerateColumns="False" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" Height="111px" Width="400px" DataKeyNames="ImageID">
              <Columns>
 
                  <asp:BoundField DataField="ImageID" HeaderText="ImageID"
@@ -29,4 +53,5 @@
           </table>
     <asp:HiddenField ID="popuprefreshRequired" runat="server"  ClientIDMode="Static"/>
     <asp:HiddenField ID="hdfRevisionID" runat="server" ClientIDMode="Static"/>
+    <asp:HiddenField ID="hdfItemID" runat="server" ClientIDMode="Static" />
 </asp:Content>

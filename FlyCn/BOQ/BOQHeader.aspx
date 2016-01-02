@@ -281,7 +281,7 @@
 
         function AttachFunction()
         {
-            parent.AttachmentlinkClick()
+            parent.AttachmentlinkClick('BOQHeader')
         }
 
         function validate()
