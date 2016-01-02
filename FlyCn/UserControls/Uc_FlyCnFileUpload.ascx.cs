@@ -26,7 +26,16 @@ namespace Proj1
            get;
            set;
        }
-       
+       public string type_value
+       {
+           get;
+           set;
+       }
+       public string ItemID
+       {
+           get;
+           set;
+       }
         //TextBox DaTxtBox = this.Parent.FindControl("Some_Text_Box"); 
         //code for getting value from parent page(aspx) to useercontrol page
         FlyCn.UIClasses.Const Const = new FlyCn.UIClasses.Const();
@@ -36,6 +45,7 @@ namespace Proj1
             UA = (FlyCn.FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             if ((IsPostBack == false))
             {
+              
                 //DropFill();
             }
            // Guid RevId = boqObj.RevisionID;
@@ -76,7 +86,7 @@ namespace Proj1
             bool isValidFile = false;
             string[] validFileTypes = { "bmp", "gif", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx", "pdf" };
             string ext = System.IO.Path.GetExtension(FileUpload1.PostedFile.FileName);
-
+           
             for (int i = 0; i < validFileTypes.Length; i++)
             {
                 if (ext == "." + validFileTypes[i])
@@ -128,7 +138,7 @@ namespace Proj1
                         cmd.Connection = cntion.GetDBConnection();
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.CommandText = "[InsertDocAttachmentDetails]";
-
+                        
                        // cmd.Parameters.Add("@paramId", SqlDbType.Int).Value = Id;
                         cmd.Parameters.Add("@Filename", SqlDbType.NVarChar, 100).Value = FileUpload1.FileName.ToString();
                         cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = FileUpload1.FileContent;
@@ -136,7 +146,13 @@ namespace Proj1
                         cmd.Parameters.Add("@Filesize", SqlDbType.Int).Value = fileSize;
                         cmd.Parameters.Add("@Date",SqlDbType.SmallDateTime).Value=System.DateTime.Now;
                         cmd.Parameters.Add("@userName", SqlDbType.VarChar, 50).Value = UA.userName;
+                        cmd.Parameters.Add("@Type",SqlDbType.VarChar,50).Value=type_value;
+                        
+                            cmd.Parameters.Add("@itemID", SqlDbType.UniqueIdentifier).Value = (Guid.Parse(ItemID) != Guid.Empty) ? Guid.Parse(ItemID) : Guid.Empty;
+                      
+                       
                         cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value =Guid.Parse(RevisionID);
+                        
                         SqlParameter ouparamid = cmd.Parameters.Add("@outparamid", SqlDbType.UniqueIdentifier);
                         ouparamid.Direction = ParameterDirection.Output;
                         cmd.ExecuteNonQuery();

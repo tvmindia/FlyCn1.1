@@ -38,6 +38,7 @@ namespace FlyCn.EngineeredDataList
 
          public void PlaceLandingPageIcons()
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.HideTreeNode();", true);
             Modules moduleObj = new Modules();
             DataSet ds = new DataSet();
             ds = moduleObj.GetModules();

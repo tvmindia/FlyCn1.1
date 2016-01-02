@@ -13,9 +13,8 @@
  <script src="../Content/themes/FlyCnBlue/js/jquery.min.js"></script>
 </asp:Content>
 <%-- Registration--%>
-
-
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+   
 
 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <script src="../Scripts/ToolBar.js"></script>
@@ -37,7 +36,11 @@
                 <ContentTemplate>  --%>
 
         <div id="content">
-            <div class="contentTopBar"></div>
+
+            <div class="contentTopBar">
+
+            </div>
+
             <table style="width: 100%">
                 <tr>
                      
@@ -90,6 +93,7 @@
                                         </MasterTableView>
 
                                     </telerik:RadGrid>
+
                                 </div>
                             </telerik:RadPageView>
                              <!--Radpage view Ends here-->
@@ -97,6 +101,9 @@
                               <!----RadPage view edit begins here---->
   <!----EDIT SECTION--->
  <telerik:RadPageView ID="rpBOQDetailAddEdit" runat="server">
+      <div class="col-md-10" style="text-align:right;">
+                                             <a id="attachhref" href="#" onclick="AttachFunction();">ATTACHMENTS</a>
+                                         </div>
  <uc1:ToolBar runat="server" ID="ToolBarBOQDetail" />
 
  <!---SECTION ONE--->
@@ -345,6 +352,12 @@
 <!--<JavaScrict>-->
 
  <script type="text/javascript">
+     function AttachFunction() {
+         debugger;
+         var itemID = document.getElementById('<%=hdfItemId.ClientID %>').value
+         parent.parent.AttachmentlinkClick('BOQDetail', itemID)
+     }
+
      function OnClientTabSelecting(sender, eventArgs) {
 
          var tab = eventArgs.get_tab();
