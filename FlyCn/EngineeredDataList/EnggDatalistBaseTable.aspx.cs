@@ -223,7 +223,7 @@ namespace FlyCn.EngineeredDataList
                                 if (columnExistCheck == true)
                                 {
                                    
-                                    lblMsg.Text = "Successfully Uploaded!";
+                                    //lblMsg.Text = "Successfully Uploaded!";
                                     ScriptManager.RegisterStartupScript(this, GetType(), "Upload", "GenerateTemplateNextClick();", true);
                                     EnaableButtonandGrid();
                                     CheckBoxAllCheck();
@@ -366,7 +366,7 @@ namespace FlyCn.EngineeredDataList
            }
        }
         public void GridErrorvalidateBind(Guid _statusid)
-        {//hdfErrorRow
+        {
             
             DataSet ds = new DataSet();
             if (_statusid != Guid.Empty)
@@ -379,8 +379,7 @@ namespace FlyCn.EngineeredDataList
 
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    //temp = temp + ds.Tables[0].Rows[0]["Key_Field"].ToString()+ "||";
-                    temp = temp + dr["Key_Field"].ToString() + "|";
+                  temp = temp + dr["Key_Field"].ToString() + "|";
                 }
 
 
@@ -405,7 +404,6 @@ namespace FlyCn.EngineeredDataList
                     {
 
                         (dataItem.FindControl("CheckBox1") as CheckBox).Checked = checkHeader;
-                       // dataItem.Selected = headerCheckBox.Checked;
                     }
                 }
             }
@@ -477,22 +475,7 @@ namespace FlyCn.EngineeredDataList
            DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
            if ((ErrorRows != null) && (checkds != null))
            {
-               //foreach (string str in ErrorRows)
-               //{
-                
-               //       for (int i = checkds.Tables[0].Rows.Count - 1; i >= 0; i--)
-
-               //       {
-               //         DataRow dr = checkds.Tables[0].Rows[i];
-               //         string[] words = str.Split(',');
-               //         if (dr["projectno"] ==str)
-               //         {
-               //             dr.Delete();
-               //             break;
-               //         }
-               //       }
-               //}
-              
+                         
                for (int i = checkds.Tables[0].Rows.Count - 1; i >= 0; i--)
                {
                    string temp = "";
@@ -612,7 +595,13 @@ namespace FlyCn.EngineeredDataList
             {
                 importObj.status_Id = Guid.Parse(hdfstatusID.Value);
             }
-            importObj.InsertFile(tempDS);
+          //  Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
+            //excelImportThread.Start();
+            //importObj.InsertFile(tempDS);
+               new Thread(delegate()
+                    {
+                        importObj.InsertFile(tempDS);
+                    }).Start();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "Import();", true);
         }
     }

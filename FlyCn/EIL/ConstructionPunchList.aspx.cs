@@ -1666,7 +1666,7 @@ namespace FlyCn.EIL
                 Response.AddHeader("content-disposition",
                                                 "attachment;filename=" + file);
             }
-            else if (strExtenstion == ".txt")
+            else if (strExtenstion == ".txt" || strExtenstion == ".pdf")
             {
                 Response.ContentType = "application/pdf";
                 Response.AddHeader("content-disposition",

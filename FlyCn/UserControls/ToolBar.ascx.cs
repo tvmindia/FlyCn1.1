@@ -20,6 +20,7 @@ namespace FlyCn.UserControls
         public ApproveBtn ApproveButton;
         public DeclineBtn DeclineButton;
         public RejectBtn RejectButton;
+        public AttachBtn AttachButton;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,6 +38,7 @@ namespace FlyCn.UserControls
               ApproveButton = new ApproveBtn(CommonToolBar);
               DeclineButton = new DeclineBtn(CommonToolBar);
               RejectButton = new RejectBtn(CommonToolBar);
+              AttachButton = new AttachBtn(CommonToolBar);
 
 
         }
@@ -492,12 +494,12 @@ namespace FlyCn.UserControls
                     if (value)
                     {
                         CommonToolBar.FindItemByValue("Reject").Style["display"] = "";
-                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "";
+                        CommonToolBar.FindItemByValue("RejectAttachSeperator").Style["display"] = "";
                     }
                     else
                     {
                         CommonToolBar.FindItemByValue("Reject").Style["display"] = "none";
-                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "none";
+                        CommonToolBar.FindItemByValue("RejectAttachSeperator").Style["display"] = "none";
                     }
 
 
@@ -509,6 +511,64 @@ namespace FlyCn.UserControls
             {
 
                 CommonToolBar.FindItemByValue("Reject").Attributes.Add("OnClick", JavaScriptFunction);
+            }
+
+
+        }
+
+        public class AttachBtn
+        {
+            public RadToolBar CommonToolBar;
+
+            public AttachBtn(RadToolBar ToolBar)
+            {
+                this.CommonToolBar = ToolBar;
+            }
+
+
+            //------------------ Edit  -----------------------------------------------
+            public bool Visible
+            {
+
+                get
+                {
+                    if (CommonToolBar.FindItemByValue("Attach").Style["display"] == "block" || CommonToolBar.FindItemByValue("Attach").Style["display"] == "")
+                    {
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+
+
+
+                set
+                {
+
+                    if (value)
+                    {
+                        CommonToolBar.FindItemByValue("Attach").Style["display"] = "";
+                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "";
+                    }
+                    else
+                    {
+                        CommonToolBar.FindItemByValue("Attach").Style["display"] = "none";
+                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "none";
+                    }
+
+
+                }
+
+
+            }
+            public void registerScript_onClientClick(string JavaScriptFunction)
+            {
+
+                CommonToolBar.FindItemByValue("Attach").Attributes.Add("OnClick", JavaScriptFunction);
             }
 
 
@@ -536,6 +596,7 @@ namespace FlyCn.UserControls
                this.ApproveButton.Visible = value;
                this.DeclineButton.Visible = value;
                this.RejectButton.Visible = value;
+               this.AttachButton.Visible = value;
            
            }
         

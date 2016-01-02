@@ -23,49 +23,7 @@ namespace FlyCn.FlyCnDAL
 
         ErrorHandling eObj = new ErrorHandling();
 
-        //public string GetSheetName(string tablename)
-        //{
-
-        //    SqlConnection con = null;
-        //    SqlDataAdapter daObj;
-          
-          
-        //    DataSet ds = new DataSet();
-        //    string procName = "";
-        //    string fieldName = "";
-
-        //    try
-        //    {
-             
-        //        dbConnection dcon = new dbConnection();
-        //        con = dcon.GetDBConnection();
-        //        UIClasses.Const Const = new UIClasses.Const();
-        //        FlyCnDAL.Security.UserAuthendication UA;
-        //        HttpContext context = HttpContext.Current;
-        //        UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
-        //        string selectQuery = "GetProcedureName";
-        //        SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
-        //        cmdSelect.CommandType = CommandType.StoredProcedure;
-              
-        //        cmdSelect.Parameters.AddWithValue("@tablename", tablename);
-        //        daObj = new SqlDataAdapter(cmdSelect);
-        //        daObj.Fill(ds);
-        //        SqlParameter ouputprocedurename = cmdSelect.Parameters.Add("@procedurename", SqlDbType.NVarChar, 50);
-        //        ouputprocedurename.Direction = ParameterDirection.Output;
-        //        cmdSelect.ExecuteNonQuery();
-        //        procName = ouputprocedurename.Value.ToString();
-        //        SqlParameter ouputFieldName = cmdSelect.Parameters.Add("@sheetname", SqlDbType.NVarChar, 50);
-        //        ouputFieldName.Direction = ParameterDirection.Output;
-        //        cmdSelect.ExecuteNonQuery();
-        //        procName = ouputprocedurename.Value.ToString();
-
-        //        return fieldName;
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+     
         public void GenerateExcelTemplate(string projno, string tablename)
         {
 
@@ -127,11 +85,19 @@ namespace FlyCn.FlyCnDAL
                 foreach (DataRow row in rows)
                 {
                     ExcelWorkSheet.Columns.AutoFit();
-                    string name = Convert.ToString(row["Field_Name"]);
+                    string name = Convert.ToString(row["Field_Description"]);
 
                     ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
 
+                    string isMandatory = Convert.ToString(row["ExcelMustFields"]);
 
+
+                    if (isMandatory == "Y")
+                    {
+                     //   ExcelWorkSheet.Cells[colIndex, rowIndex + 1].Value = "*";
+                        //ExcelWorkSheet.Cells[colIndex, rowIndex + 1].style("color", "red");
+                        ExcelWorkSheet.Cells[colIndex, rowIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+                    }
                     rowIndex++;
                 }
 
@@ -141,12 +107,25 @@ namespace FlyCn.FlyCnDAL
 
                 colIndex = 1;
                 rowIndex = 1;
-
+               
                 ExcelWorkSheet = ExcelWorkBook.Worksheets[2];
+                ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Name";
+                colIndex = 1;
+                rowIndex =2;
+                ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Mandatory Fields";
+                colIndex = 1;
+                rowIndex = 3;
+                ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Column Type";
+                colIndex = 1;
+                rowIndex =4;
+                ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Size";
+                ExcelWorkSheet.Cells[1, 4].EntireRow.Font.Bold = true;
+                colIndex = 2;
+                rowIndex = 1;
                 foreach (DataRow row in rows)
                 {
                     ExcelWorkSheet.Columns.AutoFit();
-                    string name = Convert.ToString(row["Field_Name"]);
+                    string name = Convert.ToString(row["Field_Description"]);
 
                     ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
                     string isMandatory = Convert.ToString(row["ExcelMustFields"]);
@@ -160,9 +139,46 @@ namespace FlyCn.FlyCnDAL
                     }
                     colIndex++;
 
+                }
+                colIndex = 2;
+                rowIndex =3;
+                foreach (DataRow row in rows)
+                {
+                    ExcelWorkSheet.Columns.AutoFit();
+                    string name = Convert.ToString(row["Field_DataType"]);
+                    if(name=="S" || name=="C" || name=="A")
+                    {
+                        ExcelWorkSheet.Cells[colIndex, rowIndex].Value ="Text";
+                    }
+                    else
+                        if(name=="D")
+                        {
+                            ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Date";
+                        }
+                  
+                        else
+                            if(name=="N")
+                        {
+                            ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Number";
+                        }
 
+                    colIndex++;
 
                 }
+                colIndex = 2;
+                rowIndex = 4;
+                foreach (DataRow row in rows)
+                {
+                    ExcelWorkSheet.Columns.AutoFit();
+                    string name = Convert.ToString(row["Field_Size"]);
+
+                    ExcelWorkSheet.Cells[colIndex, rowIndex].Value = name;
+                           
+                    colIndex++;
+
+                }
+
+                rowIndex = 1;
 
                 ExcelWorkSheet.Cells[colIndex, rowIndex].Value = "Note: * marked fields are mandatory";
                 ExcelWorkSheet.Cells[colIndex, rowIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
@@ -215,11 +231,7 @@ namespace FlyCn.FlyCnDAL
                 
                 throw new Exception(exHandle.Message + errorstatus);
             }
-     
-
         }
-
-
 
     }
 }

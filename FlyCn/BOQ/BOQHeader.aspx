@@ -510,6 +510,13 @@
            
         }
 
+        if (btn.get_value() == 'Attach') {
+            AttachFunction();
+            args.set_cancel(true);
+
+
+        }
+
     }
 
 
