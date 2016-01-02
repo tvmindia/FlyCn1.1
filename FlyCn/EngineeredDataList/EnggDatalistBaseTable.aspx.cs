@@ -452,15 +452,18 @@ namespace FlyCn.EngineeredDataList
             {
               foreach (string str in columnNames)
                {
-                 for (int i = checkds.Tables[0].Columns.Count - 1; i >= 0; i--)
+                  if(str!="")
                   {
+                   for (int i = checkds.Tables[0].Columns.Count - 1; i >= 0; i--)
+                   {
                     DataColumn column = checkds.Tables[0].Columns[i];
                     if (column.ColumnName == str)
                      {
                        tempDS.Tables[0].Columns.Remove(str);
                        break;
                      }
-                  } 
+                   } 
+                 }//end of if
                }
             }
         }
@@ -597,11 +600,11 @@ namespace FlyCn.EngineeredDataList
             }
           //  Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
             //excelImportThread.Start();
-            //importObj.InsertFile(tempDS);
-               new Thread(delegate()
-                    {
-                        importObj.InsertFile(tempDS);
-                    }).Start();
+            importObj.InsertFile(tempDS);
+               //new Thread(delegate()
+               //     {
+               //         importObj.InsertFile(tempDS);
+               //     }).Start();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "Import();", true);
         }
     }
