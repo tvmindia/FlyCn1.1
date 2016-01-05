@@ -94,6 +94,15 @@ namespace FlyCn.ProjectParameters {
         protected global::FlyCn.UserControls.ToolBar ToolBar;
         
         /// <summary>
+        /// lblProjectNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProjectNo;
+        
+        /// <summary>
         /// txtProjNo control.
         /// </summary>
         /// <remarks>
@@ -103,13 +112,13 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtProjNo;
         
         /// <summary>
-        /// span2 control.
+        /// lblProjectName  control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span2;
+        protected global::System.Web.UI.WebControls.Label lblProjectName ;
         
         /// <summary>
         /// txtProjName control.
@@ -121,13 +130,13 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtProjName;
         
         /// <summary>
-        /// span1 control.
+        /// lblProjectLocation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span1;
+        protected global::System.Web.UI.WebControls.Label lblProjectLocation;
         
         /// <summary>
         /// txtLocation control.
@@ -139,13 +148,13 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtLocation;
         
         /// <summary>
-        /// span3 control.
+        /// lblProjectManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span3;
+        protected global::System.Web.UI.WebControls.Label lblProjectManager;
         
         /// <summary>
         /// txtManager control.
@@ -157,13 +166,13 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtManager;
         
         /// <summary>
-        /// span4 control.
+        /// lblBaseProject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span4;
+        protected global::System.Web.UI.WebControls.Label lblBaseProject;
         
         /// <summary>
         /// txtBaseProject control.
@@ -175,6 +184,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtBaseProject;
         
         /// <summary>
+        /// lblActive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblActive;
+        
+        /// <summary>
         /// CheckboxActive control.
         /// </summary>
         /// <remarks>
@@ -182,6 +200,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckboxActive;
+        
+        /// <summary>
+        /// lblCompanyName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCompanyName;
         
         /// <summary>
         /// txtCompanyName control.
@@ -193,6 +220,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtCompanyName;
         
         /// <summary>
+        /// lblAddress1  control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAddress1 ;
+        
+        /// <summary>
         /// txtAddress1 control.
         /// </summary>
         /// <remarks>
@@ -200,6 +236,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAddress1;
+        
+        /// <summary>
+        /// lblAddress2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAddress2;
         
         /// <summary>
         /// txtAddress2 control.
@@ -211,6 +256,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtAddress2;
         
         /// <summary>
+        /// lblTelephone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTelephone;
+        
+        /// <summary>
         /// txtTelephone control.
         /// </summary>
         /// <remarks>
@@ -218,6 +272,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTelephone;
+        
+        /// <summary>
+        /// lblFax control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFax;
         
         /// <summary>
         /// txtFax control.
@@ -229,6 +292,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtFax;
         
         /// <summary>
+        /// lblEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEmail;
+        
+        /// <summary>
         /// txtEmail control.
         /// </summary>
         /// <remarks>
@@ -236,6 +308,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEmail;
+        
+        /// <summary>
+        /// lblWebsite control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWebsite;
         
         /// <summary>
         /// txtWebsite control.
@@ -283,6 +364,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.Label lblmsg;
         
         /// <summary>
+        /// lblClientName  control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClientName ;
+        
+        /// <summary>
         /// txtClientName control.
         /// </summary>
         /// <remarks>
@@ -290,6 +380,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtClientName;
+        
+        /// <summary>
+        /// lblContractDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblContractDetails;
         
         /// <summary>
         /// txtContractDetails control.
@@ -301,6 +400,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtContractDetails;
         
         /// <summary>
+        /// lblTelephone1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTelephone1;
+        
+        /// <summary>
         /// txtClientTelephone control.
         /// </summary>
         /// <remarks>
@@ -308,6 +416,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtClientTelephone;
+        
+        /// <summary>
+        /// lblClientFax control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClientFax;
         
         /// <summary>
         /// txtClientFax control.
@@ -319,6 +436,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtClientFax;
         
         /// <summary>
+        /// lblClientEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClientEmail;
+        
+        /// <summary>
         /// txtClientEmail control.
         /// </summary>
         /// <remarks>
@@ -326,6 +452,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtClientEmail;
+        
+        /// <summary>
+        /// lblClientWebsite control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClientWebsite;
         
         /// <summary>
         /// txtClientWebsite control.
@@ -373,6 +508,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.Label lblmsg1;
         
         /// <summary>
+        /// lblImplementationEngineer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblImplementationEngineer;
+        
+        /// <summary>
         /// txtImplementation control.
         /// </summary>
         /// <remarks>
@@ -380,6 +524,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtImplementation;
+        
+        /// <summary>
+        /// lblProjectAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProjectAdmin;
         
         /// <summary>
         /// txtProjectAdmin control.
@@ -391,6 +544,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtProjectAdmin;
         
         /// <summary>
+        /// lblPunchListFromCompany  control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPunchListFromCompany ;
+        
+        /// <summary>
         /// txtPunchList control.
         /// </summary>
         /// <remarks>
@@ -398,6 +560,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPunchList;
+        
+        /// <summary>
+        /// lblPunchListFromPerson control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPunchListFromPerson;
         
         /// <summary>
         /// txtPunchListPerson control.
@@ -409,6 +580,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtPunchListPerson;
         
         /// <summary>
+        /// lblPunchListToCompany control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPunchListToCompany;
+        
+        /// <summary>
         /// txtPunchListToCompany control.
         /// </summary>
         /// <remarks>
@@ -416,6 +596,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPunchListToCompany;
+        
+        /// <summary>
+        /// lblPunchListTOPerson control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPunchListTOPerson;
         
         /// <summary>
         /// txtPunchListToPerson control.
@@ -427,6 +616,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtPunchListToPerson;
         
         /// <summary>
+        /// lblPlant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPlant;
+        
+        /// <summary>
         /// txtPlant control.
         /// </summary>
         /// <remarks>
@@ -434,6 +632,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPlant;
+        
+        /// <summary>
+        /// lblArea control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblArea;
         
         /// <summary>
         /// txtArea control.
@@ -445,6 +652,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtArea;
         
         /// <summary>
+        /// lblLocation  control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLocation ;
+        
+        /// <summary>
         /// txtCaptionLocation control.
         /// </summary>
         /// <remarks>
@@ -452,6 +668,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCaptionLocation;
+        
+        /// <summary>
+        /// lblSystem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSystem;
         
         /// <summary>
         /// txtSystem control.
@@ -463,6 +688,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtSystem;
         
         /// <summary>
+        /// SubSystem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label SubSystem;
+        
+        /// <summary>
         /// txtsubsystem control.
         /// </summary>
         /// <remarks>
@@ -470,6 +704,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtsubsystem;
+        
+        /// <summary>
+        /// blbMiscManpowerTracking control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label blbMiscManpowerTracking;
         
         /// <summary>
         /// txtManPower control.
@@ -481,6 +724,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtManPower;
         
         /// <summary>
+        /// lblOtherCost1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOtherCost1;
+        
+        /// <summary>
         /// txtOtherCost1 control.
         /// </summary>
         /// <remarks>
@@ -488,6 +740,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOtherCost1;
+        
+        /// <summary>
+        /// lblOtherCost2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOtherCost2;
         
         /// <summary>
         /// txtOtherCost2 control.
@@ -499,6 +760,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtOtherCost2;
         
         /// <summary>
+        /// lblOtherCost3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOtherCost3;
+        
+        /// <summary>
         /// txtOtherCost3 control.
         /// </summary>
         /// <remarks>
@@ -506,6 +776,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOtherCost3;
+        
+        /// <summary>
+        /// lblPaymentCurrency control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPaymentCurrency;
         
         /// <summary>
         /// txtPaymentCurrency control.
@@ -517,6 +796,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtPaymentCurrency;
         
         /// <summary>
+        /// lblLunchBreakMinutes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLunchBreakMinutes;
+        
+        /// <summary>
         /// txtLunchBreakMinutes control.
         /// </summary>
         /// <remarks>
@@ -524,6 +812,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLunchBreakMinutes;
+        
+        /// <summary>
+        /// lblLevel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLevel1;
         
         /// <summary>
         /// txtLevel1 control.
@@ -535,6 +832,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtLevel1;
         
         /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
         /// txtLevel2 control.
         /// </summary>
         /// <remarks>
@@ -542,6 +848,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLevel2;
+        
+        /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
         /// txtLevel3 control.
@@ -553,6 +868,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtLevel3;
         
         /// <summary>
+        /// lblClient1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClient1;
+        
+        /// <summary>
         /// txtClient1 control.
         /// </summary>
         /// <remarks>
@@ -562,6 +886,15 @@ namespace FlyCn.ProjectParameters {
         protected global::System.Web.UI.WebControls.TextBox txtClient1;
         
         /// <summary>
+        /// lblClient2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClient2;
+        
+        /// <summary>
         /// txtClient2 control.
         /// </summary>
         /// <remarks>
@@ -569,6 +902,15 @@ namespace FlyCn.ProjectParameters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtClient2;
+        
+        /// <summary>
+        /// lblThirdParty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblThirdParty;
         
         /// <summary>
         /// txtThirdParty control.
