@@ -39,7 +39,7 @@ namespace FlyCn.FlyCnDAL
             /// </summary>
             /// <param name="datarow from the result dataset of the excel file"></param>
             /// <returns>success/failure and error datatable</returns>
-            public int excelDatasetValidation(DataRow dr, DataSet dsTable)
+            public int excelDatasetValidation(DataRow dr, DataSet dsTable,int rowNO)
             {
                 DataTable dtError = CreateErrorTable();
                 DataSet dsError = new DataSet();
@@ -121,7 +121,8 @@ namespace FlyCn.FlyCnDAL
 
                     if (flag == true)
                     {
-                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString());
+                        rowNO= rowNO + 2;
+                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(),rowNO);
                         return -1;
                     }
                     else return 1;
