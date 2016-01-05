@@ -11,6 +11,7 @@ using System.Data.OleDb;
 using System.Threading;
 using System.Web.Caching;
 using System.IO;
+using System.Diagnostics;
 
 namespace FlyCn.FlyCnDAL
 {
@@ -33,7 +34,6 @@ namespace FlyCn.FlyCnDAL
         //{
 
         //    status_Id = Guid.NewGuid();
-
         //}
 
         //public ImportFile(Guid StatusId)
@@ -349,14 +349,10 @@ namespace FlyCn.FlyCnDAL
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
-
             dbConnection dcon = new dbConnection();
             try
             {
-
-
                 con = dcon.GetDBConnection();
-
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "UpdateExcelImportDetails";
                 cmd.Connection = con;
@@ -382,7 +378,7 @@ namespace FlyCn.FlyCnDAL
             {
                 if (con != null)
                 {
-                    con.Close();
+                    dcon.DisconectDB();
                 }
             }
 
@@ -857,28 +853,21 @@ namespace FlyCn.FlyCnDAL
         {
             try
             {
-                //DataTable dtError = validationObj.CreateErrorTable();
-                DataSet dsTable = new DataSet();
-                //DAL.Constants constantList = new DAL.Constants();
-                // DAL.ExcelImportDAL importDal = new DAL.ExcelImportDAL();
-                dbConnection dbcon = new dbConnection();
-                //ExcelImportDetailsDAL importDetailsObj = new ExcelImportDetailsDAL();
-                CommonDAL tblDef = new CommonDAL();
-                dsTable = tblDef.GetTableDefinition(TableName);//temp table name
+               int insertResult;
+               DataSet dsTable = new DataSet();
+               dbConnection dbcon = new dbConnection();
+               CommonDAL tblDef = new CommonDAL();
+               dsTable = tblDef.GetTableDefinition(TableName);//temp table name
                // DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
                // DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
-                //validationObj.status_Id = importDetailsObj.status_Id;
-                //bool columnExistCheck = validationObj.ValidateExcelDataStructure(dsFile, dsTable);
-
-                //if (columnExistCheck == false)
+               //validationObj.status_Id = importDetailsObj.status_Id;
+               //bool columnExistCheck = validationObj.ValidateExcelDataStructure(dsFile, dsTable);
+               //if (columnExistCheck == false)
                 //{
                 //    return -1;
                 //}
                 totalCount = dsFile.Tables[0].Rows.Count;
                 InitializeExcelImportDetails(ExcelFileName, totalCount);
-
-                dbcon.ConnectDB();
-
                 for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
                 {
                     //to know temp
@@ -886,7 +875,7 @@ namespace FlyCn.FlyCnDAL
                     //string ModuleIDP = dsFile.Tables[0].Rows[i]["ModuleID"].ToString();
                  
 
-                    Thread.Sleep(200);
+                    //Thread.Sleep(200);
                     
                     //int res;
 
@@ -897,7 +886,7 @@ namespace FlyCn.FlyCnDAL
                     //}
                     //else if (res == 1)
                    // {
-                        int insertResult;
+                       
                         insertResult = InsertExcelFile(dsTable,dsFile.Tables[0].Rows[i]);
                         if (insertResult == 1)
                         {
@@ -913,7 +902,7 @@ namespace FlyCn.FlyCnDAL
                 }
 
                 UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Finished);
-                dbcon.DisconectDB();
+               
             }
             catch (Exception ex)
             {
@@ -941,11 +930,12 @@ namespace FlyCn.FlyCnDAL
         /// <returns>success or failure</returns>
         public int InsertExcelFile(DataSet dsTable,DataRow dr)
         {
+            dbConnection dbcon=null;
             try
             {
                SqlCommand cmd = new SqlCommand();
                CommonDAL tblDef = new CommonDAL();
-               dbConnection dbcon = new dbConnection();
+               dbcon = new dbConnection();
                cmd.CommandType = CommandType.StoredProcedure;
                cmd.CommandText = tblDef.GetProcedureName(TableName);
                cmd.Connection = dbcon.GetDBConnection();
@@ -992,6 +982,10 @@ namespace FlyCn.FlyCnDAL
             }
             finally
             {
+                if(dbcon!=null)
+                {
+                    dbcon.DisconectDB();
+                }
 
             }
             return 0;

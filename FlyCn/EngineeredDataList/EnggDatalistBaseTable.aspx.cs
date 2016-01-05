@@ -223,7 +223,7 @@ namespace FlyCn.EngineeredDataList
                                 if (columnExistCheck == true)
                                 {
                                    
-                                    lblMsg.Text = "Successfully Uploaded!";
+                                    //lblMsg.Text = "Successfully Uploaded!";
                                     ScriptManager.RegisterStartupScript(this, GetType(), "Upload", "GenerateTemplateNextClick();", true);
                                     EnaableButtonandGrid();
                                     CheckBoxAllCheck();
@@ -427,7 +427,7 @@ namespace FlyCn.EngineeredDataList
 
         public void CheckBoxColumns()
         {
-          string temp="";
+          string temp=null;
             GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
             if(headerItem!=null)
             {
@@ -452,15 +452,18 @@ namespace FlyCn.EngineeredDataList
             {
               foreach (string str in columnNames)
                {
-                 for (int i = checkds.Tables[0].Columns.Count - 1; i >= 0; i--)
+                  if(str!="")
                   {
+                   for (int i = checkds.Tables[0].Columns.Count - 1; i >= 0; i--)
+                   {
                     DataColumn column = checkds.Tables[0].Columns[i];
                     if (column.ColumnName == str)
                      {
                        tempDS.Tables[0].Columns.Remove(str);
                        break;
                      }
-                  } 
+                   } 
+                 }//end of if
                }
             }
         }
@@ -473,10 +476,9 @@ namespace FlyCn.EngineeredDataList
            CommonDAL tblDef = new CommonDAL();
            dsTable = tblDef.GetTableDefinition(hdfTableName.Value);//temp table name
            DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
-           if ((ErrorRows != null) && (checkds != null))
+           if ((ErrorRows.Count >0) && (checkds != null))
            {
-                         
-               for (int i = checkds.Tables[0].Rows.Count - 1; i >= 0; i--)
+              for (int i = checkds.Tables[0].Rows.Count - 1; i >= 0; i--)
                {
                    string temp = "";
                    DataRow dr = checkds.Tables[0].Rows[i];
@@ -518,10 +520,13 @@ namespace FlyCn.EngineeredDataList
                 try
                 {
                     temps = hdfErrorRow.Value;
-                    temps = temps.TrimEnd('|');
-                    string[] words = temps.Split('|');
-                    ErrorRows = new List<string>(words.Length);
-                    ErrorRows.AddRange(words);
+                    if (temps != "")
+                    {
+                        temps = temps.TrimEnd('|');
+                        string[] words = temps.Split('|');
+                        ErrorRows = new List<string>(words.Length);
+                        ErrorRows.AddRange(words);
+                    }
                 }
                 catch(Exception ex)
                 {
@@ -597,11 +602,12 @@ namespace FlyCn.EngineeredDataList
             }
           //  Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
             //excelImportThread.Start();
-            //importObj.InsertFile(tempDS);
-               new Thread(delegate()
-                    {
-                        importObj.InsertFile(tempDS);
-                    }).Start();
+            importObj.InsertFile(tempDS);
+            
+               //new Thread(delegate()
+               //     {
+               //         importObj.InsertFile(tempDS);
+               //     }).Start();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "Import();", true);
         }
     }

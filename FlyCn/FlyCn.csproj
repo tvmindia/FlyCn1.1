@@ -328,6 +328,8 @@
     <Content Include="Images\Icons\approveToolbarIcon.png" />
     <Content Include="Images\Icons\approveToolbarIconDisabled.png" />
     <Content Include="Images\Icons\arrow-right3232.png" />
+    <Content Include="Images\Icons\attachToolbarIcon.png" />
+    <Content Include="Images\Icons\attachToolbarIconDisabled.png" />
     <Content Include="Images\Icons\boq.png" />
     <Content Include="Images\Icons\Cables And Drum16.png" />
     <Content Include="Images\Icons\Cables And Drum48.png" />

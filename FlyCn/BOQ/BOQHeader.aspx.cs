@@ -299,6 +299,7 @@ namespace FlyCn.BOQ
                     ToolBar.UpdateButton.Visible = false;
                     ToolBar.EditButton.Visible = true;
                     ToolBar.DeleteButton.Visible = false;
+                    ToolBar.AttachButton.Visible = false;
                    break;
                    case 2:
                     ToolBar.AddButton.Visible = true;
@@ -306,6 +307,7 @@ namespace FlyCn.BOQ
                     ToolBar.UpdateButton.Visible = true;
                     ToolBar.EditButton.Visible = false;
                     ToolBar.DeleteButton.Visible = false;
+                    ToolBar.AttachButton.Visible = true;
                    break;
                            
                 case 3:
@@ -314,6 +316,7 @@ namespace FlyCn.BOQ
                     ToolBar.UpdateButton.Visible = false;
                     ToolBar.EditButton.Visible = false;
                     ToolBar.DeleteButton.Visible = false;
+                    ToolBar.AttachButton.Visible = false;
                    break;
 
 
@@ -323,6 +326,7 @@ namespace FlyCn.BOQ
                     ToolBar.UpdateButton.Visible = false;
                     ToolBar.EditButton.Visible = false;
                     ToolBar.DeleteButton.Visible = false;
+                    ToolBar.AttachButton.Visible = false;
                    break;
                   
             }

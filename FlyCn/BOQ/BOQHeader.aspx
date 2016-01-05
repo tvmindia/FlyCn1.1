@@ -281,7 +281,7 @@
 
         function AttachFunction()
         {
-            parent.AttachmentlinkClick()
+            parent.AttachmentlinkClick('BOQHeader')
         }
 
         function validate()
@@ -508,6 +508,13 @@
         if (btn.get_value() == 'Edit') {
 
            
+        }
+
+        if (btn.get_value() == 'Attach') {
+            AttachFunction();
+            args.set_cancel(true);
+
+
         }
 
     }

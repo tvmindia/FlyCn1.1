@@ -89,7 +89,11 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-     
+        public string Type
+        {
+            get;
+            set;
+        }
        
         #endregion Boqheaderproperty
      
@@ -278,6 +282,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.CommandText = "[GetAllDocAttachmentDetails]";
                 //Guid.Parse(IdUc_FlyCnFileUpload.RevisionID);
                 cmd.Parameters.Add("@paramId", SqlDbType.UniqueIdentifier).Value =Guid.Parse(RevisionID);
+                cmd.Parameters.Add("@Type", SqlDbType.VarChar, 50).Value = Type;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();

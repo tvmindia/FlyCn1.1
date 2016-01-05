@@ -230,7 +230,7 @@ namespace FlyCn.BOQ
                       txtGroup4.Text = ds.Tables[0].Rows[0]["Group4"].ToString();
                       txtGroup5.Text = ds.Tables[0].Rows[0]["Group5"].ToString();
 
-
+                 
                       if ((hdfDocumentStatus.Value == DocStatus.Closed) || (hdfDocumentStatus.Value == DocStatus.Approved))
                       {
                           ToolBarVisibility(4);////Disable display of Toolbar

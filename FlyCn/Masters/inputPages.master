@@ -406,7 +406,7 @@
             
         }
 
-        function AttachmentlinkClick()
+        function AttachmentlinkClick(type, ItemID)
         {
             debugger;
             var splitter = $find("<%= RadSplitter1.ClientID %>");
@@ -417,7 +417,7 @@
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
           
-                document.getElementById('IframeDocumentAttachment').src = "../Approvels/DocumentAttachments.aspx?RevisionId=" + hiddenFieldRevisionID.value;
+            document.getElementById('IframeDocumentAttachment').src = "../Approvels/DocumentAttachments.aspx?RevisionId=" + hiddenFieldRevisionID.value + "&type=" + type + "&ItemID=" + ItemID;
                 DocumentAttachmentWindow();
            
         }

@@ -27,11 +27,7 @@ namespace FlyCn.FlyCnDAL
                 set;
             }
 
-            public Guid status_Id
-            {
-                get;
-                set;
-            }
+            
 
             #endregion Public Properties
 
