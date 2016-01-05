@@ -99,6 +99,73 @@
     </script>
 
     <script type="text/javascript">
+        $(document).ready(function () {
+            //------------------------For Security-----------------------------------------------//
+            debugger;
+            //var security = document.getElementById("hdnSecurityMaster").value;
+            //DisableButtons();
+            //Page Postback
+            <%-- if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "EditData")
+            {
+                EnableButtonsForEdit();
+            }
+            else
+                if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "ViewDetailColumn")
+                {
+                    DisableButtons();
+                }--%>
+
+            //----------------------------------------------------------------------------------//
+            id = document.getElementById('IDAccordion');
+
+            OpenDetailAccordion(id);
+            parent.showTreeNode();
+
+            $('.accordion-toggle').on('click', function (event) {
+
+                event.preventDefault();
+                // create accordion variables
+                var accordion = $(this);
+                var accordionContent = accordion.next('.accordion-content');
+                var accordionToggleIcon = $(this).children('.toggle-icon');
+
+                // toggle accordion link open class
+                accordion.toggleClass("open");
+                // toggle accordion content
+                accordionContent.slideToggle(250);
+
+                // change plus/minus icon
+                if (accordion.hasClass("open")) {
+                    accordionToggleIcon.html("<i class='fa fa-minus-circle'></i>");
+                } else {
+                    accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
+                }
+
+            });
+
+        });
+
+
+        function OpenDetailAccordion(id) {
+            if (id != undefined)//accordion called from accordion click functionjs
+            {
+                var accordion = $(id);
+                var accordionContent = accordion.next('.accordion-content');
+                var accordionToggleIcon = accordion.children('.toggle-icon');
+
+                // toggle accordion link open class
+                accordion.toggleClass("open");
+                // toggle accordion content
+                accordionContent.slideToggle(250);
+
+                // change plus/minus icon
+                if (accordion.hasClass("open")) {
+                    accordionToggleIcon.html("<i class='fa fa-minus-circle'></i>");
+                } else {
+                    accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
+                }
+            }
+        }
 
         function OnClientTabSelecting(sender, eventArgs) {
             var tab = eventArgs.get_tab();
@@ -204,11 +271,7 @@
            <div id="content">
                 <%-- For Security ViewDetailColumn--%>
             <div class="contentTopBar"></div>
-            <table style="width:100%">
-                <tr>
-                    <td>&nbsp
-                    </td>
-                    <td>
+          
 
             <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
 
@@ -242,362 +305,445 @@
 
                     <uc1:ToolBar runat="server" ID="ToolBar" />
 
-                     <%-- Tracking Details--%>
-                                               <div class="accordion-container"> <a href="#" class="accordion-toggle" id="IDAccordion">Project Wizard 
-                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a> </div>
-
-  <div class="accordion-content"> 
-                                      <div class="col-sm-4">
-                                    <div class="col-sm-4">
+                     <%-- Project Details--%>
+                                  <div class="accordion-container"> <a href="#" class="accordion-toggle" id="IDAccordion">Project Details
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                                      <div class="col-md-12 Span-One">
+                                    <div class="col-md-6">
                                       <div class="form-group">
-                    
-                    <table>
-                        <tr>
-                            <td>&nbsp&nbsp</td>
-                            <td>
-                                <div>
-                                    <table>
-                                        <tr>
-                                            <td class="size">Project No </td>
-                                            <td class="size">
+                   <asp:Label ID="lblProjectNo" runat="server" Text="ProjectNo"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
                                                 <asp:TextBox ID="txtProjNo" runat="server"></asp:TextBox>
-                                                <span id="span2" runat="server" style="color: red; font-size: 5px; font-weight: 50; font-family: Trebuchet MS;">*</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Project Name </td>
-                                            <td>
+                                            </div>
+                                          </div>
+                                        </div>
+                                           <div class="col-md-6">
+                                      <div class="form-group">
+                                         <asp:Label ID="lblProjectName" runat="server" Text="Project Name"  class="control-label col-md-5" for="email3"></asp:Label>
+                                              <div class="col-md-7">
                                                 <asp:TextBox ID="txtProjName" runat="server"></asp:TextBox>
-                                                <span id="span1" runat="server" style="color: red; font-size: 5px; font-weight: 50; font-family: Trebuchet MS;">*</span>
-                                            </td>
-                                            <td class="myclass">&nbsp;&nbsp;</td>
-                                            <td class="size">Project Location </td>
-                                            <td class="size">
+                                               </div>
+                                          </div>
+                                               </div>
+                                                 <div class="col-md-6">
+                                      <div class="form-group">
+                                            <asp:Label ID="lblProjectLocation" runat="server" Text="Project Location"  class="control-label col-md-5" for="email3"></asp:Label>
+                                                <div class="col-md-7">
                                                 <asp:TextBox ID="txtLocation" runat="server"></asp:TextBox>
-                                                <span id="span3" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Project Manager </td>
-                                            <td>
+                                               </div>
+                                          </div>
+                                                     </div>
+                                                         <div class="col-md-6">
+                                      <div class="form-group">
+                                                       <asp:Label ID="lblProjectManager" runat="server" Text="Project Manager"  class="control-label col-md-5" for="email3"></asp:Label>
+                                                   <div class="col-md-7">
                                                 <asp:TextBox ID="txtManager" runat="server"></asp:TextBox>
-                                                <span id="span4" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
-                                            </td>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td>Base Project </td>
-                                            <td>
+                                                       </div>
+                                               </div>
+                                                             </div>
+                                           <div class="col-md-6">
+                                      <div class="form-group">
+                                          <asp:Label ID="lblBaseProject" runat="server" Text="Base Project"  class="control-label col-md-5" for="email3"></asp:Label>
+                                            <div class="col-md-7">
                                                 <asp:TextBox ID="txtBaseProject" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Active </td>
-                                            <td>
+                                            </div>
+                                          </div>
+                                               </div>
+                                          <div class="col-md-6">
+                                      <div class="form-group">
+                                          <asp:Label ID="lblActive" runat="server" Text="Active"  class="control-label col-md-5" for="email3"></asp:Label>
+                                            <div class="col-md-7">
+                                         
+                                          
                                                 <asp:CheckBox ID="CheckboxActive" runat="server" AutoPostBack="false" />
-                                            </td>
-                                        </tr>
+                                         </div>
+                                          </div>
+                                              </div>
+                                        </div>
+                                 </div>
+                                      </div>
 
-                                    </table>
-                                </div>
-                                <br />
-                                <hr />
-                                <br />
-                                <div>
-                                    <table>
-                                        <tr>
-                                            <td class="headings">Company Details </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="size">Company Name </td>
-                                            <td class="size">
-                                                <asp:TextBox ID="txtCompanyName" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td class="myclass">&nbsp;&nbsp;</td>
-                                            <td class="size">Address1 </td>
-                                            <td class="size">
+                <%--  Company Details--%>
+                       <div class="accordion-container"> <a href="#" class="accordion-toggle" >Company Details
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                                      <div class="col-md-12 Span-One">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblCompanyName" runat="server" Text="Company Name"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                          <asp:TextBox ID="txtCompanyName" runat="server"></asp:TextBox>
+                                          </div></div>
+                                        </div>
+                                            <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblAddress1" runat="server" Text="Address1"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                           
                                                 <asp:TextBox ID="txtAddress1" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Address2 </td>
-                                            <td>
+                                           </div>
+                                          </div>
+                                                </div>
+                                           <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblAddress2" runat="server" Text="Address2 "  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                         
                                                 <asp:TextBox ID="txtAddress2" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td>Telephone </td>
-                                            <td>
+                                           
+                                          </div>
+                                          </div></div>
+                                            <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblTelephone" runat="server" Text="Telephone"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                         
+                                            
                                                 <asp:TextBox ID="txtTelephone" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Fax </td>
-                                            <td>
+                                         </div>
+                                          </div>
+                                                </div>
+                                              <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblFax" runat="server" Text="Fax"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
                                                 <asp:TextBox ID="txtFax" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td>Email </td>
-                                            <td>
+                                          </div>
+                                          </div>
+                                                  </div>
+                                               <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblEmail" runat="server" Text="Email"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
                                                 <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Website </td>
-                                            <td>
+                                        </div>
+                                          </div>
+                                                   </div>
+                                           <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblWebsite" runat="server" Text="Website"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                          
                                                 <asp:TextBox ID="txtWebsite" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td>
+                                          </div>
+                                          </div>
+                                               </div>
+                                              <div class="col-md-6">
+                                      <div class="form-group">
                                                 <asp:Label ID="lblComapnyLogo" runat="server" Text="Company Logo"></asp:Label>
-                                            </td>
-                                            <td>
+                                             <div class="col-md-7">
                                                 <asp:FileUpload ID="fuLogo" runat="server" Height="22px" Width="175px" />
                                                 <asp:ImageButton ID="imbCompany" runat="server" Height="20px" Width="20px" />
                                                 <asp:Label ID="lblmsg" runat="server" Text=""></asp:Label>
-                                            </td>
-                                            <td>&nbsp;</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <br />
-                                <hr />
-                                <br />
-                                <div>
-                                    <table>
-                                        <tr>
-                                            <td class="headings">Client Details </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="size">Client Name </td>
-                                            <td class="size">
+                                         </div>
+                                          </div>
+                                                  </div>
+                               </div>
+                                 </div>
+                           </div>
+             <%--       Client Details--%>
+                     <div class="accordion-container"> <a href="#" class="accordion-toggle" >Client Details
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                                      <div class="col-md-12 Span-One">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblClientName" runat="server" Text="Client Name "  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                    
+                                        
+                                        
                                                 <asp:TextBox ID="txtClientName" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td class="myclass">&nbsp;&nbsp;</td>
-                                            <td class="size">Contract Details </td>
-                                            <td class="size">
+                                          </div>
+                                          </div>
+                                        </div>
+                                             <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblContractDetails" runat="server" Text="Contract Details "  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                    
+                                      
                                                 <asp:TextBox ID="txtContractDetails" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Telephone </td>
-                                            <td>
+                                      
+                                     </div>
+                                          </div>
+                                                 </div>
+                                             <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblTelephone1" runat="server" Text="Telephone"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                            
                                                 <asp:TextBox ID="txtClientTelephone" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td>Fax </td>
-                                            <td>
+                                       </div>
+                                          </div></div>
+                                             <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblClientFax" runat="server" Text="Client Fax"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
                                                 <asp:TextBox ID="txtClientFax" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email </td>
-                                            <td>
+                                         </div>
+                                          </div>
+                                                 </div>
+                                               <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblClientEmail" runat="server" Text="Client Email"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                         
                                                 <asp:TextBox ID="txtClientEmail" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td>Website </td>
-                                            <td>
+                                            </div>
+                                          </div>
+                                                   </div>
+                                             <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblClientWebsite" runat="server" Text="Website"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                           
                                                 <asp:TextBox ID="txtClientWebsite" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <asp:Label ID="lblClientLogo" runat="server" Text="Client Logo"></asp:Label>
-                                            </td>
-                                            <td>
+                                          </div>
+                                          </div>
+                                                 </div>
+                                             <div class="col-md-6">
+                                      <div class="form-group">
+                 <asp:Label ID="lblClientLogo" runat="server" Text="Client Logo"></asp:Label>
+                                         <div class="col-md-7">
+                                                
+                                         
                                                 <asp:FileUpload ID="fuClientLogo" runat="server" Height="22px" Width="175px" />
                                                 <asp:ImageButton ID="imbClientLogo" runat="server" Height="20px" Width="20px" />
                                                 <asp:Label ID="lblmsg1" runat="server" Text=""></asp:Label>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <br />
-                                <hr />
-                                <br />
-                                <div>
-                                    <table>
-                                        <tr>
-                                            <td class="headings">Admin Details </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="size">Implementation Engineer </td>
-                                            <td class="size">
+                                    </div>
+                                          </div>
+                                                 </div>
+                                          </div></div>
+                         </div>
+<%--  Admin Details--%>
+                                     <div class="accordion-container"> <a href="#" class="accordion-toggle" >Admin Details
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                                      <div class="col-md-12 Span-One">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblImplementationEngineer" runat="server" Text=" Implementation Engineer"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                     
                                                 <asp:TextBox ID="txtImplementation" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td class="myclass">&nbsp;&nbsp;</td>
-                                            <td class="size">Project Admin </td>
-                                            <td class="size">
-                                                <asp:TextBox ID="txtProjectAdmin" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Punch List From Company </td>
-                                            <td>
-                                                <asp:TextBox ID="txtPunchList" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td>Punch List From Person </td>
-                                            <td>
-                                                <asp:TextBox ID="txtPunchListPerson" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Punch List To Company </td>
-                                            <td>
-                                                <asp:TextBox ID="txtPunchListToCompany" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td>Punch List TO Person </td>
-                                            <td>
-                                                <asp:TextBox ID="txtPunchListToPerson" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <br />
-                                <hr />
-                                <br />
-                                <div>
-                                    <table>
-                                        <tr>
-                                            <td class="headings">Caption For Project Fields </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="size">Plant</td>
-                                            <td class="size">
-                                                <asp:TextBox ID="txtPlant" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td class="myclass">&nbsp;&nbsp;</td>
-                                            <td class="size">Area </td>
-                                            <td class="size">
-                                                <asp:TextBox ID="txtArea" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Location </td>
-                                            <td>
-                                                <asp:TextBox ID="txtCaptionLocation" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td>System </td>
-                                            <td>
-                                                <asp:TextBox ID="txtSystem" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>SubSystem </td>
-                                            <td>
-                                                <asp:TextBox ID="txtsubsystem" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td>Misc Manpower Tracking </td>
-                                            <td>
-                                                <asp:TextBox ID="txtManPower" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <br />
-                                <hr />
-                                <br />
-                                <div>
-                                    <table>
-                                        <tr>
-                                            <td class="headings">Man Hours Related Captions </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="size">Other Cost1 </td>
-                                            <td class="size">
-                                                <asp:TextBox ID="txtOtherCost1" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td class="myclass">&nbsp;&nbsp;</td>
-                                            <td class="size">Other Cost2 </td>
-                                            <td class="size">
-                                                <asp:TextBox ID="txtOtherCost2" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Other Cost3 </td>
-                                            <td>
-                                                <asp:TextBox ID="txtOtherCost3" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td>Payment Settings </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Payment Currency </td>
-                                            <td>
-                                                <asp:TextBox ID="txtPaymentCurrency" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td>Lunch Break Minutes </td>
-                                            <td>
-                                                <asp:TextBox ID="txtLunchBreakMinutes" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <br />
-                                <hr />
-                                <br />
-                                <div>
-                                    <table>
-                                        <tr>
-                                            <td class="headings">Hierarchy Captions </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="size">Level 1 </td>
-                                            <td class="size">
-                                                <asp:TextBox ID="txtLevel1" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td class="myclass">&nbsp;&nbsp;</td>
-                                            <td class="size">Level 2 </td>
-                                            <td class="size">
-                                                <asp:TextBox ID="txtLevel2" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Level 3 </td>
-                                            <td>
-                                                <asp:TextBox ID="txtLevel3" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <br />
-                                <hr />
-                                <br />
-                                <div>
-                                    <table>
-                                        <tr>
-                                            <td class="headings">Client Related Captions </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="size">Client 1 </td>
-                                            <td class="size">
-                                                <asp:TextBox ID="txtClient1" runat="server"></asp:TextBox>
-                                            </td>
-                                            <td class="myclass">&nbsp;&nbsp;</td>
-                                            <td class="size">Client 2 </td>
-                                            <td class="size">
-                                                <asp:TextBox ID="txtClient2" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Third Party </td>
-                                            <td>
-                                                <asp:TextBox ID="txtThirdParty" runat="server"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                                          
+                                           </div>
                                           </div>
                                         </div>
+                                             <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblProjectAdmin" runat="server" Text="Project Admin "  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                         
+                                                <asp:TextBox ID="txtProjectAdmin" runat="server"></asp:TextBox>
+                                     </div>
+                                          </div>
+                                                 </div>
+                                                <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblPunchListFromCompany" runat="server" Text="Punch List From Company"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                          
+                                                <asp:TextBox ID="txtPunchList" runat="server"></asp:TextBox>
+                                           </div>
+                                          </div>
+                                                    </div>
+  <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblPunchListFromPerson" runat="server" Text="Punch List From Person"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                        
+                                                <asp:TextBox ID="txtPunchListPerson" runat="server"></asp:TextBox>
+                                         </div></div></div>
+                                           <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblPunchListToCompany" runat="server" Text="Punch List To Company"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                          
+                                                <asp:TextBox ID="txtPunchListToCompany" runat="server"></asp:TextBox>
+                                            </div></div></div>
+                                                 <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblPunchListTOPerson" runat="server" Text="Punch List TO Person"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                          
+                                                <asp:TextBox ID="txtPunchListToPerson" runat="server"></asp:TextBox>
+                                   
+                             </div></div></div>
+                                          </div>
+                                 </div></div>
+                    <%--Caption For Project Fields--%>
+                          <div class="accordion-container"> <a href="#" class="accordion-toggle" >Caption For Project Fields
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                                      <div class="col-md-12 Span-One">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblPlant" runat="server" Text="Plant"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                    
+                                                <asp:TextBox ID="txtPlant" runat="server"></asp:TextBox>
+                                          </div></div></div>
+                                           <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblArea" runat="server" Text="Area"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                                <asp:TextBox ID="txtArea" runat="server"></asp:TextBox>
+                                           </div></div></div>
+                                              <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblLocation" runat="server" Text="Location"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                         
+                                                <asp:TextBox ID="txtCaptionLocation" runat="server"></asp:TextBox>
+                                           </div>
+                                          </div>
+                                                  </div>
+                                          <div class="col-md-6">                                              
+                                      <div class="form-group">
+                   <asp:Label ID="lblSystem" runat="server" Text="System"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                
+                                                <asp:TextBox ID="txtSystem" runat="server"></asp:TextBox>
+                                         </div></div></div>
+                                                <div class="col-md-6">                                              
+                                      <div class="form-group">
+                   <asp:Label ID="SubSystem" runat="server" Text="SubSystem"  class="control-label col-md-5" for="email3"></asp:Label>
+                                                      <div class="col-md-7">
+                                                <asp:TextBox ID="txtsubsystem" runat="server"></asp:TextBox>
+                                       </div></div></div>
+                                             <div class="col-md-6">                                              
+                                      <div class="form-group">
+                   <asp:Label ID="blbMiscManpowerTracking" runat="server" Text="Misc Manpower Tracking"  class="control-label col-md-5" for="email3"></asp:Label>
+                                                      <div class="col-md-7">
+                                  
+                                                <asp:TextBox ID="txtManPower" runat="server"></asp:TextBox>
+                               </div>
+                                             </div>
+                                                    </div>
+                                             </div>
+                                    </div>
+                                 </div>
+                  <%--  Man Hours Related Captions --%>
+                      <div class="accordion-container"> <a href="#" class="accordion-toggle" >Man Hours Related Captions 
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                                      <div class="col-md-12 Span-One">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblOtherCost1" runat="server" Text="Other Cost1"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                   
+                                    
+                                                <asp:TextBox ID="txtOtherCost1" runat="server"></asp:TextBox>
+                                          </div></div></div>
+                                             <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblOtherCost2" runat="server" Text="Other Cost2 "  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                 
+                                                <asp:TextBox ID="txtOtherCost2" runat="server"></asp:TextBox>
+                       </div></div></div>
+                                             <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblOtherCost3" runat="server" Text="Other Cost3"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                 
+                                                <asp:TextBox ID="txtOtherCost3" runat="server"></asp:TextBox>
+                                           </div></div></div>
+
+                                         
+                                      <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblPaymentCurrency" runat="server" Text="Payment Currency"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                           
+                                                <asp:TextBox ID="txtPaymentCurrency" runat="server"></asp:TextBox>
+                                          </div></div></div>
+                                            <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblLunchBreakMinutes" runat="server" Text="Lunch Break Minutes"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                          
+                                                <asp:TextBox ID="txtLunchBreakMinutes" runat="server"></asp:TextBox>
+                                         </div>
+                                          </div>
+                                                </div>
+                                          </div>
+                                 </div>
+                          </div>
+                   <%-- Hierarchy Captions --%>
+                                     <div class="accordion-container"> <a href="#" class="accordion-toggle" >Hierarchy Captions 
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                                      <div class="col-md-12 Span-One">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblLevel1" runat="server" Text="Level 1"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                       
+                                         
+                                                <asp:TextBox ID="txtLevel1" runat="server"></asp:TextBox>
+                                          </div></div></div>
+                                           <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="Label2" runat="server" Text="Level 2"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                                <asp:TextBox ID="txtLevel2" runat="server"></asp:TextBox>
+                                       </div>
+                                          </div></div>
+                                                <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="Label3" runat="server" Text="Level 3"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                                <asp:TextBox ID="txtLevel3" runat="server"></asp:TextBox>
+                                         </div></div>
+                                                    </div>
+                                          </div></div></div>
+                 <%--   Client Related Captions--%>
+                                      <div class="accordion-container"> <a href="#" class="accordion-toggle" >Client Related Captions
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
+                              
+                             <div class="accordion-content"> 
+                                      <div class="col-md-12 Span-One">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblClient1" runat="server" Text="Client 1 "  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                    
+                                           
+                                                <asp:TextBox ID="txtClient1" runat="server"></asp:TextBox>
+                      </div></div></div>
+                                         <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblClient2" runat="server" Text="Client 2"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                                <asp:TextBox ID="txtClient2" runat="server"></asp:TextBox>
+                                     </div></div></div>
+                                           <div class="col-md-6">
+                                      <div class="form-group">
+                   <asp:Label ID="lblThirdParty" runat="server" Text="Third Party"  class="control-label col-md-5" for="email3"></asp:Label>
+                                         <div class="col-md-7">
+                                            
+                                                <asp:TextBox ID="txtThirdParty" runat="server"></asp:TextBox>
+                   
+                                          </div>
+                                          </div>
+                                               </div>
+                                      </div>
+                                 </div>
                                           </div>
 
-      </div>
+
                 </telerik:RadPageView>
 
             </telerik:RadMultiPage>
@@ -606,9 +752,7 @@
                 <iframe src="AddNewProject.aspx" style="width: 1000px; height: 500px;"></iframe>
 
             </div>
-                           </td>
-                </tr>
-            </table>
+    
         </div>
      
     </div>

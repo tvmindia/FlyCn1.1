@@ -392,7 +392,7 @@
                    
 
                         <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
-                            <telerik:RadPageView ID="rpList" runat="server">
+                            <telerik:RadPageView ID="rpList" runat="server"> 
 
                                 <div id="divList" style="width: 100%">
 
@@ -403,7 +403,7 @@
 
 
                                     <telerik:RadGrid ID="dtgManageProjectGrid" runat="server" CellSpacing="0"
-                                        GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true" OnItemCommand="dtgManageProjectGrid_ItemCommand"
+                                        GridLines="None" OnNeedDataSourc e="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true" OnItemCommand="dtgManageProjectGrid_ItemCommand"
                                         PageSize="10" Width="100%" Skin="Silk" >
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType">
                                             <Columns>
@@ -1128,7 +1128,7 @@
                                         </div>
                                         <%-- </form>--%>
 
-                                 </div></div>
+                                 </div></div></div>
                                   <div class="accordion-container"> <a href="#" class="accordion-toggle">Attachments 
                                             
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
