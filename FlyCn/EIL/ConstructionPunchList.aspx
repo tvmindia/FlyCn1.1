@@ -403,7 +403,7 @@
 
 
                                     <telerik:RadGrid ID="dtgManageProjectGrid" runat="server" CellSpacing="0"
-                                        GridLines="None" OnNeedDataSourc e="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true" OnItemCommand="dtgManageProjectGrid_ItemCommand"
+                                        GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true" OnItemCommand="dtgManageProjectGrid_ItemCommand"
                                         PageSize="10" Width="100%" Skin="Silk" >
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType">
                                             <Columns>
@@ -1246,7 +1246,7 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
                                         </td>
                                     </tr>
                                 </table>
-                                       </div>
+                                      
 
                                   
                           
