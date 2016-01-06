@@ -30,11 +30,11 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        //public ImportFile()
-        //{
+        public ImportFile()
+        {
 
-        //    status_Id = Guid.NewGuid();
-        //}
+            status_Id = Guid.NewGuid();
+        }
 
         //public ImportFile(Guid StatusId)
         //{
@@ -529,7 +529,7 @@ namespace FlyCn.FlyCnDAL
         /// <param name="ExcelFileName"></param>
         /// <param name="InsertCount"></param>
 
-        public void InsertExcelImportErrorDetails(string KeyField, string ErrorDescription)
+        public void InsertExcelImportErrorDetails(string KeyField, string ErrorDescription,int rowNO)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
@@ -540,14 +540,11 @@ namespace FlyCn.FlyCnDAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "InsertExcelImportErrorDetails";
                 cmd.Connection = con;
-                cmd.Parameters.AddWithValue("@Import_Status_Id", status_Id);
-                cmd.Parameters.AddWithValue("@Key_Field", KeyField);
-                cmd.Parameters.AddWithValue("@Error_Description", ErrorDescription);
-                SqlParameter outparamstatusid = cmd.Parameters.Add("@OutStatus_Id", SqlDbType.UniqueIdentifier);
-                outparamstatusid.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("@Import_Status_Id", SqlDbType.UniqueIdentifier).Value = status_Id;
+                cmd.Parameters.Add("@Key_Field", SqlDbType.NVarChar, 50).Value = KeyField;
+                cmd.Parameters.Add("@Excel_RowNO", SqlDbType.Int).Value = rowNO;//excel error row number
+                cmd.Parameters.Add("@Error_Description", SqlDbType.NVarChar, 250).Value = ErrorDescription;
                 cmd.ExecuteNonQuery();
-                status_Id=Guid.Parse(outparamstatusid.Value.ToString());
-
             }
             catch (Exception ex)
             {
@@ -557,7 +554,7 @@ namespace FlyCn.FlyCnDAL
             {
                 if (con != null)
                 {
-                    con.Close();
+                    dcon.DisconectDB();
                 }
             }
 
@@ -736,8 +733,32 @@ namespace FlyCn.FlyCnDAL
 
         public DataSet ScanExcelFileToDS(string[] excelSheets)
         {
+            //  DataSet dsFile=null;
+            // DataTable dt=null;
+            // DataColumn colum = null;
+            ////column creation
+            //  colum = new DataColumn();
+            //  colum.DataType = System.Type.GetType("System.Int32");
+            //  colum.AutoIncrement = true;
+            //  colum.AutoIncrementSeed = 0;
+            //  colum.AutoIncrementStep = 1;
+            //  colum.ColumnName = "Row_NO";
+            ////column createion
+            //  dt = new DataTable();
+            //  dt.Columns.Add(colum);
+            //  dsFile = new DataSet();
+             
+            //  //dsFile.Tables[0].Add(dt);
+            //  dsFile.Tables.Add(new DataTable());
+              //dsFile.Tables[0].Columns.Add(colum);
+              // dsFile.Tables[0].Columns.Add("column_2", typeof(int));
+        
+            //set column 3 to be before column 4
+            // ds.Tables[0].Columns[3].SetOrdinal(2);
+            //dt.Columns.Add(column);
+           //
             DataSet dsFile = new DataSet();
-              OleDbConnection excelConnection1 = new OleDbConnection(ExcelConnectionString);
+            OleDbConnection excelConnection1 = new OleDbConnection(ExcelConnectionString);
             try
             {
              
@@ -750,13 +771,11 @@ namespace FlyCn.FlyCnDAL
 
 
                     //totalCount = dsFile.Tables[0].Rows.Count;
-
-                    if (dsFile.Tables[0].Rows.Count == 0)
-                    {
-                        failureMessage = "No data found!";
-                        
-                        return dsFile = null;
-                    }
+                    //if (dsFile.Tables[0].Rows.Count == 0)
+                    //{
+                    //    failureMessage = "No data found!";
+                    //    return dsFile = null;
+                    //}
                 }
             }
             catch(Exception ex)

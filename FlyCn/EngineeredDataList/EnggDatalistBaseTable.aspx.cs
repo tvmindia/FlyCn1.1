@@ -63,8 +63,6 @@ namespace FlyCn.EngineeredDataList
           
             if (_moduleId != null)
             {
-
-
                 Modules moduleObj = new Modules();
                 DataSet dsobj = new DataSet();
                 dsobj = moduleObj.GetModule(_moduleId);
@@ -72,7 +70,6 @@ namespace FlyCn.EngineeredDataList
                 _TableName = dsobj.Tables[0].Rows[0]["BaseTable"].ToString();
                 hdfTableName.Value = _TableName;
                 DataSet ds = new DataSet();
-
                 ds = moduleObj.GetModules();
                 string  tabliFirst = "";
                 tabliFirst = " <li style='width:80px;' >" + " <a href='EnggDataListLandingPage.aspx" + "'" + "'" + "'" + ">" + "<img" + " src=" + "'" +
@@ -87,13 +84,8 @@ namespace FlyCn.EngineeredDataList
 
                     horizonaltab.Controls.Add(new LiteralControl(tabhtml));
                 }
-
             }
-
-
         }
-
-        
 
         protected void dtgUploadGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
@@ -416,7 +408,7 @@ namespace FlyCn.EngineeredDataList
             for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
             {
                 int res;
-                res=validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable);
+                res=validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable,i);
                 if (res == -1)
                 {
                     validationObj.importfile.errorCount = validationObj.importfile.errorCount + 1;
@@ -525,7 +517,16 @@ namespace FlyCn.EngineeredDataList
                         temps = temps.TrimEnd('|');
                         string[] words = temps.Split('|');
                         ErrorRows = new List<string>(words.Length);
-                        ErrorRows.AddRange(words);
+                        //ErrorRows.AddRange(words);
+
+                        //for(int i=0;i<ErrorRows.Count;i++)
+                        //{
+                        //    ErrorRows[i] = ErrorRows[i].TrimEnd(',');
+                        //}
+                        for (int i = 0; i < words.Length; i++)
+                        {
+                            ErrorRows.Add(words[i].TrimEnd(','));
+                        }
                     }
                 }
                 catch(Exception ex)
@@ -600,14 +601,20 @@ namespace FlyCn.EngineeredDataList
             {
                 importObj.status_Id = Guid.Parse(hdfstatusID.Value);
             }
-          //  Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
+            //Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
             //excelImportThread.Start();
+
+            //new Thread(delegate()
+            //     {
+            //         importObj.InsertFile(tempDS);
+            //     }).Start();
             importObj.InsertFile(tempDS);
-            
-               //new Thread(delegate()
-               //     {
-               //         importObj.InsertFile(tempDS);
-               //     }).Start();
+            hdfErrorRow.Value = "";
+            hdfFileLocation.Value= "";
+            hdfFileName.Value = "";
+            hdfremovedField.Value = "";
+            hdfstatusID.Value = "";
+            hdfTableName.Value = "";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "Import();", true);
         }
     }
