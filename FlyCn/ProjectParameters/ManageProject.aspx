@@ -18,7 +18,7 @@
         }
     </script>
     
-    <style type="text/css">
+    <style type="text/css">  
         .ui-dialog-title {
             padding-left: 5em;
             color: green;
