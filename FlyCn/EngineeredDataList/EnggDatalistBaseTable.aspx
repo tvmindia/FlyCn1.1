@@ -360,10 +360,10 @@ ul.departments { list-style-type: none; }*/
                        OnNeedDataSource="dtgvalidationErros_NeedDataSource"
                       OnPreRender="dtgvalidationErros_PreRender" AllowMultiRowSelection="True" Skin="Silk" CssClass="outerMultiPage">
 
-
-                    <MasterTableView DataKeyNames="Status_ID" AutoGenerateColumns="false" ShowHeadersWhenNoRecords="true" NoDetailRecordsText="No Errors">
+                    <MasterTableView DataKeyNames="Status_ID" AutoGenerateColumns="false" ShowHeadersWhenNoRecords="false" NoDetailRecordsText="No Errors">
                          <Columns>
-                              <telerik:GridBoundColumn HeaderText="Key Field" DataField="Key_Field" UniqueName="Key_Field" ItemStyle-Width="50%"></telerik:GridBoundColumn>
+                              <telerik:GridBoundColumn HeaderText="Row NO" DataField="Excel_RowNO" UniqueName="Excel_RowNO" ItemStyle-Width="20%"></telerik:GridBoundColumn>
+                              <telerik:GridBoundColumn HeaderText="Key Field" DataField="Key_Field" UniqueName="Key_Field" ItemStyle-Width="30%"></telerik:GridBoundColumn>
                               <telerik:GridBoundColumn HeaderText="Description" DataField="Error_Description" UniqueName="Error_Description" ItemStyle-Width="50%"></telerik:GridBoundColumn>
                               <telerik:GridBoundColumn HeaderText="Serial No" DataField="Sl_No" UniqueName="Sl_No" Display="false"></telerik:GridBoundColumn>
                               <telerik:GridBoundColumn HeaderText="StatusID" DataField="Status_ID" UniqueName="Status_ID" Display="false"></telerik:GridBoundColumn>

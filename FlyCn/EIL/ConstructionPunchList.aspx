@@ -392,7 +392,7 @@
                    
 
                         <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
-                            <telerik:RadPageView ID="rpList" runat="server">
+                            <telerik:RadPageView ID="rpList" runat="server"> 
 
                                 <div id="divList" style="width: 100%">
 
@@ -1128,7 +1128,7 @@
                                         </div>
                                         <%-- </form>--%>
 
-                                 </div></div>
+                                 </div></div></div>
                                   <div class="accordion-container"> <a href="#" class="accordion-toggle">Attachments 
                                             
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
@@ -1246,7 +1246,7 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
                                         </td>
                                     </tr>
                                 </table>
-                                       </div>
+                                      
 
                                   
                           

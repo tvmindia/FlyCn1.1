@@ -63,8 +63,6 @@ namespace FlyCn.EngineeredDataList
           
             if (_moduleId != null)
             {
-
-
                 Modules moduleObj = new Modules();
                 DataSet dsobj = new DataSet();
                 dsobj = moduleObj.GetModule(_moduleId);
@@ -72,7 +70,6 @@ namespace FlyCn.EngineeredDataList
                 _TableName = dsobj.Tables[0].Rows[0]["BaseTable"].ToString();
                 hdfTableName.Value = _TableName;
                 DataSet ds = new DataSet();
-
                 ds = moduleObj.GetModules();
                 string  tabliFirst = "";
                 tabliFirst = " <li style='width:80px;' >" + " <a href='EnggDataListLandingPage.aspx" + "'" + "'" + "'" + ">" + "<img" + " src=" + "'" +
@@ -87,13 +84,8 @@ namespace FlyCn.EngineeredDataList
 
                     horizonaltab.Controls.Add(new LiteralControl(tabhtml));
                 }
-
             }
-
-
         }
-
-        
 
         protected void dtgUploadGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
@@ -416,7 +408,7 @@ namespace FlyCn.EngineeredDataList
             for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
             {
                 int res;
-                res=validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable);
+                res=validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable,i);
                 if (res == -1)
                 {
                     validationObj.importfile.errorCount = validationObj.importfile.errorCount + 1;
@@ -427,7 +419,7 @@ namespace FlyCn.EngineeredDataList
 
         public void CheckBoxColumns()
         {
-          string temp="";
+          string temp=null;
             GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
             if(headerItem!=null)
             {
@@ -452,15 +444,18 @@ namespace FlyCn.EngineeredDataList
             {
               foreach (string str in columnNames)
                {
-                 for (int i = checkds.Tables[0].Columns.Count - 1; i >= 0; i--)
+                  if(str!="")
                   {
+                   for (int i = checkds.Tables[0].Columns.Count - 1; i >= 0; i--)
+                   {
                     DataColumn column = checkds.Tables[0].Columns[i];
                     if (column.ColumnName == str)
                      {
                        tempDS.Tables[0].Columns.Remove(str);
                        break;
                      }
-                  } 
+                   } 
+                 }//end of if
                }
             }
         }
@@ -473,10 +468,9 @@ namespace FlyCn.EngineeredDataList
            CommonDAL tblDef = new CommonDAL();
            dsTable = tblDef.GetTableDefinition(hdfTableName.Value);//temp table name
            DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
-           if ((ErrorRows != null) && (checkds != null))
+           if ((ErrorRows.Count >0) && (checkds != null))
            {
-                         
-               for (int i = checkds.Tables[0].Rows.Count - 1; i >= 0; i--)
+              for (int i = checkds.Tables[0].Rows.Count - 1; i >= 0; i--)
                {
                    string temp = "";
                    DataRow dr = checkds.Tables[0].Rows[i];
@@ -518,10 +512,22 @@ namespace FlyCn.EngineeredDataList
                 try
                 {
                     temps = hdfErrorRow.Value;
-                    temps = temps.TrimEnd('|');
-                    string[] words = temps.Split('|');
-                    ErrorRows = new List<string>(words.Length);
-                    ErrorRows.AddRange(words);
+                    if (temps != "")
+                    {
+                        temps = temps.TrimEnd('|');
+                        string[] words = temps.Split('|');
+                        ErrorRows = new List<string>(words.Length);
+                        //ErrorRows.AddRange(words);
+
+                        //for(int i=0;i<ErrorRows.Count;i++)
+                        //{
+                        //    ErrorRows[i] = ErrorRows[i].TrimEnd(',');
+                        //}
+                        for (int i = 0; i < words.Length; i++)
+                        {
+                            ErrorRows.Add(words[i].TrimEnd(','));
+                        }
+                    }
                 }
                 catch(Exception ex)
                 {
@@ -595,13 +601,20 @@ namespace FlyCn.EngineeredDataList
             {
                 importObj.status_Id = Guid.Parse(hdfstatusID.Value);
             }
-          //  Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
+            //Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
             //excelImportThread.Start();
-            //importObj.InsertFile(tempDS);
-               new Thread(delegate()
-                    {
-                        importObj.InsertFile(tempDS);
-                    }).Start();
+
+            //new Thread(delegate()
+            //     {
+            //         importObj.InsertFile(tempDS);
+            //     }).Start();
+            importObj.InsertFile(tempDS);
+            hdfErrorRow.Value = "";
+            hdfFileLocation.Value= "";
+            hdfFileName.Value = "";
+            hdfremovedField.Value = "";
+            hdfstatusID.Value = "";
+            hdfTableName.Value = "";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "Import();", true);
         }
     }
