@@ -9,7 +9,7 @@ using FlyCn.FlyCnDAL;
 using System.Data;
 using System.Configuration;
 using System.Threading;
-using SheetStatus = FlyCn.DocumentSettings.DocumentStatusSettings;
+//using SheetStatus = FlyCn.DocumentSettings.DocumentStatusSettings;
 using System.IO;
 namespace FlyCn.EngineeredDataList
 {
@@ -188,8 +188,8 @@ namespace FlyCn.EngineeredDataList
                 {
                     String[] excelSheets = null;
                     string path = Server.MapPath("~/Content/Fileupload/").ToString();
-                    
-                    string fileName = DataImportFileUpload.FileName.ToString();
+
+                    string fileName = UA.projectNo +"_"+ UA.userName + "_" + DataImportFileUpload.FileName.ToString();
                     hdfFileName.Value = fileName;
                     importObj.fileName = fileName;
                     string fileLocation = path + fileName;
@@ -274,7 +274,8 @@ namespace FlyCn.EngineeredDataList
             }//end try
             catch (Exception ex)
             {
-               // lblMsg.Text = ex.Message;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
                 throw ex;
             }
             finally
@@ -311,6 +312,8 @@ namespace FlyCn.EngineeredDataList
                 {
                    // lblMsg.Text = "Problem while deleting previous file,Please try again!";
                     //importObj.importStatus = -1;
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
                     throw ex;
                 }
             }
@@ -348,6 +351,8 @@ namespace FlyCn.EngineeredDataList
                 }
                 catch(Exception ex)
                 {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
                     throw ex;
                 }
                 finally
@@ -462,6 +467,7 @@ namespace FlyCn.EngineeredDataList
 
        public void RemoveErrorRow(DataSet tempDS)
        {
+         
            DataSet checkds = new DataSet();
            checkds = tempDS;
            DataSet dsTable = new DataSet();
@@ -482,6 +488,7 @@ namespace FlyCn.EngineeredDataList
                    temp = temp.TrimEnd(',');
                    if(ErrorRows.Contains(temp))
                    {
+                     
                        dr.Delete();
                    }
                }//end of for loop
@@ -504,6 +511,8 @@ namespace FlyCn.EngineeredDataList
                 }
                 catch(Exception ex)
                 {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
                     throw ex;
                 }
             }
@@ -531,6 +540,8 @@ namespace FlyCn.EngineeredDataList
                 }
                 catch(Exception ex)
                 {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
                     throw ex;
                 }
                 
@@ -542,36 +553,51 @@ namespace FlyCn.EngineeredDataList
             switch(moduleObj.ModuleID)
             {
                 case "CIV":
-                    currentSheet = SheetStatus.CIV;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet = comDAL.ExcelSheetName;
+                    //currentSheet = SheetStatus.CIV;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
                 case "ELE":
-                    currentSheet = SheetStatus.ELE;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet =comDAL.ExcelSheetName;// SheetStatus.ELE;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "CAD":
-                    currentSheet = SheetStatus.CAD;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet = comDAL.ExcelSheetName;
+                    //currentSheet = SheetStatus.CAD;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "CTL":
-                    currentSheet = SheetStatus.CTL;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet = comDAL.ExcelSheetName;
+                    //currentSheet = SheetStatus.CTL;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "INS":
-                    currentSheet = SheetStatus.INS;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet = comDAL.ExcelSheetName;
+                    //currentSheet = SheetStatus.INS;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "MEC":
-                    currentSheet = SheetStatus.MEC;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet = comDAL.ExcelSheetName;
+                    //currentSheet = SheetStatus.MEC;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "PIP":
-                    currentSheet = SheetStatus.PIP;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet = comDAL.ExcelSheetName;
+                    //currentSheet = SheetStatus.PIP;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "TEL":
-                    currentSheet = SheetStatus.TEL;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet = comDAL.ExcelSheetName;
+                    //currentSheet = SheetStatus.TEL;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
