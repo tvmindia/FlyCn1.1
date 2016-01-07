@@ -308,9 +308,9 @@
 
                     <uc1:ToolBar runat="server" ID="ToolBar" />
 
-                     <%-- Tracking Details--%>
-                                               <div class="accordion-container"> <a href="#" class="accordion-toggle" id="IDAccordion"> 
-                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a> </div>
+                     <%-- Project Details--%>
+                                               <div class="accordion-container"> <a href="#" class="accordion-toggle" id="IDAccordion"> Project Details
+                              <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
 
   <div class="accordion-content"> 
                                       <div class="col-md-12 Span-One">
@@ -367,6 +367,7 @@
                                         </div>
                                  </div>
                                       </div>
+         
 
                 <%--  Company Details--%>
                        <div class="accordion-container"> <a href="#" class="accordion-toggle" >Company Details
@@ -744,12 +745,14 @@
                                 </div>
                                           </div>
                                         </div>
-                                          </div>
+                                          
+</div>
 
-
+         
                 </telerik:RadPageView>
 
             </telerik:RadMultiPage>
+                </div>
             <div id="modal_dialog" style="display: none; width: 1000px!important; height: 1000px!important; overflow: hidden; overflow-x: hidden;">
 
                 <iframe src="AddNewProject.aspx" style="width: 1000px; height: 500px;"></iframe>
