@@ -234,9 +234,7 @@
                                      <div class="col-md-6">&nbsp;</div>
                                       <div class="col-md-6"></div>
                                       <div class="col-md-6">
-                                         <div class="col-md-5">
-                                             <a id="attachhref" href="#" onclick="AttachFunction();">ATTACHMENTS</a>
-                                         </div>
+                                       
                                          <div class="col-md-7">
                                              <asp:Label ID="lblDocumentStatus" CssClass="DocStatusLabel" runat="server"    ClientIDMode="Static"></asp:Label>
                                          </div>
@@ -371,6 +369,7 @@
                             <%=ToolBar.ClientID %>_SetSaveVisible(false);
                             <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                             <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                              <%=ToolBar.ClientID %>_SetAttachVisible(false);
                         }
                    
                 }
@@ -387,6 +386,7 @@
                             <%=ToolBar.ClientID %>_SetSaveVisible(false);
                             <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                             <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                              <%=ToolBar.ClientID %>_SetAttachVisible(false);
                         }
                 }
 
@@ -424,6 +424,7 @@
                 <%=ToolBar.ClientID %>_SetSaveVisible(true);
                 <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                 <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                <%=ToolBar.ClientID %>_SetAttachVisible(false);
 }
           
        
@@ -435,6 +436,7 @@
                 <%=ToolBar.ClientID %>_SetSaveVisible(false);
                 <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                 <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                <%=ToolBar.ClientID %>_SetAttachVisible(false);
             }
               }
             catch (x)
@@ -486,8 +488,9 @@
             document.getElementById('<%=lblDocumentStatus.ClientID%>').innerHTML = "";
         }
       
-
-    function OnClientButtonClicking(sender, args) {
+        
+        function OnClientButtonClicking(sender, args) {
+            debugger;
         var btn = args.get_item();
         if (btn.get_value() == 'Save') {
            

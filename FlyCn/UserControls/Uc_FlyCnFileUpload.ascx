@@ -41,7 +41,7 @@ function testmouseover()
     <table style="width:auto" border="1">
         <tr>
             <td colspan="2">
-                <asp:FileUpload ID="FileUpload1" runat="server"/></td>
+                <asp:FileUpload ID="FileUpload1" runat="server" ClientIDMode="Static"/></td>
          
         </tr>
       

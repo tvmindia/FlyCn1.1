@@ -22,6 +22,9 @@
         .ui-dialog-title {
             padding-left: 5em;
             color: green;
+           width:500px;
+           text-align:center;
+         height:1px;
         }
 
         .ui-dialog-titlebar {
@@ -243,7 +246,7 @@
                     <uc1:ToolBar runat="server" ID="ToolBar" />
 
                      <%-- Tracking Details--%>
-                                               <div class="accordion-container"> <a href="#" class="accordion-toggle" id="IDAccordion">Project Wizard 
+                                               <div class="accordion-container"> <a href="#" class="accordion-toggle" id="IDAccordion"> 
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a> </div>
 
   <div class="accordion-content"> 

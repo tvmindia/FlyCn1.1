@@ -126,9 +126,10 @@ namespace Proj1
             {
                 //validation
                 isValidFile = ValidateFileType();
-                int fileSize = Convert.ToInt32(FileUpload1.PostedFile.ContentLength);
-                largerSize = ValidateSize(fileSize);
-
+                int Size = Convert.ToInt32(FileUpload1.PostedFile.ContentLength)/1024;
+                string fileSize = Size + "MB";
+                largerSize = ValidateSize(Size);
+              
                 if ((isValidFile) && (FileUpload1.PostedFile.ContentLength > 0))
                 {
                     if (largerSize == false)
@@ -143,7 +144,7 @@ namespace Proj1
                         cmd.Parameters.Add("@Filename", SqlDbType.NVarChar, 100).Value = FileUpload1.FileName.ToString();
                         cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = FileUpload1.FileContent;
                         cmd.Parameters.Add("@Filetype", SqlDbType.NVarChar,5).Value = ext;
-                        cmd.Parameters.Add("@Filesize", SqlDbType.Int).Value = fileSize;
+                        cmd.Parameters.Add("@Filesize", SqlDbType.NVarChar,50).Value = fileSize;
                         cmd.Parameters.Add("@Date",SqlDbType.SmallDateTime).Value=System.DateTime.Now;
                         cmd.Parameters.Add("@userName", SqlDbType.VarChar, 50).Value = UA.userName;
                         cmd.Parameters.Add("@Type",SqlDbType.VarChar,50).Value=type_value;
@@ -156,6 +157,7 @@ namespace Proj1
                         SqlParameter ouparamid = cmd.Parameters.Add("@outparamid", SqlDbType.UniqueIdentifier);
                         ouparamid.Direction = ParameterDirection.Output;
                         cmd.ExecuteNonQuery();
+ 
 
                         lblmsg.ForeColor = System.Drawing.Color.Green;
                         lblmsg.Text = "File uploaded successfully.";

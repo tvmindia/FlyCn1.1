@@ -211,14 +211,14 @@
 
         if (id == 'Attach') {
             var btn = btnItems.getItem(16);
-            var sep = btnItems.getItem(17);
+           // var sep = btnItems.getItem(17);
             if (value) {
                 btn.set_visible(true);
                 sep.set_visible(true);
             }
             else {
                 btn.set_visible(false);
-                sep.set_visible(false);
+             //   sep.set_visible(false);
 
             }
 

@@ -101,9 +101,7 @@
                               <!----RadPage view edit begins here---->
   <!----EDIT SECTION--->
  <telerik:RadPageView ID="rpBOQDetailAddEdit" runat="server">
-      <div class="col-md-10" style="text-align:right;">
-                                             <a id="attachhref" href="#" onclick="AttachFunction();">ATTACHMENTS</a>
-                                         </div>
+    
  <uc1:ToolBar runat="server" ID="ToolBarBOQDetail" />
 
  <!---SECTION ONE--->
@@ -353,7 +351,7 @@
 
  <script type="text/javascript">
      function AttachFunction() {
-         debugger;
+        
          var itemID = document.getElementById('<%=hdfItemId.ClientID %>').value
          parent.parent.AttachmentlinkClick('BOQDetail', itemID)
      }
@@ -386,6 +384,7 @@
                          <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(false);
                          <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
                          <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
+                         <%=ToolBarBOQDetail.ClientID %>_SetAttachVisible(false);
                      }
              }
              else if (PageSecurity.isEditOnly) {
@@ -408,8 +407,8 @@
          var tab = args.get_tab();
          if (tab.get_value() == '2') {
             
-             var tree = page.Master;
-             alert(tree);
+             //var tree = page.Master;
+             //alert(tree);
             <%-- var txtCont = document.getElementById('<%= Page.Master.Master.FindControl("rtvLeftMenu").ClientID %>');
              alert(txtCont);--%>
              //Clear Text boxes When New tab clicks
@@ -425,6 +424,7 @@
                      <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(false);
                      <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
                      <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
+                     <%=ToolBarBOQDetail.ClientID %>_SetAttachVisible(false);
              }
              else
           {
@@ -433,6 +433,7 @@
                   <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(true);
                   <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
                   <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
+                  <%=ToolBarBOQDetail.ClientID %>_SetAttachVisible(false);
               }
              }
          }
@@ -469,6 +470,12 @@
          }
 
          if (btn.get_value() == "Delete") {
+
+         }
+         if (btn.get_value() == 'Attach') {
+             AttachFunction();
+             args.set_cancel(true);
+
 
          }
 

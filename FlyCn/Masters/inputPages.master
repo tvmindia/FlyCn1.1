@@ -258,6 +258,7 @@
             var HiddenDocumentNo = document.getElementById('HiddenDocumentNo');
             if ((hiddenFieldRevisionID.value != "") && (hiddenDocumentStatus.value == approvalStatus.Approved || hiddenDocumentStatus.value == approvalStatus.Draft || hiddenDocumentStatus.value == approvalStatus.Closed || hiddenDocumentStatus.value == approvalStatus.DECLINED || hiddenDocumentStatus.value == approvalStatus.REJECTEDFORAMENDMENT || hiddenDocumentStatus.value == approvalStatus.APPROVEDBYOTHERS) && (hiddenFieldOwner.value == hiddenusername.value))
             {
+                
                 var tree = $find("<%= rtvLeftMenu.ClientID %>");
                 var radNode = tree.findNodeByValue("rtn4");
                 var childrenNode = new Telerik.Web.UI.RadTreeNode();
@@ -343,7 +344,7 @@
         <%-- delete revisionhistrory tree node childs - call this function from BOQ Header View Tab click--%> 
         function RevisionHistroyDeleteNode() {
 
-            debugger;
+            
             //var tree = $("#" + '<%=rtvLeftMenu.ClientID%>')
 
             var tree = $find("<%= rtvLeftMenu.ClientID %>");
@@ -416,8 +417,8 @@
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
-          
-            document.getElementById('IframeDocumentAttachment').src = "../Approvels/DocumentAttachments.aspx?RevisionId=" + hiddenFieldRevisionID.value + "&type=" + type + "&ItemID=" + ItemID;
+            var hiddenDocumentStatus = contentWindow.document.getElementById('hiddenStatusValue');
+            document.getElementById('IframeDocumentAttachment').src = "../Approvels/DocumentAttachments.aspx?RevisionId=" + hiddenFieldRevisionID.value + "&type=" + type + "&ItemID=" + ItemID+"&Status="+hiddenDocumentStatus.value;
                 DocumentAttachmentWindow();
            
         }
