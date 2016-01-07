@@ -14,7 +14,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using DocStatus = FlyCn.DocumentSettings.DocumentStatusSettings;
-
+using FlyCn.Approvels;
 #endregion Namespaces
 
 
@@ -22,6 +22,7 @@ namespace FlyCn.BOQ
 {
     public partial class BOQHeader : System.Web.UI.Page
     {
+        DocumentAttachments doc = new DocumentAttachments();
         public int NumberOfTimesNeedDataSourceCalled = 0;
 
         #region Global Variables
@@ -167,7 +168,12 @@ namespace FlyCn.BOQ
             //**********
             //HiddenField hdnPostbackOnItemCommand = (HiddenField)GridviewFilter.FindControl("hdnPostbackOnItemCommand");
             //hdnPostbackOnItemCommand.Value = "True";
-
+            //DocumentAttachments doc = new DocumentAttachments();
+         
+            //if ()
+            //{
+            //    doc.hideDelete();
+            //}
             try
             {//Only Edit functionality is needed in BOQheader so no delete
                 if (e.CommandName == "EditDoc")//EditDoc  is named because Radgrid has its own definition for Edit
@@ -299,7 +305,7 @@ namespace FlyCn.BOQ
                     ToolBar.UpdateButton.Visible = false;
                     ToolBar.EditButton.Visible = true;
                     ToolBar.DeleteButton.Visible = false;
-                    ToolBar.AttachButton.Visible = false;
+                    ToolBar.AttachButton.Visible = true;
                    break;
                    case 2:
                     ToolBar.AddButton.Visible = true;
@@ -316,7 +322,7 @@ namespace FlyCn.BOQ
                     ToolBar.UpdateButton.Visible = false;
                     ToolBar.EditButton.Visible = false;
                     ToolBar.DeleteButton.Visible = false;
-                    ToolBar.AttachButton.Visible = false;
+                    ToolBar.AttachButton.Visible = true;
                    break;
 
 
@@ -326,7 +332,7 @@ namespace FlyCn.BOQ
                     ToolBar.UpdateButton.Visible = false;
                     ToolBar.EditButton.Visible = false;
                     ToolBar.DeleteButton.Visible = false;
-                    ToolBar.AttachButton.Visible = false;
+                    ToolBar.AttachButton.Visible = true;
                    break;
                   
             }
@@ -582,6 +588,7 @@ namespace FlyCn.BOQ
                 }
                 lblDocumentStatus.Text = ds.Tables[0].Rows[0]["DocumentStatus"].ToString();
                 hiddenStatusValue.Value = ds.Tables[0].Rows[0]["LatestStatus"].ToString();
+               
                 DataTable docdtObj = new DataTable();
                 DataTable docNoObj = new DataTable();
                 DataTable RevNoObj = new DataTable();
