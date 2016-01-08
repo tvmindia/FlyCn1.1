@@ -634,8 +634,8 @@ namespace FlyCn.EngineeredDataList
                  {
                      importObj.InsertFile(tempDS);
                  }).Start();
-           // importObj.InsertFile(tempDS);
-           // ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus=" + QueryTimeStatus;//iframe page BOQDetails.aspx is called with query string revisonid
+            // importObj.InsertFile(tempDS);  <a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+            ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatusList.aspx";//iframe page ImportStatusList.aspx is called with query string revisonid
             hdfErrorRow.Value = "";
             hdfFileLocation.Value= "";
             hdfFileName.Value = "";
