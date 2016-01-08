@@ -222,16 +222,30 @@
        
         }
         
-    
+       
+
+ 
 
 
         function onClientTabSelected(sender, args) {
+            
             var tab = args.get_tab();
+         
             if (tab.get_value() == '2') {
          
-             
                 try {
 
+                    
+                    ClearTexBox();
+                   
+                    if (tab.get_text() == "New") {
+
+                        <%=ToolBar.ClientID %>_SetAddVisible(false);
+                        <%=ToolBar.ClientID %>_SetSaveVisible(true);
+                        <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                        <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                        <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                    }
                     if (document.getElementById("<%= grdFileUpload.ClientID %>") != null)
                               document.getElementById("<%= grdFileUpload.ClientID %>").style.display = "none";
                       }
@@ -239,7 +253,8 @@
 
                       }
 
-                  }
+            }
+
 
                   if (tab.get_value() == "1") {
 
@@ -265,7 +280,13 @@
                   }
 
               }
+              function ClearTexBox() {
+                  document.getElementById('<%=txtIDno.ClientID %>').value = "";
 
+                  $('input[type=text]').each(function () {
+                      $(this).val('');
+                  });
+              }
 
 
     </script>
@@ -301,7 +322,7 @@
             //------------------------For Security-----------------------------------------------//
             debugger;
             //var security = document.getElementById("hdnSecurityMaster").value;
-            //DisableButtons();
+          
             //Page Postback
            <%-- if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "EditData")
             {
