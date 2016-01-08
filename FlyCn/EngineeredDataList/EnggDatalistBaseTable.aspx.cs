@@ -630,11 +630,11 @@ namespace FlyCn.EngineeredDataList
             //Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
             //excelImportThread.Start();
 
-            //new Thread(delegate()
-            //     {
-            //         importObj.InsertFile(tempDS);
-            //     }).Start();
-            importObj.InsertFile(tempDS);
+            new Thread(delegate()
+                 {
+                     importObj.InsertFile(tempDS);
+                 }).Start();
+           // importObj.InsertFile(tempDS);
             hdfErrorRow.Value = "";
             hdfFileLocation.Value= "";
             hdfFileName.Value = "";
