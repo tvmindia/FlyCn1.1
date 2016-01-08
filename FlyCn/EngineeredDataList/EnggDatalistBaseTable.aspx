@@ -283,7 +283,7 @@ ul.departments { list-style-type: none; }*/
 
 
          
-            <div class="col-md-5" id="Gridandbutton">
+            <div class="col-md-5" id="Gridandbutton">  
                 <%--<div >--%>
                 <asp:Label ID="lblUploadGridHeading" runat="server" Text="Choose Fields" CssClass="subtitle"></asp:Label>
               <div style="height: 220px;" class="chooseFieldsBox">

@@ -226,6 +226,7 @@
 
 
         function onClientTabSelected(sender, args) {
+            var tab = args.get_tab();
             if (tab.get_value() == '2') {
          
              
@@ -273,13 +274,13 @@
         function validate() {
       
 
-            debugger;
             var IdNo = document.getElementById("<%=txtIDno.ClientID %>").value;
 
             if (IdNo == "") {
 
              
                 displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+               // alert(messageType.Error, messages.MandatoryFieldsGeneral);
                 return false;
 
             }
@@ -314,7 +315,7 @@
         
             //----------------------------------------------------------------------------------//
             id = document.getElementById('IDAccordion');
-
+         
             OpenDetailAccordion(id);
             parent.showTreeNode();
 
@@ -346,6 +347,7 @@
         function OpenDetailAccordion(id) {
             if (id != undefined)//accordion called from accordion click functionjs
             {
+        
                 var accordion = $(id);
                 var accordionContent = accordion.next('.accordion-content');
                 var accordionToggleIcon = accordion.children('.toggle-icon');
@@ -432,10 +434,10 @@
                            
 
                              <%-- Tracking Details--%>
-                                               <div class="accordion-container"> <a href="#" class="accordion-toggle" id="IDAccordion">Tracking Details  
+                                               <div class="accordion-container" style="display:none"> <a href="#" class="accordion-toggle"  style="display:none">Tracking Details  
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                               
-                             <div class="accordion-content"> 
+                             <div class="accordion-content" > 
                                       <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
                                       <div class="form-group">
@@ -491,7 +493,7 @@
                                 </div></div>
                                                               
                                  <%-- General Details--%>
-                                   <div class="accordion-container"> <a href="#" class="accordion-toggle">General Details
+                                   <div class="accordion-container"> <a href="#" class="accordion-toggle" id="IDAccordion">General Details
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                               
                              <div class="accordion-content">
@@ -1328,7 +1330,7 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
             </table>
 
         </div>
- 
+ </div>
 
      <asp:HiddenField ID="hdnAccessMode" runat="server" />
     <asp:HiddenField ID="hdnMode" runat="server" />
