@@ -8,16 +8,20 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using DocStatus= FlyCn.DocumentSettings.DocumentStatusSettings;//############
+using FlyCn.Approvels;
 namespace FlyCn.BOQ
 {
     public partial class BOQDetails : System.Web.UI.Page
     {
+           
+       
         
         BOQHeaderDetails bOQHeaderDetails;
         UIClasses.Const Const = new UIClasses.Const();
         ErrorHandling eObj = new ErrorHandling(); 
         FlyCnDAL.Security.UserAuthendication UA;
         string Revisionid, Itemidstring, QueryTimeStatus, latestStatus;
+        DocumentAttachments doc = new DocumentAttachments();
         protected void Page_Load(object sender, EventArgs e)
         {
            
@@ -27,6 +31,9 @@ namespace FlyCn.BOQ
             Revisionid = Request.QueryString["Revisionid"];
             QueryTimeStatus = Request.QueryString["QueryTimeStatus"];
             latestStatus = Request.QueryString["latestStatus"];
+           
+            hdfDocumentStatus.Value = latestStatus;
+            doc.Status = latestStatus;
             hdfRevisionId.Value = Revisionid;
             hdfDocumentStatus.Value = latestStatus;//status will be available in hiddenfieldDocumentStatus aswell as DocumentStatus
             ToolBarBOQDetail.onClick += new RadToolBarEventHandler(ToolBar_onClick);
@@ -51,16 +58,19 @@ namespace FlyCn.BOQ
                     ToolBarVisibility(1);//Save button visible
                   //  Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.linkbuttonClient();", false);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
-            
+                    hdfDocumentStatus.Value = latestStatus;
+                    doc.Status = hdfDocumentStatus.Value;
                 }
             }
+            hdfDocumentStatus.Value = latestStatus;
+            doc.Status = latestStatus;
         }
        
          #region ToolBar_onClick
          protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
          {
             string functionName = e.Item.Value;
-
+            doc.Status = hdfDocumentStatus.Value;
              if(e.Item.Value=="Add")
              {
                  var page = HttpContext.Current.CurrentHandler as Page;
@@ -115,24 +125,28 @@ namespace FlyCn.BOQ
                      ToolBarBOQDetail.SaveButton.Visible = true;
                      ToolBarBOQDetail.UpdateButton.Visible = false;
                      ToolBarBOQDetail.DeleteButton.Visible = false;
+                     ToolBarBOQDetail.AttachButton.Visible = false;
                      break;
                  case 2:
                      ToolBarBOQDetail.AddButton.Visible = true;
                      ToolBarBOQDetail.SaveButton.Visible = false;
                      ToolBarBOQDetail.UpdateButton.Visible = true;
                      ToolBarBOQDetail.DeleteButton.Visible = false;
+                     ToolBarBOQDetail.AttachButton.Visible = true;
                      break;
                  case 3:
                      ToolBarBOQDetail.AddButton.Visible = true;
                      ToolBarBOQDetail.SaveButton.Visible = false;
                      ToolBarBOQDetail.UpdateButton.Visible = false;
                      ToolBarBOQDetail.DeleteButton.Visible = false;
+                     ToolBarBOQDetail.AttachButton.Visible = false;
                      break;
                  case 4:
                      ToolBarBOQDetail.AddButton.Visible = false;
                      ToolBarBOQDetail.SaveButton.Visible = false;
                      ToolBarBOQDetail.UpdateButton.Visible = false;
                      ToolBarBOQDetail.DeleteButton.Visible = false;
+                     ToolBarBOQDetail.AttachButton.Visible = true;
                   break;
              }
          }
@@ -147,6 +161,7 @@ namespace FlyCn.BOQ
                   if ((hdfDocumentStatus.Value == DocStatus.Approved) || (hdfDocumentStatus.Value == DocStatus.Closed))
                   {
                       dtgBOQDetailGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
+
                   }
                   
                }

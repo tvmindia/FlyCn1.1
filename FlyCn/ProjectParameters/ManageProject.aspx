@@ -18,10 +18,13 @@
         }
     </script>
     
-    <style type="text/css">  
+    <style type="text/css">
         .ui-dialog-title {
             padding-left: 5em;
             color: green;
+           width:500px;
+           text-align:center;
+         height:1px;
         }
 
         .ui-dialog-titlebar {
@@ -271,7 +274,7 @@
            <div id="content">
                 <%-- For Security ViewDetailColumn--%>
             <div class="contentTopBar"></div>
-          
+
 
             <telerik:RadMultiPage ID="RadMultiPage1" runat="server" Width="100%" SelectedIndex="0" CssClass="outerMultiPage">
 
@@ -306,10 +309,10 @@
                     <uc1:ToolBar runat="server" ID="ToolBar" />
 
                      <%-- Project Details--%>
-                                  <div class="accordion-container"> <a href="#" class="accordion-toggle" id="IDAccordion">Project Details
+                                               <div class="accordion-container"> <a href="#" class="accordion-toggle" id="IDAccordion"> Project Details
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
-                              
-                             <div class="accordion-content"> 
+
+  <div class="accordion-content"> 
                                       <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
                                       <div class="form-group">
@@ -355,15 +358,16 @@
                                       <div class="form-group">
                                           <asp:Label ID="lblActive" runat="server" Text="Active"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
-                                         
+
                                           
                                                 <asp:CheckBox ID="CheckboxActive" runat="server" AutoPostBack="false" />
-                                         </div>
+                                </div>
                                           </div>
                                               </div>
                                         </div>
                                  </div>
                                       </div>
+         
 
                 <%--  Company Details--%>
                        <div class="accordion-container"> <a href="#" class="accordion-toggle" >Company Details
@@ -375,7 +379,7 @@
                                       <div class="form-group">
                    <asp:Label ID="lblCompanyName" runat="server" Text="Company Name"  class="control-label col-md-5" for="email3"></asp:Label>
                                          <div class="col-md-7">
-                                          <asp:TextBox ID="txtCompanyName" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtCompanyName" runat="server"></asp:TextBox>
                                           </div></div>
                                         </div>
                                             <div class="col-md-6">
@@ -438,7 +442,7 @@
                                                 <asp:FileUpload ID="fuLogo" runat="server" Height="22px" Width="175px" />
                                                 <asp:ImageButton ID="imbCompany" runat="server" Height="20px" Width="20px" />
                                                 <asp:Label ID="lblmsg" runat="server" Text=""></asp:Label>
-                                         </div>
+                                </div>
                                           </div>
                                                   </div>
                                </div>
@@ -508,7 +512,7 @@
                                                  </div>
                                              <div class="col-md-6">
                                       <div class="form-group">
-                 <asp:Label ID="lblClientLogo" runat="server" Text="Client Logo"></asp:Label>
+                                                <asp:Label ID="lblClientLogo" runat="server" Text="Client Logo"></asp:Label>
                                          <div class="col-md-7">
                                                 
                                          
@@ -519,7 +523,7 @@
                                           </div>
                                                  </div>
                                           </div></div>
-                         </div>
+                                </div>
 <%--  Admin Details--%>
                                      <div class="accordion-container"> <a href="#" class="accordion-toggle" >Admin Details
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
@@ -576,7 +580,7 @@
                                                 <asp:TextBox ID="txtPunchListToPerson" runat="server"></asp:TextBox>
                                    
                              </div></div></div>
-                                          </div>
+                                </div>
                                  </div></div>
                     <%--Caption For Project Fields--%>
                           <div class="accordion-container"> <a href="#" class="accordion-toggle" >Caption For Project Fields
@@ -630,7 +634,7 @@
                                                     </div>
                                              </div>
                                     </div>
-                                 </div>
+                                </div>
                   <%--  Man Hours Related Captions --%>
                       <div class="accordion-container"> <a href="#" class="accordion-toggle" >Man Hours Related Captions 
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
@@ -679,7 +683,7 @@
                                                 </div>
                                           </div>
                                  </div>
-                          </div>
+                                </div>
                    <%-- Hierarchy Captions --%>
                                      <div class="accordion-container"> <a href="#" class="accordion-toggle" >Hierarchy Captions 
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
@@ -707,7 +711,7 @@
                                          <div class="col-md-7">
                                                 <asp:TextBox ID="txtLevel3" runat="server"></asp:TextBox>
                                          </div></div>
-                                                    </div>
+                                </div>
                                           </div></div></div>
                  <%--   Client Related Captions--%>
                                       <div class="accordion-container"> <a href="#" class="accordion-toggle" >Client Related Captions
@@ -738,15 +742,17 @@
                    
                                           </div>
                                           </div>
-                                               </div>
-                                      </div>
-                                 </div>
+                                </div>
                                           </div>
+                                        </div>
+                                          
+</div>
 
-
+         
                 </telerik:RadPageView>
 
             </telerik:RadMultiPage>
+                </div>
             <div id="modal_dialog" style="display: none; width: 1000px!important; height: 1000px!important; overflow: hidden; overflow-x: hidden;">
 
                 <iframe src="AddNewProject.aspx" style="width: 1000px; height: 500px;"></iframe>

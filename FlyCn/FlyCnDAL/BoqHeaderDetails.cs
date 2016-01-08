@@ -292,7 +292,8 @@ namespace FlyCn.FlyCnDAL
                     DataRow dr = ds.Tables[0].Rows[0];
                     ImageId =Guid.Parse(Convert.ToString( dr["ImageID"]));
                     FileName = dr["FileName"].ToString();
-                    FileSize = Convert.ToInt32(dr["FileSize"]);
+                    string Size = dr["FileSize"].ToString();
+                    
                     FileType = dr["FileType"].ToString();
 
                 }
@@ -315,7 +316,41 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion AttachmentDetails
 
-
+        #region DeleteAttachment
+        public void DeleteAttachmentDetails(Guid ImageID)
+        {
+            SqlConnection con = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand boqcmd = new SqlCommand();
+                boqcmd.Connection = con;
+                boqcmd.CommandType = System.Data.CommandType.StoredProcedure;
+                boqcmd.CommandText = "[DeleteAttachmentDetails]";
+                boqcmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = ImageID;
+                boqcmd.Parameters.Add("@Type", SqlDbType.VarChar, 50).Value = Type;
+                boqcmd.ExecuteNonQuery();
+               
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.DeleteSuccessData(page);
+               
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Dispose();
+                }
+            }
+        }
+        #endregion DeleteAttachment
         public DataSet GetBOQHeader(Guid RevisionID)
         {
             SqlConnection con = null;
@@ -667,6 +702,7 @@ namespace FlyCn.FlyCnDAL
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.ErrorData(ex, page);
+                throw ex;
             }
                  
             finally

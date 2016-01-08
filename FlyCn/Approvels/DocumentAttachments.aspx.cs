@@ -9,20 +9,26 @@ using FlyCn.FlyCnDAL;
 using System.Data;
 using System.Data.SqlClient;
 using Proj1;
+using System.Web.UI.WebControls;
+using Telerik.Web.UI;
+using DocStatus = FlyCn.DocumentSettings.DocumentStatusSettings;
 namespace FlyCn.Approvels
 {
     public partial class DocumentAttachments : System.Web.UI.Page
     {
         BOQHeaderDetails boqObj = new BOQHeaderDetails();
         BOQDetails detailsObj = new BOQDetails();
+      
          public Guid Id;
          public string _RevisionID = "";
          public string _Type = "";
          public string ItemID;
+         public string Status;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["RevisionId"] != null)
             {
+                Status = Request.QueryString["Status"];
                _RevisionID = Request.QueryString["RevisionId"];
                _Type = Request.QueryString["type"];
                if (Request.QueryString["ItemID"] != "undefined")
@@ -44,6 +50,8 @@ namespace FlyCn.Approvels
                     hdfRevisionID.Value = _RevisionID;
                     _Type = Request.QueryString["type"];
                     boqObj.Type = _Type;
+                    Status = Request.QueryString["Status"];
+                    hiddenStatusValue.Value = Status;
                     if (Request.QueryString["ItemID"] != "undefined")
                     {
                         ItemID = Request.QueryString["ItemID"];
@@ -52,6 +60,7 @@ namespace FlyCn.Approvels
                     {
                         ItemID = "00000000-0000-0000-0000-000000000000";
                     }
+                    
                 }
                 BindData();
               //  GridView1.GridLines = GridLines.None;
@@ -64,11 +73,17 @@ namespace FlyCn.Approvels
             IdUc_FlyCnFileUpload.type_value = _Type;
             IdUc_FlyCnFileUpload.ItemID = ItemID;
             boqObj.Type = _Type;
+            hiddenStatusValue.Value = Status;
         }
     
         protected void btnsubmit_Click(object sender, EventArgs e)
         {
+
+           
+            
             IdUc_FlyCnFileUpload.FileInsert();
+          
+            Rebind();
         }
 
         public void BindData()
@@ -81,10 +96,14 @@ namespace FlyCn.Approvels
            // boqObj.Type = _Type;
             ds = boqObj.GetAllAttachment();
             GridView1.DataSource = ds;
-       
+           
             try
             {
                 GridView1.DataBind();
+                GridView1.Columns[1].ItemStyle.HorizontalAlign = HorizontalAlign.Left;
+                GridView1.Columns[2].ItemStyle.HorizontalAlign = HorizontalAlign.Left;
+                GridView1.Columns[3].ItemStyle.HorizontalAlign = HorizontalAlign.Right;
+                HideDelete();
             }
             catch (Exception)
             {
@@ -169,6 +188,44 @@ namespace FlyCn.Approvels
 
             }
 
+        }
+
+     
+        protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+
+        }
+
+        public void Rebind()
+        {
+            BindData();
+        }
+        public void HideDelete()
+        {
+           //Status = DocStatus.Draft;
+        
+            if(Status=="0"||Status=="3")
+            {
+                GridView1.Columns[5].Visible = true;
+               
+            }
+            else
+            {
+                GridView1.Columns[5].Visible = false;
+                IdUc_FlyCnFileUpload.Visible = false;
+                btnsubmit.Visible = false;
+            }
+        }
+        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            Id = (Guid)GridView1.DataKeys[e.RowIndex].Value;
+            boqObj.DeleteAttachmentDetails(Id);
+            Rebind();
+        }
+
+        protected void GridView1_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+        {
+           
         }
     }
 }
