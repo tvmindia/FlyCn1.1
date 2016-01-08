@@ -635,6 +635,7 @@ namespace FlyCn.EngineeredDataList
                      importObj.InsertFile(tempDS);
                  }).Start();
            // importObj.InsertFile(tempDS);
+           // ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus=" + QueryTimeStatus;//iframe page BOQDetails.aspx is called with query string revisonid
             hdfErrorRow.Value = "";
             hdfFileLocation.Value= "";
             hdfFileName.Value = "";
