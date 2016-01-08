@@ -492,38 +492,7 @@ ul.departments { list-style-type: none; }*/
                <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:250px">&nbsp;</div>
             <div class="col-md-5"  >
 
-                 <div class="col-md-12 infoBoxTitle">Details </div>
-                <div class="col-md-12 infoBox"> 
-                    <br />   
-                <div class="col-md-7">
-                    <asp:Label ID="Label2" runat="server" Text="Uploaded file"></asp:Label>
-                </div>
-
-                <div class="col-md-5">
-                    <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
-                </div>
-
-                <div class="col-md-7"><asp:Label ID="Label4" runat="server" Text="Total rows"></asp:Label>
-                </div>
-                <div class="col-md-5"> <asp:Label ID="Label5" runat="server" Text=""></asp:Label>
-                </div>
-
-                <div class="col-md-7">  <asp:Label ID="Label6" runat="server" Text="Existing"></asp:Label>
-                </div>
-                <div class="col-md-5"> <asp:Label ID="Label7" runat="server" Text=""></asp:Label>
-                </div>
-
-                <div class="col-md-7">    <asp:Label ID="Label8" runat="server" Text="New"></asp:Label>
-                </div>
-                <div class="col-md-5"> <asp:Label ID="Label9" runat="server" Text=""></asp:Label>
-                </div>
-
-                <div class="col-md-7"> <asp:Label ID="Label10" runat="server" Text="Errors"></asp:Label>
-                </div>
-                <div class="col-md-5"> <asp:Label ID="Label11" runat="server" Text=""></asp:Label>
-                </div>
-                       <br />   <br />
-                    </div>
+              <%-- <iframe id="ContentIframe" name="BOQDetails" style="height: 200px; width: 100%; overflow: hidden;" runat="server"></iframe>--%>
   
             </div>
 
