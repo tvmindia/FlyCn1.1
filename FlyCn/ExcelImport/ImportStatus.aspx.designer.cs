@@ -40,42 +40,6 @@ namespace FlyCn.ExcelImport {
         protected global::System.Web.UI.UpdatePanel UpdatePanel7;
         
         /// <summary>
-        /// lbl_ProjNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_ProjNo;
-        
-        /// <summary>
-        /// lbl_ProjNo1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_ProjNo1;
-        
-        /// <summary>
-        /// lbl_FileName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_FileName;
-        
-        /// <summary>
-        /// lbl_FileName1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_FileName1;
-        
-        /// <summary>
         /// lbl_TableName control.
         /// </summary>
         /// <remarks>
@@ -85,67 +49,49 @@ namespace FlyCn.ExcelImport {
         protected global::System.Web.UI.WebControls.Label lbl_TableName;
         
         /// <summary>
-        /// lbl_TableName1 control.
+        /// lblModuleName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_TableName1;
+        protected global::System.Web.UI.WebControls.Label lblModuleName;
         
         /// <summary>
-        /// lbl_TotalCount control.
+        /// lbl_TotalRecords control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_TotalCount;
+        protected global::System.Web.UI.WebControls.Label lbl_TotalRecords;
         
         /// <summary>
-        /// lbl_TotalCount1 control.
+        /// lbl_TotalRecords1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_TotalCount1;
+        protected global::System.Web.UI.WebControls.Label lbl_TotalRecords1;
         
         /// <summary>
-        /// lbl_StartTime control.
+        /// lbl_InsertRecords control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_StartTime;
+        protected global::System.Web.UI.WebControls.Label lbl_InsertRecords;
         
         /// <summary>
-        /// lbl_StartTime1 control.
+        /// lbl_InsertRecords1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_StartTime1;
-        
-        /// <summary>
-        /// lbl_InsertCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_InsertCount;
-        
-        /// <summary>
-        /// lbl_InsertCount1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_InsertCount1;
+        protected global::System.Web.UI.WebControls.Label lbl_InsertRecords1;
         
         /// <summary>
         /// lbl_UpdateCount control.
@@ -157,13 +103,13 @@ namespace FlyCn.ExcelImport {
         protected global::System.Web.UI.WebControls.Label lbl_UpdateCount;
         
         /// <summary>
-        /// lbl_UpdateCount1 control.
+        /// lbl_UpdateRecords1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_UpdateCount1;
+        protected global::System.Web.UI.WebControls.Label lbl_UpdateRecords1;
         
         /// <summary>
         /// lbl_ErrorCount control.
@@ -184,22 +130,58 @@ namespace FlyCn.ExcelImport {
         protected global::System.Web.UI.WebControls.Label lbl_ErrorCount1;
         
         /// <summary>
-        /// lbl_LastUpdatedTime control.
+        /// lbl_InsertStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_LastUpdatedTime;
+        protected global::System.Web.UI.WebControls.Label lbl_InsertStatus;
         
         /// <summary>
-        /// lbl_LastUpdatedTime1 control.
+        /// lbl_InsertStatus1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_LastUpdatedTime1;
+        protected global::System.Web.UI.WebControls.Label lbl_InsertStatus1;
+        
+        /// <summary>
+        /// lbl_StartTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_StartTime;
+        
+        /// <summary>
+        /// lbl_StartTime1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_StartTime1;
+        
+        /// <summary>
+        /// lbl_Timeelapsed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Timeelapsed;
+        
+        /// <summary>
+        /// lbl_TimeElapsed1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_TimeElapsed1;
         
         /// <summary>
         /// lbl_TimeRemaining control.
@@ -220,40 +202,22 @@ namespace FlyCn.ExcelImport {
         protected global::System.Web.UI.WebControls.Label lbl_TimeRemaining1;
         
         /// <summary>
-        /// lbl_UserName control.
+        /// lbl_LastUpdatedTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_UserName;
+        protected global::System.Web.UI.WebControls.Label lbl_LastUpdatedTime;
         
         /// <summary>
-        /// lbl_UserName1 control.
+        /// lbl_LastUpdatedTime1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_UserName1;
-        
-        /// <summary>
-        /// lbl_InsertStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_InsertStatus;
-        
-        /// <summary>
-        /// lbl_InsertStatus1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_InsertStatus1;
+        protected global::System.Web.UI.WebControls.Label lbl_LastUpdatedTime1;
         
         /// <summary>
         /// lbl_Remarks control.
@@ -274,21 +238,39 @@ namespace FlyCn.ExcelImport {
         protected global::System.Web.UI.WebControls.Label lbl_Remarks1;
         
         /// <summary>
-        /// lbl_Timeelapsed control.
+        /// lbl_FileName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Timeelapsed;
+        protected global::System.Web.UI.WebControls.Label lbl_FileName;
         
         /// <summary>
-        /// lbl_TimeElapsed1 control.
+        /// lbl_FileName1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_TimeElapsed1;
+        protected global::System.Web.UI.WebControls.Label lbl_FileName1;
+        
+        /// <summary>
+        /// lbl_UserName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_UserName;
+        
+        /// <summary>
+        /// lbl_UserName1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_UserName1;
     }
 }

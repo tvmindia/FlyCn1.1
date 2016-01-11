@@ -492,7 +492,7 @@ ul.departments { list-style-type: none; }*/
                <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:250px">&nbsp;</div>
             <div class="col-md-5"  >
 
-              <iframe id="ContentIframe" name="BOQDetails" style="height: 200px; width: 100%; overflow: hidden;" runat="server"></iframe>
+              <iframe id="ContentIframe" name="BOQDetails" style="height: 300px; width: 400px; overflow: hidden;" runat="server"></iframe>
   
             </div>
 

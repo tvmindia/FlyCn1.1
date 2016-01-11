@@ -343,7 +343,6 @@ namespace FlyCn.EngineeredDataList
                     ValidateDataStructure(tempDS);
                     hdfstatusID.Value = validationObj.importfile.status_Id.ToString();
                     lblVupldFilename.Text = importObj.ExcelFileName;
-                   
                     lblVErrorsCount.Text=validationObj.importfile.errorCount.ToString();
                     GridErrorvalidateBind(validationObj.importfile.status_Id);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "UploadNextClick();", true);
@@ -432,9 +431,11 @@ namespace FlyCn.EngineeredDataList
                 {
                     if (!(dataItem.FindControl("CheckBox1") as CheckBox).Checked)
                     {
-                        // checkHeader = false;
-                        columnNames.Add(dataItem["Field_Name"].Text);
-                        temp = temp + dataItem["Field_Name"].Text + "|";
+                        // checkHeader = false;Field_Description
+                        //columnNames.Add(dataItem["Field_Name"].Text);
+                        columnNames.Add(dataItem["Field_Description"].Text);
+                        //temp = temp + dataItem["Field_Name"].Text + "|";
+                        temp = temp + dataItem["Field_Description"].Text + "|";
                     }
                 }
                 hdfremovedField.Value = temp;
@@ -635,7 +636,8 @@ namespace FlyCn.EngineeredDataList
                      importObj.InsertFile(tempDS);
                  }).Start();
             // importObj.InsertFile(tempDS);  <a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
-            ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatusList.aspx";//iframe page ImportStatusList.aspx is called with query string revisonid
+           //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
+            ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id;//iframe page ImportStatusList.aspx is called with query string revisonid
             hdfErrorRow.Value = "";
             hdfFileLocation.Value= "";
             hdfFileName.Value = "";
