@@ -83,6 +83,27 @@ namespace FlyCn.DocumentSettings
         }
         #endregion ExcelSheetNames
 
+        #region ImportStatus
+        public static string One
+        {
+            get { return "Started"; }
+        }
+
+        public static string Two
+        {
+            get { return "Processing"; }
+        }
+
+        public static string Three
+        {
+            get { return "Finished"; }
+        }
+        #endregion ImportStatus
+       
+
     }
     #endregion DocumentStatusSettings class
+
+
+   
 }

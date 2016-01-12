@@ -145,7 +145,25 @@ ul.departments { list-style-type: none; }*/
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <script>
-          
+
+        function ChangeStatusMsg(stat)
+        {
+
+            var lblobj = document.getElementById('<%=lblStatusMSG.ClientID%>');
+            switch(stat)
+            {
+                case 1:
+                    lblobj.innerHTML = importStatus[Started];
+                    break;
+                case 2:
+                    lblobj.innerHTML = importStatus[Processing];
+                    break;
+                case 3:
+                    lblobj.innerHTML = importStatus[Finished];
+                    break;
+
+            }
+          }
            function validateExcel() {
 
             var fileUpload = document.getElementById('<%=DataImportFileUpload.ClientID%>');
@@ -180,6 +198,8 @@ ul.departments { list-style-type: none; }*/
         //   // var upload = document.getElementById('Gridandbutton');
         //   // upload.style.display = "";
         // }
+
+       
     </script>
 
 
@@ -476,7 +496,7 @@ ul.departments { list-style-type: none; }*/
             <div class="col-md-5" style="padding-top:50px">
 
                   <div class="col-md-12">
-                      <asp:Label ID="Label1" runat="server" Text="Thread Started ...." CssClass="subtitle"></asp:Label></div>
+                      <asp:Label ID="lblStatusMSG" runat="server" CssClass="subtitle"></asp:Label></div>
                   <div class="col-md-12">&nbsp;</div>  <div class="col-md-12">&nbsp; </div>
                 <div class="col-md-12 subtitle" style="text-decoration:underline;color:darkblue">
 

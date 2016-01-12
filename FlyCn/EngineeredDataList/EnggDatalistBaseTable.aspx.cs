@@ -16,6 +16,7 @@ namespace FlyCn.EngineeredDataList
     
     public partial class EnggDatalistBaseTable : System.Web.UI.Page
     {
+        
         string _moduleId;
         string _TableName;
         string _ProjectNo;
@@ -557,6 +558,7 @@ namespace FlyCn.EngineeredDataList
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.CIV;
+                    
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 

@@ -6,6 +6,13 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+          <script>
+              function CallParentJs(statvalue)
+              {
+                  parent.ChangeStatusMsg(statvalue);
+              }
+             
+          </script>
     <html>
 <head>
   <title></title>
@@ -25,7 +32,7 @@
 </head>
 <body>
    <div style="overflow-y:hidden;">
-        <form role="form-horizontal">
+       <%-- <form role="form-horizontal">--%>
             <div style="margin-left:100px ; text-decoration-color: red";>
             <h2 style="font-family: 'Times New Roman', Times, serif; text-align:left; font-size: xx-large; font-weight: lighter; font-style: normal; color: #800000; right: 72px; bottom: 12px; text-decoration: underline;"> Import Status
 
@@ -143,8 +150,6 @@
                 </div>
 
              
-               
-
                <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">                 
                <asp:Label ID="lbl_UserName" runat="server" Text="User Name" class="control-label col-xs-6"></asp:Label>
               <div class="col-xs-6">
@@ -157,7 +162,7 @@
             </div>
                  </ContentTemplate>
         </asp:UpdatePanel>
-            </form>
+           <%-- </form>--%>
         </div>
     </body>
         </html>
