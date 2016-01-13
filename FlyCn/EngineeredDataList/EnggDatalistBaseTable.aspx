@@ -110,13 +110,20 @@ ul.departments { list-style-type: none; }*/
     </style>
     <script src="../Scripts/UserJs/UserValidations.js"></script>
     <script>
+        //function ValidateBtnClick(event)
+        //{
+        //    event.set_cancel(false);
+        //    UploadNextClick();
+           
 
+        //}
 
         function UploadNextClick() {
             document.getElementById("Upload").style.display = "none";
             document.getElementById("DivValidate").style.display = "";
             document.getElementById("GenerateTemplate").style.display = "none";
             document.getElementById("Import").style.display = "none";
+
         }
         function GenerateTemplateNextClick() {
             var firstdiv = document.getElementById("Upload");
@@ -267,7 +274,7 @@ ul.departments { list-style-type: none; }*/
                     <li>fill the data and make it ready for upload</li>
                     <li>click Next Button to get upload option</li>
                 </ul>
-                <%--                    <asp:Button ID="btnNext" runat="server" Text="Next>>"  Height="35px" Width="100px"   CssClass="buttonNext"  OnClientClick="NextClick()" OnClick="btnNext_Click" />--%>
+                <%--<asp:Button ID="btnNext" runat="server" Text="Next>>" Height="35px" Width="100px"   CssClass="buttonNext"  OnClientClick="NextClick()" OnClick="btnNext_Click" />--%>
             </div>
 
             <table class="buttonTable">
@@ -338,30 +345,32 @@ ul.departments { list-style-type: none; }*/
                         </div>
                     
              </div>
-               <%-- <table class="buttonTable">
-                <tr>
-                    <td>--%>
-                        <div class="Flatbutton" style="width:150px">
-                               <asp:Button ID="btnValidate" runat="server" class="buttonValidateAndImport" OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Validate"></asp:Button>
+               <div class="Flatbutton" style="width:150px">
+                               <asp:Button ID="btnValidate" class="buttonValidateAndImport" runat="server"  OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Validate"></asp:Button>
                                <img src="../Images/Icons/RightArrow16.png" />
                           
                        
                         </div>
+               <%-- <table class="buttonTable">
+                <tr>
+                    <td>--%>
                         
-                  <%--  </td>
+                     </div>
+                        
+          <%--          </td>
                 </tr>
             </table>--%>
              
                 
             <%--</div>--%>
-           </div>
+         
             
             <%--     <asp:Button ID="btnNext" runat="server" Text="Next>>"  Height="35px" Width="100px"   CssClass="buttonNext" OnClientClick="NextClick()"   />--%>
-          
+            
            
             </div>
 
-         
+        
         <%--<table class="buttonTable">
             <tr>
                 <td>
@@ -375,7 +384,7 @@ ul.departments { list-style-type: none; }*/
         </table>--%>
     </div>
 
-     
+  
     <div style="display: none; margin-left: 50px;" id="DivValidate">
         <div class="col-md-12 Span-One">
 
@@ -445,7 +454,7 @@ ul.departments { list-style-type: none; }*/
                     <td>
           
                         <div class="Flatbutton" style="width:150px">
-                         <asp:Button ID="btnImport" runat="server" style="background-color:#B00000;border:none" OnClick="btnImport_Click" OnClientClick="return Import();" Text="Import"></asp:Button>
+                         <asp:Button ID="btnImport" class="buttonValidateAndImport" runat="server"  OnClick="btnImport_Click" OnClientClick="return Import();" Text="Import"></asp:Button>
                          <img src="../Images/Icons/RightArrow16.png" />
                         </div>
                       
@@ -500,10 +509,6 @@ ul.departments { list-style-type: none; }*/
 
                      <a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
                 </div>
-                           
-                           
-                        
-
             </div>
           
              <div class="col-md-1">&nbsp;</div>
