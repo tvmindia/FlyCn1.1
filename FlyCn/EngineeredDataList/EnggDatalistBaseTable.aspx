@@ -153,13 +153,13 @@ ul.departments { list-style-type: none; }*/
             switch(stat)
             {
                 case 1:
-                    lblobj.innerHTML = importStatus[Started];
+                    lblobj.innerHTML = importStatus["Started"];
                     break;
                 case 2:
-                    lblobj.innerHTML = importStatus[Processing];
+                    lblobj.innerHTML = importStatus["Processing"];
                     break;
                 case 3:
-                    lblobj.innerHTML = importStatus[Finished];
+                    lblobj.innerHTML = importStatus["Finished"];
                     break;
 
             }
