@@ -19,6 +19,7 @@ namespace FlyCn.Approvels
         BOQHeaderDetails boqObj = new BOQHeaderDetails();
         BOQDetails detailsObj = new BOQDetails();
       
+      
          public Guid Id;
          public string _RevisionID = "";
          public string _Type = "";
@@ -40,7 +41,9 @@ namespace FlyCn.Approvels
                    ItemID = "00000000-0000-0000-0000-000000000000";
                }
             }
+            
             IdUc_FlyCnFileUpload.Id = 5;
+
             if (!IsPostBack)
             {
                
@@ -95,6 +98,7 @@ namespace FlyCn.Approvels
             boqObj.RevisionID = hdfRevisionID.Value;
            // boqObj.Type = _Type;
             ds = boqObj.GetAllAttachment();
+       
             GridView1.DataSource = ds;
            
             try
@@ -227,5 +231,6 @@ namespace FlyCn.Approvels
         {
            
         }
+     
     }
 }

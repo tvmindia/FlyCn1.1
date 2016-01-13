@@ -127,8 +127,17 @@ namespace Proj1
                 //validation
                 isValidFile = ValidateFileType();
                 int Size = Convert.ToInt32(FileUpload1.PostedFile.ContentLength)/1024;
-                string fileSize = Size + "MB";
-                largerSize = ValidateSize(Size);
+                int sizeinMB = Size / 1024;
+                string fileSize;
+                if (sizeinMB == 0)
+                {
+                     fileSize = Size + "KB";
+                }
+                else
+                {
+                    fileSize = sizeinMB + "MB";
+}
+                largerSize = ValidateSize(sizeinMB);
               
                 if ((isValidFile) && (FileUpload1.PostedFile.ContentLength > 0))
                 {

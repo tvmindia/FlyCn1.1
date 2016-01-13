@@ -13,6 +13,15 @@ namespace FlyCn.Approvels {
     public partial class DocumentAttachments {
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
         /// IdUc_FlyCnFileUpload control.
         /// </summary>
         /// <remarks>
@@ -74,5 +83,14 @@ namespace FlyCn.Approvels {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hiddenStatusValue;
+        
+        /// <summary>
+        /// hiddenAttachmentCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hiddenAttachmentCount;
     }
 }

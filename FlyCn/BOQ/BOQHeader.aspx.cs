@@ -34,7 +34,7 @@ namespace FlyCn.BOQ
        // DocumentStatusSettings dObj;
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
-        
+        public string RevId;
     
         #endregion Global Variables
 
@@ -46,33 +46,23 @@ namespace FlyCn.BOQ
             BOQObj = new BOQHeaderDetails();
             ToolBarVisibility(4);
             SecurityCheck();
-           
-                   
+
+            
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
-
 
         //GridviewFilter.onClick += new EventHandler(GridviewFilter_onClick);
     
 
             BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString(); 
              BOQObj.DocumentOwner = hiddenDocumentOwner.Value;
-             if (Request.QueryString["RevisionId"] != null)
-             {
-             _RevisionId = Request.QueryString["RevisionId"];
-                 hiddenFieldRevisionID.Value = _RevisionId;
-                 
-             }
-          
             //BOQObj.BindTree(RadTreeView tview);
             hiddenFieldDocumentType.Value = "BOQ";
             ContentIframe.Style["display"] = "none";//iframe disabling
             Context.Items["DocumentOwner"] = hiddenDocumentOwner.Value;
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtMid');", true);
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtTop');", true);
-          //  Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.HideTreeNode();", true);
-           // Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.linkbuttonClient();", false);
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
             if (_RevisionId != null)
             {
@@ -117,7 +107,7 @@ namespace FlyCn.BOQ
             txtRemarks.Attributes.Add("readonly", "readonly");
         }
       
-
+     
         public void EnableBOQHeaderTextBox()
         {
             txtClientdocumentno.Attributes.Remove("readonly");
@@ -193,7 +183,7 @@ namespace FlyCn.BOQ
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.RevisionHistory();", true);
                   
                         string revisionid = item.GetDataKeyValue("RevisionID").ToString();
-                       
+                        hiddenFieldRevisionID.Value = revisionid;
                     BOQPopulate(revisionid);
 
                  
@@ -679,6 +669,34 @@ namespace FlyCn.BOQ
         }
         #endregion SecurityCheck
 
+        #region GetAttachmentCountWebMethod
+
+        #endregion GetAttachmentCountWebMethod
+          [System.Web.Services.WebMethod]
+
+        public static int GetAttachmentCount(String RevisionID)
+        {
+            int count=0;
+            try
+            {
+                if (RevisionID != "")
+                {
+                    BOQHeaderDetails boq = new BOQHeaderDetails();
+                    DataSet ds = new DataSet();
+                    //Guid RevID = new Guid(RevisionID);
+                    boq.RevisionID = RevisionID;
+                    boq.Type = "BOQHeader";
+                    ds = boq.GetAllAttachment();
+                    count = ds.Tables[0].Rows.Count;
+                    
+                }
+            }
+              catch(Exception ex)
+            {
+                throw ex;
+            }
+            return count;
+        }
         #endregion Methods
 
     }

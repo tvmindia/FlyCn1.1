@@ -21,13 +21,28 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   <%-- <asp:ScriptManager ID="scmFilter" runat="server" ></asp:ScriptManager>--%>
-
-    <asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true">
+       <asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true" EnablePageMethods="true"  >
        
     </asp:ScriptManager>
+     <script>
+         $(document).ready(function () {
+             GetWebCount();
+            
+         });
+          
+         function GetWebCount() {
+             var RevID = document.getElementById("hiddenFieldRevisionID").value;
+             PageMethods.GetAttachmentCount(RevID, OnSuccess, onError);
+             function OnSuccess(response, userContext, methodName) {
+                 <%=ToolBar.ClientID %>_InvokeCountWebMethod(response);
+             }
+             function onError(response, userContext, methodName) {
+                
+             }
+         }
+</script>
+ 
 
-    
     <script src="../Scripts/ToolBar.js"></script>
     <script src="../Scripts/Messages.js"></script>
      
@@ -37,7 +52,7 @@
                 <ContentTemplate>   --%>     
    
     <div class="container" style="width: 100%">
-
+     
         <!-----FORM SECTION---->
         <!-----SECTION TABLE---->
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="200px" OnClientTabSelected="onClientTabSelected" OnClientTabSelecting="OnClientTabSelecting"

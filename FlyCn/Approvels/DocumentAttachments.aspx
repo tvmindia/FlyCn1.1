@@ -28,13 +28,16 @@
    
 }
 
+
    </style>
+   
+ <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
     <div class="contentTopBar">&nbsp;</div>
    <table id="table1">
        <tr>
           <td>   <uc1:uc_flycnfileupload runat="server" ID="IdUc_FlyCnFileUpload" /></td>
            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-             <td>  <asp:Button ID="btnsubmit" runat="server" Text="Upload" OnClick="btnsubmit_Click"  /></td>
+             <td>  <asp:Button ID="btnsubmit" runat="server" Text="Upload" OnClick="btnsubmit_Click" /></td>
            </tr>
            </table>
     <br />
@@ -61,6 +64,8 @@
     <asp:HiddenField ID="hdfRevisionID" runat="server" ClientIDMode="Static"/>
     <asp:HiddenField ID="hdfItemID" runat="server" ClientIDMode="Static" />
     <asp:HiddenField ID="hiddenStatusValue" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hiddenAttachmentCount" runat="server" ClientIDMode="Static" />
    
+    
     
 </asp:Content>
