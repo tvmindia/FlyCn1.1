@@ -34,7 +34,7 @@
    <div style="overflow-y:hidden;">
        <%-- <form role="form-horizontal">--%>
             <div style="margin-left:100px ; text-decoration-color: red";>
-            <h2 style="font-family: 'Times New Roman', Times, serif; text-align:left; font-size: xx-large; font-weight: lighter; font-style: normal; color: #800000; right: 72px; bottom: 12px; text-decoration: underline;"> Import Status
+            <h2 class="PageHeading"> Import Status
 
             </h2>
                 </div>

@@ -345,6 +345,7 @@ namespace FlyCn.EngineeredDataList
                     ValidateDataStructure(tempDS);
                     hdfstatusID.Value = validationObj.importfile.status_Id.ToString();
                     lblVupldFilename.Text = importObj.ExcelFileName;
+                    lblVtotltowcount.Text = validationObj.importfile.TotalCount.ToString();
                     lblVErrorsCount.Text=validationObj.importfile.errorCount.ToString();
                     GridErrorvalidateBind(validationObj.importfile.status_Id);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "UploadNextClick();", true);
@@ -411,6 +412,7 @@ namespace FlyCn.EngineeredDataList
         {
             //hidddnef=validationObj.importfile.status_Id;
             dsTable = comDAL.GetTableDefinition(comDAL.tableName);
+            validationObj.importfile.TotalCount = dsFile.Tables[0].Rows.Count;
             for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
             {
                 int res;
