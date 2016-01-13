@@ -740,7 +740,8 @@ transition: .1s ease;
 }
  .buttonValidateAndImport
 {
-       background-color:#009999;
+    
+    background-color: #009999;
     border:none;
 }
 

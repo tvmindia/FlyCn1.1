@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -1672,11 +1673,31 @@ namespace FlyCn.EIL
                 Response.AddHeader("content-disposition",
                                                "attachment;filename=" + file);
             }
-
+          
             string filepath = path + file;
             Response.TransmitFile(Server.MapPath(filepath));
-            Response.End();
+            //WebRequest request = WebRequest.Create(filepath);
+            //WebResponse response = request.GetResponse();
+            //using (Stream responseStream = response.GetResponseStream())
+            //{
+            //    using (Stream fileStream =("~/Content/Fileupload/"))
+            //    {
+            //        byte[] buffer = new byte[4096];
+            //        int bytesRead = responseStream.Read(buffer, 0, 4096);
+            //        while (bytesRead > 0)
+            //        {
+            //            fileStream.Write(buffer, 0, bytesRead);
+            //            DateTime nowTime = DateTime.UtcNow;
+                      
+            //            bytesRead = responseStream.Read(buffer, 0, 4096);
+            //        }
+            //    }
+            //}
+           
         }
+
+
+    
         #endregion Download
 
         #region Title

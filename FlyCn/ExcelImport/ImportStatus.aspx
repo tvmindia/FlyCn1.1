@@ -6,6 +6,13 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+          <script>
+              function CallParentJs(statvalue)
+              {
+                  parent.ChangeStatusMsg(statvalue);
+              }
+             
+          </script>
     <html>
 <head>
   <title></title>
@@ -24,10 +31,10 @@
 </style>
 </head>
 <body>
-   <div>
-        <form role="form-horizontal">
+   <div style="overflow-y:hidden;">
+       <%-- <form role="form-horizontal">--%>
             <div style="margin-left:100px ; text-decoration-color: red";>
-            <h2 style="font-family: 'Times New Roman', Times, serif; text-align:left; font-size: xx-large; font-weight: lighter; font-style: normal; color: #800000; right: 72px; bottom: 12px; text-decoration: underline;"> Import Status
+            <h2 class="PageHeading"> Import Status
 
             </h2>
                 </div>
@@ -40,108 +47,122 @@
             <ContentTemplate>
                 
             <div class="form-group"  style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter; font-variant: normal; text-transform: capitalize; color: #000066">       
-                        
-                 <asp:Label ID="lbl_ProjNo" runat="server" Text="Project Number" class="control-label col-xs-2"></asp:Label>                
-                  <div class="col-xs-10">
-                 <asp:Label ID="lbl_ProjNo1" runat="server"></asp:Label>
-                </div>
-                </div>
-                
-                 <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter; font-variant: normal; text-transform: capitalize; color: #000066">                     
-                 <asp:Label ID="lbl_FileName" runat="server" Text="File Name" class="control-label col-xs-2"></asp:Label>              
-                 <div class="col-xs-10">
-                 <asp:Label ID="lbl_FileName1" runat="server"></asp:Label>
+                   
+                  <div class="form-group"  style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter; font-variant: normal; text-transform: capitalize; color: #000066">             
+                 <asp:Label ID="lbl_TableName" runat="server" Text="Module Name" class="control-label col-xs-6"></asp:Label>               
+                 <div class="col-xs-6">
+                <asp:Label ID="lblModuleName" runat="server"></asp:Label>
                 </div>
                 </div>
 
-                 <div class="form-group"  style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter; font-variant: normal; text-transform: capitalize; color: #000066">             
-                 <asp:Label ID="lbl_TableName" runat="server" Text="Table Name" class="control-label col-xs-2"></asp:Label>               
-                 <div class="col-xs-10">
-                <asp:Label ID="lbl_TableName1" runat="server"></asp:Label>
-                </div>
-                </div>
 
-               <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">                
-               <asp:Label ID="lbl_TotalCount" runat="server" Text="Total Count" class="control-label col-xs-2"></asp:Label>
-               <div class="col-xs-10">
-               <asp:Label ID="lbl_TotalCount1" runat="server"></asp:Label>
+                <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">                
+               <asp:Label ID="lbl_TotalRecords" runat="server" Text="Total Records" class="control-label col-xs-6"></asp:Label>
+               <div class="col-xs-6">
+               <asp:Label ID="lbl_TotalRecords1" runat="server"></asp:Label>
                </div>
                </div>
 
-                <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">            
-                <asp:Label ID="lbl_StartTime" runat="server" Text="Start Time" class="control-label col-xs-2"></asp:Label>
-                <div class="col-xs-10">
-                <asp:Label ID="lbl_StartTime1" runat="server"></asp:Label>
-                </div>
-                </div>
 
-               <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">               
-               <asp:Label ID="lbl_InsertCount" runat="server" Text="Insert Count" class="control-label col-xs-2"></asp:Label>
-               <div class="col-xs-10">
-               <asp:Label ID="lbl_InsertCount1" runat="server"></asp:Label>
+
+                 <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">               
+               <asp:Label ID="lbl_InsertRecords" runat="server" Text="Inserted Records" class="control-label col-xs-6"></asp:Label>
+               <div class="col-xs-6">
+               <asp:Label ID="lbl_InsertRecords1" runat="server"></asp:Label>
                </div>
                </div>
+
 
                   <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">              
-                  <asp:Label ID="lbl_UpdateCount" runat="server" Text="Update Count" class="control-label col-xs-2"></asp:Label>
-                  <div class="col-xs-10">
-                  <asp:Label ID="lbl_UpdateCount1" runat="server"></asp:Label>
+                  <asp:Label ID="lbl_UpdateCount" runat="server" Text="Updated Records" class="control-label col-xs-6"></asp:Label>
+                  <div class="col-xs-6">
+                  <asp:Label ID="lbl_UpdateRecords1" runat="server"></asp:Label>
                   </div>
                   </div>
 
-                 <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">                 
-                 <asp:Label ID="lbl_ErrorCount" runat="server" Text="Error Count" class="control-label col-xs-2"></asp:Label>
-                  <div class="col-xs-10">
+
+
+                  <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">                 
+                 <asp:Label ID="lbl_ErrorCount" runat="server" Text="Error Count" class="control-label col-xs-6"></asp:Label>
+                  <div class="col-xs-6">
                  <asp:Label ID="lbl_ErrorCount1" runat="server"></asp:Label>
                     </div>
                    </div>
 
-                 <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">                 
-                 <asp:Label ID="lbl_LastUpdatedTime" runat="server" Text="Last Updated Time" class="control-label col-xs-2"></asp:Label>
-                 <div class="col-xs-10">
-                  <asp:Label ID="lbl_LastUpdatedTime1" runat="server"></asp:Label>
-                   </div>
-                  </div>
 
-                <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter; font-variant: normal; text-transform: capitalize; color: #000066">              
-                <asp:Label ID="lbl_TimeRemaining" runat="server" Text="Time Remaining" class="control-label col-xs-2"></asp:Label>
-                <div class="col-xs-10">
-                 <asp:Label ID="lbl_TimeRemaining1" runat="server"></asp:Label>
-                    </div>
-                   </div>
-
-               <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">                 
-               <asp:Label ID="lbl_UserName" runat="server" Text="User Name" class="control-label col-xs-2"></asp:Label>
-              <div class="col-xs-10">
-              <asp:Label ID="lbl_UserName1" runat="server"></asp:Label>
-              </div>
-              </div>
-
-            <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">               
-               <asp:Label ID="lbl_InsertStatus" runat="server" Text="Insert Status" class="control-label col-xs-2"></asp:Label>
-                <div class="col-xs-10">
+                  <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">               
+               <asp:Label ID="lbl_InsertStatus" runat="server" Text="Import Status" class="control-label col-xs-6"></asp:Label>
+                <div class="col-xs-6">
                 <asp:Label ID="lbl_InsertStatus1" runat="server"></asp:Label>
                  </div>
                  </div>
 
-                 <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">                 
-                 <asp:Label ID="lbl_Remarks" runat="server" Text="Remarks" class="control-label col-xs-2"></asp:Label>
-                 <div class="col-xs-10">
-                 <asp:Label ID="lbl_Remarks1" runat="server"></asp:Label>
-                    </div>
-                    </div>
-               
-                 <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">                 
-                 <asp:Label ID="lbl_Timeelapsed" runat="server" Text="Time Elapsed" class="control-label col-xs-2"></asp:Label>
-                 <div class="col-xs-10">
+
+
+                 <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">            
+                <asp:Label ID="lbl_StartTime" runat="server" Text="Start Time" class="control-label col-xs-6"></asp:Label>
+                <div class="col-xs-6">
+                <asp:Label ID="lbl_StartTime1" runat="server"></asp:Label>
+                </div>
+                </div>
+
+
+                  <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">                 
+                 <asp:Label ID="lbl_Timeelapsed" runat="server" Text="Time Elapsed" class="control-label col-xs-6"></asp:Label>
+                 <div class="col-xs-6">
                  <asp:Label ID="lbl_TimeElapsed1" runat="server" ></asp:Label>
                     </div>
                     </div>
+
+
+
+                 <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter; font-variant: normal; text-transform: capitalize; color: #000066">              
+                <asp:Label ID="lbl_TimeRemaining" runat="server" Text="Time Remaining" class="control-label col-xs-6"></asp:Label>
+                <div class="col-xs-6">
+                 <asp:Label ID="lbl_TimeRemaining1" runat="server"></asp:Label>
+                    </div>
+                   </div>
+
+
+
+                 <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">                 
+                 <asp:Label ID="lbl_LastUpdatedTime" runat="server" Text="Last Updated Time" class="control-label col-xs-6"></asp:Label>
+                 <div class="col-xs-6">
+                  <asp:Label ID="lbl_LastUpdatedTime1" runat="server"></asp:Label>
+                   </div>
+                  </div>
+
+
+                 <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">                 
+                 <asp:Label ID="lbl_Remarks" runat="server" Text="Remarks" class="control-label col-xs-6"></asp:Label>
+                 <div class="col-xs-6">
+                 <asp:Label ID="lbl_Remarks1" runat="server"></asp:Label>
+                 </div>
+                 </div>
+
+                                    
+                               
+                 <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter; font-variant: normal; text-transform: capitalize; color: #000066">                     
+                 <asp:Label ID="lbl_FileName" runat="server" Text="File Name" class="control-label col-xs-6"></asp:Label>              
+                 <div class="col-xs-6">
+                 <asp:Label ID="lbl_FileName1" runat="server"></asp:Label>
+                </div>
+                </div>
+
+             
+               <div class="form-group" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-weight: lighter;  font-variant: normal; text-transform: capitalize; color: #000066">                 
+               <asp:Label ID="lbl_UserName" runat="server" Text="User Name" class="control-label col-xs-6"></asp:Label>
+              <div class="col-xs-6">
+              <asp:Label ID="lbl_UserName1" runat="server"></asp:Label>
+              </div>
+              </div>
+
+          
           
             </div>
                  </ContentTemplate>
         </asp:UpdatePanel>
-            </form>
+           <%-- </form>--%>
         </div>
     </body>
         </html>

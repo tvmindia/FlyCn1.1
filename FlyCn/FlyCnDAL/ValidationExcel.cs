@@ -62,9 +62,11 @@ namespace FlyCn.FlyCnDAL
                     string comma = "";
                     foreach (var item in result)
                     {
-                        string FieldName = item["Field_Name"].ToString();
+                        //string FieldName = item["Field_Name"].ToString();
+                        string FieldName = item["Field_Description"].ToString();
                         string FieldDataType = item["Field_DataType"].ToString();
                         string temp = dr[FieldName].ToString().Trim();
+                        
 
                         //if (dr[FieldName].ToString().Trim() == "" || dr[FieldName] == null)
                         if (dr[FieldName].ToString().Trim() == "" || string.IsNullOrEmpty(dr[FieldName].ToString()))
@@ -256,7 +258,8 @@ namespace FlyCn.FlyCnDAL
                    for (int i = dsTable.Tables[0].Rows.Count - 1; i >= 0; i--)
                     {
                         bool res;
-                        string FieldName = dsTable.Tables[0].Rows[i]["Field_Name"].ToString();
+                        //string FieldName = dsTable.Tables[0].Rows[i]["Field_Name"].ToString();
+                        string FieldName = dsTable.Tables[0].Rows[i]["Field_Description"].ToString();
                         res = ExcelDataStructureValidation(FieldName, dsFile);
                         if (!res)
                         {
@@ -296,7 +299,8 @@ namespace FlyCn.FlyCnDAL
 
                 for (int j = 0; j < keyFieldRow.Count(); j++)
                 {
-                    keyField += comma + dr[keyFieldRow[j]["Field_Name"].ToString()].ToString();
+                    keyField += comma + dr[keyFieldRow[j]["Field_Description"].ToString()].ToString();
+                   // keyField += comma + dr[keyFieldRow[j]["Field_Name"].ToString()].ToString();
                     comma = ",";
                 }
 

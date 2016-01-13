@@ -99,16 +99,31 @@ ul.departments { list-style-type: none; }*/
                 color: #f4ba51;
                 text-decoration: solid;
             }
+
+            .fileNameElipses{
+              display:inline-block;
+              width:180px;
+              white-space: nowrap;
+              overflow:hidden !important;
+              text-overflow: ellipsis;
+              }
     </style>
     <script src="../Scripts/UserJs/UserValidations.js"></script>
     <script>
+        //function ValidateBtnClick(event)
+        //{
+        //    event.set_cancel(false);
+        //    UploadNextClick();
+           
 
+        //}
 
         function UploadNextClick() {
             document.getElementById("Upload").style.display = "none";
             document.getElementById("DivValidate").style.display = "";
             document.getElementById("GenerateTemplate").style.display = "none";
             document.getElementById("Import").style.display = "none";
+
         }
         function GenerateTemplateNextClick() {
             var firstdiv = document.getElementById("Upload");
@@ -145,7 +160,25 @@ ul.departments { list-style-type: none; }*/
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <script>
-          
+
+        function ChangeStatusMsg(stat)
+        {
+
+            var lblobj = document.getElementById('<%=lblStatusMSG.ClientID%>');
+            switch(stat)
+            {
+                case 1:
+                    lblobj.innerHTML = importStatus["Started"];
+                    break;
+                case 2:
+                    lblobj.innerHTML = importStatus["Processing"];
+                    break;
+                case 3:
+                    lblobj.innerHTML = importStatus["Finished"];
+                    break;
+
+            }
+          }
            function validateExcel() {
 
             var fileUpload = document.getElementById('<%=DataImportFileUpload.ClientID%>');
@@ -180,6 +213,8 @@ ul.departments { list-style-type: none; }*/
         //   // var upload = document.getElementById('Gridandbutton');
         //   // upload.style.display = "";
         // }
+
+       
     </script>
 
 
@@ -239,7 +274,7 @@ ul.departments { list-style-type: none; }*/
                     <li>fill the data and make it ready for upload</li>
                     <li>click Next Button to get upload option</li>
                 </ul>
-                <%--                    <asp:Button ID="btnNext" runat="server" Text="Next>>"  Height="35px" Width="100px"   CssClass="buttonNext"  OnClientClick="NextClick()" OnClick="btnNext_Click" />--%>
+                <%--<asp:Button ID="btnNext" runat="server" Text="Next>>" Height="35px" Width="100px"   CssClass="buttonNext"  OnClientClick="NextClick()" OnClick="btnNext_Click" />--%>
             </div>
 
             <table class="buttonTable">
@@ -283,7 +318,7 @@ ul.departments { list-style-type: none; }*/
 
 
          
-            <div class="col-md-5" id="Gridandbutton">
+            <div class="col-md-5" id="Gridandbutton">  
                 <%--<div >--%>
                 <asp:Label ID="lblUploadGridHeading" runat="server" Text="Choose Fields" CssClass="subtitle"></asp:Label>
               <div style="height: 220px;" class="chooseFieldsBox">
@@ -310,30 +345,32 @@ ul.departments { list-style-type: none; }*/
                         </div>
                     
              </div>
-               <%-- <table class="buttonTable">
-                <tr>
-                    <td>--%>
-                        <div class="Flatbutton" style="width:150px">
-                               <asp:Button ID="btnValidate" runat="server" class="buttonValidateAndImport" OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Validate"></asp:Button>
+               <div class="Flatbutton" style="width:150px">
+                               <asp:Button ID="btnValidate" class="buttonValidateAndImport" runat="server"  OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Validate"></asp:Button>
                                <img src="../Images/Icons/RightArrow16.png" />
                           
                        
                         </div>
+               <%-- <table class="buttonTable">
+                <tr>
+                    <td>--%>
                         
-                  <%--  </td>
+                     </div>
+                        
+          <%--          </td>
                 </tr>
             </table>--%>
              
                 
             <%--</div>--%>
-           </div>
+         
             
             <%--     <asp:Button ID="btnNext" runat="server" Text="Next>>"  Height="35px" Width="100px"   CssClass="buttonNext" OnClientClick="NextClick()"   />--%>
-          
+            
            
             </div>
 
-         
+        
         <%--<table class="buttonTable">
             <tr>
                 <td>
@@ -347,7 +384,7 @@ ul.departments { list-style-type: none; }*/
         </table>--%>
     </div>
 
-     
+  
     <div style="display: none; margin-left: 50px;" id="DivValidate">
         <div class="col-md-12 Span-One">
 
@@ -388,22 +425,12 @@ ul.departments { list-style-type: none; }*/
                 </div>
 
                 <div class="col-md-5">
-                    <asp:Label ID="lblVupldFilename" runat="server" Text=""></asp:Label>
+                    <asp:Label ID="lblVupldFilename" CssClass="fileNameElipses" runat="server" Text=""></asp:Label>
                 </div>
 
                 <div class="col-md-7"><asp:Label ID="lblVtotlrows" runat="server" Text="Total rows"></asp:Label>
                 </div>
                 <div class="col-md-5"> <asp:Label ID="lblVtotltowcount" runat="server" Text=""></asp:Label>
-                </div>
-
-                <div class="col-md-7">  <asp:Label ID="lblVexisting" runat="server" Text="Existing"></asp:Label>
-                </div>
-                <div class="col-md-5"> <asp:Label ID="lblVexistingCount" runat="server" Text=""></asp:Label>
-                </div>
-
-                <div class="col-md-7">    <asp:Label ID="lblVNew" runat="server" Text="New"></asp:Label>
-                </div>
-                <div class="col-md-5"> <asp:Label ID="lblVNewCount" runat="server" Text=""></asp:Label>
                 </div>
 
                 <div class="col-md-7"> <asp:Label ID="lblVErrors" runat="server" Text="Errors"></asp:Label>
@@ -427,7 +454,7 @@ ul.departments { list-style-type: none; }*/
                     <td>
           
                         <div class="Flatbutton" style="width:150px">
-                         <asp:Button ID="btnImport" runat="server" style="background-color:#B00000;border:none" OnClick="btnImport_Click" OnClientClick="return Import();" Text="Import"></asp:Button>
+                         <asp:Button ID="btnImport" class="buttonValidateAndImport" runat="server"  OnClick="btnImport_Click" OnClientClick="return Import();" Text="Import"></asp:Button>
                          <img src="../Images/Icons/RightArrow16.png" />
                         </div>
                       
@@ -476,54 +503,19 @@ ul.departments { list-style-type: none; }*/
             <div class="col-md-5" style="padding-top:50px">
 
                   <div class="col-md-12">
-                      <asp:Label ID="Label1" runat="server" Text="Thread Started ...." CssClass="subtitle"></asp:Label></div>
+                      <asp:Label ID="lblStatusMSG" runat="server" CssClass="subtitle"></asp:Label></div>
                   <div class="col-md-12">&nbsp;</div>  <div class="col-md-12">&nbsp; </div>
                 <div class="col-md-12 subtitle" style="text-decoration:underline;color:darkblue">
 
                      <a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
                 </div>
-                           
-                           
-                        
-
             </div>
           
              <div class="col-md-1">&nbsp;</div>
                <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:250px">&nbsp;</div>
             <div class="col-md-5"  >
 
-                 <div class="col-md-12 infoBoxTitle">Details </div>
-                <div class="col-md-12 infoBox"> 
-                    <br />   
-                <div class="col-md-7">
-                    <asp:Label ID="Label2" runat="server" Text="Uploaded file"></asp:Label>
-                </div>
-
-                <div class="col-md-5">
-                    <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
-                </div>
-
-                <div class="col-md-7"><asp:Label ID="Label4" runat="server" Text="Total rows"></asp:Label>
-                </div>
-                <div class="col-md-5"> <asp:Label ID="Label5" runat="server" Text=""></asp:Label>
-                </div>
-
-                <div class="col-md-7">  <asp:Label ID="Label6" runat="server" Text="Existing"></asp:Label>
-                </div>
-                <div class="col-md-5"> <asp:Label ID="Label7" runat="server" Text=""></asp:Label>
-                </div>
-
-                <div class="col-md-7">    <asp:Label ID="Label8" runat="server" Text="New"></asp:Label>
-                </div>
-                <div class="col-md-5"> <asp:Label ID="Label9" runat="server" Text=""></asp:Label>
-                </div>
-
-                <div class="col-md-7"> <asp:Label ID="Label10" runat="server" Text="Errors"></asp:Label>
-                </div>
-                <div class="col-md-5"> <asp:Label ID="Label11" runat="server" Text=""></asp:Label>
-                </div>
-                       <br />   <br />
-                    </div>
+              <iframe id="ContentIframe" name="BOQDetails" style="height: 300px; width: 400px; overflow: hidden;" runat="server"></iframe>
   
             </div>
 

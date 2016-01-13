@@ -9,13 +9,14 @@ using FlyCn.FlyCnDAL;
 using System.Data;
 using System.Configuration;
 using System.Threading;
-using SheetStatus = FlyCn.DocumentSettings.DocumentStatusSettings;
+//using SheetStatus = FlyCn.DocumentSettings.DocumentStatusSettings;
 using System.IO;
 namespace FlyCn.EngineeredDataList
 {
     
     public partial class EnggDatalistBaseTable : System.Web.UI.Page
     {
+        
         string _moduleId;
         string _TableName;
         string _ProjectNo;
@@ -188,8 +189,8 @@ namespace FlyCn.EngineeredDataList
                 {
                     String[] excelSheets = null;
                     string path = Server.MapPath("~/Content/Fileupload/").ToString();
-                    
-                    string fileName = DataImportFileUpload.FileName.ToString();
+
+                    string fileName = UA.projectNo +"_"+ UA.userName + "_" + DataImportFileUpload.FileName.ToString();
                     hdfFileName.Value = fileName;
                     importObj.fileName = fileName;
                     string fileLocation = path + fileName;
@@ -274,7 +275,8 @@ namespace FlyCn.EngineeredDataList
             }//end try
             catch (Exception ex)
             {
-               // lblMsg.Text = ex.Message;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
                 throw ex;
             }
             finally
@@ -286,8 +288,9 @@ namespace FlyCn.EngineeredDataList
         public void DisableButtonandGrid()
         {
             dtgUploadGrid.Enabled = false;
+          
+            btnValidate.CssClass= "buttonValidateAndImport";
             btnValidate.Enabled = false;
-
         }
 
         public void EnaableButtonandGrid()
@@ -311,6 +314,8 @@ namespace FlyCn.EngineeredDataList
                 {
                    // lblMsg.Text = "Problem while deleting previous file,Please try again!";
                     //importObj.importStatus = -1;
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
                     throw ex;
                 }
             }
@@ -340,7 +345,7 @@ namespace FlyCn.EngineeredDataList
                     ValidateDataStructure(tempDS);
                     hdfstatusID.Value = validationObj.importfile.status_Id.ToString();
                     lblVupldFilename.Text = importObj.ExcelFileName;
-                   
+                    lblVtotltowcount.Text = validationObj.importfile.TotalCount.ToString();
                     lblVErrorsCount.Text=validationObj.importfile.errorCount.ToString();
                     GridErrorvalidateBind(validationObj.importfile.status_Id);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "UploadNextClick();", true);
@@ -348,6 +353,8 @@ namespace FlyCn.EngineeredDataList
                 }
                 catch(Exception ex)
                 {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
                     throw ex;
                 }
                 finally
@@ -405,6 +412,7 @@ namespace FlyCn.EngineeredDataList
         {
             //hidddnef=validationObj.importfile.status_Id;
             dsTable = comDAL.GetTableDefinition(comDAL.tableName);
+            validationObj.importfile.TotalCount = dsFile.Tables[0].Rows.Count;
             for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
             {
                 int res;
@@ -427,9 +435,11 @@ namespace FlyCn.EngineeredDataList
                 {
                     if (!(dataItem.FindControl("CheckBox1") as CheckBox).Checked)
                     {
-                        // checkHeader = false;
-                        columnNames.Add(dataItem["Field_Name"].Text);
-                        temp = temp + dataItem["Field_Name"].Text + "|";
+                        // checkHeader = false;Field_Description
+                        //columnNames.Add(dataItem["Field_Name"].Text);
+                        columnNames.Add(dataItem["Field_Description"].Text);
+                        //temp = temp + dataItem["Field_Name"].Text + "|";
+                        temp = temp + dataItem["Field_Description"].Text + "|";
                     }
                 }
                 hdfremovedField.Value = temp;
@@ -462,6 +472,7 @@ namespace FlyCn.EngineeredDataList
 
        public void RemoveErrorRow(DataSet tempDS)
        {
+         
            DataSet checkds = new DataSet();
            checkds = tempDS;
            DataSet dsTable = new DataSet();
@@ -482,6 +493,7 @@ namespace FlyCn.EngineeredDataList
                    temp = temp.TrimEnd(',');
                    if(ErrorRows.Contains(temp))
                    {
+                     
                        dr.Delete();
                    }
                }//end of for loop
@@ -504,6 +516,8 @@ namespace FlyCn.EngineeredDataList
                 }
                 catch(Exception ex)
                 {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
                     throw ex;
                 }
             }
@@ -531,6 +545,8 @@ namespace FlyCn.EngineeredDataList
                 }
                 catch(Exception ex)
                 {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
                     throw ex;
                 }
                 
@@ -542,36 +558,52 @@ namespace FlyCn.EngineeredDataList
             switch(moduleObj.ModuleID)
             {
                 case "CIV":
-                    currentSheet = SheetStatus.CIV;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet = comDAL.ExcelSheetName;
+                    //currentSheet = SheetStatus.CIV;
+                    
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
                 case "ELE":
-                    currentSheet = SheetStatus.ELE;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet =comDAL.ExcelSheetName;// SheetStatus.ELE;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "CAD":
-                    currentSheet = SheetStatus.CAD;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet = comDAL.ExcelSheetName;
+                    //currentSheet = SheetStatus.CAD;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "CTL":
-                    currentSheet = SheetStatus.CTL;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet = comDAL.ExcelSheetName;
+                    //currentSheet = SheetStatus.CTL;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "INS":
-                    currentSheet = SheetStatus.INS;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet = comDAL.ExcelSheetName;
+                    //currentSheet = SheetStatus.INS;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "MEC":
-                    currentSheet = SheetStatus.MEC;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet = comDAL.ExcelSheetName;
+                    //currentSheet = SheetStatus.MEC;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "PIP":
-                    currentSheet = SheetStatus.PIP;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet = comDAL.ExcelSheetName;
+                    //currentSheet = SheetStatus.PIP;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "TEL":
-                    currentSheet = SheetStatus.TEL;
+                    comDAL.GetProcedureName(comDAL.tableName);
+                    currentSheet = comDAL.ExcelSheetName;
+                    //currentSheet = SheetStatus.TEL;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
@@ -604,11 +636,13 @@ namespace FlyCn.EngineeredDataList
             //Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
             //excelImportThread.Start();
 
-            //new Thread(delegate()
-            //     {
-            //         importObj.InsertFile(tempDS);
-            //     }).Start();
-            importObj.InsertFile(tempDS);
+            new Thread(delegate()
+                 {
+                     importObj.InsertFile(tempDS);
+                 }).Start();
+            // importObj.InsertFile(tempDS);  <a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+           //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
+            ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id;//iframe page ImportStatusList.aspx is called with query string revisonid
             hdfErrorRow.Value = "";
             hdfFileLocation.Value= "";
             hdfFileName.Value = "";

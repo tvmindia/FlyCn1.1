@@ -106,10 +106,11 @@ namespace Proj1
         }
         public bool ValidateSize(int fileSize)
         {
-            int size = 10;
+            int size = 31457280;//30 mb in bytes
             bool largerSize = false;
-            float fileCal = fileSize / 1000000;//Converting byte into megabyte
-            if (fileCal > size)
+            //float fileCal = fileSize / 1000000;//Converting byte into megabyte
+
+            if (fileSize > size)
             {
 
                 largerSize = true;
@@ -178,13 +179,21 @@ namespace Proj1
                             lblmsg.ForeColor = System.Drawing.Color.Red;
                             lblmsg.Text = "File should  be less than 10 mb of size";
                         }
+                        if(FileUpload1.PostedFile.ContentLength == 0)
+                        {
+                            lblmsg.ForeColor = System.Drawing.Color.Red;
+                            lblmsg.Text = "File Does not have content..";
+                        }
                     }
 
                 }
                 else
                 {
+                    if (isValidFile == false)
+                    {
                     lblmsg.ForeColor = System.Drawing.Color.Red;
-                    lblmsg.Text = "File Size must be > 0 ";
+                        lblmsg.Text = "Please Upload bmp,gif,png,jpg,jpeg,doc,docx,xls,xlsx,pdf file types";
+                    }
                 }
 
                 //validation

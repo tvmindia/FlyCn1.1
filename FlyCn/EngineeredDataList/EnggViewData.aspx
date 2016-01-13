@@ -86,7 +86,7 @@
           }
 
           if (tab.get_value() == "1") {//List tab selected
-              debugger;
+            
               <%=ToolBar.ClientID %>_SetAddVisible(false);
               <%=ToolBar.ClientID %>_SetSaveVisible(false);
               <%=ToolBar.ClientID %>_SetUpdateVisible(false);
