@@ -99,6 +99,14 @@ ul.departments { list-style-type: none; }*/
                 color: #f4ba51;
                 text-decoration: solid;
             }
+
+            .fileNameElipses{
+              display:inline-block;
+              width:180px;
+              white-space: nowrap;
+              overflow:hidden !important;
+              text-overflow: ellipsis;
+              }
     </style>
     <script src="../Scripts/UserJs/UserValidations.js"></script>
     <script>
@@ -408,22 +416,12 @@ ul.departments { list-style-type: none; }*/
                 </div>
 
                 <div class="col-md-5">
-                    <asp:Label ID="lblVupldFilename" runat="server" Text=""></asp:Label>
+                    <asp:Label ID="lblVupldFilename" CssClass="fileNameElipses" runat="server" Text=""></asp:Label>
                 </div>
 
                 <div class="col-md-7"><asp:Label ID="lblVtotlrows" runat="server" Text="Total rows"></asp:Label>
                 </div>
                 <div class="col-md-5"> <asp:Label ID="lblVtotltowcount" runat="server" Text=""></asp:Label>
-                </div>
-
-                <div class="col-md-7">  <asp:Label ID="lblVexisting" runat="server" Text="Existing"></asp:Label>
-                </div>
-                <div class="col-md-5"> <asp:Label ID="lblVexistingCount" runat="server" Text=""></asp:Label>
-                </div>
-
-                <div class="col-md-7">    <asp:Label ID="lblVNew" runat="server" Text="New"></asp:Label>
-                </div>
-                <div class="col-md-5"> <asp:Label ID="lblVNewCount" runat="server" Text=""></asp:Label>
                 </div>
 
                 <div class="col-md-7"> <asp:Label ID="lblVErrors" runat="server" Text="Errors"></asp:Label>

@@ -193,42 +193,6 @@ namespace FlyCn.EngineeredDataList {
         protected global::System.Web.UI.WebControls.Label lblVtotltowcount;
         
         /// <summary>
-        /// lblVexisting control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblVexisting;
-        
-        /// <summary>
-        /// lblVexistingCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblVexistingCount;
-        
-        /// <summary>
-        /// lblVNew control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblVNew;
-        
-        /// <summary>
-        /// lblVNewCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblVNewCount;
-        
-        /// <summary>
         /// lblVErrors control.
         /// </summary>
         /// <remarks>
