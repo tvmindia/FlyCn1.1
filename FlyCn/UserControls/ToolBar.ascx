@@ -1,6 +1,36 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ToolBar.ascx.cs" Inherits="FlyCn.UserControls.ToolBar" EnableViewState="true" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<style type="text/css">
+     #noti_Container {
+            position: fixed;
+            width: 70px;
+            height: 70px;
+        }
+
+        .noti_bubble {
+            position: fixed; 
+            top: 8%;
+            left: 97%;
+            padding: 1px 2px 1px 2px;
+            background-color: blue; 
+            color: white;
+            font-weight: bold;
+            font-size: 0.88em;
+            border-radius: 30px;
+            box-shadow: 1px 1px 1px gray;
+        }
+</style>
+ <%--<asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true" EnablePageMethods="true"  >
+       
+    </asp:ScriptManager>--%>
+
 <script type="text/javascript">
+    function <%=ClientID%>_InvokeCountWebMethod(count) {
+        document.getElementById("<%= lblPopUpNumber.ClientID %>").innerHTML = count;
+    }
+
+     
+
     function confirmation(control) {
         try{
             var tool = $find(control);
@@ -26,7 +56,8 @@
         }
     }
 
-
+  
+    
     function <%=ClientID%>_SetAddVisible(s) {
 
         <%= ClientID%>_SetVisibleButton('Add', s);
@@ -78,7 +109,6 @@
     function <%=ClientID%>_SetAttachVisible(s) {
 
         <%= ClientID%>_SetVisibleButton('Attach', s);
-
       }
 
 
@@ -211,6 +241,7 @@
 
         if (id == 'Attach') {
             var btn = btnItems.getItem(16);
+           
            // var sep = btnItems.getItem(17);
             if (value) {
                 btn.set_visible(true);
@@ -229,6 +260,10 @@
 
 
 </script>
+<div id="noti_Container">
+
+            <div class="noti_bubble"><asp:Label ID="lblPopUpNumber" runat="server" /></div>
+</div>
 
 <style type="text/css">
        
@@ -250,6 +285,8 @@ div.RadToolBar_Metro .rtbMiddle
 
 
 <div class="ToolBarContainer">
+  
+  
 <telerik:RadToolBar   ID="CommonToolBar" runat="server" Font-Size="X-Small" Skin="Metro" BorderStyle="None" BorderWidth="0" CssClass="template" OnButtonClick="CommonToolBar_ButtonClick"  >
    <CollapseAnimation Type="OutQuint" Duration="200" />
      <Items>
@@ -298,7 +335,9 @@ div.RadToolBar_Metro .rtbMiddle
                <telerik:RadToolBarButton Value="RejectAttachSeperator" IsSeparator="true" runat="server"   style="display:none" > </telerik:RadToolBarButton>
          <telerik:RadToolBarButton runat="server" Text="" Value="Attach"    ImagePosition="Left"   ToolTip="Attach"   style="display:none"
             ImageUrl="~/Images/Icons/attachToolbarIcon.png" DisabledImageUrl="~/Images/Icons/attachToolbarIconDisabled.png" >
+             
            </telerik:RadToolBarButton>
+        
         
 
     </Items>

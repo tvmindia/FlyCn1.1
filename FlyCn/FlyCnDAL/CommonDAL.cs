@@ -492,9 +492,6 @@ namespace FlyCn.FlyCnDAL
 
            #endregion GetTableDefinitionByModuleID
 
-           
-
-
             #region Method to get Procedure Name
             /// <summary>
             /// Get The Procedure Name From DataBase

@@ -740,19 +740,9 @@ transition: .1s ease;
 }
  .buttonValidateAndImport
 {
-     color:white;
-    height:35px;
-    border-radius:5px;
-    color: #fff;
+    
     background-color: #009999;
-    text-shadow: -1px 1px #417cb8;
-    border: none;
-    text-align:center;
-    vertical-align:middle;
-    font-family:'Segoe UI';
-    font-size:medium;
-    padding:5px;
-    margin-top:30px;
+    border:none;
 }
 
 .smallTile {

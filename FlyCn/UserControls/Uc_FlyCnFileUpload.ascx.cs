@@ -127,10 +127,18 @@ namespace Proj1
             {
                 //validation
                 isValidFile = ValidateFileType();
-                //int Size = Convert.ToInt32(FileUpload1.PostedFile.ContentLength)/1024;
-                int Size = FileUpload1.PostedFile.ContentLength;
-                //string fileSize = Size + "MB";
-                largerSize = ValidateSize(Size);
+                int Size = Convert.ToInt32(FileUpload1.PostedFile.ContentLength)/1024;
+                int sizeinMB = Size / 1024;
+                string fileSize;
+                if (sizeinMB == 0)
+                {
+                     fileSize = Size + "KB";
+                }
+                else
+                {
+                    fileSize = sizeinMB + "MB";
+}
+                largerSize = ValidateSize(sizeinMB);
               
                 if ((isValidFile) && (FileUpload1.PostedFile.ContentLength > 0))
                 {
@@ -146,7 +154,7 @@ namespace Proj1
                         cmd.Parameters.Add("@Filename", SqlDbType.NVarChar, 100).Value = FileUpload1.FileName.ToString();
                         cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = FileUpload1.FileContent;
                         cmd.Parameters.Add("@Filetype", SqlDbType.NVarChar,5).Value = ext;
-                        cmd.Parameters.Add("@Filesize", SqlDbType.NVarChar, 50).Value = Size;
+                        cmd.Parameters.Add("@Filesize", SqlDbType.NVarChar,50).Value = fileSize;
                         cmd.Parameters.Add("@Date",SqlDbType.SmallDateTime).Value=System.DateTime.Now;
                         cmd.Parameters.Add("@userName", SqlDbType.VarChar, 50).Value = UA.userName;
                         cmd.Parameters.Add("@Type",SqlDbType.VarChar,50).Value=type_value;
@@ -183,7 +191,7 @@ namespace Proj1
                 {
                     if (isValidFile == false)
                     {
-                        lblmsg.ForeColor = System.Drawing.Color.Red;
+                    lblmsg.ForeColor = System.Drawing.Color.Red;
                         lblmsg.Text = "Please Upload bmp,gif,png,jpg,jpeg,doc,docx,xls,xlsx,pdf file types";
                     }
                 }

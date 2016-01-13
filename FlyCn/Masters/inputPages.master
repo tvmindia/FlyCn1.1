@@ -195,10 +195,11 @@
                     height: 300,
                     buttons: {}, modal: true,
                     beforeClose: function (event, ui) {
-                        var reload = OnPopupRefresh(frame);
-                        if (reload == true) {
-                            location.reload(true);
-                        }
+                        var splitter = $find("<%= RadSplitter1.ClientID %>");
+                        var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
+                        var iframe = pane.getExtContentElement();
+                        var contentWindow = iframe.contentWindow;
+                        contentWindow.GetWebCount();
                     },
 
                 });
@@ -482,7 +483,7 @@
     </script>
 
   <%--------User Defind Javascript Functions----end--------%>
-      <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
+      <telerik:RadScriptManager ID="RadScriptManager1" runat="server" EnablePageMethods="true"></telerik:RadScriptManager>
 
     <asp:UpdatePanel ID="upsuccessMessage" runat="server" UpdateMode="Always" >
         <ContentTemplate>

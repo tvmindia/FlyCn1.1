@@ -10,7 +10,7 @@ namespace FlyCn.UserControls
     public partial class ToolBar : System.Web.UI.UserControl
     {
         public event Telerik.Web.UI.RadToolBarEventHandler onClick; //for parent page click event
-
+        
         //------- buttons --------------
         public AddBtn AddButton ;
         public SaveBtn SaveButton ;
@@ -21,10 +21,10 @@ namespace FlyCn.UserControls
         public DeclineBtn DeclineButton;
         public RejectBtn RejectButton;
         public AttachBtn AttachButton;
-
+     
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+         
         }
 
         protected void Page_Init(object sender, EventArgs e)
@@ -40,7 +40,7 @@ namespace FlyCn.UserControls
               RejectButton = new RejectBtn(CommonToolBar);
               AttachButton = new AttachBtn(CommonToolBar);
 
-
+            
         }
         
 
@@ -601,7 +601,7 @@ namespace FlyCn.UserControls
            }
         
         }
-
+      
 
     }
 
