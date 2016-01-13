@@ -24,6 +24,10 @@ var approvalStatus = {
     APPROVEDBYOTHERS: "5",
     DECLINEDBYOTHERS: "6",
     REJECTEDBYOTHERS: "7"
+}
 
-
+var importStatus = {
+    Started: "Started",
+    Processing: "Processing",
+    Finished: "Finished"
 }

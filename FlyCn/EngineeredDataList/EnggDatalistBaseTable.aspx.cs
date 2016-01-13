@@ -16,6 +16,7 @@ namespace FlyCn.EngineeredDataList
     
     public partial class EnggDatalistBaseTable : System.Web.UI.Page
     {
+        
         string _moduleId;
         string _TableName;
         string _ProjectNo;
@@ -344,7 +345,6 @@ namespace FlyCn.EngineeredDataList
                     ValidateDataStructure(tempDS);
                     hdfstatusID.Value = validationObj.importfile.status_Id.ToString();
                     lblVupldFilename.Text = importObj.ExcelFileName;
-                   
                     lblVErrorsCount.Text=validationObj.importfile.errorCount.ToString();
                     GridErrorvalidateBind(validationObj.importfile.status_Id);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "UploadNextClick();", true);
@@ -433,9 +433,11 @@ namespace FlyCn.EngineeredDataList
                 {
                     if (!(dataItem.FindControl("CheckBox1") as CheckBox).Checked)
                     {
-                        // checkHeader = false;
-                        columnNames.Add(dataItem["Field_Name"].Text);
-                        temp = temp + dataItem["Field_Name"].Text + "|";
+                        // checkHeader = false;Field_Description
+                        //columnNames.Add(dataItem["Field_Name"].Text);
+                        columnNames.Add(dataItem["Field_Description"].Text);
+                        //temp = temp + dataItem["Field_Name"].Text + "|";
+                        temp = temp + dataItem["Field_Description"].Text + "|";
                     }
                 }
                 hdfremovedField.Value = temp;
@@ -557,6 +559,7 @@ namespace FlyCn.EngineeredDataList
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.CIV;
+                    
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
@@ -635,7 +638,9 @@ namespace FlyCn.EngineeredDataList
                  {
                      importObj.InsertFile(tempDS);
                  }).Start();
-           // importObj.InsertFile(tempDS);
+            // importObj.InsertFile(tempDS);  <a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+           //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
+            ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id;//iframe page ImportStatusList.aspx is called with query string revisonid
             hdfErrorRow.Value = "";
             hdfFileLocation.Value= "";
             hdfFileName.Value = "";

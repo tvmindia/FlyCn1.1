@@ -106,10 +106,11 @@ namespace Proj1
         }
         public bool ValidateSize(int fileSize)
         {
-            int size = 10;
+            int size = 31457280;//30 mb in bytes
             bool largerSize = false;
-            float fileCal = fileSize / 1000000;//Converting byte into megabyte
-            if (fileCal > size)
+            //float fileCal = fileSize / 1000000;//Converting byte into megabyte
+
+            if (fileSize > size)
             {
 
                 largerSize = true;
@@ -126,8 +127,9 @@ namespace Proj1
             {
                 //validation
                 isValidFile = ValidateFileType();
-                int Size = Convert.ToInt32(FileUpload1.PostedFile.ContentLength)/1024;
-                string fileSize = Size + "MB";
+                //int Size = Convert.ToInt32(FileUpload1.PostedFile.ContentLength)/1024;
+                int Size = FileUpload1.PostedFile.ContentLength;
+                //string fileSize = Size + "MB";
                 largerSize = ValidateSize(Size);
               
                 if ((isValidFile) && (FileUpload1.PostedFile.ContentLength > 0))
@@ -144,7 +146,7 @@ namespace Proj1
                         cmd.Parameters.Add("@Filename", SqlDbType.NVarChar, 100).Value = FileUpload1.FileName.ToString();
                         cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = FileUpload1.FileContent;
                         cmd.Parameters.Add("@Filetype", SqlDbType.NVarChar,5).Value = ext;
-                        cmd.Parameters.Add("@Filesize", SqlDbType.NVarChar,50).Value = fileSize;
+                        cmd.Parameters.Add("@Filesize", SqlDbType.NVarChar, 50).Value = Size;
                         cmd.Parameters.Add("@Date",SqlDbType.SmallDateTime).Value=System.DateTime.Now;
                         cmd.Parameters.Add("@userName", SqlDbType.VarChar, 50).Value = UA.userName;
                         cmd.Parameters.Add("@Type",SqlDbType.VarChar,50).Value=type_value;
@@ -169,13 +171,21 @@ namespace Proj1
                             lblmsg.ForeColor = System.Drawing.Color.Red;
                             lblmsg.Text = "File should  be less than 10 mb of size";
                         }
+                        if(FileUpload1.PostedFile.ContentLength == 0)
+                        {
+                            lblmsg.ForeColor = System.Drawing.Color.Red;
+                            lblmsg.Text = "File Does not have content..";
+                        }
                     }
 
                 }
                 else
                 {
-                    lblmsg.ForeColor = System.Drawing.Color.Red;
-                    lblmsg.Text = "File Size must be > 0 ";
+                    if (isValidFile == false)
+                    {
+                        lblmsg.ForeColor = System.Drawing.Color.Red;
+                        lblmsg.Text = "Please Upload bmp,gif,png,jpg,jpeg,doc,docx,xls,xlsx,pdf file types";
+                    }
                 }
 
                 //validation
