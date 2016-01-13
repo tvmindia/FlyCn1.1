@@ -287,8 +287,9 @@ namespace FlyCn.EngineeredDataList
         public void DisableButtonandGrid()
         {
             dtgUploadGrid.Enabled = false;
+          
+            btnValidate.CssClass= "buttonValidateAndImport";
             btnValidate.Enabled = false;
-
         }
 
         public void EnaableButtonandGrid()
