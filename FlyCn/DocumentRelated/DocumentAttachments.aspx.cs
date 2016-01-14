@@ -18,13 +18,14 @@ namespace FlyCn.Approvels
     {
         BOQHeaderDetails boqObj = new BOQHeaderDetails();
         BOQDetails detailsObj = new BOQDetails();
-      
-      
+        UIClasses.Const Const = new UIClasses.Const();
+        FlyCnDAL.Security.UserAuthendication UA;
          public Guid Id;
          public string _RevisionID = "";
          public string _Type = "";
          public string ItemID;
          public string Status;
+         public string DocOwner;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["RevisionId"] != null)
@@ -32,6 +33,7 @@ namespace FlyCn.Approvels
                 Status = Request.QueryString["Status"];
                _RevisionID = Request.QueryString["RevisionId"];
                _Type = Request.QueryString["type"];
+               DocOwner = Request.QueryString["Owner"];
                if (Request.QueryString["ItemID"] != "undefined")
                {
                    ItemID = Request.QueryString["ItemID"];
@@ -55,6 +57,8 @@ namespace FlyCn.Approvels
                     boqObj.Type = _Type;
                     Status = Request.QueryString["Status"];
                     hiddenStatusValue.Value = Status;
+                    DocOwner = Request.QueryString["Owner"];
+                    HiddenDocOwner.Value = DocOwner;
                     if (Request.QueryString["ItemID"] != "undefined")
                     {
                         ItemID = Request.QueryString["ItemID"];
@@ -77,6 +81,7 @@ namespace FlyCn.Approvels
             IdUc_FlyCnFileUpload.ItemID = ItemID;
             boqObj.Type = _Type;
             hiddenStatusValue.Value = Status;
+            HiddenDocOwner.Value = DocOwner;
         }
     
         protected void btnsubmit_Click(object sender, EventArgs e)
@@ -98,7 +103,11 @@ namespace FlyCn.Approvels
             boqObj.RevisionID = hdfRevisionID.Value;
            // boqObj.Type = _Type;
             ds = boqObj.GetAllAttachment();
-       
+            int count = ds.Tables[0].Rows.Count;
+            if(count==0)
+            {
+                Label1.Text = "No Attachments..!";
+            }
             GridView1.DataSource = ds;
            
             try
@@ -206,12 +215,22 @@ namespace FlyCn.Approvels
         }
         public void HideDelete()
         {
+            UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
+            string current_User = UA.userName;
            //Status = DocStatus.Draft;
-        
-            if(Status=="0"||Status=="3")
+            if (Status == "0" || Status == "3")
             {
-                GridView1.Columns[5].Visible = true;
-               
+                if ((current_User == DocOwner))
+                {
+                    GridView1.Columns[5].Visible = true;
+                }
+            
+                else if ((current_User != DocOwner))
+                {
+                    GridView1.Columns[5].Visible = false;
+                    IdUc_FlyCnFileUpload.Visible = false;
+                    btnsubmit.Visible = false;
+                }
             }
             else
             {
