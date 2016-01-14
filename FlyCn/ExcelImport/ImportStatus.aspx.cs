@@ -41,7 +41,7 @@ namespace FlyCn.ExcelImport
                 lbl_TimeRemaining1.Text = exObj.TimeRemaining;
                 lbl_LastUpdatedTime1.Text = Convert.ToString(exObj.LastUpdatedTime);
                 lbl_UserName1.Text = exObj.UserName;
-                lbl_Remarks1.Text = (exObj.Remarks.Trim() != "") ? exObj.Remarks.Trim() : "None";
+                lbl_Remarks1.Text = (exObj.Remarks.Trim() != null) ? exObj.Remarks.Trim() : "None";
                            
              }
         }
