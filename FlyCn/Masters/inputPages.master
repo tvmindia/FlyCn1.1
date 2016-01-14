@@ -241,15 +241,21 @@
                 alert(X.message);
             }
         }
-      <%-------ReviseDocumentWindow PopupWindow End-----%>
+        <%-------ReviseDocumentWindow PopupWindow End-----%>
 
-      <%-- display current document all revisions in left tree --%>
-        function RevisionHistory()
+        function GetContentWindow()
         {
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
             var iframe = pane.getExtContentElement();
             var contentWindow = iframe.contentWindow;
+            return contentWindow;
+        }
+
+      <%-- display current document all revisions in left tree --%>
+        function RevisionHistory()
+        {
+            var contentWindow = GetContentWindow();
             var hiddenDocumentStatus = contentWindow.document.getElementById('hiddenStatusValue');
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
@@ -315,12 +321,7 @@
         <%-- Set CloseDocument iframe scr with parameters --%> 
         function CloseDocument(revisionid)
         {
-
-
-            var splitter = $find("<%= RadSplitter1.ClientID %>");
-            var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
-            var iframe = pane.getExtContentElement();
-            var contentWindow = iframe.contentWindow;
+            var contentWindow = GetContentWindow();
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
@@ -345,7 +346,6 @@
         <%-- delete revisionhistrory tree node childs - call this function from BOQ Header View Tab click--%> 
         function RevisionHistroyDeleteNode() {
 
-            
             //var tree = $("#" + '<%=rtvLeftMenu.ClientID%>')
 
             var tree = $find("<%= rtvLeftMenu.ClientID %>");
@@ -369,12 +369,8 @@
         
         function ChangeOwner()
         {
-
-            var splitter = $find("<%= RadSplitter1.ClientID %>");
-            var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
-
-            var iframe = pane.getExtContentElement();
-            var contentWindow = iframe.contentWindow;
+           
+            var contentWindow = GetContentWindow();
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
@@ -386,22 +382,14 @@
                 document.getElementById('IframeChangeOwner').src = "../DocumentRelated/OwnershipChange.aspx?DocumentId=" + hiddendocumentid.value + '&Username=' + hiddenusername.value + '&Ownername=' + hiddenFieldOwner.value + '&DocumentNo=' + DocumentNo.value + '&RevisionId=' + hiddenFieldRevisionID.value;
                 ChangeOwnershipWindow();// call popup
             }
-
-
-
         }
         <%-- Set OwnershipChange iframe scr with parameters  End--%> 
 
 
        
-        function linkbuttonClient() {
-            
-           
+        function linkbuttonClient() { 
           
-            var splitter = $find("<%= RadSplitter1.ClientID %>");
-            var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
-            var iframe = pane.getExtContentElement();
-            var contentWindow = iframe.contentWindow;
+            var contentWindow = GetContentWindow();
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
            
             window.open("../Approvels/Approvers.aspx?Revisionid=" + hiddenFieldRevisionID.value, 'Approvers', "height=200,width=500");
@@ -410,16 +398,12 @@
 
         function AttachmentlinkClick(type, ItemID)
         {
-            debugger;
-            var splitter = $find("<%= RadSplitter1.ClientID %>");
-            var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
-            var iframe = pane.getExtContentElement();
-            var contentWindow = iframe.contentWindow;
+            var contentWindow = GetContentWindow();
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
             var hiddenDocumentStatus = contentWindow.document.getElementById('hiddenStatusValue');
-            document.getElementById('IframeDocumentAttachment').src = "../Approvels/DocumentAttachments.aspx?RevisionId=" + hiddenFieldRevisionID.value + "&type=" + type + "&ItemID=" + ItemID+"&Status="+hiddenDocumentStatus.value;
+            document.getElementById('IframeDocumentAttachment').src = "../DocumentRelated/DocumentAttachments.aspx?RevisionId=" + hiddenFieldRevisionID.value + "&type=" + type + "&ItemID=" + ItemID + "&Status=" + hiddenDocumentStatus.value;
                 DocumentAttachmentWindow();
            
         }
@@ -454,10 +438,7 @@
         <%-- Set ReviseDocument iframe scr with parameters  --%> 
         function ReviseDocument()
         {
-            var splitter = $find("<%= RadSplitter1.ClientID %>");
-            var pane = splitter.getPaneById("<%= contentPane.ClientID %>");
-            var iframe = pane.getExtContentElement();
-            var contentWindow = iframe.contentWindow;
+            var contentWindow = GetContentWindow();
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
 
             var DocumentID = contentWindow.document.getElementById("hiddenFieldDocumentID")
