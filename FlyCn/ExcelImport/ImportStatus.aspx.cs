@@ -21,10 +21,15 @@ namespace FlyCn.ExcelImport
             {
                 statusId = Request.QueryString["statusId"];
                 exObj.getExcelImportDetailsById(statusId);
-              
-                lbl_FileName1.Text = exObj.FileName;
+                if (Request.QueryString["ModuleName"] != null)
+                {
+                    exObj.TableName = Request.QueryString["ModuleName"];
                 
-                lblModuleName.Text = exObj.TableName;
+
+                }
+                lbl_FileName1.Text = exObj.FileName;
+
+                lblModuleName.Text = (exObj.TableName != null) ? exObj.TableName : exObj.TableName;
               
                 lbl_TotalRecords1.Text = Convert.ToString(exObj.TotalCount);
                 lbl_InsertRecords1.Text = Convert.ToString(exObj.InsertCount);
