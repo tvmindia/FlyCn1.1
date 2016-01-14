@@ -36,7 +36,6 @@ namespace FlyCn.FlyCnDAL
             rtn5.NavigateUrl = "../ExcelImport/ImportStatusList.aspx";
             rtn5.Target = "contentPane";
             myTree.Nodes.Add(rtn5);
-            
         }
 
         public void BindTreeF(RadTreeView myTree)
