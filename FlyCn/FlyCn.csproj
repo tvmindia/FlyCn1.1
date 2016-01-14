@@ -43,6 +43,9 @@
       <HintPath>C:\Users\Anija.G\Documents\Visual Studio 2013\Projects\JqueryUITreeview\JqueryUITreeview\bin\AjaxControlToolkit.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FlyCnSecurity">
+      <HintPath>..\FlyCnSecurity\bin\FlyCnSecurity.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -158,7 +161,7 @@
     <Content Include="Approvels\Approvers.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="Approvels\DocDetails.aspx" />
-    <Content Include="Approvels\DocumentAttachments.aspx" />
+    <Content Include="DocumentRelated\DocumentAttachments.aspx" />
     <Content Include="Approvels\RejectedDocument.aspx" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\Antlr3.Runtime.dll" />
@@ -645,11 +648,11 @@
     <Compile Include="Approvels\DocDetails.aspx.designer.cs">
       <DependentUpon>DocDetails.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Approvels\DocumentAttachments.aspx.cs">
+    <Compile Include="DocumentRelated\DocumentAttachments.aspx.cs">
       <DependentUpon>DocumentAttachments.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Approvels\DocumentAttachments.aspx.designer.cs">
+    <Compile Include="DocumentRelated\DocumentAttachments.aspx.designer.cs">
       <DependentUpon>DocumentAttachments.aspx</DependentUpon>
     </Compile>
     <Compile Include="Approvels\RejectedDocument.aspx.cs">
@@ -1097,6 +1100,7 @@
     <Folder Include="Content\ExcelTemplate\" />
     <Folder Include="Content\Fileupload\" />
     <Folder Include="Images\ProjectImages\" />
+    <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
