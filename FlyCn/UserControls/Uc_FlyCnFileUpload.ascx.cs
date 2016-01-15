@@ -411,7 +411,7 @@ namespace Proj1
         {
             if(Id!=0)
             {
-                string filePath = Server.MapPath("/Pix/");
+                string filePath = Server.MapPath("/Content/Fileupload/");
                 string fileName = "";
 
                 try

@@ -237,6 +237,7 @@ namespace FlyCn.BOQ
                 tab.Selected = true;
                 tab.Text = "New";
                 RadMultiPage1.SelectedIndex = 1;
+              
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "ClearTextBox", "ClearBOQHeaderTexBox();", true);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
                 ToolBarVisibility(3);
