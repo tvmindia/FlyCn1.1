@@ -201,9 +201,7 @@
                         var contentWindow = iframe.contentWindow;
                         contentWindow.GetWebCount();
                     },
-
                 });
-
                 return false
             }
             catch (X) {
@@ -403,7 +401,7 @@
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
             var hiddenDocumentStatus = contentWindow.document.getElementById('hiddenStatusValue');
-            document.getElementById('IframeDocumentAttachment').src = "../DocumentRelated/DocumentAttachments.aspx?RevisionId=" + hiddenFieldRevisionID.value + "&type=" + type + "&ItemID=" + ItemID + "&Status=" + hiddenDocumentStatus.value;
+            document.getElementById('IframeDocumentAttachment').src = "../DocumentRelated/DocumentAttachments.aspx?RevisionId=" + hiddenFieldRevisionID.value + "&type=" + type + "&ItemID=" + ItemID + "&Status=" + hiddenDocumentStatus.value + "&Owner=" + hiddenFieldOwner.value;
                 DocumentAttachmentWindow();
            
         }

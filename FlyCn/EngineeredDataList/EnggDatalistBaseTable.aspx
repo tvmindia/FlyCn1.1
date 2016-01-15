@@ -500,7 +500,7 @@ ul.departments { list-style-type: none; }*/
 
     <div style="display: none; margin-left: 5px;" id="Import">
         <div class="col-md-12 Span-One">
-            <div class="col-md-5" style="padding-top:50px">
+            <div class="col-md-3" style="padding-top:50px">
 
                   <div class="col-md-12">
                       <asp:Label ID="lblStatusMSG" runat="server" CssClass="subtitle"></asp:Label></div>
@@ -513,9 +513,9 @@ ul.departments { list-style-type: none; }*/
           
              <div class="col-md-1">&nbsp;</div>
                <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:250px">&nbsp;</div>
-            <div class="col-md-5"  >
+            <div class="col-md-7"  >
 
-              <iframe id="ContentIframe" name="BOQDetails" style="height: 300px; width: 400px; overflow: hidden;" runat="server"></iframe>
+              <iframe id="ContentIframe" name="BOQDetails" style="height: 300px; width: 600px; overflow: hidden;" runat="server"></iframe>
   
             </div>
 

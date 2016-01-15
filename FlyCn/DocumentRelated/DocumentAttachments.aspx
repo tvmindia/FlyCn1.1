@@ -39,6 +39,12 @@
            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
              <td>  <asp:Button ID="btnsubmit" runat="server" Text="Upload" OnClick="btnsubmit_Click" /></td>
            </tr>
+       <tr>
+          
+           <td>
+           <asp:Label ID="Label1" runat="server" Text="" ForeColor="Red"></asp:Label>
+               </td>
+       </tr>
            </table>
     <br />
          <table id="table2" class="tblList">
@@ -65,6 +71,7 @@
     <asp:HiddenField ID="hdfItemID" runat="server" ClientIDMode="Static" />
     <asp:HiddenField ID="hiddenStatusValue" runat="server" ClientIDMode="Static" />
     <asp:HiddenField ID="hiddenAttachmentCount" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="HiddenDocOwner" runat="server" ClientIDMode="Static" />
    
     
     

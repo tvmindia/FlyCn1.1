@@ -505,7 +505,6 @@
       
         
         function OnClientButtonClicking(sender, args) {
-            debugger;
         var btn = args.get_item();
         if (btn.get_value() == 'Save') {
            
