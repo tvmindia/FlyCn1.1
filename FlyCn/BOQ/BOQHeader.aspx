@@ -407,7 +407,12 @@
 
 
 
-                }
+        }
+       <%-- function hideNofificationCount()
+        {
+            debugger;
+            <%=ToolBar.ClientID %>_hideNotification();
+}--%>
         
         function onClientTabSelected(sender, args) {
            
@@ -415,8 +420,10 @@
 
         if (tab.get_value() == '2')
         {
-           
+            debugger;
+            <%=ToolBar.ClientID %>_hideNotification(true);
             parent.HideTreeNode();
+           
             //var txtCont = Page.Master.Master.FindControl("rtvLeftMenu").ClientID ;
             //alert(txtCont);
             <%--document.getElementById('<%=hdnPostbackOnItemCommand.ClientID %>').value = "1";--%>
@@ -477,7 +484,7 @@
          }
             if (tab.get_value() == "1")
 
-            {               
+            {
                 parent.HideTreeNode();
                 document.getElementById('<%=HiddenTabStatus.ClientID %>').value="1";             
                 var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
@@ -541,8 +548,6 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-          
-
             $('.accordion-toggle').on('click', function (event) {
 
                 event.preventDefault();          

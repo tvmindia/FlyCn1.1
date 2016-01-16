@@ -21,6 +21,7 @@ namespace FlyCn.UserControls
         public DeclineBtn DeclineButton;
         public RejectBtn RejectButton;
         public AttachBtn AttachButton;
+       
      
         protected void Page_Load(object sender, EventArgs e)
         {

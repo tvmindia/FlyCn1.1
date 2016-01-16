@@ -29,7 +29,12 @@
         document.getElementById("<%= lblPopUpNumber.ClientID %>").innerHTML = count;
     }
 
-     
+     function <%=ClientID%>_hideNotification()
+    {
+        debugger;
+        var notific = document.getElementById("noti_Container");
+        notific.style.visibility = false;
+    }
 
     function confirmation(control) {
         try{
