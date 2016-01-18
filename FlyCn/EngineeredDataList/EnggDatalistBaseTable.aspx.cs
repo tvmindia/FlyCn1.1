@@ -325,53 +325,13 @@ namespace FlyCn.EngineeredDataList
             }
         }
 
-        protected void BtnNext_Click(object sender, EventArgs e)
-        {
-
-            //Thread excelImportThread = new Thread(new ThreadStart(importObj.ImportExcelFile));
-            //excelImportThread.Start();
-            importObj.ExcelFileName = hdfFileName.Value;
-            importObj.fileLocation = hdfFileLocation.Value;
-            importObj.fileName = importObj.ExcelFileName;
-            
-           if(File.Exists(importObj.fileLocation))
-            {
-                try
-                {
-                    tempDS = new DataSet();
-                    tempDS = importObj.ImportExcelFile();
-                    CheckBoxColumns();//getting the fieldnames that has been uncheced
-                    RemoveColumnFromDS(tempDS);
-                    ValidateDataStructure(tempDS);
-                    hdfstatusID.Value = validationObj.importfile.status_Id.ToString();
-                    lblVupldFilename.Text = importObj.ExcelFileName;
-                    lblVtotltowcount.Text = validationObj.importfile.TotalCount.ToString();
-                    lblVErrorsCount.Text=validationObj.importfile.errorCount.ToString();
-                    GridErrorvalidateBind(validationObj.importfile.status_Id);
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "UploadNextClick();", true);
-                 
-                }
-                catch(Exception ex)
-                {
-                    var page = HttpContext.Current.CurrentHandler as Page;
-                    eObj.ErrorData(ex, page);
-                    throw ex;
-                }
-                finally
-                {
-                    
-                }
-                
-           }
-       }
+       
         public void GridErrorvalidateBind(Guid _statusid)
         {
             
             DataSet ds = new DataSet();
             if (_statusid != Guid.Empty)
             {
-               
-              
                 ds = importObj.getErrorDetails(_statusid);
                 dtgvalidationErros.DataSource = ds;
                 string temp = "";
@@ -380,7 +340,6 @@ namespace FlyCn.EngineeredDataList
                 {
                   temp = temp + dr["Key_Field"].ToString() + "|";
                 }
-
 
                 hdfErrorRow.Value = temp;
                 
@@ -613,6 +572,46 @@ namespace FlyCn.EngineeredDataList
         protected void dtgvalidationErros_PreRender(object sender, EventArgs e)
         {
             dtgvalidationErros.Rebind();
+        }
+
+        protected void BtnNext_Click(object sender, EventArgs e)//btn validate
+        {
+
+            //Thread excelImportThread = new Thread(new ThreadStart(importObj.ImportExcelFile));
+            //excelImportThread.Start();
+            importObj.ExcelFileName = hdfFileName.Value;
+            importObj.fileLocation = hdfFileLocation.Value;
+            importObj.fileName = importObj.ExcelFileName;
+
+            if (File.Exists(importObj.fileLocation))
+            {
+                try
+                {
+                    tempDS = new DataSet();
+                    tempDS = importObj.ImportExcelFile();
+                    CheckBoxColumns();//getting the fieldnames that has been uncheced
+                    RemoveColumnFromDS(tempDS);
+                    ValidateDataStructure(tempDS);
+                    hdfstatusID.Value = validationObj.importfile.status_Id.ToString();
+                    lblVupldFilename.Text = importObj.ExcelFileName;
+                    lblVtotltowcount.Text = validationObj.importfile.TotalCount.ToString();
+                    lblVErrorsCount.Text = validationObj.importfile.errorCount.ToString();
+                    GridErrorvalidateBind(validationObj.importfile.status_Id);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "UploadNextClick();", true);
+
+                }
+                catch (Exception ex)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+            }
         }
 
         protected void btnImport_Click(object sender, EventArgs e)
