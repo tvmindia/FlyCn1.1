@@ -179,6 +179,8 @@
                                              <asp:HiddenField ID="hiddenFieldDocumentNo" runat="server" ClientIDMode="Static" />
                                              <asp:HiddenField ID="hiddenFieldDocOwner" runat="server" ClientIDMode="Static" />
                                              <asp:HiddenField ID="hiddenFieldRevisionNo" runat="server" ClientIDMode="Static" />
+                                             <asp:HiddenField ID="hiddenFieldStatus" runat="server" ClientIDMode="Static" />
+                                             <asp:HiddenField ID="hiddenFieldClientDocNo" runat="server" ClientIDMode="Static" />
                                            </div>
                                          </div>
                                          <div class="col-md-5">
