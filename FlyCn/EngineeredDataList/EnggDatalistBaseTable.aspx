@@ -100,8 +100,12 @@ ul.departments { list-style-type: none; }*/
                 text-decoration: solid;
             }
 
-            #upldFilename{
-                text-overflow:ellipsis;
+            .filetextElipse{
+                   white-space: nowrap; 
+                   width: 12em; 
+                   overflow: hidden;    
+                   text-overflow: ellipsis; 
+    
             }
     </style>
     <script src="../Scripts/UserJs/UserValidations.js"></script>
@@ -420,8 +424,9 @@ ul.departments { list-style-type: none; }*/
                     <asp:Label ID="lblVupldFile" runat="server" Text="Uploaded file"></asp:Label>
                 </div>
 
-                <div class="col-md-5">
-                    <asp:Label ID="lblVupldFilename" runat="server" Text="" ></asp:Label>
+                <div class="col-md-5 filetextElipse">
+                  <asp:Label ID="lblVupldFilename" runat="server"></asp:Label>
+              
                 </div>
 
                 <div class="col-md-7"><asp:Label ID="lblVtotlrows" runat="server" Text="Total rows"></asp:Label>
@@ -434,7 +439,7 @@ ul.departments { list-style-type: none; }*/
                 <div class="col-md-5"> <asp:Label ID="lblVErrorsCount" runat="server" Text=""></asp:Label>
                 </div>
                        <br />   <br />
-                    </div>
+                 </div>
                             
 
                  

@@ -34,6 +34,13 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     }
+     .filetextElipse{
+                   white-space: nowrap; 
+                   width: 12em; 
+                   overflow: hidden;    
+                   text-overflow: ellipsis; 
+    
+            }
 </style>
 </head>
 <body>
@@ -150,7 +157,7 @@
                                
                  <div class="form-group">                     
                  <asp:Label ID="lbl_FileName" runat="server" Text="File Name"  CssClass="control-label col-xs-6"></asp:Label>              
-                 <div class="col-xs-6">
+                 <div class="col-xs-6 filetextElipse">
                  <asp:Label ID="lbl_FileName1" runat="server"></asp:Label>
                 </div>
                 </div>
