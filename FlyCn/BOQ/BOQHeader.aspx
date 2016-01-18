@@ -348,6 +348,8 @@
 
         function OnClientTabSelecting(sender, eventArgs) {
 
+           
+
             var tab = eventArgs.get_tab();
             
             var security = document.getElementById("hdnSecurityMaster").value;
@@ -359,6 +361,7 @@
                 if (tab.get_text() == "New") {
 
                     eventArgs.set_cancel(false);
+                    <%=ToolBar.ClientID %>_hideNotification();
                 }
                 else
                     if (tab.get_text() == "Details") {
@@ -372,6 +375,7 @@
             else
                 if (PageSecurity.isReadOnly) {
                     if (tab.get_text() == "New") {
+                        <%=ToolBar.ClientID %>_hideNotification();
                         AlertMsg(messages.EditModeNewClick);
 
                         eventArgs.set_cancel(true);
@@ -390,7 +394,7 @@
                 }
                 else if (PageSecurity.isEditOnly) {
                     if (tab.get_text() == "New") {
-
+                        <%=ToolBar.ClientID %>_hideNotification();
                         AlertMsg(messages.EditModeNewClick);
                         eventArgs.set_cancel(true);
                     }
@@ -420,9 +424,7 @@
 
         if (tab.get_value() == '2')
         {
-            debugger;
-            <%=ToolBar.ClientID %>_hideNotification(true);
-            parent.HideTreeNode();
+             parent.HideTreeNode();
            
             //var txtCont = Page.Master.Master.FindControl("rtvLeftMenu").ClientID ;
             //alert(txtCont);

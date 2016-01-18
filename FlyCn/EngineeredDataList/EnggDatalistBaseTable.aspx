@@ -30,7 +30,7 @@
                 margin-right: 4px;
                 padding: 5px;
             }
-
+          
                 .menu li:hover, .menu li.active {
                     background-color: #f90;
                 }
@@ -100,13 +100,9 @@ ul.departments { list-style-type: none; }*/
                 text-decoration: solid;
             }
 
-            .fileNameElipses{
-              display:inline-block;
-              width:180px;
-              white-space: nowrap;
-              overflow:hidden !important;
-              text-overflow: ellipsis;
-              }
+            #upldFilename{
+                text-overflow:ellipsis;
+            }
     </style>
     <script src="../Scripts/UserJs/UserValidations.js"></script>
     <script>
@@ -425,7 +421,7 @@ ul.departments { list-style-type: none; }*/
                 </div>
 
                 <div class="col-md-5">
-                    <asp:Label ID="lblVupldFilename" CssClass="fileNameElipses" runat="server" Text=""></asp:Label>
+                    <asp:Label ID="lblVupldFilename" runat="server" Text="" ></asp:Label>
                 </div>
 
                 <div class="col-md-7"><asp:Label ID="lblVtotlrows" runat="server" Text="Total rows"></asp:Label>

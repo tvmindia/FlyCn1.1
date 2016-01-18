@@ -33,7 +33,7 @@
     {
         debugger;
         var notific = document.getElementById("noti_Container");
-        notific.style.visibility = false;
+        notific.style.visibility = "hidden";
     }
 
     function confirmation(control) {
@@ -265,7 +265,7 @@
 
 
 </script>
-<div id="noti_Container">
+<div id="noti_Container" style="visibility:visible">
 
             <div class="noti_bubble"><asp:Label ID="lblPopUpNumber" runat="server" /></div>
 </div>

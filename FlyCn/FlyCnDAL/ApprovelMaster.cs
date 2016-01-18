@@ -95,6 +95,17 @@ using Messages = FlyCn.UIClasses.Messages;
             set;
         }
 
+        public string LatestStatus
+        {
+            get;
+            set;
+        }
+        public string ClientDocNo
+        {
+            get;
+            set;
+        }
+
         #endregion GeneralProperties
 
         #region getDataFromApprovelLevel
@@ -584,6 +595,13 @@ using Messages = FlyCn.UIClasses.Messages;
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
+
+                if(ds.Tables[0].Rows.Count>0)
+                {
+                    DataRow dr = ds.Tables[0].Rows[0];
+                    LatestStatus = Convert.ToString(dr["StatusDescription"]);
+                    ClientDocNo = Convert.ToString(dr["ClientDocNo"]);
+                }
             }
             catch (Exception ex)
             {

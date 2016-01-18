@@ -37,8 +37,10 @@ namespace FlyCn.Content.DocDetailView
                 lblCreated.Attributes["style"] = "font-weight:bold;";
                 lblDate.Text = Request.QueryString["Createddate"];
                 lblDate.Attributes["style"] = "font-weight:bold;";
-                lblStatus.Text = "Gopika";
-                lblClientDocNo.Text = "Gopika";
+                lblStatus.Text = Request.QueryString["LatestStatus"];
+                lblStatus.Attributes["style"] = "font-weight:bold;";
+                lblClientDocNo.Text = Request.QueryString["ClientDocNo"];
+                lblClientDocNo.Attributes["style"] = "font-weight:bold;";
                 if (dt.Rows.Count > 0)
                 {
                     lblDocumntNo.Text = dt.Rows[0]["DocumentNo"].ToString();
