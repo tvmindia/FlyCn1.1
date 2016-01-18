@@ -156,12 +156,12 @@
                 </div>
 
              
-               <div class="form-group">                 
-               <asp:Label ID="lbl_UserName" runat="server" Text="User Name"  CssClass="control-label col-xs-6"></asp:Label>
-              <div class="col-xs-6">
-              <asp:Label ID="lbl_UserName1" runat="server"></asp:Label>
-              </div>
-              </div>
+                <div class="form-group">                 
+                <asp:Label ID="lbl_UserName" runat="server" Text="User Name"  CssClass="control-label col-xs-6"></asp:Label>
+                <div class="col-xs-6">
+                <asp:Label ID="lbl_UserName1" runat="server"></asp:Label>
+                </div>
+                </div>
 
           
           

@@ -43,7 +43,7 @@ namespace FlyCn.FlyCnDAL
             {
                 DataTable dtError = CreateErrorTable();
                 DataSet dsError = new DataSet();
-              
+                  
                 // DAL.Constants constantList = new DAL.Constants();
                 // DAL.ExcelImportDAL stdDal = new DAL.ExcelImportDAL();
                 // DAL.ExcelImportDetailsDAL detailsDal = new DAL.ExcelImportDetailsDAL(status_Id);
@@ -310,6 +310,9 @@ namespace FlyCn.FlyCnDAL
             #endregion GetInvalidKeyField
 
             #endregion Methods
+            #region DataValidation
+            
+            #endregion DataValidation
 
         }
     #endregion classValidationExcel
