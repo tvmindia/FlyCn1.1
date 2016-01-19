@@ -7,6 +7,7 @@ using FlyCn.FlyCnDAL;
 using System.Data.SqlClient;
 using System.Collections;
 using System.Data;
+using FlyCn.UIClasses;
 
 namespace FlyCn.WebServices
 {
@@ -37,12 +38,12 @@ namespace FlyCn.WebServices
                 if (UA.ValidUser)
                 {
                     dr["Flag"] = true;
-                    dr["Message"] = "Successfully Logged in";
+                    dr["Message"] = FlyCn.UIClasses.Messages.loginSuccessMessage ;
                 }
                 else
                 {
                     dr["Flag"] = false;
-                    dr["Message"] = "Login Unsuccessfull";
+                    dr["Message"] = FlyCn.UIClasses.Messages.loginUnsuccessMessage;
                 }                
             }
             catch (Exception ex)
