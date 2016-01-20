@@ -13,6 +13,10 @@ namespace FlyCn.FlyCnDAL
         public string QCPunchListURL = "../EIL/QCPunchList.aspx";
         public string DefaultTheme = "FlyCnRed";
         public string Extensions = ".bmp,.gif,.png,.jpg,.jpeg,.doc,.docx,.xls,.xlsx,.pdf";
+
+
+        public string ObjectRegistration = "../FlycnSecurity/ObjectRegistration.aspx";
+        public string NonProjectRoles = "../FlycnSecurity/NonProjectRoles.aspx";
         //dictionary
     }
 }

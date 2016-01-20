@@ -321,6 +321,9 @@
     <Content Include="ExcelImport\ImportStatusList.aspx" />
     <Content Include="Fileupload.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
+    <Content Include="FlycnSecurity\NonProjectRoles.aspx" />
+    <Content Include="FlycnSecurity\Object.aspx" />
+    <Content Include="FlycnSecurity\ObjectRegistration.aspx" />
     <Content Include="Images\Document Next-WF.png" />
     <Content Include="Images\Document-Download-01.png" />
     <Content Include="Images\Download-02-WF.png" />
@@ -850,6 +853,7 @@
     <Compile Include="FlyCnDAL\MasterPersonal.cs" />
     <Compile Include="FlyCnDAL\MasterPersonnelQualification.cs" />
     <Compile Include="FlyCnDAL\Modules.cs" />
+    <Compile Include="FlyCnDAL\ObjectRegistration.cs" />
     <Compile Include="FlyCnDAL\ProjectParameters.cs" />
     <Compile Include="FlyCnDAL\PunchList.cs">
       <SubType>Code</SubType>
@@ -894,6 +898,27 @@
     </Compile>
     <Compile Include="FlyCnMasters\UserMaster.aspx.designer.cs">
       <DependentUpon>UserMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FlycnSecurity\NonProjectRoles.aspx.cs">
+      <DependentUpon>NonProjectRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlycnSecurity\NonProjectRoles.aspx.designer.cs">
+      <DependentUpon>NonProjectRoles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FlycnSecurity\Object.aspx.cs">
+      <DependentUpon>Object.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlycnSecurity\Object.aspx.designer.cs">
+      <DependentUpon>Object.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FlycnSecurity\ObjectRegistration.aspx.cs">
+      <DependentUpon>ObjectRegistration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlycnSecurity\ObjectRegistration.aspx.designer.cs">
+      <DependentUpon>ObjectRegistration.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
@@ -1100,7 +1125,6 @@
     <Folder Include="Content\ExcelTemplate\" />
     <Folder Include="Content\Fileupload\" />
     <Folder Include="Images\ProjectImages\" />
-    <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
