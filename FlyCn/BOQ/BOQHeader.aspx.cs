@@ -43,6 +43,7 @@ namespace FlyCn.BOQ
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
+           
             BOQObj = new BOQHeaderDetails();
             ToolBarVisibility(4);
             SecurityCheck();
@@ -62,6 +63,7 @@ namespace FlyCn.BOQ
             hiddenFieldDocumentType.Value = "BOQ";
             ContentIframe.Style["display"] = "none";//iframe disabling
             Context.Items["DocumentOwner"] = hiddenDocumentOwner.Value;
+            Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.collapsenode();", true);
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtMid');", true);
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtTop');", true);
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
@@ -179,6 +181,7 @@ namespace FlyCn.BOQ
                     FlyCn.FlyCnDAL.DocumentMaster docObj = new DocumentMaster();
                    // BOQObj = new BOQHeaderDetails();  
                   //  docdtObj=  docObj.GetRevisionIdByDocumentNo(DocumentNo);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     RadMultiPage1.SelectedIndex = 1;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.RevisionHistory();", true);
@@ -251,7 +254,8 @@ namespace FlyCn.BOQ
                 dtgBOQGrid.Rebind();
                 //calling js function DisableBOQHeaderTextBox()to make text box readonly
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "DisableTextBox", "DisableBOQHeaderTextBox();", true);
-  
+                Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
             }
             if (e.Item.Value == "Update")
             {
@@ -373,6 +377,7 @@ namespace FlyCn.BOQ
                     QueryTimeStatus = "New";
                     ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;//iframe page BOQDetails.aspx is called with query string revisonid
                     //ScriptManager.RegisterStartupScript(this.GetType(), "Add", "OpenDetailAccordion();", true);//Accordian calling BOQdetail slide down
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), " ", "DisablePopUP();", true);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Add", "OpenDetailAccordion();", true);
                 }
             }
@@ -673,7 +678,7 @@ namespace FlyCn.BOQ
 
         #region GetAttachmentCountWebMethod
 
-        #endregion GetAttachmentCountWebMethod
+       
           [System.Web.Services.WebMethod]
 
         public static int GetAttachmentCount(String RevisionID)
@@ -699,7 +704,8 @@ namespace FlyCn.BOQ
             }
             return count;
         }
+      
+        #endregion GetAttachmentCountWebMethod
         #endregion Methods
-
     }
 }

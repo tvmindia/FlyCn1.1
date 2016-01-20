@@ -29,6 +29,7 @@ namespace FlyCn.BOQ
             ToolBarVisibility(4);
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             Revisionid = Request.QueryString["Revisionid"];
+            hiddenFieldRevisionID.Value = Revisionid;
             QueryTimeStatus = Request.QueryString["QueryTimeStatus"];
             latestStatus = Request.QueryString["latestStatus"];
            
@@ -51,19 +52,25 @@ namespace FlyCn.BOQ
             {
                 if(QueryTimeStatus=="New")
                 {
+                    
                     RadTab tab = (RadTab)RadTabStripBOQDetail.FindTabByValue("2");
                     tab.Selected = true;
                     tab.Text = "New";
                     RadMultiPageBOQDetail.SelectedIndex = 1;
                     ToolBarVisibility(1);//Save button visible
                   //  Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.linkbuttonClient();", false);
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
+
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), " ", "DisablePopUP();", true);
+                    //Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "_hideNotification();", true);
+                    //Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
                     hdfDocumentStatus.Value = latestStatus;
                     doc.Status = hdfDocumentStatus.Value;
+                    hiddenFieldRevisionID.Value = Revisionid;
                 }
             }
             hdfDocumentStatus.Value = latestStatus;
             doc.Status = latestStatus;
+            hiddenFieldRevisionID.Value=Revisionid;
         }
        
          #region ToolBar_onClick
@@ -508,6 +515,33 @@ namespace FlyCn.BOQ
          }
          #endregion SecurityCheck
 
+         #region GetAttachmentCountWebMethod
 
+         [System.Web.Services.WebMethod]
+         public static int GetDetailAttachmentCount(String RevisionID)
+         {
+             int count = 0;
+             try
+             {
+                 if (RevisionID != "")
+                 {
+                     BOQHeaderDetails boq = new BOQHeaderDetails();
+                     DataSet ds = new DataSet();
+                     //Guid RevID = new Guid(RevisionID);
+                     boq.RevisionID = RevisionID;
+                     boq.Type = "BOQDetail";
+                     ds = boq.GetAllAttachment();
+                     count = ds.Tables[0].Rows.Count;
+
+                 }
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+             return count;
+         }
+
+         #endregion GetAttachmentCountWebMethod
     }
 }
