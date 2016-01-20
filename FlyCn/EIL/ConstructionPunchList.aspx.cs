@@ -20,8 +20,8 @@ namespace FlyCn.EIL
 {
     public partial class ConstructionPunchList : System.Web.UI.Page
     {
-      
-       
+
+
         #region Global Variables
         ErrorHandling eObj = new ErrorHandling();
         DataTable dt = new DataTable();
@@ -47,41 +47,42 @@ namespace FlyCn.EIL
             //----------- Page Security Checking ----------------//
 
             SecurityCheck();
- 
+
             //-------------------------------------------------------------------------//
             ToolBarVisibility(4);
             if (!IsPostBack)
             {
-             
+
                 LoadComboBox();
-                if (Request.QueryString["Mode"] != null) {
+                if (Request.QueryString["Mode"] != null)
+                {
 
                     hdnMode.Value = Request.QueryString["Mode"].ToString();
                 }
 
-                
-           }
-               
-      
+
+            }
+
+
             SetTitle();
-           
-        
+
+
         }
-        #endregion Page_Load  
+        #endregion Page_Load
 
         #region ToolBar_OnClick
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
-            if ( e.Item.Value=="Save")
+            if (e.Item.Value == "Save")
             {
                 Insert();
             }
-             if(e.Item.Value=="Update")
+            if (e.Item.Value == "Update")
             {
                 Update();
 
             }
-            if(e.Item.Value=="Delete")
+            if (e.Item.Value == "Delete")
             {
                 Delete();
             }
@@ -91,7 +92,7 @@ namespace FlyCn.EIL
         #region btnSave_Click
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Insert(); 
+            Insert();
         }
         #endregion btnSave_Click
 
@@ -101,12 +102,13 @@ namespace FlyCn.EIL
             DataTable dt;
             dt = pObj.GetPunchList(hdnMode.Value);
             dtgManageProjectGrid.DataSource = dt;
-            
-         }
+
+        }
         #endregion dtgManageProjectGrid_NeedDataSource1
 
         #region dtgManageProjectGrid_DeleteCommand
-        private void dtgManageProjectGrid_DeleteCommand(object source, Telerik.Web.UI.GridCommandEventArgs e){
+        private void dtgManageProjectGrid_DeleteCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
+        {
             string ID = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["IDNo"].ToString();
             DataTable table = (DataTable)Session["DataSource"];
             if (table.Rows.Find(ID) != null)
@@ -121,7 +123,7 @@ namespace FlyCn.EIL
         #region dtgManageProjectGrid_ItemCommand
         protected void dtgManageProjectGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
-   
+
             if (e.CommandName == "EditData")
             {
                 ToolBarVisibility(2);
@@ -135,7 +137,7 @@ namespace FlyCn.EIL
                 //hdnSecurity.Value = result;
                 btnUpload.Enabled = true;
                 hdnAccessMode.Value = "EditData";
-          
+
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                 tab.Selected = true;
                 tab.Text = "Edit";
@@ -147,7 +149,7 @@ namespace FlyCn.EIL
                 dt = pObj.GetPunchListByProjNo(projno, ID);
                 txtIDno.Text = dt.Rows[0]["IDNo"].ToString();
                 string opndate = dt.Rows[0]["OpenDt"].ToString();
-                
+
                 if (opndate != "")
                 {
 
@@ -207,14 +209,14 @@ namespace FlyCn.EIL
                 else
                 {
                     ddlEnteredBy.SelectedIndex = ddlEnteredBy.Items.IndexOf(ddlEnteredBy.Items.FindByText("-Select-"));
-                }          
+                }
 
                 string entrdDate = dt.Rows[0]["EnteredDt"].ToString();
-                      if (entrdDate != "")
-                    {
-                        RadEnteredDate.SelectedDate = Convert.ToDateTime(entrdDate);
-                    }
-         
+                if (entrdDate != "")
+                {
+                    RadEnteredDate.SelectedDate = Convert.ToDateTime(entrdDate);
+                }
+
                 string displne = dt.Rows[0]["Discipline"].ToString();
                 if (displne != "")
                 {
@@ -295,8 +297,8 @@ namespace FlyCn.EIL
 
                     ddlCategoryList.SelectedIndex = ddlCategoryList.Items.IndexOf(ddlCategoryList.Items.FindByText("-Select-"));
                 }
-                string system=dt.Rows[0]["TO_System"].ToString();
-                if ( system!= "")
+                string system = dt.Rows[0]["TO_System"].ToString();
+                if (system != "")
                 {
                     ddlSystem.SelectedValue = system;
                 }
@@ -304,16 +306,16 @@ namespace FlyCn.EIL
                 {
                     ddlSystem.SelectedIndex = ddlSystem.Items.IndexOf(ddlSystem.Items.FindByText("-Select-"));
                 }
-                
-                 string subsystem  = dt.Rows[0]["TO_Subsystem"].ToString();
-                 if (subsystem != "")
-                 {
-                     ddlSubsystem.SelectedValue = subsystem;
-                 }
-                 else
-                 {
-                     ddlSubsystem.SelectedIndex = ddlSubsystem.Items.IndexOf(ddlSubsystem.Items.FindByText("-Select-"));
-                 }
+
+                string subsystem = dt.Rows[0]["TO_Subsystem"].ToString();
+                if (subsystem != "")
+                {
+                    ddlSubsystem.SelectedValue = subsystem;
+                }
+                else
+                {
+                    ddlSubsystem.SelectedIndex = ddlSubsystem.Items.IndexOf(ddlSubsystem.Items.FindByText("-Select-"));
+                }
                 string cntrlsystem = dt.Rows[0]["CTRL_System"].ToString();
                 if (cntrlsystem != "")
                 {
@@ -360,260 +362,260 @@ namespace FlyCn.EIL
                 DataTable dtt;
                 dtt = pObj.GetFileFromEILAttachByProjectNoRefEILType(ID);
                 grdFileUpload.DataSource = dtt;
-                grdFileUpload.DataBind();          
- 
+                grdFileUpload.DataBind();
+
             }
             if (e.CommandName == "DeleteColumn")
             {
                 string ID = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["IDNo"].ToString();
                 string projno = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ProjectNo"].ToString();
-                string type=e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["EILType"].ToString();
-                int val=0;
+                string type = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["EILType"].ToString();
+                int val = 0;
                 val = pObj.DeleteEILAttach(ID, type);
-                int result=0;
+                int result = 0;
                 result = pObj.DeleteEIL(projno, ID);
-                if(result==1)
+                if (result == 1)
                 {
                     var page = HttpContext.Current.CurrentHandler as Page;
                     var master = page.Master;
-                    eObj.DeleteSuccessData(page );
+                    eObj.DeleteSuccessData(page);
 
                 }
-                dtgManageProjectGrid.Rebind();        
+                dtgManageProjectGrid.Rebind();
             }
             //--For Security purpose---
-             if (e.CommandName == "ViewDetailColumn")
-             {
-                 ToolBarVisibility(4);
-                 hdnAccessMode.Value = "ViewDetailColumn";
+            if (e.CommandName == "ViewDetailColumn")
+            {
+                ToolBarVisibility(4);
+                hdnAccessMode.Value = "ViewDetailColumn";
 
-                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
-                 tab.Selected = true;
-                 tab.Text = "Edit";
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tab.Selected = true;
+                tab.Text = "Edit";
 
-                 RadMultiPage1.SelectedIndex = 1;
-                 string ID = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["IDNo"].ToString();
-                 string projno = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ProjectNo"].ToString();
+                RadMultiPage1.SelectedIndex = 1;
+                string ID = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["IDNo"].ToString();
+                string projno = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ProjectNo"].ToString();
 
-                 dt = pObj.GetPunchListByProjNo(projno, ID);
-                 txtIDno.Text = dt.Rows[0]["IDNo"].ToString();
-                 string opndate = dt.Rows[0]["OpenDt"].ToString();
+                dt = pObj.GetPunchListByProjNo(projno, ID);
+                txtIDno.Text = dt.Rows[0]["IDNo"].ToString();
+                string opndate = dt.Rows[0]["OpenDt"].ToString();
 
-                 if (opndate != "")
-                 {
+                if (opndate != "")
+                {
 
-                     RadOpenDate.SelectedDate = Convert.ToDateTime(opndate);
-                 }
-                 string opnby = dt.Rows[0]["OpenBy"].ToString();
-                 if (opnby != "")
-                 {
-                     ddlOpenBy.SelectedValue = opnby;
+                    RadOpenDate.SelectedDate = Convert.ToDateTime(opndate);
+                }
+                string opnby = dt.Rows[0]["OpenBy"].ToString();
+                if (opnby != "")
+                {
+                    ddlOpenBy.SelectedValue = opnby;
 
-                 }
-                 else
-                 {
-                     ddlOpenBy.SelectedIndex = ddlOpenBy.Items.IndexOf(ddlOpenBy.Items.FindByText("-Select-"));
-                 }
-                 string reqby = dt.Rows[0]["ReqBy"].ToString();
-                 if (reqby != "")
-                 {
-                     ddlRequestedBy.SelectedValue = reqby;
-                 }
-                 else
-                 {
-                     ddlRequestedBy.SelectedIndex = ddlRequestedBy.Items.IndexOf(ddlRequestedBy.Items.FindByText("-Select-"));
-                 }
-                 string resperson = dt.Rows[0]["ComplRespPerson"].ToString();
-                 if (resperson != "")
-                 {
-                     ddlResponsiblePerson.SelectedValue = resperson;
-                 }
-                 else
-                 {
-                     ddlResponsiblePerson.SelectedIndex = ddlResponsiblePerson.Items.IndexOf(ddlResponsiblePerson.Items.FindByText("-Select-"));
-                 }
-                 string inspector = dt.Rows[0]["Inspector"].ToString();
-                 if (inspector != "")
-                 {
-                     ddlInspector.SelectedValue = inspector;
-                 }
-                 else
-                 {
-                     ddlInspector.SelectedIndex = ddlInspector.Items.IndexOf(ddlInspector.Items.FindByText("-Select-"));
-                 }
-                 string signed = dt.Rows[0]["SignOffBy"].ToString();
-                 if (signed != "")
-                 {
-                     ddlSignedBy.SelectedValue = signed;
-                 }
-                 else
-                 {
-                     ddlSignedBy.SelectedIndex = ddlSignedBy.Items.IndexOf(ddlSignedBy.Items.FindByText("-Select-"));
-                 }
-                 string entrdby = dt.Rows[0]["EnteredBy"].ToString();
-                 if (entrdby != "")
-                 {
-                     ddlEnteredBy.SelectedValue = entrdby;
-                 }
-                 else
-                 {
-                     ddlEnteredBy.SelectedIndex = ddlEnteredBy.Items.IndexOf(ddlEnteredBy.Items.FindByText("-Select-"));
-                 }
+                }
+                else
+                {
+                    ddlOpenBy.SelectedIndex = ddlOpenBy.Items.IndexOf(ddlOpenBy.Items.FindByText("-Select-"));
+                }
+                string reqby = dt.Rows[0]["ReqBy"].ToString();
+                if (reqby != "")
+                {
+                    ddlRequestedBy.SelectedValue = reqby;
+                }
+                else
+                {
+                    ddlRequestedBy.SelectedIndex = ddlRequestedBy.Items.IndexOf(ddlRequestedBy.Items.FindByText("-Select-"));
+                }
+                string resperson = dt.Rows[0]["ComplRespPerson"].ToString();
+                if (resperson != "")
+                {
+                    ddlResponsiblePerson.SelectedValue = resperson;
+                }
+                else
+                {
+                    ddlResponsiblePerson.SelectedIndex = ddlResponsiblePerson.Items.IndexOf(ddlResponsiblePerson.Items.FindByText("-Select-"));
+                }
+                string inspector = dt.Rows[0]["Inspector"].ToString();
+                if (inspector != "")
+                {
+                    ddlInspector.SelectedValue = inspector;
+                }
+                else
+                {
+                    ddlInspector.SelectedIndex = ddlInspector.Items.IndexOf(ddlInspector.Items.FindByText("-Select-"));
+                }
+                string signed = dt.Rows[0]["SignOffBy"].ToString();
+                if (signed != "")
+                {
+                    ddlSignedBy.SelectedValue = signed;
+                }
+                else
+                {
+                    ddlSignedBy.SelectedIndex = ddlSignedBy.Items.IndexOf(ddlSignedBy.Items.FindByText("-Select-"));
+                }
+                string entrdby = dt.Rows[0]["EnteredBy"].ToString();
+                if (entrdby != "")
+                {
+                    ddlEnteredBy.SelectedValue = entrdby;
+                }
+                else
+                {
+                    ddlEnteredBy.SelectedIndex = ddlEnteredBy.Items.IndexOf(ddlEnteredBy.Items.FindByText("-Select-"));
+                }
 
-                 string entrdDate = dt.Rows[0]["EnteredDt"].ToString();
-                 if (entrdDate != "")
-                 {
-                     RadEnteredDate.SelectedDate = Convert.ToDateTime(entrdDate);
-                 }
+                string entrdDate = dt.Rows[0]["EnteredDt"].ToString();
+                if (entrdDate != "")
+                {
+                    RadEnteredDate.SelectedDate = Convert.ToDateTime(entrdDate);
+                }
 
-                 string displne = dt.Rows[0]["Discipline"].ToString();
-                 if (displne != "")
-                 {
-                     ddlDiscipline.SelectedValue = displne;
-                 }
-                 else
-                 {
-                     ddlDiscipline.SelectedIndex = ddlDiscipline.Items.IndexOf(ddlDiscipline.Items.FindByText("-Select-"));
-                 }
+                string displne = dt.Rows[0]["Discipline"].ToString();
+                if (displne != "")
+                {
+                    ddlDiscipline.SelectedValue = displne;
+                }
+                else
+                {
+                    ddlDiscipline.SelectedIndex = ddlDiscipline.Items.IndexOf(ddlDiscipline.Items.FindByText("-Select-"));
+                }
 
-                 txtItemDescription.Text = dt.Rows[0]["Description"].ToString();
-                 string location = dt.Rows[0]["Location"].ToString();
-                 if (location != "")
-                 {
-                     ddlLocation.SelectedValue = location;
-                 }
-                 else
-                 {
-                     ddlLocation.SelectedIndex = ddlLocation.Items.IndexOf(ddlLocation.Items.FindByText("-Select-"));
-                 }
-                 string area = dt.Rows[0]["Area"].ToString();
-                 if (area != "")
+                txtItemDescription.Text = dt.Rows[0]["Description"].ToString();
+                string location = dt.Rows[0]["Location"].ToString();
+                if (location != "")
+                {
+                    ddlLocation.SelectedValue = location;
+                }
+                else
+                {
+                    ddlLocation.SelectedIndex = ddlLocation.Items.IndexOf(ddlLocation.Items.FindByText("-Select-"));
+                }
+                string area = dt.Rows[0]["Area"].ToString();
+                if (area != "")
 
-                 { ddlArea.SelectedValue = area; }
-                 else
-                 {
-                     ddlArea.SelectedIndex = ddlArea.Items.IndexOf(ddlArea.Items.FindByText("-Select-"));
-                 }
-                 string unit = dt.Rows[0]["Unit"].ToString();
-                 if (unit != "")
-                 {
-                     ddlUnit.SelectedValue = unit;
-                 }
-                 else
-                 {
-                     ddlUnit.SelectedIndex = ddlUnit.Items.IndexOf(ddlUnit.Items.FindByText("-Select-"));
-                 }
-                 string plant = dt.Rows[0]["Plant"].ToString();
-                 if (plant != "")
-                 {
-                     ddlPlant.SelectedValue = plant;
-                 }
-                 else
-                 {
-                     ddlPlant.SelectedIndex = ddlPlant.Items.IndexOf(ddlPlant.Items.FindByText("-Select-"));
-                 }
-                 string schDate = dt.Rows[0]["SchComplDt"].ToString();
-                 if (schDate != "")
-                 {
+                { ddlArea.SelectedValue = area; }
+                else
+                {
+                    ddlArea.SelectedIndex = ddlArea.Items.IndexOf(ddlArea.Items.FindByText("-Select-"));
+                }
+                string unit = dt.Rows[0]["Unit"].ToString();
+                if (unit != "")
+                {
+                    ddlUnit.SelectedValue = unit;
+                }
+                else
+                {
+                    ddlUnit.SelectedIndex = ddlUnit.Items.IndexOf(ddlUnit.Items.FindByText("-Select-"));
+                }
+                string plant = dt.Rows[0]["Plant"].ToString();
+                if (plant != "")
+                {
+                    ddlPlant.SelectedValue = plant;
+                }
+                else
+                {
+                    ddlPlant.SelectedIndex = ddlPlant.Items.IndexOf(ddlPlant.Items.FindByText("-Select-"));
+                }
+                string schDate = dt.Rows[0]["SchComplDt"].ToString();
+                if (schDate != "")
+                {
 
-                     RadScheduleCompletionDate.SelectedDate = Convert.ToDateTime(schDate);
-                 }
-                 string rfiDate = dt.Rows[0]["RFIDate"].ToString();
-                 if (rfiDate != "")
-                 {
+                    RadScheduleCompletionDate.SelectedDate = Convert.ToDateTime(schDate);
+                }
+                string rfiDate = dt.Rows[0]["RFIDate"].ToString();
+                if (rfiDate != "")
+                {
 
-                     RadRFIDate.SelectedDate = Convert.ToDateTime(rfiDate);
-                 }
-                 txtRFINo.Text = dt.Rows[0]["RFINo"].ToString();
-                 txtSheet.Text = dt.Rows[0]["Sht"].ToString();
-                 txtDrawing.Text = dt.Rows[0]["DwgNo"].ToString();
-                 string failcategory = dt.Rows[0]["FailCategory"].ToString();
-                 if (failcategory != "")
-                 {
-                     ddlFailCategory.SelectedValue = failcategory;
-                 }
-                 else
-                 {
-                     ddlFailCategory.SelectedIndex = ddlFailCategory.Items.IndexOf(ddlFailCategory.Items.FindByText("-Select-"));
-                 }
-                 string category = dt.Rows[0]["Category"].ToString();
-                 if (category != "")
-                 {
-                     ddlCategoryList.SelectedValue = category;
-                 }
-                 else
-                 {
+                    RadRFIDate.SelectedDate = Convert.ToDateTime(rfiDate);
+                }
+                txtRFINo.Text = dt.Rows[0]["RFINo"].ToString();
+                txtSheet.Text = dt.Rows[0]["Sht"].ToString();
+                txtDrawing.Text = dt.Rows[0]["DwgNo"].ToString();
+                string failcategory = dt.Rows[0]["FailCategory"].ToString();
+                if (failcategory != "")
+                {
+                    ddlFailCategory.SelectedValue = failcategory;
+                }
+                else
+                {
+                    ddlFailCategory.SelectedIndex = ddlFailCategory.Items.IndexOf(ddlFailCategory.Items.FindByText("-Select-"));
+                }
+                string category = dt.Rows[0]["Category"].ToString();
+                if (category != "")
+                {
+                    ddlCategoryList.SelectedValue = category;
+                }
+                else
+                {
 
-                     ddlCategoryList.SelectedIndex = ddlCategoryList.Items.IndexOf(ddlCategoryList.Items.FindByText("-Select-"));
-                 }
-                 string system = dt.Rows[0]["TO_System"].ToString();
-                 if (system != "")
-                 {
-                     ddlSystem.SelectedValue = system;
-                 }
-                 else
-                 {
-                     ddlSystem.SelectedIndex = ddlSystem.Items.IndexOf(ddlSystem.Items.FindByText("-Select-"));
-                 }
+                    ddlCategoryList.SelectedIndex = ddlCategoryList.Items.IndexOf(ddlCategoryList.Items.FindByText("-Select-"));
+                }
+                string system = dt.Rows[0]["TO_System"].ToString();
+                if (system != "")
+                {
+                    ddlSystem.SelectedValue = system;
+                }
+                else
+                {
+                    ddlSystem.SelectedIndex = ddlSystem.Items.IndexOf(ddlSystem.Items.FindByText("-Select-"));
+                }
 
-                 string subsystem = dt.Rows[0]["TO_Subsystem"].ToString();
-                 if (subsystem != "")
-                 {
-                     ddlSubsystem.SelectedValue = subsystem;
-                 }
-                 else
-                 {
-                     ddlSubsystem.SelectedIndex = ddlSubsystem.Items.IndexOf(ddlSubsystem.Items.FindByText("-Select-"));
-                 }
-                 string cntrlsystem = dt.Rows[0]["CTRL_System"].ToString();
-                 if (cntrlsystem != "")
-                 {
-                     ddlControlSystem.SelectedValue = cntrlsystem;
-                 }
-                 else
-                 {
-                     ddlControlSystem.SelectedIndex = ddlControlSystem.Items.IndexOf(ddlControlSystem.Items.FindByText("-Select-"));
-                 }
-                 txtReference.Text = dt.Rows[0]["ChangeReqRef"].ToString();
+                string subsystem = dt.Rows[0]["TO_Subsystem"].ToString();
+                if (subsystem != "")
+                {
+                    ddlSubsystem.SelectedValue = subsystem;
+                }
+                else
+                {
+                    ddlSubsystem.SelectedIndex = ddlSubsystem.Items.IndexOf(ddlSubsystem.Items.FindByText("-Select-"));
+                }
+                string cntrlsystem = dt.Rows[0]["CTRL_System"].ToString();
+                if (cntrlsystem != "")
+                {
+                    ddlControlSystem.SelectedValue = cntrlsystem;
+                }
+                else
+                {
+                    ddlControlSystem.SelectedIndex = ddlControlSystem.Items.IndexOf(ddlControlSystem.Items.FindByText("-Select-"));
+                }
+                txtReference.Text = dt.Rows[0]["ChangeReqRef"].ToString();
 
-                 string refDate = dt.Rows[0]["ChangeReqDt"].ToString();
-                 if (refDate != "")
-                 {
-                     RadReferenceDate.SelectedDate = Convert.ToDateTime(refDate);
-                 }
-                 txtRevision.Text = dt.Rows[0]["Rev"].ToString();
+                string refDate = dt.Rows[0]["ChangeReqDt"].ToString();
+                if (refDate != "")
+                {
+                    RadReferenceDate.SelectedDate = Convert.ToDateTime(refDate);
+                }
+                txtRevision.Text = dt.Rows[0]["Rev"].ToString();
 
-                 string compDate = dt.Rows[0]["ComplDt"].ToString();
-                 if (compDate != "")
-                 {
-                     RadCompletionDate.SelectedDate = Convert.ToDateTime(compDate);
-                 }
-                 txtCompletionRemarks.Text = dt.Rows[0]["ComplRemarks"].ToString();
-                 string organization = dt.Rows[0]["ComplRespOrg"].ToString();
-                 if (organization != "")
-                 {
-                     ddlOrganization.SelectedValue = organization;
-                 }
-                 else
-                 {
-                     ddlOrganization.SelectedIndex = ddlOrganization.Items.IndexOf(ddlOrganization.Items.FindByText("-Select-"));
-                 }
-                 string actionby = dt.Rows[0]["ActionBy"].ToString();
-                 if (actionby != "")
-                 {
-                     ddlActionBy.SelectedValue = actionby;
-                 }
-                 else
-                 {
-                     ddlActionBy.SelectedIndex = ddlActionBy.Items.IndexOf(ddlActionBy.Items.FindByText("-Select-"));
-                 }
+                string compDate = dt.Rows[0]["ComplDt"].ToString();
+                if (compDate != "")
+                {
+                    RadCompletionDate.SelectedDate = Convert.ToDateTime(compDate);
+                }
+                txtCompletionRemarks.Text = dt.Rows[0]["ComplRemarks"].ToString();
+                string organization = dt.Rows[0]["ComplRespOrg"].ToString();
+                if (organization != "")
+                {
+                    ddlOrganization.SelectedValue = organization;
+                }
+                else
+                {
+                    ddlOrganization.SelectedIndex = ddlOrganization.Items.IndexOf(ddlOrganization.Items.FindByText("-Select-"));
+                }
+                string actionby = dt.Rows[0]["ActionBy"].ToString();
+                if (actionby != "")
+                {
+                    ddlActionBy.SelectedValue = actionby;
+                }
+                else
+                {
+                    ddlActionBy.SelectedIndex = ddlActionBy.Items.IndexOf(ddlActionBy.Items.FindByText("-Select-"));
+                }
 
-                 DataTable dtt;
-                 dtt = pObj.GetFileFromEILAttachByProjectNoRefEILType(ID);
-                 grdFileUpload.DataSource = dtt;
-                 grdFileUpload.DataBind();        
-             }
-            
+                DataTable dtt;
+                dtt = pObj.GetFileFromEILAttachByProjectNoRefEILType(ID);
+                grdFileUpload.DataSource = dtt;
+                grdFileUpload.DataBind();
+            }
+
 
         }
         #endregion dtgManageProjectGrid_ItemCommand
@@ -621,7 +623,7 @@ namespace FlyCn.EIL
         #region btnUpdate_Click
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-          
+
         }
         #endregion btnUpdate_Click
 
@@ -642,7 +644,6 @@ namespace FlyCn.EIL
 
         #region grdFileUpload_RowCommand
         protected void grdFileUpload_RowCommand(object sender, GridViewCommandEventArgs e)
-             
         {
             ToolBar.AddButton.Visible = false;
             ToolBar.SaveButton.Visible = false;
@@ -665,11 +666,11 @@ namespace FlyCn.EIL
 
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
-           
+
         }
         #endregion grdFileUpload_RowCommand
 
@@ -684,7 +685,7 @@ namespace FlyCn.EIL
         protected void grdFileUpload_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             e.Row.Cells[1].Visible = false;
-   
+
         }
         #endregion grdFileUpload_RowDataBound
 
@@ -772,15 +773,15 @@ namespace FlyCn.EIL
                 string filename = Path.GetFileName(fuAttach.FileName);
                 string extension = Path.GetExtension(fuAttach.PostedFile.FileName);
                 string oldFileName = fuAttach.FileName;
-                
-                    int newsl = sl;
 
-                    string newFileName = (pNo + id + type + (newsl) + name);
+                int newsl = sl;
 
-            
-                    pObj.fileUpload = newFileName;
-                    fuAttach.SaveAs(Server.MapPath("~/Content/Fileupload/") + newFileName);
-      
+                string newFileName = (pNo + id + type + (newsl) + name);
+
+
+                pObj.fileUpload = newFileName;
+                fuAttach.SaveAs(Server.MapPath("~/Content/Fileupload/") + newFileName);
+
                 int idno = Convert.ToInt32(id);
                 int value;
                 value = pObj.InsertEILAttachment(idno);
@@ -821,7 +822,7 @@ namespace FlyCn.EIL
                 {
 
                     pObj.Idno = Convert.ToInt32(txtIDno.Text);
-               
+
                     if (grdFileUpload.Rows.Count > 0)
                     {
                         HiddenField hdf = (HiddenField)grdFileUpload.Rows[0].FindControl("hdnType");
@@ -833,85 +834,85 @@ namespace FlyCn.EIL
                         pObj.EILType = "WEIL";
                     }
 
-                
 
-                            string id = txtIDno.Text;
-                            pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
-                            
-                            dt = pObj.GetEIL_AttachDetails(id, pObj.fileUpload, pObj.EILType);
 
-                            string id1 = txtIDno.Text;
- 
+                    string id = txtIDno.Text;
+                    pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
 
-                            // DataTable dt1;
+                    dt = pObj.GetEIL_AttachDetails(id, pObj.fileUpload, pObj.EILType);
 
-                            //  dt1 = pObj.GetEIL_AttachDetails(id, pObj.fileUpload, pObj.EILType);
+                    string id1 = txtIDno.Text;
 
-                            if ((dt.Rows.Count > 0))
+
+                    // DataTable dt1;
+
+                    //  dt1 = pObj.GetEIL_AttachDetails(id, pObj.fileUpload, pObj.EILType);
+
+                    if ((dt.Rows.Count > 0))
+                    {
+                        btnUpload.Enabled = true;
+                        foreach (DataRow rows in dt.Rows)
+                        {
+                            string name = rows["FileName"].ToString();
+                            //  pObj.slno = Convert.ToInt32(dt.Rows[0]["SlNo"].ToString());
+                            DataTable dt1;
+                            dt1 = pObj.GetSLNo_AttachDetails(id, pObj.fileUpload, pObj.EILType);
+                            pObj.slno = Convert.ToInt32(dt1.Rows[0]["SlNo"].ToString());
+
+
+                            if (pObj.fileUpload == name)
                             {
-                                btnUpload.Enabled = true;
-                                foreach (DataRow rows in dt.Rows)
-                                {
-                                    string name = rows["FileName"].ToString();
-                                    //  pObj.slno = Convert.ToInt32(dt.Rows[0]["SlNo"].ToString());
-                                    DataTable dt1;
-                                    dt1=pObj.GetSLNo_AttachDetails(id, pObj.fileUpload, pObj.EILType); 
-                                    pObj.slno = Convert.ToInt32(dt1.Rows[0]["SlNo"].ToString());
+                                ChangeFileName(id1, pObj.fileUpload, pObj.EILType, pObj.slno);
 
-
-                                    if (pObj.fileUpload == name)
-                                    {
-                                        ChangeFileName(id1, pObj.fileUpload, pObj.EILType, pObj.slno);
-
-                                    }
-
-                           
-
-                                }
                             }
 
 
 
-                       
-                            else
-                            {
-
-                                try
-                                {
-                                    pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
-                                    string save = Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
-                                    fuAttach.SaveAs(save);
-                                   // Label lblStatus=(Label) FindControl("StatusLabel");
-
-                                    StatusLabel.Text = "Upload status: File uploaded!";
-                                    pObj.Idno = Convert.ToInt32(txtIDno.Text);
-                                    string idno = Convert.ToString(pObj.Idno);
-                                    int value;
-                                    value = pObj.InsertEILAttachment(pObj.Idno);
-                                }
-                            
-                
-                                catch (Exception ex)
-                                {
-                                    StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
-                                }
-                            }
-                        
-
-                        pObj.Idno = Convert.ToInt32(txtIDno.Text);
-                        string idno1 = Convert.ToString(pObj.Idno);
-                        grdFileUpload.Visible = true;
-                        BindFileuploadGrid(idno1);
-                        ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
+                        }
                     }
+
+
+
+
+                    else
+                    {
+
+                        try
+                        {
+                            pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
+                            string save = Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
+                            fuAttach.SaveAs(save);
+                            // Label lblStatus=(Label) FindControl("StatusLabel");
+
+                            StatusLabel.Text = "Upload status: File uploaded!";
+                            pObj.Idno = Convert.ToInt32(txtIDno.Text);
+                            string idno = Convert.ToString(pObj.Idno);
+                            int value;
+                            value = pObj.InsertEILAttachment(pObj.Idno);
+                        }
+
+
+                        catch (Exception ex)
+                        {
+                            StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+                        }
+                    }
+
+
+                    pObj.Idno = Convert.ToInt32(txtIDno.Text);
+                    string idno1 = Convert.ToString(pObj.Idno);
+                    grdFileUpload.Visible = true;
+                    BindFileuploadGrid(idno1);
+                    ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
+                }
                 catch (Exception ex)
                 {
                     StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
                 }
             }
         }
-        
-        
+
+
         #endregion Upload
 
         #region Update
@@ -922,17 +923,17 @@ namespace FlyCn.EIL
                 int result = 0;
                 pObj.Idno = Convert.ToInt32(txtIDno.Text);
                 pObj.CoveredByProject = 0;
-                if(rdbCoveredByYes.Checked)
+                if (rdbCoveredByYes.Checked)
                 {
-                    pObj.CoveredByProject= Convert.ToInt32(rdbCoveredByYes.ToolTip);
-                 
+                    pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByYes.ToolTip);
+
                 }
                 else
                 {
-                    if(rdbCoveredByNo.Checked)
+                    if (rdbCoveredByNo.Checked)
                     {
                         pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByNo.ToolTip);
-                       
+
                     }
                 }
                 if (ddlOpenBy.SelectedItem.Text != "-Select-")
@@ -988,7 +989,7 @@ namespace FlyCn.EIL
                     mObj.EnteredBy = null;
                 }
 
-              
+
                 if (RadEnteredDate.SelectedDate != null)
                 {
                     pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
@@ -1055,7 +1056,7 @@ namespace FlyCn.EIL
                     pObj.FailCategory = null;
                 }
 
-            
+
 
                 string val = null;
                 pObj.QueryRevision = string.IsNullOrEmpty(val) ? 0 : Convert.ToInt32(txtQueryRevision.Text);
@@ -1065,13 +1066,13 @@ namespace FlyCn.EIL
                     pObj.ReferenceDate = Convert.ToString(RadReferenceDate.SelectedDate);
                 }
 
-            
+
                 if (RadCompletionDate.SelectedDate != null)
                 {
                     pObj.CompletionDate = Convert.ToString(RadCompletionDate.SelectedDate);
                 }
                 pObj.CompletionRemarks = txtCompletionRemarks.Text;
-           
+
 
                 if (ddlOrganization.SelectedItem.Text != "-Select-")
                 {
@@ -1081,7 +1082,7 @@ namespace FlyCn.EIL
                 {
                     pObj.Organization = null;
                 }
-               
+
                 if (ddlActionBy.SelectedItem.Text != "-Select-")
                 {
                     pObj.ActionBy = Convert.ToString(ddlActionBy.SelectedValue);
@@ -1121,17 +1122,17 @@ namespace FlyCn.EIL
 
 
                 result = pObj.EditPunchListItems(pObj.Idno, mObj);
-              
+
                 if (result == 1)
                 {
                     var page = HttpContext.Current.CurrentHandler as Page;
                     var master = page.Master;
                     eObj.UpdationSuccessData(page);
-                  
-                    
+
+
                 }
                 dtgManageProjectGrid.Rebind();
-                }
+            }
             catch (SqlException ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
@@ -1144,21 +1145,21 @@ namespace FlyCn.EIL
                 var master = page.Master;
                 eObj.ErrorData(ex, page);
             }
-             
+
         }
         #endregion Update
 
         #region Insert
         public void Insert()
         {
-        
+
             RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
             tab.Selected = true;
             RadMultiPage1.SelectedIndex = 0;
             try
             {
 
-                int result=0;
+                int result = 0;
                 pObj.Idno = Convert.ToInt32(txtIDno.Text);
                 pObj.EILType = hdnMode.Value;
                 pObj.CoveredByProject = 0;
@@ -1282,7 +1283,7 @@ namespace FlyCn.EIL
                 {
                     pObj.RFIDate = Convert.ToString(RadRFIDate.SelectedDate);
                 }
-                
+
                 pObj.RFINo = txtRFINo.Text;
                 pObj.Sheet = txtSheet.Text;
                 pObj.Drawing = txtDrawing.Text;
@@ -1389,21 +1390,21 @@ namespace FlyCn.EIL
                         dtgManageProjectGrid.Rebind();
                     }
                 }
-            
-                      catch (SqlException ex)
-            {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                var master = page.Master;
-                eObj.ErrorData(ex, page);
-            }
-            catch (FormatException ex)
-            {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                var master = page.Master;
-                eObj.ErrorData(ex, page);
-            }
-        
-             
+
+                catch (SqlException ex)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    var master = page.Master;
+                    eObj.ErrorData(ex, page);
+                }
+                catch (FormatException ex)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    var master = page.Master;
+                    eObj.ErrorData(ex, page);
+                }
+
+
                 //Cleartextboxes();
                 if (fuAttach.HasFile)
                 {
@@ -1431,7 +1432,7 @@ namespace FlyCn.EIL
             }
             catch (FormatException ex)
             {
-               
+
                 var page = HttpContext.Current.CurrentHandler as Page;
                 var master = page.Master;
                 eObj.ErrorData(ex, page);
@@ -1576,7 +1577,7 @@ namespace FlyCn.EIL
             ddlSubsystem.DataValueField = "Code";
             ddlSubsystem.DataBind();
             ddlSubsystem.Items.Insert(0, new ListItem("-Select-", "NULL"));
-               
+
         }
         #endregion LoadComboBox
 
@@ -1601,7 +1602,7 @@ namespace FlyCn.EIL
             RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
             tab.Selected = true;
             RadTab tab1 = (RadTab)RadTabStrip1.FindTabByText("Edit");
-            tab1.Text = "New";   
+            tab1.Text = "New";
             RadMultiPage1.SelectedIndex = 0;
         }
         #endregion Delete
@@ -1612,8 +1613,8 @@ namespace FlyCn.EIL
         /// </summary>
         public void EditDataCommand()
         {
-            
-            
+
+
         }
         #endregion EditDataCommand
 
@@ -1623,7 +1624,7 @@ namespace FlyCn.EIL
         /// </summary>
         public void FileUploadDelete()
         {
-  
+
             string save = Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
 
 
@@ -1673,7 +1674,7 @@ namespace FlyCn.EIL
                 Response.AddHeader("content-disposition",
                                                "attachment;filename=" + file);
             }
-          
+
             string filepath = path + file;
             Response.TransmitFile(Server.MapPath(filepath));
             //WebRequest request = WebRequest.Create(filepath);
@@ -1688,25 +1689,27 @@ namespace FlyCn.EIL
             //        {
             //            fileStream.Write(buffer, 0, bytesRead);
             //            DateTime nowTime = DateTime.UtcNow;
-                      
+
             //            bytesRead = responseStream.Read(buffer, 0, 4096);
             //        }
             //    }
             //}
-           
+
         }
 
 
-    
+
         #endregion Download
 
         #region Title
-        void SetTitle() {
+        void SetTitle()
+        {
 
             try
             {
 
-                if (hdnMode.Value == "WEIL") {
+                if (hdnMode.Value == "WEIL")
+                {
                     lblTitle.Text = "Construction Punch List";
                 }
                 else if (hdnMode.Value == "CEIL")
@@ -1721,8 +1724,8 @@ namespace FlyCn.EIL
             }
             catch (Exception)
             {
-                
-                 
+
+
             }
 
         }
@@ -1734,40 +1737,40 @@ namespace FlyCn.EIL
         public void SecurityCheck()
         {
             string logicalObject = "ConstructionPunchList";
-        
-            FlyCnDAL.Security.PageSecurity PS=new Security.PageSecurity(logicalObject,this);
-        
-            if(PS.isWrite==true)
+
+            FlyCnDAL.Security.PageSecurity PS = new Security.PageSecurity(logicalObject, this);
+
+            if (PS.isWrite == true)
             {
                 dtgManageProjectGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
                 dtgManageProjectGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
             }
             else
-                if(PS.isEdit==true)
+                if (PS.isEdit == true)
                 {
                     dtgManageProjectGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
                     dtgManageProjectGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
                 }
-                else if(PS.isAdd==true)
+                else if (PS.isAdd == true)
                 {
                     dtgManageProjectGrid.MasterTableView.GetColumn("EditData").Display = false;
                 }
-                else if(PS.isRead==true)
+                else if (PS.isRead == true)
                 {
                     dtgManageProjectGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = true;
                     dtgManageProjectGrid.MasterTableView.GetColumn("EditData").Display = false;
-                    dtgManageProjectGrid.MasterTableView.GetColumn("DeleteColumn").Display = false; 
+                    dtgManageProjectGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
                 }
-          
-                else if(PS.isDenied==true)
+
+                else if (PS.isDenied == true)
                 {
                     HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=accessdenied", true);
                 }
-            if(PS.isDelete==true)
+            if (PS.isDelete == true)
             {
                 dtgManageProjectGrid.MasterTableView.GetColumn("DeleteColumn").Display = true;
             }
-           
+
         }
         #endregion SecurityCheck
     }
