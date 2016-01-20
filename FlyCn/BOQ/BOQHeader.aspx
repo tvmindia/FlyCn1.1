@@ -348,6 +348,8 @@
 
         function OnClientTabSelecting(sender, eventArgs) {
 
+           
+
             var tab = eventArgs.get_tab();
             
             var security = document.getElementById("hdnSecurityMaster").value;
@@ -359,6 +361,7 @@
                 if (tab.get_text() == "New") {
 
                     eventArgs.set_cancel(false);
+                    <%=ToolBar.ClientID %>_hideNotification();
                 }
                 else
                     if (tab.get_text() == "Details") {
@@ -372,6 +375,7 @@
             else
                 if (PageSecurity.isReadOnly) {
                     if (tab.get_text() == "New") {
+                        <%=ToolBar.ClientID %>_hideNotification();
                         AlertMsg(messages.EditModeNewClick);
 
                         eventArgs.set_cancel(true);
@@ -390,7 +394,7 @@
                 }
                 else if (PageSecurity.isEditOnly) {
                     if (tab.get_text() == "New") {
-
+                        <%=ToolBar.ClientID %>_hideNotification();
                         AlertMsg(messages.EditModeNewClick);
                         eventArgs.set_cancel(true);
                     }
@@ -407,7 +411,12 @@
 
 
 
-                }
+        }
+       <%-- function hideNofificationCount()
+        {
+            debugger;
+            <%=ToolBar.ClientID %>_hideNotification();
+}--%>
         
         function onClientTabSelected(sender, args) {
            
@@ -415,8 +424,8 @@
 
         if (tab.get_value() == '2')
         {
+             parent.HideTreeNode();
            
-            parent.HideTreeNode();
             //var txtCont = Page.Master.Master.FindControl("rtvLeftMenu").ClientID ;
             //alert(txtCont);
             <%--document.getElementById('<%=hdnPostbackOnItemCommand.ClientID %>').value = "1";--%>
@@ -477,7 +486,7 @@
          }
             if (tab.get_value() == "1")
 
-            {               
+            {
                 parent.HideTreeNode();
                 document.getElementById('<%=HiddenTabStatus.ClientID %>').value="1";             
                 var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
@@ -505,7 +514,6 @@
       
         
         function OnClientButtonClicking(sender, args) {
-            debugger;
         var btn = args.get_item();
         if (btn.get_value() == 'Save') {
            
@@ -542,8 +550,6 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-          
-
             $('.accordion-toggle').on('click', function (event) {
 
                 event.preventDefault();          

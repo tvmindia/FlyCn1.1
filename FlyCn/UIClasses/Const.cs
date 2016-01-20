@@ -58,6 +58,14 @@ namespace FlyCn.UIClasses
           {
               get { return "Document Successfully Revised"; }
           }
+          public static string loginSuccessMessage
+          {
+              get { return "Successfully Logged in"; }
+          }
+          public static string loginUnsuccessMessage
+          {
+              get { return "Login Unsuccessfull"; }
+          }
       }
       
 }

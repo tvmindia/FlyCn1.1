@@ -201,9 +201,7 @@
                         var contentWindow = iframe.contentWindow;
                         contentWindow.GetWebCount();
                     },
-
                 });
-
                 return false
             }
             catch (X) {
@@ -250,6 +248,14 @@
             var iframe = pane.getExtContentElement();
             var contentWindow = iframe.contentWindow;
             return contentWindow;
+        }
+
+        function GetRadPane()
+        {
+            debugger;
+            var splitter = $find("<%= RadSplitter1.ClientID %>");
+            var pane = splitter.getPaneById("<%= RadPane1.ClientID %>");
+            return pane;
         }
 
       <%-- display current document all revisions in left tree --%>
@@ -403,7 +409,7 @@
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
             var hiddenFieldOwner = contentWindow.document.getElementById('hiddenDocumentOwner');
             var hiddenDocumentStatus = contentWindow.document.getElementById('hiddenStatusValue');
-            document.getElementById('IframeDocumentAttachment').src = "../DocumentRelated/DocumentAttachments.aspx?RevisionId=" + hiddenFieldRevisionID.value + "&type=" + type + "&ItemID=" + ItemID + "&Status=" + hiddenDocumentStatus.value;
+            document.getElementById('IframeDocumentAttachment').src = "../DocumentRelated/DocumentAttachments.aspx?RevisionId=" + hiddenFieldRevisionID.value + "&type=" + type + "&ItemID=" + ItemID + "&Status=" + hiddenDocumentStatus.value + "&Owner=" + hiddenFieldOwner.value;
                 DocumentAttachmentWindow();
            
         }
@@ -413,26 +419,28 @@
       
        var tree = $find("<%= rtvLeftMenu.ClientID %>");
             tree.set_visible(true);
-           
+            GetRadPane().collapse(false);
         }
         function HideTreeNode() {
 
             var tree = $find("<%= rtvLeftMenu.ClientID %>");
             tree.set_visible(false);
+            GetRadPane().collapse(true);
 
         }
         function DisableTreeNode(nodeclassname)
         {
-     
+            debugger;
             document.getElementsByClassName(nodeclassname)[0].style.DisableTreeNode = true;
             document.getElementsByClassName(nodeclassname)[0].style.color = "gray";
-
+            GetRadPane().collapse(true);
+            
         }
         function EnableTreeNode(nodeclassname) {
-
+            debugger;
             document.getElementsByClassName(nodeclassname)[0].style.DisableTreeNode = false;
             document.getElementsByClassName(nodeclassname)[0].style.color = "black";
-
+            GetRadPane().collapse(false);
         }
 
         <%-- Set ReviseDocument iframe scr with parameters  --%> 

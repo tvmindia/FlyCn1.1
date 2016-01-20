@@ -30,7 +30,7 @@
                 margin-right: 4px;
                 padding: 5px;
             }
-
+          
                 .menu li:hover, .menu li.active {
                     background-color: #f90;
                 }
@@ -100,13 +100,13 @@ ul.departments { list-style-type: none; }*/
                 text-decoration: solid;
             }
 
-            .fileNameElipses{
-              display:inline-block;
-              width:180px;
-              white-space: nowrap;
-              overflow:hidden !important;
-              text-overflow: ellipsis;
-              }
+            .filetextElipse{
+                   white-space: nowrap; 
+                   width: 12em; 
+                   overflow: hidden;    
+                   text-overflow: ellipsis; 
+    
+            }
     </style>
     <script src="../Scripts/UserJs/UserValidations.js"></script>
     <script>
@@ -424,8 +424,9 @@ ul.departments { list-style-type: none; }*/
                     <asp:Label ID="lblVupldFile" runat="server" Text="Uploaded file"></asp:Label>
                 </div>
 
-                <div class="col-md-5">
-                    <asp:Label ID="lblVupldFilename" CssClass="fileNameElipses" runat="server" Text=""></asp:Label>
+                <div class="col-md-5 filetextElipse">
+                  <asp:Label ID="lblVupldFilename" runat="server"></asp:Label>
+              
                 </div>
 
                 <div class="col-md-7"><asp:Label ID="lblVtotlrows" runat="server" Text="Total rows"></asp:Label>
@@ -438,7 +439,7 @@ ul.departments { list-style-type: none; }*/
                 <div class="col-md-5"> <asp:Label ID="lblVErrorsCount" runat="server" Text=""></asp:Label>
                 </div>
                        <br />   <br />
-                    </div>
+                 </div>
                             
 
                  
@@ -500,7 +501,7 @@ ul.departments { list-style-type: none; }*/
 
     <div style="display: none; margin-left: 5px;" id="Import">
         <div class="col-md-12 Span-One">
-            <div class="col-md-5" style="padding-top:50px">
+            <div class="col-md-3" style="padding-top:50px">
 
                   <div class="col-md-12">
                       <asp:Label ID="lblStatusMSG" runat="server" CssClass="subtitle"></asp:Label></div>
@@ -513,9 +514,9 @@ ul.departments { list-style-type: none; }*/
           
              <div class="col-md-1">&nbsp;</div>
                <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:250px">&nbsp;</div>
-            <div class="col-md-5"  >
+            <div class="col-md-7"  >
 
-              <iframe id="ContentIframe" name="BOQDetails" style="height: 300px; width: 400px; overflow: hidden;" runat="server"></iframe>
+              <iframe id="ContentIframe" name="BOQDetails" style="height: 300px; width: 600px; overflow: hidden;" runat="server"></iframe>
   
             </div>
 

@@ -40,6 +40,7 @@ namespace Proj1
         //code for getting value from parent page(aspx) to useercontrol page
         FlyCn.UIClasses.Const Const = new FlyCn.UIClasses.Const();
         FlyCn.FlyCnDAL.Security.UserAuthendication UA;
+        ErrorHandling eObj = new ErrorHandling();
         protected void Page_Load(object sender, EventArgs e)
         {
             UA = (FlyCn.FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
@@ -382,10 +383,20 @@ namespace Proj1
         }
         public void Download(string fileName, string filePath)
         {
-            Response.ContentType = "application/octet-stream";
-            Response.AddHeader("Content-Disposition", "attachment;filename=" + fileName);
-            Response.TransmitFile(filePath + fileName);
-            Response.End();
+            try
+            {
+                Response.ContentType = "application/octet-stream";
+                Response.AddHeader("Content-Disposition", "attachment;filename=" + fileName);
+                Response.TransmitFile(filePath + fileName);
+                Response.End();
+            }
+            catch(Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+             
+               
+            }
         }
 
         protected void lnkbtndownload_Click(object sender, EventArgs e)
@@ -400,7 +411,7 @@ namespace Proj1
         {
             if(Id!=0)
             {
-                string filePath = Server.MapPath("/Pix/");
+                string filePath = Server.MapPath("/Content/Fileupload/");
                 string fileName = "";
 
                 try
@@ -430,7 +441,9 @@ namespace Proj1
 
                 catch (Exception ex)
                 {
-                    throw ex;
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
+                   
                 }
                 finally
                 {

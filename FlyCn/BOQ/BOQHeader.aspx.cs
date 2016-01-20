@@ -57,6 +57,7 @@ namespace FlyCn.BOQ
 
             BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString(); 
              BOQObj.DocumentOwner = hiddenDocumentOwner.Value;
+            
             //BOQObj.BindTree(RadTreeView tview);
             hiddenFieldDocumentType.Value = "BOQ";
             ContentIframe.Style["display"] = "none";//iframe disabling
@@ -236,6 +237,7 @@ namespace FlyCn.BOQ
                 tab.Selected = true;
                 tab.Text = "New";
                 RadMultiPage1.SelectedIndex = 1;
+              
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "ClearTextBox", "ClearBOQHeaderTexBox();", true);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
                 ToolBarVisibility(3);

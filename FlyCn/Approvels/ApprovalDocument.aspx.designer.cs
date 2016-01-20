@@ -184,6 +184,24 @@ namespace FlyCn.Approvels {
         protected global::System.Web.UI.WebControls.HiddenField hiddenFieldRevisionNo;
         
         /// <summary>
+        /// hiddenFieldStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hiddenFieldStatus;
+        
+        /// <summary>
+        /// hiddenFieldClientDocNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hiddenFieldClientDocNo;
+        
+        /// <summary>
         /// lblRevisionNumber control.
         /// </summary>
         /// <remarks>
