@@ -62,7 +62,44 @@ namespace FlyCn.WebServices
         }
         #endregion User Login
 
-       #region JSON converter and sender
+        #region User Details
+        [WebMethod]
+        public string UserDetails(string username)
+        {
+            //return msg data initialization
+            DataSet ds = new DataSet();
+            try
+            {
+                //Retrieving user details
+                //FlyCnDAL.Users User = new FlyCnDAL.Users(username);
+                //ds.Tables.Add(User.GetUserDetailsByUserName(username));
+                DataTable OverView = new DataTable();
+                OverView.Columns.Add("overview");
+                DataRow dr = OverView.NewRow();
+                dr["overview"] = "Total Projects          2\nPending Documents          12\nPunch List Items          24";
+                OverView.Rows.Add(dr);
+                ds.Tables.Add(OverView);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                ErrorMsg.Rows.Add(dr);
+                ds.Tables.Add(ErrorMsg);
+            }
+            finally
+            {               
+            }
+            return getDbDataAsJSON(ds);
+        }
+        #endregion User Details
+
+        #region JSON converter and sender
        public String getDbDataAsJSON(DataSet ds)
         {
             try
