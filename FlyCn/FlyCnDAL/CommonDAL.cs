@@ -539,6 +539,48 @@ namespace FlyCn.FlyCnDAL
             }
             #endregion Method to get Procedure Name
 
+        #region SelectAllMastersDataByTableName
+        public DataSet SelectAllMastersDataByTableName(string tableName,string projectNo)
+        {
+                SqlConnection con = null;
+                SqlCommand cmd = null;
+                dbConnection dcon = null;
+                SqlDataAdapter sda = null;
+                DataSet ds = null;
+            try
+            {
+                dcon = new dbConnection();
+                con = new SqlConnection();
+                con = dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectAllMastersDataByTableName]";
+                cmd.Parameters.Add("@tableName", SqlDbType.NVarChar, 50).Value = tableName;
+                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value = projectNo;
+                ds = new DataSet();
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                sda.Fill(ds);
+                return ds;
+
+            }
+               catch(Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if(con!=null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+         }
+        #endregion SelectAllMastersDataByTableName
+
             #endregion CommonDALMethods
     }
 }

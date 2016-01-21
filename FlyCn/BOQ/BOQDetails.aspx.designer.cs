@@ -497,5 +497,14 @@ namespace FlyCn.BOQ {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtGroup5;
+        
+        /// <summary>
+        /// hiddenFieldRevisionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hiddenFieldRevisionID;
     }
 }

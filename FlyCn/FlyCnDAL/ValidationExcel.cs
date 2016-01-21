@@ -15,6 +15,7 @@ namespace FlyCn.FlyCnDAL
 
             #region Public Properties
             public ImportFile importfile = new ImportFile();
+            
             public string errorMessage
             {
                 get;
@@ -65,7 +66,7 @@ namespace FlyCn.FlyCnDAL
                         //string FieldName = item["Field_Name"].ToString();
                         string FieldName = item["Field_Description"].ToString();
                         string FieldDataType = item["Field_DataType"].ToString();
-                        string temp = dr[FieldName].ToString().Trim();
+                        //string temp = dr[FieldName].ToString().Trim();
                         
 
                         //if (dr[FieldName].ToString().Trim() == "" || dr[FieldName] == null)
@@ -311,7 +312,42 @@ namespace FlyCn.FlyCnDAL
 
             #endregion Methods
             #region DataValidation
-            
+
+            public int DataValidation(DataSet dsFile,DataSet MasterDS,DataSet dsTable)
+            {
+                DataRow[] yesMaster = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
+                try
+                {
+                    for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
+                    {
+                        foreach(DataRow dr in yesMaster)
+                        {
+                            string FieldName = dr["Field_Description"].ToString();
+                            string refTableName = dr["Ref_TableName"].ToString();
+                            if(dsFile.Tables[0].Rows[i][FieldName]=="")
+                            {
+
+                            }
+
+                        }
+
+
+
+
+                    }
+                 
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+  
+                return 0;
+            }
             
             #endregion DataValidation
 

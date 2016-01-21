@@ -424,8 +424,9 @@
 
         if (tab.get_value() == '2')
         {
+            
              parent.HideTreeNode();
-           
+            
             //var txtCont = Page.Master.Master.FindControl("rtvLeftMenu").ClientID ;
             //alert(txtCont);
             <%--document.getElementById('<%=hdnPostbackOnItemCommand.ClientID %>').value = "1";--%>
@@ -487,6 +488,7 @@
             if (tab.get_value() == "1")
 
             {
+                parent.collapsenode();
                 parent.HideTreeNode();
                 document.getElementById('<%=HiddenTabStatus.ClientID %>').value="1";             
                 var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
@@ -560,7 +562,6 @@
 
         });
 
-       
 
         function OpenDetailAccordion(id)
         {
