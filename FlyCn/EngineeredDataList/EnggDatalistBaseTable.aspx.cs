@@ -38,8 +38,6 @@ namespace FlyCn.EngineeredDataList
         {
                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
                 _moduleId = Request.QueryString["Id"];
-
-              
                 //RadTreeView node = new RadTreeView("rvleftmenu");
                 //node.ExpandMode = TreeNodeExpandMode.ServerSideCallBack;
                 //rvleftmenu.Nodes.Add(node);
@@ -569,6 +567,20 @@ namespace FlyCn.EngineeredDataList
             }
        }
 
+
+        #region DataValidation
+        public void DataValidation(DataSet tempDS)
+        {
+            DataSet MasterDS=null;
+            DataSet dsTable=null;
+           
+            MasterDS=comDAL.SelectAllMastersDataByTableName(hdfTableName.Value, UA.projectNo);
+            dsTable = comDAL.GetTableDefinition(hdfTableName.Value);
+            validationObj.DataValidation(tempDS, MasterDS, dsTable);
+
+        }
+        #endregion DataValidation
+
         protected void dtgvalidationErros_PreRender(object sender, EventArgs e)
         {
             dtgvalidationErros.Rebind();
@@ -624,6 +636,7 @@ namespace FlyCn.EngineeredDataList
             SplitString();
             RemoveColumnFromDS(tempDS);
             RemoveErrorRow(tempDS);
+            DataValidation(tempDS);
             
 
             //ValidateDataStructure(tempDS);
