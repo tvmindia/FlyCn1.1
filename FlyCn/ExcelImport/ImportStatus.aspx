@@ -7,13 +7,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
           <script>
-              function CallParentJs(statvalue)
-              {
+              function CallParentJs(statvalue) {
                   parent.ChangeStatusMsg(statvalue);
               }
-             
+
           </script>
- 
+    <html>
+<head>
+  <title></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -40,8 +41,8 @@
     
             }
 </style>
-
-
+</head>
+<body>
    <div style="overflow-y:hidden;">
        <%-- <form role="form-horizontal">--%>
             <div style="margin-left:100px ; text-decoration-color: red";>
@@ -175,6 +176,6 @@
         </asp:UpdatePanel>
            <%-- </form>--%>
         </div>
-   
-        
+    </body>
+        </html>
 </asp:Content>
