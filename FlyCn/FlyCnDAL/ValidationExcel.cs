@@ -328,10 +328,38 @@ namespace FlyCn.FlyCnDAL
                            
                             if(ExcelDataStructureValidation(fieldName, dsFile))
                             {
-                                //cName == dsFile.Tables[0].Columns[i].ColumnName.ToString();
+                                //cName == dsFile.Tables[0].Columns[i].ColumnName.ToString();dsFile.Tables[0].Rows[i][fieldName].ToString()
                                 refTableName=dr["Ref_TableName"].ToString();//Getting the master table name
-                               // expression=dsFile.Tables[0].Rows[i][FieldName] refTableName
-                               // DataRow[] foundRows = MasterDS.Tables[0].Select(expression);
+                                DataRow[] masterDateExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + "albert" +"'");
+                                if(masterDateExisting.Length>0)
+                                {
+                                    //return true item in masters
+                                }
+                                else
+                                {
+                                    //not found in masters so insert into masters as well as in masterDS
+
+                                    //Add New record to MasterDS
+                                    DataRow newCustomersRow = MasterDS.Tables[0].NewRow();
+                                    newCustomersRow["TableName"] = refTableName;
+                                    newCustomersRow["Code"] = "ALBERT"; //dsFile.Tables[0].Rows[i][fieldName].ToString();
+                                    MasterDS.Tables[0].Rows.Add(newCustomersRow);
+                                    MasterDS.Tables[0].AcceptChanges();
+                                    //Add New record to MasterDS
+                                    
+                                    //Add New record to DatabaseTable
+                                    MasterOperations objMO = new MasterOperations();
+                                    objMO.InsertMasterData(MasterDS.Tables[0], "C00001", "M_Area");
+
+                                    //Add New record to DatabaseTable
+
+
+
+
+
+
+                                }
+                              
                                 
 
                             }
