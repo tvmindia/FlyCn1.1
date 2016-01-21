@@ -161,6 +161,8 @@
     <Content Include="Approvels\Approvers.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="Approvels\DocDetails.aspx" />
+    <Content Include="bin\FlyCn.dll" />
+    <Content Include="bin\FlyCn.pdb" />
     <Content Include="DocumentRelated\DocumentAttachments.aspx" />
     <Content Include="Approvels\RejectedDocument.aspx" />
     <Content Include="bin\AjaxControlToolkit.dll" />
