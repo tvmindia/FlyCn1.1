@@ -322,10 +322,14 @@ namespace FlyCn.FlyCnDAL
                     {
                         foreach(DataRow dr in yesMaster)
                         {
+                            string RefTableName = "";
                             string FieldName = dr["Field_Description"].ToString();
                             string refTableName = dr["Ref_TableName"].ToString();
-                            if(dsFile.Tables[0].Rows[i][FieldName]=="")
+                            if(ExcelDataStructureValidation(FieldName, dsFile))
                             {
+                                //cName == dsFile.Tables[0].Columns[i].ColumnName.ToString();
+                                RefTableName=dr["Ref_TableName"].ToString();//Getting the master table name
+                                
 
                             }
 
