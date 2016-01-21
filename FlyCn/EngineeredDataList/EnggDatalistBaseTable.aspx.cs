@@ -38,8 +38,6 @@ namespace FlyCn.EngineeredDataList
         {
                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
                 _moduleId = Request.QueryString["Id"];
-
-              
                 //RadTreeView node = new RadTreeView("rvleftmenu");
                 //node.ExpandMode = TreeNodeExpandMode.ServerSideCallBack;
                 //rvleftmenu.Nodes.Add(node);
@@ -520,54 +518,75 @@ namespace FlyCn.EngineeredDataList
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.CIV;
-                    
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
                 case "ELE":
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet =comDAL.ExcelSheetName;// SheetStatus.ELE;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "CAD":
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.CAD;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "CTL":
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.CTL;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "INS":
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.INS;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "MEC":
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.MEC;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "PIP":
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.PIP;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "TEL":
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.TEL;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
             }
        }
+
+
+        #region DataValidation
+        public void DataValidation(DataSet tempDS)
+        {
+            DataSet MasterDS=null;
+            DataSet dsTable=null;
+           
+            MasterDS=comDAL.SelectAllMastersDataByTableName(hdfTableName.Value, UA.projectNo);
+            dsTable = comDAL.GetTableDefinition(hdfTableName.Value);
+            validationObj.DataValidation(tempDS, MasterDS, dsTable);
+
+        }
+        #endregion DataValidation
 
         protected void dtgvalidationErros_PreRender(object sender, EventArgs e)
         {
@@ -624,6 +643,7 @@ namespace FlyCn.EngineeredDataList
             SplitString();
             RemoveColumnFromDS(tempDS);
             RemoveErrorRow(tempDS);
+            DataValidation(tempDS);
             
 
             //ValidateDataStructure(tempDS);

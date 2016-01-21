@@ -92,6 +92,7 @@ namespace FlyCn.Approvels
             IdUc_FlyCnFileUpload.FileInsert();
           
             Rebind();
+            Label1.Text = "";
         }
 
         public void BindData()
@@ -104,10 +105,12 @@ namespace FlyCn.Approvels
            // boqObj.Type = _Type;
             ds = boqObj.GetAllAttachment();
             int count = ds.Tables[0].Rows.Count;
+         
             if(count==0)
             {
                 Label1.Text = "No Attachments..!";
             }
+            
             GridView1.DataSource = ds;
            
             try
