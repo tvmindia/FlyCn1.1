@@ -65,13 +65,10 @@ namespace FlyCn.WebServices
         #region User Details
         [WebMethod]
         public string UserDetails(string username)
-        {
-            //return msg data initialization
+        {  //return msg data initialization
             DataSet ds = new DataSet();
             try
-            {
-
-                //Retrieving user details
+            {   //Retrieving user details
                 //FlyCnDAL.Users User = new FlyCnDAL.Users(username);
                 //ds.Tables.Add(User.GetUserDetailsByUserName(username));
                 DataTable OverView = new DataTable();
