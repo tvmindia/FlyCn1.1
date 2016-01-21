@@ -104,7 +104,7 @@
              </div>
 <%--Project group1--%>
 
-          <asp:Label ID="lblProjectGroup1" CssClass="control-label col-md-6"  runat="server" Text="ProjectGroup3">
+          <asp:Label ID="lblProjectGroup1" CssClass="control-label col-md-6"  runat="server" Text="ProjectGroup1">
 
           </asp:Label>
 
@@ -113,7 +113,7 @@
          </div>
 <%--Project group2--%>
 
-          <asp:Label ID="lblProjectGroup2" CssClass="control-label col-md-6"  runat="server" Text="ProjectGroup3">
+          <asp:Label ID="lblProjectGroup2" CssClass="control-label col-md-6"  runat="server" Text="ProjectGroup2">
 
           </asp:Label>
 
@@ -143,27 +143,29 @@
 
 <%--Created by--%>
 
-          <asp:Label ID="lblCreatedBy" CssClass="control-label col-md-6"  runat="server" Text="Created By">
+          <%--<asp:Label ID="lblCreatedBy" CssClass="control-label col-md-6"  runat="server" Text="Created By">--%>
 
-          </asp:Label>
+          <%--</asp:Label>--%>
 
-         <div class="col-md-6">
-        <asp:TextBox ID="txtCreated_By" runat="server"></asp:TextBox>
-        </div>
+         <%--<div class="col-md-6">--%>
+        <%--<asp:TextBox ID="txtCreated_By" runat="server"></asp:TextBox>--%>
+        <%--</div>--%>
 
 <%--Created date--%>
 
-          <asp:Label ID="lblCreatedDate" CssClass="control-label col-md-6"  runat="server" Text="Created Date">
+          <%--<asp:Label ID="lblCreatedDate" CssClass="control-label col-md-6"  runat="server" Text="Created Date">--%>
 
-          </asp:Label>
+          <%--</asp:Label>--%>
 
-        <div class="col-md-6">
-        <asp:TextBox ID="txtCreated_Date" runat="server"></asp:TextBox>
-        </div>
+        <%--<div class="col-md-6">--%>
+        <%--<asp:TextBox ID="txtCreated_Date" runat="server"></asp:TextBox>--%>
+        <%--</div>--%>
 
    </div>
 
   </div>
+
+    <asp:HiddenField ID="hdnEditPostBack" runat="server" Value="True" />
 
 </asp:Content>
 
