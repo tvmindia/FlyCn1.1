@@ -161,8 +161,6 @@
     <Content Include="Approvels\Approvers.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="Approvels\DocDetails.aspx" />
-    <Content Include="bin\FlyCn.dll" />
-    <Content Include="bin\FlyCn.pdb" />
     <Content Include="DocumentRelated\DocumentAttachments.aspx" />
     <Content Include="Approvels\RejectedDocument.aspx" />
     <Content Include="bin\AjaxControlToolkit.dll" />
@@ -176,7 +174,6 @@
     <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
     <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
     <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\FlyCn.dll.config" />
     <Content Include="bin\FlyCnSettings.dll" />
     <Content Include="bin\Microsoft.AspNet.FriendlyUrls.dll" />
     <Content Include="bin\Microsoft.AspNet.Membership.OpenAuth.dll" />
