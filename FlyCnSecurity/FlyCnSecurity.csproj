@@ -65,13 +65,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\FlyCnSecurity.dll" />
+    <Content Include="bin\FlyCnSecurity.pdb" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SecurityDAL\DBconnection.cs" />
+    <Compile Include="SecurityDAL\DBconnection.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SecurityDAL\SecurityObjects.cs" />
     <Compile Include="SecurityDAL\SecurityRoles.cs" />
   </ItemGroup>
