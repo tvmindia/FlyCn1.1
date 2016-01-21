@@ -74,7 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SecurityDAL\DBconnection.cs" />
+    <Compile Include="SecurityDAL\DBconnection.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SecurityDAL\SecurityObjects.cs" />
     <Compile Include="SecurityDAL\SecurityRoles.cs" />
   </ItemGroup>
