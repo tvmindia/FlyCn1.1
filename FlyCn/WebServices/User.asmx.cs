@@ -70,6 +70,7 @@ namespace FlyCn.WebServices
             DataSet ds = new DataSet();
             try
             {
+
                 //Retrieving user details
                 //FlyCnDAL.Users User = new FlyCnDAL.Users(username);
                 //ds.Tables.Add(User.GetUserDetailsByUserName(username));
