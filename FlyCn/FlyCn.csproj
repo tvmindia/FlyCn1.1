@@ -922,6 +922,7 @@
     </Compile>
     <Compile Include="FlycnSecurity\ObjectRegistration.aspx.cs">
       <DependentUpon>ObjectRegistration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FlycnSecurity\ObjectRegistration.aspx.designer.cs">
       <DependentUpon>ObjectRegistration.aspx</DependentUpon>
@@ -1162,7 +1163,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:40922/</IISUrl>
+          <IISUrl>http://localhost:19547/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
