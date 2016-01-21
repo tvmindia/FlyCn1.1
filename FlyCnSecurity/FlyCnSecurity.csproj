@@ -65,8 +65,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\FlyCnSecurity.dll" />
-    <Content Include="bin\FlyCnSecurity.pdb" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

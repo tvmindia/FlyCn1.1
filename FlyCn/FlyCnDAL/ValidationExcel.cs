@@ -322,13 +322,16 @@ namespace FlyCn.FlyCnDAL
                     {
                         foreach(DataRow dr in yesMaster)
                         {
-                            string RefTableName = "";
-                            string FieldName = dr["Field_Description"].ToString();
-                            string refTableName = dr["Ref_TableName"].ToString();
-                            if(ExcelDataStructureValidation(FieldName, dsFile))
+                            string expression = "";
+                            string refTableName = "";
+                            string fieldName = dr["Field_Description"].ToString();
+                           
+                            if(ExcelDataStructureValidation(fieldName, dsFile))
                             {
                                 //cName == dsFile.Tables[0].Columns[i].ColumnName.ToString();
-                                RefTableName=dr["Ref_TableName"].ToString();//Getting the master table name
+                                refTableName=dr["Ref_TableName"].ToString();//Getting the master table name
+                               // expression=dsFile.Tables[0].Rows[i][FieldName] refTableName
+                               // DataRow[] foundRows = MasterDS.Tables[0].Select(expression);
                                 
 
                             }
