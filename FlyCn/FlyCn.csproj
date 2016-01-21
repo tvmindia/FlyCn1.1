@@ -856,6 +856,7 @@
     <Compile Include="FlyCnDAL\MasterPersonal.cs" />
     <Compile Include="FlyCnDAL\MasterPersonnelQualification.cs" />
     <Compile Include="FlyCnDAL\Modules.cs" />
+    <Compile Include="FlyCnDAL\ObjectRegistration.cs" />
     <Compile Include="FlyCnDAL\ProjectParameters.cs" />
     <Compile Include="FlyCnDAL\PunchList.cs">
       <SubType>Code</SubType>
