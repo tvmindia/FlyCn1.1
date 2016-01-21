@@ -19,11 +19,6 @@ namespace FlyCn.FlycnSecurity
     public partial class NonProjectRoles : System.Web.UI.Page
     {
        
-
-        DALConstants cnst = new DALConstants();
-        SecurityRoles DALObj = new SecurityRoles();
-        FlyCnDAL.Security.UserAuthendication UA;
-
         String ScopeValueText = string.Empty; //seperated by commas 
         string RoleScopeText = string.Empty;
 
@@ -31,6 +26,9 @@ namespace FlyCn.FlycnSecurity
         #region Global Variables
 
         ErrorHandling eObj = new ErrorHandling();
+        DALConstants cnst = new DALConstants();
+        SecurityRoles DALObj = new SecurityRoles();
+        FlyCnDAL.Security.UserAuthendication UA;
 
         #endregion  Global Variables
 

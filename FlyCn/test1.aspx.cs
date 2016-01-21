@@ -17,6 +17,11 @@ namespace FlyCn
             get;
             set;
         }
+        public int url2
+        {
+            get;
+            set;
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             url = Request.Url.Port;
