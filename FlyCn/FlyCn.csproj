@@ -161,6 +161,9 @@
     <Content Include="Approvels\Approvers.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="Approvels\DocDetails.aspx" />
+    <Content Include="bin\FlyCn.dll" />
+    <Content Include="bin\FlyCnSecurity.dll" />
+    <Content Include="bin\FlyCnSecurity.pdb" />
     <Content Include="DocumentRelated\DocumentAttachments.aspx" />
     <Content Include="Approvels\RejectedDocument.aspx" />
     <Content Include="bin\AjaxControlToolkit.dll" />
@@ -174,7 +177,6 @@
     <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
     <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
     <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\FlyCn.dll" />
     <Content Include="bin\FlyCn.dll.config" />
     <Content Include="bin\FlyCn.pdb" />
     <Content Include="bin\FlyCnSettings.dll" />
@@ -925,6 +927,7 @@
     </Compile>
     <Compile Include="FlycnSecurity\ObjectRegistration.aspx.cs">
       <DependentUpon>ObjectRegistration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FlycnSecurity\ObjectRegistration.aspx.designer.cs">
       <DependentUpon>ObjectRegistration.aspx</DependentUpon>
