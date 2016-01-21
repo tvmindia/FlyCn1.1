@@ -323,7 +323,8 @@
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="FlycnSecurity\NonProjectRoles.aspx" />
     <Content Include="FlycnSecurity\Object.aspx" />
-    <Content Include="FlycnSecurity\ObjectRegistration.aspx" />
+    <Content Include="FlycnSecurity\ObjectAccessForRoles.aspx" />
+    <Content Include="General\ObjectRegistration.aspx" />
     <Content Include="Images\Document Next-WF.png" />
     <Content Include="Images\Document-Download-01.png" />
     <Content Include="Images\Download-02-WF.png" />
@@ -914,11 +915,18 @@
     <Compile Include="FlycnSecurity\Object.aspx.designer.cs">
       <DependentUpon>Object.aspx</DependentUpon>
     </Compile>
-    <Compile Include="FlycnSecurity\ObjectRegistration.aspx.cs">
+    <Compile Include="FlycnSecurity\ObjectAccessForRoles.aspx.cs">
+      <DependentUpon>ObjectAccessForRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlycnSecurity\ObjectAccessForRoles.aspx.designer.cs">
+      <DependentUpon>ObjectAccessForRoles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="General\ObjectRegistration.aspx.cs">
       <DependentUpon>ObjectRegistration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="FlycnSecurity\ObjectRegistration.aspx.designer.cs">
+    <Compile Include="General\ObjectRegistration.aspx.designer.cs">
       <DependentUpon>ObjectRegistration.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForgotPassword.aspx.cs">

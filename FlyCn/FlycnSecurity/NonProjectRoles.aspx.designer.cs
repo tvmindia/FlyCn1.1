@@ -193,39 +193,12 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.TextBox txtAccessType;
         
         /// <summary>
-        /// lblCreatedBy control.
+        /// hdnEditPostBack control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCreatedBy;
-        
-        /// <summary>
-        /// txtCreated_By control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCreated_By;
-        
-        /// <summary>
-        /// lblCreatedDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCreatedDate;
-        
-        /// <summary>
-        /// txtCreated_Date control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCreated_Date;
+        protected global::System.Web.UI.WebControls.HiddenField hdnEditPostBack;
     }
 }
