@@ -518,49 +518,56 @@ namespace FlyCn.EngineeredDataList
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.CIV;
-                    
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 
                 case "ELE":
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet =comDAL.ExcelSheetName;// SheetStatus.ELE;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "CAD":
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.CAD;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "CTL":
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.CTL;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "INS":
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.INS;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "MEC":
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.MEC;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "PIP":
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.PIP;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
                 case "TEL":
                     comDAL.GetProcedureName(comDAL.tableName);
                     currentSheet = comDAL.ExcelSheetName;
                     //currentSheet = SheetStatus.TEL;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
                     break;
 

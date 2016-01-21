@@ -16,9 +16,26 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
    
 
-<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+<asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
     <script src="../Scripts/ToolBar.js"></script>
     <script src="../Scripts/Messages.js"></script>
+    <script>
+        $(document).ready(function () {
+            GetDetailWebCount();
+        });
+
+        function GetDetailWebCount() {
+            debugger;
+            var RevID = document.getElementById("hiddenFieldRevisionID").value;
+            PageMethods.GetDetailAttachmentCount(RevID, OnSuccess, onError);
+            function OnSuccess(response, userContext, methodName) {
+                <%=ToolBarBOQDetail.ClientID %>_InvokeCountWebMethod(response);
+             }
+             function onError(response, userContext, methodName) {
+
+             }
+         }
+</script>
   <div class="container" style="width: 100%">
         <!-----FORM SECTION---->
         <!-----SECTION TABLE---->
@@ -333,6 +350,7 @@
  <!---SECTION ONE---> 
 
      <!--Radpage view rpAddEdit ends here-->
+     <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static" />
        </telerik:RadPageView>
           <!--RadMultiPage ends here-->
         </telerik:RadMultiPage>
@@ -368,6 +386,7 @@
 
               
                  eventArgs.set_cancel(false);
+                  <%=ToolBarBOQDetail.ClientID %>_hideNotification();
              }
          }
          else
@@ -376,6 +395,7 @@
                      AlertMsg(messages.EditModeNewClick);
 
                      eventArgs.set_cancel(true);
+                      <%=ToolBarBOQDetail.ClientID %>_hideNotification();
                  }
                  else
                      if (tab.get_text() == "Details") {
@@ -392,11 +412,9 @@
 
                      AlertMsg(messages.EditModeNewClick);
                      eventArgs.set_cancel(true);
+                      <%=ToolBarBOQDetail.ClientID %>_hideNotification();
                  }
              }
-
-
-
      }
      
      function onClientTabSelectedBOQDetail(sender, args)
@@ -406,7 +424,7 @@
 
          var tab = args.get_tab();
          if (tab.get_value() == '2') {
-            
+          
              //var tree = page.Master;
              //alert(tree);
             <%-- var txtCont = document.getElementById('<%= Page.Master.Master.FindControl("rtvLeftMenu").ClientID %>');
@@ -429,11 +447,13 @@
              else
           {
               if (PageSecurity.isWriteOnly) {
+                
                   <%=ToolBarBOQDetail.ClientID %>_SetAddVisible(false);
                   <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(true);
                   <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
                   <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
                   <%=ToolBarBOQDetail.ClientID %>_SetAttachVisible(false);
+
               }
              }
          }
@@ -458,10 +478,14 @@
      }
 
 
+     function DisablePopUP() {
+       <%=ToolBarBOQDetail.ClientID %>_hideNotification();
+     }
+
      function OnClientButtonClickingDetail(sender, args) {
          var btn = args.get_item();
          if (btn.get_value() == 'Save') {
-
+           
              args.set_cancel(!validate());
          }
          if (btn.get_value() == 'Update') {

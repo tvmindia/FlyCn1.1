@@ -24,6 +24,7 @@ namespace FlyCn.Approvels
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.collapsenode();", true);
             try
             {
            
