@@ -349,37 +349,40 @@ namespace FlyCn.FlyCnDAL
                                     DataSet dsCount=null;
                                     CommonDAL objCDAL = new CommonDAL();
                                     dsCount = objCDAL.GetTableDefinition(refTableName);
-                                   
-
-                                    DataTable dtTempValue = new DataTable();
-                                    DataColumn workCol = dtTempValue.Columns.Add("Values");
+                                    DataTable dt = dsCount.Tables[0];
+                                    DataColumn workCol = dt.Columns.Add("Values");
+                                  
                                     for (int k = 0; k < dsCount.Tables[0].Rows.Count;k++)
                                     {
-                                        DataRow newrowTemp = dtTempValue.NewRow();
-                                        dtTempValue.Rows.Add(newrowTemp);
-                                        DataTable dt = dsCount.Tables[0];
-
-
+                                        string columnValue = "";
                                         if (dt.Columns.Contains("Field_Name"))
-	{
-        string columnValue = dt.Rows[k]["Field_Name"].ToString();
+	                                    {
+                                           columnValue = dt.Rows[k]["Field_Name"].ToString();
+                                           switch(columnValue)
+                                           {
+                                             case "ProjectNo":
+                                                   dt.Rows[k].Delete();
+                                                   dt.AcceptChanges();
+                                                   break;
+                                             case "Code":
+                                                 dt.Rows[k]["Values"] = "Acode";//dsFile.Tables[0].Rows[i][fieldName].ToString();
+                                                 break;
+                                             case "Description":
+                                                 dt.Rows[k]["Values"] = "Adeccription";//dsFile.Tables[0].Rows[i][fieldName].ToString();
+                                                 break;
+                                             case "Plant":
+                                                 dt.Rows[k]["Values"] = DBNull.Value.ToString();//master reference value
+                                                 break;
 
+                                                   //new cases has to be added
+                                           }
+   	                                    } 
+                                  
+                                     }
 
-        if (columnValue == "ProjectNo")
-        {
-            string test = "gggg";
-        }
-
-	}
-                                         
-                                        
-                                        dtTempValue.Rows[k]["Values"] = "";
-                                    
-                                    }
-                                    objMO.InsertMasterData(dtTempValue, "C00001", "M_Area");
                                     //Add New record to DatabaseTable
-
-                                }
+                                    objMO.InsertMasterData(dt, dsFile.Tables[0].Rows[i]["ProjectNo"].ToString(), refTableName);
+                                 }
                            
                             }
 
