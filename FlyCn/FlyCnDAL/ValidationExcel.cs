@@ -336,9 +336,7 @@ namespace FlyCn.FlyCnDAL
                                     //return true item in masters
                                 }
                                 else
-                                {
-                                    //not found in masters so insert into masters as well as in masterDS
-
+                                {   //not found in masters so insert into masters as well as in masterDS
                                     //Add New record to MasterDS
                                     DataRow newCustomersRow = MasterDS.Tables[0].NewRow();
                                     newCustomersRow["TableName"] = refTableName;
@@ -346,22 +344,13 @@ namespace FlyCn.FlyCnDAL
                                     MasterDS.Tables[0].Rows.Add(newCustomersRow);
                                     MasterDS.Tables[0].AcceptChanges();
                                     //Add New record to MasterDS
-                                    
                                     //Add New record to DatabaseTable
                                     MasterOperations objMO = new MasterOperations();
                                     objMO.InsertMasterData(MasterDS.Tables[0], "C00001", "M_Area");
-
                                     //Add New record to DatabaseTable
 
-
-
-
-
-
                                 }
-                              
-                                
-
+                           
                             }
 
                         }
