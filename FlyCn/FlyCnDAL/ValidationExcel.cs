@@ -322,7 +322,7 @@ namespace FlyCn.FlyCnDAL
                     {
                         foreach(DataRow dr in yesMaster)
                         {
-                            string expression = "";
+                           
                             string refTableName = "";
                             string fieldName = dr["Field_Description"].ToString();
                            
@@ -346,7 +346,37 @@ namespace FlyCn.FlyCnDAL
                                     //Add New record to MasterDS
                                     //Add New record to DatabaseTable
                                     MasterOperations objMO = new MasterOperations();
-                                    objMO.InsertMasterData(MasterDS.Tables[0], "C00001", "M_Area");
+                                    DataSet dsCount=null;
+                                    CommonDAL objCDAL = new CommonDAL();
+                                    dsCount = objCDAL.GetTableDefinition(refTableName);
+                                   
+
+                                    DataTable dtTempValue = new DataTable();
+                                    DataColumn workCol = dtTempValue.Columns.Add("Values");
+                                    for (int k = 0; k < dsCount.Tables[0].Rows.Count;k++)
+                                    {
+                                        DataRow newrowTemp = dtTempValue.NewRow();
+                                        dtTempValue.Rows.Add(newrowTemp);
+                                        DataTable dt = dsCount.Tables[0];
+
+
+                                        if (dt.Columns.Contains("Field_Name"))
+	{
+        string columnValue = dt.Rows[k]["Field_Name"].ToString();
+
+
+        if (columnValue == "ProjectNo")
+        {
+            string test = "gggg";
+        }
+
+	}
+                                         
+                                        
+                                        dtTempValue.Rows[k]["Values"] = "";
+                                    
+                                    }
+                                    objMO.InsertMasterData(dtTempValue, "C00001", "M_Area");
                                     //Add New record to DatabaseTable
 
                                 }
