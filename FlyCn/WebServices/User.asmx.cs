@@ -97,36 +97,6 @@ namespace FlyCn.WebServices
         }
         #endregion User Details
 
-        #region Approvals
-        [WebMethod]
-        public string Approvals(string username)
-        {  //return msg data initialization
-            DataSet ds = new DataSet();
-            try
-            {   //Retrieving user details
-                FlyCnDAL.Users User = new FlyCnDAL.Users(username);
-                ApprovelMaster approvelMaster = new ApprovelMaster();
-                ds = approvelMaster.GetAllPendingApprovalsByVerifier(User.UserEMail);
-            }
-            catch (Exception ex)
-            {
-                //Return error message
-                DataTable ErrorMsg = new DataTable();
-                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
-                ErrorMsg.Columns.Add("Message", typeof(String));
-                DataRow dr = ErrorMsg.NewRow();
-                dr["Flag"] = false;
-                dr["Message"] = ex.Message;
-                ErrorMsg.Rows.Add(dr);
-                ds.Tables.Add(ErrorMsg);
-            }
-            finally
-            {
-            }
-            return getDbDataAsJSON(ds);
-        }
-        #endregion
-
         #region JSON converter and sender
        public String getDbDataAsJSON(DataSet ds)
         {
