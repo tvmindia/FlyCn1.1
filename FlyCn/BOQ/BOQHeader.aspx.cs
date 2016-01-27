@@ -370,6 +370,8 @@ namespace FlyCn.BOQ
                     hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
                     hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
                     txtDocumentno.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
+                    txtDocOwner.Text = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
+                    txtdatepicker.Value = ds.Tables[0].Rows[0]["DocumentDate"].ToString();
                 }
                 //hiddenField Binding
                 if (Revisionid != Guid.Empty)

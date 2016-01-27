@@ -321,6 +321,7 @@
     <Content Include="ExcelImport\ImportStatusList.aspx" />
     <Content Include="Fileupload.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
+    <Content Include="FlycnSecurity\AssignRoles.aspx" />
     <Content Include="FlycnSecurity\NonProjectRoles.aspx" />
     <Content Include="FlycnSecurity\Object.aspx" />
     <Content Include="FlycnSecurity\ObjectAccessForRoles.aspx" />
@@ -902,6 +903,13 @@
     <Compile Include="FlyCnMasters\UserMaster.aspx.designer.cs">
       <DependentUpon>UserMaster.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FlycnSecurity\AssignRoles.aspx.cs">
+      <DependentUpon>AssignRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlycnSecurity\AssignRoles.aspx.designer.cs">
+      <DependentUpon>AssignRoles.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FlycnSecurity\NonProjectRoles.aspx.cs">
       <DependentUpon>NonProjectRoles.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -925,6 +933,7 @@
     </Compile>
     <Compile Include="FlycnSecurity\ObjectRegistration.aspx.cs">
       <DependentUpon>ObjectRegistration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FlycnSecurity\ObjectRegistration.aspx.designer.cs">
       <DependentUpon>ObjectRegistration.aspx</DependentUpon>
