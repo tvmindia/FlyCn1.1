@@ -292,19 +292,20 @@ namespace FlyCn.Approvels
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
             string functionName = e.Item.Value;
+            string approvid = hiddenFieldApprovalID.Value;
             if (e.Item.Value == "Approve")
             {
-                Approve();
+                Approve(approvid);
                 TabChange();//to change radtab
             }
             if (e.Item.Value == "Decline")
             {
-                Decline();
+                Decline(approvid);
                 TabChange();
             }
             if (e.Item.Value == "Reject")
             {
-                Reject();
+                Reject(approvid);
                 TabChange();
             }
          
@@ -323,7 +324,7 @@ namespace FlyCn.Approvels
         #endregion TabChange
 
         #region Reject_method
-        public void Reject()
+        public void Reject(string approvid)
         {
             if (txtRemarks.Text != "")
             {
@@ -332,7 +333,7 @@ namespace FlyCn.Approvels
                 MailSending mailSending = new MailSending();//mail sending object
                 try
                 {
-                    string approvid = hiddenFieldApprovalID.Value;
+                    //string approvid = hiddenFieldApprovalID.Value;
                     approvelMaster.ApprovalStatus = 3;//3 means Rejected
                     approvelMaster.ApprovalDate = System.DateTime.Now;
                     approvelMaster.Remarks = txtRemarks.Text;
@@ -364,7 +365,7 @@ namespace FlyCn.Approvels
         #endregion Reject_method
         #region Decline_method
 
-        public void Decline()
+        public void Decline(string approvid)
         {
            if (txtRemarks.Text != "")
             {
@@ -373,7 +374,7 @@ namespace FlyCn.Approvels
                 MailSending mailSending = new MailSending();//mail sending object
                 try
                 {
-                    string approvid = hiddenFieldApprovalID.Value;
+                    //string approvid = hiddenFieldApprovalID.Value;
                     approvelMaster.ApprovalStatus = 2;//2 means declined
                     approvelMaster.ApprovalDate = System.DateTime.Now;
                     approvelMaster.Remarks = txtRemarks.Text;
@@ -403,14 +404,14 @@ namespace FlyCn.Approvels
         }
         #endregion  Decline_method
         #region Approve_method
-        public void Approve()//Approves the document
+        public void Approve(string approvid)//Approves the document
         {
             approvelMaster = new ApprovelMaster();
             int mailstatus;
             MailSending mailSending = new MailSending();//mail sending object
             try
             {
-                string approvid = hiddenFieldApprovalID.Value;
+                //string approvid = hiddenFieldApprovalID.Value;
                 approvelMaster.ApprovalStatus = 4;//4 means approved
                 approvelMaster.ApprovalDate = System.DateTime.Now;
                 approvelMaster.Remarks = txtRemarks.Text;
