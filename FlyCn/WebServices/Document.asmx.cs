@@ -184,6 +184,35 @@ namespace FlyCn.WebServices
         }
         #endregion
 
+        #region ApprovalItemDetails
+        [WebMethod]
+        public string ApprovalItemDetails(string approvid)
+        {  //return msg data initialization   approvid, revisionid, DocOwner,UA.userName);
+            DataSet ds = new DataSet();
+            try
+            {   //Retrieving details
+                ApprovelMaster approvelMaster = new ApprovelMaster();
+                ds = approvelMaster.GetPendingApprovalsDetailsByApprovalID(approvid);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                ErrorMsg.Rows.Add(dr);
+                ds.Tables.Add(ErrorMsg);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(ds);
+        }
+        #endregion
+
         #region PunchList
         [WebMethod]
         public string PunchList(string username)
@@ -212,7 +241,7 @@ namespace FlyCn.WebServices
             return getDbDataAsJSON(ds);
         }
         #endregion
-
+       
         #region JSON converter and sender
         public String getDbDataAsJSON(DataSet ds)
         {
