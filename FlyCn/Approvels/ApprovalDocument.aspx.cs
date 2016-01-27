@@ -170,6 +170,8 @@ namespace FlyCn.Approvels
             lblCreatedBy.Text = item.GetDataKeyValue("DocCreatedBy").ToString();
             lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("CreatedDate"));
             dtgApprovers.Rebind();
+
+            // approvelMaster.GetPendingApprovalsDetailsByApprovalID(string approvalID="626efd80-9083-4515-939f-47fe0a63ed94");//--This method can be used to bind above text boxes
         }
 
         #endregion ActionItemCommand
