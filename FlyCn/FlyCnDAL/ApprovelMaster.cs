@@ -13,6 +13,7 @@ using Messages = FlyCn.UIClasses.Messages;
     public class ApprovelMaster
     {
         ErrorHandling eObj = new ErrorHandling();
+        MailSending mailSending = new MailSending();//mail sending object
 
         #region GeneralProperties
         public string RevisionID
@@ -370,7 +371,7 @@ using Messages = FlyCn.UIClasses.Messages;
         #endregion InsertApprovalLog
 
         #region RejectApprovalMaster
-        public int RejectApprovalMaster(string Approvalid)
+        public void RejectApprovalMaster(string Approvalid, string revisionid, string DocOwner, string userName)
         {
             SqlConnection con = null;
             try
@@ -391,14 +392,24 @@ using Messages = FlyCn.UIClasses.Messages;
                 outparamSendmail.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
                 int mailstatus = (int)outparamSendmail.Value;
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.UpdationSuccessData(page);
-                return mailstatus;
+                switch (mailstatus)//calling mail function according to the status
+                {
+                    case 1://@@need to change
+                        // mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
+                        break;
+                    case 2:
+                        mailSending.RejectMail(RevisionID, userName, DocOwner, Remarks, Approvalid);
+                        // mailSending.RejectMail(hiddenFieldRevisionID.Value,hiddenFieldDocumentNo.Value, hiddenFieldDocOwner.Value, UA.userName);
+                        break;
+                }
+                //var page = HttpContext.Current.CurrentHandler as Page;
+                //eObj.UpdationSuccessData(page);
+              
             }
             catch (Exception ex)
             {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
+                //var page = HttpContext.Current.CurrentHandler as Page;
+                //eObj.ErrorData(ex, page);
                 throw ex;
 
             }
@@ -416,7 +427,7 @@ using Messages = FlyCn.UIClasses.Messages;
         #endregion RejectApprovalMaster
 
         #region DeclineApprovalMaster
-        public int DeclineApprovalMaster(string Approvalid)//t
+        public void DeclineApprovalMaster(string Approvalid, string revisionid, string DocOwner,string userName)
         {
             SqlConnection con = null;
             try
@@ -437,14 +448,23 @@ using Messages = FlyCn.UIClasses.Messages;
                 outparamSendmail.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
                 int mailstatus = (int)outparamSendmail.Value;
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.UpdationSuccessData(page);
-                return mailstatus;
+                switch (mailstatus)//calling mail function according to the mailstatus
+                {
+                    case 1:
+                        mailSending.SendMailToNextLevelVarifiers(revisionid);
+                        break;
+                    case 2:
+                        mailSending.DeclineMail(revisionid, DocOwner, userName, Approvalid);
+                        break;
+                }
+                //var page = HttpContext.Current.CurrentHandler as Page;
+                //eObj.UpdationSuccessData(page);
+              
             }
             catch (Exception ex)
             {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
+                //var page = HttpContext.Current.CurrentHandler as Page;
+                //eObj.ErrorData(ex, page);
                 throw ex;
 
             }
@@ -464,7 +484,7 @@ using Messages = FlyCn.UIClasses.Messages;
 
 
         #region UpdateApprovalMaster
-        public int UpdateApprovalMaster(string Approvalid)
+        public void UpdateApprovalMaster(string Approvalid, string revisionid, string DocOwner,string userName)
         {
             SqlConnection con = null;
             try
@@ -485,14 +505,30 @@ using Messages = FlyCn.UIClasses.Messages;
                 outparamSendmail.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
                 int mailstatus = (int)outparamSendmail.Value;
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.UpdationSuccessData(page);
-                return mailstatus;
+                switch (mailstatus)//calling mail function according to the status
+                {
+                    case 1:
+                        mailSending.SendMailToNextLevelVarifiers(revisionid);
+                        break;
+                    case 2:
+                        mailSending.DocumentApprovalCompleted(revisionid, DocOwner, userName, Approvalid);
+                        break;
+                    case 4:
+                        mailSending.SendMailToNextLevelVarifiers(revisionid);
+                        mailSending.SendMailToSameLevelVarifiers(revisionid, Approvalid);
+                        break;
+                    case 5:
+                        mailSending.DocumentApprovalCompleted(revisionid, DocOwner, userName, Approvalid);
+                        mailSending.SendMailToSameLevelVarifiers(revisionid, Approvalid);
+                        break;
+                }
+              
+               
             }
             catch(Exception ex)
             {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
+                //var page = HttpContext.Current.CurrentHandler as Page;
+                //eObj.ErrorData(ex, page);
                 throw ex;
               
             }
@@ -505,6 +541,42 @@ using Messages = FlyCn.UIClasses.Messages;
             }
         }
         #endregion UpdateApprovalMaster
+
+        #region GetPendingApprovalsDetailsByApprovalID
+        public DataSet GetPendingApprovalsDetailsByApprovalID(string approvalID)
+        {
+
+            SqlConnection con = null;
+            DataSet ds = null;
+            Guid approveid;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("GetPendingApprovalsDetailsByApprovalID", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                Guid.TryParse(approvalID, out approveid);
+                cmd.Parameters.Add("@ApprovalID", SqlDbType.UniqueIdentifier).Value = approveid;
+                SqlDataAdapter sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Dispose();
+                }
+            }
+            return ds;//ds returning can be used at code behind
+        }
+        #endregion GetPendingApprovalsDetailsByApprovalID
 
         #region GetAllPendingApprovalsByApprovalID
         public DataSet GetAllPendingApprovalsByLogID(Guid LogID)//new get for login bypass
@@ -549,6 +621,7 @@ using Messages = FlyCn.UIClasses.Messages;
             DataSet ds = null;
             try
             {
+
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand cmd = new SqlCommand("GetAllPendingApprovalsByVerifierEmail", con);

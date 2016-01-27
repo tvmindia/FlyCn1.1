@@ -170,9 +170,12 @@ namespace FlyCn.Approvels
             lblCreatedBy.Text = item.GetDataKeyValue("DocCreatedBy").ToString();
             lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("CreatedDate"));
             dtgApprovers.Rebind();
+
+            // approvelMaster.GetPendingApprovalsDetailsByApprovalID(string approvalID="626efd80-9083-4515-939f-47fe0a63ed94");//--This method can be used to bind above text boxes
         }
 
         #endregion ActionItemCommand
+       
         #region PendingApprovalGridBindByLogID
         public void PendingApprovalGridBindByLogID(string logID)//approval detail bind during login bypass from mail
         {
@@ -292,19 +295,22 @@ namespace FlyCn.Approvels
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
             string functionName = e.Item.Value;
+            string approvid = hiddenFieldApprovalID.Value;
+            string revisionid = hiddenFieldRevisionID.Value;
+            string DocOwner = hiddenFieldDocOwner.Value;
             if (e.Item.Value == "Approve")
             {
-                Approve();
+                Approve(approvid, revisionid, DocOwner);
                 TabChange();//to change radtab
             }
             if (e.Item.Value == "Decline")
             {
-                Decline();
+                Decline(approvid, revisionid, DocOwner);
                 TabChange();
             }
             if (e.Item.Value == "Reject")
             {
-                Reject();
+                Reject(approvid, revisionid, DocOwner);
                 TabChange();
             }
          
@@ -323,30 +329,22 @@ namespace FlyCn.Approvels
         #endregion TabChange
 
         #region Reject_method
-        public void Reject()
+        public void Reject(string approvid, string revisionid, string DocOwner)
         {
             if (txtRemarks.Text != "")
             {
                 approvelMaster = new ApprovelMaster();
-                int mailstatus;
-                MailSending mailSending = new MailSending();//mail sending object
+              
                 try
                 {
-                    string approvid = hiddenFieldApprovalID.Value;
+                    //string approvid = hiddenFieldApprovalID.Value;
                     approvelMaster.ApprovalStatus = 3;//3 means Rejected
                     approvelMaster.ApprovalDate = System.DateTime.Now;
                     approvelMaster.Remarks = txtRemarks.Text;
-                    mailstatus=approvelMaster.RejectApprovalMaster(approvid);
-                    switch (mailstatus)//calling mail function according to the status
-                    {
-                        case 1://@@need to change
-                            // mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value, hiddenFieldDocumentType.Value, hiddenFiedldProjectno.Value, hiddenFieldDocumentNo.Value);
-                            break;
-                        case 2:
-                            mailSending.RejectMail(hiddenFieldRevisionID.Value,UA.userName, hiddenFieldDocOwner.Value, txtRemarks.Text,hiddenFieldApprovalID.Value);
-                            // mailSending.RejectMail(hiddenFieldRevisionID.Value,hiddenFieldDocumentNo.Value, hiddenFieldDocOwner.Value, UA.userName);
-                            break;
-                    }
+                    approvelMaster.RevisionID = revisionid;
+                    approvelMaster.ApprovalID = approvid;
+                    approvelMaster.RejectApprovalMaster(approvid, revisionid, DocOwner,UA.userName);
+                   
                 }
                 catch (Exception ex)
                 {
@@ -364,29 +362,23 @@ namespace FlyCn.Approvels
         #endregion Reject_method
         #region Decline_method
 
-        public void Decline()
+        public void Decline(string approvid, string revisionid, string DocOwner)
         {
            if (txtRemarks.Text != "")
             {
                 approvelMaster = new ApprovelMaster();
-                int mailstatus;
-                MailSending mailSending = new MailSending();//mail sending object
+              
+               
                 try
                 {
-                    string approvid = hiddenFieldApprovalID.Value;
+                    //string approvid = hiddenFieldApprovalID.Value;
                     approvelMaster.ApprovalStatus = 2;//2 means declined
                     approvelMaster.ApprovalDate = System.DateTime.Now;
                     approvelMaster.Remarks = txtRemarks.Text;
-                    mailstatus=approvelMaster.DeclineApprovalMaster(approvid);
-                    switch (mailstatus)//calling mail function according to the mailstatus
-                    {
-                        case 1:
-                           mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value);
-                            break;
-                        case 2:
-                            mailSending.DeclineMail(hiddenFieldRevisionID.Value, hiddenFieldDocOwner.Value, UA.userName,hiddenFieldApprovalID.Value);
-                            break;
-                     }
+                    approvelMaster.RevisionID = revisionid;
+
+                    approvelMaster.DeclineApprovalMaster(approvid, revisionid, DocOwner,UA.userName);
+                    
                 }
                 catch (Exception ex)
                 {
@@ -403,35 +395,20 @@ namespace FlyCn.Approvels
         }
         #endregion  Decline_method
         #region Approve_method
-        public void Approve()//Approves the document
+        public void Approve(string approvid, string revisionid, string DocOwner)//Approves the document
         {
             approvelMaster = new ApprovelMaster();
-            int mailstatus;
-            MailSending mailSending = new MailSending();//mail sending object
+                     
             try
             {
-                string approvid = hiddenFieldApprovalID.Value;
+                //string approvid = hiddenFieldApprovalID.Value;
+                approvelMaster.RevisionID = revisionid;
+                approvelMaster.ApprovalID = approvid;
                 approvelMaster.ApprovalStatus = 4;//4 means approved
                 approvelMaster.ApprovalDate = System.DateTime.Now;
                 approvelMaster.Remarks = txtRemarks.Text;
-                mailstatus=approvelMaster.UpdateApprovalMaster(approvid);
-                switch (mailstatus)//calling mail function according to the status
-                {
-                    case 1:
-                        mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value);
-                        break;
-                    case 2:
-                        mailSending.DocumentApprovalCompleted(hiddenFieldRevisionID.Value, hiddenFieldDocOwner.Value, UA.userName,hiddenFieldApprovalID.Value);
-                        break;
-                    case 4:
-                        mailSending.SendMailToNextLevelVarifiers(hiddenFieldRevisionID.Value);
-                        mailSending.SendMailToSameLevelVarifiers(hiddenFieldRevisionID.Value,approvid);
-                        break;
-                    case 5:
-                        mailSending.DocumentApprovalCompleted(hiddenFieldRevisionID.Value, hiddenFieldDocOwner.Value, UA.userName,hiddenFieldApprovalID.Value);
-                        mailSending.SendMailToSameLevelVarifiers(hiddenFieldRevisionID.Value,approvid);
-                        break;
-               }
+                approvelMaster.UpdateApprovalMaster(approvid, revisionid, DocOwner,UA.userName);
+               
             }
             catch (Exception ex)
             {
