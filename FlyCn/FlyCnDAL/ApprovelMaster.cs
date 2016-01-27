@@ -402,14 +402,14 @@ using Messages = FlyCn.UIClasses.Messages;
                         // mailSending.RejectMail(hiddenFieldRevisionID.Value,hiddenFieldDocumentNo.Value, hiddenFieldDocOwner.Value, UA.userName);
                         break;
                 }
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.UpdationSuccessData(page);
+                //var page = HttpContext.Current.CurrentHandler as Page;
+                //eObj.UpdationSuccessData(page);
               
             }
             catch (Exception ex)
             {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
+                //var page = HttpContext.Current.CurrentHandler as Page;
+                //eObj.ErrorData(ex, page);
                 throw ex;
 
             }
@@ -457,14 +457,14 @@ using Messages = FlyCn.UIClasses.Messages;
                         mailSending.DeclineMail(revisionid, DocOwner, userName, Approvalid);
                         break;
                 }
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.UpdationSuccessData(page);
+                //var page = HttpContext.Current.CurrentHandler as Page;
+                //eObj.UpdationSuccessData(page);
               
             }
             catch (Exception ex)
             {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
+                //var page = HttpContext.Current.CurrentHandler as Page;
+                //eObj.ErrorData(ex, page);
                 throw ex;
 
             }
@@ -522,14 +522,13 @@ using Messages = FlyCn.UIClasses.Messages;
                         mailSending.SendMailToSameLevelVarifiers(revisionid, Approvalid);
                         break;
                 }
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.UpdationSuccessData(page);
+              
                
             }
             catch(Exception ex)
             {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
+                //var page = HttpContext.Current.CurrentHandler as Page;
+                //eObj.ErrorData(ex, page);
                 throw ex;
               
             }
