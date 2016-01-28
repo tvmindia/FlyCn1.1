@@ -674,7 +674,6 @@ namespace FlyCn.FlyCnDAL
         public DataSet ImportExcelFile()
         {
 
-
             var Request = request;
             string tempFolder = temporaryFolder;
             //string tempFolder = Path.Combine(HttpRuntime.AppDomainAppPath, "~/Content/");

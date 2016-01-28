@@ -116,7 +116,7 @@
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
                                         </ClientSettings>
-                                        <MasterTableView AutoGenerateColumns="False" AllowSorting="true" DataKeyNames="ApprovalID,RevisionID,DocumentID,ProjectNo,DocumentNo,CreatedDate,DocCreatedBy,DocumentType,DocCreatedDate,DocCreatedBy,DocumentOwner,DocumentDate,VerifierLevel,RevisionNo,DocumentTitle">
+                                        <MasterTableView AutoGenerateColumns="False" AllowSorting="true" DataKeyNames="ApprovalID,RevisionID,DocumentID,ProjectNo,DocumentNo,ClosedDate,DocCreatedBy,DocumentType,DocCreatedDate,DocCreatedBy,DocumentOwner,DocumentDate,VerifierLevel,RevisionNo,DocumentTitle">
                                             <Columns>
                                                
                                                 <telerik:GridBoundColumn HeaderText="ApprovalID" DataField="ApprovalID" UniqueName="ApprovalID" Display="false"></telerik:GridBoundColumn>
@@ -128,7 +128,7 @@
                                                 <telerik:GridBoundColumn HeaderText="Revision No" DataField="RevisionNo" ItemStyle-Width="15%" UniqueName="RevisionNo"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Document Type" DataField="DocumentType" ItemStyle-Width="10%" UniqueName="DocumentType"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Document Title" DataField="DocumentTitle" ItemStyle-Width="20%" UniqueName="DocumentTitle"></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Closed Date" DataField="CreatedDate" ItemStyle-Width="15%" UniqueName="CreatedDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Closed Date" DataField="ClosedDate" ItemStyle-Width="15%" UniqueName="ClosedDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Level" DataField="VerifierLevel" ItemStyle-Width="10%" UniqueName="VerifierLevel"></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Closed By" DataField="CreatedBy" ItemStyle-Width="15%"  UniqueName="CreatedBy"></telerik:GridBoundColumn>
                                                 
