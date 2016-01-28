@@ -316,6 +316,8 @@ namespace FlyCn.FlyCnDAL
             public int DataValidation(DataSet dsFile,DataSet MasterDS,DataSet dsTable)
             {
                 string refTableName = "";
+                string refSelectField = "";
+                string refJoinField = "";
                 string cName="";
                 bool flag = false;
                 string fieldName = "";
@@ -354,6 +356,9 @@ namespace FlyCn.FlyCnDAL
                             {
                                refTable=dsTable.Tables[0].Select("Field_Description = '" + cName + "' AND Ref_TableName IS NOT NULL");
                                refTableName=refTable[0].ItemArray[6].ToString();
+                               refSelectField = refTable[0].ItemArray[7].ToString();
+                               refJoinField = refTable[0].ItemArray[8].ToString();
+
                                masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dsFile.Tables[0].Rows[i][fieldName].ToString() + "'");
 
                                if (masterDataExisting.Length > 0)

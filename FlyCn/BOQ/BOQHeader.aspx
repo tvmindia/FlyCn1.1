@@ -659,8 +659,10 @@
         $("#datepicker").datepicker({
             autoclose: true,
             clearBtn:true,
-            todayHighlight: true
-        }).datepicker('update', new Date());;
+            todayHighlight: true,
+            format: "dd/mm/yyyy"
+        }).datepicker('update');
+       // }).datepicker('update', new Date());;
     });
 
 </script> 

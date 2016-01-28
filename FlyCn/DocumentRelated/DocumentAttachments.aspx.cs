@@ -20,35 +20,35 @@ namespace FlyCn.Approvels
         BOQDetails detailsObj = new BOQDetails();
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
-         public Guid Id;
-         public string _RevisionID = "";
-         public string _Type = "";
-         public string ItemID;
-         public string Status;
-         public string DocOwner;
+        public Guid Id;
+        public string _RevisionID = "";
+        public string _Type = "";
+        public string ItemID;
+        public string Status;
+        public string DocOwner;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["RevisionId"] != null)
             {
                 Status = Request.QueryString["Status"];
-               _RevisionID = Request.QueryString["RevisionId"];
-               _Type = Request.QueryString["type"];
-               DocOwner = Request.QueryString["Owner"];
-               if (Request.QueryString["ItemID"] != "undefined")
-               {
-                   ItemID = Request.QueryString["ItemID"];
-               }
-               else
-               {
-                   ItemID = "00000000-0000-0000-0000-000000000000";
-               }
+                _RevisionID = Request.QueryString["RevisionId"];
+                _Type = Request.QueryString["type"];
+                DocOwner = Request.QueryString["Owner"];
+                if (Request.QueryString["ItemID"] != "undefined")
+                {
+                    ItemID = Request.QueryString["ItemID"];
+                }
+                else
+                {
+                    ItemID = "00000000-0000-0000-0000-000000000000";
+                }
             }
-            
+
             IdUc_FlyCnFileUpload.Id = 5;
 
             if (!IsPostBack)
             {
-               
+
                 if (Request.QueryString["RevisionId"] != null)
                 {
                     _RevisionID = Request.QueryString["RevisionId"];
@@ -67,52 +67,52 @@ namespace FlyCn.Approvels
                     {
                         ItemID = "00000000-0000-0000-0000-000000000000";
                     }
-                    
+
                 }
                 BindData();
-              //  GridView1.GridLines = GridLines.None;
-               
+                //  GridView1.GridLines = GridLines.None;
+
             }
             hdfRevisionID.Value = _RevisionID;
             IdUc_FlyCnFileUpload.RevisionID = _RevisionID;
             hdfRevisionID.Value = _RevisionID;//////
-           // string type_value = _Type;
+            // string type_value = _Type;
             IdUc_FlyCnFileUpload.type_value = _Type;
             IdUc_FlyCnFileUpload.ItemID = ItemID;
             boqObj.Type = _Type;
             hiddenStatusValue.Value = Status;
             HiddenDocOwner.Value = DocOwner;
+            
         }
-    
+
         protected void btnsubmit_Click(object sender, EventArgs e)
         {
 
-           
-            
+
+
             IdUc_FlyCnFileUpload.FileInsert();
-          
+
             Rebind();
             Label1.Text = "";
         }
 
         public void BindData()
-        
         {
 
             DataSet ds = new DataSet();
 
             boqObj.RevisionID = hdfRevisionID.Value;
-           // boqObj.Type = _Type;
+            // boqObj.Type = _Type;
             ds = boqObj.GetAllAttachment();
             int count = ds.Tables[0].Rows.Count;
-         
-            if(count==0)
+
+            if (count == 0)
             {
                 Label1.Text = "No Attachments..!";
             }
-            
+
             GridView1.DataSource = ds;
-           
+
             try
             {
                 GridView1.DataBind();
@@ -130,7 +130,7 @@ namespace FlyCn.Approvels
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             DataSet ds = new DataSet();
-           // BOQHeaderDetails boqObj = new BOQHeaderDetails();
+            // BOQHeaderDetails boqObj = new BOQHeaderDetails();
             boqObj.RevisionID = hdfRevisionID.Value;
             ds = boqObj.GetAllAttachment();
             //Id = (Guid)ds.Tables[0].Rows[0]["ImageID"];
@@ -144,7 +144,7 @@ namespace FlyCn.Approvels
             Response.ContentType = "application/octet-stream";
             Response.AddHeader("Content-Disposition", "attachment;filename=" + fileName);
             Response.TransmitFile(filePath + fileName);
-           // Response.End();
+            // Response.End();
             HttpContext.Current.ApplicationInstance.CompleteRequest();
         }
 
@@ -160,13 +160,13 @@ namespace FlyCn.Approvels
             dbConnection cntion = new dbConnection();
             SqlCommand cmd;
             SqlDataReader reader = null;
-            
+
             if (Id != Guid.Empty)
             {
-                string filePath = Server.MapPath("/Pix/");
+                string filePath = Server.MapPath("/Content/Fileupload/");
                 string fileName = "";
-                
-                
+
+
                 try
                 {
 
@@ -174,22 +174,22 @@ namespace FlyCn.Approvels
                     cmd.Connection = cntion.GetDBConnection(); ;
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandText = "spGetImageById";
-                    cmd.Parameters.Add("@paramId", SqlDbType.UniqueIdentifier).Value =Id;
+                    cmd.Parameters.Add("@paramId", SqlDbType.UniqueIdentifier).Value = Id;
                     reader = cmd.ExecuteReader();
-                   
+
                     if (reader.HasRows)
                     {
                         if (reader.Read())
                         {
-                            fileName =reader.GetString(2);
+                            fileName = reader.GetString(2);
                             DALConstants constObj = new DALConstants();
-                            constObj.Extensions.Replace(",","");
+                            constObj.Extensions.Replace(",", "");
                             string ext = System.IO.Path.GetExtension(filePath + fileName);
                             MakeFile(reader, fileName, filePath);
                             Download(fileName, filePath);
-                            
-                             } 
-                           }//reader
+
+                        }
+                    }//reader
                 }
 
                 catch (Exception ex)
@@ -206,7 +206,7 @@ namespace FlyCn.Approvels
 
         }
 
-     
+
         protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
         {
 
@@ -220,14 +220,14 @@ namespace FlyCn.Approvels
         {
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             string current_User = UA.userName;
-           //Status = DocStatus.Draft;
+            //Status = DocStatus.Draft;
             if (Status == "0" || Status == "3")
             {
                 if ((current_User == DocOwner))
                 {
                     GridView1.Columns[5].Visible = true;
                 }
-            
+
                 else if ((current_User != DocOwner))
                 {
                     GridView1.Columns[5].Visible = false;
@@ -235,11 +235,17 @@ namespace FlyCn.Approvels
                     btnsubmit.Visible = false;
                 }
             }
-            else
+                else if(Status=="4" || Status=="1")
             {
                 GridView1.Columns[5].Visible = false;
                 IdUc_FlyCnFileUpload.Visible = false;
                 btnsubmit.Visible = false;
+            }
+            else
+            {
+                GridView1.Columns[5].Visible = true;
+                IdUc_FlyCnFileUpload.Visible = true;
+                btnsubmit.Visible = true;
             }
         }
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -251,8 +257,8 @@ namespace FlyCn.Approvels
 
         protected void GridView1_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
         {
-           
+
         }
-     
+
     }
 }

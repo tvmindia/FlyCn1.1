@@ -43,7 +43,9 @@ namespace FlyCn.BOQ
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            _RevisionId = Request.QueryString["RevisionId"];
+
+
             BOQObj = new BOQHeaderDetails();
             ToolBarVisibility(4);
             SecurityCheck();
@@ -52,13 +54,9 @@ namespace FlyCn.BOQ
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
-
-        //GridviewFilter.onClick += new EventHandler(GridviewFilter_onClick);
-    
-
-            BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString(); 
+            //GridviewFilter.onClick += new EventHandler(GridviewFilter_onClick);
+             BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString(); 
              BOQObj.DocumentOwner = hiddenDocumentOwner.Value;
-            
             //BOQObj.BindTree(RadTreeView tview);
             hiddenFieldDocumentType.Value = "BOQ";
             ContentIframe.Style["display"] = "none";//iframe disabling
@@ -370,6 +368,8 @@ namespace FlyCn.BOQ
                     hiddenFieldDocumentID.Value = ds.Tables[0].Rows[0]["DocumentID"].ToString();
                     hiddenFieldRevisionID.Value = ds.Tables[0].Rows[0]["RevisionID"].ToString();
                     txtDocumentno.Text = ds.Tables[0].Rows[0]["DocumentNo"].ToString();
+                    txtDocOwner.Text = ds.Tables[0].Rows[0]["DocumentOwner"].ToString();
+                    txtdatepicker.Value = ds.Tables[0].Rows[0]["DocumentDate"].ToString();
                 }
                 //hiddenField Binding
                 if (Revisionid != Guid.Empty)

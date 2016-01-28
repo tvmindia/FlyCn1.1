@@ -124,6 +124,12 @@ ul.departments { list-style-type: none; }*/
             document.getElementById("GenerateTemplate").style.display = "none";
             document.getElementById("Import").style.display = "none";
 
+            /*import link non-clickable*/
+            document.getElementById('import').disabled = true;
+            document.getElementById('import').style.textDecoration = 'none';
+            document.getElementById('import').removeAttribute("href");
+            document.getElementById('import').onclick = "return false";
+
         }
         function GenerateTemplateNextClick() {
             var firstdiv = document.getElementById("Upload");
@@ -131,24 +137,58 @@ ul.departments { list-style-type: none; }*/
             document.getElementById("GenerateTemplate").style.display = "none";
             document.getElementById("DivValidate").style.display = "none";
             document.getElementById("Import").style.display = "none";
+
+            /*import link non-clickable*/
+            document.getElementById('import').disabled = true;
+            document.getElementById('import').style.textDecoration = 'none';
+            document.getElementById('import').removeAttribute("href");
+            document.getElementById('import').onclick = "return false";
+
+            /*validate link non-clickable*/
+            document.getElementById('validate').disabled = true;
+            document.getElementById('validate').style.textDecoration='none'
+            document.getElementById('validate').removeAttribute("href");
+            document.getElementById('validate').onclick = "return false";
+            
         }
 
 
         function Import() {
+           
             document.getElementById("Upload").style.display = "none";
             document.getElementById("DivValidate").style.display = "none";
             document.getElementById("GenerateTemplate").style.display = "none";
             document.getElementById("Import").style.display = "";
+           
         }
 
         function GenerateTemplateDivShow() {
+          
             document.getElementById("Upload").style.display = "none";
             document.getElementById("Import").style.display = "none";
             document.getElementById("GenerateTemplate").style.display = "";
             document.getElementById("DivValidate").style.display = "none";
+         
+            /*import link non-clickable*/
+            document.getElementById('import').disabled = true;
+            document.getElementById('import').style.textDecoration = 'none';
+            document.getElementById('import').removeAttribute("href");
+            document.getElementById('import').onclick = "return false";
 
+            /*validate link non-clickable*/
+            document.getElementById('validate').disabled = true;
+            document.getElementById('validate').style.textDecoration = 'none'
+            document.getElementById('validate').removeAttribute("href");
+            document.getElementById('validate').onclick = "return false";
+
+            /*upload link non-clickable*/
+            document.getElementById('upload').disabled = true;
+            document.getElementById('upload').style.textDecoration = 'none'
+            document.getElementById('upload').removeAttribute("href");
+            document.getElementById('upload').onclick = "return false";
         }
-
+        
+            
         //function codeAddress() {
         //    alert('ok');
         //    parent.OnEnggDataListTreeBinding();
@@ -234,18 +274,18 @@ ul.departments { list-style-type: none; }*/
                   <div id="nav" class="NavButton">
                     <ul class="list-inline" id="NavItem" runat="server" style="width: 100%;">
                         <li></li>
-                        <li><a href="#" onclick='GenerateTemplateDivShow();'>Generate Template &nbsp;&nbsp; <img src="../Images/Icons/RightArrow16.png" />
+                        <li><a href="#" id="generate" onclick='GenerateTemplateDivShow();'>Generate Template &nbsp;&nbsp; <img src="../Images/Icons/RightArrow16.png" />
                         </a>
                         </li>
-                        <li><a href="#" onclick='GenerateTemplateNextClick();'>Upload &nbsp;&nbsp; <img src="../Images/Icons/RightArrow16.png" />
+                        <li><a href="#" id="upload" onclick='GenerateTemplateNextClick();'>Upload &nbsp;&nbsp; <img src="../Images/Icons/RightArrow16.png" />
                         </a>
                         </li>
                         <li>
-                            <a href="#" onclick='UploadNextClick();'>Validate &nbsp;&nbsp; <img src="../Images/Icons/RightArrow16.png" />
+                            <a href="#" id="validate" onclick='UploadNextClick();'>Validate &nbsp;&nbsp; <img src="../Images/Icons/RightArrow16.png" />
                             </a>
                         </li>
                         <li>
-                            <a href="#" onclick='Import();'>Import
+                            <a href="#" id="import" onclick='Import();'>Import
                             </a>
                         </li>
                     </ul>
