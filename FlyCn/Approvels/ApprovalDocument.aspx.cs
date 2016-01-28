@@ -96,7 +96,7 @@ namespace FlyCn.Approvels
                 approvelMaster = new ApprovelMaster();
                 ds = approvelMaster.GetAllPendingApprovalsByVerifier(verifierEmail);
                 dtgPendingApprovalGrid.DataSource = ds;
-
+               
             }
             catch (Exception ex)
             {
@@ -168,7 +168,7 @@ namespace FlyCn.Approvels
             lblDocumentDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("DocumentDate"));
             lblDocOwner.Text = item.GetDataKeyValue("DocumentOwner").ToString();
             lblCreatedBy.Text = item.GetDataKeyValue("DocCreatedBy").ToString();
-            lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("ClosedDate"));
+            lblClosedDate.Text = string.Format("{0:dd/MMM/yyyy}", item.GetDataKeyValue("CreatedDate"));
             dtgApprovers.Rebind();
 
             // approvelMaster.GetPendingApprovalsDetailsByApprovalID(string approvalID="626efd80-9083-4515-939f-47fe0a63ed94");//--This method can be used to bind above text boxes
