@@ -312,8 +312,8 @@ namespace FlyCn.FlyCnDAL
 
             #endregion Methods
             #region DataValidation
-
-            public int DataValidation(DataSet dsFile,DataSet MasterDS,DataSet dsTable)
+       //   public int DataValidation(DataSet dsFile,DataSet MasterDS,DataSet dsTable)
+            public int DataValidation(DataRow dr,DataSet MasterDS,DataSet dsTable)
             {
                 string refTableName = "";
                 string refSelectField = "";
@@ -331,12 +331,12 @@ namespace FlyCn.FlyCnDAL
                 }
                 try
                 {
-                    for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
-                    {
+                    //for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
+                    //{
 
                      //   fieldName = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
-                        DataRow drr = dsFile.Tables[0].Rows[i];
-                        foreach (DataColumn dc in dsFile.Tables[0].Columns)
+                      
+                        foreach (DataColumn dc in dr.Table.Columns)
                         {
                             flag = false;
                             cName = dc.ToString();
@@ -358,9 +358,7 @@ namespace FlyCn.FlyCnDAL
                                refTableName=refTable[0].ItemArray[6].ToString();
                                refSelectField = refTable[0].ItemArray[7].ToString();
                                refJoinField = refTable[0].ItemArray[8].ToString();
-
-                               masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dsFile.Tables[0].Rows[i][fieldName].ToString() + "'");
-
+                               masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" +  dr.Table.Rows[0][fieldName].ToString() + "'");
                                if (masterDataExisting.Length > 0)
                                {
                                    //return true item in masters
@@ -370,7 +368,7 @@ namespace FlyCn.FlyCnDAL
                                    //Add New record to MasterDS
                                    DataRow newCustomersRow = MasterDS.Tables[0].NewRow();
                                    newCustomersRow["TableName"] = refTableName;
-                                   newCustomersRow["Code"] = dsFile.Tables[0].Rows[i][fieldName].ToString();
+                                   newCustomersRow["Code"] = dr.Table.Rows[0][fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
                                    MasterDS.Tables[0].Rows.Add(newCustomersRow);
                                    MasterDS.Tables[0].AcceptChanges();
                                    //Add New record to MasterDS
@@ -389,27 +387,40 @@ namespace FlyCn.FlyCnDAL
                                        if (dt.Columns.Contains("Field_Name"))
                                        {
                                            columnValue = dt.Rows[k]["Field_Description"].ToString();
-                                           switch (columnValue)
-                                           {
-                                               case "Code":
-                                                   dt.Rows[k]["Values"] = dsFile.Tables[0].Rows[i][fieldName].ToString();
-                                                   break;
-                                               case "Description":
-                                                   dt.Rows[k]["Values"] = dsFile.Tables[0].Rows[i][fieldName].ToString();
-                                                   break;
+                                           //switch (columnValue)
+                                           //{
+                                           //    case "Code":
+                                           //        dt.Rows[k]["Values"] = dsFile.Tables[0].Rows[i][fieldName].ToString();
+                                           //        break;
+                                           //    case "Description":
+                                           //        dt.Rows[k]["Values"] = dsFile.Tables[0].Rows[i][fieldName].ToString();
+                                           //        break;
                                               
-                                               default:
-                                                   dt.Rows[k]["Values"] = "";
-                                                   break;
+                                           //    default:
+                                           //        dt.Rows[k]["Values"] = "";
+                                           //        break;
 
-                                            //new cases has to be added
-                                           }//switch
+                                           // //new cases has to be added
+                                           //}//switch
+                                           if (columnValue == refSelectField)
+                                           {
+                                               dt.Rows[k]["Values"] = dr.Table.Rows[0][fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
+                                           }
+                                           else if(columnValue==refJoinField)
+                                           {
+                                               dt.Rows[k]["Values"] = dr.Table.Rows[0][fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
+                                           }
+                                           else 
+                                           {
+                                               dt.Rows[k]["Values"] = "";
+                                           }
+
                                        } //if
 
                                    }//for
                                    //Add New record to DatabaseTable
-                                   objMO.InsertMasterData(dt, dsFile.Tables[0].Rows[i]["ProjectNo"].ToString(), refTableName);
-
+                                  // objMO.InsertMasterData(dt, dsFile.Tables[0].Rows[i]["ProjectNo"].ToString(), refTableName);
+                                   objMO.InsertMasterData(dt, dr.Table.Rows[0]["ProjectNo"].ToString(), refTableName);
                                }//else
 
                             }//if
@@ -420,14 +431,14 @@ namespace FlyCn.FlyCnDAL
                           
                           //  string fieldName = dr["Field_Description"].ToString();
                            
-                            if(ExcelDataStructureValidation(fieldName, dsFile))
-                            {
-                               // cName == dsFile.Tables[0].Columns[i].ColumnName.ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString()
-                              // refTableName=dr["Ref_TableName"].ToString();//Getting the master table name
+                            //if(ExcelDataStructureValidation(fieldName, dsFile))
+                            //{
+                            //   // cName == dsFile.Tables[0].Columns[i].ColumnName.ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString()
+                            //  // refTableName=dr["Ref_TableName"].ToString();//Getting the master table name
                       
-                             }//for
+                            // }//for
                  
-                }
+                //}
                 catch(Exception ex)
                 {
                     throw ex;

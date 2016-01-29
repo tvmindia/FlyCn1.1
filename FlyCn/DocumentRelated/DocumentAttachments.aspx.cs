@@ -87,9 +87,6 @@ namespace FlyCn.Approvels
 
         protected void btnsubmit_Click(object sender, EventArgs e)
         {
-
-
-
             IdUc_FlyCnFileUpload.FileInsert();
 
             Rebind();
