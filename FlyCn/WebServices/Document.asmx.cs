@@ -212,19 +212,17 @@ namespace FlyCn.WebServices
             return getDbDataAsJSON(ds);
         }
         #endregion
-
-
+        
         #region LineItems
         [WebMethod]
-        public string LineItems(string username,string revid, string type, string projectNo)
+        public string LineItems(string revid, string type, string projectNo)
         {  //return msg data initialization
             DataSet ds = new DataSet();
             try
             {   //Retrieving details
-                FlyCnDAL.Users User = new FlyCnDAL.Users(username);
                 ApprovelMaster approvelMaster = new ApprovelMaster();
                 DataTable dt = new DataTable();
-                dt = approvelMaster.GetDocDetailList(revid, type, projectNo);
+                dt = approvelMaster.GetDocDetailList(revid, type,projectNo,true);
                 ds.Tables.Add(dt);
             }
             catch (Exception ex)
@@ -245,7 +243,6 @@ namespace FlyCn.WebServices
             return getDbDataAsJSON(ds);
         }
         #endregion
-
 
         #region PunchList
         [WebMethod]

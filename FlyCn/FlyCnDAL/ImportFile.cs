@@ -869,6 +869,7 @@ namespace FlyCn.FlyCnDAL
             try
             {
                int insertResult;
+               List<string> MasterColumns = new List<string>();
                DataSet dsTable = new DataSet();
                dbConnection dbcon = new dbConnection();
                ValidationExcel validationObj = new ValidationExcel();
@@ -884,6 +885,13 @@ namespace FlyCn.FlyCnDAL
                 //}
                 totalCount = dsFile.Tables[0].Rows.Count;
                 InitializeExcelImportDetails(ExcelFileName, totalCount);
+                DataRow[] yesMaster = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
+                foreach (DataRow row in yesMaster)//storing master having columns
+                {
+                    MasterColumns.Add(row[2].ToString());//column 2 field descrption
+                }
+              
+            
                 for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
                 {
                     //to know temp
@@ -895,12 +903,8 @@ namespace FlyCn.FlyCnDAL
                     //DataSet dsFile,DataSet MasterDS,DataSet dsTable)
                     int res;
                     DataSet MasterDS = null;
-
-
                     MasterDS = tblDef.SelectAllMastersDataByTableName(TableName, ProjectNo);
-                    dsTable = tblDef.GetTableDefinition(TableName);
-                   
-                    res = validationObj.DataValidation(dsFile.Tables[0].Rows[i], MasterDS, dsTable);
+                    res = validationObj.DataValidation(dsFile.Tables[0].Rows[i], MasterDS, dsTable, MasterColumns);
                     //if (res == -1)
                     //{
                     //    errorCount = errorCount + 1;

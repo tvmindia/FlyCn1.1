@@ -313,132 +313,89 @@ namespace FlyCn.FlyCnDAL
             #endregion Methods
             #region DataValidation
        //   public int DataValidation(DataSet dsFile,DataSet MasterDS,DataSet dsTable)
-            public int DataValidation(DataRow dr,DataSet MasterDS,DataSet dsTable)
+            public int DataValidation(DataRow dr, DataSet MasterDS, DataSet dsTable, List<string> MasterColumns)
             {
                 string refTableName = "";
                 string refSelectField = "";
                 string refJoinField = "";
                 string cName="";
-                bool flag = false;
                 string fieldName = "";
-                DataRow[] refTable = null;
+                DataRow[] refTableRow = null;
+                DataRow refTableOneRow = null;
                 DataRow[] masterDataExisting = null;
-                DataRow[] yesMaster = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
-                List<string> MasterColumns = new List<string>();
-                foreach (DataRow row in yesMaster)//storing master having columns
-                {
-                    MasterColumns.Add(row[2].ToString());//column 2 field descrption
-                }
+               // DataRow[] yesMaster = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
+               // List<string> MasterColumns = new List<string>();
+               
                 try
                 {
-                    //for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
-                    //{
-
-                     //   fieldName = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
-                      
-                        foreach (DataColumn dc in dr.Table.Columns)
+                      //  foreach (DataColumn dc in dr.Table.Columns)
+                    foreach(string dc in MasterColumns)
+                  
                         {
-                            flag = false;
-                            cName = dc.ToString();
-                            if(MasterColumns.Contains(cName))
-                            {
-                                flag = true;
+                         
+                              cName = dc.ToString();
+                         //   if(MasterColumns.Contains(cName))
+                         //   {
+                             
                                 fieldName = cName;
-                            }
-                            //for (int f = 0; f < MasterColumns.Count; f++)
-                            //{
-                            //    if (MasterColumns[f].Contains(cName))
-                            //    {
-                                   
-                            //    }
-                            //}
-                            if(flag==true)
-                            {
-                               refTable=dsTable.Tables[0].Select("Field_Description = '" + cName + "' AND Ref_TableName IS NOT NULL");
-                               refTableName=refTable[0].ItemArray[6].ToString();
-                               refSelectField = refTable[0].ItemArray[7].ToString();
-                               refJoinField = refTable[0].ItemArray[8].ToString();
-                               masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" +  dr.Table.Rows[0][fieldName].ToString() + "'");
-                               if (masterDataExisting.Length > 0)
-                               {
-                                   //return true item in masters
-                               }
-                               else
-                               {   //not found in masters so insert into masters as well as in masterDS
-                                   //Add New record to MasterDS
-                                   DataRow newCustomersRow = MasterDS.Tables[0].NewRow();
-                                   newCustomersRow["TableName"] = refTableName;
-                                   newCustomersRow["Code"] = dr.Table.Rows[0][fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
-                                   MasterDS.Tables[0].Rows.Add(newCustomersRow);
-                                   MasterDS.Tables[0].AcceptChanges();
-                                   //Add New record to MasterDS
-                                   //Add New record to DatabaseTable
-                                   MasterOperations objMO = new MasterOperations();
-                                   DataSet dsCount = null;
-                                   CommonDAL objCDAL = new CommonDAL();
-                                   dsCount = objCDAL.GetTableDefinition(refTableName);
-                                   DataTable dt = dsCount.Tables[0];
-                                   DataColumn workCol = dt.Columns.Add("Values");
-                                   dt.Rows[0].Delete();
-                                   dt.AcceptChanges();
-                                   for (int k = 0; k < dsCount.Tables[0].Rows.Count; k++)
-                                   {
-                                       string columnValue = "";
-                                       if (dt.Columns.Contains("Field_Name"))
-                                       {
-                                           columnValue = dt.Rows[k]["Field_Description"].ToString();
-                                           //switch (columnValue)
-                                           //{
-                                           //    case "Code":
-                                           //        dt.Rows[k]["Values"] = dsFile.Tables[0].Rows[i][fieldName].ToString();
-                                           //        break;
-                                           //    case "Description":
-                                           //        dt.Rows[k]["Values"] = dsFile.Tables[0].Rows[i][fieldName].ToString();
-                                           //        break;
-                                              
-                                           //    default:
-                                           //        dt.Rows[k]["Values"] = "";
-                                           //        break;
+                                refTableRow = dsTable.Tables[0].Select("Field_Description = '" + cName + "' AND Ref_TableName IS NOT NULL");
+                                refTableOneRow = refTableRow[0];
+                                refTableName = refTableOneRow["Ref_TableName"].ToString();//refTable[0].ItemArray[6].ToString();
+                                refSelectField = refTableOneRow["Ref_SelectField"].ToString();
+                                refJoinField = refTableOneRow["Ref_JoinField"].ToString();
+                                masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[fieldName].ToString() + "'");
+                                if (masterDataExisting.Length == 0)
+                                {
+                                    //not found in masters so insert into masters as well as in masterDS
+                                    //Add New record to MasterDS
+                                    DataRow newCustomersRow = MasterDS.Tables[0].NewRow();
+                                    newCustomersRow["TableName"] = refTableName;
+                                    newCustomersRow["Code"] = dr[fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
+                                    MasterDS.Tables[0].Rows.Add(newCustomersRow);
+                                    MasterDS.Tables[0].AcceptChanges();
+                                    //Add New record to MasterDS
+                                    //Add New record to DatabaseTable
+                                    MasterOperations objMO = new MasterOperations();
+                                    DataSet dsCount = null;
+                                    CommonDAL objCDAL = new CommonDAL();
+                                    dsCount = objCDAL.GetTableDefinition(refTableName);
+                                    DataTable dt = dsCount.Tables[0];
+                                    DataColumn workCol = dt.Columns.Add("Values");
+                                    dt.Rows[0].Delete();
+                                    dt.AcceptChanges();
+                                    for (int k = 0; k < dsCount.Tables[0].Rows.Count; k++)
+                                    {
+                                        string columnValue = "";
+                                        if (dt.Columns.Contains("Field_Name"))
+                                        {
+                                            columnValue = dt.Rows[k]["Field_Description"].ToString();
+                                            if (columnValue == refSelectField)
+                                            {
+                                               // dt.Rows[k]["Values"] = dr.Table.Rows[0][fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
+                                                dt.Rows[k]["Values"] =  dr[fieldName].ToString();
+                                            }
+                                            else if (columnValue == refJoinField)
+                                            {
+                                               // dt.Rows[k]["Values"] = dr.Table.Rows[0][fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
+                                                dt.Rows[k]["Values"] = dr[fieldName].ToString(); 
+                                            }
+                                            else
+                                            {
+                                                dt.Rows[k]["Values"] = "";
+                                            }
 
-                                           // //new cases has to be added
-                                           //}//switch
-                                           if (columnValue == refSelectField)
-                                           {
-                                               dt.Rows[k]["Values"] = dr.Table.Rows[0][fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
-                                           }
-                                           else if(columnValue==refJoinField)
-                                           {
-                                               dt.Rows[k]["Values"] = dr.Table.Rows[0][fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
-                                           }
-                                           else 
-                                           {
-                                               dt.Rows[k]["Values"] = "";
-                                           }
+                                        }
 
-                                       } //if
+                                    }//for
+                                    //Add New record to DatabaseTable
+                                    objMO.InsertMasterData(dt, dr.Table.Rows[0]["ProjectNo"].ToString(), refTableName);
+                                }
+                               
+                           // }//if
+                        
+                           }//foreach 
 
-                                   }//for
-                                   //Add New record to DatabaseTable
-                                  // objMO.InsertMasterData(dt, dsFile.Tables[0].Rows[i]["ProjectNo"].ToString(), refTableName);
-                                   objMO.InsertMasterData(dt, dr.Table.Rows[0]["ProjectNo"].ToString(), refTableName);
-                               }//else
-
-                            }//if
-
-                            }
-
-                        }
-                          
-                          //  string fieldName = dr["Field_Description"].ToString();
-                           
-                            //if(ExcelDataStructureValidation(fieldName, dsFile))
-                            //{
-                            //   // cName == dsFile.Tables[0].Columns[i].ColumnName.ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString()
-                            //  // refTableName=dr["Ref_TableName"].ToString();//Getting the master table name
-                      
-                            // }//for
-                 
-                //}
+                        }//try
                 catch(Exception ex)
                 {
                     throw ex;
