@@ -156,6 +156,7 @@ namespace FlyCn.WebServices
                 approvelMaster.Remarks = remarks;
                 approvelMaster.RejectApprovalMaster(approvid, revisionid, DocOwner, username);
                 //success message
+
                 DataTable SuccessMsg = new DataTable();
                 SuccessMsg.Columns.Add("Flag", typeof(Boolean));
                 SuccessMsg.Columns.Add("Message", typeof(String));
