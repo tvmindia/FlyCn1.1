@@ -16,13 +16,16 @@ namespace FlyCn.Content.DocDetailView
         ErrorHandling eObj = new ErrorHandling();
         UIClasses.Const Const = new UIClasses.Const();
         string revid = "";
+        public string DocType = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                string projectNum = Request.QueryString["ProjNum"];
+                string projectNum = Request.QueryString["ProjectNo"];
                 string revId = Request.QueryString["RevNum"];
-                string type = "BOQ";
+                hiddenFieldDocType.Value = Request.QueryString["DocumentType"];
+                hiddenfieldProjNo.Value = projectNum;
+                string type = hiddenFieldDocType.Value;
                 string revid = Request.QueryString["Revisionid"];
                 hiddenFieldRevisionID.Value = revid;
                 DataTable dt;
@@ -103,11 +106,12 @@ namespace FlyCn.Content.DocDetailView
           
             try
             {
-                string type = "BOQ";
+                string type =hiddenFieldDocType.Value;
+                string ProjectNo = hiddenfieldProjNo.Value;
                 DataTable dt;
                 ApprovelMaster amObj = new ApprovelMaster();
                 revid = hiddenFieldRevisionID.Value;
-                dt = amObj.GetDocDetailList(revid, type,"C00001");
+                dt = amObj.GetDocDetailList(revid, type, ProjectNo);
                 if (dt.Rows.Count > 0)
                 {
                     dtDocDetailGrid.DataSource = dt;
