@@ -70,7 +70,7 @@ namespace FlyCn
                importObj.ExcelFileName = importObj.fileName;
                //Thread excelImportThread = new Thread(new ThreadStart(importObj.ImportExcelFile));
                //excelImportThread.Start();
-               importObj.ImportExcelFile();
+               importObj.GetExcelData();
                lblMsg.Text = "Thread started";
              }//end of hasfile if
           }//end try

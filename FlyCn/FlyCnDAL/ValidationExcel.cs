@@ -313,7 +313,7 @@ namespace FlyCn.FlyCnDAL
             #endregion Methods
             #region DataValidation
        //   public int DataValidation(DataSet dsFile,DataSet MasterDS,DataSet dsTable)
-            public int DataValidation(DataRow dr, DataSet MasterDS, DataSet dsTable, List<string> MasterColumns)
+            public int DataValidation(DataRow dr, DataSet MasterDS, DataSet dsTable, List<string> MasterColumns,string userName)
             {
                 string refTableName = "";
                 string refSelectField = "";
@@ -328,15 +328,12 @@ namespace FlyCn.FlyCnDAL
                
                 try
                 {
-                      //  foreach (DataColumn dc in dr.Table.Columns)
-                    foreach(string dc in MasterColumns)
-                  
-                        {
-                         
+                      //-------------------STEP1 MASTER DATA VALIDATE--------------------------------------------------//
+                    foreach(string dc in MasterColumns)                  
+                        {                         
                               cName = dc.ToString();
-                         //   if(MasterColumns.Contains(cName))
-                         //   {
-                             
+                       
+                             //check whether data exist in the masters
                                 fieldName = cName;
                                 refTableRow = dsTable.Tables[0].Select("Field_Description = '" + cName + "' AND Ref_TableName IS NOT NULL");
                                 refTableOneRow = refTableRow[0];
@@ -344,26 +341,28 @@ namespace FlyCn.FlyCnDAL
                                 refSelectField = refTableOneRow["Ref_SelectField"].ToString();
                                 refJoinField = refTableOneRow["Ref_JoinField"].ToString();
                                 masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[fieldName].ToString() + "'");
-                                if (masterDataExisting.Length == 0)
-                                {
+                               
                                     //not found in masters so insert into masters as well as in masterDS
+                                    if (masterDataExisting.Length == 0)
+                                   {
+                                    
                                     //Add New record to MasterDS
                                     DataRow newCustomersRow = MasterDS.Tables[0].NewRow();
                                     newCustomersRow["TableName"] = refTableName;
                                     newCustomersRow["Code"] = dr[fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
                                     MasterDS.Tables[0].Rows.Add(newCustomersRow);
                                     MasterDS.Tables[0].AcceptChanges();
-                                    //Add New record to MasterDS
+                                     
                                     //Add New record to DatabaseTable
                                     MasterOperations objMO = new MasterOperations();
-                                    DataSet dsCount = null;
+                                    DataSet dsTable_RefTable = null;
                                     CommonDAL objCDAL = new CommonDAL();
-                                    dsCount = objCDAL.GetTableDefinition(refTableName);
-                                    DataTable dt = dsCount.Tables[0];
+                                    dsTable_RefTable = objCDAL.GetTableDefinition(refTableName);
+                                    DataTable dt = dsTable_RefTable.Tables[0];
                                     DataColumn workCol = dt.Columns.Add("Values");
-                                    dt.Rows[0].Delete();
+                                    dt.Rows[0].Delete();//removes 'projectno' row from the datatable
                                     dt.AcceptChanges();
-                                    for (int k = 0; k < dsCount.Tables[0].Rows.Count; k++)
+                                    for (int k = 0; k < dsTable_RefTable.Tables[0].Rows.Count; k++)
                                     {
                                         string columnValue = "";
                                         if (dt.Columns.Contains("Field_Name"))
@@ -383,17 +382,24 @@ namespace FlyCn.FlyCnDAL
                                             {
                                                 dt.Rows[k]["Values"] = "";
                                             }
-
+                                            
                                         }
 
                                     }//for
                                     //Add New record to DatabaseTable
-                                    objMO.InsertMasterData(dt, dr.Table.Rows[0]["ProjectNo"].ToString(), refTableName);
+                                    objMO.InsertMasterData(dt, dr.Table.Rows[0]["ProjectNo"].ToString(), refTableName,userName);
                                 }
                                
                            // }//if
                         
                            }//foreach 
+
+
+
+
+
+
+                    //----------------------------STEP2 DATA RELATIONAL VALIDATIONS------------------------------------------------------
 
                         }//try
                 catch(Exception ex)
