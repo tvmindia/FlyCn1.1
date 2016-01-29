@@ -212,6 +212,37 @@ namespace FlyCn.WebServices
             return getDbDataAsJSON(ds);
         }
         #endregion
+        
+        #region LineItems
+        [WebMethod]
+        public string LineItems(string revid, string type, string projectNo)
+        {  //return msg data initialization
+            DataSet ds = new DataSet();
+            try
+            {   //Retrieving details
+                ApprovelMaster approvelMaster = new ApprovelMaster();
+                DataTable dt = new DataTable();
+                dt = approvelMaster.GetDocDetailList(revid, type,projectNo);
+                ds.Tables.Add(dt);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                ErrorMsg.Rows.Add(dr);
+                ds.Tables.Add(ErrorMsg);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(ds);
+        }
+        #endregion
 
         #region PunchList
         [WebMethod]
