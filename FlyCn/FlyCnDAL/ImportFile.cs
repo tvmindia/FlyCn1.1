@@ -674,7 +674,6 @@ namespace FlyCn.FlyCnDAL
         public DataSet ImportExcelFile()
         {
 
-
             var Request = request;
             string tempFolder = temporaryFolder;
             //string tempFolder = Path.Combine(HttpRuntime.AppDomainAppPath, "~/Content/");
@@ -872,6 +871,7 @@ namespace FlyCn.FlyCnDAL
                int insertResult;
                DataSet dsTable = new DataSet();
                dbConnection dbcon = new dbConnection();
+               ValidationExcel validationObj = new ValidationExcel();
                CommonDAL tblDef = new CommonDAL();
                dsTable = tblDef.GetTableDefinition(TableName);//temp table name
                // DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
@@ -892,10 +892,15 @@ namespace FlyCn.FlyCnDAL
                  
 
                     //Thread.Sleep(200);
-                    
-                    //int res;
+                    //DataSet dsFile,DataSet MasterDS,DataSet dsTable)
+                    int res;
+                    DataSet MasterDS = null;
 
-                   //res = validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable);
+
+                    MasterDS = tblDef.SelectAllMastersDataByTableName(TableName, ProjectNo);
+                    dsTable = tblDef.GetTableDefinition(TableName);
+                   
+                    res = validationObj.DataValidation(dsFile.Tables[0].Rows[i], MasterDS, dsTable);
                     //if (res == -1)
                     //{
                     //    errorCount = errorCount + 1;

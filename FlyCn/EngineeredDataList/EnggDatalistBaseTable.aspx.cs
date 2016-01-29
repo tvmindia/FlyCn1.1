@@ -578,12 +578,7 @@ namespace FlyCn.EngineeredDataList
         #region DataValidation
         public void DataValidation(DataSet tempDS)
         {
-            DataSet MasterDS=null;
-            DataSet dsTable=null;
            
-            MasterDS=comDAL.SelectAllMastersDataByTableName(hdfTableName.Value, UA.projectNo);
-            dsTable = comDAL.GetTableDefinition(hdfTableName.Value);
-            validationObj.DataValidation(tempDS, MasterDS, dsTable);
 
         }
         #endregion DataValidation
@@ -643,7 +638,7 @@ namespace FlyCn.EngineeredDataList
             SplitString();
             RemoveColumnFromDS(tempDS);
             RemoveErrorRow(tempDS);
-            DataValidation(tempDS);
+            //DataValidation(tempDS);
             
 
             //ValidateDataStructure(tempDS);
@@ -652,6 +647,8 @@ namespace FlyCn.EngineeredDataList
             {
                 importObj.status_Id = Guid.Parse(hdfstatusID.Value);
             }
+            importObj.ProjectNo = UA.projectNo;
+            importObj.UserName = UA.userName;
             //Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
             //excelImportThread.Start();
 
@@ -659,8 +656,9 @@ namespace FlyCn.EngineeredDataList
                  {
                      importObj.InsertFile(tempDS);
                  }).Start();
-            // importObj.InsertFile(tempDS);  <a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
-           //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
+           
+          //  importObj.InsertFile(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+            //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
             ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id + "&ModuleName=" + importObj.SheetName;//iframe page ImportStatusList.aspx is called with query string revisonid and module name from excel sheet name
             hdfErrorRow.Value = "";
             hdfFileLocation.Value= "";
