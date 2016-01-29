@@ -156,13 +156,12 @@ namespace FlyCn.WebServices
                 approvelMaster.Remarks = remarks;
                 approvelMaster.RejectApprovalMaster(approvid, revisionid, DocOwner, username);
                 //success message
-
                 DataTable SuccessMsg = new DataTable();
                 SuccessMsg.Columns.Add("Flag", typeof(Boolean));
                 SuccessMsg.Columns.Add("Message", typeof(String));
                 DataRow dr = SuccessMsg.NewRow();
                 dr["Flag"] = true;
-                dr["Message"] = "";//"Rejected";
+                dr["Message"] = "Rejected";
                 SuccessMsg.Rows.Add(dr);
                 ds.Tables.Add(SuccessMsg);
             }
@@ -213,6 +212,40 @@ namespace FlyCn.WebServices
             return getDbDataAsJSON(ds);
         }
         #endregion
+
+
+        #region LineItems
+        [WebMethod]
+        public string LineItems(string username,string revid, string type)
+        {  //return msg data initialization
+            DataSet ds = new DataSet();
+            try
+            {   //Retrieving details
+                FlyCnDAL.Users User = new FlyCnDAL.Users(username);
+                ApprovelMaster approvelMaster = new ApprovelMaster();
+                DataTable dt = new DataTable();
+                dt = approvelMaster.GetDocDetailList(revid, type);
+                ds.Tables.Add(dt);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                ErrorMsg.Rows.Add(dr);
+                ds.Tables.Add(ErrorMsg);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(ds);
+        }
+        #endregion
+
 
         #region PunchList
         [WebMethod]

@@ -107,7 +107,7 @@ namespace FlyCn.Content.DocDetailView
                 DataTable dt;
                 ApprovelMaster amObj = new ApprovelMaster();
                 revid = hiddenFieldRevisionID.Value;
-                dt = amObj.GetDocDetailList(revid, type);
+                dt = amObj.GetDocDetailList(revid, type,"C00001");
                 if (dt.Rows.Count > 0)
                 {
                     dtDocDetailGrid.DataSource = dt;
