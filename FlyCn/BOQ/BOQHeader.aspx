@@ -660,7 +660,8 @@
             autoclose: true,
             clearBtn:true,
             todayHighlight: true,
-            format: "dd/mm/yyyy"
+            pickTime: false,
+            format: 'dd-mm-yyyy'
         }).datepicker('update');
        // }).datepicker('update', new Date());;
     });

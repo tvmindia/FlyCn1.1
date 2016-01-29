@@ -76,7 +76,7 @@ namespace FlyCn.Approvels
             {
 
             }
-
+            
         }
         #endregion Page_Load
 
@@ -344,7 +344,7 @@ namespace FlyCn.Approvels
                     approvelMaster.RevisionID = revisionid;
                     approvelMaster.ApprovalID = approvid;
                     approvelMaster.RejectApprovalMaster(approvid, revisionid, DocOwner,UA.userName);
-                   
+                    txtRemarks.Text = "";
                 }
                 catch (Exception ex)
                 {
@@ -378,7 +378,7 @@ namespace FlyCn.Approvels
                     approvelMaster.RevisionID = revisionid;
 
                     approvelMaster.DeclineApprovalMaster(approvid, revisionid, DocOwner,UA.userName);
-                    
+                    txtRemarks.Text = "";
                 }
                 catch (Exception ex)
                 {
@@ -408,7 +408,7 @@ namespace FlyCn.Approvels
                 approvelMaster.ApprovalDate = System.DateTime.Now;
                 approvelMaster.Remarks = txtRemarks.Text;
                 approvelMaster.UpdateApprovalMaster(approvid, revisionid, DocOwner,UA.userName);
-               
+                txtRemarks.Text = "";
             }
             catch (Exception ex)
             {
