@@ -434,7 +434,8 @@ namespace FlyCn.Approvels
             Revisionid = hiddenFieldRevisionID.Value;
             string cretedby=lblCreatedBy.Text;
             string date=  lblCreatedDate.Text;
-            ContentDocDetails.Attributes["src"] = "DocDetails.aspx?Revisionid=" + Revisionid + "&Documentno=" + hiddenFieldDocumentNo.Value + "&DocumentType=" + hiddenFieldDocumentType.Value + "&CreatedBy=" + cretedby +"&Createddate="  + date + "&LatestStatus=" + hiddenFieldStatus.Value + "&ClientDocNo=" +hiddenFieldClientDocNo.Value;//iframe page BOQDetails.aspx is called with query string revisonid
+            string projNo = hiddenFiedldProjectno.Value;
+            ContentDocDetails.Attributes["src"] = "DocDetails.aspx?Revisionid=" + Revisionid + "&Documentno=" + hiddenFieldDocumentNo.Value +"&ProjectNo="+projNo + "&DocumentType=" + hiddenFieldDocumentType.Value + "&CreatedBy=" + cretedby +"&Createddate="  + date + "&LatestStatus=" + hiddenFieldStatus.Value + "&ClientDocNo=" +hiddenFieldClientDocNo.Value;//iframe page BOQDetails.aspx is called with query string revisonid
             ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenNewProjectWizard", "OpenNewProjectWizard();", true);
 
              

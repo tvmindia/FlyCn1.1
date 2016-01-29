@@ -54,7 +54,7 @@
                
                 <table style="width:95%">
                     <tr><td>      
-                <asp:Label ID="lblSelectRole" runat="server" Text="Select Role Type:"></asp:Label></td>
+                <asp:Label ID="lblSelectRole" runat="server" Text="Select Role Type:" ></asp:Label></td>
                         <td  >
        <asp:RadioButton ID="RadioButton1" Text="" runat="server" GroupName="roles"/></td>
                        <td>Project Roles</td><td >

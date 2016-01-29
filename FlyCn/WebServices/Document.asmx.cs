@@ -216,7 +216,7 @@ namespace FlyCn.WebServices
 
         #region LineItems
         [WebMethod]
-        public string LineItems(string username,string revid, string type)
+        public string LineItems(string username,string revid, string type, string projectNo)
         {  //return msg data initialization
             DataSet ds = new DataSet();
             try
@@ -224,7 +224,7 @@ namespace FlyCn.WebServices
                 FlyCnDAL.Users User = new FlyCnDAL.Users(username);
                 ApprovelMaster approvelMaster = new ApprovelMaster();
                 DataTable dt = new DataTable();
-                dt = approvelMaster.GetDocDetailList(revid, type);
+                dt = approvelMaster.GetDocDetailList(revid, type, projectNo);
                 ds.Tables.Add(dt);
             }
             catch (Exception ex)

@@ -19,6 +19,7 @@ namespace FlyCn.FlyCnDAL
         public string NonProjectRoles = "../FlycnSecurity/NonProjectRoles.aspx";
 
         public string AssignRoles = "../FlycnSecurity/AssignRoles.aspx";
+        public string Users = "../FlycnSecurity/Users.aspx";
         //dictionary
     }
 }
