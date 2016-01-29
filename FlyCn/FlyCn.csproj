@@ -323,6 +323,7 @@
     <Content Include="FlycnSecurity\Object.aspx" />
     <Content Include="FlycnSecurity\ObjectAccessForRoles.aspx" />
     <Content Include="FlycnSecurity\ObjectRegistration.aspx" />
+    <Content Include="FlycnSecurity\Users.aspx" />
     <Content Include="Images\Document Next-WF.png" />
     <Content Include="Images\Document-Download-01.png" />
     <Content Include="Images\Download-02-WF.png" />
@@ -934,6 +935,13 @@
     </Compile>
     <Compile Include="FlycnSecurity\ObjectRegistration.aspx.designer.cs">
       <DependentUpon>ObjectRegistration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FlycnSecurity\Users.aspx.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlycnSecurity\Users.aspx.designer.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>

@@ -219,11 +219,40 @@ namespace FlyCn.WebServices
         {  //return msg data initialization
             DataSet ds = new DataSet();
             try
-            {   //Retrieving details
+            {   
+                //Retrieving details
                 ApprovelMaster approvelMaster = new ApprovelMaster();
                 DataTable dt = new DataTable();
-                dt = approvelMaster.GetDocDetailList(revid, type,projectNo);
-                ds.Tables.Add(dt);
+                dt = approvelMaster.GetDocDetailList(revid, type,projectNo,true);
+
+                //Creating a table(with coloumns HeaderID,HeaderTxt,itemsCount,1,2,3,......itemsCount) for sending tables with dynamic no.of.coloumns
+                DataTable formattedDT = new DataTable();
+                formattedDT.Columns.Add("HeaderID", typeof(string));
+                formattedDT.Columns.Add("HeaderTxt", typeof(string));
+                formattedDT.Columns.Add("itemsCount", typeof(int));
+                for (int i = 1; i <= (dt.Columns.Count-4) ; i++)                  // -4 because HeaderID,HeaderTxt,RevisionID, and ProjectNo are excluded
+                {
+                    formattedDT.Columns.Add(""+i+"", typeof(string));
+                }
+                //inserting values to formatted new table
+                foreach (DataRow dr in dt.Rows)
+                {
+                    DataRow formattedDR = formattedDT.NewRow();
+                    formattedDR["HeaderID"] =dr["HeaderID"];
+                    formattedDR["HeaderTxt"] = dr["HeaderTxt"];
+                    formattedDR["itemsCount"] = dt.Columns.Count - 4;
+                    int i=1;
+                    foreach (DataColumn col in dt.Columns)
+                    {
+                        if ((col.ColumnName != "HeaderID") && (col.ColumnName != "HeaderTxt") && (col.ColumnName != "RevisionID") && (col.ColumnName != "ProjectNo"))
+                        {
+                            formattedDR[""+i+""] = col.ColumnName + " : " + dr[col];    //value with coloumn name
+                            i++;
+                        }
+                    }
+                    formattedDT.Rows.Add(formattedDR);
+                }
+                ds.Tables.Add(formattedDT);
             }
             catch (Exception ex)
             {
