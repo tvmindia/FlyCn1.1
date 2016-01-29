@@ -222,7 +222,7 @@ namespace FlyCn.WebServices
             {   //Retrieving details
                 ApprovelMaster approvelMaster = new ApprovelMaster();
                 DataTable dt = new DataTable();
-                dt = approvelMaster.GetDocDetailList(revid, type,projectNo);
+                dt = approvelMaster.GetDocDetailList(revid, type,projectNo,true);
                 ds.Tables.Add(dt);
             }
             catch (Exception ex)

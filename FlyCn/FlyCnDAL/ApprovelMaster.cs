@@ -742,7 +742,7 @@ using Messages = FlyCn.UIClasses.Messages;
 
         #region GetDocDetailList
 
-        public DataTable GetDocDetailList(string revid, string type,string projectNo)
+        public DataTable GetDocDetailList(string revid, string type,string projectNo,bool isForMobile=false)
         {
             SqlConnection con = null;
             DataTable dt = new DataTable();
@@ -757,6 +757,9 @@ using Messages = FlyCn.UIClasses.Messages;
                 cmdSelect.Parameters.AddWithValue("@projectno", projectNo);
                 cmdSelect.Parameters.AddWithValue("@RevisionID", revid);
                 cmdSelect.Parameters.AddWithValue("@type", type);
+                if (isForMobile) {
+                    cmdSelect.Parameters.AddWithValue("@isForMobile", true);
+                }
                 da = new SqlDataAdapter(cmdSelect);
                 da.Fill(dt);
 
