@@ -162,7 +162,7 @@ namespace FlyCn.WebServices
                 SuccessMsg.Columns.Add("Message", typeof(String));
                 DataRow dr = SuccessMsg.NewRow();
                 dr["Flag"] = true;
-                dr["Message"] = "Rejected";
+                dr["Message"] = "";//"Rejected";
                 SuccessMsg.Rows.Add(dr);
                 ds.Tables.Add(SuccessMsg);
             }
