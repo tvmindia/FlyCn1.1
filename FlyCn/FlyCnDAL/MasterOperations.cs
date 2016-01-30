@@ -22,10 +22,11 @@ namespace FlyCn.FlyCnDAL
         /// <param name="ProjNo"></param>
         /// <param name="TableName"></param>
         /// <returns>return result  </returns>
-        public int InsertMasterData(DataTable dsTest, string ProjNo, string TableName,string userName)
+        public int InsertMasterData(DataTable dsTest, string ProjNo, string TableName, string userName, dbConnection dbcon=null,bool flag=false)
         {
-            int result = 0;
-            SqlConnection con = null;
+            //int result = 0;
+            //SqlConnection con = null;
+           
             try
             {
                 List<object> list = (from row in dsTest.AsEnumerable() select (row["Values"])).ToList();
@@ -34,12 +35,17 @@ namespace FlyCn.FlyCnDAL
                 string FieldParams = "";
                 SystemDefenitionDetails dbobj = new SystemDefenitionDetails();
                 dataset = dbobj.getDataToInsert(TableName);
-                dbConnection dcon = new dbConnection();
-                con = dcon.GetDBConnection();
+                if(dbcon==null)
+                {
+                  dbConnection dcon = new dbConnection();
+                  dcon.GetDBConnection();
+                
+                }
+               
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "InsertDynamicMaster";
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = con;
+                cmd.Connection = dbcon.SQLCon;
                 cmd.Parameters.AddWithValue("@TableName", TableName);
                 int totalrows = dataset.Tables[0].Rows.Count;
                 string temp = dataset.Tables[0].Rows[0]["Field_Name"].ToString();
@@ -93,21 +99,23 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@p_selectedFields", FieldValue);
                 cmd.Parameters.AddWithValue("@p_selectedFieldsParameters", FieldParams);
                 cmd.ExecuteScalar();
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.InsertionSuccessData(page);
+                if (flag != true)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.InsertionSuccessData(page);
+                }
                 return 1;
             }
             catch (Exception ex)
             {
-                // return 0;
-                throw ex;
+              throw ex;
             }
             finally
             {
-                con.Close();
+              //  con.Close();
 
             }
-            return result;
+           // return result;
 
         }
 

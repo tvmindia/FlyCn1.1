@@ -313,7 +313,7 @@ namespace FlyCn.FlyCnDAL
             #endregion Methods
             #region DataValidation
             //public int DataValidation(DataSet dsFile,DataSet MasterDS,DataSet dsTable)
-            public int DataValidation(DataRow dr, DataSet MasterDS, DataSet dsTable, List<string> MasterColumns,string userName)
+            public int DataValidation(DataRow dr, DataSet MasterDS, DataSet dsTable, List<string> MasterColumns,string userName,dbConnection dbcon)
             {
                 string refTableName = "";
                 string refSelectField = "";
@@ -323,9 +323,6 @@ namespace FlyCn.FlyCnDAL
                 DataRow[] refTableRow = null;
                 DataRow refTableOneRow = null;
                 DataRow[] masterDataExisting = null;
-               // DataRow[] yesMaster = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
-               // List<string> MasterColumns = new List<string>();
-               
                 try
                 {
                       //-------------------STEP1 MASTER DATA VALIDATE--------------------------------------------------//
@@ -385,7 +382,7 @@ namespace FlyCn.FlyCnDAL
 
                                     }//for
                                     //Add New record to DatabaseTable
-                                    objMO.InsertMasterData(dt, dr.Table.Rows[0]["ProjectNo"].ToString(), refTableName,userName);
+                                    objMO.InsertMasterData(dt, dr.Table.Rows[0]["ProjectNo"].ToString(), refTableName,userName,dbcon,true);
                                 }
                                
                            // }//if
@@ -401,7 +398,7 @@ namespace FlyCn.FlyCnDAL
                 }
                 finally
                 {
-
+                  
                 }
   
                 return 0;

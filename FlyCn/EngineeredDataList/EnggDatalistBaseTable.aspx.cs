@@ -630,42 +630,57 @@ namespace FlyCn.EngineeredDataList
 
         protected void btnImport_Click(object sender, EventArgs e)
         {
-            importObj.ExcelFileName = hdfFileName.Value;
-            importObj.fileLocation = hdfFileLocation.Value;
-            importObj.fileName = importObj.ExcelFileName;
-            importObj.TableName = comDAL.tableName;
-            if (hdfstatusID.Value != null)
+          
+            try
             {
-                importObj.status_Id = Guid.Parse(hdfstatusID.Value);
+                importObj.ExcelFileName = hdfFileName.Value;
+                importObj.fileLocation = hdfFileLocation.Value;
+                importObj.fileName = importObj.ExcelFileName;
+                importObj.TableName = comDAL.tableName;
+                if (hdfstatusID.Value != null)
+                {
+                    importObj.status_Id = Guid.Parse(hdfstatusID.Value);
+                }
+                importObj.ProjectNo = UA.projectNo;
+                importObj.UserName = UA.userName;
+
+                tempDS = new DataSet();
+                tempDS = importObj.GetExcelData();
+                GetUserSelectedFields();//results stored in 'columnNames' Global variable list
+                GetErrorRows();//results stored in 'ErrorRows'  Global variable list
+                RemoveColumnFromDS(tempDS);
+                RemoveErrorRow(tempDS);
+
+                //Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
+                //excelImportThread.Start();
+               
+            
+                new Thread(delegate()
+                     {
+                         importObj.ImportExcelData(tempDS);
+                     }).Start();
+
+                // importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+                //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
+                ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id + "&ModuleName=" + importObj.SheetName;//iframe page ImportStatusList.aspx is called with query string revisonid and module name from excel sheet name
+                hdfErrorRow.Value = "";
+                hdfFileLocation.Value = "";
+                hdfFileName.Value = "";
+                hdfremovedField.Value = "";
+                hdfstatusID.Value = "";
+                hdfTableName.Value = "";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "Import();", true);
             }
-            importObj.ProjectNo = UA.projectNo;
-            importObj.UserName = UA.userName;
-
-            tempDS = new DataSet();
-            tempDS = importObj.GetExcelData();
-            GetUserSelectedFields();//results stored in 'columnNames' Global variable list
-            GetErrorRows();//results stored in 'ErrorRows'  Global variable list
-            RemoveColumnFromDS(tempDS);
-            RemoveErrorRow(tempDS);
-           
-            //Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
-            //excelImportThread.Start();
-
-            new Thread(delegate()
-                 {
-                     importObj.ImportExcelData(tempDS);
-                 }).Start();
-           
-            //importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
-            //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
-            ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id + "&ModuleName=" + importObj.SheetName;//iframe page ImportStatusList.aspx is called with query string revisonid and module name from excel sheet name
-            hdfErrorRow.Value = "";
-            hdfFileLocation.Value= "";
-            hdfFileName.Value = "";
-            hdfremovedField.Value = "";
-            hdfstatusID.Value = "";
-            hdfTableName.Value = "";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "Import();", true);
+            catch(Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+              
+            }
         }
     }
 }
