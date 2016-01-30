@@ -312,7 +312,7 @@ namespace FlyCn.FlyCnDAL
 
             #endregion Methods
             #region DataValidation
-       //   public int DataValidation(DataSet dsFile,DataSet MasterDS,DataSet dsTable)
+            //public int DataValidation(DataSet dsFile,DataSet MasterDS,DataSet dsTable)
             public int DataValidation(DataRow dr, DataSet MasterDS, DataSet dsTable, List<string> MasterColumns,string userName)
             {
                 string refTableName = "";
@@ -345,8 +345,7 @@ namespace FlyCn.FlyCnDAL
                                     //not found in masters so insert into masters as well as in masterDS
                                     if (masterDataExisting.Length == 0)
                                    {
-                                    
-                                    //Add New record to MasterDS
+                                   //Add New record to MasterDS
                                     DataRow newCustomersRow = MasterDS.Tables[0].NewRow();
                                     newCustomersRow["TableName"] = refTableName;
                                     newCustomersRow["Code"] = dr[fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
@@ -382,7 +381,6 @@ namespace FlyCn.FlyCnDAL
                                             {
                                                 dt.Rows[k]["Values"] = "";
                                             }
-                                            
                                         }
 
                                     }//for
@@ -393,11 +391,6 @@ namespace FlyCn.FlyCnDAL
                            // }//if
                         
                            }//foreach 
-
-
-
-
-
 
                     //----------------------------STEP2 DATA RELATIONAL VALIDATIONS------------------------------------------------------
 

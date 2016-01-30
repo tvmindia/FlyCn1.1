@@ -179,15 +179,6 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion Public Properties
 
-
-
-
-
-
-
-
-
-
         //properties from javad updatedExcelimport
         #region JavadProperties
         //ValidationExcel validationObj = new ValidationExcel();
@@ -291,20 +282,18 @@ namespace FlyCn.FlyCnDAL
         /// Initialize the values of Excel import details table 
         /// </summary>
         /// <param name="ExcelFileName"></param>
-        public void InitializeExcelImportDetails(string ExcelFileName, int totalCount)
+        public void InitializeExcelImportDetails(string ExcelFileName, int totalCount,dbConnection dcon)
         {
 
-            SqlConnection con = new SqlConnection();
+           // SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
-
-            dbConnection dcon = new dbConnection();
+            //dbConnection dcon = new dbConnection();
             try
             {
-                con = dcon.GetDBConnection();
-
+                //con = dcon.GetDBConnection();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "InsertExcelImportDetails";
-                cmd.Connection = con;
+                cmd.Connection = dcon.SQLCon;//con
                 cmd.Parameters.AddWithValue("@Status_Id", status_Id);
                 cmd.Parameters.AddWithValue("@ProjNo", ProjectNo);
                 cmd.Parameters.AddWithValue("@File_Name", ExcelFileName);
@@ -317,7 +306,6 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@InsertStatus", excelImportstatus.started);
                 cmd.Parameters.AddWithValue("@Remarks", Remarks);
                 //cmd.Parameters.AddWithValue("@Updated_Date",DateTime.Now);
-
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -326,9 +314,9 @@ namespace FlyCn.FlyCnDAL
             }
             finally
             {
-                if (con != null)
+                if (dcon != null)
                 {
-                    con.Close();
+                    dcon.DisconectDB();
                 }
             }
 
@@ -868,15 +856,17 @@ namespace FlyCn.FlyCnDAL
         {
             try
             {
-               int insertResult;
-               List<string> MasterColumns = new List<string>();
-               DataSet dsTable = new DataSet();
-               dbConnection dbcon = new dbConnection();//$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-               ValidationExcel validationObj = new ValidationExcel();
-               CommonDAL tblDef = new CommonDAL();
+                int insertResult;
+                List<string> MasterColumns = new List<string>();
+                DataSet dsTable = new DataSet();
+                CommonDAL tblDef = new CommonDAL();
                 dsTable = tblDef.GetTableDefinition(TableName);//temp table name
+                dbConnection dbcon = new dbConnection();//$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                dbcon.GetDBConnection();
+                ValidationExcel validationObj = new ValidationExcel();
+                
                 totalCount = dsFile.Tables[0].Rows.Count;
-                InitializeExcelImportDetails(ExcelFileName, totalCount);
+                InitializeExcelImportDetails(ExcelFileName, totalCount, dbcon);
                 DataRow[] MasterFieldDetails = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
                 foreach (DataRow row in MasterFieldDetails)//storing master having columns
                 {
