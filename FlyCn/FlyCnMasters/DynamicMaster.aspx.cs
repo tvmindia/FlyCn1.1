@@ -356,7 +356,7 @@ namespace FlyCn.FlyCnMasters
                     }
                 }
 
-                int result = dynamicmasteroperationobj.InsertMasterData(datatableobj, projectNo, _mode);
+                int result = dynamicmasteroperationobj.InsertMasterData(datatableobj, projectNo, _mode,UA.userName);
 
                 dtgDynamicMasterGrid.Rebind();
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");

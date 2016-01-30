@@ -650,7 +650,7 @@ namespace FlyCn.EngineeredDataList
 
                 foreach (DataRow r in dtObj.Rows)
                 {
-                    result = ifobj.InsertExcelFile(ds, r);
+                    result = ifobj.ImportExcelRow(ds, r);
                 }
                // int result = dynamicmasteroperationobj.InsertMasterData(datatableobj, projectNo, _tableName);
                
@@ -802,7 +802,7 @@ namespace FlyCn.EngineeredDataList
 
                 foreach (DataRow r in dtObj.Rows)
                 {
-                    result = ifobj.InsertExcelFile(ds, r);
+                    result = ifobj.ImportExcelRow(ds, r);
                 }
                 // int result = dynamicmasteroperationobj.InsertMasterData(datatableobj, projectNo, _tableName);
 

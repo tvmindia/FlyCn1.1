@@ -312,31 +312,96 @@ namespace FlyCn.FlyCnDAL
 
             #endregion Methods
             #region DataValidation
-
-            public int DataValidation(DataSet dsFile,DataSet MasterDS,DataSet dsTable)
+       //   public int DataValidation(DataSet dsFile,DataSet MasterDS,DataSet dsTable)
+            public int DataValidation(DataRow dr, DataSet MasterDS, DataSet dsTable, List<string> MasterColumns,string userName)
             {
-                DataRow[] yesMaster = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
+                string refTableName = "";
+                string refSelectField = "";
+                string refJoinField = "";
+                string cName="";
+                string fieldName = "";
+                DataRow[] refTableRow = null;
+                DataRow refTableOneRow = null;
+                DataRow[] masterDataExisting = null;
+               // DataRow[] yesMaster = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
+               // List<string> MasterColumns = new List<string>();
+               
                 try
                 {
-                    for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
-                    {
-                        foreach(DataRow dr in yesMaster)
-                        {
-                            string FieldName = dr["Field_Description"].ToString();
-                            string refTableName = dr["Ref_TableName"].ToString();
-                            if(dsFile.Tables[0].Rows[i][FieldName]=="")
-                            {
+                      //-------------------STEP1 MASTER DATA VALIDATE--------------------------------------------------//
+                    foreach(string dc in MasterColumns)                  
+                        {                         
+                              cName = dc.ToString();
+                       
+                             //check whether data exist in the masters
+                                fieldName = cName;
+                                refTableRow = dsTable.Tables[0].Select("Field_Description = '" + cName + "' AND Ref_TableName IS NOT NULL");
+                                refTableOneRow = refTableRow[0];
+                                refTableName = refTableOneRow["Ref_TableName"].ToString();//refTable[0].ItemArray[6].ToString();
+                                refSelectField = refTableOneRow["Ref_SelectField"].ToString();
+                                refJoinField = refTableOneRow["Ref_JoinField"].ToString();
+                                masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[fieldName].ToString() + "'");
+                               
+                                    //not found in masters so insert into masters as well as in masterDS
+                                    if (masterDataExisting.Length == 0)
+                                   {
+                                    
+                                    //Add New record to MasterDS
+                                    DataRow newCustomersRow = MasterDS.Tables[0].NewRow();
+                                    newCustomersRow["TableName"] = refTableName;
+                                    newCustomersRow["Code"] = dr[fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
+                                    MasterDS.Tables[0].Rows.Add(newCustomersRow);
+                                    MasterDS.Tables[0].AcceptChanges();
+                                     
+                                    //Add New record to DatabaseTable
+                                    MasterOperations objMO = new MasterOperations();
+                                    DataSet dsTable_RefTable = null;
+                                    CommonDAL objCDAL = new CommonDAL();
+                                    dsTable_RefTable = objCDAL.GetTableDefinition(refTableName);
+                                    DataTable dt = dsTable_RefTable.Tables[0];
+                                    DataColumn workCol = dt.Columns.Add("Values");
+                                    dt.Rows[0].Delete();//removes 'projectno' row from the datatable
+                                    dt.AcceptChanges();
+                                    for (int k = 0; k < dsTable_RefTable.Tables[0].Rows.Count; k++)
+                                    {
+                                        string columnValue = "";
+                                        if (dt.Columns.Contains("Field_Name"))
+                                        {
+                                            columnValue = dt.Rows[k]["Field_Description"].ToString();
+                                            if (columnValue == refSelectField)
+                                            {
+                                               // dt.Rows[k]["Values"] = dr.Table.Rows[0][fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
+                                                dt.Rows[k]["Values"] =  dr[fieldName].ToString();
+                                            }
+                                            else if (columnValue == refJoinField)
+                                            {
+                                               // dt.Rows[k]["Values"] = dr.Table.Rows[0][fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
+                                                dt.Rows[k]["Values"] = dr[fieldName].ToString(); 
+                                            }
+                                            else
+                                            {
+                                                dt.Rows[k]["Values"] = "";
+                                            }
+                                            
+                                        }
 
-                            }
+                                    }//for
+                                    //Add New record to DatabaseTable
+                                    objMO.InsertMasterData(dt, dr.Table.Rows[0]["ProjectNo"].ToString(), refTableName,userName);
+                                }
+                               
+                           // }//if
+                        
+                           }//foreach 
 
-                        }
 
 
 
 
-                    }
-                 
-                }
+
+                    //----------------------------STEP2 DATA RELATIONAL VALIDATIONS------------------------------------------------------
+
+                        }//try
                 catch(Exception ex)
                 {
                     throw ex;

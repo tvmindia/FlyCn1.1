@@ -671,9 +671,8 @@ namespace FlyCn.FlyCnDAL
         //methods from javad updatedExcelimport
         #region javadmethods
         #region ImportExcelFile
-        public DataSet ImportExcelFile()
+        public DataSet GetExcelData()
         {
-
 
             var Request = request;
             string tempFolder = temporaryFolder;
@@ -865,45 +864,32 @@ namespace FlyCn.FlyCnDAL
         /// </summary>
         /// <param name="dsFile"></param>
         /// <returns>success or failure</returns>
-        public int InsertFile(DataSet dsFile)
+        public int ImportExcelData(DataSet dsFile)
         {
             try
             {
                int insertResult;
+               List<string> MasterColumns = new List<string>();
                DataSet dsTable = new DataSet();
-               dbConnection dbcon = new dbConnection();
+               dbConnection dbcon = new dbConnection();//$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+               ValidationExcel validationObj = new ValidationExcel();
                CommonDAL tblDef = new CommonDAL();
-               dsTable = tblDef.GetTableDefinition(TableName);//temp table name
-               // DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
-               // DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
-               //validationObj.status_Id = importDetailsObj.status_Id;
-               //bool columnExistCheck = validationObj.ValidateExcelDataStructure(dsFile, dsTable);
-               //if (columnExistCheck == false)
-                //{
-                //    return -1;
-                //}
+                dsTable = tblDef.GetTableDefinition(TableName);//temp table name
                 totalCount = dsFile.Tables[0].Rows.Count;
                 InitializeExcelImportDetails(ExcelFileName, totalCount);
+                DataRow[] MasterFieldDetails = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
+                foreach (DataRow row in MasterFieldDetails)//storing master having columns
+                {
+                    MasterColumns.Add(row["Field_Description"].ToString());//column 2 field descrption
+                }
+                DataSet MasterDS = null;
+                MasterDS = tblDef.SelectAllMastersDataByTableName(TableName, ProjectNo);//Get all the master table values by union
+                //------------------------------------Main Import Loop----------------------------------------------------------//
                 for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
                 {
-                    //to know temp
-                    //string ProjectNoP = dsFile.Tables[0].Rows[i]["ProjectNo"].ToString();
-                    //string ModuleIDP = dsFile.Tables[0].Rows[i]["ModuleID"].ToString();
-                 
-
-                    //Thread.Sleep(200);
-                    
-                    //int res;
-
-                   //res = validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable);
-                    //if (res == -1)
-                    //{
-                    //    errorCount = errorCount + 1;
-                    //}
-                    //else if (res == 1)
-                   // {
-                       
-                        insertResult = InsertExcelFile(dsTable,dsFile.Tables[0].Rows[i]);
+                       //Thread.Sleep(200);
+                        validationObj.DataValidation(dsFile.Tables[0].Rows[i], MasterDS, dsTable, MasterColumns,UserName);
+                        insertResult = ImportExcelRow(dsTable,dsFile.Tables[0].Rows[i]);
                         if (insertResult == 1)
                         {
                             insertcount = insertcount + 1;
@@ -912,9 +898,7 @@ namespace FlyCn.FlyCnDAL
                         {
                             updateCount = updateCount + 1;
                         }
-                 //   }
-                    UpdateExcelImportDetails(UserName,ProjectNo,TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Processing);
-
+                        UpdateExcelImportDetails(UserName,ProjectNo,TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Processing);
                 }
 
                 UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Finished);
@@ -944,7 +928,7 @@ namespace FlyCn.FlyCnDAL
         /// </summary>
         /// <param name="dsFile"></param>
         /// <returns>success or failure</returns>
-        public int InsertExcelFile(DataSet dsTable,DataRow dr)
+        public int ImportExcelRow(DataSet dsTable,DataRow dr)
         {
             dbConnection dbcon=null;
             try
@@ -957,16 +941,17 @@ namespace FlyCn.FlyCnDAL
                cmd.Connection = dbcon.GetDBConnection();
                 for (int j = 0; j < dsTable.Tables[0].Rows.Count; j++)
                 {
+                    //string paramName = dsTable.Tables[0].Rows[j]["Field_Name"].ToString();
+                    string excelColName = dsTable.Tables[0].Rows[j]["Field_Description"].ToString();
                     string paramName = dsTable.Tables[0].Rows[j]["Field_Name"].ToString();
                     string type = dsTable.Tables[0].Rows[j]["Field_DataType"].ToString();
-                    if((dr.Table.Columns.Contains(paramName))!=true)
+                    if ((dr.Table.Columns.Contains(excelColName)) != true)
                     {
                           continue;
                     }
                     else
                     {
-                       object paramValue = dr[paramName];
-
+                        object paramValue = dr[excelColName];
                        if (type == "D")
                        {
                            cmd.Parameters.AddWithValue(paramName, Convert.ToDateTime(paramValue));

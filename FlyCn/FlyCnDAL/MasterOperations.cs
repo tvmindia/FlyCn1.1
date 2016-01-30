@@ -22,7 +22,7 @@ namespace FlyCn.FlyCnDAL
         /// <param name="ProjNo"></param>
         /// <param name="TableName"></param>
         /// <returns>return result  </returns>
-        public int InsertMasterData(DataTable dsTest, string ProjNo, string TableName)
+        public int InsertMasterData(DataTable dsTest, string ProjNo, string TableName,string userName)
         {
             int result = 0;
             SqlConnection con = null;
@@ -89,7 +89,7 @@ namespace FlyCn.FlyCnDAL
                 }
 
                 FieldValue = FieldValue + "Updated_By,Updated_Date";
-                FieldParams = FieldParams + "'" + "Amrutha" + "'" + "," + "'" + System.DateTime.Now.ToString("MM/dd/yyyy") + "'";
+                FieldParams = FieldParams + "'" + userName + "'" + "," + "'" + System.DateTime.Now.ToString("MM/dd/yyyy") + "'";
                 cmd.Parameters.AddWithValue("@p_selectedFields", FieldValue);
                 cmd.Parameters.AddWithValue("@p_selectedFieldsParameters", FieldParams);
                 cmd.ExecuteScalar();

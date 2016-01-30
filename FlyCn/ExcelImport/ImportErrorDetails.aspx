@@ -38,14 +38,10 @@
                                        
                                         </ClientSettings>
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="Status_Id">
-                                            <Columns>
-
-                                               
+                                            <Columns>                             
                                                  <telerik:GridBoundColumn HeaderText="File Name" DataField="File_Name" UniqueName="File_Name" ></telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Key Field" DataField="Key_Field" UniqueName="Key_Field" ></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="Error Description" DataField="Error_Description" UniqueName="Error_Description"></telerik:GridBoundColumn>
-                   
-                                                
+                                                 <telerik:GridBoundColumn HeaderText="Error Description" DataField="Error_Description" UniqueName="Error_Description"></telerik:GridBoundColumn>       
                                             </Columns>
                                         </MasterTableView>
         </telerik:radgrid>

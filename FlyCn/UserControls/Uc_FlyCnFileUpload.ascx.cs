@@ -46,9 +46,10 @@ namespace Proj1
             UA = (FlyCn.FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             if ((IsPostBack == false))
             {
-              
+               
                 //DropFill();
             }
+            lblmsg.Text = "";
            // Guid RevId = boqObj.RevisionID;
            //string UserName= UA.userName;
             
@@ -118,7 +119,9 @@ namespace Proj1
             }
             return largerSize;
         }
-        
+
+      
+
         public void FileInsert()
         {
             Control ctl = this.Parent;
@@ -145,14 +148,31 @@ namespace Proj1
                 {
                     if (largerSize == false)
                     {
+                        string tempFile = "";
+                        string filePath = Server.MapPath("/Content/Fileupload/");
                         string ext = System.IO.Path.GetExtension(FileUpload1.PostedFile.FileName);
+                        string fileName = FileUpload1.PostedFile.FileName;
+                        string pathToCheck = filePath + fileName;
+                        if(System.IO.File.Exists(pathToCheck))
+                        {
+                            int counter = 2;
+                            while(System.IO.File.Exists(pathToCheck))
+                            {
+                                tempFile ="("+ counter.ToString()+")" + fileName;
+                                pathToCheck = filePath + tempFile;
+                                counter++;
+                            }
+                            fileName = tempFile;
+                        }
+                        filePath += fileName;
+                        FileUpload1.SaveAs(filePath);
                         cmd = new SqlCommand();
                         cmd.Connection = cntion.GetDBConnection();
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.CommandText = "[InsertDocAttachmentDetails]";
                         
                        // cmd.Parameters.Add("@paramId", SqlDbType.Int).Value = Id;
-                        cmd.Parameters.Add("@Filename", SqlDbType.NVarChar, 100).Value = FileUpload1.FileName.ToString();
+                        cmd.Parameters.Add("@Filename", SqlDbType.NVarChar, 100).Value = fileName.ToString();
                         cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = FileUpload1.FileContent;
                         cmd.Parameters.Add("@Filetype", SqlDbType.NVarChar,5).Value = ext;
                         cmd.Parameters.Add("@Filesize", SqlDbType.NVarChar,50).Value = fileSize;
