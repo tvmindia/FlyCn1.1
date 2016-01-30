@@ -293,8 +293,7 @@ ul.departments { list-style-type: none; }*/
             </table>
         </div>
 
-
-   
+          
 
     <div id="Upload" style="display: none; margin-left: 2px;">
 

@@ -22,6 +22,15 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
+        /// lblTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTitle;
+        
+        /// <summary>
         /// ToolBar control.
         /// </summary>
         /// <remarks>
@@ -29,15 +38,6 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::FlyCn.UserControls.ToolBar ToolBar;
-        
-        /// <summary>
-        /// lblError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblError;
         
         /// <summary>
         /// dtgNonProjectRoles control.
@@ -67,6 +67,15 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.TextBox txtRoleName;
         
         /// <summary>
+        /// span3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span3;
+        
+        /// <summary>
         /// lblRoleType control.
         /// </summary>
         /// <remarks>
@@ -85,6 +94,15 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.DropDownList ddlRoleType;
         
         /// <summary>
+        /// span1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span1;
+        
+        /// <summary>
         /// lblRoleScope control.
         /// </summary>
         /// <remarks>
@@ -101,6 +119,15 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlLevel;
+        
+        /// <summary>
+        /// span2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span2;
         
         /// <summary>
         /// lblScopeValue control.
@@ -191,6 +218,15 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAccessType;
+        
+        /// <summary>
+        /// span8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span8;
         
         /// <summary>
         /// hdnEditPostBack control.

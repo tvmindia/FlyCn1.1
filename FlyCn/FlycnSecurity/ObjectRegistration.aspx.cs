@@ -37,6 +37,7 @@ namespace FlyCn.FlycnSecurity
 
         #region Methods
 
+        
         /// <summary>
         /// Function to create navigation 
         /// </summary>
@@ -234,8 +235,12 @@ namespace FlyCn.FlycnSecurity
                 dtGridview = dsgridview.Tables[0];
 
                 int rowCount = dtGridview.Rows.Count;
-                gvObjectRegistration.DataSource = dtGridview;
-                gvObjectRegistration.DataBind();
+
+                if (rowCount > 0)
+                {
+                    gvObjectRegistration.DataSource = dtGridview;
+                    gvObjectRegistration.DataBind();
+                }
             }
 
         }
@@ -469,12 +474,12 @@ namespace FlyCn.FlycnSecurity
                 DALObj.LevelID = newlevelID;
 
 
-                if (ddlChild.Items.FindByText("--Select--") == null)
-                {
-                    count = count + 1;
-                    newlevelID = currentLevelID + "." + count;
-                    DALObj.LevelID = newlevelID;
-                }
+                //if (ddlChild.Items.FindByText("--Select--") == null)
+                //{
+                //    count = count + 1;
+                //    newlevelID = currentLevelID + "." + count;
+                //    DALObj.LevelID = newlevelID;
+                //}
 
                 //if(  ddlChild.Items.FindByValue(newlevelID)!=null)
                 //{
