@@ -23,6 +23,7 @@
                         <div class="col-md-9" >
 
                             <asp:Label ID="lblName" CssClass="control-label col-md-3" runat="server" Text="" ></asp:Label>
+
                                 </div>
                             <div class="col-md-3" id="label2Id" runat="server">
 
