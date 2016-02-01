@@ -191,14 +191,14 @@ namespace FlyCnSecurity.SecurityDAL
 
            result = cmd.ExecuteNonQuery();
 
-           return result;
+          
 
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
+            return result;
 
         }
 
@@ -206,8 +206,9 @@ namespace FlyCnSecurity.SecurityDAL
 
         #region Delete NonProjectRole By RoleID
 
-        public void DeleteNonProjectRoleByRoleID()
+        public int DeleteNonProjectRoleByRoleID()
         {
+            int result = 0;
             SqlConnection conn = null;
             DataSet ds = null;
             SqlCommand cmd = null;
@@ -221,10 +222,10 @@ namespace FlyCnSecurity.SecurityDAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@RoleID", RoleID);
 
-                cmd.ExecuteNonQuery();
+                result = cmd.ExecuteNonQuery();
 
                 conn.Close();
-
+               
 
             }
             catch (Exception ex)
@@ -241,7 +242,7 @@ namespace FlyCnSecurity.SecurityDAL
                 }
 
             }
-
+            return result;
         }
 
         #endregion Delete NonProjectRole By RoleID
