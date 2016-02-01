@@ -94,41 +94,41 @@
 
  <%--  <asp:Label ID="lblError" runat="server" Text="" ForeColor="Red"  style="float:right;font-size:large"></asp:Label>--%>
    
- <div class=" importWizardContainer col-md-12" style="width:95%;max-height:700px">
+ <div class=" importWizardContainer col-md-12" style="width:95%;max-height:600px">
    <uc1:ToolBar runat="server" ID="ToolBar"/>
 
     <div class="col-md-5"  >
            
-         <div class="contentTopBar" style="width:400px" ></div>
-         <div  style="overflow-x: scroll;width: 400px;" >
+         <div class="contentTopBar" style="min-width:460px" ></div>
+         <div  style="overflow-x: scroll;min-width:460px;" >
          
               <telerik:RadGrid ID="dtgNonProjectRoles" runat="server" AllowPaging="true" AllowSorting="true"  PageSize="7"
                         OnNeedDataSource="dtgNonProjectRoles_NeedDataSource" OnItemCommand="dtgNonProjectRoles_ItemCommand"
                         Skin="Silk" CssClass="outerMultiPage"
-                        OnPreRender="dtgNonProjectRoles_PreRender" Height="300px">
-
+                        OnPreRender="dtgNonProjectRoles_PreRender" Width="100%" >
+                  
                   <HeaderStyle  HorizontalAlign="Center" />
-                                        <ItemStyle HorizontalAlign="Left"  />
+                                        <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
              
 
                         <MasterTableView AutoGenerateColumns="false" DataKeyNames="RoleID" >
                             
                             <Columns>
-                                <telerik:GridButtonColumn CommandName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
+                                <telerik:GridButtonColumn CommandName="EditData" ItemStyle-Width="10%" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
                                 </telerik:GridButtonColumn>
-                                <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton"  ImageUrl="~/Images/Cancel.png" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
+                                <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" ItemStyle-Width="10%"  ImageUrl="~/Images/Cancel.png" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
                                 </telerik:GridButtonColumn>
 
-                                <telerik:GridBoundColumn HeaderText="ID" DataField="RoleID" UniqueName="RoleID"  ></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn HeaderText="Name" DataField="RoleName" UniqueName="RoleName" ></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn HeaderText="Type" DataField="RoleType" UniqueName="RoleType" ></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn HeaderText="Scope" DataField="RoleScope" UniqueName="RoleScope" ></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn  HeaderText="Scope Value" DataField="ScopeValue" UniqueName="ScopeValue"></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn HeaderText="Group1" DataField="ProjectGroup1" UniqueName="ProjectGroup1"></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn HeaderText="Group2" DataField="ProjectGroup2" UniqueName="ProjectGroup2" ></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn HeaderText="Group3" DataField="ProjectGroup3" UniqueName="ProjectGroup3" ></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn HeaderText="Access Type" DataField="AccessType" UniqueName="AccessType" ></telerik:GridBoundColumn> 
+                                <telerik:GridBoundColumn HeaderText="ID" DataField="RoleID" UniqueName="RoleID" HeaderStyle-Width="10%" ></telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn HeaderText="Name" DataField="RoleName" UniqueName="RoleName" HeaderStyle-Width="10%"  ></telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn HeaderText="Type" DataField="RoleType" UniqueName="RoleType" HeaderStyle-Width="10%" ></telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn HeaderText="Scope" DataField="RoleScope" UniqueName="RoleScope" HeaderStyle-Width="10%" ></telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn  HeaderText="Scope Value" DataField="ScopeValue" UniqueName="ScopeValue" HeaderStyle-Width="10%" >  </telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn HeaderText="Group1" DataField="ProjectGroup1" UniqueName="ProjectGroup1" HeaderStyle-Width="10%"></telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn HeaderText="Group2" DataField="ProjectGroup2" UniqueName="ProjectGroup2" HeaderStyle-Width="10%" ></telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn HeaderText="Group3" DataField="ProjectGroup3" UniqueName="ProjectGroup3" HeaderStyle-Width="5%"></telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn HeaderText="Access Type" DataField="AccessType" UniqueName="AccessType" HeaderStyle-Width="5%" ></telerik:GridBoundColumn> 
                                  <%--<telerik:GridBoundColumn HeaderText="Created By" DataField="Created_By" UniqueName="Created_By" ></telerik:GridBoundColumn>--%> 
                                  <%--<telerik:GridBoundColumn HeaderText="Created Date" DataField="Created_Date" UniqueName="Created_Date"  DataType="System.DateTime"  DataFormatString="{0:M/d/yyyy}" ></telerik:GridBoundColumn>--%> 
 
@@ -141,10 +141,10 @@
           
   </div>
        
-      <div class="col-md-1">&nbsp;</div>
-            <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;height:300px">&nbsp;</div>
+      <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;height:380px">&nbsp;</div>
 
-    <div class="col-md-5">
+    <div class="col-md-4">
 
 <%--Role name--%>
    <div class="col-md-12 Span-One">
@@ -154,9 +154,9 @@
                         <div class="form-group required">
 
 
-                            <asp:Label ID="lblRoleName" CssClass="control-label col-md-4 "  runat="server" Text="RoleName"></asp:Label>
+                            <asp:Label ID="lblRoleName" CssClass="control-label col-md-5"  runat="server" Text="RoleName"></asp:Label>
 
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                   <asp:TextBox ID="txtRoleName" CssClass="form-control" runat="server"></asp:TextBox>
                                 
                                 <span id="span3" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;"></span>
@@ -176,9 +176,9 @@
                         <div class="form-group required">
 
 
-                            <asp:Label ID="lblRoleType" CssClass="control-label col-md-4"  runat="server" Text="RoleType">  </asp:Label>
+                            <asp:Label ID="lblRoleType" CssClass="control-label col-md-5"  runat="server" Text="RoleType">  </asp:Label>
 
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                     <asp:DropDownList ID="ddlRoleType" runat="server" CssClass="selectbox" AutoPostBack="true" OnSelectedIndexChanged="ddlRoleType_SelectedIndexChanged"></asp:DropDownList>
                                 
                                 <span id="span1" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;"></span>
@@ -199,11 +199,11 @@
                         <div class="form-group required">
 
 
-                            <asp:Label ID="lblRoleScope" CssClass="control-label col-md-4"  runat="server" Text="Role Scope">
+                            <asp:Label ID="lblRoleScope" CssClass="control-label col-md-5"  runat="server" Text="Role Scope">
 
           </asp:Label>
 
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                      <asp:DropDownList ID="ddlLevel" CssClass="selectbox" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlLevel_SelectedIndexChanged"></asp:DropDownList>
                                 
                                 <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;"></span>
@@ -224,11 +224,11 @@
                         <div class="form-group">
 
 
-                        <asp:Label ID="lblScopeValue" CssClass="control-label col-md-4"   runat="server" Text="Scope Value">
+                        <asp:Label ID="lblScopeValue" CssClass="control-label col-md-5"   runat="server" Text="Scope Value">
 
           </asp:Label>
 
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                     <asp:ListBox ID="lstRoleScope" CssClass="selectbox" runat="server" SelectionMode="Multiple" OnSelectedIndexChanged="lstRoleScope_SelectedIndexChanged"></asp:ListBox>
                                 
                                
@@ -253,11 +253,11 @@
                         <div class="form-group">
 
 
-                       <asp:Label ID="lblProjectGroup1" CssClass="control-label col-md-4"  runat="server" Text="ProjectGroup1">
+                       <asp:Label ID="lblProjectGroup1" CssClass="control-label col-md-5"  runat="server" Text="ProjectGroup1">
 
           </asp:Label>
 
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                   <asp:DropDownList ID="ddlProjectGroup1" CssClass="selectbox" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlProjectGroup1_SelectedIndexChanged" ></asp:DropDownList>
                                 
                                
@@ -280,11 +280,11 @@
                         <div class="form-group">
 
 
-                          <asp:Label ID="lblProjectGroup2" CssClass="control-label col-md-4"  runat="server" Text="ProjectGroup2">
+                          <asp:Label ID="lblProjectGroup2" CssClass="control-label col-md-5"  runat="server" Text="ProjectGroup2">
 
           </asp:Label>
 
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                   <asp:TextBox ID="txtProjectGroup2" CssClass="form-control" runat="server"></asp:TextBox>
                                 
                               
@@ -306,11 +306,11 @@
                         <div class="form-group">
 
 
-                           <asp:Label ID="lblProjectGroup3" CssClass="control-label col-md-4"  runat="server" Text="ProjectGroup3">
+                           <asp:Label ID="lblProjectGroup3" CssClass="control-label col-md-5"  runat="server" Text="ProjectGroup3">
 
          </asp:Label>
 
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                   <asp:TextBox ID="txtProjectGroup3" CssClass="form-control" runat="server"></asp:TextBox>
                                 
                                 
@@ -332,11 +332,11 @@
                         <div class="form-group required">
 
 
-                            <asp:Label ID="lblAccessType" CssClass="control-label col-md-4"  runat="server" Text="Access Type">
+                            <asp:Label ID="lblAccessType" CssClass="control-label col-md-5"  runat="server" Text="Access Type">
 
           </asp:Label>
 
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                   <asp:TextBox ID="txtAccessType" CssClass="form-control" runat="server"></asp:TextBox>
                                 
                                 <span id="span8" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;"></span>

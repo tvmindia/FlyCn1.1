@@ -66,6 +66,22 @@ namespace FlyCn.UIClasses
           {
               get { return "Login Unsuccessfull"; }
           }
+
+
+          public static string InsertionSuccessfull
+          {
+              get { return "Inserted Successfully"; }
+          }
+
+          public static string UpdationSuccessfull
+          {
+              get { return "Updated Successfully"; }
+          }
+
+          public static string DeletionSuccessfull
+          {
+              get { return "Deleted Successfully"; }
+          }
       }
       
 }

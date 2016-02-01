@@ -49,6 +49,7 @@
                s.className = "ErrormsgBoxes";
            }
 
+           s.style.display = "";
        }
 
        function hideMe() {

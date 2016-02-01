@@ -199,7 +199,7 @@
                         
         </div>
 
-         <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:500px">
+         <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:350px">
           &nbsp;
       </div>
 

@@ -11,6 +11,7 @@ using FlyCn.FlyCnDAL;
 using System.Data;
 using System.Data.SqlClient;
 using FlyCnSecurity.SecurityDAL;
+using Messages = FlyCn.UIClasses.Messages;
 
 #endregion  Included Namespaces 
 
@@ -35,8 +36,17 @@ namespace FlyCn.FlycnSecurity
 
         #region Methods
 
+        #region Register ToolBox
+
+        public void RegisterToolBox()
+        {
+            ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
+            ToolBar.OnClientButtonClicking = "OnClientButtonClickingDetail";
+        }
+        #endregion Register ToolBox
+
         #region Insert Role
-      
+
         public void InsertRole()
         {
             int result = 0;
@@ -80,9 +90,10 @@ namespace FlyCn.FlycnSecurity
 
        if (result == 1)
        {
-           var page = HttpContext.Current.CurrentHandler as Page;
-           var master = page.Master;
-           eObj.InsertionSuccessData(page);
+           //var page = HttpContext.Current.CurrentHandler as Page;
+           //var master = page.Master;
+         
+           eObj.InsertionSuccessData(this, Messages.InsertionSuccessfull);
 
        }
 
@@ -162,14 +173,46 @@ namespace FlyCn.FlycnSecurity
 
          if (result == 1)
          {
-             var page = HttpContext.Current.CurrentHandler as Page;
-             var master = page.Master;
-             eObj.UpdationSuccessData(page);
-}
+             eObj.UpdationSuccessData(this,Messages.UpdationSuccessfull);
+            }
         }
 
 
         #endregion Update Non Project Role
+
+        #region Delete Role By ID
+
+        public void DeleteRoleByID(string RoleID)
+        {
+            try
+            {
+
+                DALObj.RoleID = Convert.ToInt32(RoleID);
+                int result = DALObj.DeleteNonProjectRoleByRoleID();
+
+
+                if (result == 1)
+                {
+                    eObj.InsertionSuccessData(this, Messages.DeletionSuccessfull);
+
+                }
+            }
+            catch (SqlException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            catch (FormatException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+
+        }
+
+        #endregion Delete Role By ID
 
         #region Clear Controls
 
@@ -620,8 +663,7 @@ namespace FlyCn.FlycnSecurity
 
                         if (e.CommandName == "Delete")
                         {
-                            DALObj.RoleID = Convert.ToInt32(RoleID);
-                            DALObj.DeleteNonProjectRoleByRoleID();
+                            DeleteRoleByID(RoleID);
                         }
 
 
@@ -753,10 +795,8 @@ namespace FlyCn.FlycnSecurity
         {
 
             ScriptManager.RegisterStartupScript(this, this.GetType(), " ", "DisablePopUP();", true);
-
-            ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
-            ToolBar.OnClientButtonClicking = "OnClientButtonClickingDetail";
-
+            RegisterToolBox();
+           
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
 
             ToolBar.AddButton.Visible = false;
@@ -806,11 +846,14 @@ namespace FlyCn.FlycnSecurity
         {
             string functionName = e.Item.Value;
 
+
             if (functionName == "Save")
             {
                 InsertRole();
                 dtgNonProjectRoles.Rebind();
                 ClearControls();
+
+                //RegisterToolBox();
             }
             else
             {
@@ -819,6 +862,8 @@ namespace FlyCn.FlycnSecurity
                     UpdateNonProjectRoleByRoleID();
                     dtgNonProjectRoles.Rebind();
                     ClearControls();
+
+                    //RegisterToolBox();
                 }
 
             }
