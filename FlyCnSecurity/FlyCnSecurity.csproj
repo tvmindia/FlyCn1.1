@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="SecurityDAL\SecurityObjects.cs" />
     <Compile Include="SecurityDAL\SecurityRoles.cs" />
+    <Compile Include="SecurityDAL\SecurityUsers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />
