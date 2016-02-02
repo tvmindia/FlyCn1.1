@@ -221,6 +221,7 @@ namespace FlyCn.FlyCnDAL
                 userN = userName;
                 project = "C00001";
                 GetUserDetails();
+
             }
 
             FlyCnDAL.DALConstants Constants = new FlyCnDAL.DALConstants();
