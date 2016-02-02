@@ -1,4 +1,16 @@
-﻿using System;
+﻿#region CopyRight
+
+//All rights are reserved
+//Created By   : 
+//Created Date : 
+
+//Modified By  : SHAMILA T P
+//Modified Date: feb-1-2016
+//Purpose      : To add user access fn
+#endregion CopyRight
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
