@@ -82,6 +82,10 @@ namespace FlyCn.UIClasses
           {
               get { return "Deleted Successfully"; }
           }
+          public static string NotificationMsgToMobile
+          {
+              get { return "You have $ new items for approval!!"; }
+          }
       }
       
 }

@@ -336,29 +336,37 @@ namespace FlyCn.WebServices
         [WebMethod]
         public string Notification(string username, string approvalIDs)
         {  //return msg data initialization
+            DataSet dsData = new DataSet();
             DataSet ds = new DataSet();
             try
             {   //Retrieving details
                 FlyCnDAL.Users User = new FlyCnDAL.Users(username);
                 ApprovelMaster approvelMaster = new ApprovelMaster();
-                ds = approvelMaster.GetAllPendingApprovalsByVerifier(User.UserEMail);
-                //ArrayList approvalIDsList= new ArrayList<string>;
-                List<string> approvalIDsList = approvalIDs.Split(',').ToList();
+                dsData = approvelMaster.GetAllPendingApprovalsByVerifier(User.UserEMail);
+                List<String> approvalIDsList = approvalIDs.Split(',').ToList();
                 int count = 0;
-                foreach(DataRow dr in ds.Tables[0].Rows)
+                foreach(DataRow dr in dsData.Tables[0].Rows)
                 {
-                    if (!approvalIDsList.Contains(dr["ApprovalID"]))
+                    if (!approvalIDsList.Contains(dr["ApprovalID"].ToString()))
                     {
                         count++;
                     }
                 }
-                DataSet dsMessage = new DataSet();
                 DataTable returnMsg = new DataTable();
                 returnMsg.Columns.Add("Flag", typeof(Boolean));
                 returnMsg.Columns.Add("Message", typeof(String));
+                returnMsg.Columns.Add("Interval", typeof(int));
                 DataRow drMsg = returnMsg.NewRow();
-                drMsg["Flag"] = true;
-                drMsg["Message"] = "You have "+ count +" new items for approval!!";
+                if (count > 0)
+                {
+                    drMsg["Flag"] = true;
+                }
+                else
+                {
+                    drMsg["Flag"] = false;
+                }
+                drMsg["Message"] = FlyCn.UIClasses.Messages.NotificationMsgToMobile.Replace("$", count.ToString());
+                drMsg["Interval"] = 2;                                               //time inteval to next notification check from client side
                 returnMsg.Rows.Add(drMsg);
                 ds.Tables.Add(returnMsg);
             }
