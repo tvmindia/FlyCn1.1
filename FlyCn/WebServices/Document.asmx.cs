@@ -73,7 +73,7 @@ namespace FlyCn.WebServices
                 SuccessMsg.Columns.Add("Message", typeof(String));
                 DataRow dr = SuccessMsg.NewRow();
                 dr["Flag"] = true;
-                dr["Message"] = "Approved";
+                dr["Message"] = FlyCn.UIClasses.Messages.ApproveMsgToMobile;
                 SuccessMsg.Rows.Add(dr);
                 ds.Tables.Add(SuccessMsg);
             }
@@ -117,7 +117,7 @@ namespace FlyCn.WebServices
                 SuccessMsg.Columns.Add("Message", typeof(String));
                 DataRow dr = SuccessMsg.NewRow();
                 dr["Flag"] = true;
-                dr["Message"] = "Declined";
+                dr["Message"] = FlyCn.UIClasses.Messages.DeclinedMsgToMobile;
                 SuccessMsg.Rows.Add(dr);
                 ds.Tables.Add(SuccessMsg);
             }
@@ -161,7 +161,7 @@ namespace FlyCn.WebServices
                 SuccessMsg.Columns.Add("Message", typeof(String));
                 DataRow dr = SuccessMsg.NewRow();
                 dr["Flag"] = true;
-                dr["Message"] = "Rejected";
+                dr["Message"] = FlyCn.UIClasses.Messages.RejectedMsgToMobile;
                 SuccessMsg.Rows.Add(dr);
                 ds.Tables.Add(SuccessMsg);
             }

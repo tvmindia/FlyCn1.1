@@ -86,6 +86,18 @@ namespace FlyCn.UIClasses
           {
               get { return "You have $ new items for approval!!"; }
           }
+          public static string ApproveMsgToMobile
+          {
+              get { return "Approved"; }
+          }
+          public static string RejectedMsgToMobile
+          {
+              get { return "Rejected"; }
+          }
+          public static string DeclinedMsgToMobile
+          {
+              get { return "Declined"; }
+          }
       }
       
 }
