@@ -355,6 +355,7 @@ namespace FlyCn.WebServices
                 DataTable returnMsg = new DataTable();
                 returnMsg.Columns.Add("Flag", typeof(Boolean));
                 returnMsg.Columns.Add("Message", typeof(String));
+                returnMsg.Columns.Add("Count", typeof(int));
                 returnMsg.Columns.Add("Interval", typeof(int));
                 DataRow drMsg = returnMsg.NewRow();
                 if (count > 0)
@@ -367,6 +368,7 @@ namespace FlyCn.WebServices
                 }
                 drMsg["Message"] = FlyCn.UIClasses.Messages.NotificationMsgToMobile.Replace("$", count.ToString());
                 drMsg["Interval"] = 2;                                               //time inteval to next notification check from client side
+                drMsg["Count"] = count;   
                 returnMsg.Rows.Add(drMsg);
                 ds.Tables.Add(returnMsg);
             }
