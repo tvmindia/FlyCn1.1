@@ -331,6 +331,54 @@ namespace FlyCn.WebServices
             return getDbDataAsJSON(ds);
         }
         #endregion
+
+        #region Notification
+        [WebMethod]
+        public string Notification(string username, string approvalIDs)
+        {  //return msg data initialization
+            DataSet ds = new DataSet();
+            try
+            {   //Retrieving details
+                FlyCnDAL.Users User = new FlyCnDAL.Users(username);
+                ApprovelMaster approvelMaster = new ApprovelMaster();
+                ds = approvelMaster.GetAllPendingApprovalsByVerifier(User.UserEMail);
+                //ArrayList approvalIDsList= new ArrayList<string>;
+                List<string> approvalIDsList = approvalIDs.Split(',').ToList();
+                int count = 0;
+                foreach(DataRow dr in ds.Tables[0].Rows)
+                {
+                    if (!approvalIDsList.Contains(dr["ApprovalID"]))
+                    {
+                        count++;
+                    }
+                }
+                DataSet dsMessage = new DataSet();
+                DataTable returnMsg = new DataTable();
+                returnMsg.Columns.Add("Flag", typeof(Boolean));
+                returnMsg.Columns.Add("Message", typeof(String));
+                DataRow drMsg = returnMsg.NewRow();
+                drMsg["Flag"] = true;
+                drMsg["Message"] = "You have "+ count +" new items for approval!!";
+                returnMsg.Rows.Add(drMsg);
+                ds.Tables.Add(returnMsg);
+            }
+            catch (Exception ex)
+            {   //Return error message
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                ErrorMsg.Rows.Add(dr);
+                ds.Tables.Add(ErrorMsg);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(ds);
+        }
+        #endregion
        
         #region JSON converter and sender
         public String getDbDataAsJSON(DataSet ds)
