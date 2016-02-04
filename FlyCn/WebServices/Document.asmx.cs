@@ -358,15 +358,8 @@ namespace FlyCn.WebServices
                 returnMsg.Columns.Add("Count", typeof(int));
                 returnMsg.Columns.Add("Interval", typeof(int));
                 DataRow drMsg = returnMsg.NewRow();
-                if (count > 0)
-                {
-                    drMsg["Flag"] = true;
-                }
-                else
-                {
-                    drMsg["Flag"] = false;
-                }
-                drMsg["Message"] = FlyCn.UIClasses.Messages.NotificationMsgToMobile.Replace("$", count.ToString());
+                drMsg["Flag"] = true;
+                drMsg["Message"] = FlyCn.UIClasses.Messages.NotificationMsgToMobile.Replace("$", count.ToString()).Replace("items",count==1?"item":"items");
                 drMsg["Interval"] = 2;                                               //time inteval to next notification check from client side
                 drMsg["Count"] = count;   
                 returnMsg.Rows.Add(drMsg);
