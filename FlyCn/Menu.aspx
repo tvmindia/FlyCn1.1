@@ -75,7 +75,11 @@
                         
                         </div>
                 </td>
-                 
-            </tr>
+              </tr>
+
+         <tr>
+             <td>
+                 <asp:Label ID="lblAccessDenied" runat="server" Text="Label" ForeColor="Red"></asp:Label> </td>
+         </tr>
         </table>
 </asp:Content>
