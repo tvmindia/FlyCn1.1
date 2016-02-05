@@ -20,7 +20,7 @@ namespace FlyCn.WebServices
     [System.Web.Script.Services.ScriptService]
     public class Document : System.Web.Services.WebService
     {
-
+        #region Approval Functions----------------------------------------------
 
         #region Approvals
         [WebMethod]
@@ -303,6 +303,61 @@ namespace FlyCn.WebServices
         }
         #endregion
 
+        #region Notification
+        [WebMethod]
+        public string Notification(string username, string approvalIDs)
+        {  //return msg data initialization
+            DataSet dsData = new DataSet();
+            DataSet ds = new DataSet();
+            try
+            {   //Retrieving details
+                FlyCnDAL.Users User = new FlyCnDAL.Users(username);
+                ApprovelMaster approvelMaster = new ApprovelMaster();
+                dsData = approvelMaster.GetAllPendingApprovalsByVerifier(User.UserEMail);
+                List<String> approvalIDsList = approvalIDs.Split(',').ToList();
+                int count = 0;
+                foreach (DataRow dr in dsData.Tables[0].Rows)
+                {
+                    if (!approvalIDsList.Contains(dr["ApprovalID"].ToString()))
+                    {
+                        count++;
+                    }
+                }
+                DataTable returnMsg = new DataTable();
+                returnMsg.Columns.Add("Flag", typeof(Boolean));
+                returnMsg.Columns.Add("Message", typeof(String));
+                returnMsg.Columns.Add("Count", typeof(int));
+                returnMsg.Columns.Add("Interval", typeof(int));
+                DataRow drMsg = returnMsg.NewRow();
+                drMsg["Flag"] = true;
+                drMsg["Message"] = FlyCn.UIClasses.Messages.NotificationMsgToMobile.Replace("$", count.ToString()).Replace("items", count == 1 ? "item" : "items");
+                drMsg["Interval"] = 2;                                               //time inteval to next notification check from client side
+                drMsg["Count"] = count;
+                returnMsg.Rows.Add(drMsg);
+                ds.Tables.Add(returnMsg);
+            }
+            catch (Exception ex)
+            {   //Return error message
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                ErrorMsg.Rows.Add(dr);
+                ds.Tables.Add(ErrorMsg);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(ds);
+        }
+        #endregion
+
+        #endregion Approval Functions----------------------------------------------
+
+        #region Punchlist Functions
+
         #region PunchList
         [WebMethod]
         public string PunchList(string username)
@@ -331,42 +386,43 @@ namespace FlyCn.WebServices
             return getDbDataAsJSON(ds);
         }
         #endregion
-
-        #region Notification
+        
+        #region PunchList Item Details
         [WebMethod]
-        public string Notification(string username, string approvalIDs)
-        {  //return msg data initialization
-            DataSet dsData = new DataSet();
+        public string PunchListItemDetails(string projNO, string ID,string type)
+        {   //return msg data initialization
             DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
             try
             {   //Retrieving details
-                FlyCnDAL.Users User = new FlyCnDAL.Users(username);
-                ApprovelMaster approvelMaster = new ApprovelMaster();
-                dsData = approvelMaster.GetAllPendingApprovalsByVerifier(User.UserEMail);
-                List<String> approvalIDsList = approvalIDs.Split(',').ToList();
-                int count = 0;
-                foreach(DataRow dr in dsData.Tables[0].Rows)
+                FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+                dt = punchObj.GetPunchListItemDetailsForMobile(projNO, ID, type);
+
+                //Creating a table(with coloumns itemsCount,1,2,3,......itemsCount) for sending tables with dynamic no.of.coloumns
+                DataTable formattedDT = new DataTable();
+                formattedDT.Columns.Add("itemsCount", typeof(int));
+                for (int i = 1; i <= (dt.Columns.Count); i++)
                 {
-                    if (!approvalIDsList.Contains(dr["ApprovalID"].ToString()))
-                    {
-                        count++;
-                    }
+                    formattedDT.Columns.Add("" + i + "", typeof(string));
                 }
-                DataTable returnMsg = new DataTable();
-                returnMsg.Columns.Add("Flag", typeof(Boolean));
-                returnMsg.Columns.Add("Message", typeof(String));
-                returnMsg.Columns.Add("Count", typeof(int));
-                returnMsg.Columns.Add("Interval", typeof(int));
-                DataRow drMsg = returnMsg.NewRow();
-                drMsg["Flag"] = true;
-                drMsg["Message"] = FlyCn.UIClasses.Messages.NotificationMsgToMobile.Replace("$", count.ToString()).Replace("items",count==1?"item":"items");
-                drMsg["Interval"] = 2;                                               //time inteval to next notification check from client side
-                drMsg["Count"] = count;   
-                returnMsg.Rows.Add(drMsg);
-                ds.Tables.Add(returnMsg);
+                //inserting values to formatted new table
+                foreach (DataRow dr in dt.Rows)
+                {
+                    DataRow formattedDR = formattedDT.NewRow();
+                    formattedDR["itemsCount"] = dt.Columns.Count;
+                    int i = 1;
+                    foreach (DataColumn col in dt.Columns)
+                    {                        
+                            formattedDR["" + i + ""] = col.ColumnName + " : " + dr[col];             //value with coloumn name
+                            i++;
+                    }
+                    formattedDT.Rows.Add(formattedDR);
+                }
+                ds.Tables.Add(formattedDT);
             }
             catch (Exception ex)
-            {   //Return error message
+            {
+                //Return error message
                 DataTable ErrorMsg = new DataTable();
                 ErrorMsg.Columns.Add("Flag", typeof(Boolean));
                 ErrorMsg.Columns.Add("Message", typeof(String));
@@ -382,7 +438,9 @@ namespace FlyCn.WebServices
             return getDbDataAsJSON(ds);
         }
         #endregion
-       
+
+        #endregion Punchlist Functions
+
         #region JSON converter and sender
         public String getDbDataAsJSON(DataSet ds)
         {
