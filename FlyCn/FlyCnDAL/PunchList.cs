@@ -645,14 +645,14 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion EditPunchListItems
 
-        #region GetPunchListByProjNo
+        #region GetPunchListItemDetails
         /// <summary>
         /// To get the details from EIL table passing Project No and Id
         /// </summary>
         /// <param name="ProjNo">Project Number and Id</param>
         /// <param name="id"></param>
         /// <returns>Datatable with all the details from EIL Table</returns>
-        public DataTable GetPunchListByProjNo(string ProjNo, string id)
+        public DataTable GetPunchListItemDetails(string ProjNo, string id)
         {
             DataTable dt = new DataTable();
             SqlConnection con = null;
@@ -660,15 +660,11 @@ namespace FlyCn.FlyCnDAL
             try
             {
                 dbConnection dcon = new dbConnection();
-                con = dcon.GetDBConnection();
-                UIClasses.Const Const = new UIClasses.Const();
-                FlyCnDAL.Security.UserAuthendication UA;
-                HttpContext context = HttpContext.Current;
-                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                con = dcon.GetDBConnection();             
                 string selectQuery = "procEILByProjectNOIdSelect";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
                 cmdSelect.CommandType = CommandType.StoredProcedure;
-                cmdSelect.Parameters.AddWithValue("@projectno", UA.projectNo);
+                cmdSelect.Parameters.AddWithValue("@projectno", ProjNo);
                 cmdSelect.Parameters.AddWithValue("@idno", id);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(dt);
@@ -685,7 +681,47 @@ namespace FlyCn.FlyCnDAL
 
             return dt;
         }
-        #endregion GetPunchListByProjNo
+        #endregion GetPunchListItemDetails
+
+        #region GetPunchListItemDetailsForMobile
+        /// <summary>
+        /// To get the details from EIL table passing for mobile app
+        /// </summary>
+        /// <param name=ProjNo>Project Number and Id</param>
+        /// <param name=id></param>
+        /// /// <param name=type> WEIL/CEIL/QEIL </param>
+        /// <returns>Datatable with all the details from EIL Table of curresponding item</returns>
+        public DataTable GetPunchListItemDetailsForMobile(string ProjNo, string id, string type)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection con = null;
+            SqlDataAdapter daObj;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                string selectQuery = "GetPunchListItemDetailsForMobile";
+                SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
+                cmdSelect.Parameters.AddWithValue("@projectno", ProjNo);
+                cmdSelect.Parameters.AddWithValue("@id", id);
+                cmdSelect.Parameters.AddWithValue("@type", type);
+                daObj = new SqlDataAdapter(cmdSelect);
+                daObj.Fill(dt);
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return dt;
+        }
+        #endregion GetPunchListItemDetailsForMobile
 
         #region GetSystemDetails
         public DataTable GetSystemDetails()
