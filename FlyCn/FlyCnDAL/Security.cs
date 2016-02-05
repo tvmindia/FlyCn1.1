@@ -495,7 +495,6 @@ namespace FlyCn.FlyCnDAL
         public void ReadOnly(ToolBar pagecontrols)
         {
             //DisableAllControls(pagecontrols);
-
             pagecontrols.AddButton.Visible = false;
             pagecontrols.EditButton.Visible = false;
             pagecontrols.DeclineButton.Visible = false;
