@@ -165,9 +165,9 @@ namespace FlyCnSecurity.SecurityDAL
         /// To register new object to object registration
         /// </summary>
         /// <returns></returns>
-        public void InsertNonProjectRoles()
+        public int InsertNonProjectRoles()
         {
-
+            int result = 0;
             SqlConnection conn = null;
             SqlCommand cmd = null;
 
@@ -189,14 +189,16 @@ namespace FlyCnSecurity.SecurityDAL
                 cmd.Parameters.Add("@Created_By", SqlDbType.NVarChar, 250).Value = Created_By;
                 //cmd.Parameters.Add("@Created_Date", SqlDbType.SmallDateTime).Value = Created_Date;
 
-                cmd.ExecuteScalar();
+           result = cmd.ExecuteNonQuery();
+
+          
 
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
+            return result;
 
         }
 
@@ -204,8 +206,9 @@ namespace FlyCnSecurity.SecurityDAL
 
         #region Delete NonProjectRole By RoleID
 
-        public void DeleteNonProjectRoleByRoleID()
+        public int DeleteNonProjectRoleByRoleID()
         {
+            int result = 0;
             SqlConnection conn = null;
             DataSet ds = null;
             SqlCommand cmd = null;
@@ -219,10 +222,10 @@ namespace FlyCnSecurity.SecurityDAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@RoleID", RoleID);
 
-                cmd.ExecuteNonQuery();
+                result = cmd.ExecuteNonQuery();
 
                 conn.Close();
-
+               
 
             }
             catch (Exception ex)
@@ -239,7 +242,7 @@ namespace FlyCnSecurity.SecurityDAL
                 }
 
             }
-
+            return result;
         }
 
         #endregion Delete NonProjectRole By RoleID
@@ -295,8 +298,9 @@ namespace FlyCnSecurity.SecurityDAL
 
         #region UpdateNonProjectRolesByRoleID
 
-        public void UpdateNonProjectRolesByRoleID()
+        public int UpdateNonProjectRolesByRoleID()
         {
+            int result = 0;
             SqlConnection conn = null;
             SqlCommand cmd = null;
 
@@ -319,7 +323,8 @@ namespace FlyCnSecurity.SecurityDAL
 
                 //cmd.Parameters.Add("@Created_Date", SqlDbType.SmallDateTime).Value = Created_Date;
 
-                cmd.ExecuteScalar();
+                result = cmd.ExecuteNonQuery();
+                return result;
 
             }
             catch (Exception ex)
@@ -508,5 +513,50 @@ namespace FlyCnSecurity.SecurityDAL
 
         #endregion GetAllProjectGroup1Details
 
+
+        #region NonProjectRolesByRoleID
+
+        public DataSet NonProjectRolesByRoleID()
+        {
+            SqlConnection conn = null;
+            DataSet ds = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter da = null;
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
+
+                cmd = new SqlCommand("GetNonProjectRolesByRoleID", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@RoleID", SqlDbType.Int).Value = RoleID;
+
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                ds = new DataSet();
+                da.Fill(ds);
+
+                conn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+
+        }
+
+        #endregion NonProjectRolesByRoleID
     }
 }

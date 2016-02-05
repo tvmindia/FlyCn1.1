@@ -66,6 +66,38 @@ namespace FlyCn.UIClasses
           {
               get { return "Login Unsuccessfull"; }
           }
+
+
+          public static string InsertionSuccessfull
+          {
+              get { return "Inserted Successfully"; }
+          }
+
+          public static string UpdationSuccessfull
+          {
+              get { return "Updated Successfully"; }
+          }
+
+          public static string DeletionSuccessfull
+          {
+              get { return "Deleted Successfully"; }
+          }
+          public static string NotificationMsgToMobile
+          {
+              get { return "You have $ new items for approval!!"; }
+          }
+          public static string ApproveMsgToMobile
+          {
+              get { return "Approved"; }
+          }
+          public static string RejectedMsgToMobile
+          {
+              get { return "Rejected"; }
+          }
+          public static string DeclinedMsgToMobile
+          {
+              get { return "Declined"; }
+          }
       }
       
 }

@@ -542,7 +542,7 @@ namespace FlyCn.FlyCnDAL
         #region SelectAllMastersDataByTableName
         public DataSet SelectAllMastersDataByTableName(string tableName,string projectNo)
         {
-                SqlConnection con = null;
+               
                 SqlCommand cmd = null;
                 dbConnection dcon = null;
                 SqlDataAdapter sda = null;
@@ -550,10 +550,8 @@ namespace FlyCn.FlyCnDAL
             try
             {
                 dcon = new dbConnection();
-                con = new SqlConnection();
-                con = dcon.GetDBConnection();
                 cmd = new SqlCommand();
-                cmd.Connection = con;
+                cmd.Connection = dcon.GetDBConnection();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "[SelectAllMastersDataByTableName]";
                 cmd.Parameters.Add("@tableName", SqlDbType.NVarChar, 50).Value = tableName;
@@ -563,7 +561,6 @@ namespace FlyCn.FlyCnDAL
                 sda.SelectCommand = cmd;
                 sda.Fill(ds);
                 return ds;
-
             }
                catch(Exception ex)
             {
@@ -573,7 +570,7 @@ namespace FlyCn.FlyCnDAL
             }
             finally
             {
-                if(con!=null)
+                if(dcon!=null)
                 {
                     dcon.DisconectDB();
                 }

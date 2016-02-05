@@ -57,21 +57,25 @@ namespace FlyCn.FlyCnDAL
          public void InsertionSuccessData(Page pg)
   
             {
+
                 var master1 = pg.Master;
                 ContentPlaceHolder mpContentPlaceHolder1;
                 mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
-                HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
-                divMask1.Style["display"] = "none";// divMask1.Style["display"] = "";              
+                   HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
+                divMask1.Style["display"] = "";// divMask1.Style["display"] = "";   
+                divMask1.Style["visibility"] = "visible";
               //  Label Success = (Label)master1.FindControl("lblErrorInfo");
                 divMask1.Attributes["class"] = "Succesmsgboxes";
-               // Success.Text = "Successfully Inserted";  
-            }
+               // Success.Text = "Successfully Inserted"; 
+ 
+  }
          public void InsertionSuccessData(Page pg,string msg)//if insert does not happend becasue of already existing
          {
              var master1 = pg.Master;
              ContentPlaceHolder mpContentPlaceHolder1;
              mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
              HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
+
              divMask1.Style["visibility"] = "visible";// divMask1.Style["display"] = "";              
              Label Success = (Label)master1.FindControl("lblErrorInfo");
              divMask1.Attributes["class"] = "Succesmsgboxes";
@@ -84,10 +88,11 @@ namespace FlyCn.FlyCnDAL
              ContentPlaceHolder mpContentPlaceHolder1; 
              mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
              HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
-             divMask1.Style["visibility"] = "visible";// divMask1.Style["display"] = "";
+             divMask1.Style["visibility"] = "visible";
+             divMask1.Style["display"] = "";
              Label Success = (Label)master1.FindControl("lblErrorInfo");
              divMask1.Attributes["class"] = "Succesmsgboxes";
-             Success.Text = "Successfully Updated";
+             //Success.Text = "Successfully Updated";
 
              //ContentPlaceHolder mpContentPlaceHoldertest;
              //mpContentPlaceHoldertest = (ContentPlaceHolder)master1.FindControl("ContentPlaceHolder1");

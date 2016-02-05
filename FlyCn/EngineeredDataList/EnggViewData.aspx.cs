@@ -34,7 +34,8 @@ namespace FlyCn.EngineeredDataList
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            SecurityCheck();
+
             ToolBarVisibility(4);
             //--------------------------------------------------------
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
@@ -43,6 +44,50 @@ namespace FlyCn.EngineeredDataList
             //---------------------------------------------------------
             PlaceControls();
         }
+
+        #region SecurityCheck
+        public void SecurityCheck()
+        {
+            string logicalObject = "EnggViewData";
+
+            FlyCnDAL.Security.PageSecurity PS = new Security.PageSecurity(logicalObject, this);
+
+            if (PS.isWrite == true)
+            {
+                dtgEnggDataList.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
+                //  dtgBOQGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
+            }
+            else
+                if (PS.isEdit == true)
+                {
+                    dtgEnggDataList.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
+                    //  dtgBOQGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
+                }
+                else if (PS.isAdd == true)
+                {
+                    dtgEnggDataList.MasterTableView.GetColumn("EditData").Display = false;
+                }
+                else if (PS.isRead == true)
+                {
+                    dtgEnggDataList.MasterTableView.GetColumn("ViewDetailColumn").Display = true;
+                    dtgEnggDataList.MasterTableView.GetColumn("EditData").Display = false;
+                    
+                    //   dtgBOQGrid.MasterTableView.GetColumn("DeleteColumn").Display = false;
+                }
+
+                else if (PS.isDenied == true)
+                {
+                    HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=accessdenied", true);
+                }
+            if (PS.isDelete == true)
+            {
+                //  dtgBOQGrid.MasterTableView.GetColumn("DeleteColumn").Display = true;
+            }
+
+        }
+        #endregion SecurityCheck
+
+
         #region  combo_ItemsRequested
         protected void combo_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
@@ -650,7 +695,7 @@ namespace FlyCn.EngineeredDataList
 
                 foreach (DataRow r in dtObj.Rows)
                 {
-                    result = ifobj.InsertExcelFile(ds, r);
+                    result = ifobj.ImportExcelRow(ds, r);
                 }
                // int result = dynamicmasteroperationobj.InsertMasterData(datatableobj, projectNo, _tableName);
                
@@ -802,7 +847,7 @@ namespace FlyCn.EngineeredDataList
 
                 foreach (DataRow r in dtObj.Rows)
                 {
-                    result = ifobj.InsertExcelFile(ds, r);
+                    result = ifobj.ImportExcelRow(ds, r);
                 }
                 // int result = dynamicmasteroperationobj.InsertMasterData(datatableobj, projectNo, _tableName);
 

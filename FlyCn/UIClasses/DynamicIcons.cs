@@ -3,11 +3,24 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using FlyCn.FlyCnDAL;
 
 namespace FlyCn.UIClasses
 {
+    
+
+
     public class DynamicIcons
     {
+
+        #region Global Variables
+
+       //Security.PageSecurity PS = new Security.PageSecurity(logicalObject, this);
+
+        #endregion  Global Variables
+
+        //string userAccess = securityUsrObj.GetUserAccess(username, objName);
+
         string Large = "Large";
         string Small = "Small";
         string Tiny = "Tiny";

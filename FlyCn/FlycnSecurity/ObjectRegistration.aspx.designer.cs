@@ -13,13 +13,22 @@ namespace FlyCn.FlycnSecurity {
     public partial class ObjectRegistration {
         
         /// <summary>
-        /// hdnBrowserManualOpen control.
+        /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnBrowserManualOpen;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
+        /// lblTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTitle;
         
         /// <summary>
         /// lblError control.
@@ -31,22 +40,13 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.Label lblError;
         
         /// <summary>
-        /// txtNewObject control.
+        /// lblParent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNewObject;
-        
-        /// <summary>
-        /// btnRegister control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRegister;
+        protected global::System.Web.UI.WebControls.Label lblParent;
         
         /// <summary>
         /// ddlParent control.
@@ -58,6 +58,15 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.DropDownList ddlParent;
         
         /// <summary>
+        /// lblChild control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChild;
+        
+        /// <summary>
         /// ddlChild control.
         /// </summary>
         /// <remarks>
@@ -65,6 +74,60 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlChild;
+        
+        /// <summary>
+        /// lblNewObject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNewObject;
+        
+        /// <summary>
+        /// txtNewObject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNewObject;
+        
+        /// <summary>
+        /// lblScopeValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblScopeValue;
+        
+        /// <summary>
+        /// btnRegister control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRegister;
+        
+        /// <summary>
+        /// lblNavigation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNavigation;
+        
+        /// <summary>
+        /// navigation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.BulletedList navigation;
         
         /// <summary>
         /// gvObjectRegistration control.
@@ -76,12 +139,12 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.GridView gvObjectRegistration;
         
         /// <summary>
-        /// navigation control.
+        /// hdnBrowserManualOpen control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList navigation;
+        protected global::System.Web.UI.WebControls.HiddenField hdnBrowserManualOpen;
     }
 }

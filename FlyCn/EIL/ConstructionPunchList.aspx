@@ -228,7 +228,7 @@
 
 
         function onClientTabSelected(sender, args) {
-            
+            debugger;
             var tab = args.get_tab();
          
             if (tab.get_value() == '2') {
@@ -427,7 +427,7 @@
 
                                     <telerik:RadGrid ID="dtgManageProjectGrid" runat="server" CellSpacing="0"
                                         GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true" OnItemCommand="dtgManageProjectGrid_ItemCommand"
-                                        PageSize="10" Width="100%" Skin="Silk" >
+                                        PageSize="10" Width="100%" Skin="Silk">
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType">
                                             <Columns>
                                                 <telerik:GridButtonColumn CommandName="EditData" ItemStyle-Width="10px" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png"></telerik:GridButtonColumn>

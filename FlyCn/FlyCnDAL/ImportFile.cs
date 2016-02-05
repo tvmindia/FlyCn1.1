@@ -138,17 +138,9 @@ namespace FlyCn.FlyCnDAL
             set;
         }
 
-        public byte IsDeleted
-        {
-            get;
-            set;
-        }
+      
 
-        public int Processed_Count
-        {
-            get;
-            set;
-        }
+     
         public int InsertStatus
         {
             get;
@@ -177,40 +169,6 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        #endregion Public Properties
-
-
-
-
-
-
-
-
-
-
-        //properties from javad updatedExcelimport
-        #region JavadProperties
-        //ValidationExcel validationObj = new ValidationExcel();
-        public string errorMessage
-        {
-            get;
-            set;
-        }
-        public string successMessage
-        {
-            get;
-            set;
-        }
-        public string failureMessage
-        {
-            get;
-            set;
-        }
-        //public List<ExcelValidationModel> invalidItems
-        //{
-        //    get;
-        //    set;
-        //}
         public int insertcount
         {
             get;
@@ -232,28 +190,16 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        public string ProjNum
-        {
-            get;
-            set;
-        }
-        public string Code
-        {
-            get;
-            set;
-        }
-          
+
+
+
         public string fileName
         {
             get;
             set;
         }
 
-        public int importStatus
-        {
-            get;
-            set;
-        }
+
 
         public HttpRequestBase request
         {
@@ -265,12 +211,6 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-        //public string ExcelFileName
-        //{
-        //    get;
-        //    set;
-        //}
-
         public string testFile
         {
             get;
@@ -281,30 +221,28 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+        #endregion Public Properties
 
-        #endregion JavadProperties
-        //properties from javad updatedExcelimport
+           
         #region methods
 
-        #region Initialize Excel Import Details
+        #region InitializeExcelImportDetails
         /// <summary>
         /// Initialize the values of Excel import details table 
         /// </summary>
         /// <param name="ExcelFileName"></param>
-        public void InitializeExcelImportDetails(string ExcelFileName, int totalCount)
+        public void InitializeExcelImportDetails(string ExcelFileName, int totalCount,dbConnection dcon)
         {
 
-            SqlConnection con = new SqlConnection();
+           // SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
-
-            dbConnection dcon = new dbConnection();
+            //dbConnection dcon = new dbConnection();
             try
             {
-                con = dcon.GetDBConnection();
-
+                //con = dcon.GetDBConnection();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "InsertExcelImportDetails";
-                cmd.Connection = con;
+                cmd.Connection = dcon.SQLCon;//con
                 cmd.Parameters.AddWithValue("@Status_Id", status_Id);
                 cmd.Parameters.AddWithValue("@ProjNo", ProjectNo);
                 cmd.Parameters.AddWithValue("@File_Name", ExcelFileName);
@@ -316,8 +254,6 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@User_Name",UserName);
                 cmd.Parameters.AddWithValue("@InsertStatus", excelImportstatus.started);
                 cmd.Parameters.AddWithValue("@Remarks", Remarks);
-                //cmd.Parameters.AddWithValue("@Updated_Date",DateTime.Now);
-
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -326,15 +262,12 @@ namespace FlyCn.FlyCnDAL
             }
             finally
             {
-                if (con != null)
-                {
-                    con.Close();
-                }
+              
             }
 
         }
 
-        #endregion Initialize Excel Import Details
+        #endregion InitializeExcelImportDetails
 
         #region Update Excel Import Details
         /// <summary>
@@ -345,17 +278,21 @@ namespace FlyCn.FlyCnDAL
         /// <param name="UpdateCount"></param>
         /// <param name="ErrorCount"></param>
         /// <param name="Remarks"></param>
-        public void UpdateExcelImportDetails(string userName, string ProjNo, string TableName, string ExcelFileName, int InsertCount, int UpdateCount, int ErrorCount, string Remarks, excelImportstatus processStatus)
+        public void UpdateExcelImportDetails(string userName, string ProjNo, string TableName, string ExcelFileName, int InsertCount, int UpdateCount, int ErrorCount, string Remarks, excelImportstatus processStatus, dbConnection dcon=null)
         {
-            SqlConnection con = new SqlConnection();
+          
             SqlCommand cmd = new SqlCommand();
-            dbConnection dcon = new dbConnection();
+            if(dcon==null)
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+            }
+      
             try
             {
-                con = dcon.GetDBConnection();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "UpdateExcelImportDetails";
-                cmd.Connection = con;
+                cmd.Connection = dcon.SQLCon;
                 cmd.Parameters.AddWithValue("@Status_Id", status_Id);
                 cmd.Parameters.AddWithValue("@ProjNo", ProjNo);
                 cmd.Parameters.AddWithValue("@File_Name", ExcelFileName);
@@ -366,8 +303,6 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@User_Name", userName);
                 cmd.Parameters.AddWithValue("@InsertStatus", processStatus);
                 cmd.Parameters.AddWithValue("@Remarks", Remarks);
-                //cmd.Parameters.AddWithValue("@Updated_Date", DateTime.Now);
-
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -376,10 +311,7 @@ namespace FlyCn.FlyCnDAL
             }
             finally
             {
-                if (con != null)
-                {
-                    dcon.DisconectDB();
-                }
+              
             }
 
 
@@ -667,53 +599,19 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion LoadInputScreen
 
-        #endregion methods
-        //methods from javad updatedExcelimport
-        #region javadmethods
-        #region ImportExcelFile
-        public DataSet ImportExcelFile()
+        #region GetExcelData
+        public DataSet GetExcelData()
         {
-
             var Request = request;
             string tempFolder = temporaryFolder;
-            //string tempFolder = Path.Combine(HttpRuntime.AppDomainAppPath, "~/Content/");
             DataSet dsFile = new DataSet();
             String[] excelSheets;
-            //DataTable dtError;
-            try
+           try
             {
-                // Reading Excel File To Dataset
-                if (ExcelFileName.Length > 0)
+               if (ExcelFileName.Length > 0)
                 {
-                    //int fileExtensionCheck;
-                    
-                    //ExcelFileName = Request.Files[fileName].FileName;
-                    //string fileExtension = System.IO.Path.GetExtension(ExcelFileName);
-
-                    //fileExtensionCheck = validationObj.ValidateFileExtension(fileExtension);
-
-                    //if (fileExtensionCheck == 0)
-                    //{
-                    //    importStatus = -1;
-                    //    return dsFile=null;
-                    //}
-
-                    
-                        //string fileLocation = tempFolder + Request.Files[fileName].FileName;
-                        //fileLocation = tempFolder + testFile;
-                    excelSheets=OpenExcelFile();
-                    dsFile=ScanExcelFileToDS(excelSheets);
-
-                    //Reading Excel File To Dataset
-
-                    //int result = InsertExcelFile(dsFile);
-
-                    //if (result == -1)
-                    //{
-                    //    errorMessage = "Invalid Excel";
-                    //    importStatus = -1;
-                    //    return;
-                    //}
+                    excelSheets = OpenExcelFile();
+                    dsFile = ScanExcelFileToDS(excelSheets);
                 }
             }
             catch (Exception ex)
@@ -725,59 +623,25 @@ namespace FlyCn.FlyCnDAL
 
             }
 
-           // importStatus = 1;
             return dsFile;
         }
-        #endregion ImportExcelFile
+        #endregion GetExcelData
 
+        #region ScanExcelFileToDS
         public DataSet ScanExcelFileToDS(string[] excelSheets)
         {
-            //  DataSet dsFile=null;
-            // DataTable dt=null;
-            // DataColumn colum = null;
-            ////column creation
-            //  colum = new DataColumn();
-            //  colum.DataType = System.Type.GetType("System.Int32");
-            //  colum.AutoIncrement = true;
-            //  colum.AutoIncrementSeed = 0;
-            //  colum.AutoIncrementStep = 1;
-            //  colum.ColumnName = "Row_NO";
-            ////column createion
-            //  dt = new DataTable();
-            //  dt.Columns.Add(colum);
-            //  dsFile = new DataSet();
-             
-            //  //dsFile.Tables[0].Add(dt);
-            //  dsFile.Tables.Add(new DataTable());
-              //dsFile.Tables[0].Columns.Add(colum);
-              // dsFile.Tables[0].Columns.Add("column_2", typeof(int));
-        
-            //set column 3 to be before column 4
-            // ds.Tables[0].Columns[3].SetOrdinal(2);
-            //dt.Columns.Add(column);
-           //
             DataSet dsFile = new DataSet();
             OleDbConnection excelConnection1 = new OleDbConnection(ExcelConnectionString);
             try
             {
-             
-              
                 excelConnection1.Open();
                 string query = string.Format("Select * from [{0}]", excelSheets[0]);
                 using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
                 {
                     dataAdapter.Fill(dsFile);
-
-
-                    //totalCount = dsFile.Tables[0].Rows.Count;
-                    //if (dsFile.Tables[0].Rows.Count == 0)
-                    //{
-                    //    failureMessage = "No data found!";
-                    //    return dsFile = null;
-                    //}
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -785,16 +649,16 @@ namespace FlyCn.FlyCnDAL
             {
                 excelConnection1.Close();
             }
-               
+
             return dsFile;
         }
 
+        #endregion ScanExcelFileToDS
+
+        #region OpenExcelFile
         public string[] OpenExcelFile()
         {
-           // Path.GetExtension(yourPath); // returns .exe
-           // Path.GetFileNameWithoutExtension(yourPath); // returns File
-           // Path.GetFileName(yourPath); // returns File.exe
-            string fileExtension =Path.GetExtension(fileName);
+            string fileExtension = Path.GetExtension(fileName);
             ExcelConnectionString = string.Empty;
             if (fileExtension == ".xls")
             {
@@ -807,10 +671,9 @@ namespace FlyCn.FlyCnDAL
                 ExcelConnectionString = System.Configuration.ConfigurationManager.AppSettings["XLSX_ConnectionString"];
                 ExcelConnectionString = ExcelConnectionString.Replace("$fileLocation$", fileLocation);
             }
-
             //Create Connection to Excel work book and add oledb namespace
             OleDbConnection excelConnection = new OleDbConnection(ExcelConnectionString);
-            String[] excelSheets=null;
+            String[] excelSheets = null;
             try
             {
                 if (excelConnection.State != ConnectionState.Open)
@@ -820,18 +683,9 @@ namespace FlyCn.FlyCnDAL
                 DataTable dt = new DataTable();
 
                 dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                if ((dt.Rows.Count==2) && (dt != null))
+                if ((dt.Rows.Count == 2) && (dt != null))
                 {
                     excelSheets = new String[dt.Rows.Count];
-                   // int t = 0;
-                    //excel data saves in temp file here.
-                   // foreach (DataRow row in dt.Rows)
-                   //for (int i = 0; i < dt.Rows.Count;i++ )
-                   // {
-                      //  excelSheets[i] = row["TABLE_NAME"].ToString();
-                     //   SheetName = excelSheets[i];
-                        //t++;
-                   // }
                     int t = 0;
                     foreach (DataRow row in dt.Rows)
                     {
@@ -841,12 +695,9 @@ namespace FlyCn.FlyCnDAL
                     SheetName = excelSheets[0];
                     SheetDescription = excelSheets[1];
                     SheetName = SheetName.TrimEnd('$');
-               
                 }
-               
-              
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -856,133 +707,118 @@ namespace FlyCn.FlyCnDAL
             }
             return excelSheets;
         }
+        #endregion OpenExcelFile
 
-        #region Inserting Data From Dataset to Database
 
+        #region ImportExcelData
         /// <summary>
-        /// Insert Excel File Datas in Dataset to Database
+        /// Insert Excel File is Data validated first then inserted  to Database 
         /// </summary>
         /// <param name="dsFile"></param>
         /// <returns>success or failure</returns>
-        public int InsertFile(DataSet dsFile)
+        public int ImportExcelData(DataSet dsFile)
         {
+            dbConnection dbcon = null;
             try
             {
-               int insertResult;
-               List<string> MasterColumns = new List<string>();
-               DataSet dsTable = new DataSet();
-               dbConnection dbcon = new dbConnection();
-               ValidationExcel validationObj = new ValidationExcel();
-               CommonDAL tblDef = new CommonDAL();
-               dsTable = tblDef.GetTableDefinition(TableName);//temp table name
-               // DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
-               // DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
-               //validationObj.status_Id = importDetailsObj.status_Id;
-               //bool columnExistCheck = validationObj.ValidateExcelDataStructure(dsFile, dsTable);
-               //if (columnExistCheck == false)
-                //{
-                //    return -1;
-                //}
+                int insertResult;
+                List<string> MasterColumns = new List<string>();
+                DataSet dsTable = new DataSet();
+                CommonDAL tblDef = new CommonDAL();
+                dsTable = tblDef.GetTableDefinition(TableName);//temp table name
+                DataSet MasterDS = null;
+                MasterDS = tblDef.SelectAllMastersDataByTableName(TableName, ProjectNo);//Get all the master table values by union
+                dbcon = new dbConnection();
+                dbcon.GetDBConnection();
+                ValidationExcel validationObj = new ValidationExcel();
                 totalCount = dsFile.Tables[0].Rows.Count;
-                InitializeExcelImportDetails(ExcelFileName, totalCount);
-                DataRow[] yesMaster = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
-                foreach (DataRow row in yesMaster)//storing master having columns
+                InitializeExcelImportDetails(ExcelFileName, totalCount, dbcon);
+                DataRow[] MasterFieldDetails = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
+                foreach (DataRow row in MasterFieldDetails)//storing master having columns
                 {
-                    MasterColumns.Add(row[2].ToString());//column 2 field descrption
+                    MasterColumns.Add(row["Field_Description"].ToString());//column 2 field descrption
                 }
-              
-            
+
+                //------------------------------------Main Import Loop----------------------------------------------------------//
                 for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
                 {
-                    //to know temp
-                    //string ProjectNoP = dsFile.Tables[0].Rows[i]["ProjectNo"].ToString();
-                    //string ModuleIDP = dsFile.Tables[0].Rows[i]["ModuleID"].ToString();
-                 
-
-                    //Thread.Sleep(200);
-                    //DataSet dsFile,DataSet MasterDS,DataSet dsTable)
-                    int res;
-                    DataSet MasterDS = null;
-                    MasterDS = tblDef.SelectAllMastersDataByTableName(TableName, ProjectNo);
-                    res = validationObj.DataValidation(dsFile.Tables[0].Rows[i], MasterDS, dsTable, MasterColumns);
-                    //if (res == -1)
-                    //{
-                    //    errorCount = errorCount + 1;
-                    //}
-                    //else if (res == 1)
-                   // {
-                       
-                        insertResult = InsertExcelFile(dsTable,dsFile.Tables[0].Rows[i]);
-                        if (insertResult == 1)
-                        {
-                            insertcount = insertcount + 1;
-                        }
-                        else if (insertResult == 0)
-                        {
-                            updateCount = updateCount + 1;
-                        }
-                 //   }
-                    UpdateExcelImportDetails(UserName,ProjectNo,TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Processing);
-
+                    // Thread.Sleep(200);
+                    validationObj.DataValidation(dsFile.Tables[0].Rows[i], MasterDS, dsTable, MasterColumns, UserName, dbcon);
+                    insertResult = ImportExcelRow(dsTable, dsFile.Tables[0].Rows[i], dbcon);
+                    if (insertResult == 1)
+                    {
+                        insertcount = insertcount + 1;
+                    }
+                    else if (insertResult == 0)
+                    {
+                        updateCount = updateCount + 1;
+                    }
+                    UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Processing, dbcon);
                 }
 
-                UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Finished);
-               
+                UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Finished, dbcon);
+
             }
             catch (Exception ex)
             {
-                throw ex;
+                //    throw ex;
             }
             finally
             {
-
+                if (dbcon != null)
+                {
+                    dbcon.DisconectDB();
+                }
             }
             return 1;
         }
+        #endregion ImportExcelData
 
-        #endregion Inserting Excel data in Dataset to Database
-        #endregion javadmethods
 
-        //methods from javad updatedExcelimport
 
-        //methods from javad DAL.ExcelImportDAL
-        #region Inserting Data From Dataset to Database
-
+        #region ImportExcelRow
         /// <summary>
         /// Insert Excel File Datas in Dataset to Database
         /// </summary>
         /// <param name="dsFile"></param>
         /// <returns>success or failure</returns>
-        public int InsertExcelFile(DataSet dsTable,DataRow dr)
+        public int ImportExcelRow(DataSet dsTable, DataRow dr, dbConnection dbcon = null)
         {
-            dbConnection dbcon=null;
+
             try
             {
-               SqlCommand cmd = new SqlCommand();
-               CommonDAL tblDef = new CommonDAL();
-               dbcon = new dbConnection();
-               cmd.CommandType = CommandType.StoredProcedure;
-               cmd.CommandText = tblDef.GetProcedureName(TableName);
-               cmd.Connection = dbcon.GetDBConnection();
+                if (dbcon == null)
+                {
+                    dbcon = new dbConnection();
+                    dbcon.GetDBConnection();
+                }
+                SqlCommand cmd = new SqlCommand();
+                CommonDAL tblDef = new CommonDAL();
+                //dbcon = new dbConnection();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = dbcon.SQLCon;
+                cmd.CommandText = tblDef.GetProcedureName(TableName);
+
                 for (int j = 0; j < dsTable.Tables[0].Rows.Count; j++)
                 {
+                    //string paramName = dsTable.Tables[0].Rows[j]["Field_Name"].ToString();
+                    string excelColName = dsTable.Tables[0].Rows[j]["Field_Description"].ToString();
                     string paramName = dsTable.Tables[0].Rows[j]["Field_Name"].ToString();
                     string type = dsTable.Tables[0].Rows[j]["Field_DataType"].ToString();
-                    if((dr.Table.Columns.Contains(paramName))!=true)
+                    if ((dr.Table.Columns.Contains(excelColName)) != true)
                     {
-                          continue;
+                        continue;
                     }
                     else
                     {
-                       object paramValue = dr[paramName];
-
-                       if (type == "D")
-                       {
-                           cmd.Parameters.AddWithValue(paramName, Convert.ToDateTime(paramValue));
-                       }
-                       else
-                           cmd.Parameters.AddWithValue(paramName, paramValue);
-                   }
+                        object paramValue = dr[excelColName];
+                        if (type == "D")
+                        {
+                            cmd.Parameters.AddWithValue(paramName, Convert.ToDateTime(paramValue));
+                        }
+                        else
+                            cmd.Parameters.AddWithValue(paramName, paramValue);
+                    }
 
                 }
                 cmd.Parameters.AddWithValue("@Updated_By", UserName);
@@ -999,7 +835,7 @@ namespace FlyCn.FlyCnDAL
                 {
                     return 1;
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -1007,19 +843,12 @@ namespace FlyCn.FlyCnDAL
             }
             finally
             {
-                if(dbcon!=null)
-                {
-                    dbcon.DisconectDB();
-                }
-
             }
             return 0;
         }
+        #endregion ImportExcelRow
+        #endregion methods
 
-        #endregion Inserting Excel data in Dataset to Database
-
-        //methods from javad DAL.ExcelImportDAL
-
-    }//end of classImportFile
+    }
     #endregion classImportFile
 }

@@ -1,4 +1,16 @@
-﻿using System;
+﻿#region CopyRight
+
+//All rights are reserved
+//Created By   : 
+//Created Date : 
+
+//Modified By  : SHAMILA T P
+//Modified Date: feb-1-2016
+//Purpose      : To add user access fn
+#endregion CopyRight
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -37,6 +49,7 @@ namespace FlyCn.FlycnSecurity
 
         #region Methods
 
+        
         /// <summary>
         /// Function to create navigation 
         /// </summary>
@@ -234,8 +247,12 @@ namespace FlyCn.FlycnSecurity
                 dtGridview = dsgridview.Tables[0];
 
                 int rowCount = dtGridview.Rows.Count;
-                gvObjectRegistration.DataSource = dtGridview;
-                gvObjectRegistration.DataBind();
+
+                if (rowCount > 0)
+                {
+                    gvObjectRegistration.DataSource = dtGridview;
+                    gvObjectRegistration.DataBind();
+                }
             }
 
         }
@@ -469,12 +486,12 @@ namespace FlyCn.FlycnSecurity
                 DALObj.LevelID = newlevelID;
 
 
-                if (ddlChild.Items.FindByText("--Select--") == null)
-                {
-                    count = count + 1;
-                    newlevelID = currentLevelID + "." + count;
-                    DALObj.LevelID = newlevelID;
-                }
+                //if (ddlChild.Items.FindByText("--Select--") == null)
+                //{
+                //    count = count + 1;
+                //    newlevelID = currentLevelID + "." + count;
+                //    DALObj.LevelID = newlevelID;
+                //}
 
                 //if(  ddlChild.Items.FindByValue(newlevelID)!=null)
                 //{
@@ -623,11 +640,15 @@ namespace FlyCn.FlycnSecurity
 
         }
 
-        protected void imgBtnUpdate_Click(object sender, ImageClickEventArgs e)
-        {
+        //protected void imgBtnUpdate_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    GridViewRow clickedRow = ((ImageButton)sender).NamingContainer as GridViewRow;
+        //    ImageButton lblID = (ImageButton)clickedRow.FindControl("imgBtnUpdate");
+        //    string selectedRow = clickedRow.Cells[1].Text;
 
+        //    DALObj.ObjId = selectedRow;
 
-        }
+        //}
 
         protected void ddlParent_SelectedIndexChanged(object sender, EventArgs e)
         {

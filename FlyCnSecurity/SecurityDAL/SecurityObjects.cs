@@ -312,6 +312,8 @@ namespace FlyCnSecurity.SecurityDAL
 
         #endregion GetPreviousListItem
 
+        #region Get Data On Navigation
+        
         public DataSet GetDataOnNavigation()
         {
             SqlConnection conn = null;
@@ -353,6 +355,7 @@ namespace FlyCnSecurity.SecurityDAL
 
         }
 
+        #endregion Get Data On Navigation
 
         #region Register New Object
 
@@ -440,6 +443,8 @@ namespace FlyCnSecurity.SecurityDAL
         }
         #endregion Get Last ObjID
 
+        #region Populate Gridview
+       
         public DataSet PopulateGridview()
         {
             SqlConnection conn = null;
@@ -480,8 +485,10 @@ namespace FlyCnSecurity.SecurityDAL
             }
         }
 
+        #endregion Populate Gridview
 
-
+        #region Delete Object By Id
+        
         public void DeleteObjectByID()
         {
             SqlConnection conn = null;
@@ -520,7 +527,10 @@ namespace FlyCnSecurity.SecurityDAL
 
         }
 
+        #endregion Delete Object By id
 
+        #region Get Object ID By LevelID
+       
         public int GetObjectIDByLevelID()
         {
             int objID = 0;
@@ -564,6 +574,8 @@ namespace FlyCnSecurity.SecurityDAL
 
             }
         }
+
+        #endregion Get Object ID By LevelID
 
         #endregion Methods
 

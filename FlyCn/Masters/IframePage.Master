@@ -27,29 +27,38 @@
             width: 55px;
         }
     </style>
-   <script>
-       function displayMessage(type, msg) {
+  
+   
 
-           var s = document.getElementById("Errorbox");
-           document.getElementById("Errorbox").style.display = "";
-           var divId = document.getElementById("masterDiv");
-           document.getElementById("lblErrorInfo").innerHTML = msg;
+  
+</head>
+
+<body>
+     
+     <script>
+         function displayMessage(type, msg) {
+             debugger;
+             var s = document.getElementById("<%=Errorbox.ClientID%>");
+           s.style.visibility = "visible";
+           var divId = document.getElementById("<%=masterDiv.ClientID %>");
+          document.getElementById("<%=lblErrorInfo.ClientID%>").innerHTML = msg;
            if (type == 'SUCCESS') {
-               document.getElementById("Errorbox").className = "Succesmsgboxes";
+               s.className = "Succesmsgboxes";
            }
            else {
-               document.getElementById("Errorbox").className = "ErrormsgBoxes";
+               s.className = "ErrormsgBoxes";
            }
 
+           s.style.display = "";
        }
 
        function hideMe() {
 
-           var s = document.getElementById("Errorbox");
-           document.getElementById("Errorbox").style.display = "none";
-           var divId = document.getElementById("masterDiv");
+           var s = document.getElementById("<%=Errorbox.ClientID%>");
+           s.style.display = "none";
+           var divId = document.getElementById("<%=masterDiv.ClientID %>");
 
-           document.getElementById("lblErrorInfo").innerHTML = "";
+           document.getElementById("<%=lblErrorInfo.ClientID%>").innerHTML = "";
        }
        function AlertMsg(msg) {
            var message = msg;
@@ -66,13 +75,9 @@
            document.getElementById("lblAlertMsg").innerHTML = "";
        }
     </script>
-   
 
-  
-</head>
 
-<body>
-     
+
           <div  id="Errorbox" style="visibility:hidden" runat="server" class="ErrormsgBoxes"  >
             <table style="width: 100%; background-color: transparent;vertical-align:middle">                
                 <tr> 

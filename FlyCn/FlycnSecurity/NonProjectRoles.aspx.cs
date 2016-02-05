@@ -11,6 +11,7 @@ using FlyCn.FlyCnDAL;
 using System.Data;
 using System.Data.SqlClient;
 using FlyCnSecurity.SecurityDAL;
+using Messages = FlyCn.UIClasses.Messages;
 
 #endregion  Included Namespaces 
 
@@ -29,21 +30,29 @@ namespace FlyCn.FlycnSecurity
         DALConstants cnst = new DALConstants();
         SecurityRoles DALObj = new SecurityRoles();
         FlyCnDAL.Security.UserAuthendication UA;
+        UIClasses.Const Const = new UIClasses.Const();
 
         #endregion  Global Variables
 
         #region Methods
 
+        #region Register ToolBox
+
+        public void RegisterToolBox()
+        {
+            ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
+            ToolBar.OnClientButtonClicking = "OnClientButtonClickingDetail";
+        }
+        #endregion Register ToolBox
+
         #region Insert Role
-      
+
         public void InsertRole()
         {
+            int result = 0;
             string ScopeValue = string.Empty;
             try
-            {
-                if (txtRoleName.Text != string.Empty || ddlRoleType.SelectedItem.Text == "--Select--" || txtAccessType.Text != string.Empty)
-                {
-                    
+            { 
                     DALObj.RoleName = txtRoleName.Text;
                     DALObj.RoleType = ddlRoleType.SelectedItem.Text;
                     DALObj.ProjectGroup1 = ddlProjectGroup1.SelectedItem.Text;
@@ -74,23 +83,45 @@ namespace FlyCn.FlycnSecurity
 
 
                     DALObj.ScopeValue = ScopeValue;
-                    DALObj.InsertNonProjectRoles();
+
+
+                   
+       result =     DALObj.InsertNonProjectRoles();
+
+       if (result == 1)
+       {
+           //var page = HttpContext.Current.CurrentHandler as Page;
+           //var master = page.Master;
+         
+           eObj.InsertionSuccessData(this, Messages.InsertionSuccessfull);
+
+       }
 
                     ClearControls();
+        }
 
+               
+            
 
-                }
-
-                else
-                {
-                    lblError.Text = " Please fill the mandatory fields !";
-                }
-            }
-            catch (Exception)
+            catch (SqlException ex)
             {
-
-                lblError.Text = " Some problem while inserting new non project access role";
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
             }
+            catch (FormatException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+
+            
+            //catch (Exception)
+            //{
+
+            //    lblError.Text = " Some problem while inserting new non project access role";
+            //}
         }
 
         #endregion Insert Role
@@ -99,7 +130,7 @@ namespace FlyCn.FlycnSecurity
 
         public void UpdateNonProjectRoleByRoleID()
         {
-
+            int result = 0;
             string ScopeValue = string.Empty;
             int RoleID = Convert.ToInt32(ViewState["RoleID"]);
 
@@ -138,12 +169,50 @@ namespace FlyCn.FlycnSecurity
             //DALObj.Created_Date = Convert.ToDateTime(txtCreated_Date.Text);
             DALObj.ScopeValue = ScopeValue;
 
-            DALObj.UpdateNonProjectRolesByRoleID();
+         result =   DALObj.UpdateNonProjectRolesByRoleID();
 
+         if (result == 1)
+         {
+             eObj.UpdationSuccessData(this,Messages.UpdationSuccessfull);
+            }
         }
 
 
         #endregion Update Non Project Role
+
+        #region Delete Role By ID
+
+        public void DeleteRoleByID(string RoleID)
+        {
+            try
+            {
+
+                DALObj.RoleID = Convert.ToInt32(RoleID);
+                int result = DALObj.DeleteNonProjectRoleByRoleID();
+
+
+                if (result == 1)
+                {
+                    eObj.InsertionSuccessData(this, Messages.DeletionSuccessfull);
+
+                }
+            }
+            catch (SqlException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            catch (FormatException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+
+        }
+
+        #endregion Delete Role By ID
 
         #region Clear Controls
 
@@ -153,11 +222,11 @@ namespace FlyCn.FlycnSecurity
 
             txtRoleName.Text = string.Empty;
 
-            BindRoleTypeComboBox();
+            BindRoleTypeComboBox(null);
 
-            BindRoleScopeComboBox();
+            BindRoleScopeComboBox(null);
 
-            BindProjectGroup1();
+            BindProjectGroup1(null);
 
             lstRoleScope.Items.Clear();
             //txtProjectGroup1.Text = string.Empty;
@@ -178,7 +247,7 @@ namespace FlyCn.FlycnSecurity
 
         #region Bind Role Type ComboBox
 
-        public void BindRoleTypeComboBox()
+        public void BindRoleTypeComboBox(string seletedValue)
         {
             DataSet dsRoleType = null;
             try
@@ -191,91 +260,53 @@ namespace FlyCn.FlycnSecurity
                 ddlRoleType.DataValueField = "ID";
                 ddlRoleType.DataBind();
 
-                ddlRoleType.Items.Insert(0, "--Select--");
-            }
-            catch (Exception)
-            {
+                if (seletedValue != null)
+                {
+                    if(ddlRoleType.Items.FindByText(seletedValue) != null)
+                    {
+                        ddlRoleType.Items.FindByText(seletedValue).Selected = true;
+                    }
+                }
 
-                lblError.Text = "Some problem while populating Role Type combo box !";
+                else
+                {
+                    ddlRoleType.Items.Insert(0, "--Select--");
+                }
+              
+
             }
+
+            catch (SqlException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            catch (FormatException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            //catch (Exception)
+            //{
+
+            //    lblError.Text = "Some problem while populating Role Type combo box !";
+            //}
         }
 
         #endregion Bind Role Type ComboBox
 
         #region Bind Role Scope ComboBox
 
-        public void BindRoleScopeComboBox()
+
+        #region Bind Scope Value
+
+        public void BindScopeValue(string level, string seletedValue)
         {
-            DataSet dsRoleName = null;
-
-            try
-            {
-                dsRoleName = new DataSet();
-                dsRoleName = DALObj.GetAllRoleName();
-
-                ddlLevel.DataSource = dsRoleName;
-                ddlLevel.DataTextField = "Caption";
-                ddlLevel.DataValueField = "ID";
-                ddlLevel.DataBind();
-
-                ddlLevel.Items.Insert(0, "--Select--");
-            }
-            catch (Exception)
-            {
-                lblError.Text = "Some problem while populating Role Scope combo box !";
-
-            }
-        }
-        #endregion Bind Role Scope ComboBox
-
-        #region BindProjectGroup1
-
-        public void BindProjectGroup1()
-        {
-            DataSet dsProjectGroup1 = null;
-            try
-            {
-                dsProjectGroup1 = new DataSet();
-                dsProjectGroup1 = DALObj.GetAllProjectGroup1Details();
-
-                ddlProjectGroup1.DataSource = dsProjectGroup1;
-                ddlProjectGroup1.DataTextField = "Value";
-                ddlProjectGroup1.DataValueField = "ID";
-                ddlProjectGroup1.DataBind();
-
-                ddlProjectGroup1.Items.Insert(0, "--Select--");
-            }
-            catch (Exception)
-            {
-
-                lblError.Text = "Some problem while populating project group1 combo box !";
-            }
-        }
-
-        #endregion BindProjectGroup1
-
-        #endregion Methods
-
-        #region Role Type Selected Index Changed
-        protected void ddlRoleType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        #endregion Role Type Selected Index Changed
-
-        #region Level Selected Index Changed
-        protected void ddlLevel_SelectedIndexChanged(object sender, EventArgs e)
-        {
-           
             string tableName = string.Empty;
-            string level = string.Empty;
+           
             DataSet dsRoles = null;
-
-            level = ddlLevel.SelectedItem.Value;
-            RoleScopeText = ddlLevel.SelectedItem.Text;
-
-            //--Table name based on level value(based on level dropdown)--//
 
             switch (level)
             {
@@ -308,17 +339,235 @@ namespace FlyCn.FlycnSecurity
 
                     lstRoleScope.DataBind();
 
-                    lstRoleScope.Items.Insert(0, "--Select--");
+
+                    if (seletedValue != null)
+                    {
+                        string tempSelectedValue = seletedValue;
+
+                        if (tempSelectedValue.Contains(','))
+                        {
+                             string lastPart  = string.Empty;
+
+                             int count = seletedValue.Split(',').Length;
+
+                            for (int i = count; i >= 1; i--)
+                            {
+                              
+                                    string str = tempSelectedValue;
+                                    string ext = string.Empty;
+                                    if (str.Contains(','))
+                                    {
+
+                                        ext = str.Substring(0, str.LastIndexOf(","));
+
+                                        lastPart = str.Split(',').Last();
+
+                                        if (lstRoleScope.Items.FindByText(lastPart) != null)
+                                        {
+                                            lstRoleScope.Items.FindByText(lastPart).Selected = true;
+                                        }
+
+                                        tempSelectedValue = ext;
+                                    }
+
+                                    else
+                                    {
+                                        lastPart = str;
+
+
+                                        if (lstRoleScope.Items.FindByText(lastPart) != null)
+                                        {
+                                           
+                                            lstRoleScope.Items.FindByText(lastPart).Selected = true;
+                                          
+                                        }
+                                    }
+                             
+                            }
+                        }
+
+                        else
+                        {
+                            if (lstRoleScope.Items.FindByText(seletedValue) != null)
+                            {
+                               
+                                lstRoleScope.Items.FindByText(seletedValue).Selected = true;
+                            }
+                        }
+                    }
+
+                       
+
+                    else
+                    {
+                        if (level != "1")
+                        {
+                            lstRoleScope.Items.Insert(0, "--Select--");  
+                        }
+                    }
+
                 }
 
             }
-            catch (Exception)
+            catch (SqlException ex)
             {
-
-                lblError.Text = "Some problem while populating role scope combobox ";
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
             }
+            catch (FormatException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            //catch (Exception)
+            //{
+            //    lblError.Text = "Some problem while populating role scope combobox ";
+            //}
 
 
+        }
+
+        #endregion Bind Scope Value
+
+        public void BindRoleScopeComboBox(string seletedValue)
+        {
+            DataSet dsRoleName = null;
+
+            try
+            {
+                dsRoleName = new DataSet();
+                dsRoleName = DALObj.GetAllRoleName();
+
+                ddlLevel.DataSource = dsRoleName;
+                ddlLevel.DataTextField = "Caption";
+                ddlLevel.DataValueField = "ID";
+                ddlLevel.DataBind();
+
+
+                if (seletedValue != null)
+                {
+                    if (ddlLevel.Items.FindByText(seletedValue) != null)
+                    {
+                        ddlLevel.Items.FindByText(seletedValue).Selected = true;
+                    }
+                }
+
+                else
+                {
+                    ddlLevel.Items.Insert(0, "--Select--");
+                }
+
+                
+            }
+            catch (SqlException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            catch (FormatException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            //catch (Exception)
+            //{
+            //    lblError.Text = "Some problem while populating Role Scope combo box !";
+
+            //}
+        }
+        #endregion Bind Role Scope ComboBox
+
+        #region BindProjectGroup1
+
+
+
+
+        public void BindProjectGroup1(string seletedValue)
+        {
+            DataSet dsProjectGroup1 = null;
+            try
+            {
+                dsProjectGroup1 = new DataSet();
+                dsProjectGroup1 = DALObj.GetAllProjectGroup1Details();
+
+                ddlProjectGroup1.DataSource = dsProjectGroup1;
+                ddlProjectGroup1.DataTextField = "Value";
+                ddlProjectGroup1.DataValueField = "ID";
+                ddlProjectGroup1.DataBind();
+
+                if (seletedValue != null)
+                {
+                    if (ddlProjectGroup1.Items.FindByText(seletedValue) != null)
+                    {
+                        ddlProjectGroup1.Items.FindByText(seletedValue).Selected = true;
+                    }
+                }
+
+                else
+                {
+                    ddlProjectGroup1.Items.Insert(0, "--Select--");
+                }
+              
+               }
+            catch (SqlException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            catch (FormatException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            //catch (Exception)
+            //{
+            //    lblError.Text = "Some problem while populating project group1 combo box !";
+            //}
+        }
+
+        #endregion BindProjectGroup1
+
+        #region Toolbar Visibility
+        
+        public void ToolbarVisibility(string EditCase)
+        {
+            if (EditCase == "True")
+            {
+                ToolBar.UpdateButton.Visible = true;
+                ToolBar.SaveButton.Visible = false;
+            }
+        }
+
+        #endregion Toolbar Visibility
+
+        #endregion Methods
+
+        #region Role Type Selected Index Changed
+        protected void ddlRoleType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion Role Type Selected Index Changed
+
+        #region Level Selected Index Changed
+        protected void ddlLevel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string level = string.Empty;
+            DataSet dsRoles = null;
+
+            level = ddlLevel.SelectedItem.Value;
+            RoleScopeText = ddlLevel.SelectedItem.Text;
+
+            //--Table name based on level value(based on level dropdown)--//
+
+            BindScopeValue(level,null);
 
         }
 
@@ -335,7 +584,7 @@ namespace FlyCn.FlycnSecurity
         #region Project Group1 Selected Index Changed
         protected void ddlProjectGroup1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+          
         }
 
         #endregion Project Group1 Selected Index Changed
@@ -359,6 +608,7 @@ namespace FlyCn.FlycnSecurity
                 dtNonProjectRoles = dsNonProjectRoles.Tables[0];
 
                 dtgNonProjectRoles.DataSource = dtNonProjectRoles;
+
                
             }
 
@@ -387,91 +637,167 @@ namespace FlyCn.FlycnSecurity
 
         protected void dtgNonProjectRoles_ItemCommand(object source, GridCommandEventArgs e)
         {
-
-            try
+           
+        //-------change bg color to default if any item  is already  highlighted
+           
+            foreach (GridDataItem item in dtgNonProjectRoles.Items)
             {
-                GridDataItem item = e.Item as GridDataItem;
-                if (item != null)
+               if(item.BackColor == System.Drawing.Color.LightPink)
+               {
+                  item.BackColor =  System.Drawing.Color.Transparent;
+               }
+            }
+
+                GridDataItem items = e.Item as GridDataItem;
+
+    //--- Highlight the selected item
+
+                if (items != null)
                 {
-                    string RoleID = item.GetDataKeyValue("RoleID").ToString();
-                    ViewState["RoleID"] = RoleID;
 
-                    if (e.CommandName == "Delete")
+                    items.BackColor = System.Drawing.Color.LightPink;
+                    if (items != null)
                     {
-                        DALObj.RoleID = Convert.ToInt32(RoleID);
-                        DALObj.DeleteNonProjectRoleByRoleID();
-                    }
+                        string RoleID = items.GetDataKeyValue("RoleID").ToString();
+                        ViewState["RoleID"] = RoleID;
 
-
-                    else
-                    {
-
-                        if (e.CommandName == "EditData")
+                        if (e.CommandName == "Delete")
                         {
-                            hdnEditPostBack.Value = "True";
-                           
+                            DeleteRoleByID(RoleID);
+                        }
 
-                            try
+
+                        else
+                        {
+
+                            if (e.CommandName == "EditData")
                             {
-                            string RoleName = item["RoleName"].Text;
-                            txtRoleName.Text = RoleName;
+                                hdnEditPostBack.Value = "True";
+                                ToolbarVisibility(hdnEditPostBack.Value);
 
-                            string RoleType = item["RoleType"].Text;
-                            ddlRoleType.SelectedItem.Text = RoleType;
+                                try
+                                {
 
-                            string ProjectGroup2 = item["ProjectGroup2"].Text;
-                            txtProjectGroup2.Text = ProjectGroup2;
+                                    DataSet dsNonProjectRoles = null;
+                                    DataTable dtNonProjectRoles = null;
 
-                            string ProjectGroup3 = item["ProjectGroup3"].Text;
-                            txtProjectGroup3.Text = ProjectGroup3;
+                                    try
+                                    {
+                                        dsNonProjectRoles = new DataSet();
+                                        dtNonProjectRoles = new DataTable();
 
-                            string AccessType = item["AccessType"].Text;
-                            txtAccessType.Text = AccessType;
+                                        int roleId = Convert.ToInt32(items.GetDataKeyValue("RoleID"));
 
-                            string Created_By = item["Created_By"].Text;
-                            //txtCreated_By.Text = Created_By;
+                                        DALObj.RoleID = roleId;
+                                        dsNonProjectRoles = DALObj.GetAllDetailsOfNonProjectRoles();
+                                        dtNonProjectRoles = dsNonProjectRoles.Tables[0];
 
-                            string Created_Date = item["Created_Date"].Text;
-                            //txtCreated_Date.Text = Created_Date;
+                                        int rowCount = dtNonProjectRoles.Rows.Count;
 
-                            //ddlRoleType.Items.FindByText(RoleType).Selected = true;
-                            
-                            }
-                            catch (Exception)
-                            {
-                                lblError.Text = " Some problem while populating controls ";
+
+                                        for (int i = 0; i < rowCount; i++)
+                                        {
+                                            if (dtNonProjectRoles.Columns.Contains("RoleID"))
+                                            {
+
+
+                                                if (dtNonProjectRoles.Rows[i]["RoleID"].ToString() == roleId.ToString())
+                                                {
+                                                    string roleName = dtNonProjectRoles.Rows[i]["RoleName"].ToString();
+                                                    txtRoleName.Text = roleName;
+
+                                                    string roleType = dtNonProjectRoles.Rows[i]["RoleType"].ToString();
+                                                    BindRoleTypeComboBox(roleType);
+                                                    //ddlRoleType.SelectedItem.Text = roleType;
+
+                                                    string roleScope = dtNonProjectRoles.Rows[i]["RoleScope"].ToString();
+                                                    BindRoleScopeComboBox(roleScope);
+                                                    //ddlLevel.SelectedItem.Text = roleScope;
+
+                                                    string scopeValue = dtNonProjectRoles.Rows[i]["ScopeValue"].ToString();
+                                                    string level = ddlLevel.SelectedItem.Value;
+                                                    //string selectedValue = 
+                                                    BindScopeValue(level, scopeValue);
+
+                                                    //lstRoleScope.SelectedItem.Text = scopeValue;
+
+                                                    string projectGroup1 = dtNonProjectRoles.Rows[i]["ProjectGroup1"].ToString();
+                                                    BindProjectGroup1(projectGroup1);
+                                                    //ddlProjectGroup1.SelectedItem.Text = projectGroup1;
+
+                                                    string projectGroup2 = dtNonProjectRoles.Rows[i]["ProjectGroup2"].ToString();
+                                                    txtProjectGroup2.Text = projectGroup2;
+
+                                                    string projectGroup3 = dtNonProjectRoles.Rows[i]["ProjectGroup3"].ToString();
+                                                    txtProjectGroup3.Text = projectGroup3;
+
+                                                    string accessType = dtNonProjectRoles.Rows[i]["AccessType"].ToString();
+                                                    txtAccessType.Text = accessType;
+                                                }
+                                            }
+                                        }
+
+
+
+                                    }
+                                    catch (SqlException ex)
+                                    {
+                                        var page = HttpContext.Current.CurrentHandler as Page;
+                                        var master = page.Master;
+                                        eObj.ErrorData(ex, page);
+                                    }
+                                    catch (FormatException ex)
+                                    {
+                                        var page = HttpContext.Current.CurrentHandler as Page;
+                                        var master = page.Master;
+                                        eObj.ErrorData(ex, page);
+                                    }
+                                    //catch (Exception)
+                                    //{
+                                    //    lblError.Text = "Some problem while accessing nonproject roles details";
+                                    //}
+
+                                }
+                                catch (SqlException ex)
+                                {
+                                    var page = HttpContext.Current.CurrentHandler as Page;
+                                    var master = page.Master;
+                                    eObj.ErrorData(ex, page);
+                                }
+                                catch (FormatException ex)
+                                {
+                                    var page = HttpContext.Current.CurrentHandler as Page;
+                                    var master = page.Master;
+                                    eObj.ErrorData(ex, page);
+                                }
+                                //catch (Exception)
+                                //{
+                                //    lblError.Text = " Some problem while populating controls ";
+                                //}
                             }
                         }
                     }
                 }
-            }
-            catch (Exception)
-            {
-
-                lblError.Text = " Some problem while deleting non project role ";
-                lblError.Text = " Some problem while deleting non project role ";
-
-            }
-
-           
+            
+            //catch (Exception)
+            //{
+            //    lblError.Text = " Some problem while deleting non project role ";
+            //   }
 
         }
-            
-
-
-          
-
+           
         #endregion dtgNonProjectRoles_ItemCommand
-
 
 
         #region Page Load
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
-            ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
 
+            ScriptManager.RegisterStartupScript(this, this.GetType(), " ", "DisablePopUP();", true);
+            RegisterToolBox();
+           
+            UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
 
             ToolBar.AddButton.Visible = false;
             ToolBar.EditButton.Visible = false;
@@ -479,61 +805,71 @@ namespace FlyCn.FlycnSecurity
             ToolBar.UpdateButton.Visible = false;
 
 
-            if (lblError.Text != string.Empty)
-            {
-                lblError.Text = string.Empty;
-            }
+            //if (lblError.Text != string.Empty)
+            //{
+            //    lblError.Text = string.Empty;
+            //}
 
             if (!IsPostBack)
             {
-                BindRoleTypeComboBox();
-                BindRoleScopeComboBox();
-                BindProjectGroup1();
+                BindRoleTypeComboBox(null);
+                BindRoleScopeComboBox(null);
+                BindProjectGroup1(null);
 
             }
-           
+
             else
             {
-
-            //  ---- Dropdown selection causes postback ----
-
-             if(hdnEditPostBack.Value == "True")
-             {
-                 ToolBar.UpdateButton.Visible = true;
-                 ToolBar.SaveButton.Visible = false;
-             }
-
+                ToolbarVisibility(hdnEditPostBack.Value);
             }
+
+            //else
+            //{
+
+            ////  ---- Dropdown selection causes postback ----
+
+            // if(hdnEditPostBack.Value == "True")
+            // {
+            //     ToolBar.UpdateButton.Visible = true;
+            //     ToolBar.SaveButton.Visible = false;
+            // }
+
+            //}
 
 
         }
 
         #endregion Page Load
 
-
-
         #region  ToolBar_onClick
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
             string functionName = e.Item.Value;
 
+
             if (functionName == "Save")
             {
                 InsertRole();
+                dtgNonProjectRoles.Rebind();
+                ClearControls();
+
+                //RegisterToolBox();
             }
             else
             {
                 if (functionName == "Update")
                 {
                     UpdateNonProjectRoleByRoleID();
+                    dtgNonProjectRoles.Rebind();
+                    ClearControls();
+
+                    //RegisterToolBox();
                 }
 
             }
         }
 
         #endregion  ToolBar_onClick
-
-
 
         #endregion Events
     }
@@ -547,186 +883,4 @@ namespace FlyCn.FlycnSecurity
 
 
 
-
-//#region Insert Button Click
-
-///// <summary>
-/////  To insert new non project role
-///// </summary>
-///// <param name="sender"></param>
-///// <param name="e"></param>
-//protected void btnInsert_Click(object sender, EventArgs e)
-//{
-//    string ScopeValue = string.Empty;
-//    try
-//    {
-//        if (txtRoleName.Text != string.Empty || ddlRoleType.SelectedItem.Text == "--Select--" || txtAccessType.Text != string.Empty)
-//        {
-//            //if (txtProjectGroup1.Text != string.Empty || txtProjectGroup2.Text != string.Empty || txtProjectGroup3.Text != string.Empty || txtCreated_By.Text != string.Empty || txtCreated_Date.Text != string.Empty)
-//            //{
-//            //DALObj.RoleID = Convert.ToInt32(txtRoleID.Text);
-//            DALObj.RoleName = txtRoleName.Text;
-//            DALObj.RoleType = ddlRoleType.SelectedItem.Text;
-//            //DALObj.RoleScope = Convert.ToInt32(ddlRoleScope.SelectedItem.Text);
-//            //DALObj.ProjectGroup1 = txtProjectGroup1.Text;
-
-//            DALObj.ProjectGroup1 = ddlProjectGroup1.SelectedItem.Text;
-//            DALObj.ProjectGroup2 = txtProjectGroup2.Text;
-//            DALObj.ProjectGroup3 = txtProjectGroup3.Text;
-//            DALObj.AccessType = txtAccessType.Text;
-//            DALObj.Created_By = txtCreated_By.Text;
-//            DALObj.RoleScope = Convert.ToInt32(ddlLevel.SelectedItem.Value);
-
-//            //DALObj.Created_Date = Convert.ToDateTime(txtCreated_Date.Text);
-
-//            //}
-
-//            for (int i = 1; i < lstRoleScope.Items.Count; i++)
-//            {
-//                if (lstRoleScope.Items[i].Selected)
-//                {
-
-//                    if (ScopeValue == string.Empty)
-//                    {
-//                        ScopeValue = lstRoleScope.Items[i].Value;
-//                        ScopeValueText = lstRoleScope.Items[i].Text;
-
-//                    }
-//                    else
-//                    {
-//                        ScopeValue = ScopeValue + "," + lstRoleScope.Items[i].Value;
-//                        ScopeValueText = ScopeValueText + "," + lstRoleScope.Items[i].Text;
-//                    }
-
-//                }
-//            }
-
-
-
-//            DALObj.ScopeValue = ScopeValue;
-//            DALObj.InsertNonProjectRoles();
-
-//            BindGridview();
-//            ClearControls();
-
-
-//        }
-
-//        else
-//        {
-//            lblError.Text = " Please fill the mandatory fields !";
-//        }
-//    }
-//    catch (Exception)
-//    {
-
-//        lblError.Text = " Some problem while inserting new non project access role";
-//    }
-
-//}
-
-//#endregion Insert Button Click
-
-//#region Update Button Click
-
-//protected void btnUpdate_Click(object sender, EventArgs e)
-//{
-
-//}
-
-//#endregion Update Button Click
-
-
-
-
-
-
-
-
-
-
-
-//#region Delete Image Button Click
-//protected void imgBtnDelete_Click(object sender, ImageClickEventArgs e)
-//{
-//    GridViewRow clickedRow = ((ImageButton)sender).NamingContainer as GridViewRow;
-//    ImageButton imgBtnDelete = (ImageButton)clickedRow.FindControl("imgBtnDelete");
-
-
-
-//    try
-//    {
-//        string selectedRow = clickedRow.Cells[1].Text;
-
-//        DALObj.RoleID = Convert.ToInt32(selectedRow);
-//        DALObj.DeleteNonProjectRoleByRoleID();
-
-//        BindGridview();
-//    }
-//    catch (Exception)
-//    {
-
-//        lblError.Text = " Some problem while deleting non project role ";
-//    }
-//}
-
-//#endregion Delete Image Button Click
-
-//#region Update Image Button Click
-//protected void imgBtnEdit_Click(object sender, ImageClickEventArgs e)
-//{
-
-//    string ScopeValue = string.Empty;
-//    //RoleName RoleType RoleScope ProjectGroup1 AccessType Created_By  Created_Date
-
-//    DALObj.RoleID = Convert.ToInt32(ViewState["RoleID"]);
-//    DALObj.RoleName = txtRoleName.Text;
-//    DALObj.RoleType = ddlRoleType.SelectedItem.Text;
-//    DALObj.RoleScope = Convert.ToInt32(Convert.ToInt32(ddlLevel.SelectedItem.Value));
-
-//    //DALObj.ProjectGroup1 = txtProjectGroup1.Text;
-//    DALObj.ProjectGroup1 = ddlProjectGroup1.SelectedItem.Text;
-
-//    DALObj.ProjectGroup2 = txtProjectGroup2.Text;
-//    DALObj.ProjectGroup3 = txtProjectGroup3.Text;
-//    DALObj.AccessType = txtAccessType.Text;
-//    DALObj.Created_By = txtCreated_By.Text;
-
-//    for (int i = 1; i < lstRoleScope.Items.Count; i++)
-//    {
-//        if (lstRoleScope.Items[i].Selected)
-//        {
-
-//            if (ScopeValue == string.Empty)
-//            {
-//                ScopeValue = lstRoleScope.Items[i].Value;
-//                ScopeValueText = lstRoleScope.Items[i].Text;
-
-//            }
-//            else
-//            {
-//                ScopeValue = ScopeValue + "," + lstRoleScope.Items[i].Value;
-//                ScopeValueText = ScopeValueText + "," + lstRoleScope.Items[i].Text;
-//            }
-
-//        }
-//    }
-//    //DALObj.Created_Date = Convert.ToDateTime(txtCreated_Date.Text);
-//    DALObj.ScopeValue = ScopeValue;
-
-//    DALObj.UpdateNonProjectRolesByRoleID();
-
-//    BindGridview();
-
-//    gvNonProjectRole.EditIndex = -1;
-//    ClearControls();
-
-//}
-
-//#endregion Update Image Button Click
-
-//protected void gvNonProjectRole_SelectedIndexChanged(object sender, EventArgs e)
-//{
-
-//}
 

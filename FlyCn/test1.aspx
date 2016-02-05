@@ -17,6 +17,18 @@
     <form id="form1" runat="server">
   
     <div style="margin: 0; padding: 0; min-width: 100%!important;">
+
+         Level Description : 
+
+       
+        <asp:TextBox ID="txtLevelDescription" runat="server"></asp:TextBox>
+        <br />
+    UserName:
+        <asp:TextBox ID="txtUserName" runat="server"></asp:TextBox>
+        <br />
+        <asp:Button ID="btnGo" runat="server"  Text="Go" OnClick="btnGo_Click" />
+        <asp:label ID="lblPermission" runat="server" text="Label" ></asp:label>
+
     <div style="border-style: solid; border-color: inherit; border-width: medium; margin: 0; padding: 0; min-width: 100%!important; height:27px; color:lightseagreen; background:lightseagreen; text-align:center;"> <label style="color:white; vertical-align:central; font-family: 'Segoe UI Light'; font-size:18px"> Document For Approvel</label></div>
         <div style="background-color:#f6f8f1; text-align:left;">
                 <label style="font:bold; font-size:15px; font-family:'Segoe UI'; color:#006666; margin-left:20px;" > Hi SSSSS</label>

@@ -146,7 +146,7 @@ namespace FlyCn.EIL
                 string ID = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["IDNo"].ToString();
                 string projno = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ProjectNo"].ToString();
 
-                dt = pObj.GetPunchListByProjNo(projno, ID);
+                dt = pObj.GetPunchListItemDetails(projno, ID);
                 txtIDno.Text = dt.Rows[0]["IDNo"].ToString();
                 string opndate = dt.Rows[0]["OpenDt"].ToString();
 
@@ -397,7 +397,7 @@ namespace FlyCn.EIL
                 string ID = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["IDNo"].ToString();
                 string projno = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ProjectNo"].ToString();
 
-                dt = pObj.GetPunchListByProjNo(projno, ID);
+                dt = pObj.GetPunchListItemDetails(projno, ID);
                 txtIDno.Text = dt.Rows[0]["IDNo"].ToString();
                 string opndate = dt.Rows[0]["OpenDt"].ToString();
 
