@@ -22,24 +22,6 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.ScriptManager scriptmanager2;
         
         /// <summary>
-        /// Heading control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Heading;
-        
-        /// <summary>
-        /// horizonaltab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl horizonaltab;
-        
-        /// <summary>
         /// ToolBar control.
         /// </summary>
         /// <remarks>
@@ -103,31 +85,22 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvloginName;
         
         /// <summary>
-        /// lblFullName control.
+        /// imgWebLnames control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFullName;
+        protected global::System.Web.UI.WebControls.Image imgWebLnames;
         
         /// <summary>
-        /// txtFullName control.
+        /// errorLnames control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFullName;
-        
-        /// <summary>
-        /// rfvFullName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFullName;
+        protected global::System.Web.UI.WebControls.Image errorLnames;
         
         /// <summary>
         /// lblPassword control.
@@ -137,6 +110,15 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPassword;
+        
+        /// <summary>
+        /// txtPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPassword;
         
         /// <summary>
         /// rfvPassword control.
@@ -175,6 +157,15 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvConfirmPassword;
         
         /// <summary>
+        /// lblpassValidate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblpassValidate;
+        
+        /// <summary>
         /// lblEmail control.
         /// </summary>
         /// <remarks>
@@ -202,6 +193,15 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
         
         /// <summary>
+        /// lblEmaillValid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEmaillValid;
+        
+        /// <summary>
         /// lblActive control.
         /// </summary>
         /// <remarks>
@@ -227,5 +227,32 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvActive;
+        
+        /// <summary>
+        /// lblTheme control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTheme;
+        
+        /// <summary>
+        /// ddlTheme control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTheme;
+        
+        /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
     }
 }

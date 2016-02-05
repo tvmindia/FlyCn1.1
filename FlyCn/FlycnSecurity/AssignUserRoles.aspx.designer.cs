@@ -7,36 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FlyCn {
+namespace FlyCn.FlycnSecurity {
     
     
-    public partial class Menu {
+    public partial class AssignUserRoles {
         
         /// <summary>
-        /// div1 control.
+        /// scriptmanager2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div1;
+        protected global::System.Web.UI.ScriptManager scriptmanager2;
         
         /// <summary>
-        /// div2 control.
+        /// ToolBar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div2;
-        
-        /// <summary>
-        /// lblAccessDenied control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAccessDenied;
+        protected global::FlyCn.UserControls.ToolBar ToolBar;
     }
 }

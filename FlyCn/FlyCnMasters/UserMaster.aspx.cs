@@ -23,6 +23,8 @@ namespace FlyCn.FlyCnMasters
         ErrorHandling eObj = new ErrorHandling();
         protected void Page_Load(object sender, EventArgs e)
         {
+            SecurityCheck();
+
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
@@ -34,6 +36,47 @@ namespace FlyCn.FlyCnMasters
 
         }
 
+        #region SecurityCheck
+        public void SecurityCheck()
+        {
+            string logicalObject = "UserMaster";
+
+            FlyCnDAL.Security.PageSecurity PS = new Security.PageSecurity(logicalObject, this);
+
+            if (PS.isWrite == true)
+            {
+                dtgUserMaster.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
+                dtgUserMaster.MasterTableView.GetColumn("Delete").Display = false;
+            }
+            else
+                if (PS.isEdit == true)
+                {
+                    dtgUserMaster.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
+                    dtgUserMaster.MasterTableView.GetColumn("Delete").Display = false;
+                }
+                else if (PS.isAdd == true)
+                {
+                    dtgUserMaster.MasterTableView.GetColumn("EditData").Display = false;
+                }
+                else if (PS.isRead == true)
+                {
+                    dtgUserMaster.MasterTableView.GetColumn("ViewDetailColumn").Display = true;
+
+
+                    dtgUserMaster.MasterTableView.GetColumn("Delete").Display = false;
+                }
+
+                else if (PS.isDenied == true)
+                {
+                    HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=accessdenied", true);
+                }
+            if (PS.isDelete == true)
+            {
+                dtgUserMaster.MasterTableView.GetColumn("Delete").Display = true;
+            }
+
+        }
+        #endregion SecurityCheck
 
 
    protected void   GridviewFilter_onClick(object sender, EventArgs e)

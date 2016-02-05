@@ -79,6 +79,77 @@
     </script>
 
     <script type="text/javascript">
+
+
+         function OnClientTabSelecting(sender, eventArgs) {
+
+            debugger;
+
+            var tab = eventArgs.get_tab();
+
+            var security = document.getElementById("hdnSecurityMaster").value;
+
+
+            PageSecurityCheck(security);
+            if (PageSecurity.isWriteOnly) {
+                if (tab.get_text() == "New") {
+
+                    eventArgs.set_cancel(false);
+                    <%=ToolBar.ClientID %>_hideNotification();
+                }
+                else
+                    if (tab.get_text() == "Details") {
+                        <%=ToolBar.ClientID %>_SetEditVisible(false);
+                        <%=ToolBar.ClientID %>_SetAddVisible(false);
+                        <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                        <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                        <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                    }
+            }
+            else
+                if (PageSecurity.isReadOnly) {
+                    if (tab.get_text() == "New") {
+                        <%=ToolBar.ClientID %>_hideNotification();
+                        AlertMsg(messages.EditModeNewClick);
+
+                        eventArgs.set_cancel(true);
+                    }
+                    else
+                        if (tab.get_text() == "Details") {
+                            <%=ToolBar.ClientID %>_SetEditVisible(false);
+                            <%=ToolBar.ClientID %>_SetAddVisible(false);
+                            <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                            <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                            <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                        }
+
+                }
+                else if (PageSecurity.isEditOnly) {
+                    if (tab.get_text() == "New") {
+                        <%=ToolBar.ClientID %>_hideNotification();
+                        AlertMsg(messages.EditModeNewClick);
+                        eventArgs.set_cancel(true);
+                    }
+                    else
+                        if (tab.get_text() == "Details") {
+                            <%=ToolBar.ClientID %>_SetEditVisible(false);
+                            <%=ToolBar.ClientID %>_SetAddVisible(false);
+                            <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                            <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                            <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                        }
+                }
+
+
+
+        }
+
+
+
+
+
         function onClientTabSelected(sender, args) {
 
             var tab = args.get_tab();
@@ -92,6 +163,29 @@
                     document.getElementById("<%=lblQualificationframe.ClientID %>").style.display = "";
                     document.getElementById('<%=txtCode.ClientID %>').disabled = false;
 
+         var security = document.getElementById("hdnSecurityMaster").value;
+                    PageSecurityCheck(security);
+
+                    if ((PageSecurity.isWriteOnly)) {
+
+                        <%=ToolBar.ClientID %>_SetEditVisible(false);
+                        <%=ToolBar.ClientID %>_SetAddVisible(false);
+                        <%=ToolBar.ClientID %>_SetSaveVisible(true);
+                        <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                        <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                        <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                    }
+
+
+                    if ((PageSecurity.isReadOnly)) {
+
+                        <%=ToolBar.ClientID %>_SetEditVisible(false);
+                        <%=ToolBar.ClientID %>_SetAddVisible(false);
+                        <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                        <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                        <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                        <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                    }
 
                 }
                 catch (x) {
@@ -132,7 +226,7 @@
     </script>
     <div class="container" style="width: 100%">
 
-    <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
+    <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" OnClientTabSelecting="OnClientTabSelecting"  
         CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
         <Tabs>
             <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True"></telerik:RadTab>
@@ -163,6 +257,7 @@
                                 <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton"  ImageUrl="~/Images/Cancel.png" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
                                 </telerik:GridButtonColumn>
 
+                                  <telerik:GridButtonColumn CommandName="ViewDetailColumn" Text="ViewDetails" UniqueName="ViewDetailColumn"  ButtonType="ImageButton" Display="false" ImageUrl="~/Images/Document Next-WF.png"  ></telerik:GridButtonColumn>
                             </Columns>
                         </MasterTableView>
 
