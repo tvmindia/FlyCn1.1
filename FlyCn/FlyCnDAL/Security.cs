@@ -1,4 +1,19 @@
-﻿using FlyCn.UserControls;
+﻿#region CopyRight
+
+//All rights are reserved
+//Created By   :
+//Created Date : 
+//Purpose      : 
+
+//Modified BY   : SHAMILA T P
+//Modified Date : 2.2.2016
+//Purpose       : To add security for users
+
+#endregion CopyRight
+
+#region Included Namespaces
+
+using FlyCn.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,12 +24,21 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
+using FlyCnSecurity.SecurityDAL;
+
+#endregion Included Namespaces
 
 namespace FlyCn.FlyCnDAL
 {
     
     public class Security
     {
+        #region Global Variables
+
+        SecurityUsers securityUsrObj = new SecurityUsers();
+
+        #endregion Global Variables
+
 
         public string UserName
         {
@@ -150,27 +174,39 @@ namespace FlyCn.FlyCnDAL
               string usrname = UA.userName;
               Security sObj = new Security();
               string result;
-              
-     
-              result = sObj.LoginSecurityCheck(usrname);
+
+              //string userAccess = DALObj.GetUserAccess(txtUserName.Text, txtLevelDescription.Text);
+              //lblPermission.Text = userAccess;
+
+              result = sObj.LoginSecurityCheck(usrname, pageName);
          
                  
                       
-                hdnSecurityField.Value = result;
+                hdnSecurityField.Value = result.Replace("a","wa");
+
+                if(result.Contains("a"))
+                {
+                    result = result.Replace("a", "wa");
+                }
+
+
                 if (result.Contains("w"))
                     isWrite = true;
                 else 
                     if (result.Contains("e"))
                   isEdit = true;
-              else 
-                        if (result.Contains("a"))
-                  isAdd = true;
-              else 
-                            if (result.Contains("r"))
-                  isRead = true;
               else
+                        if (result.Contains("a"))
+                        {
+                            isAdd = true;
+                            
+                        }
+                        else
+                            if (result.Contains("r"))
+                                isRead = true;
+                            else
                                 if (result.Contains(""))
-                  isDenied = true;
+                                    isDenied = true;
                 if(result.Contains("d"))
                 isDelete=true;
            
@@ -417,11 +453,14 @@ namespace FlyCn.FlyCnDAL
             }
             return 0;
         }
-        public string LoginSecurityCheck(string username)
+        public string LoginSecurityCheck(string username,string objName)
            {
 
+               string userAccess = securityUsrObj.GetUserAccess(username, objName);
+
+
                if (username == "UserF" )
-            //   || username == "amrutha" || username == "albert" || username == "anija")
+                //   || username == "amrutha" || username == "albert" || username == "anija")
 
                    return "rdew";
             else
@@ -441,8 +480,16 @@ namespace FlyCn.FlyCnDAL
                 return "r";
             }
 
+            
+            else
+                if (userAccess != "")
+                {
+                    return userAccess;
+                }
 
                return "rdew";
+
+
         }
 
         public void ReadOnly(ToolBar pagecontrols)

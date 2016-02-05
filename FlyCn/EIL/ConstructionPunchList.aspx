@@ -228,7 +228,7 @@
 
 
         function onClientTabSelected(sender, args) {
-            
+            debugger;
             var tab = args.get_tab();
          
             if (tab.get_value() == '2') {

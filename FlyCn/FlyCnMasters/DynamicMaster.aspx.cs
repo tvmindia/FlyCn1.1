@@ -30,6 +30,7 @@ namespace FlyCn.FlyCnMasters
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            SecurityCheck();
 
             //--------------------------------------------------------
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
@@ -78,6 +79,46 @@ namespace FlyCn.FlyCnMasters
 
         #endregion  ToolBar_onClick
 
+        #region SecurityCheck
+        public void SecurityCheck()
+        {
+            string logicalObject = "DynamicMaster";
+
+            FlyCnDAL.Security.PageSecurity PS = new Security.PageSecurity(logicalObject, this);
+
+            if (PS.isWrite == true)
+            {
+                dtgDynamicMasterGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
+                dtgDynamicMasterGrid.MasterTableView.GetColumn("Delete").Display = false;
+            }
+            else
+                if (PS.isEdit == true)
+                {
+                    dtgDynamicMasterGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
+                    dtgDynamicMasterGrid.MasterTableView.GetColumn("Delete").Display = false;
+                }
+                else if (PS.isAdd == true)
+                {
+                    dtgDynamicMasterGrid.MasterTableView.GetColumn("EditData").Display = false;
+                }
+                else if (PS.isRead == true)
+                {
+                    dtgDynamicMasterGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = true;
+                    dtgDynamicMasterGrid.MasterTableView.GetColumn("EditData").Display = false;
+                    dtgDynamicMasterGrid.MasterTableView.GetColumn("Delete").Display = false;
+                }
+
+                else if (PS.isDenied == true)
+                {
+                    HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=accessdenied", true);
+                }
+            if (PS.isDelete == true)
+            {
+                dtgDynamicMasterGrid.MasterTableView.GetColumn("Delete").Display = true;
+            }
+
+        }
+        #endregion SecurityCheck
 
         #region  PlaceControls
 

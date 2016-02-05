@@ -9,7 +9,80 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
       <script src="../Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../Scripts/ToolBar.js"></script>
     <script>
+
+        function OnClientTabSelecting(sender, eventArgs) {
+          
+            debugger;
+
+            var tab = eventArgs.get_tab();
+
+            var security = document.getElementById("hdnSecurityMaster").value;
+            
+            PageSecurityCheck(security);
+           
+            if (PageSecurity.isWriteOnly) {
+              
+                if (tab.get_text() == "New") {
+                  
+                    eventArgs.set_cancel(false);
+                    <%=ToolBar.ClientID %>_hideNotification();
+                }
+                else
+                    if (tab.get_text() == "Details") {
+                     
+                        <%=ToolBar.ClientID %>_SetEditVisible(false);
+                        <%=ToolBar.ClientID %>_SetAddVisible(false);
+                        <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                        <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                        <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                    }
+            }
+            else
+                if (PageSecurity.isReadOnly) {
+                    if (tab.get_text() == "New") {
+                        <%=ToolBar.ClientID %>_hideNotification();
+                        AlertMsg(messages.EditModeNewClick);
+
+                        eventArgs.set_cancel(true);
+                    }
+                    else
+                        if (tab.get_text() == "Details") {
+                            <%=ToolBar.ClientID %>_SetEditVisible(false);
+                            <%=ToolBar.ClientID %>_SetAddVisible(false);
+                            <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                            <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                            <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                        }
+
+                }
+                else if (PageSecurity.isEditOnly) {
+                    if (tab.get_text() == "New") {
+                        <%=ToolBar.ClientID %>_hideNotification();
+                        AlertMsg(messages.EditModeNewClick);
+                        eventArgs.set_cancel(true);
+                    }
+                    else
+                        if (tab.get_text() == "Details") {
+                            <%=ToolBar.ClientID %>_SetEditVisible(false);
+                            <%=ToolBar.ClientID %>_SetAddVisible(false);
+                            <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                            <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                            <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                        }
+                }
+
+
+
+        }
+
+
+
+
+
 
         function OnClientButtonClicking(sender, args) {
             var btn = args.get_item();
@@ -70,14 +143,41 @@
 
 
         function onClientTabSelected(sender, args) {
+           
             debugger;
           var tab = args.get_tab();
           if (tab.get_value() == '2') {//New tab selected
-
+             
               try {
 
                   ClearTextBox();
-                  EnableButtonsForNew(); 
+                 
+                  var security = document.getElementById("hdnSecurityMaster").value;
+                  PageSecurityCheck(security);
+
+                  if ((PageSecurity.isWriteOnly)) {
+                      
+                      <%=ToolBar.ClientID %>_SetEditVisible(false);
+                      <%=ToolBar.ClientID %>_SetAddVisible(false);
+                      <%=ToolBar.ClientID %>_SetSaveVisible(true);
+                      <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                      <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                      <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                  }
+
+
+                  if ((PageSecurity.isReadOnly)) {
+                     
+                      <%=ToolBar.ClientID %>_SetEditVisible(false);
+                      <%=ToolBar.ClientID %>_SetAddVisible(false);
+                      <%=ToolBar.ClientID %>_SetSaveVisible(false);
+                      <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                      <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                      <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                  }
+                
+                  EnableButtonsForNew();
+                 
               }
               catch (x) {
                   alert(x.message);
@@ -109,7 +209,8 @@
       <div class="container" style="width:100%">
           <asp:Label ID="lblTableName" runat="server" Text=""></asp:Label>
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
-            CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
+     
+      OnClientTabSelecting="OnClientTabSelecting"       CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
 
             <Tabs>
                 <telerik:RadTab Text="View" PageViewID="rpList" Value="1" Width="150px" runat="server" ImageUrl="~/Images/Icons/ListIcon.png" Selected="True" TabIndex="0"></telerik:RadTab>
@@ -143,7 +244,7 @@
                                         <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png">
                                         </telerik:GridButtonColumn> 
                                        
-
+                                         <telerik:GridButtonColumn CommandName="ViewDetailColumn" Text="ViewDetails" UniqueName="ViewDetailColumn"  ButtonType="ImageButton" Display="false" ImageUrl="~/Images/Document Next-WF.png"  ></telerik:GridButtonColumn>
                                     </Columns>
                                 </MasterTableView>
  
@@ -154,6 +255,7 @@
                              <telerik:RadPageView ID="rpAddEdit" runat="server">
                                    
                                           <div id="placeholder" runat="server" style="text-align: left" class="col-md-12 Span-One"></div>
+                               
                                      </telerik:RadPageView>
                             
                                

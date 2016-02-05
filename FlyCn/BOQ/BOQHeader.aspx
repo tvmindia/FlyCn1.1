@@ -348,7 +348,7 @@
 
         function OnClientTabSelecting(sender, eventArgs) {
 
-           
+            debugger;
 
             var tab = eventArgs.get_tab();
             
