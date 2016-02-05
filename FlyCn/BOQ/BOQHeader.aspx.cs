@@ -24,7 +24,7 @@ namespace FlyCn.BOQ
     {
         DocumentAttachments doc = new DocumentAttachments();
         public int NumberOfTimesNeedDataSourceCalled = 0;
-
+       
         #region Global Variables
         DocumentMaster documentMaster;
         string _RevisionId;
@@ -57,6 +57,7 @@ namespace FlyCn.BOQ
             //GridviewFilter.onClick += new EventHandler(GridviewFilter_onClick);
              BOQObj.RevisionIdFromHiddenfield = hiddenFieldRevisionID.ToString(); 
              BOQObj.DocumentOwner = hiddenDocumentOwner.Value;
+            
             //BOQObj.BindTree(RadTreeView tview);
             hiddenFieldDocumentType.Value = "BOQ";
             ContentIframe.Style["display"] = "none";//iframe disabling
