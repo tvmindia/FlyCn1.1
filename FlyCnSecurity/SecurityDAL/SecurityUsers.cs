@@ -213,6 +213,7 @@ namespace FlyCnSecurity.SecurityDAL
         /// <param name="objID"></param>
         public string GetPermissionString(string objID, string rollID)
         {
+            
   //---------*Case of multiple roles : get individual roles by spliting the user input and call the fn for each role and add all permission to get total permission*-----------//
             if (rollID.Contains(','))
             {
@@ -248,6 +249,7 @@ namespace FlyCnSecurity.SecurityDAL
 
             if (dsObjectAccess.Tables[0].Rows.Count == 0)
             {
+             
                 ObjId = objID;
                 string levelID =GetLevelIDByObjID();
 
@@ -337,19 +339,19 @@ namespace FlyCnSecurity.SecurityDAL
             //Conversion of permission to AEDR format instead of boolean values
             if (GlobalAdd == true)
             {
-                tot_Permission = tot_Permission + "A";
+                tot_Permission = tot_Permission + "a";
             }
             if (GlobalEdit == true)
             {
-                tot_Permission = tot_Permission + "E";
+                tot_Permission = tot_Permission + "e";
             }
             if (GlobalDelete == true)
             {
-                tot_Permission = tot_Permission + "D";
+                tot_Permission = tot_Permission + "d";
             }
             if (GlobalReadOnly == true)
             {
-                tot_Permission = tot_Permission + "R";
+                tot_Permission = tot_Permission + "r";
             }
 
             if (GlobalAdd == false && GlobalEdit == false && GlobalDelete == false && GlobalReadOnly == false)
@@ -405,6 +407,8 @@ namespace FlyCnSecurity.SecurityDAL
 
         public string GetUserAccess(string UserName, string LevelDesc,string ProjectNo=null)
         {
+            string temp = "";
+            string roleId = "";
             string usrAccess = string.Empty;
             SqlConnection conn = null;
             SqlCommand cmd = null;
@@ -424,11 +428,57 @@ namespace FlyCnSecurity.SecurityDAL
                 cmd.ExecuteNonQuery();
                 string objID = OutparamId.Value.ToString();
 
-                dtUserInRoles = GetAllDetailsOfUsersInRoles(UserName);
-                int roleId = Convert.ToInt32(dtUserInRoles.Rows[0]["RoleID"]);
+                    dtUserInRoles = GetAllDetailsOfUsersInRoles(UserName);
 
-                usrAccess = GetPermissionString(objID, roleId.ToString());
 
+                    if (dtUserInRoles.Rows.Count > 0)
+                    {
+                        //-------* case of single role *------//
+                        if (dtUserInRoles.Rows.Count == 1)
+                        {
+                            roleId = dtUserInRoles.Rows[0]["RoleID"].ToString();
+                        }
+                        else
+                        //-----* Case of multiple role (get all role and pass it by seperating by comma)   
+                        {
+                            for (int r = 0; r < dtUserInRoles.Rows.Count; r++)
+                            {
+                                string s = dtUserInRoles.Rows[r]["RoleID"].ToString();
+                                temp = temp + "," + s;
+
+                            }
+
+                            roleId = temp.Remove(0,1);
+                        }
+
+                        usrAccess = GetPermissionString(objID, roleId);
+
+                    }
+
+
+                    //else
+                    //{
+                    //    if (dtUserInRoles.Rows.Count == 0)
+                    //    {
+                    //        ObjId = objID;
+                    //        string levelID = GetLevelIDByObjID();
+
+                    //        int count = levelID.Split('.').Length - 1;
+
+                    //        for (int i = count; i >= 1; i--)
+                    //        {
+                    //            string str = levelID;
+                    //            string ext = levelID.Substring(0, str.LastIndexOf("."));
+
+                    //            levelID = ext;
+
+                    //            LevelID = ext;
+                    //            objID = GetObjectIDByLevelID().ToString();
+                    //            dtUserInRoles = GetAllDetailsOfUsersInRoles(UserName);
+
+                    //        }
+                    //    }
+                    //}
             }
 
             catch (Exception ex)
