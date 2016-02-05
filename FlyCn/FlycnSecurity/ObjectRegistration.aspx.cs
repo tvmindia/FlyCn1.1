@@ -640,11 +640,15 @@ namespace FlyCn.FlycnSecurity
 
         }
 
-        protected void imgBtnUpdate_Click(object sender, ImageClickEventArgs e)
-        {
+        //protected void imgBtnUpdate_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    GridViewRow clickedRow = ((ImageButton)sender).NamingContainer as GridViewRow;
+        //    ImageButton lblID = (ImageButton)clickedRow.FindControl("imgBtnUpdate");
+        //    string selectedRow = clickedRow.Cells[1].Text;
 
+        //    DALObj.ObjId = selectedRow;
 
-        }
+        //}
 
         protected void ddlParent_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -27,12 +27,57 @@ namespace FlyCn
         #region  Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
+            SecurityCheck();
+
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
         }
          
         #endregion  Page_Load
+
+        #region SecurityCheck
+        public void SecurityCheck()
+        {
+            string logicalObject = "DynamicMaster";
+
+            FlyCnDAL.Security.PageSecurity PS = new Security.PageSecurity(logicalObject, this);
+
+            if (PS.isWrite == true)
+            {
+                dtgPersonnelGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
+                dtgPersonnelGrid.MasterTableView.GetColumn("Delete").Display = false;
+            }
+            else
+                if (PS.isEdit == true)
+                {
+                    dtgPersonnelGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = false;
+                    dtgPersonnelGrid.MasterTableView.GetColumn("Delete").Display = false;
+                }
+                else if (PS.isAdd == true)
+                {
+                    dtgPersonnelGrid.MasterTableView.GetColumn("EditData").Display = false;
+                }
+                else if (PS.isRead == true)
+                {
+                    dtgPersonnelGrid.MasterTableView.GetColumn("ViewDetailColumn").Display = true;
+                    dtgPersonnelGrid.MasterTableView.GetColumn("EditData").Display = false;
+                    dtgPersonnelGrid.MasterTableView.GetColumn("Delete").Display = false;
+                }
+
+                else if (PS.isDenied == true)
+                {
+                    HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=accessdenied", true);
+                }
+            if (PS.isDelete == true)
+            {
+                dtgPersonnelGrid.MasterTableView.GetColumn("Delete").Display = true;
+            }
+
+        }
+        #endregion SecurityCheck
+
+
 
         #region  ToolBar_onClick
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
