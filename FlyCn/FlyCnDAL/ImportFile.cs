@@ -733,9 +733,18 @@ namespace FlyCn.FlyCnDAL
                 ValidationExcel validationObj = new ValidationExcel();
                 totalCount = dsFile.Tables[0].Rows.Count;
                 InitializeExcelImportDetails(ExcelFileName, totalCount, dbcon);
+
+
+              //  DataTable uniqueCols = dsTable.Tables[0].DefaultView.ToTable(true, "Ref_TableName", "Field_Description");
+
                 DataRow[] MasterFieldDetails = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
+               
+               // DataTable tempDT = new DataTable();
+ 
+                //MasterFieldDetails.Distinct<>();
                 foreach (DataRow row in MasterFieldDetails)//storing master having columns
                 {
+                    //MasterFieldDetails.AsEnumerable().Distinct(row);
                     MasterColumns.Add(row["Field_Description"].ToString());//column 2 field descrption
                 }
 
