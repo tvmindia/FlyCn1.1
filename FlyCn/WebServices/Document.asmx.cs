@@ -416,11 +416,11 @@ namespace FlyCn.WebServices
                         if (col.DataType.Name == "DateTime")                //to pick only date of DateTime from DB
                             {
                                 DateTime date = DateTime.Parse(dr[col].ToString());
-                                formattedDR["" + i + ""] = col.ColumnName + " : " + date.ToString("dd-MMM-yyyy");
+                                formattedDR["" + i + ""] = col.ColumnName + "$$" + date.ToString("dd-MMM-yyyy");
                             }
                         else
                             { 
-                            formattedDR["" + i + ""] = col.ColumnName + " : " + dr[col];             //value with coloumn name
+                            formattedDR["" + i + ""] = col.ColumnName + "$$" + dr[col];             //value with coloumn name
                             }
                         i++;
                     }
