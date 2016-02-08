@@ -1253,13 +1253,13 @@ namespace FlyCn.FlyCnDAL
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
-                string selectQuery = "select FileName,SlNo,EILType from EIL_Attach where ProjectNo=@No and RefNo=@id and EILType=@EILType";
+            /*    string selectQuery = "select FileName,SlNo,EILType from EIL_Attach where ProjectNo=@No and RefNo=@id and EILType=@EILType";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
                 cmdSelect.Parameters.AddWithValue("@No", UA.projectNo);
                 cmdSelect.Parameters.AddWithValue("@id", id);
                 cmdSelect.Parameters.AddWithValue("@EILType", "WEIL");
                 daObj = new SqlDataAdapter(cmdSelect);
-                daObj.Fill(dt);
+                daObj.Fill(dt);                                                                  */
             }
             catch (SqlException ex)
             {
