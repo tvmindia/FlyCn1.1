@@ -683,13 +683,13 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion GetPunchListItemDetails
 
-        #region GetPunchListItemDetailsForMobile
+        #region Get Punch List Item Details For Mobile
         /// <summary>
         /// To get the details from EIL table passing for mobile app
         /// </summary>
-        /// <param name=ProjNo>Project Number and Id</param>
-        /// <param name=id></param>
-        /// /// <param name=type> WEIL/CEIL/QEIL </param>
+        /// <param name="ProjNo">Project Number and Id</param>
+        /// <param name="id"></param>
+        /// /// <param name="type"> WEIL/CEIL/QEIL </param>
         /// <returns>Datatable with all the details from EIL Table of curresponding item</returns>
         public DataTable GetPunchListItemDetailsForMobile(string ProjNo, string id, string type)
         {
@@ -721,7 +721,43 @@ namespace FlyCn.FlyCnDAL
 
             return dt;
         }
-        #endregion GetPunchListItemDetailsForMobile
+        /// <summary>
+        /// To get the attachments from EIL_Attach table passing for mobile app
+        /// </summary>
+        /// <param name="projNo">Project Number</param>
+        /// <param name="punchID">ID of EIL</param>
+        /// /// <param name="EILtype"> WEIL/CEIL/QEIL </param>
+        /// <returns>Datatable with the details from EIL_Attach Table of curresponding item</returns>
+        public DataTable GetPunchListItemAttachments(string projNo, string punchID, string EILtype)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection con = null;
+            SqlDataAdapter daObj;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmdSelect = new SqlCommand("GetEILAttachment", con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
+                cmdSelect.Parameters.AddWithValue("@projectno", projNo);
+                cmdSelect.Parameters.AddWithValue("@punchID", punchID);
+                cmdSelect.Parameters.AddWithValue("@EILtype", EILtype);
+                daObj = new SqlDataAdapter(cmdSelect);
+                daObj.Fill(dt);
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return dt;
+        }
+        #endregion Get PunchList Item Details For Mobile
 
         #region GetSystemDetails
         public DataTable GetSystemDetails()
@@ -1253,13 +1289,13 @@ namespace FlyCn.FlyCnDAL
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
-                string selectQuery = "select FileName,SlNo,EILType from EIL_Attach where ProjectNo=@No and RefNo=@id and EILType=@EILType";
+            /*    string selectQuery = "select FileName,SlNo,EILType from EIL_Attach where ProjectNo=@No and RefNo=@id and EILType=@EILType";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
                 cmdSelect.Parameters.AddWithValue("@No", UA.projectNo);
                 cmdSelect.Parameters.AddWithValue("@id", id);
                 cmdSelect.Parameters.AddWithValue("@EILType", "WEIL");
                 daObj = new SqlDataAdapter(cmdSelect);
-                daObj.Fill(dt);
+                daObj.Fill(dt);                                                                  */
             }
             catch (SqlException ex)
             {

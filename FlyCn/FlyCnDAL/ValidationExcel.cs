@@ -323,13 +323,14 @@ namespace FlyCn.FlyCnDAL
                 DataRow[] refTableRow = null;
                 DataRow refTableOneRow = null;
                 DataRow[] masterDataExisting = null;
+                int count = 0;
                 try
                 {
                       //-------------------STEP1 MASTER DATA VALIDATE--------------------------------------------------//
-                    foreach(string dc in MasterColumns)                  
+                    foreach(string dc in MasterColumns)                
                         {                         
                               cName = dc.ToString();
-                       
+                              count = count + 1;
                              //check whether data exist in the masters
                                 fieldName = cName;
                                 refTableRow = dsTable.Tables[0].Select("Field_Description = '" + cName + "' AND Ref_TableName IS NOT NULL");
@@ -342,6 +343,7 @@ namespace FlyCn.FlyCnDAL
                                     //not found in masters so insert into masters as well as in masterDS
                                     if (masterDataExisting.Length == 0)
                                    {
+                                  //   continue;
                                    //Add New record to MasterDS
                                     DataRow newCustomersRow = MasterDS.Tables[0].NewRow();
                                     newCustomersRow["TableName"] = refTableName;

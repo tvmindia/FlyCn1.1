@@ -320,6 +320,7 @@
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="FlycnSecurity\AssignRoles.aspx" />
     <Content Include="FlycnSecurity\AssignUserRoles.aspx" />
+    <Content Include="FlycnSecurity\ManageAccess.aspx" />
     <Content Include="FlycnSecurity\NonProjectRoles.aspx" />
     <Content Include="FlycnSecurity\Object.aspx" />
     <Content Include="FlycnSecurity\ObjectAccessForRoles.aspx" />
@@ -919,6 +920,13 @@
     <Compile Include="FlycnSecurity\AssignUserRoles.aspx.designer.cs">
       <DependentUpon>AssignUserRoles.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FlycnSecurity\ManageAccess.aspx.cs">
+      <DependentUpon>ManageAccess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlycnSecurity\ManageAccess.aspx.designer.cs">
+      <DependentUpon>ManageAccess.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FlycnSecurity\NonProjectRoles.aspx.cs">
       <DependentUpon>NonProjectRoles.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1166,6 +1174,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\ExcelTemplate\" />
     <Folder Include="Content\Fileupload\" />
+    <Folder Include="tempImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
