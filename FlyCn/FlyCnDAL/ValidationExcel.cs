@@ -40,7 +40,7 @@ namespace FlyCn.FlyCnDAL
             /// </summary>
             /// <param name="datarow from the result dataset of the excel file"></param>
             /// <returns>success/failure and error datatable</returns>
-            public int excelDatasetValidation(DataRow dr, DataSet dsTable,int rowNO)
+            public int excelDatasetValidation(DataRow dr, DataSet dsTable,int rowNO,dbConnection dbCon)
             {
                 DataTable dtError = CreateErrorTable();
                 DataSet dsError = new DataSet();
@@ -66,7 +66,7 @@ namespace FlyCn.FlyCnDAL
                         //string FieldName = item["Field_Name"].ToString();
                         string FieldName = item["Field_Description"].ToString();
                         string FieldDataType = item["Field_DataType"].ToString();
-                        //string temp = dr[FieldName].ToString().Trim();
+                        string temp = dr[FieldName].ToString().Trim();
                         
 
                         //if (dr[FieldName].ToString().Trim() == "" || dr[FieldName] == null)
@@ -125,7 +125,7 @@ namespace FlyCn.FlyCnDAL
                     if (flag == true)
                     {
                         rowNO= rowNO + 2;
-                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(),rowNO);
+                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
                         return -1;
                     }
                     else return 1;
@@ -326,25 +326,25 @@ namespace FlyCn.FlyCnDAL
                 int count = 0;
                 try
                 {
-                      //-------------------STEP1 MASTER DATA VALIDATE--------------------------------------------------//
-                    foreach(string dc in MasterColumns)                
-                        {                         
-                              cName = dc.ToString();
-                              count = count + 1;
-                             //check whether data exist in the masters
+                 //---------------------------------------------STEP1 MASTER DATA VALIDATE--------------------------------------------------//
+                               foreach(string dc in MasterColumns)                
+                               {                         
+                                cName = dc.ToString();
+                               // count = count + 1;
+                                //check whether data exist in the masters
                                 fieldName = cName;
                                 refTableRow = dsTable.Tables[0].Select("Field_Description = '" + cName + "' AND Ref_TableName IS NOT NULL");
                                 refTableOneRow = refTableRow[0];
-                                refTableName = refTableOneRow["Ref_TableName"].ToString();//refTable[0].ItemArray[6].ToString();
+                                refTableName = refTableOneRow["Ref_TableName"].ToString();
                                 refSelectField = refTableOneRow["Ref_SelectField"].ToString();
                                 refJoinField = refTableOneRow["Ref_JoinField"].ToString();
                                 masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[fieldName].ToString() + "'");
                                
-                                    //not found in masters so insert into masters as well as in masterDS
+                                    //Not found in masters so insert into masters as well as in masterDS
                                     if (masterDataExisting.Length == 0)
                                    {
-                                  //   continue;
-                                   //Add New record to MasterDS
+                                    //continue;
+                                    //Add New record to MasterDS
                                     DataRow newCustomersRow = MasterDS.Tables[0].NewRow();
                                     newCustomersRow["TableName"] = refTableName;
                                     newCustomersRow["Code"] = dr[fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
@@ -381,13 +381,11 @@ namespace FlyCn.FlyCnDAL
                                                 dt.Rows[k]["Values"] = "";
                                             }
                                         }
-
                                     }//for
                                     //Add New record to DatabaseTable
                                     objMO.InsertMasterData(dt, dr.Table.Rows[0]["ProjectNo"].ToString(), refTableName,userName,dbcon,true);
                                 }
-                               
-                           // }//if
+                             // }//if
                         
                            }//foreach 
 
@@ -407,6 +405,19 @@ namespace FlyCn.FlyCnDAL
             }
             
             #endregion DataValidation
+            #region MasterDataExist
+            public void MasterDataExist(DataSet MasterDS, DataRow dr, string refTableName, List<string> MasterColumns)
+            {
+                string cName;
+                DataRow[] masterDataExisting = null;
+                foreach (string dc in MasterColumns)
+                {
+                    cName = dc.ToString();
+                    masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[cName].ToString() + "'");
+                }
+            }
+            #endregion MasterDataExist
+
 
         }
     #endregion classValidationExcel
