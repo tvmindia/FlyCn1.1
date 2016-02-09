@@ -22,15 +22,6 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// lblTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTitle;
-        
-        /// <summary>
         /// ToolBar control.
         /// </summary>
         /// <remarks>
@@ -229,6 +220,114 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl span8;
         
         /// <summary>
+        /// ToolBar1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::FlyCn.UserControls.ToolBar ToolBar1;
+        
+        /// <summary>
+        /// lblManageExistingRoles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblManageExistingRoles;
+        
+        /// <summary>
+        /// lblProjectNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProjectNo;
+        
+        /// <summary>
+        /// ddlProjectNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlProjectNo;
+        
+        /// <summary>
+        /// dtgManageExistingRoles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid dtgManageExistingRoles;
+        
+        /// <summary>
+        /// lblCreateNewRole control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCreateNewRole;
+        
+        /// <summary>
+        /// lblCreateRoleName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCreateRoleName;
+        
+        /// <summary>
+        /// txtCreateRoleName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCreateRoleName;
+        
+        /// <summary>
+        /// rfvRoleName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvRoleName;
+        
+        /// <summary>
+        /// lblDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDescription;
+        
+        /// <summary>
+        /// txtDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDescription;
+        
+        /// <summary>
+        /// rfvDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDescription;
+        
+        /// <summary>
         /// hdnEditPostBack control.
         /// </summary>
         /// <remarks>
@@ -236,5 +335,14 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnEditPostBack;
+        
+        /// <summary>
+        /// selected_tab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField selected_tab;
     }
 }
