@@ -8,7 +8,7 @@
         $(document).ready(function () {
          
             EnableButtonsForNew();
-              <%=ToolBar.ClientID %>_hideNotification();        
+                    
             var EmailValidlbl = document.getElementById('<%=lblEmaillValid.ClientID %>');
             EmailValidlbl.style.display = "none";
             var validatePassword = document.getElementById('<%=lblpassValidate.ClientID %>');

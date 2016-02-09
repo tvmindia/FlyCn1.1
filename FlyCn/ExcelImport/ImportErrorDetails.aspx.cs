@@ -12,6 +12,7 @@ namespace FlyCn.ExcelImport
 {
     public partial class ImportErrorDetails : System.Web.UI.Page
     {
+        #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack)
@@ -20,6 +21,9 @@ namespace FlyCn.ExcelImport
             }
 
         }
+        #endregion Page_Load
+
+        #region BindData()
         //public void BindData()
         //{
         //    DataSet ds = new DataSet();
@@ -37,5 +41,6 @@ namespace FlyCn.ExcelImport
 
         //    }
         //}
+        #endregion BindData()
     }
 }

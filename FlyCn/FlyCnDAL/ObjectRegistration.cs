@@ -37,7 +37,7 @@ namespace FlyCn.FlyCnDAL
 
 
 
-            rtn = new RadTreeNode("Non Project Roles", "NonProjectRoles");
+            rtn = new RadTreeNode("Roles", "NonProjectRoles");
             rtn.NavigateUrl = cnst.NonProjectRoles;
             rtn.Target = "contentPane";
             myTree.Nodes.Add(rtn);
