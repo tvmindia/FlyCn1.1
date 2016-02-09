@@ -1174,6 +1174,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\ExcelTemplate\" />
     <Folder Include="Content\Fileupload\" />
+    <Folder Include="tempImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
