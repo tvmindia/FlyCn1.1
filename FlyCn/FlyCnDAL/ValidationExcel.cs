@@ -28,8 +28,6 @@ namespace FlyCn.FlyCnDAL
                 set;
             }
 
-            
-
             #endregion Public Properties
 
             #region Methods
@@ -55,8 +53,7 @@ namespace FlyCn.FlyCnDAL
                 {
                     DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
                     DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
-
-                //    StringBuilder keyFieldLists = new StringBuilder();
+                    //StringBuilder keyFieldLists = new StringBuilder();
                     StringBuilder errorDescLists = new StringBuilder();
                     bool flag = false;
                     string keyField = GetInvalidKeyField(keyFieldRow, dr);
@@ -67,8 +64,6 @@ namespace FlyCn.FlyCnDAL
                         string FieldName = item["Field_Description"].ToString();
                         string FieldDataType = item["Field_DataType"].ToString();
                         string temp = dr[FieldName].ToString().Trim();
-                        
-
                         //if (dr[FieldName].ToString().Trim() == "" || dr[FieldName] == null)
                         if (dr[FieldName].ToString().Trim() == "" || string.IsNullOrEmpty(dr[FieldName].ToString()))
                         {
@@ -350,7 +345,6 @@ namespace FlyCn.FlyCnDAL
                                     newCustomersRow["Code"] = dr[fieldName].ToString();//dsFile.Tables[0].Rows[i][fieldName].ToString();
                                     MasterDS.Tables[0].Rows.Add(newCustomersRow);
                                     MasterDS.Tables[0].AcceptChanges();
-                                     
                                     //Add New record to DatabaseTable
                                     MasterOperations objMO = new MasterOperations();
                                     DataSet dsTable_RefTable = null;
@@ -406,13 +400,18 @@ namespace FlyCn.FlyCnDAL
             
             #endregion DataValidation
             #region MasterDataExist
-            public void MasterDataExist(DataSet dsTable,DataSet MasterDS, DataRow dr, string refTableName, List<string> MasterColumns)
+            //validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i, comDAL.tableName,List<string> MasterColumns);
+            public void MasterDataExist(DataSet dsTable,DataSet MasterDS, DataRow dr,int rowNO, string TableName, List<string> MasterColumns,dbConnection dbCon)
             {
                 string cName;
+                string refTableName = "";
+                string refSelectField = "";
+                string refJoinField = "";
                 DataRow[] refTableRow = null;
                 DataRow refTableOneRow = null;
                 DataRow[] masterDataExisting = null;
                 StringBuilder errorDescLists = new StringBuilder();
+                bool flag = false;
                 ///
                 DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
                 string keyField = GetInvalidKeyField(keyFieldRow, dr);
@@ -423,26 +422,39 @@ namespace FlyCn.FlyCnDAL
                     refTableRow = dsTable.Tables[0].Select("Field_Description = '" + cName + "' AND Ref_TableName IS NOT NULL");
                     refTableOneRow = refTableRow[0];
                     refTableName = refTableOneRow["Ref_TableName"].ToString();
-
+                    refSelectField = refTableOneRow["Ref_SelectField"].ToString();
+                    refJoinField = refTableOneRow["Ref_JoinField"].ToString();
                     masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[cName].ToString() + "'");
                     if (masterDataExisting.Length == 0)//data does not exists in the masters
                     {
-                        //importfile.status_Id = "dfdf";
-
-                        if (refTableName == "M_Personel")
+                          //importfile.status_Id = "dfdf";
+                        if (refTableName == "M_Personnel")
                         {
-                            //Error for table name--M_Personel
-
+                           //Error for table name M_Personel
+                            flag = true;
+                            errorDescLists.Append(cName);
+                            errorDescLists.Append(",");
+                            errorDescLists.Append("is Invalid Master Data");
                         }
                         else
                         {
                             //Warning for Normal masters
-
+                            flag = true;
+                            errorDescLists.Append(cName);
+                            errorDescLists.Append(",");
+                            errorDescLists.Append("Warning");
                         }
                      
                     }
-                  //  importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
                 }
+                    if (flag == true)
+                    {
+                        rowNO = rowNO + 2;
+                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                       // return -1;
+                    }
+                  //importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                
             }
             #endregion MasterDataExist
 

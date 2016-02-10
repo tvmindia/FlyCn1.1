@@ -369,21 +369,22 @@ namespace FlyCn.EngineeredDataList
             DataSet MasterDS=null;
             CommonDAL tblDef = new CommonDAL();
             List<string> MasterColumns = new List<string>();
-            //MasterDS = tblDef.SelectAllMastersDataByTableName("tablename",UA.projectNo);
+            MasterDS = tblDef.SelectAllMastersDataByTableName(comDAL.tableName, UA.projectNo);
             dsTable = comDAL.GetTableDefinition(comDAL.tableName);
             validationObj.importfile.TotalCount = dsFile.Tables[0].Rows.Count;
-            //DataRow[] MasterFieldDetails = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
-            //foreach (DataRow row in MasterFieldDetails)//storing master having columns
-            //{
-            // MasterColumns.Add(row["Field_Description"].ToString());//column 2 field descrption
-            //}
+            DataRow[] MasterFieldDetails = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
+            foreach (DataRow row in MasterFieldDetails)//storing master having columns
+            {
+                MasterColumns.Add(row["Field_Description"].ToString());//column 2 field descrption
+            }
             dbConnection dbCon = new dbConnection();
             dbCon.GetDBConnection();
             for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
             {
                 int res;
                 res = validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable, i, dbCon);
-              //  validationObj.DataValidation(dsFile.Tables[0].Rows[i], MasterDS, dsTable, MasterColumns, UA.userName, dbCon);
+                validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i, comDAL.tableName,MasterColumns,dbCon);
+                
                 if (res == -1)
                 {
                     validationObj.importfile.errorCount = validationObj.importfile.errorCount + 1;
