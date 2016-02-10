@@ -56,7 +56,7 @@ namespace FlyCn.FlyCnDAL
                     DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
                     DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
 
-                    StringBuilder keyFieldLists = new StringBuilder();
+                //    StringBuilder keyFieldLists = new StringBuilder();
                     StringBuilder errorDescLists = new StringBuilder();
                     bool flag = false;
                     string keyField = GetInvalidKeyField(keyFieldRow, dr);
@@ -323,7 +323,7 @@ namespace FlyCn.FlyCnDAL
                 DataRow[] refTableRow = null;
                 DataRow refTableOneRow = null;
                 DataRow[] masterDataExisting = null;
-                int count = 0;
+                //int count = 0;
                 try
                 {
                  //---------------------------------------------STEP1 MASTER DATA VALIDATE--------------------------------------------------//
@@ -406,21 +406,42 @@ namespace FlyCn.FlyCnDAL
             
             #endregion DataValidation
             #region MasterDataExist
-            public void MasterDataExist(DataSet MasterDS, DataRow dr, string refTableName, List<string> MasterColumns)
+            public void MasterDataExist(DataSet dsTable,DataSet MasterDS, DataRow dr, string refTableName, List<string> MasterColumns)
             {
                 string cName;
+                DataRow[] refTableRow = null;
+                DataRow refTableOneRow = null;
                 DataRow[] masterDataExisting = null;
+                StringBuilder errorDescLists = new StringBuilder();
+                ///
+                DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
+                string keyField = GetInvalidKeyField(keyFieldRow, dr);
+
                 foreach (string dc in MasterColumns)
                 {
                     cName = dc.ToString();
+                    refTableRow = dsTable.Tables[0].Select("Field_Description = '" + cName + "' AND Ref_TableName IS NOT NULL");
+                    refTableOneRow = refTableRow[0];
+                    refTableName = refTableOneRow["Ref_TableName"].ToString();
+
                     masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[cName].ToString() + "'");
                     if (masterDataExisting.Length == 0)//data does not exists in the masters
                     {
-                        //Warning for 
-                        //Error for
-                    //    importfile.status_Id = "dfdf";
-                    }
+                        //importfile.status_Id = "dfdf";
 
+                        if (refTableName == "M_Personel")
+                        {
+                            //Error for table name--M_Personel
+
+                        }
+                        else
+                        {
+                            //Warning for Normal masters
+
+                        }
+                     
+                    }
+                  //  importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
                 }
             }
             #endregion MasterDataExist
