@@ -481,7 +481,7 @@ namespace FlyCn.WebServices
                     int i = 1;
                     foreach (DataColumn col in dt.Columns)
                     {
-                        if (col.DataType.Name == "DateTime")                //to pick only date of DateTime from DB
+                        if (col.DataType.Name == "DateTime" && dr[col]!= DBNull.Value)                //to pick only date of DateTime from DB
                             {
                                 DateTime date = DateTime.Parse(dr[col].ToString());
                                 formattedDR["" + i + ""] = col.ColumnName + "$$" + date.ToString("dd-MMM-yyyy");
