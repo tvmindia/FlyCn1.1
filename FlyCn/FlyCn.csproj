@@ -413,7 +413,6 @@
     <Content Include="Scripts\Messages.js" />
     <Content Include="Scripts\ToolBar.js" />
     <Content Include="Scripts\UserJs\UserValidations.js" />
-    <Content Include="tempImages\dfdf.bmp" />
     <Content Include="Templates\ApprovalMailTemplate.html" />
     <Content Include="Templates\DeclinedMailTemplate.html" />
     <Content Include="Templates\DocumentApprovalCompleteTemplate.html" />
@@ -1175,6 +1174,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\ExcelTemplate\" />
     <Folder Include="Content\Fileupload\" />
+    <Folder Include="tempImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
