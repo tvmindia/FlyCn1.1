@@ -414,6 +414,13 @@ namespace FlyCn.FlyCnDAL
                 {
                     cName = dc.ToString();
                     masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[cName].ToString() + "'");
+                    if (masterDataExisting.Length == 0)//data does not exists in the masters
+                    {
+                        //Warning for 
+                        //Error for
+                    //    importfile.status_Id = "dfdf";
+                    }
+
                 }
             }
             #endregion MasterDataExist
