@@ -10,6 +10,44 @@ using System.Web;
     public class AccessManage
     {
         DBconnection dcon = new DBconnection();
+
+        #region Public Properties
+        public string LevelId
+        {
+            get;
+            set;
+        }
+        public string ObjectId
+        {
+            get;
+            set;
+        }
+        public string LevelDecription
+        {
+            get;
+            set;
+        }
+        public bool Add
+        {
+            get;
+            set;
+        }
+        public bool Edit
+        {
+            get;
+            set;
+        }
+        public bool Delete
+        {
+            get;
+            set;
+        }
+        public bool ReadOnly
+        {
+            get;
+            set;
+        }
+        #endregion Public Properties
         public DataTable ObjectRegistrationDetails(string RoleId)
         {
 
