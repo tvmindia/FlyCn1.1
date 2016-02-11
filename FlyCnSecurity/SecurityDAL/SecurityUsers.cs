@@ -356,7 +356,7 @@ namespace FlyCnSecurity.SecurityDAL
 
             if (GlobalAdd == false && GlobalEdit == false && GlobalDelete == false && GlobalReadOnly == false)
             {
-                tot_Permission = "No access";
+                tot_Permission = "No";
             }
 
 
