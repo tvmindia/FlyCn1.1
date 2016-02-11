@@ -15,6 +15,7 @@ namespace FlyCn
             string id = Request.Params["id"];
 
             string myInnerHtml = ui.GenerateMultiSizeImageString(id);//ui.GenerateImageString(id);
+
             div2.Controls.Add(new LiteralControl(myInnerHtml));
         }
     }
