@@ -456,7 +456,7 @@ namespace FlyCn.FlyCnDAL
         public string LoginSecurityCheck(string username,string objName)
            {
 
-               string userAccess = securityUsrObj.GetUserAccess(username, objName);
+               string userAccess = securityUsrObj.GetUserAccess(username,objName);
 
 
                if (username == "UserF" )

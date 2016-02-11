@@ -83,7 +83,7 @@ namespace FlyCn.FlycnSecurity
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-
+            FlyCnSecurity.SecurityDAL.AccessManage AccsMng = new AccessManage();
 
             RadGrid1.AllowPaging = false;
             foreach (GridDataItem item in RadGrid1.Items)
@@ -91,11 +91,32 @@ namespace FlyCn.FlycnSecurity
                 GridDataItem dataitem = (GridDataItem)item;
                 //TableCell cell = dataitem["LevelID"];
                 CheckBox checkBoxAddId = (CheckBox)item.FindControl("ChkAdd");
-                if (checkBoxAddId.Checked == true)
+                CheckBox checkBoxEditId = (CheckBox)item.FindControl("ChkEdit");
+                CheckBox checkBoxDeleteId = (CheckBox)item.FindControl("ChkDelete");
+                CheckBox checkBoxReadOnlyId = (CheckBox)item.FindControl("ChkReadOnly");
+
+                if ((checkBoxAddId != null && checkBoxAddId.Checked) || (checkBoxEditId != null && checkBoxEditId.Checked) || (checkBoxDeleteId != null && checkBoxDeleteId.Checked) || (checkBoxReadOnlyId != null && checkBoxReadOnlyId.Checked))
                 {
-                    string value = dataitem.GetDataKeyValue("LevelID").ToString(); //Access the checked row using DataKeyNames
-                    string value2 = dataitem.GetDataKeyValue("ObjId").ToString();
-                    string value3 = dataitem.GetDataKeyValue("LevelDesc").ToString();
+                    AccsMng.LevelId= dataitem.GetDataKeyValue("LevelID").ToString(); //Access the checked row using DataKeyNames
+                    AccsMng.ObjectId = dataitem.GetDataKeyValue("ObjId").ToString();
+                   AccsMng.LevelDecription = dataitem.GetDataKeyValue("LevelDesc").ToString();
+                   if (dataitem.GetDataKeyValue("Add") != DBNull.Value )
+                   {
+                       AccsMng.Add = Convert.ToBoolean(dataitem.GetDataKeyValue("Add")); //Access the checked row using DataKeyNames
+
+                   }
+                   if (dataitem.GetDataKeyValue("Edit") != DBNull.Value)
+                   {
+                       AccsMng.Edit = Convert.ToBoolean(dataitem.GetDataKeyValue("Edit"));
+                   }
+                   if (dataitem.GetDataKeyValue("Delete") != DBNull.Value)
+                   {
+                       AccsMng.Delete = Convert.ToBoolean(dataitem.GetDataKeyValue("Delete"));
+                   }
+                   if (dataitem.GetDataKeyValue("ReadOnly") != DBNull.Value)
+                   {
+                       AccsMng.ReadOnly = Convert.ToBoolean(dataitem.GetDataKeyValue("ReadOnly"));
+                   }
                 }
 
             }

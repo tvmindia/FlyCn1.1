@@ -438,7 +438,10 @@ namespace FlyCn.FlyCnMasters
         {
 
             datatableobj = dynamicmasteroperationobj.BindMasters(_mode, UA.projectNo);
+        
+          
             dtgDynamicMasterGrid.DataSource = datatableobj;
+            
 
         }
         #endregion  dtgDynamicMasterGrid_NeedDataSource1

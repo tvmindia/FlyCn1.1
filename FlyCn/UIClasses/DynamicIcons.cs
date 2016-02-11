@@ -1,29 +1,46 @@
-﻿using System;
+﻿
+#region CopyRight
+
+//All rights are reserved
+//Created By   :
+//Created Date : 
+//Purpose      : 
+
+//Modified BY   : SHAMILA T P
+//Modified Date : 5.2.2016
+//Purpose       : To add security for tiles
+
+#endregion CopyRight
+
+#region Included Namespaces
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
 using FlyCn.FlyCnDAL;
+using System.Web.Script.Services;
+using System.Web.UI;
+using System.Web.Services;
+
+#endregion Included Namespaces
 
 namespace FlyCn.UIClasses
 {
-    
-
-
     public class DynamicIcons
     {
-
+        
         #region Global Variables
 
-       //Security.PageSecurity PS = new Security.PageSecurity(logicalObject, this);
+        Security.PageSecurity PS;
 
         #endregion  Global Variables
-
-        //string userAccess = securityUsrObj.GetUserAccess(username, objName);
 
         string Large = "Large";
         string Small = "Small";
         string Tiny = "Tiny";
+
 
         public string GenerateImageString(string id)
         {
@@ -79,6 +96,8 @@ namespace FlyCn.UIClasses
 
                     myInnerHtml = myInnerHtml + "<td class='Tiles" + colorClass + "' >";
                     string img = ds.Tables[0].Rows[f]["subimgUrl"].ToString();
+
+
 
                     myInnerHtml = myInnerHtml + " <table class='TileIcon'> <tr><td><img" + " src=" + "'" + img + "'" + " onclick" + "=" + "parent.bindimageLink('" + ds.Tables[0].Rows[f]["subPath"].ToString() + "') border=" + "0" + " alt=Submission Form" + "/></td></tr>" +
                 "<tr>" +
@@ -193,7 +212,7 @@ namespace FlyCn.UIClasses
 
         public string GenerateMultiSizeImageString(string id)
         {
-            
+           
 
             FlyCnDAL.DynamicIcons da = new FlyCnDAL.DynamicIcons();
             DataSet ds;
@@ -204,7 +223,40 @@ namespace FlyCn.UIClasses
             }
             else
             {
-                ds = da.getSubMenuNames(id);
+                var page = HttpContext.Current.CurrentHandler as Page;
+                PS = new Security.PageSecurity(id, page);
+
+                if (PS.isWrite != true && PS.isAdd != true && PS.isDelete != true && PS.isEdit != true && PS.isRead != true)
+                {
+
+                    string deniedImg = "/Images/accesDenied.png";//Server.MapPath("~/Images/accesDenied.png");
+                    string myInnerHtmlForDenied = "<div>" +
+                               "<table width='70%'  >" +
+                               " <tr>" + "<td>"
+                                        + "<img src=" + "'" + deniedImg + "'/>" +
+                                "</td></tr>" +
+                                                "</table>" + "</div>";
+
+myInnerHtmlForDenied= "<div class='denied-containerDiv'>"+"<div class='denied-imgDiv'>"+"<img src=" + "'" + deniedImg + "'"+"class ='denied-img'/>"+"</div>"+"</div>";
+
+//<div class="denied-containerDiv">
+//                    <div class="denied-imgDiv">
+//                    <img src="accesDenied.png"  class="denied-img" />
+//                    </div>
+//                    </div>
+
+
+
+
+
+
+                    return myInnerHtmlForDenied;
+
+                }
+                else
+                {
+                    ds = da.getSubMenuNames(id);
+                }
             }
 
             string myInnerHtml = "<div>" +
@@ -271,6 +323,7 @@ namespace FlyCn.UIClasses
                                     sizeClass = GetSize(ds, f);
                                     myInnerHtml = myInnerHtml + GetTileString(id, ds, f, colorClass, sizeClass, Tiny);
 
+                                   
 
 
                                 }
@@ -289,6 +342,8 @@ namespace FlyCn.UIClasses
                         if (sizeClass == Small)
                         {
                             myInnerHtml = myInnerHtml + GetTileString(id, ds, f, colorClass, sizeClass, "");
+
+
                         }
                             //--- large tile --
                         else {
@@ -298,6 +353,8 @@ namespace FlyCn.UIClasses
                                 rows = rows + 1;
                             }
                             myInnerHtml = myInnerHtml + GetTileString(id, ds, f, colorClass, sizeClass, Large);
+
+                            
                             cols = cols + 1;
                         }
                     }
@@ -343,7 +400,9 @@ namespace FlyCn.UIClasses
             
             } else {
 
+
                 return GetSubTileString(ds, row, colorClass, sizeClass, type);
+
             }
         
         }
@@ -375,6 +434,7 @@ namespace FlyCn.UIClasses
             string colspan = "";
             string tinyImgClass = "";
 
+ 
             if (type == Large) { colspan = " colspan='2'"; }
             if (type == Tiny) { tinyImgClass = " class='tinyImg'"; }
 
@@ -385,15 +445,24 @@ namespace FlyCn.UIClasses
 
                 myInnerHtml = myInnerHtml + "<td class='Tiles" + colorClass + sizeClass + "' " + colspan + " >";
                 string img = ds.Tables[0].Rows[row]["subimgUrl"].ToString();
+                string url = ds.Tables[0].Rows[row]["subPath"].ToString();
+                string id = ds.Tables[0].Rows[row]["subdescription"].ToString();
+             
+         //--------------call js
 
-                myInnerHtml = myInnerHtml + " <table class='TileIcon'> <tr><td><img" + tinyImgClass +   " src=" + "'" + img + "'" + " onclick" + "=" + "parent.bindimageLink('" + ds.Tables[0].Rows[row]["subPath"].ToString() + "') border=" + "0" + " alt=Submission Form" + "/></td></tr>" +
-            "<tr>" +
-                "<td>" +
-                   " <span class=" + "description" + ">" + ds.Tables[0].Rows[row]["subdescription"].ToString() + "</span>" +
-                "</td>" +
-            "</tr>" +
-       " </table>" + "</td>";
-            }
+                var page = HttpContext.Current.CurrentHandler as Page;
+
+                myInnerHtml = myInnerHtml + " <table class='TileIcon'> <tr><td><img" + tinyImgClass + " src=" + "'" + img + "'" + " onclick" + "=" + "parent.getSubTilePermission('" + url + "','" + ds.Tables[0].Rows[row]["submenuId"].ToString() +"') border=" + "0" + " alt=Submission Form" + "/></td></tr>" +
+           "<tr>" +
+               "<td>" +
+                  " <span class=" + "description" + ">" + ds.Tables[0].Rows[row]["subdescription"].ToString() + "</span>" +
+               "</td>" +
+           "</tr>" +
+      " </table>" + "</td>";
+    }
+
+           
+
 
             return myInnerHtml;
         }

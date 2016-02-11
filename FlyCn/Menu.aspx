@@ -22,6 +22,7 @@
    
  
 <script>
+   
     var flag = 0;
     var str = "hello()";
     $(document).ready(function () {
@@ -49,12 +50,45 @@
     }
 
 
-    function bindimageLink(url) {
-       // alert(url);
-        window.location = url;
-    }
+    //function bindimageLink(url) {
+        
+    //    window.location = url;
+    //}
  
+    function getSubTilePermission(url,id)
+    {
+
+        debugger;
+       
+    
+        PageMethods.GetPermissionOfSubTiles(id, onSucess, onError);
+        
+        function onSucess(SubTilePermissionDenied) {
+           
+
+            if (SubTilePermissionDenied == true) {
+
+                alert("denied");
+              
+            }
+            else
+            {
+                window.location = url;
+            }
+            
+        }
+        function onError(SubTilePermission) {
+            alert('Something wrong.');
+
+        }
+    }
+
+
+
+
 </script>
+    
+     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
      
      <table style="width: 100%">
          <tr><td></td><td>&nbsp;</td></tr>
@@ -77,9 +111,6 @@
                 </td>
               </tr>
 
-         <tr>
-             <td>
-                 <asp:Label ID="lblAccessDenied" runat="server" Text="Label" ForeColor="Red"></asp:Label> </td>
-         </tr>
+        
         </table>
 </asp:Content>
