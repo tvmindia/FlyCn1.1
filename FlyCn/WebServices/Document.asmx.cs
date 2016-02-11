@@ -3,7 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -20,9 +21,14 @@ namespace FlyCn.WebServices
     [System.Web.Script.Services.ScriptService]
     public class Document : System.Web.Services.WebService
     {
-
-
+        #region Approval Functions----------------------------------------------
+       
         #region Approvals
+        /// <summary>
+        /// To get approval list
+        /// </summary>
+        /// <param name="username">User Name</param>
+        /// <returns>JSON of list of approval items for the current user</returns>
         [WebMethod]
         public string Approvals(string username)
         {  //return msg data initialization
@@ -53,6 +59,15 @@ namespace FlyCn.WebServices
         #endregion
 
         #region ApproveItem
+        /// <summary>
+        /// To approve a specific item
+        /// </summary>
+        /// <param name="username">User Name</param>
+        /// <param name="approvid">Approval ID</param>
+        /// <param name="revisionid">Revision ID</param>
+        /// <param name="DocOwner">Document Owner</param>
+        /// <param name="remarks">Remarks which can be empty</param>
+        /// <returns>Message of pass or fail</returns>
         [WebMethod]
         public string ApproveItem(string username, string approvid, string revisionid,string DocOwner, string remarks)
         {  //return msg data initialization   approvid, revisionid, DocOwner,UA.userName);
@@ -97,6 +112,15 @@ namespace FlyCn.WebServices
         #endregion
 
         #region DeclineItem
+        /// <summary>
+        /// Decline a specific item from aproval list
+        /// </summary>
+        /// <param name="username">User Name</param>
+        /// <param name="approvid">Approval ID</param>
+        /// <param name="revisionid">Revision ID</param>
+        /// <param name="DocOwner">Document Owner</param>
+        /// <param name="remarks">Mandatory remarks</param>
+        /// <returns>Message regarding this operation passed or failed</returns>
         [WebMethod]
         public string DeclineItem(string username, string approvid, string revisionid, string DocOwner, string remarks)
         {  //return msg data initialization   approvid, revisionid, DocOwner,UA.userName);
@@ -141,6 +165,15 @@ namespace FlyCn.WebServices
         #endregion
 
         #region RejectItem
+        /// <summary>
+        /// TO reject an approval item
+        /// </summary>
+        /// <param name="username">User Name</param>
+        /// <param name="approvid">Approval ID</param>
+        /// <param name="revisionid">Revision ID</param>
+        /// <param name="DocOwner">Document Owner</param>
+        /// <param name="remarks">Mandatory Remarks</param>
+        /// <returns>Message regarding this operation passed or failed</returns>
         [WebMethod]
         public string RejectItem(string username, string approvid, string revisionid, string DocOwner, string remarks)
         {  //return msg data initialization   approvid, revisionid, DocOwner,UA.userName);
@@ -185,6 +218,11 @@ namespace FlyCn.WebServices
         #endregion
 
         #region ApprovalItemDetails
+        /// <summary>
+        /// To get any approval item's details
+        /// </summary>
+        /// <param name="approvid">Approval ID</param>
+        /// <returns>JSON of item's details</returns>
         [WebMethod]
         public string ApprovalItemDetails(string approvid)
         {  //return msg data initialization   approvid, revisionid, DocOwner,UA.userName);
@@ -214,6 +252,13 @@ namespace FlyCn.WebServices
         #endregion
         
         #region LineItems
+        /// <summary>
+        /// to get Lineitems of any approval item
+        /// </summary>
+        /// <param name="revid">revision ID</param>
+        /// <param name="type">Document type</param>
+        /// <param name="projectNo">Project number</param>
+        /// <returns>JSON of lineitem's details with dynamic columns</returns>
         [WebMethod]
         public string LineItems(string revid, string type, string projectNo)
         {  //return msg data initialization
@@ -274,6 +319,11 @@ namespace FlyCn.WebServices
         #endregion
 
         #region Approvers
+        /// <summary>
+        /// To get list of approvers for an approval item
+        /// </summary>
+        /// <param name="revid">Revision ID</param>
+        /// <returns>JSON of list of approvers</returns>
         [WebMethod]
         public string Approvers(string revid)
         {  //return msg data initialization
@@ -303,7 +353,73 @@ namespace FlyCn.WebServices
         }
         #endregion
 
+        #region Notification
+        /// <summary>
+        /// Webservice to give notification of new approval items
+        /// </summary>
+        /// <param name="username">user name</param>
+        /// <param name="approvalIDs">list of approval IDs already known by the device, seperated by commas</param>
+        /// <returns>Message with no.of.new approvals' count</returns>
+        [WebMethod]
+        public string Notification(string username, string approvalIDs)
+        {  //return msg data initialization
+            DataSet dsData = new DataSet();
+            DataSet ds = new DataSet();
+            try
+            {   //Retrieving details
+                FlyCnDAL.Users User = new FlyCnDAL.Users(username);
+                ApprovelMaster approvelMaster = new ApprovelMaster();
+                dsData = approvelMaster.GetAllPendingApprovalsByVerifier(User.UserEMail);
+                List<String> approvalIDsList = approvalIDs.Split(',').ToList();
+                int count = 0;
+                foreach (DataRow dr in dsData.Tables[0].Rows)
+                {
+                    if (!approvalIDsList.Contains(dr["ApprovalID"].ToString()))
+                    {
+                        count++;
+                    }
+                }
+                DataTable returnMsg = new DataTable();
+                returnMsg.Columns.Add("Flag", typeof(Boolean));
+                returnMsg.Columns.Add("Message", typeof(String));
+                returnMsg.Columns.Add("Count", typeof(int));
+                returnMsg.Columns.Add("Interval", typeof(int));
+                DataRow drMsg = returnMsg.NewRow();
+                drMsg["Flag"] = true;
+                drMsg["Message"] = FlyCn.UIClasses.Messages.NotificationMsgToMobile.Replace("$", count.ToString()).Replace("items", count == 1 ? "item" : "items");
+                drMsg["Interval"] = 2;                                               //time inteval to next notification check from client side
+                drMsg["Count"] = count;
+                returnMsg.Rows.Add(drMsg);
+                ds.Tables.Add(returnMsg);
+            }
+            catch (Exception ex)
+            {   //Return error message
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                ErrorMsg.Rows.Add(dr);
+                ds.Tables.Add(ErrorMsg);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(ds);
+        }
+        #endregion
+
+        #endregion Approval Functions----------------------------------------------
+
+        #region Punchlist Functions----------------------------------------------
+
         #region PunchList
+        /// <summary>
+        /// Get punchlist
+        /// </summary>
+        /// <param name="username">User Name</param>
+        /// <returns>JSON of list of punchlist in which the user have to take action(ActionBy)</returns>
         [WebMethod]
         public string PunchList(string username)
         {  //return msg data initialization
@@ -331,42 +447,58 @@ namespace FlyCn.WebServices
             return getDbDataAsJSON(ds);
         }
         #endregion
-
-        #region Notification
+        
+        #region PunchList Item Details
+        /// <summary>
+        /// Retireving details about any punch item
+        /// </summary>
+        /// <param name="projNO"></param>
+        /// <param name="ID">EIL ID</param>
+        /// <param name="type">WEIL/CEIL/QEIL</param>
+        /// <returns>Punch item Details</returns>
         [WebMethod]
-        public string Notification(string username, string approvalIDs)
-        {  //return msg data initialization
-            DataSet dsData = new DataSet();
+        public string PunchListItemDetails(string projNO, string ID,string type)
+        {   //return msg data initialization
             DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
             try
             {   //Retrieving details
-                FlyCnDAL.Users User = new FlyCnDAL.Users(username);
-                ApprovelMaster approvelMaster = new ApprovelMaster();
-                dsData = approvelMaster.GetAllPendingApprovalsByVerifier(User.UserEMail);
-                List<String> approvalIDsList = approvalIDs.Split(',').ToList();
-                int count = 0;
-                foreach(DataRow dr in dsData.Tables[0].Rows)
+                FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+                dt = punchObj.GetPunchListItemDetailsForMobile(projNO, ID, type);
+
+                //Creating a table(with coloumns itemsCount,1,2,3,......itemsCount) for sending tables with dynamic no.of.coloumns
+                DataTable formattedDT = new DataTable();
+                formattedDT.Columns.Add("itemsCount", typeof(int));
+                for (int i = 1; i <= (dt.Columns.Count); i++)
                 {
-                    if (!approvalIDsList.Contains(dr["ApprovalID"].ToString()))
-                    {
-                        count++;
-                    }
+                    formattedDT.Columns.Add("" + i + "", typeof(string));
                 }
-                DataTable returnMsg = new DataTable();
-                returnMsg.Columns.Add("Flag", typeof(Boolean));
-                returnMsg.Columns.Add("Message", typeof(String));
-                returnMsg.Columns.Add("Count", typeof(int));
-                returnMsg.Columns.Add("Interval", typeof(int));
-                DataRow drMsg = returnMsg.NewRow();
-                drMsg["Flag"] = true;
-                drMsg["Message"] = FlyCn.UIClasses.Messages.NotificationMsgToMobile.Replace("$", count.ToString()).Replace("items",count==1?"item":"items");
-                drMsg["Interval"] = 2;                                               //time inteval to next notification check from client side
-                drMsg["Count"] = count;   
-                returnMsg.Rows.Add(drMsg);
-                ds.Tables.Add(returnMsg);
+                //inserting values to formatted new table
+                foreach (DataRow dr in dt.Rows)
+                {
+                    DataRow formattedDR = formattedDT.NewRow();
+                    formattedDR["itemsCount"] = dt.Columns.Count;
+                    int i = 1;
+                    foreach (DataColumn col in dt.Columns)
+                    {
+                        if (col.DataType.Name == "DateTime" && dr[col]!= DBNull.Value)                //to pick only date of DateTime from DB
+                            {
+                                DateTime date = DateTime.Parse(dr[col].ToString());
+                                formattedDR["" + i + ""] = col.ColumnName + "$$" + date.ToString("dd-MMM-yyyy");
+                            }
+                        else
+                            { 
+                            formattedDR["" + i + ""] = col.ColumnName + "$$" + dr[col];             //value with coloumn name
+                            }
+                        i++;
+                    }
+                    formattedDT.Rows.Add(formattedDR);
+                }
+                ds.Tables.Add(formattedDT);
             }
             catch (Exception ex)
-            {   //Return error message
+            {
+                //Return error message
                 DataTable ErrorMsg = new DataTable();
                 ErrorMsg.Columns.Add("Flag", typeof(Boolean));
                 ErrorMsg.Columns.Add("Message", typeof(String));
@@ -382,8 +514,64 @@ namespace FlyCn.WebServices
             return getDbDataAsJSON(ds);
         }
         #endregion
-       
+
+        #region Punch Item Get Attatchment
+        /// <summary>
+        /// Webservice to return list of attachment images of an punchlist item
+        /// </summary>
+        /// <param name="projNo">Project Number</param>
+        /// <param name="punchID">EIL ID</param>
+        /// <param name="EILtype">WEIL/CEIL/QEIL</param>
+        /// <param name="isThumb">optional parameter to denote whether thumbanail images are enough</param>
+        /// <returns>JSON of details of attachment images</returns>
+        [WebMethod]
+        public string PunchItemGetAttatchment(string projNo, string punchID, string EILtype, Boolean isThumb=false)
+        {
+            //return msg data initialization
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            try
+            {   //Retrieving details
+                FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+                dt = punchObj.GetPunchListItemAttachments(projNo, punchID, EILtype);
+                ds.Tables.Add(dt);
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("AttachmentName");
+                imgFileTypeCols.Add("FileType");
+
+                return getDbDataAsJSON(ds, imgColNames, imgFileNameCols, imgFileTypeCols,isThumb);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                ErrorMsg.Rows.Add(dr);
+                ds.Tables.Add(ErrorMsg);
+                return getDbDataAsJSON(ds);
+            }
+            finally
+            {                
+            }
+        }
+        #endregion Punch Item Get Attatchment
+
+        #endregion Punchlist Functions----------------------------------------------
+
         #region JSON converter and sender
+        /// <summary>
+        /// JSON function without returning any images
+        /// </summary>
+        /// <param name="ds">Dataset</param>
+        /// <returns>ds in JSON format</returns>
         public String getDbDataAsJSON(DataSet ds)
         {
             try
@@ -407,10 +595,19 @@ namespace FlyCn.WebServices
                 return serializer.Serialize(rows);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                return "";
+                //Return error message
+                DataSet dserror = new DataSet();
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                ErrorMsg.Rows.Add(dr);
+                ds.Tables.Add(ErrorMsg);
+                return getDbDataAsJSON(dserror); ;
             }
             finally
             {
@@ -418,17 +615,21 @@ namespace FlyCn.WebServices
             }
 
         }
-        public String getDbDataAsJSON(SqlCommand cmd, ArrayList imgColName, ArrayList imgFileNameCol)
+        /// <summary>
+        /// JSON function with returning any images
+        /// </summary>
+        /// <param name="ds">Dataset</param>
+        /// <param name="imgColName">Coloumn names array that contains images(data)</param>
+        /// <param name="imgFileNameCol">Coloumn names array that contain file name</param>
+        /// <param name="imgFileTypeCol">Coloumn names array that contain file type</param>
+        /// <param name="isThumb">Optional parameter to say whether the thumbnail is enough for calling function</param>
+        /// <returns>ds in JSON format with links to images that are temporarly stored in server folder</returns>
+        public String getDbDataAsJSON(DataSet ds, ArrayList imgColName, ArrayList imgFileNameCol, ArrayList imgFileTypeCol,Boolean isThumb=false)
         {
             try
             {
-                DataSet ds = null;
-                SqlDataAdapter sda = new SqlDataAdapter();
-                sda.SelectCommand = cmd;
-                ds = new DataSet();
-                sda.Fill(ds);
                 DataTable dt = ds.Tables[0];
-                String filePath = Server.MapPath("~/tempImages/");      //temporary folder to store images
+                String filePath = Server.MapPath("~/tempImages/");      
 
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
@@ -450,10 +651,18 @@ namespace FlyCn.WebServices
                     {
                         if (dr[imgColName[i] as string] != DBNull.Value)
                         {
-                            String fileURL = filePath + DateTime.Now.ToString("ddHHmmssfff") + dr[imgFileNameCol[i] as string];
+                            String fileURL = filePath + DateTime.Now.ToString("ddHHmmssfff") + dr[imgFileNameCol[i] as string] + dr[imgFileTypeCol[i] as string];
                             if (!System.IO.File.Exists(fileURL))
                             {
-                                byte[] buffer = (byte[])dr[imgColName[i] as string];
+                                byte[] buffer;
+                                if (isThumb)
+                                {
+                                    buffer = MakeThumbnail((byte[])dr[imgColName[i] as string], 90, 90);//images are converted to thumbnails of 90*90px
+                                }
+                                else
+                                {
+                                    buffer = (byte[])dr[imgColName[i] as string];
+                                }
                                 System.IO.File.WriteAllBytes(fileURL, buffer);
                             }
                             row.Add(imgColName[i] as string, fileURL);
@@ -467,10 +676,19 @@ namespace FlyCn.WebServices
                 return serializer.Serialize(rows);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                return "";
+                //Return error message
+                DataSet dsError = new DataSet();
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                ErrorMsg.Rows.Add(dr);
+                dsError.Tables.Add(ErrorMsg);
+                return getDbDataAsJSON(dsError);
             }
             finally
             {
@@ -478,6 +696,19 @@ namespace FlyCn.WebServices
             }
         }
         #endregion JSON converter and sender
+     
+        #region Utility Functions
+        //----------------------------Function to make image thumbnail---------------------------------------------------
+        public static byte[] MakeThumbnail(byte[] myImage, int thumbWidth, int thumbHeight)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            using (Image thumbnail = Image.FromStream(new MemoryStream(myImage)).GetThumbnailImage(thumbWidth, thumbHeight, null, new IntPtr()))
+            {
+                thumbnail.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                return ms.ToArray();
+            }
+        }
+        #endregion Utility Functions
 
     }
 }

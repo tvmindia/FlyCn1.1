@@ -13,10 +13,11 @@ namespace FlyCn.ExcelImport
 {
     public partial class ImportStatusList : System.Web.UI.Page
     {
-        string StatusID;
+       // string StatusID;
         FlyCnDAL.Security.UserAuthendication UA;
         UIClasses.Const Const = new UIClasses.Const();
-       // string userName = "TestUser";
+        // string userName = "TestUser";
+        #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
@@ -27,6 +28,9 @@ namespace FlyCn.ExcelImport
             }
 
         }
+        #endregion Page_Load
+
+        #region BindData()
         public void BindData()
         {
             DataSet ds = new DataSet();
@@ -46,7 +50,9 @@ namespace FlyCn.ExcelImport
 
             }
         }
+        #endregion BindData
 
+        #region RadGrid1_ItemCommand
         protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
         {
             try
@@ -63,13 +69,9 @@ namespace FlyCn.ExcelImport
                 throw ex;
             }
         }
-
-        //protected void RadGrid1_ItemDataBound(object sender, RadMenuEventArgs e)
-        //{
-          
-        //   // e.Item.NavigateUrl = "/ExcelImport/ImportErrorDetails.aspx?StatusID=" + StatusID;
-        //}
-
+        #endregion RadGrid1_ItemCommand
+       
+        #region RadGrid1_ItemDataBound
         protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)
@@ -94,7 +96,9 @@ namespace FlyCn.ExcelImport
                 }
             }
         }
+        #endregion RadGrid1_ItemDataBound
 
+        #region RadGrid2_ItemDataBound
         protected void RadGrid2_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)
@@ -110,7 +114,9 @@ namespace FlyCn.ExcelImport
                 }
             }
         }
+        #endregion RadGrid2_ItemDataBound
 
+        #region RadGrid2_ItemCommand
         protected void RadGrid2_ItemCommand(object source, GridCommandEventArgs e)
         {
             try
@@ -127,17 +133,21 @@ namespace FlyCn.ExcelImport
                 throw ex;
             }
         }
+        #endregion RadGrid2_ItemCommand
 
-
+        #region RadGrid1_NeedDataSource
         protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             BindData();
         }
+        #endregion RadGrid1_NeedDataSource
 
+        #region RadGrid2_NeedDataSource
         protected void RadGrid2_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             BindCompletedDetails();
         }
+        #endregion RadGrid2_NeedDataSource
 
         #region BindCompletedDetails()
         public void BindCompletedDetails()

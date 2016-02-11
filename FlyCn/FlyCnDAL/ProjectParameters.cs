@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlyCnSecurity.SecurityDAL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -209,6 +210,17 @@ namespace FlyCn.FlyCnDAL
             set;
         }
         public decimal LunchBreak_Minutes
+        {
+            get;
+            set;
+        }
+
+        public string RoleName
+        {
+            get;
+            set;
+        }
+        public string Description
         {
             get;
             set;
@@ -554,7 +566,6 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion GetProjectParameters
 
-
         #region InsertSYSProjectsData
         public int InsertSYSProjectsData()
         {
@@ -639,7 +650,6 @@ namespace FlyCn.FlyCnDAL
 
         #endregion InsertSYSProjectsData
 
-
         #region DeleteSYSProjectsData
         /// <summary>
         /// Delete SYSProjectsData Data 
@@ -677,5 +687,101 @@ namespace FlyCn.FlyCnDAL
             return 0;
         }
         #endregion DeleteSYSProjectsData
+
+        #region BindProjectNo
+        public DataTable BindProjectNo()
+        {
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("SelectPrjectNo", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                datatableobj = new DataTable();
+                adapter.Fill(datatableobj);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return datatableobj;
+        }
+        #endregion BindProjectNo
+
+        #region GetAllProjectRoles
+        public DataTable GetAllProjectRoles(string ProjectNo)
+        {
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            DBconnection dcon = new DBconnection();
+            try
+            {
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("GetAllProjectRoles", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar,10).Value = ProjectNo;
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                datatableobj = new DataTable();
+                adapter.Fill(datatableobj);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return datatableobj;
+        }
+        #endregion GetAllProjectRoles
+
+        #region InsertProjectRoles
+        public DataTable InsertProjectRoles(string ProjectNo)
+        {
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            DBconnection dcon = new DBconnection();
+            try
+            {
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("InsertProjectRoles", con);
+                cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = ProjectNo;
+                cmd.Parameters.Add("@RoleName", SqlDbType.NVarChar,50).Value = RoleName;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 250).Value = Description;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+
+                datatableobj = new DataTable();
+                adapter.Fill(datatableobj);
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.InsertionSuccessData(page, "Data Saved Successfully..!!!");
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return datatableobj;
+        }
+        #endregion InsertProjectRoles
+
+
     }
 }

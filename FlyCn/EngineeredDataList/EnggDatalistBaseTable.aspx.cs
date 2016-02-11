@@ -124,15 +124,13 @@ namespace FlyCn.EngineeredDataList
         {
             if (_moduleId != null)
             {
-
                 DataSet dsObj = new DataSet();
                 CommonDAL cmDalObj = new CommonDAL();
                 dsObj = cmDalObj.GetTableDefinition(_TableName);
                 DataTable dtobj = new DataTable();
                 dtobj = dsObj.Tables[0];
                 dtgUploadGrid.DataSource = dtobj;
-              
-            }
+             }
         }
     
         protected void ToggleRowSelection(object sender, EventArgs e)
@@ -368,18 +366,32 @@ namespace FlyCn.EngineeredDataList
         public void ValidateDataStructure(DataSet dsFile)
         {
             //hidddnef=validationObj.importfile.status_Id;
+            DataSet MasterDS=null;
+            CommonDAL tblDef = new CommonDAL();
+            List<string> MasterColumns = new List<string>();
+            MasterDS = tblDef.SelectAllMastersDataByTableName(comDAL.tableName, UA.projectNo);
             dsTable = comDAL.GetTableDefinition(comDAL.tableName);
             validationObj.importfile.TotalCount = dsFile.Tables[0].Rows.Count;
+            DataRow[] MasterFieldDetails = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
+            foreach (DataRow row in MasterFieldDetails)//storing master having columns
+            {
+                MasterColumns.Add(row["Field_Description"].ToString());//column 2 field descrption
+            }
+            dbConnection dbCon = new dbConnection();
+            dbCon.GetDBConnection();
             for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
             {
                 int res;
-                res=validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable,i);
+                res = validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable, i, dbCon);
+                validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i, comDAL.tableName,MasterColumns,dbCon);
+                
                 if (res == -1)
                 {
                     validationObj.importfile.errorCount = validationObj.importfile.errorCount + 1;
                     //errorCount = errorCount + 1;
                 }
             }
+             dbCon.DisconectDB();
         }
 
         public void CheckBoxColumns()
@@ -574,15 +586,6 @@ namespace FlyCn.EngineeredDataList
             }
        }
 
-
-        #region DataValidation
-        public void DataValidation(DataSet tempDS)
-        {
-           
-
-        }
-        #endregion DataValidation
-
         protected void dtgvalidationErros_PreRender(object sender, EventArgs e)
         {
             dtgvalidationErros.Rebind();
@@ -653,14 +656,12 @@ namespace FlyCn.EngineeredDataList
 
                 //Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
                 //excelImportThread.Start();
-               
-            
-                new Thread(delegate()
-                     {
-                         importObj.ImportExcelData(tempDS);
-                     }).Start();
+                //new Thread(delegate()
+                //     {
+                //         importObj.ImportExcelData(tempDS);
+                //     }).Start();
 
-                // importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+                importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
                 //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
                 ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id + "&ModuleName=" + importObj.SheetName;//iframe page ImportStatusList.aspx is called with query string revisonid and module name from excel sheet name
                 hdfErrorRow.Value = "";

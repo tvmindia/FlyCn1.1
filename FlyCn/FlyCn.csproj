@@ -319,6 +319,8 @@
     <Content Include="Fileupload.aspx" />
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="FlycnSecurity\AssignRoles.aspx" />
+    <Content Include="FlycnSecurity\AssignUserRoles.aspx" />
+    <Content Include="FlycnSecurity\ManageAccess.aspx" />
     <Content Include="FlycnSecurity\NonProjectRoles.aspx" />
     <Content Include="FlycnSecurity\Object.aspx" />
     <Content Include="FlycnSecurity\ObjectAccessForRoles.aspx" />
@@ -396,6 +398,9 @@
     <Content Include="Images\LogoSearchMagnifyingGlass.png" />
     <Content Include="Images\Minus.png" />
     <Content Include="Images\plus1.png" />
+    <Content Include="Images\ProjectImages\Check.png" />
+    <Content Include="Images\ProjectImages\Close.png" />
+    <Content Include="Images\ProjectImages\newClose.png" />
     <Content Include="Images\refresh.png" />
     <Content Include="Images\RefreshSearch.png" />
     <Content Include="Images\Search.png" />
@@ -909,6 +914,20 @@
     <Compile Include="FlycnSecurity\AssignRoles.aspx.designer.cs">
       <DependentUpon>AssignRoles.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FlycnSecurity\AssignUserRoles.aspx.cs">
+      <DependentUpon>AssignUserRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlycnSecurity\AssignUserRoles.aspx.designer.cs">
+      <DependentUpon>AssignUserRoles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FlycnSecurity\ManageAccess.aspx.cs">
+      <DependentUpon>ManageAccess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlycnSecurity\ManageAccess.aspx.designer.cs">
+      <DependentUpon>ManageAccess.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FlycnSecurity\NonProjectRoles.aspx.cs">
       <DependentUpon>NonProjectRoles.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1156,7 +1175,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\ExcelTemplate\" />
     <Folder Include="Content\Fileupload\" />
-    <Folder Include="Images\ProjectImages\" />
+    <Folder Include="tempImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />

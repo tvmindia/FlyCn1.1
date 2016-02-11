@@ -22,22 +22,13 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.ScriptManager scriptmanager1;
         
         /// <summary>
-        /// Heading control.
+        /// ToolBar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Heading;
-        
-        /// <summary>
-        /// horizonaltab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl horizonaltab;
+        protected global::FlyCn.UserControls.ToolBar ToolBar;
         
         /// <summary>
         /// lblCurrentRoles control.
@@ -128,6 +119,15 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
+        
+        /// <summary>
+        /// DropDownList3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList3;
         
         /// <summary>
         /// dtgAssignRoles control.

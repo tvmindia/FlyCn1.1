@@ -42,6 +42,9 @@ namespace FlyCn.FlycnSecurity
         {
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClickingDetail";
+
+            ToolBar1.onClick += new RadToolBarEventHandler(ToolBar1_onClick);
+            ToolBar1.OnClientButtonClicking = "OnClientButtonClicking";
         }
         #endregion Register ToolBox
 
@@ -793,8 +796,13 @@ namespace FlyCn.FlycnSecurity
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            ScriptManager.RegisterStartupScript(this, this.GetType(), " ", "DisablePopUP();", true);
+            selected_tab.Value = Request.Form[selected_tab.UniqueID];
+            //if(selected_tab.Value=="1")
+            //{
+            //    Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "tabsTwo();", true);
+            //}
+          //  ScriptManager.RegisterStartupScript(this, this.GetType(), " ", "DisablePopUP();", true);
+           
             RegisterToolBox();
            
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
@@ -803,7 +811,7 @@ namespace FlyCn.FlycnSecurity
             ToolBar.EditButton.Visible = false;
             ToolBar.DeleteButton.Visible = false;
             ToolBar.UpdateButton.Visible = false;
-
+            ToolBar.SaveButton.Visible = true;
 
             //if (lblError.Text != string.Empty)
             //{
@@ -815,7 +823,12 @@ namespace FlyCn.FlycnSecurity
                 BindRoleTypeComboBox(null);
                 BindRoleScopeComboBox(null);
                 BindProjectGroup1(null);
-
+                BindDropDownProjectNo();
+                TabVisibility();
+                //if (selected_tab.Value == "1")
+                //{
+                //    Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "tabsTwo();", true);
+                //}
             }
 
             else
@@ -836,7 +849,7 @@ namespace FlyCn.FlycnSecurity
 
             //}
 
-
+           
         }
 
         #endregion Page Load
@@ -872,6 +885,97 @@ namespace FlyCn.FlycnSecurity
         #endregion  ToolBar_onClick
 
         #endregion Events
+
+        #region dtgManageExistingRoles_NeedDataSource
+        protected void dtgManageExistingRoles_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (dtgManageExistingRoles.DataSource == null)
+            {
+                dtgManageExistingRoles.DataSource = new string[] { };
+            }
+        }
+        #endregion dtgManageExistingRoles_NeedDataSource
+
+        #region BindDropDownProjectNo
+        public void BindDropDownProjectNo()
+        {
+            FlyCnDAL.ProjectParameters projectObj = new FlyCnDAL.ProjectParameters();
+            DataTable dt = new DataTable();
+            dt = projectObj.BindProjectNo();
+            ddlProjectNo.DataSource = dt;
+            ddlProjectNo.DataTextField = "ProjectNo";
+            ddlProjectNo.DataBind();
+        }
+        #endregion BindDropDownProjectNo
+
+        #region Toolbar visibility for project roles
+        public void TabVisibility()
+        {
+            ToolBar1.UpdateButton.Visible = false;
+            ToolBar1.DeleteButton.Visible = false;
+            ToolBar1.AddButton.Visible = false;
+            ToolBar1.SaveButton.Visible = true;
+        }
+
+        #endregion Toolbar visibility for project roles
+
+        #region BindData
+        public void BindData()
+        {
+            FlyCnDAL.ProjectParameters projObj = new FlyCnDAL.ProjectParameters();
+            DataTable ds = new DataTable();
+            string ProjNo = ddlProjectNo.SelectedValue;
+            if (ProjNo != "--select Project No--")
+            {
+                ds = projObj.GetAllProjectRoles(ProjNo);
+                dtgManageExistingRoles.DataSource = ds;
+                try
+                {
+                    dtgManageExistingRoles.DataBind();
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+        #endregion BindData
+
+        protected void ddlProjectNo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindData();
+            txtCreateRoleName.Text = "";
+            txtDescription.Text = "";
+        }
+
+        public void FillUser()
+        {
+             FlyCnDAL.ProjectParameters projObj = new FlyCnDAL.ProjectParameters();
+            
+            string ProjNo = ddlProjectNo.SelectedValue;
+           
+            projObj.RoleName = txtCreateRoleName.Text;
+            projObj.Description = txtDescription.Text;
+            projObj.InsertProjectRoles(ProjNo);
+         
+        }
+
+        #region ToolBar_onClick
+        protected void ToolBar1_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
+        {
+            string functionName = e.Item.Value;
+
+            if (e.Item.Value == "Save")
+            {
+                FillUser();
+               // dtgManageExistingRoles.Rebind();
+                BindData();
+            }
+           
+        }
+        #endregion ToolBar_onClick
+
     }
 }
 

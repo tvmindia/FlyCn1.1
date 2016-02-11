@@ -1,4 +1,5 @@
-﻿using System;
+﻿#region Namespaces
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,11 +8,13 @@ using System.Web.UI.WebControls;
 using System.Data;
 using Telerik.Web.UI;
 using FlyCn.FlyCnDAL;
+#endregion Namespaces
 
 namespace FlyCn.ExcelImport
 {
     public partial class ImportErrorList : System.Web.UI.Page
     {
+        #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack)
@@ -19,7 +22,9 @@ namespace FlyCn.ExcelImport
               //  BindData();
             }
         }
+        #endregion Page_Load
 
+        #region BindData()
         //public void BindData()
         //{
         //    DataSet ds = new DataSet();
@@ -37,7 +42,9 @@ namespace FlyCn.ExcelImport
 
         //    }
         //}
+        #endregion BindData()
 
+        #region RadGrid1_ItemCommand
         protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
         {
             try
@@ -54,5 +61,6 @@ namespace FlyCn.ExcelImport
                 throw ex;
             }
         }
+        #endregion RadGrid1_ItemCommand
     }
 }
