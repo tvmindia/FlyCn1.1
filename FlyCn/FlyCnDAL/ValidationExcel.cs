@@ -401,12 +401,11 @@ namespace FlyCn.FlyCnDAL
             #endregion DataValidation
             #region MasterDataExist
             //validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i, comDAL.tableName,List<string> MasterColumns);
-            public void MasterDataExist(DataSet dsTable,DataSet MasterDS, DataRow dr,int rowNO, string TableName, List<string> MasterColumns,dbConnection dbCon)
+            public Int16 MasterDataExist(DataSet dsTable,DataSet MasterDS, DataRow dr,int rowNO, string TableName, List<string> MasterColumns,dbConnection dbCon)
             {
+                Int16 isupdate;
                 string cName;
                 string refTableName = "";
-                string refSelectField = "";
-                string refJoinField = "";
                 DataRow[] refTableRow = null;
                 DataRow refTableOneRow = null;
                 DataRow[] masterDataExisting = null;
@@ -422,8 +421,6 @@ namespace FlyCn.FlyCnDAL
                     refTableRow = dsTable.Tables[0].Select("Field_Description = '" + cName + "' AND Ref_TableName IS NOT NULL");
                     refTableOneRow = refTableRow[0];
                     refTableName = refTableOneRow["Ref_TableName"].ToString();
-                    refSelectField = refTableOneRow["Ref_SelectField"].ToString();
-                    refJoinField = refTableOneRow["Ref_JoinField"].ToString();
                     masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[cName].ToString() + "'");
                     if (masterDataExisting.Length == 0)//data does not exists in the masters
                     {
@@ -450,10 +447,12 @@ namespace FlyCn.FlyCnDAL
                     if (flag == true)
                     {
                         rowNO = rowNO + 2;
-                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                        isupdate=importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
                        // return -1;
+                        return isupdate;
                     }
                   //importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                    return -1;
                 
             }
             #endregion MasterDataExist
