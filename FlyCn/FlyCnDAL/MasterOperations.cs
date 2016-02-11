@@ -143,6 +143,10 @@ namespace FlyCn.FlyCnDAL
             SystemDefenitionDetails sd = new SystemDefenitionDetails();
             dt = sd.getFieldNames(TableName);
             int totalrows = dt.Rows.Count;
+            if(totalrows>0)
+            {
+
+       
             string temp = dt.Rows[0]["Field_Name"].ToString();
 
             SqlCommand cmd = new SqlCommand("SelectMasterTable", con);
@@ -174,6 +178,8 @@ namespace FlyCn.FlyCnDAL
             dt = new DataTable();
             adapter.Fill(dt);
             con.Close();
+           
+            }
             return dt;
         }
 
