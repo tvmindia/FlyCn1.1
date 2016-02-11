@@ -461,17 +461,17 @@ namespace FlyCn.FlyCnDAL
         /// <param name="ExcelFileName"></param>
         /// <param name="InsertCount"></param>
 
-        public void InsertExcelImportErrorDetails(string KeyField, string ErrorDescription,int rowNO)
+        public void InsertExcelImportErrorDetails(string KeyField, string ErrorDescription,int rowNO,dbConnection dbCon)
         {
-            SqlConnection con = new SqlConnection();
+           // SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
-            dbConnection dcon = new dbConnection();
+        //    dbConnection dcon = new dbConnection();
             try
             {
-                con = dcon.GetDBConnection();
+               
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "InsertExcelImportErrorDetails";
-                cmd.Connection = con;
+                cmd.Connection = dbCon.SQLCon;
                 cmd.Parameters.Add("@Import_Status_Id", SqlDbType.UniqueIdentifier).Value = status_Id;
                 cmd.Parameters.Add("@Key_Field", SqlDbType.NVarChar, 50).Value = KeyField;
                 cmd.Parameters.Add("@Excel_RowNO", SqlDbType.Int).Value = rowNO;//excel error row number
@@ -484,10 +484,10 @@ namespace FlyCn.FlyCnDAL
             }
             finally
             {
-                if (con != null)
-                {
-                    dcon.DisconectDB();
-                }
+                //if (con != null)
+                //{
+                //    dcon.DisconectDB();
+                //}
             }
 
 

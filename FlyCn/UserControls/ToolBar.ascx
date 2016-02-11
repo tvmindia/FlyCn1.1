@@ -27,14 +27,18 @@
 <script type="text/javascript">
     function <%=ClientID%>_InvokeCountWebMethod(count) {
         document.getElementById("<%= lblPopUpNumber.ClientID %>").innerHTML = count;
+        var notific = document.getElementById("noti_Container");
+        notific.style.display = "";
     }
 
-     function <%=ClientID%>_hideNotification()
+    <%-- function <%=ClientID%>_hideNotification()
     {
         debugger;
         var notific = document.getElementById("noti_Container");
-        notific.style.visibility = "hidden";
-    }
+        alert(notific.id);
+        notific.style.display = "";
+       
+    }--%>
 
     function confirmation(control) {
         try{
@@ -265,7 +269,7 @@
 
 
 </script>
-<div id="noti_Container" style="visibility:visible">
+<div id="noti_Container" style="display:none;">
 
             <div class="noti_bubble"><asp:Label ID="lblPopUpNumber" runat="server" /></div>
 </div>

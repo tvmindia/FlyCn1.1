@@ -3,6 +3,10 @@
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="../Scripts/jquery.1.9.1.min.js"></script>
 
  <title>Non Project Roles</title>
 
@@ -23,6 +27,13 @@
       {
           width: 100px;
       }
+
+          #tabs li a {
+            color: #000000;
+            display: block;
+            text-decoration: none;
+        }
+
     </style>
 
     
@@ -35,18 +46,10 @@
 
     <script>
 
-
-        function DisablePopUP() {
-            // we define and invoke a function
-
-            debugger;
-
-            <%=ToolBar.ClientID%>_hideNotification();
-
-        }
+      
 
         function OnClientButtonClickingDetail(sender, args) {
-            debugger;
+            
             var btn = args.get_item();
 
             if (btn.get_value() == 'Save') {
@@ -61,7 +64,7 @@
         }
 
         function validate() {
-            debugger;
+          
 
 
             var RoleName = document.getElementById('<%=txtRoleName.ClientID %>').value;
@@ -86,15 +89,47 @@
             }
         }
 
+        function OnClientButtonClicking(sender, args) {
+           
+            var btn = args.get_item();
+            if (btn.get_value() == 'Save') {
+                args.set_cancel(!validate());
+            }
+        }
+        function validate() {
+           
+            var RoleName = document.getElementById('<%=txtCreateRoleName.ClientID %>').value;
+            RoleName = trimString(RoleName);
+            var Description = document.getElementById('<%=txtDescription.ClientID %>').value;
+            Description = trimString(Description);
+            var ProjNo = document.getElementById('<%=ddlProjectNo.ClientID %>').value;
+            ProjNo = trimString(ProjNo);
+            if (RoleName==""||Description==""||ProjNo=="") {
+               
+                return false;
+            }
+            else {
+                return true;
+            }
+
+        }
 
     </script>
 
-        <asp:Label ID="lblTitle" runat="server" Text="Non Project Roles" CssClass="PageHeading" ></asp:Label>
-       
+        
+        <div class="container" style="width: 100%">
 
- <%--  <asp:Label ID="lblError" runat="server" Text="" ForeColor="Red"  style="float:right;font-size:large"></asp:Label>--%>
+        <div class="col-md-12">
+
+                <ul id="tabs">
+                    <li><a href="#" name="tab1">Non-Project Roles</a></li>
+                    <li><a href="#" name="tab2">Project Roles</a></li>
+                </ul>
    
- <div class=" importWizardContainer col-md-12" style="width:95%;max-height:600px">
+     <div id="content">
+                    <div id="tab1">
+                         <div role="tabpanel" class="tab-pane active" id="home">
+                            <div class="table-responsive">
    <uc1:ToolBar runat="server" ID="ToolBar"/>
 
     <div class="col-md-5"  >
@@ -347,14 +382,170 @@
                
                     
                 </div>
-
+        </div>
+                                </div>
 
    </div>
 
   </div>
-   
-    <asp:HiddenField ID="hdnEditPostBack" runat="server" Value="False" />
+       
 
+            <div id="tab2">
+                
+                 <div class="contentTopBar" style="width:1120px;"></div>
+
+                <div role="tabpanel" class="tab-pane active" id="Div1">
+                    <div class="table-responsive">
+                       
+        <uc1:ToolBar runat="server" ID="ToolBar1" /> 
+       
+                         <div style="float:left; width:50%;">
+                           
+                               <asp:Label ID="lblManageExistingRoles" runat="server" Text="Manage Existing Roles" CssClass="PageHeading"></asp:Label>
+                             <br />
+                           <div class="col-md-12 Span-One">
+                                <div class="col-md-6"></div>
+                               <div class="col-md-3" style="margin-left:-50%;">
+                             <asp:Label ID="lblProjectNo" runat="server" Text="Project No"></asp:Label>
+                                    </div>
+                               <div class="col-md-3" style="margin-left:-15%;">
+                                   <asp:DropDownList ID="ddlProjectNo" runat="server" AutoPostBack="true" AppendDataBoundItems="true" OnSelectedIndexChanged="ddlProjectNo_SelectedIndexChanged">
+                                       <asp:ListItem Text="--select Project No--"></asp:ListItem>
+                                   </asp:DropDownList>
+                                   </div>
+                             </div>
+                               <div class="col-md-12">
+                         
+                         
+                         
+                       <br />
+                         <div style="width:400px;">
+                              <telerik:RadGrid ID="dtgManageExistingRoles" runat="server" OnNeedDataSource="dtgManageExistingRoles_NeedDataSource">
+
+                    <MasterTableView  AutoGenerateColumns="false" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No Categories have been added.">
+                         <Columns>
+                              <telerik:GridBoundColumn HeaderText="Role ID" DataField="RoleID" UniqueName="RoleID" ></telerik:GridBoundColumn> 
+                              <telerik:GridBoundColumn HeaderText="Role Name" DataField="RoleName" UniqueName="RoleName"></telerik:GridBoundColumn>
+                           <telerik:GridBoundColumn HeaderText="Description" DataField="Description" UniqueName="Description"></telerik:GridBoundColumn>
+                             <%--<telerik:GridBoundColumn HeaderText="Access Type" DataField="AccessType" UniqueName="AccessType" ></telerik:GridBoundColumn> --%>
+                        </Columns>
+                    </MasterTableView>
+
+                </telerik:RadGrid>
+                             </div>
+                                   </div>
+                             </div>
+                        <div style="float:right; width:50%; ">
+
+                            <br />
+            <div class="col-md-12"  style="border-left: 1px solid #cfc7c0;height:400px;top:35%">
+
+                               <asp:Label ID="lblCreateNewRole" runat="server" Text="Create New Role" CssClass="PageHeading"></asp:Label>
+
+                             <div class="col-md-12 Span-One">
+                                 <div class="form-group required">
+                                <div class="col-md-6">
+                             <asp:Label ID="lblCreateRoleName" runat="server" Text="Role Name" CssClass="control-label col-md-6 "></asp:Label>
+                                    </div>
+                               <div class="col-md-6">
+                                  <asp:TextBox ID="txtCreateRoleName" runat="server" CssClass="form-control"></asp:TextBox>
+                                   <asp:RequiredFieldValidator ID="rfvRoleName" runat="server" ErrorMessage="Enter RoleName"
+                                    Display="Dynamic" SetFocusOnError="true"
+                                    ForeColor="Red"
+                                    ValidationGroup="Group"
+                                    ControlToValidate="txtCreateRoleName">
+                                </asp:RequiredFieldValidator>
+                                   </div>
+                                     </div>
+                             </div>
+
+                             <div class="col-md-12 Span-One">
+                                 <div class="form-group required">
+                                <div class="col-md-6">
+                             <asp:Label ID="lblDescription" runat="server" Text="Description" CssClass="control-label col-md-6 "></asp:Label>
+                                    </div>
+                               <div class="col-md-6">
+                                   <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control"></asp:TextBox>
+                                   <asp:RequiredFieldValidator ID="rfvDescription" runat="server" ErrorMessage="Enter Description"
+                                    Display="Dynamic" SetFocusOnError="true"
+                                    ForeColor="Red"
+                                    ValidationGroup="Group"
+                                    ControlToValidate="txtDescription">
+                                </asp:RequiredFieldValidator>
+                                   </div>
+                                     </div>
+                             </div>
+
+                           <%--  <div class="col-md-12 Span-One">
+                                 <div class="form-group required">
+                                <div class="col-md-6">
+                             <asp:Label ID="lblCreateAccessType" runat="server" Text="AccessType" CssClass="control-label col-md-6 "></asp:Label>
+                                    </div>
+                               <div class="col-md-6">
+                                  <asp:TextBox ID="txtCreateAccessType" runat="server" CssClass="form-control"></asp:TextBox>
+                                   <asp:RequiredFieldValidator ID="rfvAccessType" runat="server" ErrorMessage="Enter AccessType"
+                                    Display="Dynamic" SetFocusOnError="true"
+                                    ForeColor="Red"
+                                    ValidationGroup="Group"
+                                    ControlToValidate="txtCreateAccessType">
+                                </asp:RequiredFieldValidator>
+                                   </div>
+                                     </div>
+                             </div>--%>
+
+                            </div>
+                    </div>
+                </div>
+            </div>
+              </div>
+            </div>
+   </div>
+            </div>
+    <asp:HiddenField ID="hdnEditPostBack" runat="server" Value="0" />
+     <asp:HiddenField ID="selected_tab" runat="server" />
+ <script>
+    
+     $(document).ready(function () {
+       
+         var myHidden = document.getElementById('<%= selected_tab.ClientID %>');
+     
+         $("#content").find("[id^='tab']").hide(); // Hide all content
+         if (myHidden.value == "" || myHidden.value == "0")
+         {
+             $("#tabs li:first").attr("id", "current"); // Activate the first tab
+             $("#content #tab1").fadeIn(); // Show first tab's content//detection for current tab
+         }
+         else
+         {
+             tabsTwo();
+         }
+         parent.showTreeNode();
+         $('#tabs a').click(function (e) {
+             e.preventDefault();
+             if ($(this).closest("li").attr("id") == "current") {
+                
+                 return;
+             }
+             else {
+                 myHidden.value = 1;
+                
+                 $("#content").find("[id^='tab']").hide(); // Hide all content
+                 $("#tabs li").attr("id", ""); //Reset id's
+                 $(this).parent().attr("id", "current"); // Activate this
+                 $('#' + $(this).attr('name')).fadeIn(); // Show content for the current tab
+                 return;
+             }
+         });
+        
+     });
+
+     function tabsTwo() {
+         $("#content").find("[id^='tab']").hide();
+         $("#tabs li").attr("id", "");
+         $("#content #tab2").fadeIn();
+        
+     }
+    </script>
 </asp:Content>
 
 
