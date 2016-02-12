@@ -20,6 +20,7 @@ namespace Proj1
        
         SqlDataReader reader;
         DocumentAttachments boqObj = new DocumentAttachments();
+        PunchList punchObj = new PunchList();
        public int Id = 0;
        public string RevisionID
        {
@@ -32,6 +33,16 @@ namespace Proj1
            set;
        }
        public string ItemID
+       {
+           get;
+           set;
+       }
+       public int EILId
+       {
+           get;
+           set;
+       }
+       public string EilType
        {
            get;
            set;
@@ -153,12 +164,12 @@ namespace Proj1
                         string ext = System.IO.Path.GetExtension(FileUpload1.PostedFile.FileName);
                         string fileName = FileUpload1.PostedFile.FileName;
                         string pathToCheck = filePath + fileName;
-                        if(System.IO.File.Exists(pathToCheck))
+                        if (System.IO.File.Exists(pathToCheck))
                         {
                             int counter = 2;
-                            while(System.IO.File.Exists(pathToCheck))
+                            while (System.IO.File.Exists(pathToCheck))
                             {
-                                tempFile ="("+ counter.ToString()+")" + fileName;
+                                tempFile = "(" + counter.ToString() + ")" + fileName;
                                 pathToCheck = filePath + tempFile;
                                 counter++;
                             }
@@ -166,32 +177,49 @@ namespace Proj1
                         }
                         filePath += fileName;
                         FileUpload1.SaveAs(filePath);
-                        cmd = new SqlCommand();
-                        cmd.Connection = cntion.GetDBConnection();
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.CommandText = "[InsertDocAttachmentDetails]";
-                        
-                       // cmd.Parameters.Add("@paramId", SqlDbType.Int).Value = Id;
-                        cmd.Parameters.Add("@Filename", SqlDbType.NVarChar, 100).Value = fileName.ToString();
-                        cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = FileUpload1.FileContent;
-                        cmd.Parameters.Add("@Filetype", SqlDbType.NVarChar,5).Value = ext;
-                        cmd.Parameters.Add("@Filesize", SqlDbType.NVarChar,50).Value = fileSize;
-                        cmd.Parameters.Add("@Date",SqlDbType.SmallDateTime).Value=System.DateTime.Now;
-                        cmd.Parameters.Add("@userName", SqlDbType.VarChar, 50).Value = UA.userName;
-                        cmd.Parameters.Add("@Type",SqlDbType.VarChar,50).Value=type_value;
-                        
-                            cmd.Parameters.Add("@itemID", SqlDbType.UniqueIdentifier).Value = (Guid.Parse(ItemID) != Guid.Empty) ? Guid.Parse(ItemID) : Guid.Empty;
-                      
-                       
-                        cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value =Guid.Parse(RevisionID);
-                        
-                        SqlParameter ouparamid = cmd.Parameters.Add("@outparamid", SqlDbType.UniqueIdentifier);
-                        ouparamid.Direction = ParameterDirection.Output;
-                        cmd.ExecuteNonQuery();
- 
+                        {
+                            if (type_value == "BOQ" || type_value == "BOQHeader")
+                            {
+                                cmd = new SqlCommand();
+                                cmd.Connection = cntion.GetDBConnection();
+                                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                                cmd.CommandText = "[InsertDocAttachmentDetails]";
 
-                        lblmsg.ForeColor = System.Drawing.Color.Green;
-                        lblmsg.Text = "File uploaded successfully.";
+                                // cmd.Parameters.Add("@paramId", SqlDbType.Int).Value = Id;
+                                cmd.Parameters.Add("@Filename", SqlDbType.NVarChar, 100).Value = fileName.ToString();
+                                cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = FileUpload1.FileContent;
+                                cmd.Parameters.Add("@Filetype", SqlDbType.NVarChar, 5).Value = ext;
+                                cmd.Parameters.Add("@Filesize", SqlDbType.NVarChar, 50).Value = fileSize;
+                                cmd.Parameters.Add("@Date", SqlDbType.SmallDateTime).Value = System.DateTime.Now;
+                                cmd.Parameters.Add("@userName", SqlDbType.VarChar, 50).Value = UA.userName;
+                                cmd.Parameters.Add("@Type", SqlDbType.VarChar, 50).Value = type_value;
+
+                                cmd.Parameters.Add("@itemID", SqlDbType.UniqueIdentifier).Value = (Guid.Parse(ItemID) != Guid.Empty) ? Guid.Parse(ItemID) : Guid.Empty;
+
+
+                                cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(RevisionID);
+
+                                SqlParameter ouparamid = cmd.Parameters.Add("@outparamid", SqlDbType.UniqueIdentifier);
+                                ouparamid.Direction = ParameterDirection.Output;
+                                cmd.ExecuteNonQuery();
+
+
+                                lblmsg.ForeColor = System.Drawing.Color.Green;
+                                lblmsg.Text = "File uploaded successfully.";
+                            }
+                            else
+                            {
+                                //byte[] buffer;
+                                //buffer = (byte[])dt.Rows[0]["BinaryFile"];
+                                punchObj.image =  FileUpload1.FileContent;
+                                punchObj.FileType = ext;
+                                punchObj.id = EILId;
+                                punchObj.EILType = EilType;
+                                punchObj.fileSize = fileSize;
+                                punchObj.fileUpload = fileName.ToString();
+                                punchObj.InsertEILAttachment();
+                            }
+                        }
                     }
                     else
                     {
@@ -200,7 +228,7 @@ namespace Proj1
                             lblmsg.ForeColor = System.Drawing.Color.Red;
                             lblmsg.Text = "File should  be less than 10 mb of size";
                         }
-                        if(FileUpload1.PostedFile.ContentLength == 0)
+                        if (FileUpload1.PostedFile.ContentLength == 0)
                         {
                             lblmsg.ForeColor = System.Drawing.Color.Red;
                             lblmsg.Text = "File Does not have content..";

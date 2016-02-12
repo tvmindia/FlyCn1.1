@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
 using Telerik.Web.UI;
 #endregion Namespaces
 
@@ -311,6 +312,38 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion SINo
 
+        #region FileType
+        public string FileType
+        {
+            get;
+            set;
+        }
+        #endregion FileType
+
+        #region id
+        public int id
+        {
+            get;
+            set;
+        }
+        #endregion id
+
+        #region image
+        public object image /*Takes image from fileupload control */
+        {
+            get;
+            set;
+        }
+        #endregion image
+
+        #region fileSize
+        public string fileSize
+        {
+            get;
+            set;
+        }
+        #endregion fileSize
+
         #endregion Properties
 
         #region Constructor
@@ -349,7 +382,7 @@ namespace FlyCn.FlyCnDAL
 
         // MasterPersonal mObj = new MasterPersonal();       
         DALConstants cnst = new DALConstants();
-
+        ErrorHandling eObj = new ErrorHandling();
         #region Methods
 
         #region BindTree
@@ -432,7 +465,7 @@ namespace FlyCn.FlyCnDAL
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
 
-                string selectArea = "select Code,Name from M_Personnel";
+                string selectArea = "GetDetailsFromM_Personnel";
                 daObj = new SqlDataAdapter(selectArea, con);
                 daObj.Fill(dt);
             }
@@ -918,8 +951,9 @@ namespace FlyCn.FlyCnDAL
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
-                string selectQuery = "select Code,Description from M_Plant where ProjectNo=@No";
+                string selectQuery = "GetDetailsFromM_Plant";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
                 cmdSelect.Parameters.AddWithValue("@No", UA.projectNo);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(dt);
@@ -955,8 +989,9 @@ namespace FlyCn.FlyCnDAL
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
-                string selectQuery = "select Code,Description from M_Area where ProjectNo=@No";
+                string selectQuery = "GetDetailsFromM_Area";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
                 cmdSelect.Parameters.AddWithValue("@No", UA.projectNo);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(dt);
@@ -992,8 +1027,9 @@ namespace FlyCn.FlyCnDAL
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
-                string selectQuery = "select Code,Description from M_Location where ProjectNo=@No";
+                string selectQuery = "GetDetailsFromM_Location";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
                 cmdSelect.Parameters.AddWithValue("@No", UA.projectNo);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(dt);
@@ -1029,8 +1065,9 @@ namespace FlyCn.FlyCnDAL
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
-                string selectQuery = "select Code,Description from M_Unit where ProjectNo=@No";
+                string selectQuery = "GetDetailsFromM_Unit";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
                 cmdSelect.Parameters.AddWithValue("@No", UA.projectNo);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(dt);
@@ -1066,8 +1103,9 @@ namespace FlyCn.FlyCnDAL
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
-                string selectQuery = "select Code,CompName from M_Company where ProjectNo=@No";
+                string selectQuery = "GetDetailsFromM_Company";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
                 cmdSelect.Parameters.AddWithValue("@No", UA.projectNo);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(dt);
@@ -1103,8 +1141,9 @@ namespace FlyCn.FlyCnDAL
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
-                string selectQuery = "select Code,Description from M_Discipline where ProjectNo=@No";
+                string selectQuery = "GetDetailsFromM_Discipline";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
                 cmdSelect.Parameters.AddWithValue("@No", UA.projectNo);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(dt);
@@ -1139,8 +1178,9 @@ namespace FlyCn.FlyCnDAL
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
-                string selectQuery = "select Code,Description from M_FailCategory where ProjectNo=@No";
+                string selectQuery = "GetDetailsFromM_FailCategory";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
                 cmdSelect.Parameters.AddWithValue("@No", UA.projectNo);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(dt);
@@ -1176,8 +1216,9 @@ namespace FlyCn.FlyCnDAL
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
-                string selectQuery = "select Code,Description from M_Category where ProjectNo=@No";
+                string selectQuery = "GetDetailsFromM_Category";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
                 cmdSelect.Parameters.AddWithValue("@No", UA.projectNo);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(dt);
@@ -1197,7 +1238,7 @@ namespace FlyCn.FlyCnDAL
         #endregion GetCategoryFromM_Category
 
         #region InsertEILAttachment
-        public int InsertEILAttachment(int id)
+        public int InsertEILAttachment()
         {
             int result = 0;
             SqlConnection con = null;
@@ -1207,7 +1248,6 @@ namespace FlyCn.FlyCnDAL
                 con = dcon.GetDBConnection();
                 UIClasses.Const Const = new UIClasses.Const();
                 FlyCnDAL.Security.UserAuthendication UA;
-
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
@@ -1218,12 +1258,20 @@ namespace FlyCn.FlyCnDAL
                 cmdInsert.Parameters.AddWithValue("@Idno", id);
                 cmdInsert.Parameters.AddWithValue("@EILType", EILType);
                 cmdInsert.Parameters.AddWithValue("@filename", fileUpload);
-
+                cmdInsert.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+                cmdInsert.Parameters.AddWithValue("@fileType", FileType);
+                cmdInsert.Parameters.AddWithValue("@image", image);
+                cmdInsert.Parameters.AddWithValue("@uploadedBy",UA.userName);
+                cmdInsert.Parameters.AddWithValue("@fileSize", fileSize);
                 result = cmdInsert.ExecuteNonQuery();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.InsertionSuccessData(page,"Data Inserted Suuccessfully..!!!!");
             }
             catch (SqlException ex)
             {
                 throw ex;
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
             }
             finally
             {
@@ -1233,6 +1281,40 @@ namespace FlyCn.FlyCnDAL
 
         }
         #endregion InsertEILAttachment
+
+        #region DeleteEilByID
+        public void DeleteEilByID(Guid ImageID)
+        {
+            SqlConnection con = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand boqcmd = new SqlCommand();
+                boqcmd.CommandType = CommandType.StoredProcedure;
+                boqcmd.Connection = con;
+                boqcmd.CommandText = "[GetEIL_AttachByID]";
+                boqcmd.Parameters.Add("@AttachID", SqlDbType.UniqueIdentifier).Value = ImageID;
+                boqcmd.ExecuteNonQuery();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.DeleteSuccessData(page);
+               
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Dispose();
+                }
+            }
+        }
+        #endregion DeleteEilByID
 
         #region DeleteEILAttach
         public int DeleteEILAttach(string id, string type)
@@ -1257,6 +1339,7 @@ namespace FlyCn.FlyCnDAL
                 cmdDelete.Parameters.AddWithValue("@projectno", UA.projectNo);
                 cmdDelete.Parameters.AddWithValue("@Idno", id);
                 cmdDelete.Parameters.AddWithValue("@EILType", type);
+                
                 result = cmdDelete.ExecuteNonQuery();
             }
             catch (SqlException ex)
@@ -1351,7 +1434,7 @@ namespace FlyCn.FlyCnDAL
         #endregion DeleteEilAttachByProjectNoRefNoEILTypeSlNo
 
         #region GetEIL_AttachDetails
-        public DataTable GetEIL_AttachDetails(string id, string name, string type)
+        public DataTable GetEIL_AttachDetails()
         {
             DataTable dt = new DataTable();
             SqlConnection con = null;
@@ -1367,12 +1450,12 @@ namespace FlyCn.FlyCnDAL
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
-                string selectQuery = "select FileName,RefNo,ProjectNo,EILType from EIL_Attach where ProjectNo=@No and FileName=@name and EILType=@EILType and RefNo=@id";
+                string selectQuery = "GetDetailsFromEIL_Attach";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
                 cmdSelect.Parameters.AddWithValue("@No", UA.projectNo);
                 cmdSelect.Parameters.AddWithValue("@id", id);
-                cmdSelect.Parameters.AddWithValue("@EILType", type);
-                cmdSelect.Parameters.AddWithValue("@name", name);
+                cmdSelect.Parameters.AddWithValue("@EILType",EILType);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(dt);
             }

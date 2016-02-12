@@ -202,6 +202,24 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.DropDownList ddlOpenBy;
         
         /// <summary>
+        /// lblIDNum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIDNum;
+        
+        /// <summary>
+        /// lblEliTypeNum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEliTypeNum;
+        
+        /// <summary>
         /// lblEnteredDate control.
         /// </summary>
         /// <remarks>
@@ -850,6 +868,24 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.TextBox txtCompletionRemarks;
         
         /// <summary>
+        /// IdUc_FlyCnFileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Proj1.WebUserControl1 IdUc_FlyCnFileUpload;
+        
+        /// <summary>
+        /// btnsubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnsubmit;
+        
+        /// <summary>
         /// Label16 control.
         /// </summary>
         /// <remarks>
@@ -859,31 +895,13 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.Label Label16;
         
         /// <summary>
-        /// fuAttach control.
+        /// GridView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuAttach;
-        
-        /// <summary>
-        /// StatusLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label StatusLabel;
-        
-        /// <summary>
-        /// btnUpload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpload;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
         
         /// <summary>
         /// grdFileUpload control.
@@ -911,6 +929,15 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnMode;
+        
+        /// <summary>
+        /// hdnIdNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnIdNo;
         
         /// <summary>
         /// hdnSecurity control.
