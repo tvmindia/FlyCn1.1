@@ -748,3 +748,27 @@ transition: .1s ease;
 .smallTile {
     font-size:x-small;
 }
+
+/*-------------Denied access ----------------------*/
+
+  
+   .denied-containerDiv
+   {
+       text-align: center;
+      
+       
+   }
+    
+   .denied-imgDiv
+   {
+       height: 350px;
+       width:320px;
+       margin: 0 auto;
+   }  
+
+   .denied-img
+   {
+       width: 100%;
+       max-height: 100%; 
+   }
+/*---------------------------------------*/

@@ -246,6 +246,11 @@ ul.departments { list-style-type: none; }*/
 
         }
 
+        function DisableImportButton()
+        {
+            document.getElementById('<%= btnImport.ClientID %>').disabled = true;
+        }
+
         //function EnableGridandButton()
         //{
         //   // document.getElementById("btnValidate").disabled = true;

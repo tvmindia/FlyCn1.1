@@ -326,6 +326,7 @@
     <Content Include="FlycnSecurity\ObjectAccessForRoles.aspx" />
     <Content Include="FlycnSecurity\ObjectRegistration.aspx" />
     <Content Include="FlycnSecurity\Users.aspx" />
+    <Content Include="Images\accesDenied.png" />
     <Content Include="Images\Document Next-WF.png" />
     <Content Include="Images\Document-Download-01.png" />
     <Content Include="Images\Download-02-WF.png" />

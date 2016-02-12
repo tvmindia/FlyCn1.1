@@ -461,21 +461,22 @@ namespace FlyCn.FlyCnDAL
         /// <param name="ExcelFileName"></param>
         /// <param name="InsertCount"></param>
 
-        public void InsertExcelImportErrorDetails(string KeyField, string ErrorDescription,int rowNO)
+        public Int16 InsertExcelImportErrorDetails(string KeyField, string ErrorDescription,int rowNO,dbConnection dbCon)
         {
-            SqlConnection con = new SqlConnection();
+         
             SqlCommand cmd = new SqlCommand();
-            dbConnection dcon = new dbConnection();
+            SqlParameter outputparamIsUpdate = cmd.Parameters.Add("@IsUpdate", SqlDbType.TinyInt);
+           
             try
             {
-                con = dcon.GetDBConnection();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "InsertExcelImportErrorDetails";
-                cmd.Connection = con;
+                cmd.Connection = dbCon.SQLCon;
                 cmd.Parameters.Add("@Import_Status_Id", SqlDbType.UniqueIdentifier).Value = status_Id;
                 cmd.Parameters.Add("@Key_Field", SqlDbType.NVarChar, 50).Value = KeyField;
                 cmd.Parameters.Add("@Excel_RowNO", SqlDbType.Int).Value = rowNO;//excel error row number
                 cmd.Parameters.Add("@Error_Description", SqlDbType.NVarChar, 250).Value = ErrorDescription;
+                outputparamIsUpdate.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -484,13 +485,9 @@ namespace FlyCn.FlyCnDAL
             }
             finally
             {
-                if (con != null)
-                {
-                    dcon.DisconectDB();
-                }
+             
             }
-
-
+            return Convert.ToInt16(outputparamIsUpdate.Value);
         }
         #endregion Insert Excel Import Error Details
 

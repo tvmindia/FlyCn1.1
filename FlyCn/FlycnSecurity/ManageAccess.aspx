@@ -5,9 +5,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="../Content/themes/FlyCnGreen/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
     <script src="../Scripts/jquery-1.8.2.js"></script>
     
  <%--<script type=
@@ -99,7 +99,7 @@
   </ClientSettings>
         
          
-            <MasterTableView DataKeyNames="LevelID,ObjId,LevelDesc" AllowMultiColumnSorting="True"  HierarchyLoadMode="Client"
+            <MasterTableView DataKeyNames="LevelID,ObjId,LevelDesc,Add,Edit,Delete,ReadOnly" AllowMultiColumnSorting="True"  HierarchyLoadMode="Client"
                 TableLayout="Auto"  EnableViewState="true"  AllowPaging="true" PageSize="9"  ItemStyle-Width="100%"  >
 
                 <Columns>
@@ -135,7 +135,7 @@
                                                       </telerik:GridTemplateColumn>
                                 </Columns>
                 <DetailTables  >
-                    <telerik:GridTableView DataKeyNames="LevelID,ObjId,LevelDesc" Name="Child" Width="100%" 
+                    <telerik:GridTableView DataKeyNames="LevelID,ObjId,LevelDesc,Add,Edit,Delete,ReadOnly" Name="Child" Width="100%" 
                          EnableHeaderContextMenu="false"   HierarchyLoadMode="Client" ShowHeader="False" EnableViewState="false" ItemStyle-Width="100%" >
                       
                           <Columns>
@@ -172,7 +172,7 @@
                                 </Columns>
                         <DetailTables>
 
-                            <telerik:GridTableView DataKeyNames="LevelID,ObjId,LevelDesc" Name="Child" Width="100%"  
+                            <telerik:GridTableView DataKeyNames="LevelID,ObjId,LevelDesc,Add,Edit,Delete,ReadOnly" Name="Child" Width="100%"  
                                  HierarchyLoadMode="Client" EnableHeaderContextMenu="false" ShowHeader="False" EnableViewState="false" 
                                  HeaderStyle-Width="100%" ItemStyle-Width="100%"    >
 
@@ -211,7 +211,7 @@
                                 </Columns>
                                 <DetailTables>
 
-                            <telerik:GridTableView DataKeyNames="LevelID,ObjId,LevelDesc" Name="Child" Width="100%"  
+                            <telerik:GridTableView DataKeyNames="LevelID,ObjId,LevelDesc,Add,Edit,Delete,ReadOnly" Name="Child" Width="100%"  
                                  HierarchyLoadMode="Client" EnableHeaderContextMenu="false" ShowHeader="False" EnableViewState="false"  >
 
                                 <Columns>
@@ -265,8 +265,8 @@
     </ContentTemplate>
            </asp:UpdatePanel>
             </div>
-         
     <asp:Button ID="Button1" runat="server" Text="Button"  OnClick="Button1_Click"/>
+         <div></div>
              
   
 </div>
