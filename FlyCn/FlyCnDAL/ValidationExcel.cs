@@ -403,6 +403,7 @@ namespace FlyCn.FlyCnDAL
             //validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i, comDAL.tableName,List<string> MasterColumns);
             public Int16 MasterDataExist(DataSet dsTable,DataSet MasterDS, DataRow dr,int rowNO, string TableName, List<string> MasterColumns,dbConnection dbCon)
             {
+                string comma = "";
                 Int16 isupdate;
                 string cName;
                 string refTableName = "";
@@ -424,22 +425,26 @@ namespace FlyCn.FlyCnDAL
                     masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[cName].ToString() + "'");
                     if (masterDataExisting.Length == 0)//data does not exists in the masters
                     {
-                          //importfile.status_Id = "dfdf";
+                        
                         if (refTableName == "M_Personnel")
                         {
                            //Error for table name M_Personel
                             flag = true;
+                            errorDescLists.Append(comma);
                             errorDescLists.Append(cName);
-                            errorDescLists.Append(",");
-                            errorDescLists.Append("is Invalid Master Data");
+                            errorDescLists.Append("is Invalid Data");
+                            comma = ",";
                         }
                         else
                         {
+                           
                             //Warning for Normal masters
                             flag = true;
+                            errorDescLists.Append(comma);
                             errorDescLists.Append(cName);
-                            errorDescLists.Append(",");
                             errorDescLists.Append("Warning");
+                            comma = "";
+
                         }
                      
                     }
@@ -448,15 +453,22 @@ namespace FlyCn.FlyCnDAL
                     {
                         rowNO = rowNO + 2;
                         isupdate=importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
-                       // return -1;
                         return isupdate;
                     }
-                  //importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+               
                     return -1;
                 
             }
             #endregion MasterDataExist
+            #region CableLengthValidation
+            public void CableLengthValidation(DataRow dr)
+            {
+                //Get the CableSchedule records based on project no,moduleID,category and cableno
 
+
+            }
+            #endregion CableLengthValidation
+           
 
         }
     #endregion classValidationExcel

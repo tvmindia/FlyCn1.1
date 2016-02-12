@@ -853,6 +853,49 @@ namespace FlyCn.FlyCnDAL
             return 0;
         }
         #endregion ImportExcelRow
+
+        #region GetCableScheduleMaster
+        public DataSet GetCableScheduleMaster()
+        {
+
+               SqlCommand cmd = null;
+               DataSet ds = null; 
+               SqlDataAdapter da = null; 
+               dbConnection dcon = null;
+              
+            try
+            {
+                ds = new DataSet();
+                cmd = new SqlCommand();
+                da = new SqlDataAdapter();
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "";
+                cmd.Parameters.Add("@", SqlDbType.NVarChar).Value = "";
+                cmd.Parameters.Add("@", SqlDbType.NVarChar).Value = "";
+                cmd.Parameters.Add("@", SqlDbType.NVarChar).Value = "";
+                cmd.Parameters.Add("@", SqlDbType.NVarChar).Value = "";
+                cmd.Connection = dcon.SQLCon;
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+
+        #endregion GetCableScheduleMaster
+
         #endregion methods
 
     }
