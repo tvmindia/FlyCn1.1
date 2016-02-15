@@ -461,11 +461,42 @@ namespace FlyCn.FlyCnDAL
             }
             #endregion MasterDataExist
             #region CableLengthValidation
-            public void CableLengthValidation(DataRow dr)
+            public void CableLengthValidation(DataRow dr,DataSet dsTable,int rowNO,dbConnection dbCon)
             {
                 //Get the CableSchedule records based on project no,moduleID,category and cableno
+                //To find out whether its a update or insert
+             
+                string comma = "";
+                DataSet CableDS = null;
+                int length;
+                StringBuilder errorDescLists = new StringBuilder();
+                DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
+                string keyField = GetInvalidKeyField(keyFieldRow, dr);
+                CableDS = new DataSet();
+                if ((dr["ProjectNo"].ToString() != "") && (dr["ModuleID"].ToString() != "") && (dr["Category"].ToString() != "") && (dr["Cable No"].ToString() !=""))
+                { 
+                 CableDS = importfile.GetCableScheduleMaster(dr["ProjectNo"].ToString(), dr["ModuleID"].ToString(), dr["Category"].ToString(), dr["Cable No"].ToString(),dbCon);
 
+                    if (CableDS.Tables[0].Rows.Count > 0)
+                    {
+                     //record exists
+                     //its an update
+                     //so validate CablepullDetail
+                       length = importfile.GetCableTotalPullLength(dr["ProjectNo"].ToString(), dr["ModuleID"].ToString(), dr["Category"].ToString(), dr["Cable No"].ToString(), dbCon);
+                       if (length != -1)
+                       {
+                         if (!(length >= int.Parse(dr["Total Length"].ToString())))
+                         {
+                             errorDescLists.Append(comma);
+                             errorDescLists.Append("Total Length");
+                             errorDescLists.Append(" Can not be reduced further");
+                             comma = "";
+                             importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                         }
+                       }
 
+                   }
+                }
             }
             #endregion CableLengthValidation
            
