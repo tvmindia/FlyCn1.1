@@ -3,23 +3,49 @@
   
    .denied-containerDiv
    {
-       text-align: center;
-        padding-top:10%;
        
+       
+      
    }
     
    .denied-imgDiv
    {
-       height: 350px;
-       width:320px;
-       margin: 0 auto;
+       display:block;
+       height: 50%;
+       width:40%;
+       /*margin:0 auto;*/
+      color:red;
+       font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      text-align: justify;
    }  
 
    .denied-img
    {
        width: 100%;
        max-height: 100%; 
+       
+          
    }
+
+   .span-denied
+   {
+       display:none;
+   }
+
+   .divTest{
+      width:100px;
+       font-size:80%;
+        text-align:center;
+        height:100px;
+   }
+
+   .div-of-Accessdenied
+   {
+       
+       width:30%;
+       height:30%;
+   }
+
 /*---------------------------------------*/
 
 

@@ -1,4 +1,19 @@
-﻿using System;
+﻿#region CopyRight
+
+//All rights are reserved
+//Created By   :
+//Created Date : 
+//Purpose      : 
+
+//Modified BY   : SHAMILA T P
+//Modified Date : Feb-12-2016
+//Purpose       : To add save functionality 
+
+#endregion CopyRight
+
+#region Included Namespaces
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -7,13 +22,24 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using FlyCnSecurity.SecurityDAL;
+using FlyCn.FlyCnDAL;
+
+#endregion Included Namespaces
+
 namespace FlyCn.FlycnSecurity
 {
+
     public partial class ManageAccess : System.Web.UI.Page
     {
+        #region Global Variables
+
+        Security.UserAuthendication UA;
+
+        #endregion Global Variables
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           
             if (!IsPostBack)
             {
                 Session["selectedAddID"] = null;
@@ -83,6 +109,7 @@ namespace FlyCn.FlycnSecurity
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            
             FlyCnSecurity.SecurityDAL.AccessManage AccsMng = new AccessManage();
 
             RadGrid1.AllowPaging = false;
@@ -117,6 +144,11 @@ namespace FlyCn.FlycnSecurity
                    {
                        AccsMng.ReadOnly = Convert.ToBoolean(dataitem.GetDataKeyValue("ReadOnly"));
                    }
+
+
+                    
+
+
                 }
 
             }

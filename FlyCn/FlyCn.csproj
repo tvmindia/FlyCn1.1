@@ -326,7 +326,8 @@
     <Content Include="FlycnSecurity\ObjectAccessForRoles.aspx" />
     <Content Include="FlycnSecurity\ObjectRegistration.aspx" />
     <Content Include="FlycnSecurity\Users.aspx" />
-    <Content Include="Images\accesDenied.png" />
+    <Content Include="Images\deniedLock.jpg" />
+    <Content Include="Images\dnd.jpg" />
     <Content Include="Images\Document Next-WF.png" />
     <Content Include="Images\Document-Download-01.png" />
     <Content Include="Images\Download-02-WF.png" />
@@ -395,6 +396,7 @@
     <Content Include="Images\Icons\ur.png" />
     <Content Include="Images\Icons\workpack.png" />
     <Content Include="Images\Lb2.png" />
+    <Content Include="Images\Lock.png" />
     <Content Include="Images\LogoSearchMagnifyingGlass.png" />
     <Content Include="Images\Minus.png" />
     <Content Include="Images\plus1.png" />
