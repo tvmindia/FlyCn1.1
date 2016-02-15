@@ -461,14 +461,14 @@ namespace FlyCn.FlyCnDAL
         /// <param name="ExcelFileName"></param>
         /// <param name="InsertCount"></param>
 
-        public void InsertExcelImportErrorDetails(string KeyField, string ErrorDescription,int rowNO,dbConnection dbCon)
+        public Int16 InsertExcelImportErrorDetails(string KeyField, string ErrorDescription,int rowNO,dbConnection dbCon)
         {
-           // SqlConnection con = new SqlConnection();
+         
             SqlCommand cmd = new SqlCommand();
-        //    dbConnection dcon = new dbConnection();
+            SqlParameter outputparamIsUpdate = cmd.Parameters.Add("@IsUpdate", SqlDbType.TinyInt);
+           
             try
             {
-               
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "InsertExcelImportErrorDetails";
                 cmd.Connection = dbCon.SQLCon;
@@ -476,6 +476,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.Add("@Key_Field", SqlDbType.NVarChar, 50).Value = KeyField;
                 cmd.Parameters.Add("@Excel_RowNO", SqlDbType.Int).Value = rowNO;//excel error row number
                 cmd.Parameters.Add("@Error_Description", SqlDbType.NVarChar, 250).Value = ErrorDescription;
+                outputparamIsUpdate.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -484,13 +485,9 @@ namespace FlyCn.FlyCnDAL
             }
             finally
             {
-                //if (con != null)
-                //{
-                //    dcon.DisconectDB();
-                //}
+             
             }
-
-
+            return Convert.ToInt16(outputparamIsUpdate.Value);
         }
         #endregion Insert Excel Import Error Details
 
@@ -856,6 +853,49 @@ namespace FlyCn.FlyCnDAL
             return 0;
         }
         #endregion ImportExcelRow
+
+        #region GetCableScheduleMaster
+        public DataSet GetCableScheduleMaster()
+        {
+
+               SqlCommand cmd = null;
+               DataSet ds = null; 
+               SqlDataAdapter da = null; 
+               dbConnection dcon = null;
+              
+            try
+            {
+                ds = new DataSet();
+                cmd = new SqlCommand();
+                da = new SqlDataAdapter();
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "";
+                cmd.Parameters.Add("@", SqlDbType.NVarChar).Value = "";
+                cmd.Parameters.Add("@", SqlDbType.NVarChar).Value = "";
+                cmd.Parameters.Add("@", SqlDbType.NVarChar).Value = "";
+                cmd.Parameters.Add("@", SqlDbType.NVarChar).Value = "";
+                cmd.Connection = dcon.SQLCon;
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+
+        #endregion GetCableScheduleMaster
+
         #endregion methods
 
     }

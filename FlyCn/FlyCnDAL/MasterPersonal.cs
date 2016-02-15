@@ -584,8 +584,9 @@ namespace FlyCn.FlyCnDAL
 
                 HttpContext context = HttpContext.Current;
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
-                string selectQuery = "select Code,Name from M_Personnel where ProjectNo=@projno";
+                string selectQuery = "BindM_Personnel";
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
                 cmdSelect.Parameters.AddWithValue("@projno", UA.projectNo);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(dt);

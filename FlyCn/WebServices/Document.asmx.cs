@@ -17,7 +17,7 @@ namespace FlyCn.WebServices
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
-    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following  line. 
     [System.Web.Script.Services.ScriptService]
     public class Document : System.Web.Services.WebService
     {
@@ -564,6 +564,71 @@ namespace FlyCn.WebServices
         }
         #endregion Punch Item Get Attatchment
 
+        #region Punch Item Add Attatchment
+        /// <summary>
+        /// Webservice to return list of attachment images of an punchlist item
+        /// </summary>
+        /// <param name="projNo">Project Number</param>
+        /// <param name="punchID">EIL ID</param>
+        /// <param name="EILtype">WEIL/CEIL/QEIL</param>
+        /// <param name="isThumb">optional parameter to denote whether thumbanail images are enough</param>
+        /// <returns>JSON of details of attachment images</returns>
+        [WebMethod]
+        public string PunchItemAddAttatchment()
+        {
+            //return msg data initialization
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            try
+            {   //Retrieving details
+                string vTitle = "";
+                string vDesc = "";
+                string FilePath = Server.MapPath("~/tempImages/cur_file.jpg");
+
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["title"]))
+                {
+                    vTitle = HttpContext.Current.Request.Form["title"];
+                }
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["description"]))
+                {
+                    vDesc = HttpContext.Current.Request.Form["description"];
+                }
+
+                HttpFileCollection MyFileCollection = HttpContext.Current.Request.Files;
+                if (MyFileCollection.Count > 0)
+                {
+                    // Save the File
+                    MyFileCollection[0].SaveAs(FilePath);
+                }
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = HttpContext.Current.Request.Form["title"];
+                ErrorMsg.Rows.Add(dr);
+                ds.Tables.Add(ErrorMsg);
+                return getDbDataAsJSON(ds); 
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                ErrorMsg.Rows.Add(dr);
+                ds.Tables.Add(ErrorMsg);
+                return getDbDataAsJSON(ds);
+            }
+            finally
+            {
+            }
+        }
+        #endregion Punch Item Add Attatchment
+        
         #endregion Punchlist Functions----------------------------------------------
 
         #region JSON converter and sender
