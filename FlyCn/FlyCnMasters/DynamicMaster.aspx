@@ -59,7 +59,7 @@
                 if (tab.get_text() == "New") {
 
                     eventArgs.set_cancel(false);
-                    <%=ToolBar.ClientID %>_hideNotification();
+                  
                 }
                 else
                     if (tab.get_text() == "Details") {
@@ -73,13 +73,14 @@
             else
                 if (PageSecurity.isReadOnly) {
                     if (tab.get_text() == "New") {
-                        <%=ToolBar.ClientID %>_hideNotification();
+                       
                         AlertMsg(messages.EditModeNewClick);
 
                         eventArgs.set_cancel(true);
                     }
                     else
                         if (tab.get_text() == "Details") {
+                            debugger;
                             <%=ToolBar.ClientID %>_SetEditVisible(false);
                             <%=ToolBar.ClientID %>_SetAddVisible(false);
                             <%=ToolBar.ClientID %>_SetSaveVisible(false);
@@ -91,12 +92,13 @@
                 }
                 else if (PageSecurity.isEditOnly) {
                     if (tab.get_text() == "New") {
-                        <%=ToolBar.ClientID %>_hideNotification();
+                       
                         AlertMsg(messages.EditModeNewClick);
                         eventArgs.set_cancel(true);
                     }
                     else
                         if (tab.get_text() == "Details") {
+                            debugger;
                             <%=ToolBar.ClientID %>_SetEditVisible(false);
                             <%=ToolBar.ClientID %>_SetAddVisible(false);
                             <%=ToolBar.ClientID %>_SetSaveVisible(false);
@@ -125,7 +127,7 @@
                     PageSecurityCheck(security);
 
                     if ((PageSecurity.isWriteOnly)) {
-
+                        debugger;
                         <%=ToolBar.ClientID %>_SetEditVisible(false);
                         <%=ToolBar.ClientID %>_SetAddVisible(false);
                         <%=ToolBar.ClientID %>_SetSaveVisible(true);
@@ -136,7 +138,7 @@
 
 
                     if ((PageSecurity.isReadOnly)) {
-
+                        debugger;
                         <%=ToolBar.ClientID %>_SetEditVisible(false);
                         <%=ToolBar.ClientID %>_SetAddVisible(false);
                         <%=ToolBar.ClientID %>_SetSaveVisible(false);

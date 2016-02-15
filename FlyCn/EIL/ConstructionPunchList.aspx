@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="ConstructionPunchList.aspx.cs" Inherits="FlyCn.EIL.ConstructionPunchList" %>
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<%@ Register Src="~/UserControls/Uc_FlyCnFileUpload.ascx" TagPrefix="uc1" TagName="Uc_FlyCnFileUpload" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 
 <asp:Content ID="phdConstructionPunchListHead" ContentPlaceHolderID="head" runat="server">
@@ -107,40 +108,36 @@
         }
         //---------For Security-------------//
 
-        function EnableButtonsForNew() 
-            {
-         
-           
-            AddMode("<%= ToolBar.ClientID %>");      
-              }
+        function EnableButtonsForNew() {
 
-            function EnableButtonsForEdit()
-                {
-     
-                        EditMode("<%= ToolBar.ClientID %>");
-                   
-            }
-        
-        function DisableButtons()
-        {
-          
-                DisableAll("<%= ToolBar.ClientID %>");
-          
-                }
-        function DeleteButtonEnable()
-        {
-           
-          if(PageSecurity.isDelete)
-                EnableButtonsWithDelete("<%= ToolBar.ClientID %>");
-            
+
+            AddMode("<%= ToolBar.ClientID %>");
         }
 
-        //---------------------------------------------------------//
+        function EnableButtonsForEdit() {
+
+            EditMode("<%= ToolBar.ClientID %>");
+
+            }
+
+            function DisableButtons() {
+
+                DisableAll("<%= ToolBar.ClientID %>");
+
+        }
+        function DeleteButtonEnable() {
+
+            if (PageSecurity.isDelete)
+                EnableButtonsWithDelete("<%= ToolBar.ClientID %>");
+
+      }
+
+      //---------------------------------------------------------//
 
 
 
-                function SelectTabList() {
-                    var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
+      function SelectTabList() {
+          var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
                     var tab = tabStrip.findTabByValue("1");
                     tab.select();
                 }
@@ -151,14 +148,13 @@
                     tab1.set_text("New");
                     tab1.set_imageUrl('../Images/Icons/NewIcon.png');
                 }
-            
-            
+
+
             </script>
     <script type="text/javascript">
 
         //-----------------For  Security-------------------------//
-        function SecurityTabSelecting(eventArgs)
-        {
+        function SecurityTabSelecting(eventArgs) {
             var security = document.getElementById("hdnSecurityMaster").value;
             var tab = eventArgs.get_tab();
             PageSecurityCheck(security);
@@ -210,7 +206,7 @@
             if (value == "EditData") {
                 EnableButtonsForEdit();
             }
-     else
+            else
                 if (value == "ViewDetailColumn") {
                     DisableAll();
                 }
@@ -219,25 +215,25 @@
         function OnClientTabSelecting(sender, eventArgs) {
             debugger;
             SecurityTabSelecting(eventArgs);
-       
-        }
-        
-       
 
- 
+        }
+
+
+
+
 
 
         function onClientTabSelected(sender, args) {
             debugger;
             var tab = args.get_tab();
-         
+
             if (tab.get_value() == '2') {
-         
+
                 try {
 
-                    
+
                     ClearTexBox();
-                   
+
                     if (tab.get_text() == "New") {
 
                         <%=ToolBar.ClientID %>_SetAddVisible(false);
@@ -247,41 +243,41 @@
                         <%=ToolBar.ClientID %>_SetAttachVisible(false);
                     }
                     if (document.getElementById("<%= grdFileUpload.ClientID %>") != null)
-                              document.getElementById("<%= grdFileUpload.ClientID %>").style.display = "none";
-                      }
-                      catch (x) {
+                        document.getElementById("<%= grdFileUpload.ClientID %>").style.display = "none";
+                }
+                catch (x) {
 
-                      }
+                }
 
             }
 
 
-                  if (tab.get_value() == "1") {
+            if (tab.get_value() == "1") {
 
-                      SelectTabList();
-                      SetTabNewTextAndIcon();
-                  }
+                SelectTabList();
+                SetTabNewTextAndIcon();
+            }
 
-              }
-              function OnClientButtonClicking(sender, args) {
+        }
+        function OnClientButtonClicking(sender, args) {
 
-                  var btn = args.get_item();
-                  if (btn.get_value() == 'Delete') {
+            var btn = args.get_item();
+            if (btn.get_value() == 'Delete') {
 
-                      args.set_cancel(!confirm(messages.DeleteAlertGeneral));
-                  }
-                  if (btn.get_value() == 'Update') {
+                args.set_cancel(!confirm(messages.DeleteAlertGeneral));
+            }
+            if (btn.get_value() == 'Update') {
 
-                      args.set_cancel(!validate());
-                  }
-                  if (btn.get_value() == 'Save') {
+                args.set_cancel(!validate());
+            }
+            if (btn.get_value() == 'Save') {
 
-                      args.set_cancel(!validate());
-                  }
+                args.set_cancel(!validate());
+            }
 
-              }
-              function ClearTexBox() {
-                  document.getElementById('<%=txtIDno.ClientID %>').value = "";
+        }
+        function ClearTexBox() {
+            document.getElementById('<%=txtIDno.ClientID %>').value = "";
 
                   $('input[type=text]').each(function () {
                       $(this).val('');
@@ -293,15 +289,15 @@
     <script type="text/javascript">
 
         function validate() {
-      
+
 
             var IdNo = document.getElementById("<%=txtIDno.ClientID %>").value;
 
             if (IdNo == "") {
 
-             
+
                 displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
-               // alert(messageType.Error, messages.MandatoryFieldsGeneral);
+                // alert(messageType.Error, messages.MandatoryFieldsGeneral);
                 return false;
 
             }
@@ -315,14 +311,14 @@
 
 
     <script type="text/javascript">
-       
-       
-          
+
+
+
         $(document).ready(function () {
             //------------------------For Security-----------------------------------------------//
             debugger;
             //var security = document.getElementById("hdnSecurityMaster").value;
-          
+
             //Page Postback
            <%-- if (document.getElementById('<%=hdnAccessMode.ClientID%>').value == "EditData")
             {
@@ -333,10 +329,10 @@
                 {
                     DisableButtons();
                 }--%>
-        
+
             //----------------------------------------------------------------------------------//
             id = document.getElementById('IDAccordion');
-         
+
             OpenDetailAccordion(id);
             parent.showTreeNode();
 
@@ -359,16 +355,16 @@
                 } else {
                     accordionToggleIcon.html("<i class='fa fa-plus-circle'></i>");
                 }
-               
-            });       
-            
+
+            });
+
         });
 
 
         function OpenDetailAccordion(id) {
             if (id != undefined)//accordion called from accordion click functionjs
             {
-        
+
                 var accordion = $(id);
                 var accordionContent = accordion.next('.accordion-content');
                 var accordionToggleIcon = accordion.children('.toggle-icon');
@@ -386,15 +382,12 @@
                 }
             }
         }
-            
+
             </script>
 
 
     <asp:Label ID="lblTitle" runat="server" Text="" CssClass="PageHeading"></asp:Label>
    
-   
-    <hr />
-         
     <div class="container" style="width: 100%">
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" OnClientTabSelecting="OnClientTabSelecting"
             CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
@@ -409,8 +402,7 @@
             <div class="contentTopBar"></div>
             <table style="width:100%">
                 <tr>
-                    <td>&nbsp
-                    </td>
+                   
                     <td>
                    
 
@@ -426,7 +418,7 @@
 
 
                                     <telerik:RadGrid ID="dtgManageProjectGrid" runat="server" CellSpacing="0"
-                                        GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true" OnItemCommand="dtgManageProjectGrid_ItemCommand"
+                                        GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true" OnSelectedIndexChanged="dtgManageProjectGrid_SelectedIndexChanged" OnItemCommand="dtgManageProjectGrid_ItemCommand"
                                         PageSize="10" Width="100%" Skin="Silk">
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType">
                                             <Columns>
@@ -542,6 +534,8 @@
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlOpenBy" runat="server" CssClass="selectbox">
                                                 </asp:DropDownList>
+                                                <asp:Label ID="lblIDNum" runat="server" Text="" Visible="false"></asp:Label>
+                                                 <asp:Label ID="lblEliTypeNum" runat="server" Text="" Visible="false"></asp:Label>
                                             </div>
                                         </div>
                                         <%-- </form>--%>
@@ -1157,36 +1151,42 @@
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                               
                              <div class="accordion-content"> 
-                            
-                                    <div class="col-md-6">
+                            <div class="col-md-3"></div>
+                                 <div class="col-md-6">
+                                   <table id="table1">
+       <tr>
+          <td>   <uc1:uc_flycnfileupload runat="server" ID="IdUc_FlyCnFileUpload" /></td>
+           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+             <td>  <asp:Button ID="btnsubmit" runat="server" Text="Upload" Enabled="false" OnClick="btnsubmit_Click" /></td>
+           </tr>
+       <tr>
+          
+           <td>
+           <asp:Label ID="Label16" runat="server" Text="" ForeColor="Red"></asp:Label>
+               </td>
+       </tr>
+           </table>
+    <br />
+         <table id="table2">
+    <tr><td>
+         <asp:GridView ID="GridView1" CssClass="Grid" runat="server" CellPadding="5" CellSpacing="10" AutoGenerateColumns="False" Height="111px" Width="400px" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" DataKeyNames="AttachmentID" OnRowDeleting="GridView1_RowDeleting">
+             <Columns>
+                 <asp:BoundField DataField="AttachmentID" HeaderText="ID" Visible="false" />
+                 <asp:BoundField DataField="AttachmentName" HeaderText="File Name" />
+                 <asp:BoundField DataField="FileType" HeaderText="File Type" />
+                 <asp:BoundField DataField="FileSize" HeaderText="File Size" />
+                 
+                 <asp:ButtonField CommandName="Select" ButtonType="Image" ImageUrl="~/Images/Download-202-WF.png" ControlStyle-Height="15px"/>
 
-                                        <div class="form-group">
-
-                                              <asp:Label ID="Label16" runat="server" Text="Attach Document"  class="control-label col-md-5" for="email3"></asp:Label>
-
-                                            <div class="col-md-7">
-
-                                                <asp:FileUpload ID="fuAttach" runat="server" AllowMultiple="true" />
-
-                                               
-              
-                                                 </div>
-                                            </div>  </div>
-                                           
-                                         <div class="col-md-6">
-
-                                        <div class="form-group">
-                                          
-                                              <asp:Label runat="server" ID="StatusLabel" class="control-label col-md-5"  Text="Upload status "  Font-Size="Small"/>
-                                           <%--   <label class="control-label col-md-5" for="email3" id="StatusLabel">
-                                               Upload status
-                                            </label>--%>
-                                              <div class="col-md-7">
-                                             <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClick="btnUpload_Click" Enabled="False" style="width:77px"/>
-                                                  </div>
-                                        </div>
-                                             </div>
-                                                </div>
+                  <asp:ButtonField CommandName="Delete" ButtonType="Image" ImageUrl="~/Images/Cancel.png" ControlStyle-Height="15px"/>
+                 
+             </Columns>
+         </asp:GridView>
+        </td></tr>
+          </table>
+                         </div>
+                                 <div class="col-md-3">
+                             </div>
                                       </div></div>
                                         <%-- </form>--%>
                            <table style="width: 100%;">
@@ -1354,7 +1354,8 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
  </div>
 
      <asp:HiddenField ID="hdnAccessMode" runat="server" />
-    <asp:HiddenField ID="hdnMode" runat="server" />
+    <asp:HiddenField ID="hdnMode" runat="server" ClientIDMode="Static"/>
+    <asp:HiddenField ID="hdnIdNo" runat="server" ClientIDMode="Static" />
        <asp:HiddenField ID="hdnSecurity" runat="server" />
 </asp:Content>
 

@@ -20,8 +20,6 @@ namespace FlyCn.EIL
 {
     public partial class ConstructionPunchList : System.Web.UI.Page
     {
-
-
         #region Global Variables
         ErrorHandling eObj = new ErrorHandling();
         DataTable dt = new DataTable();
@@ -29,6 +27,10 @@ namespace FlyCn.EIL
         MasterPersonal mObj = new MasterPersonal();
         TabAddEditSettings tabs = new TabAddEditSettings();
         Security sObj = new Security();
+
+        public Guid Id;
+        public int IdNo;
+        public string EilType = "";
         #endregion Global Variables
 
         #region Events
@@ -44,26 +46,29 @@ namespace FlyCn.EIL
             //----------- Register Toolbar Server & Client side events ----------------//
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
-            //----------- Page Security Checking ----------------//
-
+            //----------- Page Security Checking ----------------//          
+            
             SecurityCheck();
+            //dt = pObj.GetPunchListItemDetails(projno, ID);
+            //txtIDno.Text = dt.Rows[0]["IDNo"].ToString();
+            //string opndate = dt.Rows[0]["OpenDt"].ToString();
 
             //-------------------------------------------------------------------------//
             ToolBarVisibility(4);
             if (!IsPostBack)
             {
-
+               
                 LoadComboBox();
                 if (Request.QueryString["Mode"] != null)
-                {
-
+                {              
                     hdnMode.Value = Request.QueryString["Mode"].ToString();
+                    EilType=hdnMode.Value;
                 }
 
-
+                hdnMode.Value = EilType;
             }
-
-
+            hdnMode.Value = EilType;
+            BindData(IdNo, hdnMode.Value);
             SetTitle();
 
 
@@ -102,6 +107,7 @@ namespace FlyCn.EIL
             DataTable dt;
             dt = pObj.GetPunchList(hdnMode.Value);
             dtgManageProjectGrid.DataSource = dt;
+           
 
         }
         #endregion dtgManageProjectGrid_NeedDataSource1
@@ -127,6 +133,12 @@ namespace FlyCn.EIL
             if (e.CommandName == "EditData")
             {
                 ToolBarVisibility(2);
+                GridDataItem item = (GridDataItem)e.Item;
+                EilType = item.GetDataKeyValue("EILType").ToString();
+                lblEliTypeNum.Text = EilType;
+                IdNo =Convert.ToInt32(item.GetDataKeyValue("IDNo"));
+                lblIDNum.Text = IdNo.ToString();
+                BindData(IdNo, EilType);
                 //UIClasses.Const Const = new UIClasses.Const();
                 //FlyCnDAL.Security.UserAuthendication UA;
                 //HttpContext context = HttpContext.Current;
@@ -135,7 +147,7 @@ namespace FlyCn.EIL
                 //string result;
                 //result = sObj.LoginSecurityCheck(hdnMode.Value, usrname, ToolBar);
                 //hdnSecurity.Value = result;
-                btnUpload.Enabled = true;
+                btnsubmit.Enabled = true;
                 hdnAccessMode.Value = "EditData";
 
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
@@ -696,7 +708,10 @@ namespace FlyCn.EIL
             ToolBar.SaveButton.Visible = false;
             ToolBar.UpdateButton.Visible = true;
             ToolBar.DeleteButton.Visible = true;
-            Upload();
+            IdUc_FlyCnFileUpload.EILId = Convert.ToInt32(txtIDno.Text);
+            IdUc_FlyCnFileUpload.EilType = "WEIL";
+            IdUc_FlyCnFileUpload.FileInsert();
+            Rebind();
         }
         #endregion btnUpload_Click
 
@@ -757,36 +772,36 @@ namespace FlyCn.EIL
         #region Methods
 
         #region ChangeFileName
-        public void ChangeFileName(string id, string name, string type, int sl)
-        {
-            if (fuAttach.HasFile)
-            {
+        //public void ChangeFileName(string id, string name, string type, int sl)
+        //{
+        //    if (fuAttach.HasFile)
+        //    {
 
 
-                UIClasses.Const Const = new UIClasses.Const();
+        //        UIClasses.Const Const = new UIClasses.Const();
 
-                FlyCnDAL.Security.UserAuthendication UA;
-                HttpContext context = HttpContext.Current;
-                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
-                pObj.Projno = UA.projectNo;
-                string pNo = pObj.Projno;
-                string filename = Path.GetFileName(fuAttach.FileName);
-                string extension = Path.GetExtension(fuAttach.PostedFile.FileName);
-                string oldFileName = fuAttach.FileName;
+        //        FlyCnDAL.Security.UserAuthendication UA;
+        //        HttpContext context = HttpContext.Current;
+        //        UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+        //        pObj.Projno = UA.projectNo;
+        //        string pNo = pObj.Projno;
+        //        string filename = Path.GetFileName(fuAttach.FileName);
+        //        string extension = Path.GetExtension(fuAttach.PostedFile.FileName);
+        //        string oldFileName = fuAttach.FileName;
 
-                int newsl = sl;
+        //        int newsl = sl;
 
-                string newFileName = (pNo + id + type + (newsl) + name);
+        //        string newFileName = (pNo + id + type + (newsl) + name);
 
 
-                pObj.fileUpload = newFileName;
-                fuAttach.SaveAs(Server.MapPath("~/Content/Fileupload/") + newFileName);
+        //        pObj.fileUpload = newFileName;
+        //        fuAttach.SaveAs(Server.MapPath("~/Content/Fileupload/") + newFileName);
 
-                int idno = Convert.ToInt32(id);
-                int value;
-                value = pObj.InsertEILAttachment(idno);
-            }
-        }
+        //        int idno = Convert.ToInt32(id);
+        //        int value;
+        //        value = pObj.InsertEILAttachment(idno);
+        //    }
+        //}
         #endregion ChangeFileName
 
         #region BindFileuploadGrid
@@ -816,100 +831,105 @@ namespace FlyCn.EIL
             ToolBar.UpdateButton.Visible = true;
             ToolBar.DeleteButton.Visible = true;
 
-            if (fuAttach.HasFile)
-            {
-                try
-                {
+            pObj.Idno = Convert.ToInt32(txtIDno.Text);
+            pObj.EILType = "WEIL";
+        //    if (fuAttach.HasFile)
+        //    {
+        //        try
+        //        {
+                   
+        //                pObj.Idno = Convert.ToInt32(txtIDno.Text);
 
-                    pObj.Idno = Convert.ToInt32(txtIDno.Text);
+        //                if (grdFileUpload.Rows.Count > 0)
+        //                {
+        //                    HiddenField hdf = (HiddenField)grdFileUpload.Rows[0].FindControl("hdnType");
+        //                    pObj.EILType = hdf.Value;
+        //                }
+        //                else
+        //                {
 
-                    if (grdFileUpload.Rows.Count > 0)
-                    {
-                        HiddenField hdf = (HiddenField)grdFileUpload.Rows[0].FindControl("hdnType");
-                        pObj.EILType = hdf.Value;
-                    }
-                    else
-                    {
+        //                    pObj.EILType = "WEIL";
+        //                }
 
-                        pObj.EILType = "WEIL";
-                    }
+        //                string id = txtIDno.Text;
+        //                pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
+        //                pObj.FileType = System.IO.Path.GetExtension(fuAttach.FileName);
+        //             //   string Image =Convert.ToString(fuAttach.FileContent);
+        //                dt = pObj.GetEIL_AttachDetails(id, pObj.fileUpload, pObj.EILType);
 
-
-
-                    string id = txtIDno.Text;
-                    pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
-
-                    dt = pObj.GetEIL_AttachDetails(id, pObj.fileUpload, pObj.EILType);
-
-                    string id1 = txtIDno.Text;
-
-
-                    // DataTable dt1;
-
-                    //  dt1 = pObj.GetEIL_AttachDetails(id, pObj.fileUpload, pObj.EILType);
-
-                    if ((dt.Rows.Count > 0))
-                    {
-                        btnUpload.Enabled = true;
-                        foreach (DataRow rows in dt.Rows)
-                        {
-                            string name = rows["FileName"].ToString();
-                            //  pObj.slno = Convert.ToInt32(dt.Rows[0]["SlNo"].ToString());
-                            DataTable dt1;
-                            dt1 = pObj.GetSLNo_AttachDetails(id, pObj.fileUpload, pObj.EILType);
-                            pObj.slno = Convert.ToInt32(dt1.Rows[0]["SlNo"].ToString());
+        //                string id1 = txtIDno.Text;
 
 
-                            if (pObj.fileUpload == name)
-                            {
-                                ChangeFileName(id1, pObj.fileUpload, pObj.EILType, pObj.slno);
+        //                // DataTable dt1;
 
-                            }
+        //                //  dt1 = pObj.GetEIL_AttachDetails(id, pObj.fileUpload, pObj.EILType);
+
+        //                if ((dt.Rows.Count > 0))
+        //                {
+        //                    btnUpload.Enabled = true;
+        //                    foreach (DataRow rows in dt.Rows)
+        //                    {
+        //                        string name = rows["FileName"].ToString();
+        //                        //  pObj.slno = Convert.ToInt32(dt.Rows[0]["SlNo"].ToString());
+        //                        DataTable dt1;
+        //                        dt1 = pObj.GetSLNo_AttachDetails(id, pObj.fileUpload, pObj.EILType);
+        //                        pObj.slno = Convert.ToInt32(dt1.Rows[0]["SlNo"].ToString());
 
 
+        //                        if (pObj.fileUpload == name)
+        //                        {
+        //                            ChangeFileName(id1, pObj.fileUpload, pObj.EILType, pObj.slno);
 
-                        }
-                    }
+        //                        }
 
 
 
-
-                    else
-                    {
-
-                        try
-                        {
-                            pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
-                            string save = Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
-                            fuAttach.SaveAs(save);
-                            // Label lblStatus=(Label) FindControl("StatusLabel");
-
-                            StatusLabel.Text = "Upload status: File uploaded!";
-                            pObj.Idno = Convert.ToInt32(txtIDno.Text);
-                            string idno = Convert.ToString(pObj.Idno);
-                            int value;
-                            value = pObj.InsertEILAttachment(pObj.Idno);
-                        }
+        //                    }
+        //                }
 
 
-                        catch (Exception ex)
-                        {
-                            StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
-                        }
-                    }
 
 
-                    pObj.Idno = Convert.ToInt32(txtIDno.Text);
-                    string idno1 = Convert.ToString(pObj.Idno);
-                    grdFileUpload.Visible = true;
-                    BindFileuploadGrid(idno1);
-                    ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
-                }
-                catch (Exception ex)
-                {
-                    StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
-                }
-            }
+        //                else
+        //                {
+
+        //                    try
+        //                    {
+        //                        pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
+        //                        string save = Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
+        //                        fuAttach.SaveAs(save);
+        //                        // Label lblStatus=(Label) FindControl("StatusLabel");
+
+        //                        StatusLabel.Text = "Upload status: File uploaded!";
+        //                        pObj.Idno = Convert.ToInt32(txtIDno.Text);
+        //                        string idno = Convert.ToString(pObj.Idno);
+        //                        int value;
+        //                        value = pObj.InsertEILAttachment(pObj.Idno);
+
+        //                    }
+
+
+        //                    catch (Exception ex)
+        //                    {
+        //                        StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+        //                    }
+        //                }
+
+
+        //                pObj.Idno = Convert.ToInt32(txtIDno.Text);
+        //                string idno1 = Convert.ToString(pObj.Idno);
+        //                grdFileUpload.Visible = true;
+        //                BindFileuploadGrid(idno1);
+        //                ScriptManager.RegisterStartupScript(this, GetType(), "Edit", "ShowEdit();", true);
+                    
+                  
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+        //        }
+            
+        //    }
         }
 
 
@@ -1153,294 +1173,294 @@ namespace FlyCn.EIL
         public void Insert()
         {
 
-            RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-            tab.Selected = true;
-            RadMultiPage1.SelectedIndex = 0;
-            try
-            {
+            //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+            //tab.Selected = true;
+            //RadMultiPage1.SelectedIndex = 0;
+            //try
+            //{
 
-                int result = 0;
-                pObj.Idno = Convert.ToInt32(txtIDno.Text);
-                pObj.EILType = hdnMode.Value;
-                pObj.CoveredByProject = 0;
-                if (rdbCoveredByYes.Checked)
-                {
-                    pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByYes.ToolTip);
+            //    int result = 0;
+            //    pObj.Idno = Convert.ToInt32(txtIDno.Text);
+            //    pObj.EILType = hdnMode.Value;
+            //    pObj.CoveredByProject = 0;
+            //    if (rdbCoveredByYes.Checked)
+            //    {
+            //        pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByYes.ToolTip);
 
-                }
-                else
-                {
-                    if (rdbCoveredByNo.Checked)
-                    {
-                        pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByNo.ToolTip);
+            //    }
+            //    else
+            //    {
+            //        if (rdbCoveredByNo.Checked)
+            //        {
+            //            pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByNo.ToolTip);
 
-                    }
-                }
-                if (ddlOpenBy.SelectedItem.Text != "-Select-")
-                {
-                    mObj.OpenBy = Convert.ToString(ddlOpenBy.SelectedValue);
-                }
-                else
-                {
-                    mObj.OpenBy = null;
-                }
-                if (RadOpenDate.SelectedDate != null)
-                {
-                    pObj.OpenDate = Convert.ToString(RadOpenDate.SelectedDate);
-                }
-                if (ddlRequestedBy.SelectedItem.Text != "-Select-")
-                {
-                    mObj.RequestedBy = Convert.ToString(ddlRequestedBy.SelectedValue);
-                }
-                else
-                {
-                    mObj.RequestedBy = null;
-                }
-                if (ddlResponsiblePerson.SelectedItem.Text != "-Select-")
-                {
-                    mObj.ResponsiblePerson = Convert.ToString(ddlResponsiblePerson.SelectedValue);
-                }
-                else
-                {
-                    mObj.ResponsiblePerson = null;
-                }
-                if (ddlInspector.SelectedItem.Text != "-Select-")
-                {
-                    mObj.Inspector = Convert.ToString(ddlInspector.SelectedValue);
-                }
-                else
-                {
-                    mObj.Inspector = null;
-                }
-                if (ddlSignedBy.SelectedItem.Text != "-Select-")
-                {
-                    mObj.SignedBy = Convert.ToString(ddlSignedBy.SelectedValue);
-                }
-                else
-                {
-                    mObj.SignedBy = null;
-                }
-                if (ddlEnteredBy.SelectedItem.Text != "-Select-")
-                {
-                    mObj.EnteredBy = Convert.ToString(ddlEnteredBy.SelectedValue);
+            //        }
+            //    }
+            //    if (ddlOpenBy.SelectedItem.Text != "-Select-")
+            //    {
+            //        mObj.OpenBy = Convert.ToString(ddlOpenBy.SelectedValue);
+            //    }
+            //    else
+            //    {
+            //        mObj.OpenBy = null;
+            //    }
+            //    if (RadOpenDate.SelectedDate != null)
+            //    {
+            //        pObj.OpenDate = Convert.ToString(RadOpenDate.SelectedDate);
+            //    }
+            //    if (ddlRequestedBy.SelectedItem.Text != "-Select-")
+            //    {
+            //        mObj.RequestedBy = Convert.ToString(ddlRequestedBy.SelectedValue);
+            //    }
+            //    else
+            //    {
+            //        mObj.RequestedBy = null;
+            //    }
+            //    if (ddlResponsiblePerson.SelectedItem.Text != "-Select-")
+            //    {
+            //        mObj.ResponsiblePerson = Convert.ToString(ddlResponsiblePerson.SelectedValue);
+            //    }
+            //    else
+            //    {
+            //        mObj.ResponsiblePerson = null;
+            //    }
+            //    if (ddlInspector.SelectedItem.Text != "-Select-")
+            //    {
+            //        mObj.Inspector = Convert.ToString(ddlInspector.SelectedValue);
+            //    }
+            //    else
+            //    {
+            //        mObj.Inspector = null;
+            //    }
+            //    if (ddlSignedBy.SelectedItem.Text != "-Select-")
+            //    {
+            //        mObj.SignedBy = Convert.ToString(ddlSignedBy.SelectedValue);
+            //    }
+            //    else
+            //    {
+            //        mObj.SignedBy = null;
+            //    }
+            //    if (ddlEnteredBy.SelectedItem.Text != "-Select-")
+            //    {
+            //        mObj.EnteredBy = Convert.ToString(ddlEnteredBy.SelectedValue);
 
-                }
-                else
-                {
-                    mObj.EnteredBy = null;
-                }
+            //    }
+            //    else
+            //    {
+            //        mObj.EnteredBy = null;
+            //    }
 
-                if (RadEnteredDate.SelectedDate != null)
-                {
-                    pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
-                }
-                if (ddlDiscipline.SelectedItem.Text != "-Select-")
-                {
-                    pObj.Discipline = Convert.ToString(ddlDiscipline.SelectedValue);
-                }
-                else
-                {
-                    pObj.Discipline = null;
-                }
-                pObj.ItemDescription = txtItemDescription.Text;
-                if (ddlLocation.SelectedItem.Text != "-Select-")
-                {
-                    pObj.Location = Convert.ToString(ddlLocation.SelectedValue);
-                }
-                else
-                {
-                    pObj.Location = null;
-                }
-                if (ddlArea.SelectedItem.Text != "-Select-")
-                {
-                    pObj.Area = Convert.ToString(ddlArea.SelectedValue);
-                }
-                else
-                {
-                    pObj.Area = null;
-                }
-                if (ddlUnit.SelectedItem.Text != "-Select-")
-                {
-                    pObj.Unit = Convert.ToString(ddlUnit.SelectedValue);
-                }
-                else
-                {
-                    pObj.Unit = null;
-                }
-                if (ddlPlant.SelectedItem.Text != "-Select-")
-                {
-                    pObj.Plant = Convert.ToString(ddlPlant.SelectedValue);
-                }
-                else
-                {
-                    pObj.Plant = null;
-                }
-                if (RadScheduleCompletionDate.SelectedDate != null)
-                {
-                    pObj.ScheduledDateCompletion = Convert.ToString(RadScheduleCompletionDate.SelectedDate);
-                }
-                if (RadRFIDate.SelectedDate != null)
-                {
-                    pObj.RFIDate = Convert.ToString(RadRFIDate.SelectedDate);
-                }
+            //    if (RadEnteredDate.SelectedDate != null)
+            //    {
+            //        pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
+            //    }
+            //    if (ddlDiscipline.SelectedItem.Text != "-Select-")
+            //    {
+            //        pObj.Discipline = Convert.ToString(ddlDiscipline.SelectedValue);
+            //    }
+            //    else
+            //    {
+            //        pObj.Discipline = null;
+            //    }
+            //    pObj.ItemDescription = txtItemDescription.Text;
+            //    if (ddlLocation.SelectedItem.Text != "-Select-")
+            //    {
+            //        pObj.Location = Convert.ToString(ddlLocation.SelectedValue);
+            //    }
+            //    else
+            //    {
+            //        pObj.Location = null;
+            //    }
+            //    if (ddlArea.SelectedItem.Text != "-Select-")
+            //    {
+            //        pObj.Area = Convert.ToString(ddlArea.SelectedValue);
+            //    }
+            //    else
+            //    {
+            //        pObj.Area = null;
+            //    }
+            //    if (ddlUnit.SelectedItem.Text != "-Select-")
+            //    {
+            //        pObj.Unit = Convert.ToString(ddlUnit.SelectedValue);
+            //    }
+            //    else
+            //    {
+            //        pObj.Unit = null;
+            //    }
+            //    if (ddlPlant.SelectedItem.Text != "-Select-")
+            //    {
+            //        pObj.Plant = Convert.ToString(ddlPlant.SelectedValue);
+            //    }
+            //    else
+            //    {
+            //        pObj.Plant = null;
+            //    }
+            //    if (RadScheduleCompletionDate.SelectedDate != null)
+            //    {
+            //        pObj.ScheduledDateCompletion = Convert.ToString(RadScheduleCompletionDate.SelectedDate);
+            //    }
+            //    if (RadRFIDate.SelectedDate != null)
+            //    {
+            //        pObj.RFIDate = Convert.ToString(RadRFIDate.SelectedDate);
+            //    }
 
-                pObj.RFINo = txtRFINo.Text;
-                pObj.Sheet = txtSheet.Text;
-                pObj.Drawing = txtDrawing.Text;
-                if (ddlFailCategory.SelectedItem.Text != "-Select-")
-                {
+            //    pObj.RFINo = txtRFINo.Text;
+            //    pObj.Sheet = txtSheet.Text;
+            //    pObj.Drawing = txtDrawing.Text;
+            //    if (ddlFailCategory.SelectedItem.Text != "-Select-")
+            //    {
 
-                    pObj.FailCategory = Convert.ToString(ddlFailCategory.SelectedValue);
+            //        pObj.FailCategory = Convert.ToString(ddlFailCategory.SelectedValue);
 
-                }
-                else
-                {
-                    pObj.FailCategory = null;
-                }
-                //if (ddlCategory.SelectedItem.Text != "-Select-")
-                //{
-                //    pObj.Category = Convert.ToString(ddlCategoryList.SelectedValue);
-                //}
-                //else
-                //{
-                //    pObj.Category = null;
-                //}
-                if (ddlSystem.SelectedItem.Text != "-Select-")
-                {
-                    pObj.System = Convert.ToString(ddlSystem.SelectedValue);
-                }
-                else
-                {
-                    pObj.System = null;
-                }
-                if (ddlSubsystem.SelectedItem.Text != "-Select-")
-                {
-                    pObj.Subsystem = Convert.ToString(ddlSubsystem.SelectedValue);
-                }
-                else
-                {
+            //    }
+            //    else
+            //    {
+            //        pObj.FailCategory = null;
+            //    }
+            //    //if (ddlCategory.SelectedItem.Text != "-Select-")
+            //    //{
+            //    //    pObj.Category = Convert.ToString(ddlCategoryList.SelectedValue);
+            //    //}
+            //    //else
+            //    //{
+            //    //    pObj.Category = null;
+            //    //}
+            //    if (ddlSystem.SelectedItem.Text != "-Select-")
+            //    {
+            //        pObj.System = Convert.ToString(ddlSystem.SelectedValue);
+            //    }
+            //    else
+            //    {
+            //        pObj.System = null;
+            //    }
+            //    if (ddlSubsystem.SelectedItem.Text != "-Select-")
+            //    {
+            //        pObj.Subsystem = Convert.ToString(ddlSubsystem.SelectedValue);
+            //    }
+            //    else
+            //    {
 
-                    pObj.Subsystem = null;
-                }
+            //        pObj.Subsystem = null;
+            //    }
 
-                string val = null;
-                pObj.QueryRevision = string.IsNullOrEmpty(val) ? '0' : Convert.ToInt32(txtQueryRevision.Text);
-                pObj.Reference = txtReference.Text;
-                if (RadReferenceDate.SelectedDate != null)
-                {
-                    pObj.ReferenceDate = Convert.ToString(RadReferenceDate.SelectedDate);
-                }
-                pObj.Revison = txtRevision.Text;
-                if (RadCompletionDate.SelectedDate != null)
-                {
-                    pObj.CompletionDate = Convert.ToString(RadCompletionDate.SelectedDate);
-                }
-                pObj.CompletionRemarks = txtCompletionRemarks.Text;
-                if (ddlControlSystem.SelectedItem.Text != "-Select-")
-                {
-                    pObj.ControlSystem = Convert.ToString(ddlControlSystem.SelectedValue);
-                }
-                else
-                {
-                    pObj.ControlSystem = null;
-                }
+            //    string val = null;
+            //    pObj.QueryRevision = string.IsNullOrEmpty(val) ? '0' : Convert.ToInt32(txtQueryRevision.Text);
+            //    pObj.Reference = txtReference.Text;
+            //    if (RadReferenceDate.SelectedDate != null)
+            //    {
+            //        pObj.ReferenceDate = Convert.ToString(RadReferenceDate.SelectedDate);
+            //    }
+            //    pObj.Revison = txtRevision.Text;
+            //    if (RadCompletionDate.SelectedDate != null)
+            //    {
+            //        pObj.CompletionDate = Convert.ToString(RadCompletionDate.SelectedDate);
+            //    }
+            //    pObj.CompletionRemarks = txtCompletionRemarks.Text;
+            //    if (ddlControlSystem.SelectedItem.Text != "-Select-")
+            //    {
+            //        pObj.ControlSystem = Convert.ToString(ddlControlSystem.SelectedValue);
+            //    }
+            //    else
+            //    {
+            //        pObj.ControlSystem = null;
+            //    }
 
-                if (ddlOrganization.SelectedItem.Text != "-Select-")
-                {
-                    pObj.Organization = Convert.ToString(ddlOrganization.SelectedValue);
-                }
-                else
-                {
-                    pObj.Organization = null;
-                }
-                // pObj.CoveredByProject=
-                // pObj.ChangeReq=
-                if (ddlActionBy.SelectedItem.Text != "-Select-")
-                {
-                    pObj.ActionBy = Convert.ToString(ddlActionBy.SelectedValue);
-                }
-                else
-                {
-                    pObj.ActionBy = null;
+            //    if (ddlOrganization.SelectedItem.Text != "-Select-")
+            //    {
+            //        pObj.Organization = Convert.ToString(ddlOrganization.SelectedValue);
+            //    }
+            //    else
+            //    {
+            //        pObj.Organization = null;
+            //    }
+            //    // pObj.CoveredByProject=
+            //    // pObj.ChangeReq=
+            //    if (ddlActionBy.SelectedItem.Text != "-Select-")
+            //    {
+            //        pObj.ActionBy = Convert.ToString(ddlActionBy.SelectedValue);
+            //    }
+            //    else
+            //    {
+            //        pObj.ActionBy = null;
 
-                }
-                pObj.ChangeReq = 0;
-                if (rdbChangeRequestyes.Checked)
-                {
-                    pObj.ChangeReq = Convert.ToInt32(rdbChangeRequestyes.ToolTip);
+            //    }
+            //    pObj.ChangeReq = 0;
+            //    if (rdbChangeRequestyes.Checked)
+            //    {
+            //        pObj.ChangeReq = Convert.ToInt32(rdbChangeRequestyes.ToolTip);
 
-                }
-                else
-                {
-                    if (rdbchangerequestno.Checked)
-                    {
-                        pObj.CoveredByProject = Convert.ToInt32(rdbchangerequestno.ToolTip);
+            //    }
+            //    else
+            //    {
+            //        if (rdbchangerequestno.Checked)
+            //        {
+            //            pObj.CoveredByProject = Convert.ToInt32(rdbchangerequestno.ToolTip);
 
-                    }
-                }
-                pObj.EILType = hdnMode.Value;
-                try
-                {
-                    result = pObj.AddtoPunchList(mObj);
-                    if (result == 1)
-                    {
-                        var page = HttpContext.Current.CurrentHandler as Page;
-                        var master = page.Master;
-                        eObj.InsertionSuccessData(page);
-                        dtgManageProjectGrid.Rebind();
-                    }
-                }
+            //        }
+            //    }
+            //    pObj.EILType = hdnMode.Value;
+            //    try
+            //    {
+            //        result = pObj.AddtoPunchList(mObj);
+            //        if (result == 1)
+            //        {
+            //            var page = HttpContext.Current.CurrentHandler as Page;
+            //            var master = page.Master;
+            //            eObj.InsertionSuccessData(page);
+            //            dtgManageProjectGrid.Rebind();
+            //        }
+            //    }
 
-                catch (SqlException ex)
-                {
-                    var page = HttpContext.Current.CurrentHandler as Page;
-                    var master = page.Master;
-                    eObj.ErrorData(ex, page);
-                }
-                catch (FormatException ex)
-                {
-                    var page = HttpContext.Current.CurrentHandler as Page;
-                    var master = page.Master;
-                    eObj.ErrorData(ex, page);
-                }
+            //    catch (SqlException ex)
+            //    {
+            //        var page = HttpContext.Current.CurrentHandler as Page;
+            //        var master = page.Master;
+            //        eObj.ErrorData(ex, page);
+            //    }
+            //    catch (FormatException ex)
+            //    {
+            //        var page = HttpContext.Current.CurrentHandler as Page;
+            //        var master = page.Master;
+            //        eObj.ErrorData(ex, page);
+            //    }
 
 
-                //Cleartextboxes();
-                if (fuAttach.HasFile)
-                {
-                    try
-                    {
-                        pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
-                        string save = Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
-                        fuAttach.SaveAs(save);
-                        StatusLabel.Text = "Upload status: File uploaded!";
-                        int id = Convert.ToInt32(txtIDno.Text);
-                        int value = 0;
-                        value = pObj.InsertEILAttachment(id);
-                    }
-                    catch (Exception ex)
-                    {
-                        StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                var page = HttpContext.Current.CurrentHandler as Page;
-                var master = page.Master;
-                eObj.ErrorData(ex, page);
-            }
-            catch (FormatException ex)
-            {
+            //    //Cleartextboxes();
+            //    if (fuAttach.HasFile)
+            //    {
+            //        try
+            //        {
+            //            pObj.fileUpload = Path.GetFileName(fuAttach.FileName);
+            //            string save = Server.MapPath("~/Content/Fileupload/" + pObj.fileUpload);
+            //            fuAttach.SaveAs(save);
+            //            StatusLabel.Text = "Upload status: File uploaded!";
+            //            int id = Convert.ToInt32(txtIDno.Text);
+            //            int value = 0;
+            //            value = pObj.InsertEILAttachment(id);
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+            //        }
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    var page = HttpContext.Current.CurrentHandler as Page;
+            //    var master = page.Master;
+            //    eObj.ErrorData(ex, page);
+            //}
+            //catch (FormatException ex)
+            //{
 
-                var page = HttpContext.Current.CurrentHandler as Page;
-                var master = page.Master;
-                eObj.ErrorData(ex, page);
-                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("1");
-                RadTab tab2 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                tabs.ResetTabCaptions(tab1, tab2);
-                RadMultiPage1.SelectedIndex = 0;
-            }
+            //    var page = HttpContext.Current.CurrentHandler as Page;
+            //    var master = page.Master;
+            //    eObj.ErrorData(ex, page);
+            //    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("1");
+            //    RadTab tab2 = (RadTab)RadTabStrip1.FindTabByValue("2");
+            //    tabs.ResetTabCaptions(tab1, tab2);
+            //    RadMultiPage1.SelectedIndex = 0;
+            //}
         }
         #endregion Insert
 
@@ -1773,6 +1793,184 @@ namespace FlyCn.EIL
 
         }
         #endregion SecurityCheck
+
+        #region btnsubmit_Click
+        protected void btnsubmit_Click(object sender, EventArgs e)
+        {
+            ToolBar.AddButton.Visible = false;
+            ToolBar.SaveButton.Visible = false;
+            ToolBar.UpdateButton.Visible = true;
+            ToolBar.DeleteButton.Visible = true;
+            IdUc_FlyCnFileUpload.EILId = Convert.ToInt32(txtIDno.Text);
+            IdUc_FlyCnFileUpload.EilType = "WEIL";
+            IdUc_FlyCnFileUpload.FileInsert();
+            Rebind();
+        }
+        #endregion btnsubmit_Click
+
+        #region Rebind()
+        public void Rebind()
+        {
+            BindData(IdNo,EilType);
+        }
+        #endregion Rebind() 
+
+        #region BindData()
+        public void BindData(int id,string type)
+        {
+
+            DataTable ds = new DataTable();
+            if (lblEliTypeNum.Text != "")
+            {
+
+                pObj.EILType = lblEliTypeNum.Text;
+             //   int EILID =Convert.ToInt32(lblEliTypeNum.Text);
+                //if (EILID != "")
+                //{
+                pObj.id =Convert.ToInt32(lblIDNum.Text);
+                // boqObj.Type = _Type;
+                //}
+                ds = pObj.GetEIL_AttachDetails();
+                int count = ds.Rows.Count;
+
+                if (count == 0)
+                {
+                    Label1.Text = "No Attachments..!";
+                }
+                else
+                {
+                    Label1.Text = " ";
+                }
+
+                GridView1.DataSource = ds;
+
+                try
+                {
+                    GridView1.DataBind();
+
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+        }
+        #endregion BindData()
+
+        #region GridView1_SelectedIndexChanged
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable ds = new DataTable();
+            pObj.EILType = EilType;
+            string EILID = txtIDno.Text;
+            if (EILID != "")
+            {
+                pObj.id = IdNo;
+                // boqObj.Type = _Type;
+            }
+            ds = pObj.GetEIL_AttachDetails();
+           
+            Id = (Guid)GridView1.SelectedDataKey.Value;
+            FileDownload(Id);
+        }
+        #endregion GridView1_SelectedIndexChanged
+
+        #region FileDownload
+        public void FileDownload(Guid Id)
+        {
+            dbConnection cntion = new dbConnection();
+            SqlCommand cmd;
+            SqlDataReader reader = null;
+
+            if (Id != Guid.Empty)
+            {
+                string filePath = Server.MapPath("/Content/Fileupload/");
+                string fileName = "";
+
+
+                try
+                {
+
+                    cmd = new SqlCommand();
+                    cmd.Connection = cntion.GetDBConnection(); ;
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.CommandText = "GetEILAttachment";
+                    cmd.Parameters.Add("@AttachID", SqlDbType.UniqueIdentifier).Value = Id;
+                    reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        if (reader.Read())
+                        {
+                            fileName = reader.GetString(1);
+                            DALConstants constObj = new DALConstants();
+                            constObj.Extensions.Replace(",", "");
+                            string ext = System.IO.Path.GetExtension(filePath + fileName);
+                            MakeFile(reader, fileName, filePath);
+                            Download(fileName, filePath);
+
+                        }
+                    }//reader
+                }
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    reader.Dispose();
+                    cntion.GetDBConnection().Close();
+                }
+
+            }
+
+        }
+        #endregion FileDownload
+
+        #region Download
+        public void Download(string fileName, string filePath)
+        {
+            Response.ContentType = "application/octet-stream";
+            Response.AddHeader("Content-Disposition", "attachment;filename=" + fileName);
+            Response.TransmitFile(filePath + fileName);
+            // Response.End();
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+        }
+        #endregion Download
+
+        #region MakeFile
+        public void MakeFile(SqlDataReader reader, string fileName, string filePath)
+        {
+            byte[] buffer = new byte[reader.GetBytes(reader.GetOrdinal("Image"), 0, null, 0, int.MaxValue)];
+            reader.GetBytes(reader.GetOrdinal("Image"), 0, buffer, 0, int.MaxValue);
+
+            System.IO.File.WriteAllBytes(filePath + fileName, buffer);
+        }
+        #endregion MakeFile
+
+        #region GridView1_RowDeleting
+
+        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+
+            //string dfd = GridView1.DataKeys[e.RowIndex].Values[1].ToString();
+            Id = (Guid)GridView1.DataKeys[e.RowIndex].Value;
+            pObj.DeleteEilByID(Id);
+            Rebind();
+       
+        }
+
+        #endregion GridView1_RowDeleting
+
+        #region dtgManageProjectGrid_SelectedIndexChanged
+        protected void dtgManageProjectGrid_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+        }
+        #endregion dtgManageProjectGrid_SelectedIndexChanged
+
+        
     }
 }
         
