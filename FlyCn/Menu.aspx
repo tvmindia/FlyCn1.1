@@ -22,13 +22,14 @@
    
  
 <script>
-   
+  
     var flag = 0;
     var str = "hello()";
     $(document).ready(function () {
         $("#MainBody_div1").fadeIn();
     });
-    function bindimage(id,heading,color) {
+    function bindimage(id, heading, color) {
+        debugger;
         document.getElementById('SubHeadSpan').innerHTML = '&nbsp;'
         document.getElementById('SubHeadSpan').setAttribute('class', color);
 
@@ -45,7 +46,7 @@
 
         }
 
-
+       
    
     }
 
@@ -55,21 +56,26 @@
     //    window.location = url;
     //}
  
-    function getSubTilePermission(url,id)
+    function getSubTilePermission(url, id, spanID)
     {
-
         debugger;
-       
+
     
+
+
         PageMethods.GetPermissionOfSubTiles(id, onSucess, onError);
         
         function onSucess(SubTilePermissionDenied) {
            
-
+         
             if (SubTilePermissionDenied == true) {
-
-                alert("denied");
+               
+                //SubTileDenied = true;
+                debugger;
+                var frame = document.getElementById('iframesub1');
+                frame.contentWindow.setAccessmsg(spanID);               
               
+                //alert(document.getElementById('spanID'));
             }
             else
             {
@@ -78,7 +84,7 @@
             
         }
         function onError(SubTilePermission) {
-            alert('Something wrong.');
+            alert('Something wrong while getting sub tile permission');
 
         }
     }
@@ -97,7 +103,7 @@
             <tr>
                 <td style="width: 50%;">
                    
-                        <div id="div1" runat="server" style="width:800px;height:600px;display:none" >
+                        <div id="div1" runat="server" style="width:800px;height:500px;display:none" >
                         </div>
                    
                         
@@ -105,12 +111,12 @@
                 </td>
                 <td style="">
                       <div id="div2" runat="server">
-                          <iframe id="iframesub1" style="width:800px;height:600px;display:none;"  frameborder="0"  ></iframe>
+                          <iframe id="iframesub1" style="width:800px;height:500px;display:none;"  frameborder="0"  ></iframe>
                         
                         </div>
                 </td>
               </tr>
 
-        
+       
         </table>
 </asp:Content>
