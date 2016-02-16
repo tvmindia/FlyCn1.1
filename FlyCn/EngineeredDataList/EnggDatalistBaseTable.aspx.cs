@@ -385,7 +385,10 @@ namespace FlyCn.EngineeredDataList
                 Int16 isupate;
                 res = validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable, i, dbCon);
                 isupate=validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i, comDAL.tableName, MasterColumns, dbCon);
-
+                if (comDAL.ExcelSheetName == "Cables")
+                {
+                    validationObj.CableLengthValidation(dsFile.Tables[0].Rows[i], dsTable, i, dbCon);
+                }
                 //if(isupate==2)
                 //{
                 //    validationObj.importfile.errorCount = validationObj.importfile.errorCount + 1;

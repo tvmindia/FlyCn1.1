@@ -770,11 +770,11 @@ namespace FlyCn.FlyCnDAL
             {
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
-                SqlCommand cmdSelect = new SqlCommand("GetEILAttachment", con);
+                SqlCommand cmdSelect = new SqlCommand("[GetDetailsFromEIL_Attach]", con);
                 cmdSelect.CommandType = CommandType.StoredProcedure;
-                cmdSelect.Parameters.AddWithValue("@projectno", projNo);
-                cmdSelect.Parameters.AddWithValue("@punchID", punchID);
-                cmdSelect.Parameters.AddWithValue("@EILtype", EILtype);
+                cmdSelect.Parameters.AddWithValue("@No", projNo);
+                cmdSelect.Parameters.AddWithValue("@id", punchID);
+                cmdSelect.Parameters.AddWithValue("@EILType", EILtype);
                 daObj = new SqlDataAdapter(cmdSelect);
                 daObj.Fill(dt);
             }
