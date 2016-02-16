@@ -566,13 +566,12 @@ namespace FlyCn.WebServices
 
         #region Punch Item Add Attatchment
         /// <summary>
-        /// Webservice to return list of attachment images of an punchlist item
+        /// Webservice to get new attachment file from mobile
         /// </summary>
         /// <param name="projNo">Project Number</param>
         /// <param name="punchID">EIL ID</param>
         /// <param name="EILtype">WEIL/CEIL/QEIL</param>
-        /// <param name="isThumb">optional parameter to denote whether thumbanail images are enough</param>
-        /// <returns>JSON of details of attachment images</returns>
+        /// <returns>JSON of details of attachment adding operation</returns>
         [WebMethod]
         public string PunchItemAddAttatchment()
         {
@@ -580,10 +579,11 @@ namespace FlyCn.WebServices
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
             try
-            {   //Retrieving details
+            {   //Getting file dettails from http request
+                HttpFileCollection MyFileCollection = HttpContext.Current.Request.Files;
                 string vTitle = "";
                 string vDesc = "";
-                string FilePath = Server.MapPath("~/tempImages/cur_file.jpg");
+                string FilePath = Server.MapPath("~/tempImages/")+DateTime.Now.ToString("ddHHmmssfff")+MyFileCollection[0].FileName;
 
                 if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["title"]))
                 {
@@ -594,20 +594,20 @@ namespace FlyCn.WebServices
                     vDesc = HttpContext.Current.Request.Form["description"];
                 }
 
-                HttpFileCollection MyFileCollection = HttpContext.Current.Request.Files;
+                
                 if (MyFileCollection.Count > 0)
                 {
                     // Save the File
                     MyFileCollection[0].SaveAs(FilePath);
                 }
-                DataTable ErrorMsg = new DataTable();
-                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
-                ErrorMsg.Columns.Add("Message", typeof(String));
-                DataRow dr = ErrorMsg.NewRow();
+                DataTable SuccessMsg = new DataTable();
+                SuccessMsg.Columns.Add("Flag", typeof(Boolean));
+                SuccessMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = SuccessMsg.NewRow();
                 dr["Flag"] = false;
                 dr["Message"] = HttpContext.Current.Request.Form["title"];
-                ErrorMsg.Rows.Add(dr);
-                ds.Tables.Add(ErrorMsg);
+                SuccessMsg.Rows.Add(dr);
+                ds.Tables.Add(SuccessMsg);
                 return getDbDataAsJSON(ds); 
             }
             catch (Exception ex)
