@@ -34,7 +34,7 @@ namespace FlyCn.UIClasses
         #region Global Variables
 
         Security.PageSecurity PS;
-
+        
         #endregion  Global Variables
 
         string Large = "Large";
@@ -229,15 +229,27 @@ namespace FlyCn.UIClasses
                 if (PS.isWrite != true && PS.isAdd != true && PS.isDelete != true && PS.isEdit != true && PS.isRead != true)
                 {
 
-                    string deniedImg = "/Images/accesDenied.png";//Server.MapPath("~/Images/accesDenied.png");
-                    string myInnerHtmlForDenied = "<div>" +
-                               "<table width='70%'  >" +
-                               " <tr>" + "<td>"
-                                        + "<img src=" + "'" + deniedImg + "'/>" +
-                                "</td></tr>" +
-                                                "</table>" + "</div>";
+                    string deniedImg = "/Images/dnd.jpg";//Server.MapPath("~/Images/accesDenied.png");
+                    //string myInnerHtmlForDenied = "<div>" +
+                    //           "<table width='70%'  >" +
+                    //           " <tr>" + "<td>"
+                    //                    + "<img src=" + "'" + deniedImg + "'/>" +
+                    //            "</td></tr>" +
+                    //                            "</table>" + "</div>";
 
-myInnerHtmlForDenied= "<div class='denied-containerDiv'>"+"<div class='denied-imgDiv'>"+"<img src=" + "'" + deniedImg + "'"+"class ='denied-img'/>"+"</div>"+"</div>";
+                    //myInnerHtmlForDenied = "<div class='denied-containerDiv'>" + "<div class='denied-imgDiv'>" + "<img src=" + "'" + deniedImg + "'" + "class ='denied-img'/>" + "Access Denied"+ "</div>" +"</div>";
+
+
+
+                    //myInnerHtmlForDenied = "<div class='divTest'>" +
+                    //                     "<img src=" + "'" + deniedImg + "'" + "class ='iDiv'/>" + "Access Denied" + "</div> ";
+
+//--Working 
+
+            string  myInnerHtmlForDenied = "<img src=" + "'" + deniedImg + "'" + "class ='div-of-Accessdenied'/>";
+
+
+
 
 //<div class="denied-containerDiv">
 //                    <div class="denied-imgDiv">
@@ -447,18 +459,47 @@ myInnerHtmlForDenied= "<div class='denied-containerDiv'>"+"<div class='denied-im
                 string img = ds.Tables[0].Rows[row]["subimgUrl"].ToString();
                 string url = ds.Tables[0].Rows[row]["subPath"].ToString();
                 string id = ds.Tables[0].Rows[row]["subdescription"].ToString();
-             
+                string spanDeniedID = ds.Tables[0].Rows[row]["subdescription"].ToString() + "_(NoAccess)";
+
+
+
+                if (spanDeniedID.Contains(" "))
+                {
+                   spanDeniedID= spanDeniedID.Replace(" ", "#");
+                }
+
+
+
          //--------------call js
 
                 var page = HttpContext.Current.CurrentHandler as Page;
 
-                myInnerHtml = myInnerHtml + " <table class='TileIcon'> <tr><td><img" + tinyImgClass + " src=" + "'" + img + "'" + " onclick" + "=" + "parent.getSubTilePermission('" + url + "','" + ds.Tables[0].Rows[row]["submenuId"].ToString() +"') border=" + "0" + " alt=Submission Form" + "/></td></tr>" +
-           "<tr>" +
-               "<td>" +
-                  " <span class=" + "description" + ">" + ds.Tables[0].Rows[row]["subdescription"].ToString() + "</span>" +
-               "</td>" +
-           "</tr>" +
-      " </table>" + "</td>";
+           //     myInnerHtml = myInnerHtml + " <table class='TileIcon'> <tr><td><img" + tinyImgClass + " src=" + "'" + img + "'" + " onclick" + "=" + "parent.getSubTilePermission('" + url + "','" + ds.Tables[0].Rows[row]["submenuId"].ToString() + "','" + spanDeniedID + "') border=" + "0" + " alt=Submission Form" + "/></td></tr>" +
+           //"<tr>" +
+           //    "<td>" +
+           //       " <span class=" + "description" + ">" + ds.Tables[0].Rows[row]["subdescription"].ToString() + "</span>" +
+           //         " <div id='" + spanDeniedID + "'>&nbsp;" + " </div>" + "</td>" +
+           //         "</tr>" +
+           // " </table>"  ;
+
+
+
+
+                myInnerHtml = myInnerHtml + " <table class='TileIcon'> <tr><td><img" + tinyImgClass + " src=" + "'" + img + "'" + " onclick" + "=" + "parent.getSubTilePermission('" + url + "','" + ds.Tables[0].Rows[row]["submenuId"].ToString() + "','" + spanDeniedID + "') border=" + "0" + " alt=Submission Form" + "/></td></tr>" +
+                          "<tr>" +
+                              "<td>" +
+                                 " <span id='" + spanDeniedID + "'  class=" + "description" + ">" + ds.Tables[0].Rows[row]["subdescription"].ToString() + "</span>" +
+                                  "</td>"+
+                                   "</tr>" +
+                           " </table>";
+
+
+
+
+
+
+ //"<td>" + " <span class= " + "span-denied" + "id=" + "spanDenied" + ">" + "</span>" +"</td>"+
+               
     }
 
            

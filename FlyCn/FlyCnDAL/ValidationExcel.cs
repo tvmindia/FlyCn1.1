@@ -403,6 +403,7 @@ namespace FlyCn.FlyCnDAL
             //validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i, comDAL.tableName,List<string> MasterColumns);
             public Int16 MasterDataExist(DataSet dsTable,DataSet MasterDS, DataRow dr,int rowNO, string TableName, List<string> MasterColumns,dbConnection dbCon)
             {
+                string comma = "";
                 Int16 isupdate;
                 string cName;
                 string refTableName = "";
@@ -424,22 +425,26 @@ namespace FlyCn.FlyCnDAL
                     masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[cName].ToString() + "'");
                     if (masterDataExisting.Length == 0)//data does not exists in the masters
                     {
-                          //importfile.status_Id = "dfdf";
+                        
                         if (refTableName == "M_Personnel")
                         {
                            //Error for table name M_Personel
                             flag = true;
+                            errorDescLists.Append(comma);
                             errorDescLists.Append(cName);
-                            errorDescLists.Append(",");
-                            errorDescLists.Append("is Invalid Master Data");
+                            errorDescLists.Append("is Invalid Data");
+                            comma = ",";
                         }
                         else
                         {
+                           
                             //Warning for Normal masters
                             flag = true;
+                            errorDescLists.Append(comma);
                             errorDescLists.Append(cName);
-                            errorDescLists.Append(",");
                             errorDescLists.Append("Warning");
+                            comma = "";
+
                         }
                      
                     }
@@ -448,15 +453,53 @@ namespace FlyCn.FlyCnDAL
                     {
                         rowNO = rowNO + 2;
                         isupdate=importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
-                       // return -1;
                         return isupdate;
                     }
-                  //importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+               
                     return -1;
                 
             }
             #endregion MasterDataExist
+            #region CableLengthValidation
+            public void CableLengthValidation(DataRow dr,DataSet dsTable,int rowNO,dbConnection dbCon)
+            {
+                //Get the CableSchedule records based on project no,moduleID,category and cableno
+                //To find out whether its a update or insert
+             
+                string comma = "";
+                DataSet CableDS = null;
+                int length;
+                StringBuilder errorDescLists = new StringBuilder();
+                DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
+                string keyField = GetInvalidKeyField(keyFieldRow, dr);
+                CableDS = new DataSet();
+                if ((dr["ProjectNo"].ToString() != "") && (dr["ModuleID"].ToString() != "") && (dr["Category"].ToString() != "") && (dr["Cable No"].ToString() !=""))
+                { 
+                 CableDS = importfile.GetCableScheduleMaster(dr["ProjectNo"].ToString(), dr["ModuleID"].ToString(), dr["Category"].ToString(), dr["Cable No"].ToString(),dbCon);
 
+                    if (CableDS.Tables[0].Rows.Count > 0)
+                    {
+                     //record exists
+                     //its an update
+                     //so validate CablepullDetail
+                       length = importfile.GetCableTotalPullLength(dr["ProjectNo"].ToString(), dr["ModuleID"].ToString(), dr["Category"].ToString(), dr["Cable No"].ToString(), dbCon);
+                       if (length != -1)
+                       {
+                         if (!(length >= int.Parse(dr["Total Length"].ToString())))
+                         {
+                             errorDescLists.Append(comma);
+                             errorDescLists.Append("Total Length");
+                             errorDescLists.Append(" Can not be reduced further");
+                             comma = "";
+                             importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                         }
+                       }
+
+                   }
+                }
+            }
+            #endregion CableLengthValidation
+           
 
         }
     #endregion classValidationExcel

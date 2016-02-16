@@ -403,6 +403,44 @@ namespace FlyCnSecurity.SecurityDAL
 
         #endregion Get All Details Of UsersInRoles
 
+
+        #region Get User By UserID And ObjID
+
+        public DataTable GetUserByUserIDAndObjID(string UserName,string ObjID)
+        {
+            SqlConnection conn = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter adapter = null;
+            DataTable datatableobj = null;
+
+            try
+            {
+                conn = dcon.GetDBConnection();
+                cmd = new SqlCommand("GetUserByUserIDAndObjID", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@UserID", SqlDbType.NVarChar, 256).Value = UserName;
+                cmd.Parameters.Add("@ObjId", SqlDbType.NVarChar, 10).Value = ObjID;
+
+                adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                datatableobj = new DataTable();
+                adapter.Fill(datatableobj);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+            return datatableobj;
+        }
+
+        #endregion Get User By UserID And ObjID
+
+
+
         #region Get User Access
 
         public string GetUserAccess(string UserName, string LevelDesc,string ProjectNo=null)
@@ -428,9 +466,11 @@ namespace FlyCnSecurity.SecurityDAL
                 cmd.ExecuteNonQuery();
                 string objID = OutparamId.Value.ToString();
 
-                    dtUserInRoles = GetAllDetailsOfUsersInRoles(UserName);
+                //dtUserInRoles = GetAllDetailsOfUsersInRoles(UserName);
+                dtUserInRoles = GetUserByUserIDAndObjID(UserName, objID);  
+                
 
-
+              
                     if (dtUserInRoles.Rows.Count > 0)
                     {
                         //-------* case of single role *------//
@@ -453,32 +493,12 @@ namespace FlyCnSecurity.SecurityDAL
 
                         usrAccess = GetPermissionString(objID, roleId);
 
+                        
+
                     }
 
 
-                    //else
-                    //{
-                    //    if (dtUserInRoles.Rows.Count == 0)
-                    //    {
-                    //        ObjId = objID;
-                    //        string levelID = GetLevelIDByObjID();
-
-                    //        int count = levelID.Split('.').Length - 1;
-
-                    //        for (int i = count; i >= 1; i--)
-                    //        {
-                    //            string str = levelID;
-                    //            string ext = levelID.Substring(0, str.LastIndexOf("."));
-
-                    //            levelID = ext;
-
-                    //            LevelID = ext;
-                    //            objID = GetObjectIDByLevelID().ToString();
-                    //            dtUserInRoles = GetAllDetailsOfUsersInRoles(UserName);
-
-                    //        }
-                    //    }
-                    //}
+                   
             }
 
             catch (Exception ex)

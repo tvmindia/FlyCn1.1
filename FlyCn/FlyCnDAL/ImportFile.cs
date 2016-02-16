@@ -853,6 +853,94 @@ namespace FlyCn.FlyCnDAL
             return 0;
         }
         #endregion ImportExcelRow
+
+        #region GetCableScheduleMaster
+        public DataSet GetCableScheduleMaster(string projectNo, string moduleID, string category, string cableNo,dbConnection dbCon=null)
+        {
+               SqlCommand cmd = null;
+               DataSet ds = null; 
+               SqlDataAdapter da = null; 
+               dbConnection dcon = null;
+          
+            try
+            {
+                ds = new DataSet();
+                cmd = new SqlCommand();
+                da = new SqlDataAdapter();
+                dcon = new dbConnection();
+                if(dcon.SQLCon==null)
+                {
+                   
+                    dcon.GetDBConnection();
+                }
+              
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetAllCableScheduleDetails";
+                cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = projectNo;
+                cmd.Parameters.Add("@ModuleID", SqlDbType.NVarChar, 10).Value = moduleID;
+                cmd.Parameters.Add("@Category", SqlDbType.NVarChar, 25).Value = category;
+                cmd.Parameters.Add("@Cable_No", SqlDbType.NVarChar, 50).Value = cableNo;
+                cmd.Connection = dcon.SQLCon;
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+              
+            }
+            return ds;
+        }
+
+        #endregion GetCableScheduleMaster
+
+        #region GetCableTotalPullLength
+        public int GetCableTotalPullLength(string projectNo, string moduleID, string category, string cableNo, dbConnection dbCon = null)
+        {
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter da = null;
+            dbConnection dcon = null;
+            int length;
+
+            try
+            {
+                ds = new DataSet();
+                cmd = new SqlCommand();
+                da = new SqlDataAdapter();
+                dcon = new dbConnection();
+                if (dcon.SQLCon == null)
+                {
+                  
+                    dcon.GetDBConnection();
+                }
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetCableTotalPullLength";
+                cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = projectNo;
+                cmd.Parameters.Add("@ModuleID", SqlDbType.NVarChar, 10).Value = moduleID;
+                cmd.Parameters.Add("@Category", SqlDbType.NVarChar, 25).Value = category;
+                cmd.Parameters.Add("@Cable_No", SqlDbType.NVarChar, 50).Value = cableNo;
+                SqlParameter outPutTotalLength = cmd.Parameters.Add("@OutPullLength", SqlDbType.Int);
+                outPutTotalLength.Direction = ParameterDirection.Output;
+                cmd.Connection = dcon.SQLCon;
+                cmd.ExecuteNonQuery();
+                length=(int)(outPutTotalLength.Value);//returns -1 if no records find
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+              
+            }
+            return length;
+        }
+        #endregion GetCableTotalPullLength
+
         #endregion methods
 
     }
