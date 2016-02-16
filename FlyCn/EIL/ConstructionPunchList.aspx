@@ -315,8 +315,13 @@
 
 
         $(document).ready(function () {
+            var LnameImage = document.getElementById('<%=imgWebLnames.ClientID %>');
+            LnameImage.style.display = "none";
+            var errLname = document.getElementById('<%=errorLnames.ClientID %>');
+            errLname.style.display = "none";
+
             //------------------------For Security-----------------------------------------------//
-            debugger;
+           
             //var security = document.getElementById("hdnSecurityMaster").value;
 
             //Page Postback
@@ -382,7 +387,37 @@
                 }
             }
         }
-
+        function checkIdNo(txtIDno)
+        {
+            var ID = document.getElementById('<%=txtIDno.ClientID %>').value;
+            var mode = document.getElementById('<%=hdnMode.ClientID %>').value;
+            PageMethods.ValidateIdNo(ID, mode, OnSuccess, onError);
+           
+            function OnSuccess(response, userContext, methodName) {
+                var LnameImage = document.getElementById('<%=imgWebLnames.ClientID %>');
+                var errLname = document.getElementById('<%=errorLnames.ClientID %>');
+                if (response == false)
+                {
+                   
+                    LnameImage.style.display = "block";
+                    errLname.style.display = "none";
+                   
+                }
+                if(response == true)
+                {
+                    errLname.style.display = "block";
+                    errLname.style.color = "Red";
+                    errLname.innerHTML="Name Alreay Exists"
+                    LnameImage.style.display = "none";
+                    
+                }
+            }
+            function onError(response, userContext, methodName) {
+               
+               
+            }
+        }
+        
             </script>
 
 
@@ -412,15 +447,16 @@
                                 <div id="divList" style="width: 100%">
 
 
-                                    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
+                                    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" EnablePageMethods="true">
                                     </asp:ScriptManager>
 
 
 
                                     <telerik:RadGrid ID="dtgManageProjectGrid" runat="server" CellSpacing="0"
-                                        GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true" OnSelectedIndexChanged="dtgManageProjectGrid_SelectedIndexChanged" OnItemCommand="dtgManageProjectGrid_ItemCommand"
+                                        GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true"  AlwaysVisible="true" OnSelectedIndexChanged="dtgManageProjectGrid_SelectedIndexChanged" OnItemCommand="dtgManageProjectGrid_ItemCommand"
                                         PageSize="10" Width="100%" Skin="Silk">
-                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType">
+                                         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
+                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType" InsertItemPageIndexAction="ShowItemOnFirstPage" InsertItemDisplay="Top" >
                                             <Columns>
                                                 <telerik:GridButtonColumn CommandName="EditData" ItemStyle-Width="10px" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png"></telerik:GridButtonColumn>
                                                 <telerik:GridButtonColumn CommandName="DeleteColumn" Text="Delete" UniqueName="DeleteColumn" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" ConfirmDialogType="RadWindow" ConfirmText="Are you sure, you want to delete this item ?">  </telerik:GridButtonColumn>
@@ -436,7 +472,7 @@
                                             </Columns>
                                         </MasterTableView>
                                     </telerik:RadGrid>
-
+                                      <asp:Label ID="lblTypeNeed" runat="server" Text="" Visible="false"></asp:Label>
                                 </div>
                             </telerik:RadPageView>
 
@@ -517,11 +553,14 @@
                               
                                               <asp:Label ID="lblIdno" runat="server" Text="ID No"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
-
-                                                <asp:TextBox ID="txtIDno" CssClass="form-control" runat="server"></asp:TextBox>
-                                               
-
-                                            </div>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                <asp:TextBox ID="txtIDno" CssClass="form-control" runat="server" onchange="checkIdNo(this)"></asp:TextBox></td>
+                                                <td> <asp:Image  ID="imgWebLnames" runat="server" ToolTip="ID is Available" ImageUrl="~/Images/ProjectImages/Check.png" Width="17px" Height="17px"/></td>
+                                               <td>  <asp:Image ID="errorLnames" runat="server" ToolTip="ID is Unavailable" ImageUrl="~/Images/ProjectImages/newClose.png" Width="10px" Height="10px" /></td>
+                                          </tr> </table>
+                                                     </div>
                                         </div>
                                         <%-- </form>--%>
                                    </div>

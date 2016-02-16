@@ -509,6 +509,7 @@ namespace FlyCn.FlyCnDAL
                 cmdInsert.Parameters.AddWithValue("@Idno", Idno);
                 cmdInsert.Parameters.AddWithValue("@EILType", EILType);
                 cmdInsert.Parameters.AddWithValue("@openby", mObj.OpenBy);
+                cmdInsert.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
                 if (OpenDate != null)
                 {
                     cmdInsert.Parameters.AddWithValue("@opendate", Convert.ToDateTime(OpenDate));
@@ -1265,7 +1266,7 @@ namespace FlyCn.FlyCnDAL
                 cmdInsert.Parameters.AddWithValue("@fileSize", fileSize);
                 result = cmdInsert.ExecuteNonQuery();
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.InsertionSuccessData(page,"Data Inserted Suuccessfully..!!!!");
+                eObj.InsertionSuccessData(page,"Data Inserted Successfully..!!!!");
             }
             catch (SqlException ex)
             {
@@ -1621,6 +1622,45 @@ namespace FlyCn.FlyCnDAL
         //#endregion GetControlSystemFromM_CTRL_System
 
 
+        #region ValidateIdNo
+        public bool ValidateIdNo(int CheckID,string Type)
+        {
+            bool flag;
+            SqlConnection con = null;
+            try
+            {
+
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("CheckID", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = CheckID;
+                cmd.Parameters.Add("@EilType", SqlDbType.NVarChar, 4).Value = Type;
+                SqlParameter outflag = cmd.Parameters.Add("@flag", SqlDbType.Bit);
+                outflag.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                flag = (bool)outflag.Value;
+                if (flag == true)
+                {
+                    return flag;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+            return false;
+        }
+
+        #endregion ValidateIdNo
 
     }
 
