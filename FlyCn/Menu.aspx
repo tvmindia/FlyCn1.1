@@ -58,7 +58,7 @@
  
     function getSubTilePermission(url, id, spanID)
     {
-        debugger;
+       
 
     
 

@@ -23,7 +23,6 @@ using FlyCn.FlyCnDAL;
 using System.Web.Script.Services;
 using System.Web.UI;
 using System.Web.Services;
-using System.Text.RegularExpressions;
 
 #endregion Included Namespaces
 
@@ -460,14 +459,13 @@ namespace FlyCn.UIClasses
                 string img = ds.Tables[0].Rows[row]["subimgUrl"].ToString();
                 string url = ds.Tables[0].Rows[row]["subPath"].ToString();
                 string id = ds.Tables[0].Rows[row]["subdescription"].ToString();
-                string spanDeniedID = ds.Tables[0].Rows[row]["subdescription"].ToString() + "_NoAccess";
+                string spanDeniedID = ds.Tables[0].Rows[row]["subdescription"].ToString() + "_(NoAccess)";
 
 
 
                 if (spanDeniedID.Contains(" "))
                 {
-                    //Regex.Replace(spanDeniedID, "", "$");
-                   spanDeniedID= spanDeniedID.Replace(" ", "$");
+                   spanDeniedID= spanDeniedID.Replace(" ", "#");
                 }
 
 

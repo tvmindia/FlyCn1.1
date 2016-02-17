@@ -16,8 +16,6 @@ namespace FlyCn
 
             string myInnerHtml = ui.GenerateMultiSizeImageString(id);//ui.GenerateImageString(id);
 
-            //bool d = ui.SubTileDenied;
-
             div2.Controls.Add(new LiteralControl(myInnerHtml));
         }
     }

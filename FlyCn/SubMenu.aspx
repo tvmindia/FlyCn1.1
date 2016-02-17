@@ -4,14 +4,25 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script>
         function setAccessmsg(spanID) {
-
+            debugger;
             var deniedSpan = document.getElementById(spanID);
+          
 
-            var s = spanID;
+            if (spanID.indexOf('#') >= 0)
+            {
+                spanID = spanID.replace("#", ' ');
+
+
+                //if (spanID.indexOf('_') >= 0)
+                //{
+                //    spanID.split('_')[1].color = "white";
+                //    spanID.split('_')[0].color = "red";
+                //}
+            }
+
             
             deniedSpan.style.color = "red";
             deniedSpan.innerHTML = spanID;
-
 
         }
     </script>

@@ -509,6 +509,7 @@ namespace FlyCn.FlyCnDAL
                 cmdInsert.Parameters.AddWithValue("@Idno", Idno);
                 cmdInsert.Parameters.AddWithValue("@EILType", EILType);
                 cmdInsert.Parameters.AddWithValue("@openby", mObj.OpenBy);
+                cmdInsert.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
                 if (OpenDate != null)
                 {
                     cmdInsert.Parameters.AddWithValue("@opendate", Convert.ToDateTime(OpenDate));
@@ -1238,7 +1239,7 @@ namespace FlyCn.FlyCnDAL
         #endregion GetCategoryFromM_Category
 
         #region InsertEILAttachment
-        public int InsertEILAttachment()
+        public int InsertEILAttachment(Boolean isFromMobile=false,string userName="",string projNo="")
         {
             int result = 0;
             SqlConnection con = null;
@@ -1247,31 +1248,47 @@ namespace FlyCn.FlyCnDAL
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 UIClasses.Const Const = new UIClasses.Const();
-                FlyCnDAL.Security.UserAuthendication UA;
-                HttpContext context = HttpContext.Current;
-                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
                 string insertQuery = "procInsertEILAttachByProjectNo";
                 SqlCommand cmdInsert = new SqlCommand(insertQuery, con);
                 cmdInsert.CommandType = CommandType.StoredProcedure;
-                cmdInsert.Parameters.AddWithValue("@projectno", UA.projectNo);
+
+                if (isFromMobile)
+                {
+                    cmdInsert.Parameters.AddWithValue("@projectno", projNo);
+                    cmdInsert.Parameters.AddWithValue("@uploadedBy", userName);
+                }
+                else
+                {
+                    FlyCnDAL.Security.UserAuthendication UA;
+                    HttpContext context = HttpContext.Current;
+                    UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                    cmdInsert.Parameters.AddWithValue("@projectno", UA.projectNo);
+                    cmdInsert.Parameters.AddWithValue("@uploadedBy", UA.userName);
+                }
                 cmdInsert.Parameters.AddWithValue("@Idno", id);
                 cmdInsert.Parameters.AddWithValue("@EILType", EILType);
                 cmdInsert.Parameters.AddWithValue("@filename", fileUpload);
                 cmdInsert.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
                 cmdInsert.Parameters.AddWithValue("@fileType", FileType);
                 cmdInsert.Parameters.AddWithValue("@image", image);
-                cmdInsert.Parameters.AddWithValue("@uploadedBy",UA.userName);
                 cmdInsert.Parameters.AddWithValue("@fileSize", fileSize);
                 result = cmdInsert.ExecuteNonQuery();
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.InsertionSuccessData(page,"Data Inserted Suuccessfully..!!!!");
+                if (!isFromMobile)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.InsertionSuccessData(page, "Data Inserted Successfully..!!!!");
+                }
             }
             catch (SqlException ex)
             {
+                if (!isFromMobile)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                   // eObj.ErrorData(ex, page);
+                    throw ex;
+                }
                 throw ex;
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
             }
             finally
             {
@@ -1621,6 +1638,45 @@ namespace FlyCn.FlyCnDAL
         //#endregion GetControlSystemFromM_CTRL_System
 
 
+        #region ValidateIdNo
+        public bool ValidateIdNo(int CheckID,string Type)
+        {
+            bool flag;
+            SqlConnection con = null;
+            try
+            {
+
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("CheckID", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = CheckID;
+                cmd.Parameters.Add("@EilType", SqlDbType.NVarChar, 4).Value = Type;
+                SqlParameter outflag = cmd.Parameters.Add("@flag", SqlDbType.Bit);
+                outflag.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                flag = (bool)outflag.Value;
+                if (flag == true)
+                {
+                    return flag;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+            return false;
+        }
+
+        #endregion ValidateIdNo
 
     }
 
