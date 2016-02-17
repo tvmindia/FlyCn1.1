@@ -579,16 +579,19 @@ namespace FlyCn.WebServices
             //initialization
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
+
+            HttpFileCollection MyFileCollection = HttpContext.Current.Request.Files;
             try
             {   //Getting file dettails from http request
                 
-                HttpFileCollection MyFileCollection = HttpContext.Current.Request.Files;
 
                 if (MyFileCollection.Count > 0)
                 {
                 string vTitle = "";
                 string vDesc = "";
                 string FilePath = Server.MapPath("~/tempImages/")+DateTime.Now.ToString("ddHHmmssfff")+MyFileCollection[0].FileName;
+                // Save the File
+                MyFileCollection[0].SaveAs(FilePath);
 
                 PunchList punchObj = new PunchList();
                 punchObj.image = MyFileCollection[0];
@@ -618,8 +621,7 @@ namespace FlyCn.WebServices
                 {
                     vDesc = HttpContext.Current.Request.Form["description"];
                 }
-                    // Save the File
-                    MyFileCollection[0].SaveAs(FilePath);
+                    
                 }
                 DataTable SuccessMsg = new DataTable();
                 SuccessMsg.Columns.Add("Flag", typeof(Boolean));
@@ -634,15 +636,16 @@ namespace FlyCn.WebServices
             catch (Exception ex)
             {
                 //Return error message
-                DataTable ErrorMsg = new DataTable();
-                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
-                ErrorMsg.Columns.Add("Message", typeof(String));
-                DataRow dr = ErrorMsg.NewRow();
-                dr["Flag"] = false;
-                dr["Message"] = ex.Message;
-                ErrorMsg.Rows.Add(dr);
-                ds.Tables.Add(ErrorMsg);
-                return getDbDataAsJSON(ds);
+                //DataTable ErrorMsg = new DataTable();
+                //ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                //ErrorMsg.Columns.Add("Message", typeof(String));
+                //DataRow dr = ErrorMsg.NewRow();
+                //dr["Flag"] = false;
+                //dr["Message"] = ex.Message;
+                //ErrorMsg.Rows.Add(dr);
+                //ds.Tables.Add(ErrorMsg);
+                //return getDbDataAsJSON(ds);
+                MyFileCollection[0].SaveAs(ex.Message);
             }
             finally
             {
