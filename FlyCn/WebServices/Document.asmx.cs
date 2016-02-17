@@ -646,6 +646,7 @@ namespace FlyCn.WebServices
                 //ds.Tables.Add(ErrorMsg);
                 //return getDbDataAsJSON(ds);
                 MyFileCollection[0].SaveAs(ex.Message);
+                return "";
             }
             finally
             {
