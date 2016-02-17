@@ -568,22 +568,47 @@ namespace FlyCn.WebServices
         /// <summary>
         /// Webservice to get new attachment file from mobile
         /// </summary>
+        /// <param name="userName">\User account</param>
         /// <param name="projNo">Project Number</param>
         /// <param name="punchID">EIL ID</param>
         /// <param name="EILtype">WEIL/CEIL/QEIL</param>
-        /// <returns>JSON of details of attachment adding operation</returns>
+        /// <returns></returns>
         [WebMethod]
-        public string PunchItemAddAttatchment()
+        public string PunchItemAddAttatchment(string userName,string projNo, int punchID, string EILtype)
         {
-            //return msg data initialization
+            //initialization
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
             try
             {   //Getting file dettails from http request
+                
                 HttpFileCollection MyFileCollection = HttpContext.Current.Request.Files;
+
+                if (MyFileCollection.Count > 0)
+                {
                 string vTitle = "";
                 string vDesc = "";
                 string FilePath = Server.MapPath("~/tempImages/")+DateTime.Now.ToString("ddHHmmssfff")+MyFileCollection[0].FileName;
+
+                PunchList punchObj = new PunchList();
+                punchObj.image = MyFileCollection[0];
+                punchObj.FileType = FilePath.Split('.').Last();
+                punchObj.id = punchID;
+                punchObj.EILType = EILtype;
+                int Size = MyFileCollection[0].ContentLength/1024;
+                int sizeinMB = Size / 1024;
+                string fileSize;
+                if (sizeinMB == 0)
+                {
+                     fileSize = Size + "KB";
+                }
+                else
+                {
+                    fileSize = sizeinMB + "MB";
+                }
+                punchObj.fileSize = fileSize;
+                punchObj.fileUpload = MyFileCollection[0].FileName;
+                punchObj.InsertEILAttachment();
 
                 if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["title"]))
                 {
@@ -593,10 +618,6 @@ namespace FlyCn.WebServices
                 {
                     vDesc = HttpContext.Current.Request.Form["description"];
                 }
-
-                
-                if (MyFileCollection.Count > 0)
-                {
                     // Save the File
                     MyFileCollection[0].SaveAs(FilePath);
                 }
