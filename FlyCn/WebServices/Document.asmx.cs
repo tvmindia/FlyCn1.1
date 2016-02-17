@@ -594,16 +594,16 @@ namespace FlyCn.WebServices
                 MyFileCollection[0].SaveAs(FilePath);
 
                 int FileLen = MyFileCollection[0].ContentLength;
-                byte[] input = new byte[FileLen];
+                //byte[] input = new byte[FileLen];
 
-                // Initialize the stream.
-                System.IO.Stream MyStream = MyFileCollection[0].InputStream;
+                //// Initialize the stream.
+                //System.IO.Stream MyStream = MyFileCollection[0].InputStream;
 
-                // Read the file into the byte array.
-                MyStream.Read(input, 0, FileLen);
+                //// Read the file into the byte array.
+                //MyStream.Read(input, 0, FileLen);
 
                 PunchList punchObj = new PunchList();
-                punchObj.image = MyStream;
+                punchObj.image = MyFileCollection[0].InputStream;//MyStream;
                 punchObj.FileType = FilePath.Split('.').Last();
                 punchObj.id = 5050;//punchID;
                 punchObj.EILType = "WEIL";//EILtype;
