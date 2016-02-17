@@ -379,24 +379,21 @@ namespace FlyCn.EngineeredDataList
             }
             dbConnection dbCon = new dbConnection();
             dbCon.GetDBConnection();
-            for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
+            for (int i = dsFile.Tables[0].Rows.Count-1; i >= 0; i--)
             {
-                int res;
-                Int16 isupate;
-                res = validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable, i, dbCon);
-                isupate=validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i, comDAL.tableName, MasterColumns, dbCon);
-                if (comDAL.ExcelSheetName == "Cables")
+                bool IsError = false;
+                IsError = validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable, i, dbCon);
+                if(IsError!=true)
                 {
-                    validationObj.CableLengthValidation(dsFile.Tables[0].Rows[i], dsTable, i, dbCon);
+                   IsError = validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i, comDAL.tableName, MasterColumns, dbCon);
+                   if (comDAL.ExcelSheetName == "Cables")
+                   {
+                     IsError = validationObj.CableLengthValidation(dsFile.Tables[0].Rows[i], dsTable, i, dbCon);
+                   }
                 }
-                //if(isupate==2)
-                //{
-                //    validationObj.importfile.errorCount = validationObj.importfile.errorCount + 1;
-                //}
-                if ((res == -1) ||(isupate==1))
+                if (IsError)
                 {
                     validationObj.importfile.errorCount = validationObj.importfile.errorCount + 1;
-                    //errorCount = errorCount + 1;
                 }
             }
             
@@ -621,7 +618,6 @@ namespace FlyCn.EngineeredDataList
                         ScriptManager.RegisterStartupScript(this, this.GetType(),"DisableImport","DisableImportButton();",true);
                     }
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "UploadNextClick();", true);
-
                 }
                 catch (Exception ex)
                 {
@@ -674,7 +670,7 @@ namespace FlyCn.EngineeredDataList
                     //         importObj.ImportExcelData(tempDS);
                     //     }).Start();
 
-                    importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+                   importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
                 }
                 //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
                 ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id + "&ModuleName=" + importObj.SheetName;//iframe page ImportStatusList.aspx is called with query string revisonid and module name from excel sheet name

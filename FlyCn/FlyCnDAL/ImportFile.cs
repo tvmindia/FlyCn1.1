@@ -860,18 +860,19 @@ namespace FlyCn.FlyCnDAL
                SqlCommand cmd = null;
                DataSet ds = null; 
                SqlDataAdapter da = null; 
-               dbConnection dcon = null;
+             
           
             try
             {
                 ds = new DataSet();
                 cmd = new SqlCommand();
                 da = new SqlDataAdapter();
-                dcon = new dbConnection();
-                if(dcon.SQLCon==null)
+                if (dbCon.SQLCon == null)
                 {
                    
-                    dcon.GetDBConnection();
+                    dbCon = new dbConnection();
+
+                    dbCon.GetDBConnection();
                 }
               
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -880,7 +881,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.Add("@ModuleID", SqlDbType.NVarChar, 10).Value = moduleID;
                 cmd.Parameters.Add("@Category", SqlDbType.NVarChar, 25).Value = category;
                 cmd.Parameters.Add("@Cable_No", SqlDbType.NVarChar, 50).Value = cableNo;
-                cmd.Connection = dcon.SQLCon;
+                cmd.Connection = dbCon.SQLCon;
                 da.SelectCommand = cmd;
                 da.Fill(ds);
              }
@@ -903,7 +904,7 @@ namespace FlyCn.FlyCnDAL
             SqlCommand cmd = null;
             DataSet ds = null;
             SqlDataAdapter da = null;
-            dbConnection dcon = null;
+          
             int length;
 
             try
@@ -911,11 +912,11 @@ namespace FlyCn.FlyCnDAL
                 ds = new DataSet();
                 cmd = new SqlCommand();
                 da = new SqlDataAdapter();
-                dcon = new dbConnection();
-                if (dcon.SQLCon == null)
+              
+                if (dbCon.SQLCon == null)
                 {
-                  
-                    dcon.GetDBConnection();
+                    dbCon = new dbConnection();
+                    dbCon.GetDBConnection();
                 }
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "GetCableTotalPullLength";
@@ -925,7 +926,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.Add("@Cable_No", SqlDbType.NVarChar, 50).Value = cableNo;
                 SqlParameter outPutTotalLength = cmd.Parameters.Add("@OutPullLength", SqlDbType.Int);
                 outPutTotalLength.Direction = ParameterDirection.Output;
-                cmd.Connection = dcon.SQLCon;
+                cmd.Connection = dbCon.SQLCon;
                 cmd.ExecuteNonQuery();
                 length=(int)(outPutTotalLength.Value);//returns -1 if no records find
             }

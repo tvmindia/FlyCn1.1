@@ -38,7 +38,7 @@ namespace FlyCn.FlyCnDAL
             /// </summary>
             /// <param name="datarow from the result dataset of the excel file"></param>
             /// <returns>success/failure and error datatable</returns>
-            public int excelDatasetValidation(DataRow dr, DataSet dsTable,int rowNO,dbConnection dbCon)
+            public bool excelDatasetValidation(DataRow dr, DataSet dsTable,int rowNO,dbConnection dbCon)
             {
                 DataTable dtError = CreateErrorTable();
                 DataSet dsError = new DataSet();
@@ -121,9 +121,9 @@ namespace FlyCn.FlyCnDAL
                     {
                         rowNO= rowNO + 2;
                         importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
-                        return -1;
+                        return true;
                     }
-                    else return 1;
+                    else return false;
                 }
                 catch(Exception ex)
                 {
@@ -401,7 +401,7 @@ namespace FlyCn.FlyCnDAL
             #endregion DataValidation
             #region MasterDataExist
             //validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i, comDAL.tableName,List<string> MasterColumns);
-            public Int16 MasterDataExist(DataSet dsTable,DataSet MasterDS, DataRow dr,int rowNO, string TableName, List<string> MasterColumns,dbConnection dbCon)
+            public bool MasterDataExist(DataSet dsTable,DataSet MasterDS, DataRow dr,int rowNO, string TableName, List<string> MasterColumns,dbConnection dbCon)
             {
                 string comma = "";
                 Int16 isupdate;
@@ -453,15 +453,15 @@ namespace FlyCn.FlyCnDAL
                     {
                         rowNO = rowNO + 2;
                         isupdate=importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
-                        return isupdate;
+                        return true;
                     }
                
-                    return -1;
+                    return false;
                 
             }
             #endregion MasterDataExist
             #region CableLengthValidation
-            public void CableLengthValidation(DataRow dr,DataSet dsTable,int rowNO,dbConnection dbCon)
+            public bool CableLengthValidation(DataRow dr,DataSet dsTable,int rowNO,dbConnection dbCon)
             {
                 //Get the CableSchedule records based on project no,moduleID,category and cableno
                 //To find out whether its a update or insert
@@ -483,20 +483,21 @@ namespace FlyCn.FlyCnDAL
                      //its an update
                      //so validate CablepullDetail
                        length = importfile.GetCableTotalPullLength(dr["ProjectNo"].ToString(), dr["ModuleID"].ToString(), dr["Category"].ToString(), dr["Cable No"].ToString(), dbCon);
-                       if (length != -1)
-                       {
-                         if (!(length >= int.Parse(dr["Total Length"].ToString())))
+                       
+                         if ((length >= int.Parse(dr["Total Length"].ToString())))
                          {
                              errorDescLists.Append(comma);
                              errorDescLists.Append("Total Length");
                              errorDescLists.Append(" Can not be reduced further");
                              comma = "";
+                             rowNO = rowNO + 2;
                              importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                             return true;
                          }
-                       }
-
+                       
                    }
                 }
+                return false;
             }
             #endregion CableLengthValidation
            
