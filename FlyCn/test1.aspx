@@ -19,6 +19,65 @@
     <div style="margin: 0; padding: 0; min-width: 100%!important;">
 
          Level Description : 
+         <div class="gridContainer HeaderBox" style="overflow-x: auto; width: 1200px; margin-left: 1%">
+                            <telerik:RadGrid ID="radgrdOverview" runat="server" 
+                                EnableLinqExpressions="False" MasterTableView-HierarchyLoadMode="ServerOnDemand"       CellSpacing="0" GridLines="None" AutoGenerateColumns="False" Skin="Metro">
+                                <HierarchySettings SelfCollapseTooltip="close" SelfExpandTooltip="open" />
+
+                                <MasterTableView DataKeyNames="code_display,CodeId, ParentId" Width="100%" NoDetailRecordsText="" TableLayout="Fixed">
+
+                                    <SelfHierarchySettings ParentKeyName="ParentId" KeyName="CodeId" MaximumDepth="5" />
+
+                                    <CommandItemSettings ExportToPdfText="Export to PDF"></CommandItemSettings>
+
+                                    <RowIndicatorColumn Visible="True" FilterControlAltText="Filter RowIndicator column"></RowIndicatorColumn>
+
+                                    <ExpandCollapseColumn Visible="True" FilterControlAltText="Filter ExpandColumn column"></ExpandCollapseColumn>
+
+                                    <HeaderStyle  ForeColor="#292929" HorizontalAlign="Center" Width ="130px"/>
+                                    <ItemStyle Width="130px"/>
+                                    <Columns>
+                                        <telerik:GridBoundColumn DataField="codeId" UniqueName="codeId" Display="false">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="parentId" UniqueName="parentId" Display="false">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="code_display"  UniqueName="code_display" HeaderText="Cost Code">
+                                            <HeaderStyle Width="130px"></HeaderStyle>
+                                            <ItemStyle Width="130px"></ItemStyle>
+                                        </telerik:GridBoundColumn>
+
+                                        <telerik:GridBoundColumn DataField="Description" HeaderStyle-Width="250px" ItemStyle-Width="250px" UniqueName="Description" HeaderText="Description">
+
+                                            <HeaderStyle Width="250px"></HeaderStyle>
+
+                                            <ItemStyle Width="250px"></ItemStyle>
+
+                                        </telerik:GridBoundColumn>
+
+                                        <telerik:GridBoundColumn DataField="Original_Budget"  UniqueName="budget" ItemStyle-HorizontalAlign="Right" HeaderText="Original Budget" DataFormatString ="{0:###,##0;(###,##0);0}">                                         
+                                            <HeaderStyle Width="130"></HeaderStyle>                                           
+                                            <ItemStyle Width="130" HorizontalAlign="Right"></ItemStyle>
+                                        </telerik:GridBoundColumn>
+                                       
+                                    </Columns>
+
+
+                                    <EditFormSettings>
+                                        <EditColumn FilterControlAltText="Filter EditCommandColumn column"></EditColumn>
+                                    </EditFormSettings>
+
+                                    <PagerStyle PageSizeControlType="RadComboBox"></PagerStyle>
+                                </MasterTableView>
+                                   <HeaderStyle Font-Size="13px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="true" />
+                                    <ItemStyle Font-Size="12px" />
+                                    <FooterStyle  Font-Size="12px"  />
+                                    <AlternatingItemStyle Font-Size="12px" VerticalAlign="Middle" />
+
+                                <PagerStyle PageSizeControlType="RadComboBox"></PagerStyle>
+
+                                <FilterMenu EnableImageSprites="False"></FilterMenu>
+                            </telerik:RadGrid>
+                        </div>
 
        
         <asp:TextBox ID="txtLevelDescription" runat="server"></asp:TextBox>
