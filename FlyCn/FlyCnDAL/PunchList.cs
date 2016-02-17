@@ -1239,7 +1239,7 @@ namespace FlyCn.FlyCnDAL
         #endregion GetCategoryFromM_Category
 
         #region InsertEILAttachment
-        public int InsertEILAttachment()
+        public int InsertEILAttachment(Boolean isFromMobile=false,string userName="",string projNo="")
         {
             int result = 0;
             SqlConnection con = null;
@@ -1248,31 +1248,46 @@ namespace FlyCn.FlyCnDAL
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 UIClasses.Const Const = new UIClasses.Const();
-                FlyCnDAL.Security.UserAuthendication UA;
-                HttpContext context = HttpContext.Current;
-                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
 
                 string insertQuery = "procInsertEILAttachByProjectNo";
                 SqlCommand cmdInsert = new SqlCommand(insertQuery, con);
                 cmdInsert.CommandType = CommandType.StoredProcedure;
-                cmdInsert.Parameters.AddWithValue("@projectno", UA.projectNo);
+
+                if (isFromMobile)
+                {
+                    cmdInsert.Parameters.AddWithValue("@projectno", projNo);
+                    cmdInsert.Parameters.AddWithValue("@uploadedBy", userName);
+                }
+                else
+                {
+                    FlyCnDAL.Security.UserAuthendication UA;
+                    HttpContext context = HttpContext.Current;
+                    UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                    cmdInsert.Parameters.AddWithValue("@projectno", UA.projectNo);
+                    cmdInsert.Parameters.AddWithValue("@uploadedBy", UA.userName);
+                }
                 cmdInsert.Parameters.AddWithValue("@Idno", id);
                 cmdInsert.Parameters.AddWithValue("@EILType", EILType);
                 cmdInsert.Parameters.AddWithValue("@filename", fileUpload);
                 cmdInsert.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
                 cmdInsert.Parameters.AddWithValue("@fileType", FileType);
                 cmdInsert.Parameters.AddWithValue("@image", image);
-                cmdInsert.Parameters.AddWithValue("@uploadedBy",UA.userName);
                 cmdInsert.Parameters.AddWithValue("@fileSize", fileSize);
                 result = cmdInsert.ExecuteNonQuery();
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.InsertionSuccessData(page,"Data Inserted Successfully..!!!!");
+                if (!isFromMobile)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.InsertionSuccessData(page, "Data Inserted Successfully..!!!!");
+                }
             }
             catch (SqlException ex)
             {
+                if (!isFromMobile)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    eObj.ErrorData(ex, page);
+                }
                 throw ex;
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
             }
             finally
             {
