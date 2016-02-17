@@ -592,7 +592,7 @@ namespace FlyCn.WebServices
 
                 PunchList punchObj = new PunchList();
                 punchObj.image = MyFileCollection[0];
-                punchObj.FileType = FilePath.Split('.').Last();
+                punchObj.FileType = "jpg";// FilePath.Split('.').Last();
                 punchObj.id = 5050;//punchID;
                 punchObj.EILType = "WEIL";//EILtype;
                 int Size = MyFileCollection[0].ContentLength/1024;
@@ -606,7 +606,7 @@ namespace FlyCn.WebServices
                 {
                     fileSize = sizeinMB + "MB";
                 }
-                punchObj.fileSize = fileSize;
+                punchObj.fileSize = "size";//fileSize;
                 punchObj.fileUpload = MyFileCollection[0].FileName;
                 punchObj.InsertEILAttachment(true,"user","C00001");
 
