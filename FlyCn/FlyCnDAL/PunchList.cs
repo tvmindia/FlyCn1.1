@@ -1285,7 +1285,8 @@ namespace FlyCn.FlyCnDAL
                 if (!isFromMobile)
                 {
                     var page = HttpContext.Current.CurrentHandler as Page;
-                    eObj.ErrorData(ex, page);
+                   // eObj.ErrorData(ex, page);
+                    throw ex;
                 }
                 throw ex;
             }

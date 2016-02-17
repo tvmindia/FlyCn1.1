@@ -623,15 +623,15 @@ namespace FlyCn.WebServices
                 }
                     
                 }
-                DataTable SuccessMsg = new DataTable();
-                SuccessMsg.Columns.Add("Flag", typeof(Boolean));
-                SuccessMsg.Columns.Add("Message", typeof(String));
-                DataRow dr = SuccessMsg.NewRow();
-                dr["Flag"] = false;
-                dr["Message"] = HttpContext.Current.Request.Form["title"];
-                SuccessMsg.Rows.Add(dr);
-                ds.Tables.Add(SuccessMsg);
-                return getDbDataAsJSON(ds); 
+                //DataTable SuccessMsg = new DataTable();
+                //SuccessMsg.Columns.Add("Flag", typeof(Boolean));
+                //SuccessMsg.Columns.Add("Message", typeof(String));
+                //DataRow dr = SuccessMsg.NewRow();
+                //dr["Flag"] = false;
+                //dr["Message"] = HttpContext.Current.Request.Form["title"];
+                //SuccessMsg.Rows.Add(dr);
+                //ds.Tables.Add(SuccessMsg);
+                //return getDbDataAsJSON(ds); 
             }
             catch (Exception ex)
             {
