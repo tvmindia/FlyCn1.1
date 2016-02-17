@@ -593,8 +593,17 @@ namespace FlyCn.WebServices
                 // Save the File
                 MyFileCollection[0].SaveAs(FilePath);
 
+                int FileLen = MyFileCollection[0].ContentLength;
+                byte[] input = new byte[FileLen];
+
+                // Initialize the stream.
+                System.IO.Stream MyStream = MyFileCollection[0].InputStream;
+
+                // Read the file into the byte array.
+                MyStream.Read(input, 0, FileLen);
+
                 PunchList punchObj = new PunchList();
-                punchObj.image = MyFileCollection[0];
+                punchObj.image = MyStream;
                 punchObj.FileType = "jpg";// FilePath.Split('.').Last();
                 punchObj.id = 5050;//punchID;
                 punchObj.EILType = "WEIL";//EILtype;
@@ -631,7 +640,7 @@ namespace FlyCn.WebServices
                 //dr["Message"] = HttpContext.Current.Request.Form["title"];
                 //SuccessMsg.Rows.Add(dr);
                 //ds.Tables.Add(SuccessMsg);
-                //return getDbDataAsJSON(ds); 
+                return getDbDataAsJSON(ds); 
             }
             catch (Exception ex)
             {
