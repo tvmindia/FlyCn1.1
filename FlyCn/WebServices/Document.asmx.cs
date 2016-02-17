@@ -574,7 +574,7 @@ namespace FlyCn.WebServices
         /// <param name="EILtype">WEIL/CEIL/QEIL</param>
         /// <returns></returns>
         [WebMethod]
-        public string PunchItemAddAttatchment(string userName,string projNo, int punchID, string EILtype)
+        public string PunchItemAddAttatchment()//string userName,string projNo, int punchID, string EILtype)
         {
             //initialization
             DataSet ds = new DataSet();
@@ -593,8 +593,8 @@ namespace FlyCn.WebServices
                 PunchList punchObj = new PunchList();
                 punchObj.image = MyFileCollection[0];
                 punchObj.FileType = FilePath.Split('.').Last();
-                punchObj.id = punchID;
-                punchObj.EILType = EILtype;
+                punchObj.id = 5050;//punchID;
+                punchObj.EILType = "WEIL";//EILtype;
                 int Size = MyFileCollection[0].ContentLength/1024;
                 int sizeinMB = Size / 1024;
                 string fileSize;
@@ -608,7 +608,7 @@ namespace FlyCn.WebServices
                 }
                 punchObj.fileSize = fileSize;
                 punchObj.fileUpload = MyFileCollection[0].FileName;
-                punchObj.InsertEILAttachment();
+                punchObj.InsertEILAttachment(true,"user","C00001");
 
                 if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["title"]))
                 {
