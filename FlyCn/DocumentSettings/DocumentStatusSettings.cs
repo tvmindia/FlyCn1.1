@@ -99,7 +99,19 @@ namespace FlyCn.DocumentSettings
             get { return "Finished"; }
         }
         #endregion ImportStatus
-       
+
+        #region CableDrumValidation
+        public static string CADTL//cable and drum total length
+        {
+            get { return "Cable Already Pulled"; }
+
+        }
+        public static string DNV
+        {
+            get { return "Drum no invalid"; }
+        }
+        #endregion CableDrumValidation
+
 
     }
     #endregion DocumentStatusSettings class

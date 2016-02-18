@@ -897,6 +897,43 @@ namespace FlyCn.FlyCnDAL
         }
 
         #endregion GetCableScheduleMaster
+        #region GetDrumMaster
+        public DataSet GetDrumMaster(string projectNo, string moduleID, string category, string DrumNo, dbConnection dbCon = null)
+        {
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter da = null;
+            try
+            {
+                ds = new DataSet();
+                cmd = new SqlCommand();
+                da = new SqlDataAdapter();
+                if (dbCon.SQLCon == null)
+                {
+                    dbCon = new dbConnection();
+                    dbCon.GetDBConnection();
+                }
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetAllDrumDetails";
+                cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = projectNo;
+                cmd.Parameters.Add("@ModuleID", SqlDbType.NVarChar, 10).Value = moduleID;
+                cmd.Parameters.Add("@Category", SqlDbType.NVarChar, 25).Value = category;
+                cmd.Parameters.Add("@DrumNo", SqlDbType.NVarChar, 50).Value = DrumNo;
+                cmd.Connection = dbCon.SQLCon;
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return ds;
+        }
+        #endregion GetDrumMaster
 
         #region GetCableTotalPullLength
         public int GetCableTotalPullLength(string projectNo, string moduleID, string category, string cableNo, dbConnection dbCon = null)

@@ -211,9 +211,11 @@ namespace FlyCn.EngineeredDataList
                                 columnExistCheck = validationObj.ValidateExcelDataStructure(dsFile, dsTable);
                                 if (columnExistCheck == true)
                                 {
-                                   
+                                    //SlideEffectUpload
                                     //lblMsg.Text = "Successfully Uploaded!";
                                     ScriptManager.RegisterStartupScript(this, GetType(), "Upload", "GenerateTemplateNextClick();", true);
+                                    ScriptManager.RegisterStartupScript(this, GetType(), "SlideEffect", "SlideEffectUpload();", true);
+                                    ScriptManager.RegisterStartupScript(this, GetType(), "SlideEffect", "ShowGridButton();", true);
                                     EnaableButtonandGrid();
                                     CheckBoxAllCheck();
                                     return;
@@ -388,7 +390,14 @@ namespace FlyCn.EngineeredDataList
                    IsError = validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i, comDAL.tableName, MasterColumns, dbCon);
                    if (comDAL.ExcelSheetName == "Cables")
                    {
-                     IsError = validationObj.CableLengthValidation(dsFile.Tables[0].Rows[i], dsTable, i, dbCon);
+                       if(IsError != true)
+                       {
+                         IsError = validationObj.CableLengthValidation(dsFile.Tables[0].Rows[i], dsTable, i, dbCon);
+                       }
+                     if (IsError != true)
+                     {
+                         IsError = validationObj.DrumValidation(dsFile.Tables[0].Rows[i], dsTable, i, dbCon);
+                     }
                    }
                 }
                 if (IsError)
