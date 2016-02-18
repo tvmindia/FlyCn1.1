@@ -568,69 +568,54 @@ namespace FlyCn.WebServices
         /// <summary>
         /// Webservice to get new attachment file from mobile
         /// </summary>
-        /// <param name="userName">\User account</param>
-        /// <param name="projNo">Project Number</param>
-        /// <param name="punchID">EIL ID</param>
-        /// <param name="EILtype">WEIL/CEIL/QEIL</param>
         /// <returns></returns>
         [WebMethod]
         public string PunchItemAddAttatchment()//string userName,string projNo, int punchID, string EILtype)
         {
-            //initialization
-            DataSet ds = new DataSet();
-            DataTable dt = new DataTable();
-
-            HttpFileCollection MyFileCollection = HttpContext.Current.Request.Files;
             try
-            {   //Getting file dettails from http request
-                
-
+            {
+                HttpFileCollection MyFileCollection = HttpContext.Current.Request.Files;
+                //Getting file dettails from http request
                 if (MyFileCollection.Count > 0)
                 {
-                string vTitle = "";
-                string vDesc = "";
-                string FilePath = Server.MapPath("~/tempImages/")+DateTime.Now.ToString("ddHHmmssfff")+MyFileCollection[0].FileName;
-                // Save the File
-                MyFileCollection[0].SaveAs(FilePath);
-
-                int FileLen = MyFileCollection[0].ContentLength;
-                //byte[] input = new byte[FileLen];
-
-                //// Initialize the stream.
-                //System.IO.Stream MyStream = MyFileCollection[0].InputStream;
-
-                //// Read the file into the byte array.
-                //MyStream.Read(input, 0, FileLen);
-
+//               string FilePath = Server.MapPath("~/tempImages/")+DateTime.Now.ToString("ddHHmmssfff")+MyFileCollection[0].FileName;
+//                MyFileCollection[0].SaveAs(FilePath); //to save coming image to server folder
+                Stream MyStream = MyFileCollection[0].InputStream;
                 PunchList punchObj = new PunchList();
-                punchObj.image = MyFileCollection[0].InputStream;//MyStream;
-                punchObj.FileType = FilePath.Split('.').Last();
-                punchObj.id = 5050;//punchID;
-                punchObj.EILType = "WEIL";//EILtype;
-                int Size = MyFileCollection[0].ContentLength/1024;
-                int sizeinMB = Size / 1024;
+                punchObj.image = MyStream;
+                MyStream.Flush();
+                punchObj.FileType = "." + MyFileCollection[0].FileName.Split('.').Last();
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["punchID"]))
+                {
+                    punchObj.id = int.Parse(HttpContext.Current.Request.Form["punchID"]);
+                }
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["EILtype"]))
+                {
+                    punchObj.EILType = HttpContext.Current.Request.Form["EILtype"];
+                }
+                float Size = MyFileCollection[0].ContentLength/1024;
+                float sizeinMB = Size / 1024;
                 string fileSize;
-                if (sizeinMB == 0)
+                if ((int)sizeinMB == 0)
                 {
                      fileSize = Size + "KB";
                 }
                 else
                 {
-                    fileSize = sizeinMB + "MB";
+                    fileSize = sizeinMB.ToString("0.00") + "MB";
                 }
                 punchObj.fileSize = fileSize;
                 punchObj.fileUpload = MyFileCollection[0].FileName;
-                punchObj.InsertEILAttachment(true,"user","C00001");
-
-                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["title"]))
-                {
-                    vTitle = HttpContext.Current.Request.Form["title"];
+                string userName="";string projNo="";
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["userName"]))
+                { 
+                    userName=HttpContext.Current.Request.Form["userName"];
                 }
-                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["description"]))
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["projNo"]))
                 {
-                    vDesc = HttpContext.Current.Request.Form["description"];
+                    projNo = HttpContext.Current.Request.Form["projNo"];
                 }
-                    
+                punchObj.InsertEILAttachment(true,userName,projNo);
                 }
                 //DataTable SuccessMsg = new DataTable();
                 //SuccessMsg.Columns.Add("Flag", typeof(Boolean));
@@ -640,7 +625,7 @@ namespace FlyCn.WebServices
                 //dr["Message"] = HttpContext.Current.Request.Form["title"];
                 //SuccessMsg.Rows.Add(dr);
                 //ds.Tables.Add(SuccessMsg);
-                return getDbDataAsJSON(ds); 
+                return "";// getDbDataAsJSON(ds); 
             }
             catch (Exception ex)
             {
@@ -654,7 +639,6 @@ namespace FlyCn.WebServices
                 //ErrorMsg.Rows.Add(dr);
                 //ds.Tables.Add(ErrorMsg);
                 //return getDbDataAsJSON(ds);
-                MyFileCollection[0].SaveAs(ex.Message);
                 return "";
             }
             finally
