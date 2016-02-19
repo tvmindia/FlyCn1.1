@@ -570,7 +570,7 @@ namespace FlyCn.WebServices
         /// </summary>
         /// <returns></returns>
         [WebMethod]
-        public string PunchItemAddAttatchment()//string userName,string projNo, int punchID, string EILtype)
+        public string PunchItemAddAttatchment()
         {
             try
             {
@@ -579,20 +579,25 @@ namespace FlyCn.WebServices
                 if (MyFileCollection.Count > 0)
                 {
 //               string FilePath = Server.MapPath("~/tempImages/")+DateTime.Now.ToString("ddHHmmssfff")+MyFileCollection[0].FileName;
-//                MyFileCollection[0].SaveAs(FilePath); //to save coming image to server folder
+//               MyFileCollection[0].SaveAs(FilePath); //to save coming image to server folder
                 Stream MyStream = MyFileCollection[0].InputStream;
                 PunchList punchObj = new PunchList();
+                
                 punchObj.image = MyStream;
                 MyStream.Flush();
+                
                 punchObj.FileType = "." + MyFileCollection[0].FileName.Split('.').Last();
+                punchObj.fileUpload = MyFileCollection[0].FileName;
+                
                 if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["punchID"]))
                 {
                     punchObj.id = int.Parse(HttpContext.Current.Request.Form["punchID"]);
                 }
-                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["EILtype"]))
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["EILType"]))
                 {
-                    punchObj.EILType = HttpContext.Current.Request.Form["EILtype"];
+                    punchObj.EILType = HttpContext.Current.Request.Form["EILType"];
                 }
+                
                 float Size = MyFileCollection[0].ContentLength/1024;
                 float sizeinMB = Size / 1024;
                 string fileSize;
@@ -604,8 +609,8 @@ namespace FlyCn.WebServices
                 {
                     fileSize = sizeinMB.ToString("0.00") + "MB";
                 }
+                
                 punchObj.fileSize = fileSize;
-                punchObj.fileUpload = MyFileCollection[0].FileName;
                 string userName="";string projNo="";
                 if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["userName"]))
                 { 
@@ -615,31 +620,16 @@ namespace FlyCn.WebServices
                 {
                     projNo = HttpContext.Current.Request.Form["projNo"];
                 }
+
                 punchObj.InsertEILAttachment(true,userName,projNo);
+
                 }
-                //DataTable SuccessMsg = new DataTable();
-                //SuccessMsg.Columns.Add("Flag", typeof(Boolean));
-                //SuccessMsg.Columns.Add("Message", typeof(String));
-                //DataRow dr = SuccessMsg.NewRow();
-                //dr["Flag"] = false;
-                //dr["Message"] = HttpContext.Current.Request.Form["title"];
-                //SuccessMsg.Rows.Add(dr);
-                //ds.Tables.Add(SuccessMsg);
-                return "";// getDbDataAsJSON(ds); 
+
+                return "Message:"+FlyCn.UIClasses.Messages.SuccessfulUpload;
             }
             catch (Exception ex)
             {
-                //Return error message
-                //DataTable ErrorMsg = new DataTable();
-                //ErrorMsg.Columns.Add("Flag", typeof(Boolean));
-                //ErrorMsg.Columns.Add("Message", typeof(String));
-                //DataRow dr = ErrorMsg.NewRow();
-                //dr["Flag"] = false;
-                //dr["Message"] = ex.Message;
-                //ErrorMsg.Rows.Add(dr);
-                //ds.Tables.Add(ErrorMsg);
-                //return getDbDataAsJSON(ds);
-                return "";
+                return "Message:" + ex.Message;
             }
             finally
             {
