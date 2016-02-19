@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-
+using FlyCn.DocumentSettings;
+using Messge = FlyCn.DocumentSettings.DocumentStatusSettings;
 namespace FlyCn.FlyCnDAL
 {
 
@@ -468,14 +469,17 @@ namespace FlyCn.FlyCnDAL
              
                 string comma = "";
                 DataSet CableDS = null;
+               
                 int length;
                 StringBuilder errorDescLists = new StringBuilder();
                 DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
                 string keyField = GetInvalidKeyField(keyFieldRow, dr);
                 CableDS = new DataSet();
+              
                 if ((dr["ProjectNo"].ToString() != "") && (dr["ModuleID"].ToString() != "") && (dr["Category"].ToString() != "") && (dr["Cable No"].ToString() !=""))
                 { 
                  CableDS = importfile.GetCableScheduleMaster(dr["ProjectNo"].ToString(), dr["ModuleID"].ToString(), dr["Category"].ToString(), dr["Cable No"].ToString(),dbCon);
+                
 
                     if (CableDS.Tables[0].Rows.Count > 0)
                     {
@@ -487,8 +491,8 @@ namespace FlyCn.FlyCnDAL
                          if ((length >= int.Parse(dr["Total Length"].ToString())))
                          {
                              errorDescLists.Append(comma);
-                             errorDescLists.Append("Total Length");
-                             errorDescLists.Append(" Can not be reduced further");
+                             errorDescLists.Append(" ");
+                             errorDescLists.Append(Messge.CADTL);
                              comma = "";
                              rowNO = rowNO + 2;
                              importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
@@ -500,7 +504,37 @@ namespace FlyCn.FlyCnDAL
                 return false;
             }
             #endregion CableLengthValidation
-           
+            #region DrumValidation
+            public bool DrumValidation(DataRow dr, DataSet dsTable, int rowNO, dbConnection dbCon)
+            {
+                StringBuilder errorDescLists = new StringBuilder();
+                string comma = "";
+                DataSet DrumDS = null;
+                DrumDS = new DataSet();
+                DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
+                string keyField = GetInvalidKeyField(keyFieldRow, dr);
+
+                if ((dr["ProjectNo"].ToString() != "") && (dr["ModuleID"].ToString() != "") && (dr["Category"].ToString() != "") && (dr["DrumNo"].ToString() != ""))
+                {
+                    DrumDS = importfile.GetDrumMaster(dr["ProjectNo"].ToString(), dr["ModuleID"].ToString(), dr["Category"].ToString(), dr["DrumNo"].ToString(), dbCon);
+                    if(DrumDS.Tables[0].Rows.Count==0)
+                    {
+                             errorDescLists.Append(comma);
+                             errorDescLists.Append(" ");
+                             errorDescLists.Append(Messge.DNV);
+                             comma = "";
+                             rowNO = rowNO + 2;
+                             importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                             return true;
+                    }
+                    
+                }
+
+
+                return false;
+            }
+            #endregion DrumValidation
+
 
         }
     #endregion classValidationExcel

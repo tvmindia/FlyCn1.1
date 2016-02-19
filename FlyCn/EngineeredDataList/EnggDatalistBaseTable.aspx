@@ -129,7 +129,6 @@ ul.departments { list-style-type: none; }*/
             document.getElementById('import').style.textDecoration = 'none';
             document.getElementById('import').removeAttribute("href");
             document.getElementById('import').onclick = "return false";
-
         }
         function GenerateTemplateNextClick() {
             var firstdiv = document.getElementById("Upload");
@@ -258,8 +257,18 @@ ul.departments { list-style-type: none; }*/
         //   // var upload = document.getElementById('Gridandbutton');
         //   // upload.style.display = "";
         // }
+        function ShowGridButton()
+        {
+            var divtohide = document.getElementById('Gridandbutton');
+            divtohide.style.display = "block";
+        }
+        function SlideEffectUpload()
+        {
+            //uploadControlDiv
+            $("#uploadControlDiv").animate({ "left": "+=50px" }, "slow");
 
-       
+        }
+
     </script>
 
 
@@ -309,12 +318,8 @@ ul.departments { list-style-type: none; }*/
         <div id="GenerateTemplate" >
             <div class="col-md-12 Span-One">
                  <asp:Button class="Flatbutton" style="width:300px" ID="btnExcelIimport" runat="server" Text="Download Excel Template"  OnClick="btnExcelIimport_Click"  />
-                    
-
-
-
-
-                <ul class="importWizardList">
+               
+                  <ul class="importWizardList">
                     <li>Please save the excel</li>
                     <li>fill the data and make it ready for upload</li>
                     <li>click Next Button to get upload option</li>
@@ -340,29 +345,30 @@ ul.departments { list-style-type: none; }*/
 
           
 
-    <div id="Upload" style="display: none; margin-left: 2px;">
+    <div id="Upload" style="display: none; margin-left: 30%;">
 
 
         <div class="col-md-12 Span-One" style="vertical-align:middle">
-            <div class="col-md-4" style="text-align:left;margin-top:5%">
+            <div class="col-md-4" id="uploadControlDiv" style="text-align:left;margin-top:5%;position:absolute">
 
-                 <div class="col-md-10">
+               <div class="col-md-10">
                
                     <asp:FileUpload ID="DataImportFileUpload" runat="server" class="FlatbuttonUpload" width="300px" /> </div>
-                  <div class="col-md-2">
-                    <asp:Button ID="btnUpload" runat="server" Text="Upload" class="Flatbutton" OnClientClick="return validateExcel()" OnClick="btn_upload_Click" Style="width: 80px" /> 
+                           
+               <div class="col-md-2">
+                <asp:Button ID="btnUpload" runat="server" Text="Upload" class="Flatbutton" OnClientClick="return validateExcel()" OnClick="btn_upload_Click" Style="width: 80px" />
                  </div>
-                 <div>
-                   <asp:Label ID="lblMsg" runat="server" Text="" Font-Bold="true"></asp:Label>
+               <div>
+                     <asp:Label ID="lblMsg" runat="server" Text="" Font-Bold="true"></asp:Label>
                  </div>
 
             </div>
+            <%--middle line --%>
             <div class="col-md-1">&nbsp;</div>
-            <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:250px">&nbsp;</div>
+            <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:250px;display:none">&nbsp;</div>
+            <%--middle line --%>
 
-
-         
-            <div class="col-md-5" id="Gridandbutton">  
+            <div class="col-md-5" id="Gridandbutton" style="display:none">  
                 <%--<div >--%>
                 <asp:Label ID="lblUploadGridHeading" runat="server" Text="Choose Fields" CssClass="subtitle"></asp:Label>
               <div style="height: 220px;" class="chooseFieldsBox">
@@ -415,17 +421,7 @@ ul.departments { list-style-type: none; }*/
             </div>
 
         
-        <%--<table class="buttonTable">
-            <tr>
-                <td>
-                    <a href="#" class="buttonNext" onclick="return UploadNextClick();">
-                        <div id="btnDiv" class="nav btnDivCommon">
-                            Next>>
-                        </div>
-                    </a>
-                </td>
-            </tr>
-        </table>--%>
+    
     </div>
 
   
