@@ -67,6 +67,15 @@ namespace FlyCn.EIL {
         protected global::Telerik.Web.UI.RadGrid dtgManageProjectGrid;
         
         /// <summary>
+        /// lblTypeNeed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTypeNeed;
+        
+        /// <summary>
         /// rpAddEdit control.
         /// </summary>
         /// <remarks>
@@ -182,6 +191,24 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtIDno;
+        
+        /// <summary>
+        /// imgWebLnames control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgWebLnames;
+        
+        /// <summary>
+        /// errorLnames control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image errorLnames;
         
         /// <summary>
         /// lblOpenBy control.

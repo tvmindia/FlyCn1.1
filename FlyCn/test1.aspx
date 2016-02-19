@@ -13,14 +13,98 @@
         .content {width: 100%; max-width: 600px;}*/  
         </style>
     </head>
-  
-    <form id="form1" runat="server">
-  
+  <body>
+       <form id="form1" runat="server">
+           <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
+        <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Default"></telerik:RadAjaxLoadingPanel>
+        <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" DefaultLoadingPanelID="RadAjaxLoadingPanel1">
+            <AjaxSettings>
+                
+                <telerik:AjaxSetting AjaxControlID="radgrdObjects">
+                    <UpdatedControls>
+                        <telerik:AjaxUpdatedControl ControlID="radgrdObjects" UpdatePanelCssClass="" />
+                    </UpdatedControls>
+                </telerik:AjaxSetting>
+                
+            </AjaxSettings>
+        </telerik:RadAjaxManager>
+
     <div style="margin: 0; padding: 0; min-width: 100%!important;">
 
-         Level Description : 
+        
+         <div class="gridContainer HeaderBox" style="overflow-x: auto; width: 1200px; margin-left: 1%">
+                            <telerik:RadGrid ID="radgrdObjects" runat="server" 
+                                EnableLinqExpressions="False" MasterTableView-HierarchyLoadMode="ServerOnDemand" 
+                                AutoGenerateColumns="False" Skin="Silk" OnNeedDataSource="radgrdObjects_NeedDataSource" GroupPanelPosition="Top"
+                                OnColumnCreated="radgrdObjects_ColumnCreated" OnItemCreated="radgrdObjects_ItemCreated" OnItemDataBound="radgrdObjects_ItemDataBound" OnPreRender="radgrdObjects_PreRender">
+                                <HierarchySettings SelfCollapseTooltip="close" SelfExpandTooltip="open"  />
 
-       
+                                <MasterTableView DataKeyNames="LevelID,ParentID,LevelDesc" Width="100%" NoDetailRecordsText="No Data" TableLayout="Fixed">
+
+                                    <SelfHierarchySettings ParentKeyName="ParentId" KeyName="LevelID" MaximumDepth="5" />
+
+                                    <CommandItemSettings ExportToPdfText="Export to PDF"></CommandItemSettings>
+
+                                 
+                                    <RowIndicatorColumn Visible="True" FilterControlAltText="Filter RowIndicator column"></RowIndicatorColumn>
+
+                                    <ExpandCollapseColumn Visible="True" FilterControlAltText="Filter ExpandColumn column"></ExpandCollapseColumn>
+
+                                    <HeaderStyle  ForeColor="#292929" HorizontalAlign="Center" Width ="200px"/>
+                                    <ItemStyle Width="200px"/>
+                                    <Columns>
+                                        <telerik:GridBoundColumn DataField="LevelID" UniqueName="LevelID" HeaderText="ID">
+                                            <HeaderStyle Width="200px"/>
+ <ItemStyle Width="200px"/>
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="ParentID" UniqueName="ParentID" Display="false">
+ 
+                                        </telerik:GridBoundColumn>
+
+                                         <telerik:GridBoundColumn DataField="isChildExist" UniqueName="isChildExist" Display="false" >
+ 
+                                        </telerik:GridBoundColumn>
+                                     
+
+             
+
+                                        <telerik:GridBoundColumn DataField="LevelDesc"  UniqueName="LevelDesc" ItemStyle-HorizontalAlign="Left" HeaderText="Level Desc" >                                         
+ 
+
+                                            <HeaderStyle Width="200"></HeaderStyle>                                           
+                                            <ItemStyle Width="200" HorizontalAlign="Left"></ItemStyle>
+                                        </telerik:GridBoundColumn>
+                                        
+
+                                        <telerik:GridAttachmentColumn FileName="attachment" FilterControlAltText="Filter column column" UniqueName="column">
+                                        </telerik:GridAttachmentColumn>
+                                        <telerik:GridAttachmentColumn FileName="attachment" FilterControlAltText="Filter column1 column" UniqueName="column1">
+                                        </telerik:GridAttachmentColumn>
+                                        <telerik:GridAttachmentColumn FileName="attachment" FilterControlAltText="Filter column2 column" UniqueName="column2">
+                                        </telerik:GridAttachmentColumn>
+                                        
+
+                                    </Columns>
+
+
+                                    <EditFormSettings>
+                                        <EditColumn FilterControlAltText="Filter EditCommandColumn column"></EditColumn>
+                                    </EditFormSettings>
+
+                                    <PagerStyle PageSizeControlType="RadComboBox"></PagerStyle>
+                                </MasterTableView>
+                                   <HeaderStyle Font-Size="13px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="true" />
+                                    <ItemStyle Font-Size="12px" />
+                                    <FooterStyle  Font-Size="12px"  />
+                                    <AlternatingItemStyle Font-Size="12px" VerticalAlign="Middle" />
+
+                                <PagerStyle PageSizeControlType="RadComboBox"></PagerStyle>
+
+                                <FilterMenu EnableImageSprites="False"></FilterMenu>
+                            </telerik:RadGrid>
+                        </div>
+
+       <div style="display:none">
         <asp:TextBox ID="txtLevelDescription" runat="server"></asp:TextBox>
         <br />
     UserName:
@@ -66,10 +150,12 @@
                 </td>
             </tr>
         </table>
-        <asp:button runat="server" text="Button" OnClick="Unnamed1_Click" />
+        <asp:button ID="Button1" runat="server" text="Button" OnClick="Unnamed1_Click" />
         </div>
-   
+   </div>
  </form>
+  </body>
+     
 
     
 </html>

@@ -68,6 +68,14 @@ namespace FlyCn.EIL
                 hdnMode.Value = EilType;
             }
             hdnMode.Value = EilType;
+            if(hdnMode.Value!="")
+            {
+                lblTypeNeed.Text = hdnMode.Value;
+            }
+            if(txtIDno.Text=="")
+            {
+                btnsubmit.Enabled = false;
+            }
             BindData(IdNo, hdnMode.Value);
             SetTitle();
 
@@ -105,7 +113,7 @@ namespace FlyCn.EIL
         protected void dtgManageProjectGrid_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dt;
-            dt = pObj.GetPunchList(hdnMode.Value);
+            dt = pObj.GetPunchList(lblTypeNeed.Text);
             dtgManageProjectGrid.DataSource = dt;
            
 
@@ -724,6 +732,7 @@ namespace FlyCn.EIL
             Download(filePath);
         }
         #endregion imageButtonDownload_Click
+
         #region ToolBarVisibility
         public void ToolBarVisibility(int order)
         {
@@ -1173,259 +1182,259 @@ namespace FlyCn.EIL
         public void Insert()
         {
 
-            //RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
-            //tab.Selected = true;
-            //RadMultiPage1.SelectedIndex = 0;
-            //try
-            //{
+            RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+            tab.Selected = true;
+            RadMultiPage1.SelectedIndex = 0;
+            try
+            {
 
-            //    int result = 0;
-            //    pObj.Idno = Convert.ToInt32(txtIDno.Text);
-            //    pObj.EILType = hdnMode.Value;
-            //    pObj.CoveredByProject = 0;
-            //    if (rdbCoveredByYes.Checked)
-            //    {
-            //        pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByYes.ToolTip);
+                int result = 0;
+                pObj.Idno = Convert.ToInt32(txtIDno.Text);
+                pObj.EILType = hdnMode.Value;
+                pObj.CoveredByProject = 0;
+                if (rdbCoveredByYes.Checked)
+                {
+                    pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByYes.ToolTip);
 
-            //    }
-            //    else
-            //    {
-            //        if (rdbCoveredByNo.Checked)
-            //        {
-            //            pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByNo.ToolTip);
+                }
+                else
+                {
+                    if (rdbCoveredByNo.Checked)
+                    {
+                        pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByNo.ToolTip);
 
-            //        }
-            //    }
-            //    if (ddlOpenBy.SelectedItem.Text != "-Select-")
-            //    {
-            //        mObj.OpenBy = Convert.ToString(ddlOpenBy.SelectedValue);
-            //    }
-            //    else
-            //    {
-            //        mObj.OpenBy = null;
-            //    }
-            //    if (RadOpenDate.SelectedDate != null)
-            //    {
-            //        pObj.OpenDate = Convert.ToString(RadOpenDate.SelectedDate);
-            //    }
-            //    if (ddlRequestedBy.SelectedItem.Text != "-Select-")
-            //    {
-            //        mObj.RequestedBy = Convert.ToString(ddlRequestedBy.SelectedValue);
-            //    }
-            //    else
-            //    {
-            //        mObj.RequestedBy = null;
-            //    }
-            //    if (ddlResponsiblePerson.SelectedItem.Text != "-Select-")
-            //    {
-            //        mObj.ResponsiblePerson = Convert.ToString(ddlResponsiblePerson.SelectedValue);
-            //    }
-            //    else
-            //    {
-            //        mObj.ResponsiblePerson = null;
-            //    }
-            //    if (ddlInspector.SelectedItem.Text != "-Select-")
-            //    {
-            //        mObj.Inspector = Convert.ToString(ddlInspector.SelectedValue);
-            //    }
-            //    else
-            //    {
-            //        mObj.Inspector = null;
-            //    }
-            //    if (ddlSignedBy.SelectedItem.Text != "-Select-")
-            //    {
-            //        mObj.SignedBy = Convert.ToString(ddlSignedBy.SelectedValue);
-            //    }
-            //    else
-            //    {
-            //        mObj.SignedBy = null;
-            //    }
-            //    if (ddlEnteredBy.SelectedItem.Text != "-Select-")
-            //    {
-            //        mObj.EnteredBy = Convert.ToString(ddlEnteredBy.SelectedValue);
+                    }
+                }
+                if (ddlOpenBy.SelectedItem.Text != "-Select-")
+                {
+                    mObj.OpenBy = Convert.ToString(ddlOpenBy.SelectedValue);
+                }
+                else
+                {
+                    mObj.OpenBy = null;
+                }
+                if (RadOpenDate.SelectedDate != null)
+                {
+                    pObj.OpenDate = Convert.ToString(RadOpenDate.SelectedDate);
+                }
+                if (ddlRequestedBy.SelectedItem.Text != "-Select-")
+                {
+                    mObj.RequestedBy = Convert.ToString(ddlRequestedBy.SelectedValue);
+                }
+                else
+                {
+                    mObj.RequestedBy = null;
+                }
+                if (ddlResponsiblePerson.SelectedItem.Text != "-Select-")
+                {
+                    mObj.ResponsiblePerson = Convert.ToString(ddlResponsiblePerson.SelectedValue);
+                }
+                else
+                {
+                    mObj.ResponsiblePerson = null;
+                }
+                if (ddlInspector.SelectedItem.Text != "-Select-")
+                {
+                    mObj.Inspector = Convert.ToString(ddlInspector.SelectedValue);
+                }
+                else
+                {
+                    mObj.Inspector = null;
+                }
+                if (ddlSignedBy.SelectedItem.Text != "-Select-")
+                {
+                    mObj.SignedBy = Convert.ToString(ddlSignedBy.SelectedValue);
+                }
+                else
+                {
+                    mObj.SignedBy = null;
+                }
+                if (ddlEnteredBy.SelectedItem.Text != "-Select-")
+                {
+                    mObj.EnteredBy = Convert.ToString(ddlEnteredBy.SelectedValue);
 
-            //    }
-            //    else
-            //    {
-            //        mObj.EnteredBy = null;
-            //    }
+                }
+                else
+                {
+                    mObj.EnteredBy = null;
+                }
 
-            //    if (RadEnteredDate.SelectedDate != null)
-            //    {
-            //        pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
-            //    }
-            //    if (ddlDiscipline.SelectedItem.Text != "-Select-")
-            //    {
-            //        pObj.Discipline = Convert.ToString(ddlDiscipline.SelectedValue);
-            //    }
-            //    else
-            //    {
-            //        pObj.Discipline = null;
-            //    }
-            //    pObj.ItemDescription = txtItemDescription.Text;
-            //    if (ddlLocation.SelectedItem.Text != "-Select-")
-            //    {
-            //        pObj.Location = Convert.ToString(ddlLocation.SelectedValue);
-            //    }
-            //    else
-            //    {
-            //        pObj.Location = null;
-            //    }
-            //    if (ddlArea.SelectedItem.Text != "-Select-")
-            //    {
-            //        pObj.Area = Convert.ToString(ddlArea.SelectedValue);
-            //    }
-            //    else
-            //    {
-            //        pObj.Area = null;
-            //    }
-            //    if (ddlUnit.SelectedItem.Text != "-Select-")
-            //    {
-            //        pObj.Unit = Convert.ToString(ddlUnit.SelectedValue);
-            //    }
-            //    else
-            //    {
-            //        pObj.Unit = null;
-            //    }
-            //    if (ddlPlant.SelectedItem.Text != "-Select-")
-            //    {
-            //        pObj.Plant = Convert.ToString(ddlPlant.SelectedValue);
-            //    }
-            //    else
-            //    {
-            //        pObj.Plant = null;
-            //    }
-            //    if (RadScheduleCompletionDate.SelectedDate != null)
-            //    {
-            //        pObj.ScheduledDateCompletion = Convert.ToString(RadScheduleCompletionDate.SelectedDate);
-            //    }
-            //    if (RadRFIDate.SelectedDate != null)
-            //    {
-            //        pObj.RFIDate = Convert.ToString(RadRFIDate.SelectedDate);
-            //    }
+                if (RadEnteredDate.SelectedDate != null)
+                {
+                    pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
+                }
+                if (ddlDiscipline.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Discipline = Convert.ToString(ddlDiscipline.SelectedValue);
+                }
+                else
+                {
+                    pObj.Discipline = null;
+                }
+                pObj.ItemDescription = txtItemDescription.Text;
+                if (ddlLocation.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Location = Convert.ToString(ddlLocation.SelectedValue);
+                }
+                else
+                {
+                    pObj.Location = null;
+                }
+                if (ddlArea.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Area = Convert.ToString(ddlArea.SelectedValue);
+                }
+                else
+                {
+                    pObj.Area = null;
+                }
+                if (ddlUnit.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Unit = Convert.ToString(ddlUnit.SelectedValue);
+                }
+                else
+                {
+                    pObj.Unit = null;
+                }
+                if (ddlPlant.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Plant = Convert.ToString(ddlPlant.SelectedValue);
+                }
+                else
+                {
+                    pObj.Plant = null;
+                }
+                if (RadScheduleCompletionDate.SelectedDate != null)
+                {
+                    pObj.ScheduledDateCompletion = Convert.ToString(RadScheduleCompletionDate.SelectedDate);
+                }
+                if (RadRFIDate.SelectedDate != null)
+                {
+                    pObj.RFIDate = Convert.ToString(RadRFIDate.SelectedDate);
+                }
 
-            //    pObj.RFINo = txtRFINo.Text;
-            //    pObj.Sheet = txtSheet.Text;
-            //    pObj.Drawing = txtDrawing.Text;
-            //    if (ddlFailCategory.SelectedItem.Text != "-Select-")
-            //    {
+                pObj.RFINo = txtRFINo.Text;
+                pObj.Sheet = txtSheet.Text;
+                pObj.Drawing = txtDrawing.Text;
+                if (ddlFailCategory.SelectedItem.Text != "-Select-")
+                {
 
-            //        pObj.FailCategory = Convert.ToString(ddlFailCategory.SelectedValue);
+                    pObj.FailCategory = Convert.ToString(ddlFailCategory.SelectedValue);
 
-            //    }
-            //    else
-            //    {
-            //        pObj.FailCategory = null;
-            //    }
-            //    //if (ddlCategory.SelectedItem.Text != "-Select-")
-            //    //{
-            //    //    pObj.Category = Convert.ToString(ddlCategoryList.SelectedValue);
-            //    //}
-            //    //else
-            //    //{
-            //    //    pObj.Category = null;
-            //    //}
-            //    if (ddlSystem.SelectedItem.Text != "-Select-")
-            //    {
-            //        pObj.System = Convert.ToString(ddlSystem.SelectedValue);
-            //    }
-            //    else
-            //    {
-            //        pObj.System = null;
-            //    }
-            //    if (ddlSubsystem.SelectedItem.Text != "-Select-")
-            //    {
-            //        pObj.Subsystem = Convert.ToString(ddlSubsystem.SelectedValue);
-            //    }
-            //    else
-            //    {
+                }
+                else
+                {
+                    pObj.FailCategory = null;
+                }
+                //if (ddlCategory.SelectedItem.Text != "-Select-")
+                //{
+                //    pObj.Category = Convert.ToString(ddlCategoryList.SelectedValue);
+                //}
+                //else
+                //{
+                //    pObj.Category = null;
+                //}
+                if (ddlSystem.SelectedItem.Text != "-Select-")
+                {
+                    pObj.System = Convert.ToString(ddlSystem.SelectedValue);
+                }
+                else
+                {
+                    pObj.System = null;
+                }
+                if (ddlSubsystem.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Subsystem = Convert.ToString(ddlSubsystem.SelectedValue);
+                }
+                else
+                {
 
-            //        pObj.Subsystem = null;
-            //    }
+                    pObj.Subsystem = null;
+                }
 
-            //    string val = null;
-            //    pObj.QueryRevision = string.IsNullOrEmpty(val) ? '0' : Convert.ToInt32(txtQueryRevision.Text);
-            //    pObj.Reference = txtReference.Text;
-            //    if (RadReferenceDate.SelectedDate != null)
-            //    {
-            //        pObj.ReferenceDate = Convert.ToString(RadReferenceDate.SelectedDate);
-            //    }
-            //    pObj.Revison = txtRevision.Text;
-            //    if (RadCompletionDate.SelectedDate != null)
-            //    {
-            //        pObj.CompletionDate = Convert.ToString(RadCompletionDate.SelectedDate);
-            //    }
-            //    pObj.CompletionRemarks = txtCompletionRemarks.Text;
-            //    if (ddlControlSystem.SelectedItem.Text != "-Select-")
-            //    {
-            //        pObj.ControlSystem = Convert.ToString(ddlControlSystem.SelectedValue);
-            //    }
-            //    else
-            //    {
-            //        pObj.ControlSystem = null;
-            //    }
+                string val = null;
+                pObj.QueryRevision = string.IsNullOrEmpty(val) ? '0' : Convert.ToInt32(txtQueryRevision.Text);
+                pObj.Reference = txtReference.Text;
+                if (RadReferenceDate.SelectedDate != null)
+                {
+                    pObj.ReferenceDate = Convert.ToString(RadReferenceDate.SelectedDate);
+                }
+                pObj.Revison = txtRevision.Text;
+                if (RadCompletionDate.SelectedDate != null)
+                {
+                    pObj.CompletionDate = Convert.ToString(RadCompletionDate.SelectedDate);
+                }
+                pObj.CompletionRemarks = txtCompletionRemarks.Text;
+                if (ddlControlSystem.SelectedItem.Text != "-Select-")
+                {
+                    pObj.ControlSystem = Convert.ToString(ddlControlSystem.SelectedValue);
+                }
+                else
+                {
+                    pObj.ControlSystem = null;
+                }
 
-            //    if (ddlOrganization.SelectedItem.Text != "-Select-")
-            //    {
-            //        pObj.Organization = Convert.ToString(ddlOrganization.SelectedValue);
-            //    }
-            //    else
-            //    {
-            //        pObj.Organization = null;
-            //    }
-            //    // pObj.CoveredByProject=
-            //    // pObj.ChangeReq=
-            //    if (ddlActionBy.SelectedItem.Text != "-Select-")
-            //    {
-            //        pObj.ActionBy = Convert.ToString(ddlActionBy.SelectedValue);
-            //    }
-            //    else
-            //    {
-            //        pObj.ActionBy = null;
+                if (ddlOrganization.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Organization = Convert.ToString(ddlOrganization.SelectedValue);
+                }
+                else
+                {
+                    pObj.Organization = null;
+                }
+                // pObj.CoveredByProject=
+                // pObj.ChangeReq=
+                if (ddlActionBy.SelectedItem.Text != "-Select-")
+                {
+                    pObj.ActionBy = Convert.ToString(ddlActionBy.SelectedValue);
+                }
+                else
+                {
+                    pObj.ActionBy = null;
 
-            //    }
-            //    pObj.ChangeReq = 0;
-            //    if (rdbChangeRequestyes.Checked)
-            //    {
-            //        pObj.ChangeReq = Convert.ToInt32(rdbChangeRequestyes.ToolTip);
+                }
+                pObj.ChangeReq = 0;
+                if (rdbChangeRequestyes.Checked)
+                {
+                    pObj.ChangeReq = Convert.ToInt32(rdbChangeRequestyes.ToolTip);
 
-            //    }
-            //    else
-            //    {
-            //        if (rdbchangerequestno.Checked)
-            //        {
-            //            pObj.CoveredByProject = Convert.ToInt32(rdbchangerequestno.ToolTip);
+                }
+                else
+                {
+                    if (rdbchangerequestno.Checked)
+                    {
+                        pObj.CoveredByProject = Convert.ToInt32(rdbchangerequestno.ToolTip);
 
-            //        }
-            //    }
-            //    pObj.EILType = hdnMode.Value;
-            //    try
-            //    {
-            //        result = pObj.AddtoPunchList(mObj);
-            //        if (result == 1)
-            //        {
-            //            var page = HttpContext.Current.CurrentHandler as Page;
-            //            var master = page.Master;
-            //            eObj.InsertionSuccessData(page);
-            //            dtgManageProjectGrid.Rebind();
-            //        }
-            //    }
+                    }
+                }
+                pObj.EILType = lblTypeNeed.Text;
+                try
+                {
+                    result = pObj.AddtoPunchList(mObj);
+                    if (result == 1)
+                    {
+                        var page = HttpContext.Current.CurrentHandler as Page;
+                        var master = page.Master;
+                        eObj.InsertionSuccessData(page,"Data inserted successfully..!!!");
+                        dtgManageProjectGrid.Rebind();
+                    }
+                }
 
-            //    catch (SqlException ex)
-            //    {
-            //        var page = HttpContext.Current.CurrentHandler as Page;
-            //        var master = page.Master;
-            //        eObj.ErrorData(ex, page);
-            //    }
-            //    catch (FormatException ex)
-            //    {
-            //        var page = HttpContext.Current.CurrentHandler as Page;
-            //        var master = page.Master;
-            //        eObj.ErrorData(ex, page);
-            //    }
+                catch (SqlException ex)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    var master = page.Master;
+                    eObj.ErrorData(ex, page);
+                }
+                catch (FormatException ex)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    var master = page.Master;
+                    eObj.ErrorData(ex, page);
+                }
 
 
-            //    //Cleartextboxes();
+                //Cleartextboxes();
             //    if (fuAttach.HasFile)
             //    {
             //        try
@@ -1443,24 +1452,24 @@ namespace FlyCn.EIL
             //            StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
             //        }
             //    }
-            //}
-            //catch (SqlException ex)
-            //{
-            //    var page = HttpContext.Current.CurrentHandler as Page;
-            //    var master = page.Master;
-            //    eObj.ErrorData(ex, page);
-            //}
-            //catch (FormatException ex)
-            //{
+            }
+            catch (SqlException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            catch (FormatException ex)
+            {
 
-            //    var page = HttpContext.Current.CurrentHandler as Page;
-            //    var master = page.Master;
-            //    eObj.ErrorData(ex, page);
-            //    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("1");
-            //    RadTab tab2 = (RadTab)RadTabStrip1.FindTabByValue("2");
-            //    tabs.ResetTabCaptions(tab1, tab2);
-            //    RadMultiPage1.SelectedIndex = 0;
-            //}
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("1");
+                RadTab tab2 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tabs.ResetTabCaptions(tab1, tab2);
+                RadMultiPage1.SelectedIndex = 0;
+            }
         }
         #endregion Insert
 
@@ -1802,7 +1811,7 @@ namespace FlyCn.EIL
             ToolBar.UpdateButton.Visible = true;
             ToolBar.DeleteButton.Visible = true;
             IdUc_FlyCnFileUpload.EILId = Convert.ToInt32(txtIDno.Text);
-            IdUc_FlyCnFileUpload.EilType = "WEIL";
+            IdUc_FlyCnFileUpload.EilType = lblEliTypeNum.Text;
             IdUc_FlyCnFileUpload.FileInsert();
             Rebind();
         }
@@ -1970,7 +1979,21 @@ namespace FlyCn.EIL
         }
         #endregion dtgManageProjectGrid_SelectedIndexChanged
 
-        
+        #region ValidateIdNo
+        [System.Web.Services.WebMethod]
+        public static bool ValidateIdNo(int LogID,string EType)
+        {
+            int IdNo = LogID;
+            string type = EType;
+            FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+            if (punchObj.ValidateIdNo(LogID,type))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        #endregion ValidateIdNo
     }
 }
         

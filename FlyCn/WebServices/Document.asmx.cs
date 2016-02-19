@@ -566,62 +566,80 @@ namespace FlyCn.WebServices
 
         #region Punch Item Add Attatchment
         /// <summary>
-        /// Webservice to return list of attachment images of an punchlist item
+        /// Webservice to get new attachment file from mobile
         /// </summary>
-        /// <param name="projNo">Project Number</param>
-        /// <param name="punchID">EIL ID</param>
-        /// <param name="EILtype">WEIL/CEIL/QEIL</param>
-        /// <param name="isThumb">optional parameter to denote whether thumbanail images are enough</param>
-        /// <returns>JSON of details of attachment images</returns>
+        /// <returns></returns>
         [WebMethod]
-        public string PunchItemAddAttatchment()
+        public string PunchItemAddAttatchment()//string userName,string projNo, int punchID, string EILtype)
         {
-            //return msg data initialization
-            DataSet ds = new DataSet();
-            DataTable dt = new DataTable();
             try
-            {   //Retrieving details
-                string vTitle = "";
-                string vDesc = "";
-                string FilePath = Server.MapPath("~/tempImages/cur_file.jpg");
-
-                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["title"]))
-                {
-                    vTitle = HttpContext.Current.Request.Form["title"];
-                }
-                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["description"]))
-                {
-                    vDesc = HttpContext.Current.Request.Form["description"];
-                }
-
+            {
                 HttpFileCollection MyFileCollection = HttpContext.Current.Request.Files;
+                //Getting file dettails from http request
                 if (MyFileCollection.Count > 0)
                 {
-                    // Save the File
-                    MyFileCollection[0].SaveAs(FilePath);
+//               string FilePath = Server.MapPath("~/tempImages/")+DateTime.Now.ToString("ddHHmmssfff")+MyFileCollection[0].FileName;
+//                MyFileCollection[0].SaveAs(FilePath); //to save coming image to server folder
+                Stream MyStream = MyFileCollection[0].InputStream;
+                PunchList punchObj = new PunchList();
+                punchObj.image = MyStream;
+                MyStream.Flush();
+                punchObj.FileType = "." + MyFileCollection[0].FileName.Split('.').Last();
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["punchID"]))
+                {
+                    punchObj.id = int.Parse(HttpContext.Current.Request.Form["punchID"]);
                 }
-                DataTable ErrorMsg = new DataTable();
-                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
-                ErrorMsg.Columns.Add("Message", typeof(String));
-                DataRow dr = ErrorMsg.NewRow();
-                dr["Flag"] = false;
-                dr["Message"] = HttpContext.Current.Request.Form["title"];
-                ErrorMsg.Rows.Add(dr);
-                ds.Tables.Add(ErrorMsg);
-                return getDbDataAsJSON(ds); 
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["EILtype"]))
+                {
+                    punchObj.EILType = HttpContext.Current.Request.Form["EILtype"];
+                }
+                float Size = MyFileCollection[0].ContentLength/1024;
+                float sizeinMB = Size / 1024;
+                string fileSize;
+                if ((int)sizeinMB == 0)
+                {
+                     fileSize = Size + "KB";
+                }
+                else
+                {
+                    fileSize = sizeinMB.ToString("0.00") + "MB";
+                }
+                punchObj.fileSize = fileSize;
+                punchObj.fileUpload = MyFileCollection[0].FileName;
+                string userName="";string projNo="";
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["userName"]))
+                { 
+                    userName=HttpContext.Current.Request.Form["userName"];
+                }
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["projNo"]))
+                {
+                    projNo = HttpContext.Current.Request.Form["projNo"];
+                }
+                punchObj.InsertEILAttachment(true,userName,projNo);
+                }
+                //DataTable SuccessMsg = new DataTable();
+                //SuccessMsg.Columns.Add("Flag", typeof(Boolean));
+                //SuccessMsg.Columns.Add("Message", typeof(String));
+                //DataRow dr = SuccessMsg.NewRow();
+                //dr["Flag"] = false;
+                //dr["Message"] = HttpContext.Current.Request.Form["title"];
+                //SuccessMsg.Rows.Add(dr);
+                //ds.Tables.Add(SuccessMsg);
+                return "";// getDbDataAsJSON(ds); 
             }
             catch (Exception ex)
             {
                 //Return error message
-                DataTable ErrorMsg = new DataTable();
-                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
-                ErrorMsg.Columns.Add("Message", typeof(String));
-                DataRow dr = ErrorMsg.NewRow();
-                dr["Flag"] = false;
-                dr["Message"] = ex.Message;
-                ErrorMsg.Rows.Add(dr);
-                ds.Tables.Add(ErrorMsg);
-                return getDbDataAsJSON(ds);
+                //DataTable ErrorMsg = new DataTable();
+                //ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                //ErrorMsg.Columns.Add("Message", typeof(String));
+                //DataRow dr = ErrorMsg.NewRow();
+                //dr["Flag"] = false;
+                //dr["Message"] = ex.Message;
+                //ErrorMsg.Rows.Add(dr);
+                //ds.Tables.Add(ErrorMsg);
+                //return getDbDataAsJSON(ds);
+                return "";
             }
             finally
             {
