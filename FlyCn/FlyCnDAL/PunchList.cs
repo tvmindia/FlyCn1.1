@@ -1269,7 +1269,7 @@ namespace FlyCn.FlyCnDAL
                 cmdInsert.Parameters.AddWithValue("@Idno", id);
                 cmdInsert.Parameters.AddWithValue("@EILType", EILType);
                 cmdInsert.Parameters.AddWithValue("@filename", fileUpload);
-                cmdInsert.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+                cmdInsert.Parameters.AddWithValue("@date", DateTime.Now);
                 cmdInsert.Parameters.AddWithValue("@fileType", FileType);
                 cmdInsert.Parameters.AddWithValue("@image", image);
                 cmdInsert.Parameters.AddWithValue("@fileSize", fileSize);
