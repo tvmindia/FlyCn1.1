@@ -29,6 +29,38 @@ namespace FlyCnSecurity.SecurityDAL
         DBconnection dcon = new DBconnection();
 
         #region Public Properties
+
+
+        public bool AlreadyAdded = false;
+        
+
+
+        public string Created_By
+        {
+            get;
+            set;
+        }
+
+        public DateTime Created_Date
+        {
+            get;
+            set;
+        }
+
+        public string TableName
+        {
+            get;
+            set;
+        }
+
+
+        public string ScopeValue
+        {
+            get;
+            set;
+        }
+
+
         public string LevelId
         {
             get;
@@ -64,7 +96,42 @@ namespace FlyCnSecurity.SecurityDAL
             get;
             set;
         }
+
+        public string ProjectNo
+        {
+            get;
+            set;
+
+        }
+
+       
+        public string Property1
+        {
+            get;
+            set;
+        }
+
+        public string Property2
+        {
+            get;
+            set;
+        }
+
+        public string Property3
+        {
+            get;
+            set;
+        }
+
+        public int RoleID
+        {
+            get;
+            set;
+        }
+
+        
         #endregion Public Properties
+
         public DataTable ObjectRegistrationDetails(string RoleId)
         {
 
@@ -120,41 +187,103 @@ namespace FlyCnSecurity.SecurityDAL
 
         }
 
-        //#region Add Object Access For Roles
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        //public void AddObjectAccessForRoles()
-        //{
+
+        #region Add Object Access For Roles
+
+        public int AddObjectAccessForRoles()
+        {
+            int result = 0;
+            SqlConnection conn = null;
+            SqlCommand cmd = null;
+
+            try
+            {
+                conn = dcon.GetDBConnection();
+                cmd = new SqlCommand("AddObjectAccessForRoles", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                //cmd.Parameters.Add("@RoleID", SqlDbType.Int).Value = RoleID;
+                cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = ProjectNo;
+                cmd.Parameters.Add("@ObjId", SqlDbType.NVarChar, 10).Value = ObjectId;
+                cmd.Parameters.Add("@Add", SqlDbType.Bit).Value = Add;
+                cmd.Parameters.Add("@Edit", SqlDbType.Bit).Value = Edit;
+                cmd.Parameters.Add("@Delete", SqlDbType.Bit).Value = Delete;
+                cmd.Parameters.Add("@ReadOnly", SqlDbType.Bit).Value = ReadOnly;
+                cmd.Parameters.Add("@Property1", SqlDbType.NVarChar, 10).Value = Property1;
+                cmd.Parameters.Add("@Property2", SqlDbType.NVarChar, 10).Value = Property2;
+                cmd.Parameters.Add("@Property3", SqlDbType.NVarChar, 10).Value = Property3;
+                cmd.Parameters.Add("@Created_By", SqlDbType.NVarChar, 255).Value = Created_By;
+                //cmd.Parameters.Add("@Created_Date", SqlDbType.SmallDateTime).Value = Created_Date;
+                cmd.Parameters.Add("@RoleID", SqlDbType.Int).Value = RoleID;
+
+
+                SqlParameter Output = new SqlParameter();
+                Output.DbType = DbType.Int32;
+                Output.ParameterName = "@Status";
+                Output.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(Output);
+
+
+                cmd.ExecuteNonQuery();
+
+                result = Convert.ToInt32(Output.Value);
+
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        #endregion Add Object Access For Roles
+
+        public int DeleteObjectAccessForRoleByObjIdAndRoleId()
+        {
+            int result = 0;
+            SqlConnection conn = null;
+            SqlCommand cmd = null;
            
-        //    SqlConnection conn = null;
-        //    SqlCommand cmd = null;
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
 
-        //    try
-        //    {
-        //        conn = dcon.GetDBConnection();
-        //        cmd = new SqlCommand("AddObjectAccessForRoles", conn);
-        //        cmd.CommandType = CommandType.StoredProcedure;
+                cmd = new SqlCommand("DeleteObjectAccessForRoleByObjIdAndRoleId", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@ObjId", SqlDbType.NVarChar, 10).Value = ObjectId;
+                cmd.Parameters.AddWithValue("@RoleID", RoleID);
 
-        //        //cmd.Parameters.Add("@RoleID", SqlDbType.Int).Value = RoleID;
-        //        cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 50).Value = RoleName;
-        //        cmd.Parameters.Add("@RoleType", SqlDbType.NVarChar, 10).Value = RoleType;
-        //        cmd.Parameters.Add("@RoleScope", SqlDbType.Int).Value = RoleScope;
-        //        cmd.Parameters.Add("@ScopeValue", SqlDbType.NVarChar, 250).Value = ScopeValue;
-        //        cmd.Parameters.Add("@ProjectGroup1", SqlDbType.NVarChar, 10).Value = ProjectGroup1;
-        //        cmd.Parameters.Add("@ProjectGroup2", SqlDbType.NVarChar, 10).Value = ProjectGroup2;
-        //        cmd.Parameters.Add("@ProjectGroup3", SqlDbType.NVarChar, 10).Value = ProjectGroup3;
-        //        cmd.Parameters.Add("@AccessType", SqlDbType.NVarChar, 1).Value = AccessType;
-        //        cmd.Parameters.Add("@Created_By", SqlDbType.NVarChar, 250).Value = Created_By;
-        //        //cmd.Parameters.Add("@Created_Date", SqlDbType.SmallDateTime).Value = Created_Date;
 
-        //        cmd.ExecuteNonQuery();
+                SqlParameter Output = new SqlParameter("@Status", SqlDbType.Int);
+                cmd.Parameters.Add(Output);
+                Output.Direction = ParameterDirection.Output;
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+                cmd.ExecuteNonQuery();
 
-        //#endregion Add Object Access For Roles
+                result = Convert.ToInt32(Output.Value);
+
+                conn.Close();
+             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+            return result;
+        }
     }
 }

@@ -51,7 +51,7 @@
       
 
         function OnClientButtonClickingDetail(sender, args) {
-            
+            debugger;
             var btn = args.get_item();
 
             if (btn.get_value() == 'Save') {
@@ -67,7 +67,7 @@
 
         function validate() {
           
-
+            debugger;
 
             var RoleName = document.getElementById('<%=txtRoleName.ClientID %>').value;
         

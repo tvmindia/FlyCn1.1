@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="ManageAccess.aspx.cs" Inherits="FlyCn.FlycnSecurity.ManageAccess" %>
 <%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
+<%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -10,6 +12,27 @@
     <script src="../Scripts/bootstrap.min.js"></script>
     <script src="../Scripts/jquery-1.8.2.js"></script>
     
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            EnableButtonsForSave();
+            <%=ToolBar.ClientID %>_hideNotification();
+
+        });
+        function EnableButtonsForSave() {
+
+            <%=ToolBar.ClientID %>_SetAddVisible(false);
+            <%=ToolBar.ClientID %>_SetSaveVisible(true);
+            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+            <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+
+        }
+
+    </script>
+
+
+
+
  <%--<script type=
 "text/javascript"
 >
@@ -34,15 +57,29 @@
 </script>--%> 
 
      <script>
-         function CheckChanged(checkbox,checkboxId, rowindex) {
+         function CheckChanged(checkbox, checkboxId, rowindex,tbl) {
+             debugger;
+            
+
+              var grid = $find("<%=RadGrid1.ClientID %>");
+             
+            var MasterTable = grid.get_masterTableView();
            
-             var grid = $find("<%=RadGrid1.ClientID %>");
-             var MasterTable = grid.get_masterTableView();
+             var len = MasterTable.get_dataItems().length;
+
+             //alert(len);
+             
+
              var Row = MasterTable.get_dataItems()[rowindex];
-        
+             
+
              if (Row._expanded == false) { Row.set_expanded("true"); }
+
              var childRows = Row.get_nestedViews()[0].get_dataItems();
-           
+             //var childRows = MasterTable.get_nestedViews()[0].get_dataItems();
+             //var childRows = MasterTable.get_dataItems();
+
+
              var dataItems = MasterTable.get_dataItems();
              for (var i = 0; i < childRows.length; i++) {
                                    
@@ -59,6 +96,7 @@
 
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div class="container" style="width:100%;">
+
             <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
@@ -80,10 +118,11 @@
       
     </div>
   </div>
+
         <div class=" importWizardContainer">
-
-        
-
+ <div class="col-md-12">
+     <uc1:ToolBar runat="server" ID="ToolBar" />
+    </div>
            <asp:UpdatePanel ID="updpnl" runat="server">
     <ContentTemplate>
      <div class="demo-container no-bg">
@@ -100,7 +139,7 @@
         
          
             <MasterTableView DataKeyNames="LevelID,ObjId,LevelDesc,Add,Edit,Delete,ReadOnly" AllowMultiColumnSorting="True"  HierarchyLoadMode="Client"
-                TableLayout="Auto"  EnableViewState="true"  AllowPaging="true" PageSize="9"  ItemStyle-Width="100%"  >
+                TableLayout="Auto"  EnableViewState="true"  AllowPaging="true" PageSize="9"  ItemStyle-Width="100%"   >
 
                 <Columns>
                              
@@ -134,8 +173,9 @@
                </ItemTemplate>  
                                                       </telerik:GridTemplateColumn>
                                 </Columns>
+
                 <DetailTables  >
-                    <telerik:GridTableView DataKeyNames="LevelID,ObjId,LevelDesc,Add,Edit,Delete,ReadOnly" Name="Child" Width="100%" 
+                    <telerik:GridTableView DataKeyNames="LevelID,ObjId,LevelDesc,Add,Edit,Delete,ReadOnly" Name="Child" Width="100%"  
                          EnableHeaderContextMenu="false"   HierarchyLoadMode="Client" ShowHeader="False" EnableViewState="false" ItemStyle-Width="100%" >
                       
                           <Columns>
@@ -170,6 +210,7 @@
                </ItemTemplate>  
                                                       </telerik:GridTemplateColumn>     
                                 </Columns>
+
                         <DetailTables>
 
                             <telerik:GridTableView DataKeyNames="LevelID,ObjId,LevelDesc,Add,Edit,Delete,ReadOnly" Name="Child" Width="100%"  
@@ -209,6 +250,7 @@
                </ItemTemplate>  
                                                       </telerik:GridTemplateColumn>
                                 </Columns>
+
                                 <DetailTables>
 
                             <telerik:GridTableView DataKeyNames="LevelID,ObjId,LevelDesc,Add,Edit,Delete,ReadOnly" Name="Child" Width="100%"  
@@ -265,15 +307,14 @@
     </ContentTemplate>
            </asp:UpdatePanel>
             </div>
-    <asp:Button ID="Button1" runat="server" Text="Button"  OnClick="Button1_Click"/>
+    <asp:Button ID="Button1" runat="server" Text="SAVE"  OnClick="Button1_Click" BackColor="Blue" ForeColor="White"/>
+            <asp:Label ID="lblError" runat="server" Text="" ForeColor="Green"></asp:Label>
+
+
          <div></div>
              
   
 </div>
-
-
-
-  
 
 
 </asp:Content>
