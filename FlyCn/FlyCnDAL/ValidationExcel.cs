@@ -526,6 +526,7 @@ namespace FlyCn.FlyCnDAL
                              rowNO = rowNO + 2;
                              importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
                              return true;
+
                     }
                     
                 }
