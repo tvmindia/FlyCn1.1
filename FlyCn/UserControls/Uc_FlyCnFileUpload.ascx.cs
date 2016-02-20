@@ -396,7 +396,6 @@ namespace Proj1
         {
            byte[] buffer = new byte[reader.GetBytes(reader.GetOrdinal("BinaryFile"), 0, null, 0, int.MaxValue)];
             reader.GetBytes(reader.GetOrdinal("BinaryFile"), 0, buffer, 0, int.MaxValue);
-
             System.IO.File.WriteAllBytes(filePath + fileName, buffer);
            /* SqlDataAdapter sda;
             DataTable dt;
