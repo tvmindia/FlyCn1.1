@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="Users.aspx.cs" Inherits="FlyCn.FlycnSecurity.Users" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" EnableEventValidation="false"  CodeBehind="Users.aspx.cs" Inherits="FlyCn.FlycnSecurity.Users" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -7,7 +7,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
          
-            EnableButtonsForNew();
+           
                     
             var EmailValidlbl = document.getElementById('<%=lblEmaillValid.ClientID %>');
             EmailValidlbl.style.display = "none";
@@ -18,17 +18,11 @@
             var errLname = document.getElementById('<%=errorLnames.ClientID %>');
             errLname.style.display = "none";
         });
-        function EnableButtonsForNew() {
-            <%=ToolBar.ClientID %>_SetAddVisible(false);
-            <%=ToolBar.ClientID %>_SetSaveVisible(true);
-            <%=ToolBar.ClientID %>_SetUpdateVisible(false);
-            <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-        }
+        
+       
+       
     </script>
-    <asp:ScriptManager ID="scriptmanager2" runat="server" EnablePageMethods="true"></asp:ScriptManager>
-
-         
-    
+    <asp:ScriptManager ID="scriptmanager2" runat="server" EnablePageMethods="true" EnablePartialRendering="true" ></asp:ScriptManager>   
   
      <div class="importWizardContainer" style="height:500px;">
            <div class="col-md-12">
@@ -37,17 +31,26 @@
      
       
           <div style="float:left; width:53%;">
-               <div class="contentTopBar" style="width:700px;"></div>
+               
                    <div class="col-md-12">
-                         
+                         <div style="margin-left:-10px;">
                            <asp:Label ID="ManageExisting" runat="server" Text="Manage Existing Users" CssClass="PageHeading"></asp:Label>
-                           <br />
+                          </div>
+                           
                        <br />
-                         <div style="width:550px;">
-                     <telerik:RadGrid ID="dtgManageExisting" runat="server" OnNeedDataSource="dtgManageExisting_NeedDataSource">
-
-                    <MasterTableView  AutoGenerateColumns="false" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No Categories have been added.">
+                        <div class="contentTopBar" style="width:500px;"></div>
+                         <div style="width:500px;">
+                     <telerik:RadGrid ID="dtgManageExisting" runat="server" OnDeleteCommand="dtgManageExisting_DeleteCommand1" OnNeedDataSource="dtgManageExisting_NeedDataSource" OnItemCommand="dtgManageExisting_ItemCommand1" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" >
+                           <HeaderStyle  HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <AlternatingItemStyle HorizontalAlign="Left" />
+                    <MasterTableView  AutoGenerateColumns="false" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No login details have been added." DataKeyNames="UserName">
                          <Columns>
+                               <telerik:GridButtonColumn CommandName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
+                                </telerik:GridButtonColumn>
+                                <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" Text="Delete" UniqueName="Delete">
+                                </telerik:GridButtonColumn>
+
                               <telerik:GridBoundColumn HeaderText="Login Name" DataField="UserName" UniqueName="UserName" ></telerik:GridBoundColumn>
                               <telerik:GridBoundColumn HeaderText="Email" DataField="EmailId" UniqueName="EmailId"></telerik:GridBoundColumn>
                               <telerik:GridBoundColumn HeaderText="Theme" DataField="Theme" UniqueName="Theme"></telerik:GridBoundColumn>
@@ -69,10 +72,10 @@
          </div>
           <div style="float:right; width:47%; ">
             <div class="col-md-12"  style="border-left: 1px solid #cfc7c0;min-height:400px">
-                <div class="contentTopBar" style="width:500px;"></div>
+                <div style="margin-left:10px;">
             <asp:Label ID="lblCreateNew" runat="server" Text="Create New" CssClass="PageHeading"></asp:Label>
-                   
-                <br />
+                  </div> 
+               
                 <br />
                 <div class="col-md-12 Span-One">
                <div class="form-group required">
@@ -83,7 +86,7 @@
                         <table>
                             <tr>
                                 <td>
-                        <asp:TextBox ID="txtLoginName" runat="server" CssClass="form-control" onchange="LoginNameCheck(this)"></asp:TextBox>
+                        <asp:TextBox ID="txtLoginName" runat="server" CssClass="form-control" autocomplete="off" onchange="LoginNameCheck(this)"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvloginName" runat="server" ErrorMessage="Enter Login Name"
                                     Display="Dynamic" SetFocusOnError="true"
                                     ForeColor="Red"
@@ -104,7 +107,7 @@
                    <asp:Label ID="lblPassword" runat="server" CssClass="control-label col-md-6 "  Text="Password"></asp:Label>
                          
                       <div class="col-md-6">
-                        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" autocomplete="off" AutoCompleteType="Disabled" CssClass="form-control"></asp:TextBox>
                            <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ErrorMessage="Enter Password"
                                     Display="Dynamic" SetFocusOnError="true"
                                     ForeColor="Red"
@@ -122,7 +125,7 @@
                       <div class="col-md-6">
                           <table>
                               <tr><td>
-                       <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" CssClass="form-control" onchange="validatePasswords();"></asp:TextBox>
+                       <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" autocomplete="off" CssClass="form-control" onchange="validatePasswords();"></asp:TextBox>
                            <asp:RequiredFieldValidator ID="rfvConfirmPassword" runat="server" ErrorMessage="Enter Confirm Password"
                                     Display="Dynamic" SetFocusOnError="true"
                                     ForeColor="Red"
@@ -165,14 +168,15 @@
                      
                         <asp:Label ID="lblActive" runat="server" CssClass="control-label col-md-6 "  Text="Active"></asp:Label>
                          
-                      <div class="col-md-6">
-                        <asp:TextBox ID="txtActive" runat="server" CssClass="form-control"></asp:TextBox>
-                           <asp:RequiredFieldValidator ID="rfvActive" runat="server" ErrorMessage="Enter Active"
-                                    Display="Dynamic" SetFocusOnError="true"
-                                    ForeColor="Red"
-                                    ValidationGroup="Group"
-                                    ControlToValidate="txtActive">
-                                </asp:RequiredFieldValidator>
+                      <div class="col-md-6" style="white-space:nowrap;overflow:hidden;">
+                          <table>
+                              <tr>
+                                  <td> <asp:CheckBox ID="chkIsActive" runat="server" /></td>
+                                  <td>&nbsp;IsActive</td>
+                              </tr>
+                          </table>
+                         
+                          
                           </div>
                    </div>
                      </div>
@@ -182,8 +186,8 @@
                         <asp:Label ID="lblTheme" runat="server" CssClass="control-label col-md-6 "  Text="Theme"></asp:Label>
                          
                       <div class="col-md-6">
-                        <asp:DropDownList ID="ddlTheme" runat="server" CssClass="form-control">
-                            <asp:ListItem Text="Select Theme" Value="0"></asp:ListItem>
+                        <asp:DropDownList ID="ddlTheme" runat="server" Width="150px">
+                            <asp:ListItem Text="--select theme--" Value="0"></asp:ListItem>
                             <asp:ListItem Text="FlyCnGreen" Value="FlyCnGreen"></asp:ListItem>
                             <asp:ListItem Text="FlyCnRed" Value="FlyCnRed"></asp:ListItem>
                         </asp:DropDownList>
@@ -200,10 +204,27 @@
          </div>
               </div>
               </div>
+    <asp:HiddenField ID="hdnEditPostBack" runat="server" Value="0" />
     <script type="text/javascript">
         function OnClientButtonClicking(sender, args) {
             var btn = args.get_item();
             if (btn.get_value() == 'Save') {
+                args.set_cancel(!validate());
+            }
+        }
+
+
+        function OnClientButtonClickingDetail(sender, args) {
+
+            var btn = args.get_item();
+
+            if (btn.get_value() == 'Save') {
+
+                args.set_cancel(!validate());
+            }
+
+            if (btn.get_value() == 'Update') {
+
                 args.set_cancel(!validate());
             }
         }
@@ -217,15 +238,24 @@
             ConfirmPass = trimString(ConfirmPass);
             var Email = document.getElementById('<%=txtEmail.ClientID %>').value;
             Email = trimString(Email);
-            var Active = document.getElementById('<%=txtActive.ClientID %>').value;
-            Active = trimString(Active);
+           
             var Theme = document.getElementById('<%=ddlTheme.ClientID %>').value;
             Theme = trimString(Theme);
-            if (password == ConfirmPass) {
+            if (logName != "" || password != "" || ConfirmPass != "" || Email != "" || Theme!="") {
                 return true;
             }
             else
             {
+                displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+                return false;
+            }
+            if(password==ConfirmPass)
+            {
+                return true;
+            }
+            else
+            {
+                displayMessage(messageType.Error, messages.PasswordDoesnotMatch);
                 return false;
             }
             

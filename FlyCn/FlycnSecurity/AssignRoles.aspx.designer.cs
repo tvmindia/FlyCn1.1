@@ -31,15 +31,6 @@ namespace FlyCn.FlycnSecurity {
         protected global::FlyCn.UserControls.ToolBar ToolBar;
         
         /// <summary>
-        /// lblCurrentRoles control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCurrentRoles;
-        
-        /// <summary>
         /// lblUser control.
         /// </summary>
         /// <remarks>
@@ -56,6 +47,24 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        
+        /// <summary>
+        /// lblCurrentRoles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCurrentRoles;
+        
+        /// <summary>
+        /// lblCurrentRoleDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCurrentRoleDescription;
         
         /// <summary>
         /// dtgCurrentRoles control.
@@ -76,31 +85,13 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.Label lblAssignRoles;
         
         /// <summary>
-        /// lblSelectRole control.
+        /// lblAssignRoleName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSelectRole;
-        
-        /// <summary>
-        /// RadioButton1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton1;
-        
-        /// <summary>
-        /// RadioButton2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton2;
+        protected global::System.Web.UI.WebControls.Label lblAssignRoleName;
         
         /// <summary>
         /// Label3 control.

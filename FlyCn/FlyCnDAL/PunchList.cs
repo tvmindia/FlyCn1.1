@@ -1621,6 +1621,43 @@ namespace FlyCn.FlyCnDAL
         //}
         //#endregion GetControlSystemFromM_CTRL_System
 
+        #region MakeFile
+        public SqlDataReader MakeFile(Guid Id)
+        {
+           SqlDataReader reader=null;
+           SqlCommand cmd =null;
+           dbConnection dcon = new dbConnection();
+          
+            //
+            try
+            {
+
+               
+                dcon.GetDBConnection();
+                
+                cmd = new SqlCommand();
+
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetEILAttachment";
+                cmd.Parameters.Add("@AttachID", SqlDbType.UniqueIdentifier).Value = Id;
+                reader = cmd.ExecuteReader();
+               
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+
+            }
+            finally
+            {
+               
+                
+            }
+            return reader;
+        }
+        
+        #endregion MakeFile
 
         #region ValidateIdNo
         public bool ValidateIdNo(int CheckID,string Type)

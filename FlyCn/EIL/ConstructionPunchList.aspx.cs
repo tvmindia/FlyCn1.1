@@ -1887,8 +1887,7 @@ namespace FlyCn.EIL
         #region FileDownload
         public void FileDownload(Guid Id)
         {
-            dbConnection cntion = new dbConnection();
-            SqlCommand cmd;
+
             SqlDataReader reader = null;
 
             if (Id != Guid.Empty)
@@ -1900,13 +1899,13 @@ namespace FlyCn.EIL
                 try
                 {
 
-                    cmd = new SqlCommand();
-                    cmd.Connection = cntion.GetDBConnection(); ;
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "GetEILAttachment";
-                    cmd.Parameters.Add("@AttachID", SqlDbType.UniqueIdentifier).Value = Id;
-                    reader = cmd.ExecuteReader();
-
+                    //cmd = new SqlCommand();
+                    //cmd.Connection = cntion.GetDBConnection(); ;
+                    //cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    //cmd.CommandText = "GetEILAttachment";
+                    //cmd.Parameters.Add("@AttachID", SqlDbType.UniqueIdentifier).Value = Id;
+                    //reader = cmd.ExecuteReader();
+                    reader = pObj.MakeFile(Id);
                     if (reader.HasRows)
                     {
                         if (reader.Read())
@@ -1928,8 +1927,10 @@ namespace FlyCn.EIL
                 }
                 finally
                 {
-                    reader.Dispose();
-                    cntion.GetDBConnection().Close();
+                    if (reader != null)
+                    {
+                        reader.Dispose();
+                    }
                 }
 
             }
