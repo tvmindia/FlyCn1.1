@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -515,7 +516,7 @@ namespace FlyCn.WebServices
         }
         #endregion
 
-        #region Punch Item Get Attatchment
+        #region Punch Item Get Attatchment List
         /// <summary>
         /// Webservice to return list of attachment images of an punchlist item
         /// </summary>
@@ -525,7 +526,7 @@ namespace FlyCn.WebServices
         /// <param name="isThumb">optional parameter to denote whether thumbanail images are enough</param>
         /// <returns>JSON of details of attachment images</returns>
         [WebMethod]
-        public string PunchItemGetAttatchment(string projNo, string punchID, string EILtype, Boolean isThumb=false)
+        public string PunchItemGetAttatchmentList(string projNo, string punchID, string EILtype)
         {
             //return msg data initialization
             DataSet ds = new DataSet();
@@ -543,7 +544,7 @@ namespace FlyCn.WebServices
                 imgFileNameCols.Add("AttachmentName");
                 imgFileTypeCols.Add("FileType");
 
-                return getDbDataAsJSON(ds, imgColNames, imgFileNameCols, imgFileTypeCols,isThumb);
+                return getDbDataAsJSON(ds, imgColNames, imgFileNameCols, imgFileTypeCols,true);
             }
             catch (Exception ex)
             {
@@ -562,7 +563,61 @@ namespace FlyCn.WebServices
             {                
             }
         }
-        #endregion Punch Item Get Attatchment
+        #endregion Punch Item Get Attatchment List
+
+        #region Punch Item Get Attatchment item
+        /// <summary>
+        /// Webservice to return list of attachment images of an punchlist item
+        /// </summary>
+        /// <param name="projNo">Project Number</param>
+        /// <param name="punchID">EIL ID</param>
+        /// <param name="EILtype">WEIL/CEIL/QEIL</param>
+        /// <param name="isThumb">optional parameter to denote whether thumbanail images are enough</param>
+        /// <returns>JSON of details of attachment images</returns>
+        [WebMethod]
+        public string PunchItemGetAttatchmentItem(string attachmentID)
+        {
+            //return msg data initialization
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            Guid attachid = new Guid(attachmentID);
+            try
+            {   //Retrieving details
+                FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+                SqlDataReader reader = punchObj.MakeFile(attachid);
+
+                dt.Load(reader);
+                ds.Tables.Add(dt);
+
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("AttachmentName");
+                imgFileTypeCols.Add("FileType");
+
+                return getDbDataAsJSON(ds, imgColNames, imgFileNameCols, imgFileTypeCols, false);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                ErrorMsg.Rows.Add(dr);
+                ds.Tables.Add(ErrorMsg);
+                return getDbDataAsJSON(ds);
+            }
+            finally
+            {
+            }
+        }
+        #endregion Punch Item Get Attatchment item
+
 
         #region Punch Item Add Attatchment
         /// <summary>
@@ -570,7 +625,7 @@ namespace FlyCn.WebServices
         /// </summary>
         /// <returns></returns>
         [WebMethod]
-        public string PunchItemAddAttatchment()//string userName,string projNo, int punchID, string EILtype)
+        public string PunchItemAddAttatchment()
         {
             try
             {
@@ -579,20 +634,25 @@ namespace FlyCn.WebServices
                 if (MyFileCollection.Count > 0)
                 {
 //               string FilePath = Server.MapPath("~/tempImages/")+DateTime.Now.ToString("ddHHmmssfff")+MyFileCollection[0].FileName;
-//                MyFileCollection[0].SaveAs(FilePath); //to save coming image to server folder
+//               MyFileCollection[0].SaveAs(FilePath); //to save coming image to server folder
                 Stream MyStream = MyFileCollection[0].InputStream;
                 PunchList punchObj = new PunchList();
+                
                 punchObj.image = MyStream;
                 MyStream.Flush();
+                
                 punchObj.FileType = "." + MyFileCollection[0].FileName.Split('.').Last();
+                punchObj.fileUpload = MyFileCollection[0].FileName;
+                
                 if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["punchID"]))
                 {
                     punchObj.id = int.Parse(HttpContext.Current.Request.Form["punchID"]);
                 }
-                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["EILtype"]))
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["EILType"]))
                 {
-                    punchObj.EILType = HttpContext.Current.Request.Form["EILtype"];
+                    punchObj.EILType = HttpContext.Current.Request.Form["EILType"];
                 }
+                
                 float Size = MyFileCollection[0].ContentLength/1024;
                 float sizeinMB = Size / 1024;
                 string fileSize;
@@ -604,8 +664,8 @@ namespace FlyCn.WebServices
                 {
                     fileSize = sizeinMB.ToString("0.00") + "MB";
                 }
+                
                 punchObj.fileSize = fileSize;
-                punchObj.fileUpload = MyFileCollection[0].FileName;
                 string userName="";string projNo="";
                 if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["userName"]))
                 { 
@@ -615,31 +675,16 @@ namespace FlyCn.WebServices
                 {
                     projNo = HttpContext.Current.Request.Form["projNo"];
                 }
+
                 punchObj.InsertEILAttachment(true,userName,projNo);
+
                 }
-                //DataTable SuccessMsg = new DataTable();
-                //SuccessMsg.Columns.Add("Flag", typeof(Boolean));
-                //SuccessMsg.Columns.Add("Message", typeof(String));
-                //DataRow dr = SuccessMsg.NewRow();
-                //dr["Flag"] = false;
-                //dr["Message"] = HttpContext.Current.Request.Form["title"];
-                //SuccessMsg.Rows.Add(dr);
-                //ds.Tables.Add(SuccessMsg);
-                return "";// getDbDataAsJSON(ds); 
+
+                return "Message:"+FlyCn.UIClasses.Messages.SuccessfulUpload;
             }
             catch (Exception ex)
             {
-                //Return error message
-                //DataTable ErrorMsg = new DataTable();
-                //ErrorMsg.Columns.Add("Flag", typeof(Boolean));
-                //ErrorMsg.Columns.Add("Message", typeof(String));
-                //DataRow dr = ErrorMsg.NewRow();
-                //dr["Flag"] = false;
-                //dr["Message"] = ex.Message;
-                //ErrorMsg.Rows.Add(dr);
-                //ds.Tables.Add(ErrorMsg);
-                //return getDbDataAsJSON(ds);
-                return "";
+                return "Message:" + ex.Message;
             }
             finally
             {
@@ -725,8 +770,7 @@ namespace FlyCn.WebServices
                     {
                         if (!imgColName.Contains(col.ColumnName))
                         {
-                            if (!imgFileNameCol.Contains(col.ColumnName))
-                                row.Add(col.ColumnName, dr[col]);
+                           row.Add(col.ColumnName, dr[col]);
                         }
                     }
                     //adding image details in JSON
@@ -734,7 +778,7 @@ namespace FlyCn.WebServices
                     {
                         if (dr[imgColName[i] as string] != DBNull.Value)
                         {
-                            String fileURL = filePath + DateTime.Now.ToString("ddHHmmssfff") + dr[imgFileNameCol[i] as string] + dr[imgFileTypeCol[i] as string];
+                            String fileURL = filePath + DateTime.Now.ToString("ddHHmmssfff") + dr[imgFileNameCol[i] as string];
                             if (!System.IO.File.Exists(fileURL))
                             {
                                 byte[] buffer;

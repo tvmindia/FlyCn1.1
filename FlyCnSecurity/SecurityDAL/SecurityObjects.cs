@@ -577,6 +577,25 @@ namespace FlyCnSecurity.SecurityDAL
 
         #endregion Get Object ID By LevelID
 
+
+        public DataSet GetRegisteredModules()
+        {
+            DataSet dataset = null;
+            SqlConnection con = null;
+            
+            con = dcon.GetDBConnection();
+
+            SqlCommand cmd = new SqlCommand("GetObjectDetails", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            dataset = new DataSet();
+            adapter.Fill(dataset);
+            con.Close();
+            return dataset;
+
+        }
+
         #endregion Methods
 
     }

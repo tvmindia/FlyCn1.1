@@ -32,67 +32,80 @@ namespace FlyCn.FlycnSecurity
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
             FlyCnDAL.Users userObj = new FlyCnDAL.Users();
+            FlyCn.FlyCnDAL.ErrorHandling eObj = new FlyCn.FlyCnDAL.ErrorHandling();
             DataTable ds = new DataTable();
-            string functionName = e.Item.Value;
-            int RoleID=0;
-            int rolescope = Convert.ToInt32(DropDownList2.SelectedValue);
-            string scopeValue = DropDownList3.SelectedValue;
-
-            ds = userObj.AssignUserRoles(rolescope, scopeValue);
-            int count = ds.Rows.Count;
-            if (e.Item.Value == "Save")
+            try
             {
-                foreach (GridDataItem item in dtgAssignRoles.Items)
-                {
+                string functionName = e.Item.Value;
+                int RoleID = 0;
+               // if (DropDownList2.SelectedValue != "--select level--")
+            //    {
+                    int rolescope = Convert.ToInt32(DropDownList2.SelectedValue);
+                    string scopeValue = DropDownList3.SelectedValue;
 
-                    CheckBox checkColumnAdd = item["Assignrolescheck"].Controls[0] as CheckBox;
-                    if(checkColumnAdd.Checked==true)
+                    ds = userObj.AssignUserRoles(rolescope, scopeValue);
+                    int count = ds.Rows.Count;
+                    if (e.Item.Value == "Save")
                     {
-                        
-                        string Id = item.GetDataKeyValue("RoleName").ToString();
-                        for (int i = 0; i <= count; i++)
+                        foreach (GridDataItem item in dtgAssignRoles.Items)
                         {
-                        foreach (GridDataItem row in dtgAssignRoles.Items)
-                        {
-                            
-                            string RoleName = row.GetDataKeyValue("RoleName").ToString();
-                           
-                           
-                                if (RoleName == Id)
-                                {
-                                    RoleID = Convert.ToInt32(ds.Rows[i]["RoleID"]);
-                                }
-                                i = i + 1;
-                            }
-                        }
-                        userObj.UserId = DropDownList1.SelectedItem.Value;
-                        userObj.RoleID = RoleID;
-                        userObj.InsertAssignedRoles();
-                       
-                    }
 
-                    if(checkColumnAdd.Checked==false)
-                    {
-                        int i = 0;
-                        foreach (GridDataItem row in dtgAssignRoles.Items)
-                        {
-                            string Id = item.GetDataKeyValue("RoleName").ToString();
-                            string RoleName = row.GetDataKeyValue("RoleName").ToString();
-                            string userID = DropDownList1.SelectedItem.Value;
-
-                            if (RoleName == Id)
+                            CheckBox checkColumnAdd = item["Assignrolescheck"].Controls[0] as CheckBox;
+                            if (checkColumnAdd.Checked == true)
                             {
-                                RoleID = Convert.ToInt32(ds.Rows[i]["RoleID"]);
-                                userObj.DeleteUser(userID, RoleID);
+
+                                string Id = item.GetDataKeyValue("RoleName").ToString();
+                                for (int i = 0; i <= count; i++)
+                                {
+                                    foreach (GridDataItem row in dtgAssignRoles.Items)
+                                    {
+
+                                        string RoleName = row.GetDataKeyValue("RoleName").ToString();
+
+
+                                        if (RoleName == Id)
+                                        {
+                                            RoleID = Convert.ToInt32(ds.Rows[i]["RoleID"]);
+                                        }
+                                        i = i + 1;
+                                    }
+                                }
+                                userObj.UserId = DropDownList1.SelectedItem.Value;
+                                userObj.RoleID = RoleID;
+                                userObj.InsertAssignedRoles();
+
                             }
-                            i = i + 1;
+
+                            if (checkColumnAdd.Checked == false)
+                            {
+                                int i = 0;
+                                foreach (GridDataItem row in dtgAssignRoles.Items)
+                                {
+                                    string Id = item.GetDataKeyValue("RoleName").ToString();
+                                    string RoleName = row.GetDataKeyValue("RoleName").ToString();
+                                    string userID = DropDownList1.SelectedItem.Value;
+
+                                    if (RoleName == Id)
+                                    {
+                                        RoleID = Convert.ToInt32(ds.Rows[i]["RoleID"]);
+                                        userObj.DeleteUser(userID, RoleID);
+                                    }
+                                    i = i + 1;
+                                }
+                                // userObj.DeleteUser();
+                                //  BindCurrentRoles();
+                            }
                         }
-                       // userObj.DeleteUser();
-                      //  BindCurrentRoles();
                     }
-                }
+                    BindCurrentRoles();
+              //  }
             }
-            BindCurrentRoles();
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+               // throw ex;
+            }
         }
         #endregion ToolBar_onClick
 
@@ -222,6 +235,9 @@ namespace FlyCn.FlycnSecurity
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindCurrentRoles();
+            lblCurrentRoles.Visible = false;
+            lblAssignRoleName.Text = "select following levels for assigning roles to "+DropDownList1.SelectedValue;
+            lblCurrentRoleDescription.Text = "Current roles of " + DropDownList1.SelectedValue;
             DropDownList2.ClearSelection();
             DropDownList3.Items.Clear();
             
