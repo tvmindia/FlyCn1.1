@@ -575,15 +575,16 @@ namespace FlyCn.WebServices
         /// <param name="isThumb">optional parameter to denote whether thumbanail images are enough</param>
         /// <returns>JSON of details of attachment images</returns>
         [WebMethod]
-        public string PunchItemGetAttatchmentItem(Guid attachmentID)
+        public string PunchItemGetAttatchmentItem(string attachmentID)
         {
             //return msg data initialization
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
+            Guid attachid = new Guid(attachmentID);
             try
             {   //Retrieving details
                 FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
-                SqlDataReader reader = punchObj.MakeFile(attachmentID);
+                SqlDataReader reader = punchObj.MakeFile(attachid);
 
                 dt.Load(reader);
                 ds.Tables.Add(dt);
@@ -596,7 +597,7 @@ namespace FlyCn.WebServices
                 imgFileNameCols.Add("AttachmentName");
                 imgFileTypeCols.Add("FileType");
 
-                return getDbDataAsJSON(ds, imgColNames, imgFileNameCols, imgFileTypeCols, true);
+                return getDbDataAsJSON(ds, imgColNames, imgFileNameCols, imgFileTypeCols, false);
             }
             catch (Exception ex)
             {
@@ -769,8 +770,7 @@ namespace FlyCn.WebServices
                     {
                         if (!imgColName.Contains(col.ColumnName))
                         {
-                            if (!imgFileNameCol.Contains(col.ColumnName))
-                                row.Add(col.ColumnName, dr[col]);
+                           row.Add(col.ColumnName, dr[col]);
                         }
                     }
                     //adding image details in JSON
@@ -778,7 +778,7 @@ namespace FlyCn.WebServices
                     {
                         if (dr[imgColName[i] as string] != DBNull.Value)
                         {
-                            String fileURL = filePath + DateTime.Now.ToString("ddHHmmssfff") + dr[imgFileNameCol[i] as string] + dr[imgFileTypeCol[i] as string];
+                            String fileURL = filePath + DateTime.Now.ToString("ddHHmmssfff") + dr[imgFileNameCol[i] as string];
                             if (!System.IO.File.Exists(fileURL))
                             {
                                 byte[] buffer;
