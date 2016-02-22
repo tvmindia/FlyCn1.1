@@ -807,7 +807,7 @@ namespace FlyCn.FlycnSecurity
            
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
 
-            ToolBar.AddButton.Visible = false;
+            ToolBar.AddButton.Visible = true;
             ToolBar.EditButton.Visible = false;
             ToolBar.DeleteButton.Visible = false;
             ToolBar.UpdateButton.Visible = false;
@@ -878,7 +878,21 @@ namespace FlyCn.FlycnSecurity
 
                     //RegisterToolBox();
                 }
+                else
+                {
+                    if (functionName == "Add")
+                    {
+                        ClearControls();
 
+                        foreach (GridDataItem item in dtgNonProjectRoles.Items)
+                        {
+                            if (item.BackColor == System.Drawing.Color.LightPink)
+                            {
+                                item.BackColor = System.Drawing.Color.Transparent;
+                            }
+                        }
+                    }
+                }
             }
         }
 
