@@ -35,378 +35,145 @@ namespace FlyCn.FlycnSecurity
     public partial class ManageAccess : System.Web.UI.Page
     {
         #region Global Variables
-
+       
         Security.UserAuthendication UA;
         UIClasses.Const c = new UIClasses.Const();
         FlyCnSecurity.SecurityDAL.AccessManage AccsMng = new AccessManage();
         FlyCnSecurity.SecurityDAL.SecurityObjects ObjReg = new SecurityObjects();
         ErrorHandling eObj = new ErrorHandling();
-        
 
-        #endregion Global Variables
+         #endregion Global Variables
 
         #region Methods
 
-        #region Store CheckBox State
-
-        public void  StoreCheckBoxState()
-        {
-            
-        }
-
-        #endregion  Store CheckBox State
-
-
-
-
+        #region Add Object Access For Roles
+        
+        /// <summary>
+        /// Function insert object if it is new , it updates if object already there and deletes all checkboxes are null
+        /// </summary>
         public void AddObjectAccessForRoles()
         {
-             bool isBreak=false;
-           
             try
             {
                 RadGrid1.AllowPaging = false;
-                foreach (GridDataItem item in RadGrid1.Items)
-                {
-                    DataSet dsFirstLevelObjects = ObjReg.GetAllObjectsWithParentIDNull();
-                    
-                    string RoleId = DropDownListObjReg.SelectedValue;
-                    DataTable  dtObjectAccess = AccsMng.ObjectRegistrationDetails(RoleId);
 
+//--------------* loop through each item of gridview *------------//
+
+             foreach (GridDataItem item in RadGrid1.Items)
+              {
+                    string RoleId = DropDownListObjReg.SelectedValue;
+                    //DataTable  dtObjectAccess = AccsMng.ObjectRegistrationDetails(RoleId);
+
+                    DataTable dtObjectAccess = AccsMng.GetAlldetailsOfObjectAccess(RoleId); // Objects having already access
                     GridDataItem dataitem = (GridDataItem)item;
-                    //TableCell cell = dataitem["LevelID"];
+                   
                     CheckBox checkBoxAddId = (CheckBox)item.FindControl("ChkAdd");
                     CheckBox checkBoxEditId = (CheckBox)item.FindControl("ChkEdit");
                     CheckBox checkBoxDeleteId = (CheckBox)item.FindControl("ChkDelete");
                     CheckBox checkBoxReadOnlyId = (CheckBox)item.FindControl("ChkReadOnly");
 
-                    //if ((checkBoxAddId != null && checkBoxAddId.Checked) || (checkBoxEditId != null && checkBoxEditId.Checked) || (checkBoxDeleteId != null && checkBoxDeleteId.Checked) || (checkBoxReadOnlyId != null && checkBoxReadOnlyId.Checked))
-                    //{
-
-
-                    //if (checkBoxAddId.Checked == true || checkBoxEditId.Checked == true || checkBoxDeleteId.Checked == true || checkBoxReadOnlyId.Checked == true)
-                    //{
-
-                    AccsMng.LevelId = dataitem.GetDataKeyValue("LevelID").ToString(); //Access the checked row using DataKeyNames
                     AccsMng.ObjectId = dataitem.GetDataKeyValue("ObjId").ToString();
-                    AccsMng.LevelDecription = dataitem.GetDataKeyValue("LevelDesc").ToString();
+                    AccsMng.LevelId = dataitem.GetDataKeyValue("LevelID").ToString(); //Access the checked row using DataKeyNames
 
-                    AccsMng.Add = checkBoxAddId.Checked;
-                    AccsMng.Edit = checkBoxEditId.Checked;
-                    AccsMng.Delete = checkBoxDeleteId.Checked;
-                    AccsMng.ReadOnly = checkBoxReadOnlyId.Checked;
+                    DataRow[] foundRow = dtObjectAccess.Select("Objid = " + AccsMng.ObjectId);
 
-                    AccsMng.RoleID = Convert.ToInt32(DropDownListObjReg.SelectedValue);
-                    AccsMng.ProjectNo = UA.projectNo;
-                    AccsMng.Created_By = UA.userName;
-
-
-
-
-
-                    if (ViewState["Special-Permission"] != null)
+                 if (foundRow.Length == 0) // checks whether object already having access
+                 { 
+                    
+                    if (checkBoxAddId.Checked == true || checkBoxEditId.Checked == true || checkBoxDeleteId.Checked == true || checkBoxReadOnlyId.Checked == true)
                     {
-                        AccsMng.Property1 = ViewState["Special-Permission"].ToString();
+ //------------*Insert the object*-------------//   
+       
+                        AccsMng.LevelDecription = dataitem.GetDataKeyValue("LevelDesc").ToString();
+
+                        AccsMng.Add = checkBoxAddId.Checked;
+                        AccsMng.Edit = checkBoxEditId.Checked;
+                        AccsMng.Delete = checkBoxDeleteId.Checked;
+                        AccsMng.ReadOnly = checkBoxReadOnlyId.Checked;
+
+                        AccsMng.RoleID = Convert.ToInt32(DropDownListObjReg.SelectedValue);
+                        AccsMng.ProjectNo = UA.projectNo;
+                        AccsMng.Created_By = UA.userName;
+
+
+                        if (ViewState["Special-Permission"] != null)
+                        {
+                            AccsMng.Property1 = ViewState["Special-Permission"].ToString();
+                        }
+
+
+                        int result = AccsMng.AddObjectAccessForRoles();
+
+                        if (result == 1)
+                        {
+                            eObj.InsertionSuccessData(this, Messages.InsertionSuccessfull);
+                            //RadGrid1.Rebind();
+
+                        }
                     }
+                }
+                    else
+                    {
 
-
-                     if (dtObjectAccess.Rows.Count > 0)
-                     {
-                         foreach (DataRow dr in dtObjectAccess.Rows)
-                         {
-                             string objidWithAccess = dr["ObjId"].ToString();
-
-
-
-                         }
-                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    //    int result = AccsMng.AddObjectAccessForRoles();
-
-
-                    //    if (result == 1)
-                    //    {
-
-                    //        lblError.Text = "Successfull";
-
-                    //        eObj.InsertionSuccessData(this, Messages.InsertionSuccessfull);
-                    //        RadGrid1.Rebind();
-
-                    //    }
-
-                    //}
-
-
-
-
-                    //for (int i = 0; i < dsFirstLevelObjects.Tables[0].Rows.Count; i++)
-                    //{
-                    //    string firstLevelObjid = dsFirstLevelObjects.Tables[0].Rows[i]["ObjId"].ToString();
-
-                    //    if (AccsMng.ObjectId == firstLevelObjid)
-                    //    {
-                    //        if (dtObjectAccess.Rows.Count > 0)
-                    //        {
-                    //            foreach (DataRow dr in dtObjectAccess.Rows)
-                    //            {
-
-                    //                string objidWithAccess = dr["ObjId"].ToString();
-
-
-                    //                if (AccsMng.ObjectId == objidWithAccess)
-                    //                {
-                    //                    if ((dr["Add"].ToString() == "True") || (dr["Edit"].ToString() == "True") || (dr["Delete"].ToString() == "True") || (dr["ReadOnly"].ToString() == "True"))
-                    //                    {
-                    //                        AccsMng.ObjectId = dataitem.GetDataKeyValue("ObjId").ToString();
-                    //                        AccsMng.RoleID = Convert.ToInt32(DropDownListObjReg.SelectedValue);
-
-                    //                        int result = AccsMng.DeleteObjectAccessForRoleByObjIdAndRoleId();
-
-                    //                        if (result == 1)
-                    //                        {
-
-                                                
-                    //                            eObj.InsertionSuccessData(this, Messages.DeletionSuccessfull);
-                    //                            RadGrid1.Rebind();
-                    //                            lblError.Text = "Successfull delete";
-
-                    //                        }
-
-                    //                        isBreak = true;
-
-                    //                        break;
-                    //                    }
-
-
-                    //                    else
-                    //                    {
-                    //                            int result = AccsMng.AddObjectAccessForRoles();
-
-
-                    //                            if (result == 1)
-                    //                            {
-
-                    //                                eObj.InsertionSuccessData(this, Messages.InsertionSuccessfull);
-                    //                                RadGrid1.Rebind();
-
-                    //                                lblError.Text = "Successfull Add";
-
-                    //                            }
-
-                    //                        }
-
-                    //                    }
-
-
-                    //                }
-
-                                  
-                    //            }
-
-
-                    //        if (isBreak)
-                    //        {
-                    //            break;
-                    //        }
-                    //        }
-                    //    if (isBreak)
-                    //    {
-                    //        break;
-                    //    }
-                    //    }
-                       
-                    }
+                        DataRow drAccess = foundRow[0];
 
                     
-
-                
-                        ////Not the fist level
-
-                        //                            else
-                        //                            {
-                        //                                if (dtObjectAccess.Rows.Count > 0)
-                        //                                {
-                        //                                    foreach (DataRow dr in dtObjectAccess.Rows)
-                        //                                    {
-
-                        //                                        string objidWithAccess = dr["ObjId"].ToString();
-
-
-                        //                                        if (AccsMng.ObjectId == objidWithAccess)
-                        //                                        {
-                        //                                            if ((dr["Add"].ToString() == "True") || (dr["Edit"].ToString() == "True") || (dr["Delete"].ToString() == "True") || (dr["ReadOnly"].ToString() == "True"))
-                        //                                            {
-                        //                                                AccsMng.ObjectId = dataitem.GetDataKeyValue("ObjId").ToString();
-                        //                                                AccsMng.RoleID = Convert.ToInt32(DropDownListObjReg.SelectedValue);
-
-                        //                                                int result = AccsMng.DeleteObjectAccessForRoleByObjIdAndRoleId();
-
-                        //                                                if (result == 1)
-                        //                                                {
-
-                        //                                                    lblError.Text = "Successfull delete";
-
-                        //                                                    eObj.InsertionSuccessData(this, Messages.DeletionSuccessfull);
-                        //                                                    RadGrid1.Rebind();
-
-                        //                                                }
-                        //                                                break;
-                        //                                            }
-
-
-                        //                                            else
-                        //                                            {
-
-                        //                                                AccsMng.Add = checkBoxAddId.Checked;
-                        //                                                AccsMng.Edit = checkBoxEditId.Checked;
-                        //                                                AccsMng.Delete = checkBoxDeleteId.Checked;
-                        //                                                AccsMng.ReadOnly = checkBoxReadOnlyId.Checked;
-
-                        //                                                AccsMng.RoleID = Convert.ToInt32(DropDownListObjReg.SelectedValue);
-                        //                                                AccsMng.ProjectNo = UA.projectNo;
-                        //                                                AccsMng.Created_By = UA.userName;
-
-
-
-
-
-                        //                                                if (ViewState["Special-Permission"] != null)
-                        //                                                {
-                        //                                                    AccsMng.Property1 = ViewState["Special-Permission"].ToString();
-                        //                                                }
-
-
-                        //                                                int result = AccsMng.AddObjectAccessForRoles();
-
-
-                        //                                                if (result == 1)
-                        //                                                {
-
-                        //                                                    lblError.Text = "Successfull";
-
-                        //                                                    eObj.InsertionSuccessData(this, Messages.InsertionSuccessfull);
-                        //                                                    RadGrid1.Rebind();
-
-                        //                                                }
-                        //                                            }
-
-
-
-                        //                                        }
-
-
-
-                        //                                    }
-                        //                                }
-                        //                            }
-                        //                        }
-
-                        //-------------------
-
-                        //if(dtFirstlevelObjects.Rows.Count >0)
-                        //{
-                        //    foreach ( DataRow dr in dtFirstlevelObjects.Rows )
-                        //    {
-                        //        string objid = dr["ObjId"].ToString();
-
-                        //        if (objid == AccsMng.ObjectId)
-                        //        {
-
-                        //            ViewState["Add"] = checkBoxAddId.Checked;
-                        //           ViewState["Edit"]=  AccsMng.Edit = checkBoxEditId.Checked;
-                        //           ViewState["Delete"] = checkBoxDeleteId.Checked;
-                        //           ViewState["ReadOnly"] = checkBoxReadOnlyId.Checked;
-                        //        }
-                        //    }
-                        //}
-
-
-
-                        //--------------------
-
-
-
-                        //if (dataitem.GetDataKeyValue("Add") != DBNull.Value )
-                        //{
-
-                        //AccsMng.Add = Convert.ToBoolean(dataitem.GetDataKeyValue("Add")); //Access the checked row using DataKeyNames
-
-                        //AccsMng.Edit = Convert.ToBoolean(dataitem.GetDataKeyValue("Edit"));
-
-                        //AccsMng.Delete = Convert.ToBoolean(dataitem.GetDataKeyValue("Delete"));
-
-                        //AccsMng.ReadOnly = Convert.ToBoolean(dataitem.GetDataKeyValue("ReadOnly"));
-
-
-
-
-
-
-
-
-
-
-
-
-                        //}
-
-
-
-
-                        //else
-                        //{
-
-
-                        //string add = checkBoxAddId.Checked.ToString();
-                        //string edit = checkBoxEditId.Checked.ToString();
-                        //string dlt = checkBoxDeleteId.Checked.ToString();
-                        //string rdonly = checkBoxReadOnlyId.Checked.ToString();
-
-                        //string add1 = ViewState["Add"].ToString();
-                        //string edit1 = ViewState["Edit"].ToString();
-                        //string dlt1 = ViewState["Delete"].ToString();
-                        //string rdonly1 = ViewState["ReadOnly"].ToString();
-
-                        //    if (((add1 == "True") && (add == "False")) || ((edit1 == "True") && (edit == "False")) || (((dlt1 == "True") && (dlt == "False")) || ((rdonly1 == "True") && (rdonly == "False"))))
-                        //    {
-                        //        string d = ViewState["Add"].ToString();
-
-                        //        AccsMng.ObjectId = dataitem.GetDataKeyValue("ObjId").ToString();
-                        //        AccsMng.RoleID = Convert.ToInt32(DropDownListObjReg.SelectedValue);
-
-                        //        int result = AccsMng.DeleteObjectAccessForRoleByObjIdAndRoleId();
-
-                        //        if (result == 1)
-                        //        {
-
-                        //            lblError.Text = "Successfull update";
-
-                        //            eObj.InsertionSuccessData(this, Messages.DeletionSuccessfull);
-                        //            RadGrid1.Rebind();
-
-                        //        }
-                        //    }
-
-                        //}
-
-
-                   
-               
+                        bool drAdd = Convert.ToBoolean(drAccess["Add"]);
+                        bool drEdit = Convert.ToBoolean(drAccess["Edit"]);
+                        bool drDelete = Convert.ToBoolean(drAccess["Delete"]);
+                        bool drRead = Convert.ToBoolean(drAccess["ReadOnly"]);
+
+                        if ((checkBoxAddId.Checked != drAdd) || (checkBoxEditId.Checked != drEdit) || (checkBoxDeleteId.Checked != drDelete) || (checkBoxReadOnlyId.Checked != drRead))
+                       
+                        {
+                            if( (checkBoxAddId.Checked == false) && (checkBoxEditId.Checked == false) && (checkBoxDeleteId.Checked == false) && (checkBoxReadOnlyId.Checked == false )  )
+                            {
+//------------*Delete the object if all checkbox unticked*-------------//   
+                            AccsMng.ObjectId = dataitem.GetDataKeyValue("ObjId").ToString();
+                            AccsMng.RoleID = Convert.ToInt32(DropDownListObjReg.SelectedValue);
+
+                            int result = AccsMng.DeleteObjectAccessForRoleByObjIdAndRoleId();
+
+                             if (result == 1)
+                                {
+                                lblError.Text = "Successfull delete";
+                                eObj.InsertionSuccessData(this, Messages.DeletionSuccessfull);
+                                //RadGrid1.Rebind();
+                                }
+                            }
+                            else
+                            {
+                                AccsMng.ObjectId = dataitem.GetDataKeyValue("ObjId").ToString();
+                                AccsMng.RoleID = Convert.ToInt32(DropDownListObjReg.SelectedValue);
+                                AccsMng.Add = checkBoxAddId.Checked;
+                                AccsMng.Edit = checkBoxEditId.Checked;
+                                AccsMng.Delete = checkBoxDeleteId.Checked;
+                                AccsMng.ReadOnly = checkBoxReadOnlyId.Checked;
+                                AccsMng.ProjectNo = UA.projectNo;
+                                AccsMng.Created_By = UA.userName;
+
+
+                                if (ViewState["Special-Permission"] != null)
+                                {
+                                    AccsMng.Property1 = ViewState["Special-Permission"].ToString();
+                                }
+
+                                int result = AccsMng.UpdateObjectAccessByRoleIDAndObjID();
+
+                              if (result == 1)
+                                {
+                                lblError.Text = "Successfull delete";
+                                eObj.InsertionSuccessData(this, Messages.DeletionSuccessfull);
+                                //RadGrid1.Rebind();
+                                }
+
+                            }
+                        }
+                 
+                    }
+                    
+                 }
+ 
                 RadGrid1.AllowPaging = true;
             }
             catch (SqlException ex)
@@ -424,50 +191,27 @@ namespace FlyCn.FlycnSecurity
 
         }
 
+        #endregion Add Object Access For Roles
+
         #endregion Methods
-       
+
+        #region Events
 
         #region  ToolBar_onClick
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
             string functionName = e.Item.Value;
-
             
-                if (functionName == "Save")
+            if (functionName == "Save")
                 {
                     AddObjectAccessForRoles();
 
                 }
-
-                //if (dtObjectAccess.Rows.Count > 0)
-                //{
-                //    foreach (DataRow dr in dtObjectAccess.Rows)
-                //    {
-                //        for (int i = 0; i < dsFirstLevelObjects.Tables[0].Rows.Count; i++)
-                //        {
-
-                //            string firstLevelObjid = dsFirstLevelObjects.Tables[0].Rows[i]["ObjId"].ToString();
-                //            string objid = dr["ObjId"].ToString();
-
-                //            if (firstLevelObjid == objid)
-                //            {
-
-
-                //                if (objid == AccsMng.ObjectId)
-                //                {
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
-
-
-
-            
         }
 
         #endregion  ToolBar_onClick
 
+        #region Page Load
         protected void Page_Load(object sender, EventArgs e)
         {
            
@@ -494,17 +238,20 @@ namespace FlyCn.FlycnSecurity
 
 
         }
+        #endregion Page Load
 
+        #region Need Data Source For RadGrid
         protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable datatableobj = new DataTable();
             string RoleId = DropDownListObjReg.SelectedValue;
 
             RadGrid1.DataSource = AccsMng.ObjectRegistrationDetails(RoleId);
+       }
 
+        #endregion Need Data Source For RadGrid
 
-        }
-
+        #region Detail Table DataBind Of RadGrrid
         protected void RadGrid1_DetailTableDataBind(object source, Telerik.Web.UI.GridDetailTableDataBindEventArgs e)
         {
             GridDataItem dataItem = (GridDataItem)e.DetailTableView.ParentItem;
@@ -517,12 +264,12 @@ namespace FlyCn.FlycnSecurity
                         e.DetailTableView.DataSource = AccsMng.ObjectRegistrationDetailsBYLevelId(LevelID, RoleId);
                         break;
                     }
-                   
-                
+                 
             }
         }
+        #endregion Detail Table DataBind  Of RadGrrid
 
-
+        #region Item Created Of RadGrid
         protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)
@@ -545,8 +292,14 @@ namespace FlyCn.FlycnSecurity
 
         }
 
-        #region Special Perssion Add Click
+        #endregion Item Created Of RadGrid
 
+        #region Special Perssion Add Click
+        /// <summary>
+        /// Event stores special permission and is used in case of insert and update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnSpecial_Click(object sender, EventArgs e)
         {
             if (txtSpecial.Text != string.Empty)
@@ -558,23 +311,9 @@ namespace FlyCn.FlycnSecurity
 
         #endregion Special Perssion Add Click
 
-        #region Save Button Click
+        #endregion Events
 
-        /// <summary>
-        /// To add or update object access for roles
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-          
-           
-
-        }
-
-        #endregion Save Button Click
-
-
+//Not using now   
         protected void RadGrid1_PageIndexChanged(object sender, GridPageChangedEventArgs e)
         {
             //     RememberSelected();
@@ -793,7 +532,5 @@ namespace FlyCn.FlycnSecurity
             //}
         }
 
-        
-        
     }
 }
