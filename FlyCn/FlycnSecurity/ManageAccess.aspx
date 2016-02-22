@@ -307,7 +307,7 @@
     </ContentTemplate>
            </asp:UpdatePanel>
             </div>
-    <asp:Button ID="Button1" runat="server" Text="SAVE"  OnClick="Button1_Click" BackColor="Blue" ForeColor="White"/>
+  
             <asp:Label ID="lblError" runat="server" Text="" ForeColor="Green"></asp:Label>
 
 

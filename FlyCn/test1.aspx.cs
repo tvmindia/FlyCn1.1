@@ -77,6 +77,25 @@ namespace FlyCn
         {
             FlyCnSecurity.SecurityDAL.SecurityObjects obj = new FlyCnSecurity.SecurityDAL.SecurityObjects();
             radgrdObjects.DataSource = obj.GetRegisteredModules().Tables[0];
+
+            //foreach (GridDataItem item in radgrdObjects.Items)
+            //{
+
+            //    string leveldes = item.GetDataKeyValue("LevelDesc").ToString();
+
+            //    if (item.FindControl("MyExpBtn") != null)
+            //    {
+            //        Button btn = (Button)item.FindControl("MyExpBtn");
+            //        if(btn.Visible == false)
+            //        {
+
+            //        }
+            //    }
+
+            //}
+
+            
+
         }
 
         protected void radgrdObjects_ColumnCreated(object sender, Telerik.Web.UI.GridColumnCreatedEventArgs e)
@@ -214,7 +233,7 @@ namespace FlyCn
             if (item is GridDataItem) { 
                 if (item.FindControl("MyExpBtn") != null) {
                     Button btn = (Button)item.FindControl("MyExpBtn");
-                    btn.Attributes.Add("style", "visibility:hidden");
+                    btn.Attributes.Add("style", "visibility:hidden;margin-right: 0.6cm");
                 }
                 
             }
