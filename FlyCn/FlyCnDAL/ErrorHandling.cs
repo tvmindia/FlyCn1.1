@@ -92,7 +92,7 @@ namespace FlyCn.FlyCnDAL
              divMask1.Style["display"] = "";
              Label Success = (Label)master1.FindControl("lblErrorInfo");
              divMask1.Attributes["class"] = "Succesmsgboxes";
-             //Success.Text = "Successfully Updated";
+             Success.Text = "Successfully Updated";
 
              //ContentPlaceHolder mpContentPlaceHoldertest;
              //mpContentPlaceHoldertest = (ContentPlaceHolder)master1.FindControl("ContentPlaceHolder1");

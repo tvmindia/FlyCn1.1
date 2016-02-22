@@ -29,9 +29,11 @@
       }
 
           #tabs li a {
-            color: #000000;
+            color: white;
             display: block;
             text-decoration: none;
+            font-size:small;
+            font-weight:lighter;
         }
 
     </style>
@@ -104,7 +106,8 @@
             Description = trimString(Description);
             var ProjNo = document.getElementById('<%=ddlProjectNo.ClientID %>').value;
             ProjNo = trimString(ProjNo);
-            if (RoleName==""||Description==""||ProjNo=="") {
+            if (RoleName == "" || Description == "" || ProjNo == "--select Project No--") {
+                displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
                
                 return false;
             }
@@ -122,8 +125,8 @@
         <div class="col-md-12">
 
                 <ul id="tabs">
-                    <li><a href="#" name="tab1">Non-Project Roles</a></li>
-                    <li><a href="#" name="tab2">Project Roles</a></li>
+                    <li><a href="#" onclick="MyTab1(this);" id="tabs1">Non-Project Roles</a></li>
+                    <li><a href="#" onclick="MyTab2(this);" id="tabs2">Project Roles</a></li>
                 </ul>
    
      <div id="content">
@@ -133,14 +136,17 @@
    <uc1:ToolBar runat="server" ID="ToolBar"/>
 
     <div class="col-md-5"  >
-           
-         <div class="contentTopBar" style="min-width:460px" ></div>
-         <div  style="overflow-x: scroll;min-width:460px;" >
+        <div style="margin-left:-8px;">
+            <asp:Label ID="Label1" runat="server" Text="Manage Existing Roles" CssClass="PageHeading"></asp:Label>
+            </div>
+        <br />
+         <div class="contentTopBar" style="min-width:600px" ></div>
+         <div  style="width:600px;" >
          
               <telerik:RadGrid ID="dtgNonProjectRoles" runat="server" AllowPaging="true" AllowSorting="true"  PageSize="7"
                         OnNeedDataSource="dtgNonProjectRoles_NeedDataSource" OnItemCommand="dtgNonProjectRoles_ItemCommand"
                         Skin="Silk" CssClass="outerMultiPage"
-                        OnPreRender="dtgNonProjectRoles_PreRender" Width="100%" >
+                        OnPreRender="dtgNonProjectRoles_PreRender" Width="100%">
                   
                   <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
@@ -150,20 +156,20 @@
                         <MasterTableView AutoGenerateColumns="false" DataKeyNames="RoleID" >
                             
                             <Columns>
-                                <telerik:GridButtonColumn CommandName="EditData" ItemStyle-Width="10%" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
+                                <telerik:GridButtonColumn CommandName="EditData" ItemStyle-Width="2px" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
                                 </telerik:GridButtonColumn>
-                                <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" ItemStyle-Width="10%"  ImageUrl="~/Images/Cancel.png" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
+                                <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" ItemStyle-Width="2px"  ImageUrl="~/Images/Cancel.png" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
                                 </telerik:GridButtonColumn>
 
-                                <telerik:GridBoundColumn HeaderText="ID" DataField="RoleID" UniqueName="RoleID" HeaderStyle-Width="10%" ></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn HeaderText="Name" DataField="RoleName" UniqueName="RoleName" HeaderStyle-Width="10%"  ></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn HeaderText="Type" DataField="RoleType" UniqueName="RoleType" HeaderStyle-Width="10%" ></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn HeaderText="Scope" DataField="RoleScope" UniqueName="RoleScope" HeaderStyle-Width="10%" ></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn  HeaderText="Scope Value" DataField="ScopeValue" UniqueName="ScopeValue" HeaderStyle-Width="10%" >  </telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn HeaderText="Group1" DataField="ProjectGroup1" UniqueName="ProjectGroup1" HeaderStyle-Width="10%"></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn HeaderText="Group2" DataField="ProjectGroup2" UniqueName="ProjectGroup2" HeaderStyle-Width="10%" ></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn HeaderText="Group3" DataField="ProjectGroup3" UniqueName="ProjectGroup3" HeaderStyle-Width="5%"></telerik:GridBoundColumn> 
-                                 <telerik:GridBoundColumn HeaderText="Access Type" DataField="AccessType" UniqueName="AccessType" HeaderStyle-Width="5%" ></telerik:GridBoundColumn> 
+                                <telerik:GridBoundColumn HeaderText="ID" DataField="RoleID" UniqueName="RoleID" ></telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn HeaderText="Name" DataField="RoleName" UniqueName="RoleName" ></telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn HeaderText="Type" DataField="RoleType" UniqueName="RoleType" ></telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn HeaderText="Scope" DataField="RoleScope" UniqueName="RoleScope"  ></telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn  HeaderText="Scope Value" DataField="ScopeValue" UniqueName="ScopeValue" >  </telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn HeaderText="Group1" DataField="ProjectGroup1" UniqueName="ProjectGroup1"></telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn HeaderText="Group2" DataField="ProjectGroup2" UniqueName="ProjectGroup2"></telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn HeaderText="Group3" DataField="ProjectGroup3" UniqueName="ProjectGroup3"></telerik:GridBoundColumn> 
+                                 <telerik:GridBoundColumn HeaderText="Access Type" DataField="AccessType" UniqueName="AccessType" ></telerik:GridBoundColumn> 
                                  <%--<telerik:GridBoundColumn HeaderText="Created By" DataField="Created_By" UniqueName="Created_By" ></telerik:GridBoundColumn>--%> 
                                  <%--<telerik:GridBoundColumn HeaderText="Created Date" DataField="Created_Date" UniqueName="Created_Date"  DataType="System.DateTime"  DataFormatString="{0:M/d/yyyy}" ></telerik:GridBoundColumn>--%> 
 
@@ -177,12 +183,15 @@
   </div>
        
       <div class="col-md-2">&nbsp;</div>
-            <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;height:380px">&nbsp;</div>
+            <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;height:400px;top:15px;">&nbsp;</div>
 
     <div class="col-md-4">
-
+        <div style="margin-left:-80px;">
+   <asp:Label ID="Label2" runat="server" Text="Create New Role" CssClass="PageHeading"></asp:Label>
+            </div>
+        <br />
 <%--Role name--%>
-   <div class="col-md-12 Span-One">
+   <div class="col-md-12 Span-One" style="margin-left:-95px;">
                    
 
 
@@ -205,7 +214,7 @@
 
 <%--Role type--%>
 
-   <div class="col-md-12 Span-One">
+   <div class="col-md-12 Span-One" style="margin-left:-95px;">
                    
 
                         <div class="form-group required">
@@ -228,7 +237,7 @@
 
 <%--Role scope--%>
 
-   <div class="col-md-12 Span-One">
+   <div class="col-md-12 Span-One" style="margin-left:-95px;">
                    
 
                         <div class="form-group required">
@@ -253,7 +262,7 @@
 
  <%--Scope value--%>  
 
-        <div class="col-md-12 Span-One">
+        <div class="col-md-12 Span-One" style="margin-left:-95px;">
                    
 
                         <div class="form-group">
@@ -280,7 +289,7 @@
 
 
 
-        <div class="col-md-12 Span-One">
+        <div class="col-md-12 Span-One" style="margin-left:-95px;">
                    
             
 
@@ -309,7 +318,7 @@
 
 
 
-        <div class="col-md-12 Span-One">
+        <div class="col-md-12 Span-One" style="margin-left:-95px;">
                    
 
                         <div class="form-group">
@@ -335,7 +344,7 @@
 
 <%--Project group3--%>
 
-<div class="col-md-12 Span-One">
+<div class="col-md-12 Span-One" style="margin-left:-95px;">
                    
 
                         <div class="form-group">
@@ -361,7 +370,7 @@
 
 <%--Access type--%>
 
-        <div class="col-md-12 Span-One">
+        <div class="col-md-12 Span-One" style="margin-left:-95px;">
                    
 
                         <div class="form-group required">
@@ -392,20 +401,20 @@
 
             <div id="tab2">
                 
-                 <div class="contentTopBar" style="width:1120px;"></div>
-
                 <div role="tabpanel" class="tab-pane active" id="Div1">
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="overflow-x:hidden;">
                        
         <uc1:ToolBar runat="server" ID="ToolBar1" /> 
        
-                         <div style="float:left; width:50%;">
+                
+
+                         <div style="float:left; width:53%;">
                            
                                <asp:Label ID="lblManageExistingRoles" runat="server" Text="Manage Existing Roles" CssClass="PageHeading"></asp:Label>
                              <br />
                            <div class="col-md-12 Span-One">
                                 <div class="col-md-6"></div>
-                               <div class="col-md-3" style="margin-left:-50%;">
+                               <div class="col-md-3" style="margin-left:-52%;">
                              <asp:Label ID="lblProjectNo" runat="server" Text="Project No"></asp:Label>
                                     </div>
                                <div class="col-md-3" style="margin-left:-15%;">
@@ -414,15 +423,18 @@
                                    </asp:DropDownList>
                                    </div>
                              </div>
-                               <div class="col-md-12">
+                               <div class="col-md-4">
                          
                          
                          
                        <br />
-                         <div style="width:400px;">
-                              <telerik:RadGrid ID="dtgManageExistingRoles" runat="server" OnNeedDataSource="dtgManageExistingRoles_NeedDataSource">
-
-                    <MasterTableView  AutoGenerateColumns="false" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No Categories have been added.">
+                                    <div class="contentTopBar" style="width:450px;"></div>
+                         <div style="width:450px;">
+                              <telerik:RadGrid ID="dtgManageExistingRoles" runat="server" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageExistingRoles_NeedDataSource">
+                                     <HeaderStyle  HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <AlternatingItemStyle HorizontalAlign="Left" />
+                    <MasterTableView  AutoGenerateColumns="false" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No roles have been added.">
                          <Columns>
                               <telerik:GridBoundColumn HeaderText="Role ID" DataField="RoleID" UniqueName="RoleID" ></telerik:GridBoundColumn> 
                               <telerik:GridBoundColumn HeaderText="Role Name" DataField="RoleName" UniqueName="RoleName"></telerik:GridBoundColumn>
@@ -435,14 +447,17 @@
                              </div>
                                    </div>
                              </div>
-                        <div style="float:right; width:50%; ">
+                      
+                        <div style="float:right; width:47%; ">
 
                             <br />
-            <div class="col-md-12"  style="border-left: 1px solid #cfc7c0;height:400px;top:35%">
+            <div class="col-md-12"  style="border-left: 1px solid #cfc7c0;height:400px;top:35%;margin-left:0px;">
+                <div style="margin-left:55px;">
 
                                <asp:Label ID="lblCreateNewRole" runat="server" Text="Create New Role" CssClass="PageHeading"></asp:Label>
+                    </div>
 
-                             <div class="col-md-12 Span-One">
+                             <div class="col-md-12 Span-One" style="margin-left:5%;">
                                  <div class="form-group required">
                                 <div class="col-md-6">
                              <asp:Label ID="lblCreateRoleName" runat="server" Text="Role Name" CssClass="control-label col-md-6 "></asp:Label>
@@ -459,7 +474,7 @@
                                      </div>
                              </div>
 
-                             <div class="col-md-12 Span-One">
+                             <div class="col-md-12 Span-One" style="margin-left:5%;">
                                  <div class="form-group required">
                                 <div class="col-md-6">
                              <asp:Label ID="lblDescription" runat="server" Text="Description" CssClass="control-label col-md-6 "></asp:Label>
@@ -476,28 +491,12 @@
                                      </div>
                              </div>
 
-                           <%--  <div class="col-md-12 Span-One">
-                                 <div class="form-group required">
-                                <div class="col-md-6">
-                             <asp:Label ID="lblCreateAccessType" runat="server" Text="AccessType" CssClass="control-label col-md-6 "></asp:Label>
-                                    </div>
-                               <div class="col-md-6">
-                                  <asp:TextBox ID="txtCreateAccessType" runat="server" CssClass="form-control"></asp:TextBox>
-                                   <asp:RequiredFieldValidator ID="rfvAccessType" runat="server" ErrorMessage="Enter AccessType"
-                                    Display="Dynamic" SetFocusOnError="true"
-                                    ForeColor="Red"
-                                    ValidationGroup="Group"
-                                    ControlToValidate="txtCreateAccessType">
-                                </asp:RequiredFieldValidator>
-                                   </div>
-                                     </div>
-                             </div>--%>
-
                             </div>
                     </div>
                 </div>
             </div>
-              </div>
+            
+            </div>
             </div>
    </div>
             </div>
@@ -505,44 +504,33 @@
      <asp:HiddenField ID="selected_tab" runat="server" />
  <script>
     
+   
      $(document).ready(function () {
-       
          var myHidden = document.getElementById('<%= selected_tab.ClientID %>');
-     
-         $("#content").find("[id^='tab']").hide(); // Hide all content
-         if (myHidden.value == "" || myHidden.value == "0")
-         {
-             $("#tabs li:first").attr("id", "current"); // Activate the first tab
-             $("#content #tab1").fadeIn(); // Show first tab's content//detection for current tab
-         }
-         else
-         {
-             tabsTwo();
-         }
-         parent.showTreeNode();
-         $('#tabs a').click(function (e) {
-             e.preventDefault();
-             if ($(this).closest("li").attr("id") == "current") {
-                
-                 return;
+             document.getElementById("tab1").style.display = "block";
+             document.getElementById("tab2").style.display = "none";
+             if(myHidden.value==2)
+             {
+                 document.getElementById("tab2").style.display = "block";
+                 document.getElementById("tab1").style.display = "none";
              }
-             else {
-                 myHidden.value = 1;
-                
-                 $("#content").find("[id^='tab']").hide(); // Hide all content
-                 $("#tabs li").attr("id", ""); //Reset id's
-                 $(this).parent().attr("id", "current"); // Activate this
-                 $('#' + $(this).attr('name')).fadeIn(); // Show content for the current tab
-                 return;
-             }
-         });
-        
+         
      });
-
-     function tabsTwo() {
-         $("#content").find("[id^='tab']").hide();
-         $("#tabs li").attr("id", "");
-         $("#content #tab2").fadeIn();
+     function MyTab1(id)
+     {
+         var myHidden = document.getElementById('<%= selected_tab.ClientID %>');
+         myHidden.value = 1;
+         funtab2 = document.getElementById("tab2");
+         funtab2.style.display = "none";
+         document.getElementById("tab1").style.display = "block";
+     }
+     function MyTab2(id) {
+         var myHidden = document.getElementById('<%= selected_tab.ClientID %>');
+         myHidden.value = 2;
+         funtab1 = document.getElementById("tab1");
+        
+         funtab1.style.display = "none";
+         document.getElementById("tab2").style.display = "block";
         
      }
     </script>

@@ -98,6 +98,10 @@ namespace FlyCn.UIClasses
           {
               get { return "Declined"; }
           }
+          public static string SuccessfulUpload
+          {
+              get { return "Successfully Uploaded"; }
+          }
       }
       
 }

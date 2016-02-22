@@ -574,5 +574,71 @@ namespace FlyCn.FlyCnDAL
 
         #endregion Get All Role Scope
 
+        #region DeleteM_User
+        public void DeleteM_User(string UserID)
+        {
+
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("DeleteUserDetails", con);
+                cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = UserID;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+
+                cmd.ExecuteNonQuery();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.InsertionSuccessData(page, "User Deleted Successfully..!!!");
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+        #endregion DeleteM_User
+
+        #region EditM_users
+        public int EditM_users(string UserID)
+        {
+            int result = 0;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+
+                con = dcon.GetDBConnection();
+                string editQuery = "UpdateUserDetails";
+                SqlCommand cmdEdit = new SqlCommand(editQuery, con);
+                cmdEdit.CommandType = CommandType.StoredProcedure;
+                cmdEdit.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = UserID;
+                cmdEdit.Parameters.Add("@PassWord", SqlDbType.VarChar, 50).Value = Password;
+                cmdEdit.Parameters.Add("@EmailId", SqlDbType.VarChar, 50).Value = UserEMail;
+                cmdEdit.Parameters.Add("@Active", SqlDbType.Bit).Value = Active;
+                result = cmdEdit.ExecuteNonQuery();
+            }
+
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return result;
+
+        }
+        #endregion EditM_users
     }
 }

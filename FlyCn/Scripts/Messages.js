@@ -5,8 +5,10 @@
     AlreadyClosedDocument: "This Document Is Already Closed",
     OwnershipChangeFromSameOwner:"Document Onwer Cannot be changed",
     NotApprovedDocument: "Only Approve Document Can Revise",
-    EditModeNewClick: "Sorry You dont have the permission to add a new document!"
-    
+    EditModeNewClick: "Sorry You dont have the permission to add a new document!",
+    UserNameNeeded: "Please Select User..!!!",
+    PasswordDoesnotMatch: "Password Doesn't Match..!!!",
+    SelectLevel: "Please Select Level..!!!"
 }
 
 

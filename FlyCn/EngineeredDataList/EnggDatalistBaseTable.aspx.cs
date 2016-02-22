@@ -93,13 +93,19 @@ namespace FlyCn.EngineeredDataList
 
         protected void dtgUploadGrid_PreRender(object sender, EventArgs e)
         {
+
             dtgUploadGrid.MasterTableView.GetColumn("ProjectNo").Visible = false;
             dtgUploadGrid.MasterTableView.GetColumn("ExcelMustFields").Visible = false;
             dtgUploadGrid.MasterTableView.GetColumn("Field_DataType").Visible = false;
             dtgUploadGrid.MasterTableView.GetColumn("Key_Field").Visible = false;
             dtgUploadGrid.MasterTableView.GetColumn("Field_Name").Visible = false;
-            
-            
+            dtgUploadGrid.MasterTableView.GetColumn("Ref_TableName").Visible = false;
+            dtgUploadGrid.MasterTableView.GetColumn("Ref_JoinField").Visible = false;
+            dtgUploadGrid.MasterTableView.GetColumn("Ref_SelectField").Visible = false;
+           
+
+            dtgUploadGrid.Rebind(); 
+                               
         }
         protected void dtgUploadGrid_ItemDataBound(object sender, GridItemEventArgs e)
         {
@@ -214,7 +220,7 @@ namespace FlyCn.EngineeredDataList
                                     //SlideEffectUpload
                                     //lblMsg.Text = "Successfully Uploaded!";
                                     ScriptManager.RegisterStartupScript(this, GetType(), "Upload", "GenerateTemplateNextClick();", true);
-                                    ScriptManager.RegisterStartupScript(this, GetType(), "SlideEffect", "SlideEffectUpload();", true);
+                                   // ScriptManager.RegisterStartupScript(this, GetType(), "SlideEffect", "SlideEffectUpload();", true);
                                     ScriptManager.RegisterStartupScript(this, GetType(), "SlideEffect", "ShowGridButton();", true);
                                     EnaableButtonandGrid();
                                     CheckBoxAllCheck();
@@ -358,7 +364,6 @@ namespace FlyCn.EngineeredDataList
                 {
                     if (!(dataItem.FindControl("CheckBox1") as CheckBox).Checked)
                     {
-
                         (dataItem.FindControl("CheckBox1") as CheckBox).Checked = checkHeader;
                     }
                 }
@@ -674,12 +679,12 @@ namespace FlyCn.EngineeredDataList
                 {
                     //Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
                     //excelImportThread.Start();
-                    //new Thread(delegate()
-                    //     {
-                    //         importObj.ImportExcelData(tempDS);
-                    //     }).Start();
+                    new Thread(delegate()
+                         {
+                             importObj.ImportExcelData(tempDS);
+                         }).Start();
 
-                   importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+                  // importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
                 }
                 //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
                 ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id + "&ModuleName=" + importObj.SheetName;//iframe page ImportStatusList.aspx is called with query string revisonid and module name from excel sheet name

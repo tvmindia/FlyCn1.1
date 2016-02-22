@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Data;
 using FlyCn.FlyCnDAL;
 using Telerik.Web.UI;
+using FlyCn.UIClasses;
+using System.Data.SqlClient;
 
 namespace FlyCn.FlycnSecurity
 {
@@ -22,25 +24,49 @@ namespace FlyCn.FlycnSecurity
             
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
+
+            ToolBar.AddButton.Visible = false;
+            ToolBar.EditButton.Visible = false;
+            ToolBar.DeleteButton.Visible = false;
+            ToolBar.UpdateButton.Visible = false;
+            ToolBar.SaveButton.Visible = true;
+           
            if(!IsPostBack)
               {
-                BindData();
+               
               
               }
-           BindData();
+         
         }
         #endregion Page_Load
 
         #region dtgManageExisting_NeedDataSource
         protected void dtgManageExisting_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            if (dtgManageExisting.DataSource == null)
-            {
-                dtgManageExisting.DataSource = new string[] { };
-            }  
+            FlyCnDAL.Users userObj = new FlyCnDAL.Users();
+           
+          
+                DataTable ds = new DataTable();
+                ds = userObj.GetAllUsers();
+                dtgManageExisting.DataSource = ds;
+           
+                   
+            
         }
 
         #endregion dtgManageExisting_NeedDataSource
+
+        #region Toolbar visibility for project roles
+        public void TabVisibility()
+        {
+            ToolBar.UpdateButton.Visible = false;
+            ToolBar.DeleteButton.Visible = false;
+            ToolBar.AddButton.Visible = false;
+            ToolBar.SaveButton.Visible = true;
+        }
+
+        #endregion Toolbar visibility for project roles
+
 
         #region ToolBar_onClick
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
@@ -52,9 +78,45 @@ namespace FlyCn.FlycnSecurity
                     FillUsers();
                     dtgManageExisting.Rebind();
                  }
+               
+                if (functionName == "Update")
+                {
+                    UpdateM_user();
+                    dtgManageExisting.Rebind();
+
+                    //RegisterToolBox();
+                }
                 BindData();
+
              }
         #endregion ToolBar_onClick
+
+        #region UpdateM_user
+        public void UpdateM_user()
+        {
+            FlyCnDAL.Users userObj = new FlyCnDAL.Users();
+            string userName = ViewState["UserName"].ToString();
+            userObj.Password = txtPassword.Text;
+            userObj.UserEMail = txtEmail.Text;
+            if (chkIsActive.Checked)
+            {
+                userObj.Active = true;
+            }
+            else
+            {
+                userObj.Active = false;
+            }
+            int result = userObj.EditM_users(userName);
+            if (result == 1)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.UpdationSuccessData(page);
+
+            }
+            BindData();
+        }
+       #endregion UpdateM_user 
 
         #region BindData
         public void BindData()
@@ -86,7 +148,14 @@ namespace FlyCn.FlycnSecurity
                 userObj.UserName = txtLoginName.Text;
                 userObj.Password = txtPassword.Text;
                 userObj.UserEMail = txtEmail.Text;
-                userObj.Active = Convert.ToBoolean(txtActive.Text);
+                if (chkIsActive.Checked)
+                {
+                    userObj.Active = true;
+                }
+                else
+                {
+                    userObj.Active = false;
+                }
                 userObj.Theme = ddlTheme.Text;
                 userObj.InsertM_Users();
             }
@@ -114,5 +183,130 @@ namespace FlyCn.FlycnSecurity
         }
 
         #endregion ValidateLoginName
+
+        protected void dtgManageExisting_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+           
+        }
+
+        #region Delete from M_User
+
+        public void DeleteUserByUserName(string userName)
+        {
+            FlyCnDAL.Users userObj = new FlyCnDAL.Users();
+            try
+            {
+               userObj.DeleteM_User(userName);
+               eObj.InsertionSuccessData(this, Messages.DeletionSuccessfull);
+
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+        }
+
+        #endregion Delete from M_User
+
+        protected void dtgManageExisting_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+            GridDataItem items = e.Item as GridDataItem;
+            string userName = items.GetDataKeyValue("UserName").ToString();
+            if (e.CommandName == "Delete")
+            {
+                DeleteUserByUserName(userName);
+            }
+        }
+
+        protected void dtgManageExisting_DeleteCommand1(object sender, GridCommandEventArgs e)
+        {
+
+            GridDataItem items = e.Item as GridDataItem;
+            string userName = items.GetDataKeyValue("UserName").ToString();
+            if (e.CommandName == "Delete")
+            {
+                DeleteUserByUserName(userName);
+            }
+        }
+
+        #region Toolbar Visibility
+
+        public void ToolbarVisibility(string EditCase)
+        {
+            if (EditCase == "True")
+            {
+                ToolBar.UpdateButton.Visible = true;
+                ToolBar.SaveButton.Visible = false;
+            }
+        }
+
+        #endregion Toolbar Visibility
+        protected void dtgManageExisting_ItemCommand1(object sender, GridCommandEventArgs e)
+        {
+            FlyCnDAL.Users userObj = new FlyCnDAL.Users();
+            DataTable dt = new DataTable();
+            GridDataItem items = e.Item as GridDataItem;
+
+            if (items != null)
+            {
+                string userName = items.GetDataKeyValue("UserName").ToString();
+                ViewState["UserName"] = userName;
+
+                if (e.CommandName == "Delete")
+                {
+                    DeleteUserByUserName(userName);
+                }
+                if (e.CommandName == "EditData")
+                {
+                    hdnEditPostBack.Value = "True";
+                    ToolbarVisibility(hdnEditPostBack.Value);
+                    dt = userObj.GetAllUsers();
+                    int rowCount = dt.Rows.Count;
+                    for (int i = 0; i < rowCount; i++)
+                    {
+                        if (dt.Columns.Contains("UserName"))
+                        {
+                            if (dt.Rows[i]["UserName"].ToString() == userName)
+                            {
+                                txtLoginName.Text = userName;
+
+                                string password = dt.Rows[i]["PassWord"].ToString();
+                                txtPassword.Text = password;
+                                txtConfirmPassword.Text = password;
+
+                                string emailID = dt.Rows[i]["EmailId"].ToString();
+                                txtEmail.Text = emailID;
+
+                                bool active =Convert.ToBoolean(dt.Rows[i]["Active"]);
+                                 if(active==true)
+                                 {
+                                     chkIsActive.Checked = true;
+                                 }
+                                else
+                                 {
+                                     chkIsActive.Checked = false;
+                                 }
+
+                                string theme = dt.Rows[i]["Theme"].ToString();
+                                ddlTheme.SelectedValue = theme;
+
+                                userObj.Password = txtPassword.Text;
+                                userObj.UserEMail = txtEmail.Text;
+                                if (chkIsActive.Checked)
+                                {
+                                    userObj.Active = true;
+                                }
+                                else
+                                {
+                                    userObj.Active = false;
+                                }
+                            }   
+                        }
+                    }
+                }
+            }
+        }
     }
 }
