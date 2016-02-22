@@ -359,7 +359,7 @@ namespace FlyCn.EngineeredDataList
             GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
             if (headerItem != null)
             {
-                 bool checkHeader = true;
+                bool checkHeader = true;
                 foreach (GridDataItem dataItem in dtgUploadGrid.MasterTableView.Items)
                 {
                     if (!(dataItem.FindControl("CheckBox1") as CheckBox).Checked)
@@ -458,6 +458,10 @@ namespace FlyCn.EngineeredDataList
                }
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tempDS"></param>
 
        public void RemoveErrorRow(DataSet tempDS)
        {
@@ -488,7 +492,9 @@ namespace FlyCn.EngineeredDataList
                checkds.AcceptChanges();
            }
        }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void GetUserSelectedFields()
         {
              string temps="";
@@ -508,6 +514,9 @@ namespace FlyCn.EngineeredDataList
                 }
                         
         }
+        /// <summary>
+        /// 
+        /// </summary>
        
         public void GetErrorRows()
         {
@@ -535,6 +544,9 @@ namespace FlyCn.EngineeredDataList
                 }
            
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public void DynamicSheet()
        {
             switch(moduleObj.ModuleID)
@@ -603,7 +615,11 @@ namespace FlyCn.EngineeredDataList
         {
             dtgvalidationErros.Rebind();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void BtnNext_Click(object sender, EventArgs e)//btn validate
         {
 
@@ -619,7 +635,7 @@ namespace FlyCn.EngineeredDataList
                 {
                     tempDS = new DataSet();
                     tempDS = importObj.GetExcelData();
-                    CheckBoxColumns();//getting the fieldnames that has been uncheced
+                    CheckBoxColumns();//getting the fieldnames that has been unchecked
                     RemoveColumnFromDS(tempDS);
                     ValidateDataStructure(tempDS);
                     hdfstatusID.Value = validationObj.importfile.status_Id.ToString();
@@ -646,7 +662,11 @@ namespace FlyCn.EngineeredDataList
 
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnImport_Click(object sender, EventArgs e)
         {
           
