@@ -907,6 +907,8 @@ namespace FlyCn.FlycnSecurity
             Bindgridview();
         }
 
+      
+
        
     }
 }

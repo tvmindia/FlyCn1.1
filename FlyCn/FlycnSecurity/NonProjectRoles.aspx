@@ -38,8 +38,6 @@
 
     </style>
 
-    
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -51,7 +49,7 @@
       
 
         function OnClientButtonClickingDetail(sender, args) {
-            debugger;
+            
             var btn = args.get_item();
 
             if (btn.get_value() == 'Save') {
@@ -98,8 +96,8 @@
                 args.set_cancel(!validate());
             }
         }
-        function validate() {
-           
+   <%--     function validate() {
+            debuggr;
             var RoleName = document.getElementById('<%=txtCreateRoleName.ClientID %>').value;
             RoleName = trimString(RoleName);
             var Description = document.getElementById('<%=txtDescription.ClientID %>').value;
@@ -115,7 +113,7 @@
                 return true;
             }
 
-        }
+        }--%>
 
     </script>
 

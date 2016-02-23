@@ -143,12 +143,14 @@
      <%--  <div class="contentTopBar" style="width:500px;display:none" id="contentTopBar" runat="server"></div>--%>
 
 
-     <asp:GridView ID="gvObjectRegistration" GridLines="None" Width="380px"  runat="server" ForeColor="#333333" >
+     <asp:GridView ID="gvObjectRegistration" GridLines="None" Width="380px"  runat="server" ForeColor="#333333"  >
                           <AlternatingRowStyle BackColor="White"/>
                           <Columns>
                                <asp:TemplateField>
 
                                 <ItemTemplate>
+
+                                       
                                     <asp:ImageButton ID="imgBtnDelete" runat="server"  ImageUrl="~/Images/Trash can - 04.png"  OnClientClick="return confirm('Deletion Confirmation \n\n\n\n\ Are you sure you want to delete this item ?');" OnClick="imgBtnDelete_Click"/>
                                 <%--   <asp:ImageButton ID="imgBtnUpdate" runat="server" ImageUrl="~/Images/Icons/editToolBarIcon.png" OnClick="imgBtnUpdate_Click" />--%>
                                 

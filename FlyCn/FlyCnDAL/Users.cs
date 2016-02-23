@@ -82,6 +82,8 @@ namespace FlyCn.FlyCnDAL
 
         #region private variables
         ErrorHandling eObj = new ErrorHandling();
+        dbConnection flycnCon = new dbConnection();
+
         #endregion private variables
         /// <summary>
         /// Get User Details By User Name
@@ -293,10 +295,11 @@ namespace FlyCn.FlyCnDAL
         {
             DataTable datatableobj = null;
             SqlConnection con = null;
-            DBconnection dcon = new DBconnection();
+            //DBconnection dcon = new DBconnection();
             try
             {
-                con = dcon.GetDBConnection();
+                //con = dcon.GetDBConnection();
+                con = flycnCon.GetDBConnection();
                 SqlCommand cmd = new SqlCommand("SelectAllUsers", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter adapter = new SqlDataAdapter();
@@ -640,5 +643,7 @@ namespace FlyCn.FlyCnDAL
 
         }
         #endregion EditM_users
+
+       
     }
 }
