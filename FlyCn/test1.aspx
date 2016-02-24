@@ -69,13 +69,11 @@
              
 
                                         <telerik:GridBoundColumn DataField="LevelDesc"  UniqueName="LevelDesc" ItemStyle-HorizontalAlign="Left" HeaderText="Level Desc" >                                         
- 
-
-                                            <HeaderStyle Width="200"></HeaderStyle>                                           
+                                      <HeaderStyle Width="200"></HeaderStyle>                                           
                                             <ItemStyle Width="200" HorizontalAlign="Left"></ItemStyle>
                                         </telerik:GridBoundColumn>
                                         
-
+                                     
                                         <telerik:GridAttachmentColumn FileName="attachment" FilterControlAltText="Filter column column" UniqueName="column">
                                         </telerik:GridAttachmentColumn>
                                         <telerik:GridAttachmentColumn FileName="attachment" FilterControlAltText="Filter column1 column" UniqueName="column1">
@@ -83,7 +81,7 @@
                                         <telerik:GridAttachmentColumn FileName="attachment" FilterControlAltText="Filter column2 column" UniqueName="column2">
                                         </telerik:GridAttachmentColumn>
                                        
-
+                                        
                                     </Columns>
 
 

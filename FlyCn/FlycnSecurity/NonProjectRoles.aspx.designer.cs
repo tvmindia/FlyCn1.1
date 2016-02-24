@@ -40,6 +40,15 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
+        /// upGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upGrid;
+        
+        /// <summary>
         /// dtgNonProjectRoles control.
         /// </summary>
         /// <remarks>
@@ -47,6 +56,15 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid dtgNonProjectRoles;
+        
+        /// <summary>
+        /// UpInsert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpInsert;
         
         /// <summary>
         /// Label2 control.

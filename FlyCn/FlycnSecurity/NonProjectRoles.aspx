@@ -133,15 +133,17 @@
                             <div class="table-responsive">
    <uc1:ToolBar runat="server" ID="ToolBar"/>
 
+<div class="col-md-12"  >
     <div class="col-md-5"  >
         <div style="margin-left:-8px;">
             <asp:Label ID="Label1" runat="server" Text="Manage Existing Roles" CssClass="PageHeading"></asp:Label>
             </div>
         <br />
-         <div class="contentTopBar" style="min-width:600px" ></div>
-         <div  style="width:600px;" >
          
-              <telerik:RadGrid ID="dtgNonProjectRoles" runat="server" AllowPaging="true" AllowSorting="true"  PageSize="7"
+         
+          <asp:UpdatePanel ID="upGrid" runat="server">
+                                    <ContentTemplate>
+<telerik:RadGrid ID="dtgNonProjectRoles" runat="server" AllowPaging="true" AllowSorting="true"  PageSize="7"
                         OnNeedDataSource="dtgNonProjectRoles_NeedDataSource" OnItemCommand="dtgNonProjectRoles_ItemCommand"
                         Skin="Silk" CssClass="outerMultiPage"
                         OnPreRender="dtgNonProjectRoles_PreRender" Width="100%">
@@ -175,14 +177,23 @@
                         </MasterTableView>
 
                     </telerik:RadGrid>
-
-             </div>
+              
+    
+</ContentTemplate>
+              </asp:UpdatePanel>
+            
           
   </div>
        
-      <div class="col-md-2">&nbsp;</div>
-            <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;height:400px;top:15px;">&nbsp;</div>
+      <div class="col-md-2">&nbsp;
 
+      </div>
+            <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;height:400px;top:15px;">&nbsp;
+
+            </div>
+
+        <asp:UpdatePanel ID="UpInsert" runat="server">
+                                    <ContentTemplate>                         
     <div class="col-md-4">
         <div style="margin-left:-80px;">
    <asp:Label ID="Label2" runat="server" Text="Create New Role" CssClass="PageHeading"></asp:Label>
@@ -221,8 +232,9 @@
                             <asp:Label ID="lblRoleType" CssClass="control-label col-md-5"  runat="server" Text="RoleType">  </asp:Label>
 
                             <div class="col-md-7">
+                               
                                     <asp:DropDownList ID="ddlRoleType" runat="server" CssClass="selectbox" AutoPostBack="true" OnSelectedIndexChanged="ddlRoleType_SelectedIndexChanged"></asp:DropDownList>
-                                
+                             
                                 <span id="span1" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;"></span>
 
                             </div>
@@ -246,8 +258,9 @@
           </asp:Label>
 
                             <div class="col-md-7">
+                             
                                      <asp:DropDownList ID="ddlLevel" CssClass="selectbox" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlLevel_SelectedIndexChanged"></asp:DropDownList>
-                                
+                              
                                 <span id="span2" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;"></span>
 
                             </div>
@@ -271,10 +284,13 @@
           </asp:Label>
 
                             <div class="col-md-7">
-                                    <asp:ListBox ID="lstRoleScope" CssClass="selectbox" runat="server" SelectionMode="Multiple" OnSelectedIndexChanged="lstRoleScope_SelectedIndexChanged"></asp:ListBox>
-                                
-                               
 
+                                 
+                                    <asp:ListBox ID="lstRoleScope"  CssClass="selectbox" runat="server" SelectionMode="Multiple" OnSelectedIndexChanged="lstRoleScope_SelectedIndexChanged" >
+                                     
+                                        
+                                        </asp:ListBox>
+                                
                             </div>
                         </div>
                         <%-- </form>--%>
@@ -300,8 +316,10 @@
           </asp:Label>
 
                             <div class="col-md-7">
-                                  <asp:DropDownList ID="ddlProjectGroup1" CssClass="selectbox" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlProjectGroup1_SelectedIndexChanged" ></asp:DropDownList>
+
                                 
+                                  <asp:DropDownList ID="ddlProjectGroup1" CssClass="selectbox" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlProjectGroup1_SelectedIndexChanged" ></asp:DropDownList>
+                               
                                
 
                             </div>
@@ -389,7 +407,14 @@
                
                     
                 </div>
+
         </div>
+
+                                        </ContentTemplate>
+            </asp:UpdatePanel>
+
+    </div>
+
                                 </div>
 
    </div>
@@ -426,7 +451,7 @@
                          
                          
                        <br />
-                                    <div class="contentTopBar" style="width:450px;"></div>
+                                   <%-- <div class="contentTopBar" style="width:450px;"></div>--%>
                          <div style="width:450px;">
                               <telerik:RadGrid ID="dtgManageExistingRoles" runat="server" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageExistingRoles_NeedDataSource">
                                      <HeaderStyle  HorizontalAlign="Center" />
@@ -498,6 +523,8 @@
             </div>
    </div>
             </div>
+
+                   
     <asp:HiddenField ID="hdnEditPostBack" runat="server" Value="0" />
      <asp:HiddenField ID="selected_tab" runat="server" />
  <script>

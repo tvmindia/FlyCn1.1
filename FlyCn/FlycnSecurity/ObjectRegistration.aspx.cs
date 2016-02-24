@@ -260,7 +260,6 @@ namespace FlyCn.FlycnSecurity
         #endregion  Bind Gridview
 
 
-
         #endregion Methods
 
 
@@ -453,7 +452,7 @@ namespace FlyCn.FlycnSecurity
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-            //Object ID (getting greatest value from objid column and new object id created by incrementing it by one
+//---------- * Object ID (getting greatest value from objid column and new object id created by incrementing it by one * ------//
 
             try
             {
@@ -467,53 +466,88 @@ namespace FlyCn.FlycnSecurity
                 lblError.Text = "Some problem while accessing the current object.Please try again ";
             }
 
-            //Level ID ( with pattern parentid.count)
+ //----------- * Level ID ( with pattern parentid.count if the gv count is 0 , otherwise get the largest id from gridview and pattern will be parentid.largest ) * ---------------//
 
             int count = 0;
             string currentLevelID = "";
+            int largest = 0;
+            string newlevelID = "";
 
-            if (ViewState["parentID"] != null)
-            {
-                currentLevelID = ViewState["parentID"].ToString();
+            if (ViewState["parentID"] != null || ViewState["ID"] != null)
+             {
+                 if (ViewState["parentID"] != null)
+                 {
+                     currentLevelID = ViewState["parentID"].ToString();
+                 }
+
+                 if (ViewState["ID"] != null)
+                 {
+                     currentLevelID = ViewState["ID"].ToString();
+                 }
+
+
                 DALObj.LevelID = currentLevelID;
+                int gvItemCount = gvObjectRegistration.Rows.Count;
 
-                DataSet ds = DALObj.GetAllObjectsWithParentIDIsNotNull();
-                int c = ds.Tables[0].Rows.Count;
-                count = c;
-                count = count + 1;
+                if (gvItemCount == 0)
+                {
+                    DataSet ds = DALObj.GetAllObjectsWithParentIDIsNotNull();
+                    int c = ds.Tables[0].Rows.Count;
+                    count = c;
+                    count = count + 1;
 
-                string newlevelID = currentLevelID + "." + count;
-                DALObj.LevelID = newlevelID;
+                    newlevelID = currentLevelID + "." + count;
+                    DALObj.LevelID = newlevelID;
+                }
 
+                else
+                {
+                    int tst = 0;
+                    for (int i = 0; i < gvItemCount; i++)
+                    {
+                        string childId = gvObjectRegistration.Rows[i].Cells[1].Text;
 
-                //if (ddlChild.Items.FindByText("--Select--") == null)
-                //{
-                //    count = count + 1;
-                //    newlevelID = currentLevelID + "." + count;
-                //    DALObj.LevelID = newlevelID;
-                //}
+                        if (childId.Contains("."))
+                        {
 
-                //if(  ddlChild.Items.FindByValue(newlevelID)!=null)
-                //{
-                //    count = count + 1;
-                //    newlevelID = currentLevelID + "." + count;
-                //    DALObj.LevelID = newlevelID;
-                //}
+                            int countTemp = childId.Split('.').Length - 1;
 
-                //Parent ID
+                            for (int j = countTemp; j >= 1; j--)
+                            {
+                                int pos = childId.LastIndexOf(".") + 1;
+                                string ext = childId.Substring(pos, childId.Length - pos);
+                                childId = ext;
+
+                                int lastNo = Convert.ToInt32(childId);
+
+                                if (lastNo > largest)
+                                {
+                                    largest = lastNo;
+                                }
+                            }
+
+                        }
+
+                        tst = largest + 1;
+                    }
+
+                    newlevelID = currentLevelID + "." + Convert.ToString(tst);
+                    DALObj.LevelID = newlevelID;
+                }
+
+  //--------------* Parent ID * ----------------//
 
                 DALObj.ParentID = currentLevelID;
 
-
-                // Level Description 
-
+ // ------------* Level Description  * ----------------//
+                
                 DALObj.LevelDesc = txtNewObject.Text;
 
-                //Scope(accessed from public properties)
-
+//-------------* Scope(accessed from public properties)  * ----------------//
+                
                 DALObj.Scope = Scope;
 
-                //CreatedBy (accessed from public properties)
+//--------------* CreatedBy (accessed from public properties)  * ----------------//
 
                 DALObj.CreatedBy = UserName;
 
@@ -531,6 +565,7 @@ namespace FlyCn.FlycnSecurity
                         Bindgridview();
                         //up.Update();
 
+//-------* Regenerate Navigation *-------------//
                         BulletedList temp = new BulletedList();
 
                         temp = navigation;
@@ -558,8 +593,8 @@ namespace FlyCn.FlycnSecurity
                     lblError.ForeColor = System.Drawing.Color.Red;
                     lblError.Text = " Some problem in object registration ,Please check the inputs and try again ";
                 }
-
             }
+            
 
             else
             {
