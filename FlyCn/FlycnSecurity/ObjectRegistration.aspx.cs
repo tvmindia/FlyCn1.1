@@ -265,6 +265,13 @@ namespace FlyCn.FlycnSecurity
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (lblError.Text != string.Empty)
+            {
+                lblError.Text = string.Empty;
+            }
+
+
+
             DataSet dsObjectsWithParentIDNull = null;
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
             if (!Page.IsPostBack)
