@@ -12,8 +12,6 @@
 
     <asp:ScriptManager ID="scriptmanager1" runat="server"></asp:ScriptManager>
 
-
-
  
     <div class="importWizardContainer" style="height:500px;">
            <div class="col-md-12">
@@ -46,7 +44,7 @@
             <br />
             <div style="width: 450px; height: 400px;">
                 <br />
-                 <div class="contentTopBar" style="width:450px;"></div>
+                 <%--<div class="contentTopBar" style="width:450px;"></div>--%>
                 <telerik:RadGrid ID="dtgCurrentRoles" runat="server" OnNeedDataSource="dtgCurrentRoles_NeedDataSource" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7">
                     <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
@@ -89,7 +87,7 @@
                </div>
                 <div style="overflow-x:auto;overflow-x:hidden; width: 300px; height: 200px;position:center; position:fixed;left:70% ;top:30%;">
                     <br />
-                  <div class="contentTopBar" style="width:420px;"></div>
+                  <%--<div class="contentTopBar" style="width:420px;"></div>--%>
                     <telerik:RadGrid ID="dtgAssignRoles" runat="server" OnNeedDataSource="dtgAssignRoles_NeedDataSource" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  OnItemCreated="dtgAssignRoles_ItemCreated">
                         <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
@@ -106,6 +104,7 @@
             </div>
         </div>
     </div>
+
     <script type="text/javascript">
         
         $(document).ready(function () {

@@ -157,6 +157,9 @@
                                 </ItemTemplate>
 
                             </asp:TemplateField>
+
+                              
+
                           </Columns>
 
 
@@ -177,51 +180,5 @@
 </div>
 
     <asp:HiddenField ID="hdnBrowserManualOpen" runat="server"   />
-
-
-
-
-
-    <%--<div class="div"> 
-     
-
-                <table  style="width:14%" >
-                    <tr>
-                        <td class="tabletd"></td>
-
-                        <td class="tabletd"></td>
-
-           </tr>
-                       
-                    <tr>
-                         <td class="tabletd"></td>
-
-                         <td class="tabletd"></td>
-                    </tr>
- </table>
-
-
-                <br />
-                <br />
-                
-
-     
-                <table >
-                    <tr>
-                      <td> </td>
-
-                        <td class="tabletd">
-
-            </td>
-
-                    </tr>
-                </table>
-      
-           
-     </div>--%>
-    
-     <%--<asp:Button ID="BtnRegister" runat="server" Text="Register" />--%>
-
-    
 
 </asp:Content>

@@ -16,7 +16,44 @@ namespace FlyCn
     {
 
         SecurityUsers DALObj = new SecurityUsers();
-        
+
+        #region Make Check Box Column
+        public void MakeCheckBoxColumn()
+        {
+            
+            
+               
+            
+////---------------- Add checkbx
+//             GridCheckBoxColumn chkAdd;
+//            chkAdd = new GridCheckBoxColumn();
+//            chkAdd.UniqueName = "Add";
+//            chkAdd.HeaderText = "Add";
+//            radgrdObjects.MasterTableView.Columns.Add(chkAdd);
+
+//---------------- Edit checkbx
+            // GridCheckBoxColumn chkEdit;
+            //chkEdit = new GridCheckBoxColumn();
+            //chkEdit.UniqueName = "Edit";
+            //chkEdit.HeaderText = "Edit";
+            //radgrdObjects.MasterTableView.Columns.Add(chkEdit);
+
+//---------------- Delete checkbx
+            //GridCheckBoxColumn chkDelete;
+            //chkDelete = new GridCheckBoxColumn();
+            //chkDelete.UniqueName = "Delete";
+            //chkDelete.HeaderText = "Delete";
+            //radgrdObjects.MasterTableView.Columns.Add(chkDelete);
+
+//---------------- ReadOnly checkbx
+            //GridCheckBoxColumn chkReadonly;
+            //chkReadonly = new GridCheckBoxColumn();
+            //chkReadonly.UniqueName = "ReadOnly";
+            //chkReadonly.HeaderText = "ReadOnly";
+            //radgrdObjects.MasterTableView.Columns.Add(chkReadonly);
+        }
+
+        #endregion Make Check Box Column
 
         public int url
         {
@@ -27,19 +64,6 @@ namespace FlyCn
         {
             get;
             set;
-        }
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            url = Request.Url.Port;
-            if (radgrdObjects.EnableLinqExpressions) {
-                radgrdObjects.MasterTableView.FilterExpression = "(Convert.ToInt32(iif(it['ParentID']==Convert.DBNull,null,it['ParentID']))==Convert.DBNull)";
-            }
-            else {
-                radgrdObjects.MasterTableView.FilterExpression = "ParentID is null";
-            }
-            
-            
-
         }
 
         protected void btn_ExcelMail_Click(object sender, EventArgs e)
@@ -73,31 +97,46 @@ namespace FlyCn
             lblPermission.Text = userAccess;
         }
 
+        protected void radgrdObjects_PreRender(object sender, EventArgs e)
+        {
+            //radgrdObjects.MasterTableView.GetColumn("LevelID").HeaderStyle.Width = Unit.Pixel(200);
+
+            //MakeCheckBoxColumn();
+        }
+
+
+//-----------* Manage Access *----------------//
+
+        #region Page Load
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            url = Request.Url.Port;
+            if (radgrdObjects.EnableLinqExpressions)
+            {
+                radgrdObjects.MasterTableView.FilterExpression = "(Convert.ToInt32(iif(it['ParentID']==Convert.DBNull,null,it['ParentID']))==Convert.DBNull)";
+            }
+            else
+            {
+                radgrdObjects.MasterTableView.FilterExpression = "ParentID is null";
+            }
+        }
+
+        #endregion Page Load
+
+        #region Need Data Source - RadGrid
         protected void radgrdObjects_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+
             FlyCnSecurity.SecurityDAL.SecurityObjects obj = new FlyCnSecurity.SecurityDAL.SecurityObjects();
+            obj.RoleID = 119;
             radgrdObjects.DataSource = obj.GetRegisteredModules().Tables[0];
 
-            //foreach (GridDataItem item in radgrdObjects.Items)
-            //{
-
-            //    string leveldes = item.GetDataKeyValue("LevelDesc").ToString();
-
-            //    if (item.FindControl("MyExpBtn") != null)
-            //    {
-            //        Button btn = (Button)item.FindControl("MyExpBtn");
-            //        if(btn.Visible == false)
-            //        {
-
-            //        }
-            //    }
-
-            //}
-
-            
 
         }
 
+        #endregion Need Data Source - RadGrid
+
+        #region Column Created -Radgrid
         protected void radgrdObjects_ColumnCreated(object sender, Telerik.Web.UI.GridColumnCreatedEventArgs e)
         {
             if (e.Column is GridExpandColumn)
@@ -116,6 +155,9 @@ namespace FlyCn
              }
         }
 
+        #endregion Column Created -Radgrid
+
+        #region Item Created -RadGrid
         protected void radgrdObjects_ItemCreated(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
             rowSettings(e);
@@ -128,12 +170,21 @@ namespace FlyCn
             }
         }
 
+        #endregion Item Created -RadGrid
+
+        #region Item Data Bound - RadGrid
         protected void radgrdObjects_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        
         {
             rowSettings(e);
+
         }
 
+        #endregion  Item Data Bound - RadGrid
+
+        #region Row Settings
         public void rowSettings(GridItemEventArgs e) {
+
             if (e.Item is GridNoRecordsItem) {
                 GridDataItem parentname = (GridDataItem)e.Item.OwnerTableView.ParentItem;
                 if (parentname.FindControl("MyExpBtn") != null) {
@@ -154,12 +205,27 @@ namespace FlyCn
                 }else{
                     createExpandButton(e.Item, "LevelID");
                 }
-            
+
+//------------- *Enable All the checkbox columns*----------------//
+
+                CheckBox chkAdd = (CheckBox)gitem["Add"].Controls[0];
+                chkAdd.Enabled = true;
+
+                CheckBox chkEdit = (CheckBox)gitem["Edit"].Controls[0];
+                chkEdit.Enabled = true;
+
+                CheckBox chkDelete = (CheckBox)gitem["Delete"].Controls[0];
+                chkDelete.Enabled = true;
+
+                CheckBox chkReadonly = (CheckBox)gitem["ReadOnly"].Controls[0];
+                chkReadonly.Enabled = true;
             }
         
         }
-       
 
+        #endregion Row Settings
+
+        #region Create Expand
         public void createExpandButton(GridItem item,string columnname){
 
             if (item is GridDataItem) {
@@ -196,13 +262,8 @@ namespace FlyCn
                     cell.Controls.Add(new LiteralControl(" "));
                     cell.Controls.Add(new LiteralControl(gitem.GetDataKeyValue(columnname).ToString()));
 
-
-
                     
-
-
-
-
+                  
 
                 }
             
@@ -211,8 +272,28 @@ namespace FlyCn
         
         }
 
+        #endregion Create Expand
+
+        #region Remove Expand
+        public void removeExpand(GridItem item, string columnname)
+        {
+            if (item is GridDataItem)
+            {
+                if (item.FindControl("MyExpBtn") != null)
+                {
+                    Button btn = (Button)item.FindControl("MyExpBtn");
+                    btn.Attributes.Add("style", "visibility:hidden;margin-right: 0.5cm");
+                }
+
+            }
+        }
+
+        #endregion  Remove Expand
+
+        #region Button Click -Expand
         private void button1_Click(object sender, System.EventArgs e)
         {
+            //MakeCheckBoxColumn();
             // Add event handler code here.
             Button btn = (Button)sender;
             if (btn.CssClass == "rgExpand") {
@@ -220,24 +301,12 @@ namespace FlyCn
             }
             else{
                 btn.CssClass = "rgExpand";
+               
             }
         }
 
-        protected void radgrdObjects_PreRender(object sender, EventArgs e)
-        {
-            //radgrdObjects.MasterTableView.GetColumn("LevelID").HeaderStyle.Width = Unit.Pixel(200);
-        }
+        #endregion Button Click -Expand
 
-
-        public void removeExpand(GridItem item, string columnname) {
-            if (item is GridDataItem) { 
-                if (item.FindControl("MyExpBtn") != null) {
-                    Button btn = (Button)item.FindControl("MyExpBtn");
-                    btn.Attributes.Add("style", "visibility:hidden;margin-right: 0.6cm");
-                }
-                
-            }
-        }
-
+       
     }
 }
