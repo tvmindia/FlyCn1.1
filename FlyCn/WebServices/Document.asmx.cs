@@ -775,13 +775,7 @@ namespace FlyCn.WebServices
                     //adding image details in JSON
                     for (int i = 0; i < imgColName.Count; i++)
                     {
-                        switch(dr[imgFileTypeCol[i] as string].ToString())  //checking whether image file
-                        {
-                            case ".bmp":
-                            case ".gif":
-                            case ".png":
-                            case ".jpg":
-                            case ".jpeg": //imageFile confirmation
+                       
                                         if (dr[imgColName[i] as string] != DBNull.Value)
                                         {
                                             String fileURL = filePath + DateTime.Now.ToString("ddHHmmssfff") + dr[imgFileNameCol[i] as string].ToString().Replace(" ","_");
@@ -789,8 +783,19 @@ namespace FlyCn.WebServices
                                             {
                                                 byte[] buffer;
                                                 if (isThumb)
-                                                {
-                                                    buffer = MakeThumbnail((byte[])dr[imgColName[i] as string], 90, 90);//images are converted to thumbnails of 90*90px
+                                                { switch(dr[imgFileTypeCol[i] as string].ToString())  //checking whether image file
+                                                        {
+                                                            case ".bmp":
+                                                            case ".gif":
+                                                            case ".png":
+                                                            case ".jpg":
+                                                            case ".jpeg": //imageFile confirmed
+                                                                         buffer = MakeThumbnail((byte[])dr[imgColName[i] as string], 90, 90);//images are converted to thumbnails of 90*90px
+                                                                                    break;
+                                                            default: //non-image file confirmed
+                                                                buffer = (byte[])dr[imgColName[i] as string];
+                                                                                    break;
+                                                        }
                                                 }
                                                 else
                                                 {
@@ -800,10 +805,7 @@ namespace FlyCn.WebServices
                                             }
                                             row.Add(imgColName[i] as string, fileURL);
                                         }
-                                        break;
-                            default:
-                                        break;
-                        }
+                                        
                     }
                     rows.Add(row);
                 }
