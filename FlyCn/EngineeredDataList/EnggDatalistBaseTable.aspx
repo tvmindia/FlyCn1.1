@@ -120,21 +120,24 @@ ul.departments { list-style-type: none; }*/
         //{
         //    event.set_cancel(false);
         //    UploadNextClick();
+       
         //}
 
-         function UploadNextClick() {
+        function UploadNextClick()
+        {
             document.getElementById("Upload").style.display = "none";
             document.getElementById("DivValidate").style.display = "";
             document.getElementById("GenerateTemplate").style.display = "none";
             document.getElementById("Import").style.display = "none";
 
             /*import link non-clickable*/
-            document.getElementById('import').disabled = true;
+           // document.getElementById('import').disabled = true;
             document.getElementById('import').style.textDecoration = 'none';
-            document.getElementById('import').removeAttribute("href");
+           // document.getElementById('import').removeAttribute("href");
             document.getElementById('import').onclick = "return false";
         }
-        function GenerateTemplateNextClick() {
+        function GenerateTemplateNextClick()
+        {
             var firstdiv = document.getElementById("Upload");
             firstdiv.style.display = "";
             document.getElementById("GenerateTemplate").style.display = "none";
@@ -142,15 +145,15 @@ ul.departments { list-style-type: none; }*/
             document.getElementById("Import").style.display = "none";
 
             /*import link non-clickable*/
-            document.getElementById('import').disabled = true;
+          //  document.getElementById('import').disabled = true;
             document.getElementById('import').style.textDecoration = 'none';
-            document.getElementById('import').removeAttribute("href");
-            document.getElementById('import').onclick = "return false";
+           // document.getElementById('import').removeAttribute("href");
+            //document.getElementById('import').onclick = "return false";
 
             /*validate link non-clickable*/
-            document.getElementById('validate').disabled = true;
+           // document.getElementById('validate').disabled = true;
             document.getElementById('validate').style.textDecoration='none'
-            document.getElementById('validate').removeAttribute("href");
+          //  document.getElementById('validate').removeAttribute("href");
             document.getElementById('validate').onclick = "return false";
             
         }
@@ -165,7 +168,8 @@ ul.departments { list-style-type: none; }*/
            
         }
 
-        function GenerateTemplateDivShow() {
+        function GenerateTemplateDivShow()
+        {
           
             document.getElementById("Upload").style.display = "none";
             document.getElementById("Import").style.display = "none";
@@ -175,20 +179,30 @@ ul.departments { list-style-type: none; }*/
             /*import link non-clickable*/
             document.getElementById('import').disabled = true;
             document.getElementById('import').style.textDecoration = 'none';
-            document.getElementById('import').removeAttribute("href");
+           // document.getElementById('import').removeAttribute("href");
             document.getElementById('import').onclick = "return false";
-
             /*validate link non-clickable*/
+
             document.getElementById('validate').disabled = true;
             document.getElementById('validate').style.textDecoration = 'none'
-            document.getElementById('validate').removeAttribute("href");
+           // document.getElementById('validate').removeAttribute("href");
             document.getElementById('validate').onclick = "return false";
 
             /*upload link non-clickable*/
-            document.getElementById('upload').disabled = true;
-            document.getElementById('upload').style.textDecoration = 'none'
-            document.getElementById('upload').removeAttribute("href");
-            document.getElementById('upload').onclick = "return false";
+           // document.getElementById('upload').disabled = true;
+          //  document.getElementById('upload').style.textDecoration = 'none'
+            //document.getElementById('upload').removeAttribute("href");
+           // document.getElementById('upload').onclick = "return false";
+        }
+
+        function LinkDisable()
+        {
+            //document.getElementById('validate').disabled = true;
+            //document.getElementById('upload').disabled = true;
+            //document.getElementById('validate').removeAttribute("href");
+              document.getElementById('validate').onclick = "return false";
+            //document.getElementById('import').removeAttribute("href");
+              document.getElementById('import').onclick = "return false";
         }
         function ShowGridButton() {
             $("#uploadControlDiv").animate({ "left": "-=250px" }, "slow");
@@ -199,10 +213,13 @@ ul.departments { list-style-type: none; }*/
             divtohide.style.display = "block";
         }
         $(document).ready(function () {
+            LinkDisable();
             //GenerateTemplateDivShow();
+            //a = document.getElementById();
+            //a.setAttribute("href", "somelink url");
 
         });
-        GenerateTemplateDivShow
+        //GenerateTemplateDivShow
             
        
     </script>

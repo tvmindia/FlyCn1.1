@@ -628,6 +628,7 @@ namespace FlyCn.FlyCnDAL
         public DataSet ScanExcelFileToDS(string[] excelSheets)
         {
             DataSet dsFile = new DataSet();
+            DataTable FreshTable = new DataTable();
             OleDbConnection excelConnection1 = new OleDbConnection(ExcelConnectionString);
             try
             {
@@ -635,8 +636,23 @@ namespace FlyCn.FlyCnDAL
                 string query = string.Format("Select * from [{0}]", excelSheets[0]);
                 using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
                 {
+                   
                     dataAdapter.Fill(dsFile);
                 }
+                //  FreshTable = dsFile.Tables[0].AsEnumerable().Where(row => String.IsNullOrEmpty(row.Field<string>)).ToList().ForEach(row.
+                //  to prevent null rows
+                //  foreach (DataRow dr in dsFile.Tables[0].Rows)
+                //  {
+                //   FreshTable = dsFile.Tables[0].Rows.Cast<DataRow>().Where(row => !row.ItemArray.All(field => field is System.DBNull)).CopyToDataTable();
+                //   FreshTable.AcceptChanges();
+                //   dsFile.Tables[0].AsEnumerable()Where(Function(row) row.ItemArray.All(Function(field) field Is Nothing Or field Is DBNull.Value Or field.Equals(""))).ToList().ForEach(Sub(row) row.Delete())  
+                //   DtSet.Tables(0).AcceptChanges()  
+                //  }
+                //to prevent null rows
+
+
+
+
             }
             catch (Exception ex)
             {
@@ -869,12 +885,9 @@ namespace FlyCn.FlyCnDAL
                 da = new SqlDataAdapter();
                 if (dbCon.SQLCon == null)
                 {
-                   
-                    dbCon = new dbConnection();
-
-                    dbCon.GetDBConnection();
+                 dbCon = new dbConnection();
+                 dbCon.GetDBConnection();
                 }
-              
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "GetAllCableScheduleDetails";
                 cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = projectNo;
@@ -884,7 +897,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.Connection = dbCon.SQLCon;
                 da.SelectCommand = cmd;
                 da.Fill(ds);
-             }
+            }
             catch (Exception ex)
             {
                 throw ex;
@@ -898,7 +911,7 @@ namespace FlyCn.FlyCnDAL
 
         #endregion GetCableScheduleMaster
         #region GetDrumMaster
-        public DataSet GetDrumMaster(string projectNo, string moduleID, string category, string DrumNo, dbConnection dbCon = null)
+        public DataSet GetDrumMaster(string projectNo, string moduleID, string category, string drumNo, string cableTypeCatg, string cableTypeCode, dbConnection dbCon = null)
         {
             SqlCommand cmd = null;
             DataSet ds = null;
@@ -918,7 +931,9 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = projectNo;
                 cmd.Parameters.Add("@ModuleID", SqlDbType.NVarChar, 10).Value = moduleID;
                 cmd.Parameters.Add("@Category", SqlDbType.NVarChar, 25).Value = category;
-                cmd.Parameters.Add("@DrumNo", SqlDbType.NVarChar, 50).Value = DrumNo;
+                cmd.Parameters.Add("@DrumNo", SqlDbType.NVarChar, 50).Value = drumNo;
+                cmd.Parameters.Add("@CableTypeCatg", SqlDbType.NVarChar, 5).Value = cableTypeCatg;
+                cmd.Parameters.Add("@CableTypeCode", SqlDbType.NVarChar, 50).Value = cableTypeCode;
                 cmd.Connection = dbCon.SQLCon;
                 da.SelectCommand = cmd;
                 da.Fill(ds);

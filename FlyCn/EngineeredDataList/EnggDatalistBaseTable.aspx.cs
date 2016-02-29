@@ -37,16 +37,24 @@ namespace FlyCn.EngineeredDataList
         protected void Page_Load(object sender, EventArgs e)
         {
                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
-                _moduleId = Request.QueryString["Id"];
+                _moduleId = Request.QueryString["ID"];
+
+                //ViewState["ModuleID"] = _moduleId;
+
+
+
+                Session["ModuleID"] = _moduleId;
                 //RadTreeView node = new RadTreeView("rvleftmenu");
                 //node.ExpandMode = TreeNodeExpandMode.ServerSideCallBack;
                 //rvleftmenu.Nodes.Add(node);
-                if (Request.QueryString["Id"] != null)
+                if (Request.QueryString["Id"] != "")
                 {
+                    
                     moduleObj.ModuleID = Request.QueryString["Id"];
                     comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
                     DynamicSheet();
                     DisableButtonandGrid();//disables button and grid initially
+                   
                 }
                 //else 
                 //{
