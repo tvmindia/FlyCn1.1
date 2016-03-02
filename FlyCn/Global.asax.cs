@@ -17,10 +17,12 @@ namespace FlyCn
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterOpenAuth();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            Services.FileFlush.FileFlushing();
         }
 
         void Application_End(object sender, EventArgs e)
         {
+            Services.FileFlush.StopFileDeleteThread();
             //  Code that runs on application shutdown
 
         }
