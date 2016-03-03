@@ -212,6 +212,7 @@ ul.departments { list-style-type: none; }*/
             var divtohide = document.getElementById('Gridandbutton');
             divtohide.style.display = "block";
         }
+        
         $(document).ready(function () {
             LinkDisable();
             //GenerateTemplateDivShow();
@@ -386,7 +387,7 @@ ul.departments { list-style-type: none; }*/
             <%--middle line --%>
 
             <div class="col-md-4" id="Gridandbutton" style="display:none">  
-                <%--<div >--%>
+            <%--<div >--%>
                 <asp:Label ID="lblUploadGridHeading" runat="server" Text="Choose Fields" CssClass="subtitle"></asp:Label>
               <div style="height: 220px;width:150%" class="chooseFieldsBox"> <%--grid width is set here--%>
                 <div  style="overflow-y: scroll; height: 200px;">
@@ -403,13 +404,12 @@ ul.departments { list-style-type: none; }*/
                                                 <asp:CheckBox ID="CheckBox1" runat="server" OnCheckedChanged="ToggleRowSelection" AutoPostBack="false" Checked="true"/>
                                             </ItemTemplate>
                                          </telerik:GridTemplateColumn>
-                                        
-                                    </Columns>
+                                   </Columns>
                                 </MasterTableView>
                             </telerik:RadGrid>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-                        </div>
+                  </div>
                     
              </div>
                <div class="Flatbutton" style="width:150px">
@@ -613,10 +613,12 @@ ul.departments { list-style-type: none; }*/
 
          </div>
     </div>
-       <asp:HiddenField ID="hdfTableName" runat="server" />
+       <asp:HiddenField ID="hdfTableName" runat="server"/>
        <asp:HiddenField ID="hdfFileName" runat="server"/>
        <asp:HiddenField ID="hdfFileLocation" runat="server"/>
        <asp:HiddenField ID="hdfstatusID" runat="server"/>
        <asp:HiddenField ID="hdfremovedField" runat="server"/>
-       <asp:HiddenField ID="hdfErrorRow" runat="server" />
+       <asp:HiddenField ID="hdfErrorRow" runat="server"/>
+       <asp:HiddenField ID="hdfModuleID" runat="server"/>
+       
 </asp:Content>

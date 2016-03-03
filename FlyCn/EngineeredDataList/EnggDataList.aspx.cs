@@ -17,7 +17,7 @@ namespace FlyCn.EngineeredDataList
 
             RadTreeView tview = ip.FindLeftTree(this);
             //tview.Attributes.Add("onclick", "ClientNodeClicked(event)");
-
+            //tview.NodeClick = "";
             objBOQ.BindTree(tview);
 
             RadPane radpane = ip.FindContentPane(this);

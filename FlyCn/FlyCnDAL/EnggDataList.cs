@@ -12,7 +12,7 @@ namespace FlyCn.FlyCnDAL
         {
             string moduleID = "";
             HttpContext context = HttpContext.Current;
-            moduleID = (string)(context.Session["ModuleID"]);
+            //moduleID = (string)(context.Session["ModuleID"]);
             //moduleID=(string)(Session["ModuleID"]);
             UIClasses.Const Const = new UIClasses.Const();
           
@@ -24,7 +24,11 @@ namespace FlyCn.FlyCnDAL
             rtn1.NavigateUrl = "../EngineeredDataList/EnggDataListLandingPage.aspx";
             rtn1.Target = "contentPane";
             myTree.Nodes.Add(rtn1);
+            
             RadTreeNode rtn2 = new RadTreeNode("Direct Import", "");
+            //GenerateTemplateNextClick();
+            //rtn2.Attributes.Add("onclick", "alert(1)");
+            rtn2.Attributes.Add("onclick", "GenerateTemplateNextClick()");
             rtn2.NavigateUrl = "../EngineeredDataList/EnggDatalistBaseTable.aspx?id=" + moduleID;
             rtn2.Target = "contentPane";
             myTree.Nodes.Add(rtn2);

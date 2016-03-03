@@ -597,7 +597,7 @@ namespace FlyCn.FlyCnDAL
         #endregion LoadInputScreen
 
         #region GetExcelData
-        public DataSet GetExcelData()
+        public DataSet GetExcelData(DataSet dsTable)
         {
             var Request = request;
             string tempFolder = temporaryFolder;
@@ -607,8 +607,9 @@ namespace FlyCn.FlyCnDAL
             {
                if (ExcelFileName.Length > 0)
                 {
+                    //DataSet dsTable=new DataSet();//temporry
                     excelSheets = OpenExcelFile();
-                    dsFile = ScanExcelFileToDS(excelSheets);
+                    dsFile = ScanExcelFileToDS(excelSheets,dsTable);
                 }
             }
             catch (Exception ex)
@@ -625,20 +626,69 @@ namespace FlyCn.FlyCnDAL
         #endregion GetExcelData
 
         #region ScanExcelFileToDS
-        public DataSet ScanExcelFileToDS(string[] excelSheets)
+        public DataSet ScanExcelFileToDS(string[] excelSheets,DataSet dsTable)
         {
+            
             DataSet dsFile = new DataSet();
+            //DataSet dsOrig = new DataSet();
             DataTable FreshTable = new DataTable();
+            //bool flag = false;
+            int k;
             OleDbConnection excelConnection1 = new OleDbConnection(ExcelConnectionString);
             try
             {
-                excelConnection1.Open();
+                  
+                   excelConnection1.Open();
+                   var command = excelConnection1.CreateCommand();
+               
+                    //command.CommandText = "SELECT * FROM " + excelSheets[0];
+                   command.CommandText = string.Format("Select * from [{0}]", excelSheets[0]);
+                    var conditions = "";
+                    foreach (DataRow dr in dsTable.Tables[0].Rows)
+                    {
+                     conditions += "[" + dr["Field_Description"].ToString()+ "]" + " IS NOT NULL AND ";
+                    }
+                    if (conditions != "")
+                    {
+                        command.CommandText += " WHERE " + conditions.Remove(conditions.Length - 5);
+                    }
+              
                 string query = string.Format("Select * from [{0}]", excelSheets[0]);
-                using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
+                using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(command.CommandText, excelConnection1))
                 {
-                   
                     dataAdapter.Fill(dsFile);
                 }
+                //working
+                //if ((dsFile.Tables[0] != null) && (dsFile.Tables[0].Rows.Count > 0))
+                //{
+                //    List<System.Data.DataRow> removeRowIndex = new List<System.Data.DataRow>();
+                //    for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
+                //    {
+                //        k = 0;
+                //        for (int index = 0; index < dsFile.Tables[0].Columns.Count; index++)
+                //        {
+                //            if((dsFile.Tables[0].Rows[i][index]==DBNull.Value)||(string.IsNullOrEmpty(dsFile.Tables[0].Rows[i][index].ToString().Trim())))
+                //            {
+                //                k++;
+                //            }
+                        
+                //        }
+                //        if(k==dsFile.Tables[0].Columns.Count)
+                //        {
+                //            removeRowIndex.Add(dsFile.Tables[0].Rows[i]);
+                //        }
+                //   }
+                //    // Remove all blank of in-valid rows
+                //    foreach (System.Data.DataRow rowIndex in removeRowIndex)
+                //    {
+                //        dsFile.Tables[0].Rows.Remove(rowIndex);
+                //    }
+                //}
+                //working
+                //catch(Exception e)
+               // {
+               //     WPFMessageBox.Show(e.Message, Globalization.GetValue("Import_ImportOption_FormHeader"), WPFMessageBoxButtons.OK, WPFMessageBoxImage.Error);
+               // }
                 //  FreshTable = dsFile.Tables[0].AsEnumerable().Where(row => String.IsNullOrEmpty(row.Field<string>)).ToList().ForEach(row.
                 //  to prevent null rows
                 //  foreach (DataRow dr in dsFile.Tables[0].Rows)
@@ -649,10 +699,6 @@ namespace FlyCn.FlyCnDAL
                 //   DtSet.Tables(0).AcceptChanges()  
                 //  }
                 //to prevent null rows
-
-
-
-
             }
             catch (Exception ex)
             {

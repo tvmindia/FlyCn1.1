@@ -147,7 +147,8 @@
                         <%=ToolBar.ClientID %>_SetAttachVisible(false);
                     }
                 }
-                catch (x) {
+                catch (x)
+                {
                     alert(x.message);
                 }
 
