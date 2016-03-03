@@ -33,12 +33,21 @@ namespace FlyCn.Services
                 try
                 {
                    // Array.ForEach(Directory.GetFiles(HttpContext.Current.Server.MapPath("~/tempImages/")), File.Delete);
+                    //------------------Deleting temporary image files created by webservices called from mobile app--------
                     string[] filePaths = Directory.GetFiles(HttpContext.Current.Server.MapPath("~/tempImages/"));
                     foreach (string filePath in filePaths)
                         if (DateTime.UtcNow - File.GetCreationTimeUtc(filePath) > TimeSpan.FromMinutes(5))
                         {
                             File.Delete(filePath);
                         }
+                    //------------------Deleting temporary files created by excel files----------------
+                    string[] filePaths2 = Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Content/Fileupload/"));
+                    foreach (string filePath in filePaths2)
+                        if (DateTime.UtcNow - File.GetCreationTimeUtc(filePath) > TimeSpan.FromHours(10))
+                        {
+                            File.Delete(filePath);
+                        }
+
                 }
                 catch (Exception ex)
                 {
