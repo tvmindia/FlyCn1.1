@@ -104,19 +104,25 @@ namespace FlyCn.EngineeredDataList
            
         }
 
-        protected void dtgUploadGrid_PreRender(object sender, EventArgs e)
-        {
-            dtgUploadGrid.MasterTableView.GetColumn("ProjectNo").Visible = false;
-            dtgUploadGrid.MasterTableView.GetColumn("ExcelMustFields").Visible = false;
-            dtgUploadGrid.MasterTableView.GetColumn("Field_DataType").Visible = false;
-            dtgUploadGrid.MasterTableView.GetColumn("Key_Field").Visible = false;
-            dtgUploadGrid.MasterTableView.GetColumn("Field_Name").Visible = false;
-            dtgUploadGrid.MasterTableView.GetColumn("Ref_TableName").Visible = false;
-            dtgUploadGrid.MasterTableView.GetColumn("Ref_JoinField").Visible = false;
-            dtgUploadGrid.MasterTableView.GetColumn("Ref_SelectField").Visible = false;
-            dtgUploadGrid.Rebind(); 
-                    
-        }
+       
+        //protected void dtgUploadGrid_ItemCreated(object sender, GridItemEventArgs e)
+        //{
+        //    if (e.Item is GridDataItem) //Your condition goes here 
+        //    {
+        //        ((e.Item as GridDataItem)["ExcelMustFields"].Controls[0] as CheckBox).Enabled = false;
+
+        //        GridDataItem item = e.Item as GridDataItem;
+        //        if (item["ExcelMustFields"].Text == "Y")
+        //        {
+        //            item.Enabled = false;
+        //            //string temp = (string)item["Field_Name"].Text;
+        //            // item.Display = false;
+        //            //filterImage.Attributes["disabled"] = "true";
+        //        }
+ 
+        //    }  
+        //}
+       
         protected void dtgUploadGrid_ItemDataBound(object sender, GridItemEventArgs e)
         {
             //dtgUploadGrid.MasterTableView.GetColumn("PassWord").Visible = false;
@@ -128,15 +134,29 @@ namespace FlyCn.EngineeredDataList
                 GridDataItem item = e.Item as GridDataItem;
                 if (item["ExcelMustFields"].Text == "Y")
                 {
-                    item.Enabled = false;
+                      item.Enabled = false;
                     //string temp = (string)item["Field_Name"].Text;
-                    //item.Display = false;
+                   // item.Display = false;
+                   //filterImage.Attributes["disabled"] = "true";
                    
                 }
               
             } 
         }
-        
+        protected void dtgUploadGrid_PreRender(object sender, EventArgs e)
+        {
+            //dtgUploadGrid.MasterTableView.GetColumn("ProjectNo").Visible = false;
+            ////dtgUploadGrid.MasterTableView.GetColumn("ExcelMustFields").Visible = true;
+            //dtgUploadGrid.MasterTableView.GetColumn("ExcelMustFields").HeaderText = "albert";
+            //dtgUploadGrid.MasterTableView.GetColumn("Field_DataType").Visible = false;
+            //dtgUploadGrid.MasterTableView.GetColumn("Key_Field").Visible = false;
+            //dtgUploadGrid.MasterTableView.GetColumn("Field_Name").Visible = false;
+            //dtgUploadGrid.MasterTableView.GetColumn("Ref_TableName").Visible = false;
+            //dtgUploadGrid.MasterTableView.GetColumn("Ref_JoinField").Visible = false;
+            //dtgUploadGrid.MasterTableView.GetColumn("Ref_SelectField").Visible = false;
+            //dtgUploadGrid.Rebind();
+
+        }
         protected void dtgUploadGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             if (_moduleId != null)
@@ -744,5 +764,7 @@ namespace FlyCn.EngineeredDataList
               
             }
         }
+
+       
     }
 }

@@ -253,7 +253,8 @@ ul.departments { list-style-type: none; }*/
             var fileUpload = document.getElementById('<%=DataImportFileUpload.ClientID%>');
             var Extension = fileUpload.value.substring(fileUpload.value.lastIndexOf('.') + 1).toLowerCase();
             var flag=validateExcelExtension(Extension)
-            if (flag!=false) {
+            if (flag != false) {
+                DisableGridandButton();
                 return true;
             }
             else {
@@ -261,7 +262,7 @@ ul.departments { list-style-type: none; }*/
                 lblmsg.innerHTML = "Kindly Upload file types of xlsx or xls";
                 //var upload = document.getElementById('Gridandbutton');
                 //upload.style.display = "none";
-                DisableGridandButton();
+                //DisableGridandButton();
                 return false;
             }
            }
@@ -272,21 +273,23 @@ ul.departments { list-style-type: none; }*/
             //disdtg.disabled = "disabled";
             DisableGrid(disdtg);
             document.getElementById('<%= btnValidate.ClientID %>').disabled = true;
-
         }
 
         function DisableImportButton()
         {
             document.getElementById('<%= btnImport.ClientID %>').disabled = true;
         }
-
+        function ShowDoneButton()//this function called from iframe
+        {
+            document.getElementById('btnDone').style.display = "block";
+        }
         //function EnableGridandButton()
         //{
         //   // document.getElementById("btnValidate").disabled = true;
         //    alert("js");
         //   // var upload = document.getElementById('Gridandbutton');
         //   // upload.style.display = "";
-        // }
+        //}
           
     </script>
 
@@ -322,12 +325,11 @@ ul.departments { list-style-type: none; }*/
             </td>
             <td style="width:10%"></td>
         </tr>
-     
-         
+ 
     </table>
 
     <div class="importWizardContainer">
-    <div id="body" runat="server" class="container table-responsive" style="width: 96%; height: 100%; margin-left: 5px;">
+    <div id="body" runat="server" class="container table-responsive" style="width: 100%; height: 100%; margin-left: 5px;">
 
 
         <div id="GenerateTemplate" >
@@ -350,7 +352,7 @@ ul.departments { list-style-type: none; }*/
                             <div id="btnMainDiv" class="nav" style="color:white">
                                 Next &nbsp;<img src="../Images/Icons/RightArrow16.png" />
                             </div>
-                        </a>
+                             </a>
                         </div>
                        
                     </td>
@@ -393,8 +395,7 @@ ul.departments { list-style-type: none; }*/
                 <div  style="overflow-y: scroll; height: 200px;">
                     <asp:UpdatePanel ID="dtgUploadGridUpdatepanel" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <telerik:RadGrid ID="dtgUploadGrid" runat="server" AllowSorting="true" 
-                                OnNeedDataSource="dtgUploadGrid_NeedDataSource" AllowMultiRowSelection="True"
+                            <telerik:RadGrid ID="dtgUploadGrid" runat="server" AllowSorting="true" AutoGenerateColumns="False" OnNeedDataSource="dtgUploadGrid_NeedDataSource" AllowMultiRowSelection="True"
                                 Skin="Silk" CssClass="outerMultiPage" OnPreRender="dtgUploadGrid_PreRender" OnItemCommand="dtgUploadGrid_ItemCommand"
                                 OnItemDataBound="dtgUploadGrid_ItemDataBound">
                                 <MasterTableView DataKeyNames="">
@@ -404,6 +405,8 @@ ul.departments { list-style-type: none; }*/
                                                 <asp:CheckBox ID="CheckBox1" runat="server" OnCheckedChanged="ToggleRowSelection" AutoPostBack="false" Checked="true"/>
                                             </ItemTemplate>
                                          </telerik:GridTemplateColumn>
+                                       <telerik:GridBoundColumn HeaderText="Field Name" DataField="Field_Description" UniqueName="Field_Description" Display="True"></telerik:GridBoundColumn>
+                                       <telerik:GridBoundColumn HeaderText="ExcelMustFields" DataField="ExcelMustFields" UniqueName="ExcelMustFields" Display="false"></telerik:GridBoundColumn>
                                    </Columns>
                                 </MasterTableView>
                             </telerik:RadGrid>
@@ -433,15 +436,9 @@ ul.departments { list-style-type: none; }*/
          
             
             <%--     <asp:Button ID="btnNext" runat="server" Text="Next>>"  Height="35px" Width="100px"   CssClass="buttonNext" OnClientClick="NextClick()"   />--%>
-            
-           
             </div>
-
-        
-    
     </div>
 
-  
     <div style="display: none; margin-left: 50px;" id="DivValidate">
         <div class="col-md-12 Span-One">
 
@@ -461,7 +458,7 @@ ul.departments { list-style-type: none; }*/
                               <telerik:GridBoundColumn HeaderText="Description" DataField="Error_Description" UniqueName="Error_Description" ItemStyle-Width="50%"></telerik:GridBoundColumn>
                               <telerik:GridBoundColumn HeaderText="Serial No" DataField="Sl_No" UniqueName="Sl_No" Display="false"></telerik:GridBoundColumn>
                               <telerik:GridBoundColumn HeaderText="StatusID" DataField="Status_ID" UniqueName="Status_ID" Display="false"></telerik:GridBoundColumn>
-                        </Columns>
+                         </Columns>
                     </MasterTableView>
 
                 </telerik:RadGrid>
@@ -495,7 +492,7 @@ ul.departments { list-style-type: none; }*/
                 </div>
                 <div class="col-md-5"> <asp:Label ID="lblVErrorsCount" runat="server" Text=""></asp:Label>
                 </div>
-                       <br />   <br />
+                 <br /><br />
                  </div>
                             
 
@@ -522,37 +519,8 @@ ul.departments { list-style-type: none; }*/
                        
                   
 
-        <%--
-              <table class="buttonTable">
-                <tr>
-                    <td>
-                        <div class="Flatbutton" style="width:150px">
-                             <a href="#" class="buttonNext" onclick="return Import();">
-                            <div id="Div3" class="nav" style="color:white">
-                                 Done
-                            </div>
-                        </a>
-                        </div>
-                       
-                    </td>
-                </tr>
-            </table>
-         
-            
-            
-            
-            
-            <table class="buttonTable">
-            <tr>
-                <td>
-                    <a href="#" class="buttonNext btnDivCommon" onclick="return Import();">
-                        <div id="btnDivValidate" class="nav btnDivCommon">
-                            Import
-                        </div>
-                    </a>
-                </td>
-            </tr>
-        </table>--%>
+       
+             
     </div>
 
 
@@ -573,31 +541,27 @@ ul.departments { list-style-type: none; }*/
                <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:250px">&nbsp;</div>
             <div class="col-md-7"  >
 
-              <iframe id="ContentIframe" name="BOQDetails" style="height: 300px; width: 600px; overflow: hidden;" runat="server"></iframe>
+              <iframe id="ContentIframe" name="Upload Status" style="height: 300px; width: 600px; overflow: hidden;" runat="server"></iframe>
   
             </div>
 
 
-            <%--  <asp:Button ID="Button2" runat="server" Text="Next>>"  Height="35px" Width="100px"   CssClass="buttonNext"   />--%>
+            <%--<asp:Button ID="Button2" runat="server" Text="Next>>"  Height="35px" Width="100px"   CssClass="buttonNext"   />--%>
         </div>
-
-
+        <div id="btnDone" style="display:none">
          <table class="buttonTable">
                 <tr>
                     <td>
                         <div class="Flatbutton" style="width:150px">
-                             <a href="#" class="buttonNext" onclick="return Import();">
-                            <div id="Div3" class="nav" style="color:white">
-                                 Done
-                            </div>
-                        </a>
+                             <a href="#" class="buttonNext" onclick="return GenerateTemplateDivShow();">
+                            <div id="Div3" class="nav" style="color:white">Done</div>
+                             </a>
                         </div>
                        
                     </td>
                 </tr>
             </table>
-
-
+        </div>
         <%--<table class="buttonTable">
             <tr>
                 <td>

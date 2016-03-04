@@ -58,13 +58,14 @@ namespace FlyCn.ExcelImport
             switch(exObj.InsertStatus)
             {
                 case 1:
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "CallParent", "CallParentJs(1);", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ChangeStatusMsg", "ChangeStatusMsg(1);", true);
                     break;
                 case 2:
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "CallParent", "CallParentJs(2);", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ChangeStatusMsg", "ChangeStatusMsg(2);", true);
                     break;
-                case 3:
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "CallParent", "CallParentJs(3);", true);
+                case 3: 
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ChangeStatusMsg", "ChangeStatusMsg(3);", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowDoneButton", "parent.ShowDoneButton();", true);
                     Timer4.Enabled = false;//stops timer when status becomes finished ie:3
                     break;
             }
