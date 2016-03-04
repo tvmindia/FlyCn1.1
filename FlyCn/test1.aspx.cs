@@ -31,14 +31,16 @@ namespace FlyCn
         protected void Page_Load(object sender, EventArgs e)
         {
             url = Request.Url.Port;
-            if (radgrdObjects.EnableLinqExpressions) {
+            if (radgrdObjects.EnableLinqExpressions)
+            {
                 radgrdObjects.MasterTableView.FilterExpression = "(Convert.ToInt32(iif(it['ParentID']==Convert.DBNull,null,it['ParentID']))==Convert.DBNull)";
             }
-            else {
+            else
+            {
                 radgrdObjects.MasterTableView.FilterExpression = "ParentID is null";
             }
-            
-            
+
+
 
         }
 
@@ -49,27 +51,27 @@ namespace FlyCn
             //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();
             DataSet ds = new DataSet();
-           
-            ds=detailsObj.getExcelImportDetailsById(StatusID);
-            
-           
-                MailObj.SendExcelImportMail(StatusID, detailsObj.UserName);
-            
+
+            ds = detailsObj.getExcelImportDetailsById(StatusID);
+
+
+            MailObj.SendExcelImportMail(StatusID, detailsObj.UserName);
+
         }
 
         protected void Unnamed1_Click(object sender, EventArgs e)
         {
             ExcelTemplate eObj = new ExcelTemplate();
-            eObj.GenerateExcelTemplate("C00001","BASE_Electrical");
+            eObj.GenerateExcelTemplate("C00001", "BASE_Electrical");
         }
 
         protected void btnGo_Click(object sender, EventArgs e)
         {
             //DALObj.LevelDesc = txtLevelDescription.Text;
             //DALObj.UserID = txtUserName.Text;
-           
 
-            string userAccess = DALObj.GetUserAccess(txtUserName.Text,txtLevelDescription.Text);
+
+            string userAccess = DALObj.GetUserAccess(txtUserName.Text, txtLevelDescription.Text);
             lblPermission.Text = userAccess;
         }
 
@@ -85,16 +87,16 @@ namespace FlyCn
             {
                 e.Column.Visible = false;
             }
-             if (e.Column is GridBoundColumn)
+            if (e.Column is GridBoundColumn)
             {
                 e.Column.HeaderStyle.Width = Unit.Pixel(200);
                 e.Column.ItemStyle.Width = Unit.Pixel(200);
             }
 
-             if (e.Column is GridGroupSplitterColumn)
-             {
-                 e.Column.HeaderStyle.Width = Unit.Pixel(200);
-             }
+            if (e.Column is GridGroupSplitterColumn)
+            {
+                e.Column.HeaderStyle.Width = Unit.Pixel(200);
+            }
         }
 
         protected void radgrdObjects_ItemCreated(object sender, Telerik.Web.UI.GridItemEventArgs e)
@@ -104,7 +106,8 @@ namespace FlyCn
             {
                 e.Item.Style["display"] = "none";
             }
-            if(e.Item is GridNestedViewItem) {
+            if (e.Item is GridNestedViewItem)
+            {
                 e.Item.Cells[0].Visible = false;
             }
         }
@@ -114,38 +117,48 @@ namespace FlyCn
             rowSettings(e);
         }
 
-        public void rowSettings(GridItemEventArgs e) {
-            if (e.Item is GridNoRecordsItem) {
+        public void rowSettings(GridItemEventArgs e)
+        {
+            if (e.Item is GridNoRecordsItem)
+            {
                 GridDataItem parentname = (GridDataItem)e.Item.OwnerTableView.ParentItem;
-                if (parentname.FindControl("MyExpBtn") != null) {
+                if (parentname.FindControl("MyExpBtn") != null)
+                {
                     Button btn = (Button)parentname.FindControl("MyExpBtn");
-                    btn.Attributes.Add("style","visibility:hidden");
+                    btn.Attributes.Add("style", "visibility:hidden");
                     btn.Width = Unit.Pixel(35);
                 }
             }
 
-            if (e.Item is GridDataItem) {
+            if (e.Item is GridDataItem)
+            {
 
-                GridDataItem gitem=(GridDataItem)e.Item;
+                GridDataItem gitem = (GridDataItem)e.Item;
 
                 createExpandButton(e.Item, "LevelID");
-               
-                if (gitem["isChildExist"].Text.Trim()=="0"){
+
+                if (gitem["isChildExist"].Text.Trim() == "0")
+                {
                     removeExpand(e.Item, "");
-                }else{
+                }
+                else
+                {
                     createExpandButton(e.Item, "LevelID");
                 }
-            
+
             }
-        
+
         }
-       
 
-        public void createExpandButton(GridItem item,string columnname){
 
-            if (item is GridDataItem) {
-                GridDataItem gitem = (GridDataItem) item;
-                if (item.FindControl("MyExpBtn") == null) {
+        public void createExpandButton(GridItem item, string columnname)
+        {
+
+            if (item is GridDataItem)
+            {
+                GridDataItem gitem = (GridDataItem)item;
+                if (item.FindControl("MyExpBtn") == null)
+                {
                     Button btn = new Button();
                     btn.Click += new EventHandler(button1_Click);
                     btn.CommandName = "ExpandCollapse";
@@ -153,53 +166,58 @@ namespace FlyCn
                     {
                         btn.CssClass = "rgCollapse";
                     }
-                    else {
-                        btn.CssClass = "rgExpand";                    
+                    else
+                    {
+                        btn.CssClass = "rgExpand";
                     }
                     btn.ID = "MyExpBtn";
 
-                    if (item.OwnerTableView.HierarchyLoadMode == GridChildLoadMode.Client) { 
+                    if (item.OwnerTableView.HierarchyLoadMode == GridChildLoadMode.Client)
+                    {
 
-                        string script=string.Format("$find('{0}')._toggleExpand(this,event);return false;",item.Parent.Parent.ClientID);
+                        string script = string.Format("$find('{0}')._toggleExpand(this,event);return false;", item.Parent.Parent.ClientID);
                         btn.OnClientClick = script;
 
 
                     }
 
                     int level = item.ItemIndexHierarchical.Split(':').Length;
-                    if (level > 1) { 
-                    btn.Style["margin-left"]=((level)+20) + "px";
+                    if (level > 1)
+                    {
+                        btn.Style["margin-left"] = ((level) + 20) + "px";
                     }
 
-                    TableCell cell=new TableCell();
-                    cell=(TableCell)gitem[columnname];
+                    TableCell cell = new TableCell();
+                    cell = (TableCell)gitem[columnname];
                     cell.Controls.Add(btn);
                     cell.Controls.Add(new LiteralControl(" "));
                     cell.Controls.Add(new LiteralControl(gitem.GetDataKeyValue(columnname).ToString()));
 
 
 
-                    
+
 
 
 
 
 
                 }
-            
-            
+
+
             }
-        
+
         }
 
         private void button1_Click(object sender, System.EventArgs e)
         {
             // Add event handler code here.
             Button btn = (Button)sender;
-            if (btn.CssClass == "rgExpand") {
+            if (btn.CssClass == "rgExpand")
+            {
                 btn.CssClass = "rgCollapse";
             }
-            else{
+            else
+            {
                 btn.CssClass = "rgExpand";
             }
         }
@@ -210,13 +228,16 @@ namespace FlyCn
         }
 
 
-        public void removeExpand(GridItem item, string columnname) {
-            if (item is GridDataItem) { 
-                if (item.FindControl("MyExpBtn") != null) {
+        public void removeExpand(GridItem item, string columnname)
+        {
+            if (item is GridDataItem)
+            {
+                if (item.FindControl("MyExpBtn") != null)
+                {
                     Button btn = (Button)item.FindControl("MyExpBtn");
                     btn.Attributes.Add("style", "visibility:hidden");
                 }
-                
+
             }
         }
 

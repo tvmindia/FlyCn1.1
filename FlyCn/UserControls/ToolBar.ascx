@@ -31,7 +31,7 @@
         notific.style.display = "";
     }
 
-    <%-- function <%=ClientID%>_hideNotification()
+<%--   function <%=ClientID%>_hideNotification()
     {
         debugger;
         var notific = document.getElementById("noti_Container");

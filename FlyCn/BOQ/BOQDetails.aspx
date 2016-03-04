@@ -386,7 +386,7 @@
 
               
                  eventArgs.set_cancel(false);
-                  <%=ToolBarBOQDetail.ClientID %>_hideNotification();
+                 <%-- <%=ToolBarBOQDetail.ClientID %>_hideNotification();--%>
              }
          }
          else
@@ -395,7 +395,7 @@
                      AlertMsg(messages.EditModeNewClick);
 
                      eventArgs.set_cancel(true);
-                      <%=ToolBarBOQDetail.ClientID %>_hideNotification();
+                    <%--  <%=ToolBarBOQDetail.ClientID %>_hideNotification();--%>
                  }
                  else
                      if (tab.get_text() == "Details") {
@@ -412,7 +412,7 @@
 
                      AlertMsg(messages.EditModeNewClick);
                      eventArgs.set_cancel(true);
-                      <%=ToolBarBOQDetail.ClientID %>_hideNotification();
+                    <%--  <%=ToolBarBOQDetail.ClientID %>_hideNotification();--%>
                  }
              }
      }
@@ -478,9 +478,9 @@
      }
 
 
-     function DisablePopUP() {
+<%--     function DisablePopUP() {
        <%=ToolBarBOQDetail.ClientID %>_hideNotification();
-     }
+     }--%>
 
      function OnClientButtonClickingDetail(sender, args) {
          var btn = args.get_item();

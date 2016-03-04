@@ -24,6 +24,7 @@ namespace FlyCn.Content.DocDetailView
                 string projectNum = Request.QueryString["ProjectNo"];
                 string revId = Request.QueryString["RevNum"];
                 hiddenFieldDocType.Value = Request.QueryString["DocumentType"];
+                Session["DocumentType"] = hiddenFieldDocType.Value;
                 hiddenfieldProjNo.Value = projectNum;
                 string type = hiddenFieldDocType.Value;
                 string revid = Request.QueryString["Revisionid"];

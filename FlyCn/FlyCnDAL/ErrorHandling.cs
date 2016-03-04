@@ -64,9 +64,9 @@ namespace FlyCn.FlyCnDAL
                    HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
                 divMask1.Style["display"] = "";// divMask1.Style["display"] = "";   
                 divMask1.Style["visibility"] = "visible";
-              //  Label Success = (Label)master1.FindControl("lblErrorInfo");
+                Label Success = (Label)master1.FindControl("lblErrorInfo");
                 divMask1.Attributes["class"] = "Succesmsgboxes";
-               // Success.Text = "Successfully Inserted"; 
+                Success.Text = "Successfully Inserted..!!!"; 
  
   }
          public void InsertionSuccessData(Page pg,string msg)//if insert does not happend becasue of already existing

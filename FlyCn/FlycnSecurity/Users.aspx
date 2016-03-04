@@ -70,6 +70,7 @@
                      
                </div>
          </div>
+         
           <div style="float:right; width:47%; ">
             <div class="col-md-12"  style="border-left: 1px solid #cfc7c0;min-height:400px">
                 <div style="margin-left:10px;">

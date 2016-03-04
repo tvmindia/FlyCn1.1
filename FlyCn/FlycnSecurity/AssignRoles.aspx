@@ -87,7 +87,7 @@
                     <asp:ListItem Text="--select--"></asp:ListItem>
                 </asp:DropDownList>
                </div>
-                <div style="overflow-x:auto;overflow-x:hidden; width: 300px; height: 200px;position:center; position:fixed;left:70% ;top:30%;">
+                <div style="overflow-x:auto;overflow-x:hidden; width: 300px; height: 200px;position:center; position:fixed;left:68.5% ;top:30%;">
                     <br />
                   <div class="contentTopBar" style="width:420px;"></div>
                     <telerik:RadGrid ID="dtgAssignRoles" runat="server" OnNeedDataSource="dtgAssignRoles_NeedDataSource" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  OnItemCreated="dtgAssignRoles_ItemCreated">

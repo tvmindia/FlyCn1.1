@@ -375,7 +375,7 @@
             else
                 if (PageSecurity.isReadOnly) {
                     if (tab.get_text() == "New") {
-                        <%=ToolBar.ClientID %>_hideNotification();
+                        
                         AlertMsg(messages.EditModeNewClick);
 
                         eventArgs.set_cancel(true);

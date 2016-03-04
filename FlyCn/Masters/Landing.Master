@@ -8,11 +8,72 @@
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-    <script src="../Scripts/jquery-1.8.2.min.js"></script>
+     <script src="../Scripts/jquery-1.8.2.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+ 
+<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
     <%--<link href="../Content/FlyCnMain.css" rel="stylesheet" />
     <link href="../Content/Site.css" rel="stylesheet" />--%>
     <link rel="shortcut icon" href="../Images/Icons/cap.ico" />
+       <link rel="shortcut icon" href="../Images/Icons/cap.ico" />  
+   <script src="../Scripts/jquery-1.8.2.min.js">
+    </script>
+    <script src="../Scripts/jquery-ui-1.8.24.js"></script>
+    
+    
+    <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
 
+    <style type="text/css">
+        .ui-dialog-title {
+            padding-left: 15em;
+            color: #333300;
+        }
+
+        .ui-dialog-titlebar {
+            background: transparent;
+            border: none;
+            height: 1.1em;
+        }
+
+        .ui-dialog .ui-dialog-titlebar-close {
+            right: 0;
+        }
+
+        .ui-dialog {
+            /*overflow:auto;
+      overflow-x:hidden;*/
+            background: top;
+            background-color: white;
+            border: 1px solid #fff;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            -moz-border-radius: 12px;
+            -webkit-border-radius: 12px;
+            border-radius: 12px;
+            -moz-box-shadow: 4px 4px 14px #000;
+            -webkit-box-shadow: 4px 4px 14px #000;
+            box-shadow: 4px 4px 14px #000;
+            border-top: #A6CAB8 3px solid;
+        }
+
+        .headings {
+            font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 15px;
+            font-style: normal;
+            color: #009933;
+        }
+
+        td.myclass {
+            text-align: left;
+            width: 100px;
+        }
+
+        td.size {
+            text-align: left;
+            width: 200px;
+        }
+    </style>
+   
     <script type="text/javascript">
         function openLogin(opt) {
             //alert(document.getElementById("LoginDiv").style.display);
@@ -34,33 +95,74 @@
         $(document).ready(function(){
             if(document.getElementById("lblError").innerHTML!=""){
                 openLogin('');
+             
             }
             else if (document.getElementById("lblUser").innerHTML == "") {
+              
               //  openLogin('slow');
             }
         });
         
+        
+ 
         function goMenu() {
 
             window.location = "../Menu.aspx"
         }
+
+        function goProjectSwitching()
+        {
+
+            OpenNewProjectWizard();
+        }
+
+      
+        function OpenNewProjectWizard() {
+            var frame = document.getElementById('IframeProjectSwitching');
+          
+  
+            try {
+                $("#modal_dialog").dialog({
+                    title: "Project Switching",
+                    width: 800,
+                    height: 400,
+                    resizable: false,
+                    buttons: {}, modal: true
+                });
+              
+                return false;
+            }
+            catch (X) {
+                alert(X.message);
+            }
+        }
          
     </script>
+
 </head>
 <body>
+     
     <form id="form1" runat="server">
+    
     <div class="baseStyles">
         <div class="header-cont">
             <div id="HeaderStrip">
                 <table class="headerStrip">
                     <tr>
                         <td style="width: 10%">
-                            <img src="../Images/FlyCnlogo.PNG" style="height: 25px" /><span class="LogoText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>   </td>
+                            <img src="../Images/FlyCnlogo.PNG" style="height: 25px" alt="go to menu" onclick="goMenu();"/><span class="LogoText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>   </td>
                         <td></td>
-                        <td style="width: 10%">
-                            <asp:Image ID="imgMenu" runat="server" ImageUrl="~/Images/Icons/tilesIcon.png" onclick="goMenu();" Style="height: 30px" />
-
+                        <td>
+                            <asp:Label ID="lblProject" runat="server" Text="Project :"></asp:Label>
+                            <asp:Label ID="lblProjectNo" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="lblProjectName" runat="server" Text=""></asp:Label>
                         </td>
+                        <td style="width: 10%">
+                            <asp:Image ID="imgMenu" ToolTip="go to menu" runat="server" ImageUrl="~/Images/Icons/tilesIcon.png" onclick="goMenu();" Style="height: 30px" />
+                           
+                             <asp:Image ID="imgProjSwithing" ToolTip="change project" runat="server" ImageUrl="~/Images/Share-021.png" onclick="goProjectSwitching();" Style="height: 30px;" />
+                        </td>
+                       
                         <td style="width: 10%" class="">
                             <asp:Label ID="lblUser" runat="server" Text=""></asp:Label></td>
                         <td style="width: 10%">
@@ -131,6 +233,13 @@
                 </tr>
             </table>
         </div>
+      
+         <div id="modal_dialog" style="display:none; width: 1000px!important; height: 1000px!important; overflow: hidden; overflow-x: hidden;">
+
+                <iframe id="IframeProjectSwitching" src="../ProjectsSwithching.aspx" style="width: 1000px; height: 500px;"></iframe>
+            </div>
+        
+
     </form>
 </body>
 </html>
