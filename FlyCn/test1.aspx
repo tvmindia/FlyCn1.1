@@ -69,12 +69,16 @@
              
 
                                         <telerik:GridBoundColumn DataField="LevelDesc"  UniqueName="LevelDesc" ItemStyle-HorizontalAlign="Left" HeaderText="Level Desc" >                                         
- 
-
-                                            <HeaderStyle Width="200"></HeaderStyle>                                           
+                                      <HeaderStyle Width="200"></HeaderStyle>                                           
                                             <ItemStyle Width="200" HorizontalAlign="Left"></ItemStyle>
                                         </telerik:GridBoundColumn>
                                         
+
+                                        <telerik:GridCheckBoxColumn DataField="Add" UniqueName="Add" HeaderText="Add"></telerik:GridCheckBoxColumn>
+                                        <telerik:GridCheckBoxColumn DataField="Edit" UniqueName="Edit" HeaderText="Edit" ></telerik:GridCheckBoxColumn>
+                                        <telerik:GridCheckBoxColumn DataField="Delete" UniqueName="Delete"  HeaderText="Delete"></telerik:GridCheckBoxColumn>
+                                        <telerik:GridCheckBoxColumn DataField="ReadOnly" UniqueName="ReadOnly" HeaderText="Read Only" ></telerik:GridCheckBoxColumn>
+
 
                                         <telerik:GridAttachmentColumn FileName="attachment" FilterControlAltText="Filter column column" UniqueName="column">
                                         </telerik:GridAttachmentColumn>
@@ -82,7 +86,16 @@
                                         </telerik:GridAttachmentColumn>
                                         <telerik:GridAttachmentColumn FileName="attachment" FilterControlAltText="Filter column2 column" UniqueName="column2">
                                         </telerik:GridAttachmentColumn>
-                                        
+
+
+         <%--     <telerik:GridTemplateColumn >
+                <ItemTemplate>
+                <asp:CheckBox ID="CheckBox1" Checked='<%# (DataBinder.Eval(Container.DataItem,"ReadOnly") is DBNull ?false:Eval("ReadOnly")) %>' runat="server" />
+            </ItemTemplate>
+            </telerik:GridTemplateColumn>             --%>
+
+
+
 
                                     </Columns>
 

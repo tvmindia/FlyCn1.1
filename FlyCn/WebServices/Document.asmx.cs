@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -515,7 +516,7 @@ namespace FlyCn.WebServices
         }
         #endregion
 
-        #region Punch Item Get Attatchment
+        #region Punch Item Get Attatchment List
         /// <summary>
         /// Webservice to return list of attachment images of an punchlist item
         /// </summary>
@@ -525,7 +526,7 @@ namespace FlyCn.WebServices
         /// <param name="isThumb">optional parameter to denote whether thumbanail images are enough</param>
         /// <returns>JSON of details of attachment images</returns>
         [WebMethod]
-        public string PunchItemGetAttatchment(string projNo, string punchID, string EILtype, Boolean isThumb=false)
+        public string PunchItemGetAttatchmentList(string projNo, string punchID, string EILtype)
         {
             //return msg data initialization
             DataSet ds = new DataSet();
@@ -543,7 +544,7 @@ namespace FlyCn.WebServices
                 imgFileNameCols.Add("AttachmentName");
                 imgFileTypeCols.Add("FileType");
 
-                return getDbDataAsJSON(ds, imgColNames, imgFileNameCols, imgFileTypeCols,isThumb);
+                return getDbDataAsJSON(ds, imgColNames, imgFileNameCols, imgFileTypeCols,true);
             }
             catch (Exception ex)
             {
@@ -562,8 +563,61 @@ namespace FlyCn.WebServices
             {                
             }
         }
-        #endregion Punch Item Get Attatchment
+        #endregion Punch Item Get Attatchment List
 
+        #region Punch Item Get Attatchment item
+        /// <summary>
+        /// Webservice to return list of attachment images of an punchlist item
+        /// </summary>
+        /// <param name="projNo">Project Number</param>
+        /// <param name="punchID">EIL ID</param>
+        /// <param name="EILtype">WEIL/CEIL/QEIL</param>
+        /// <param name="isThumb">optional parameter to denote whether thumbanail images are enough</param>
+        /// <returns>JSON of details of attachment images</returns>
+        [WebMethod]
+        public string PunchItemGetAttatchmentItem(string attachmentID)
+        {
+            //return msg data initialization
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            Guid attachid = new Guid(attachmentID);
+            try
+            {   //Retrieving details
+                FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+                SqlDataReader reader = punchObj.MakeFile(attachid);
+
+                dt.Load(reader);
+                ds.Tables.Add(dt);
+
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("AttachmentName");
+                imgFileTypeCols.Add("FileType");
+
+                return getDbDataAsJSON(ds, imgColNames, imgFileNameCols, imgFileTypeCols, false);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                ErrorMsg.Rows.Add(dr);
+                ds.Tables.Add(ErrorMsg);
+                return getDbDataAsJSON(ds);
+            }
+            finally
+            {
+            }
+        }
+        #endregion Punch Item Get Attatchment item
+        
         #region Punch Item Add Attatchment
         /// <summary>
         /// Webservice to get new attachment file from mobile
@@ -715,31 +769,43 @@ namespace FlyCn.WebServices
                     {
                         if (!imgColName.Contains(col.ColumnName))
                         {
-                            if (!imgFileNameCol.Contains(col.ColumnName))
-                                row.Add(col.ColumnName, dr[col]);
+                           row.Add(col.ColumnName, dr[col]);
                         }
                     }
                     //adding image details in JSON
                     for (int i = 0; i < imgColName.Count; i++)
                     {
-                        if (dr[imgColName[i] as string] != DBNull.Value)
-                        {
-                            String fileURL = filePath + DateTime.Now.ToString("ddHHmmssfff") + dr[imgFileNameCol[i] as string] + dr[imgFileTypeCol[i] as string];
-                            if (!System.IO.File.Exists(fileURL))
-                            {
-                                byte[] buffer;
-                                if (isThumb)
-                                {
-                                    buffer = MakeThumbnail((byte[])dr[imgColName[i] as string], 90, 90);//images are converted to thumbnails of 90*90px
-                                }
-                                else
-                                {
-                                    buffer = (byte[])dr[imgColName[i] as string];
-                                }
-                                System.IO.File.WriteAllBytes(fileURL, buffer);
-                            }
-                            row.Add(imgColName[i] as string, fileURL);
-                        }
+                       
+                                        if (dr[imgColName[i] as string] != DBNull.Value)
+                                        {
+                                            String fileURL = filePath + DateTime.Now.ToString("ddHHmmssfff") + dr[imgFileNameCol[i] as string].ToString().Replace(" ","_");
+                                            if (!System.IO.File.Exists(fileURL))
+                                            {
+                                                byte[] buffer;
+                                                if (isThumb)
+                                                { switch(dr[imgFileTypeCol[i] as string].ToString())  //checking whether image file
+                                                        {
+                                                            case ".bmp":
+                                                            case ".gif":
+                                                            case ".png":
+                                                            case ".jpg":
+                                                            case ".jpeg": //imageFile confirmed
+                                                                         buffer = MakeThumbnail((byte[])dr[imgColName[i] as string], 90, 90);//images are converted to thumbnails of 90*90px
+                                                                                    break;
+                                                            default: //non-image file confirmed
+                                                                buffer = (byte[])dr[imgColName[i] as string];
+                                                                                    break;
+                                                        }
+                                                }
+                                                else
+                                                {
+                                                    buffer = (byte[])dr[imgColName[i] as string];
+                                                }
+                                                System.IO.File.WriteAllBytes(fileURL, buffer);
+                                            }
+                                            row.Add(imgColName[i] as string, fileURL);
+                                        }
+                                        
                     }
                     rows.Add(row);
                 }

@@ -37,11 +37,19 @@ namespace FlyCn.EngineeredDataList
         protected void Page_Load(object sender, EventArgs e)
         {
                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
-                _moduleId = Request.QueryString["Id"];
+                _moduleId = Request.QueryString["ID"];
+                if(Request.QueryString["ID"]!="")
+                {
+                     hdfModuleID.Value = _moduleId;
+                     Session["ModuleID"] = _moduleId;
+                }
+                
+                //ViewState["ModuleID"] = _moduleId;
+               
                 //RadTreeView node = new RadTreeView("rvleftmenu");
                 //node.ExpandMode = TreeNodeExpandMode.ServerSideCallBack;
                 //rvleftmenu.Nodes.Add(node);
-                if (Request.QueryString["Id"] != null)
+                if (Request.QueryString["Id"] != "")
                 {
                     moduleObj.ModuleID = Request.QueryString["Id"];
                     comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
@@ -54,35 +62,40 @@ namespace FlyCn.EngineeredDataList
                 //    comDAL.GetTableDefinitionByModuleID(moduleObj.ModuleID);
                     
                 //}
-               
                 importObj.ProjectNo = UA.projectNo;
                 importObj.UserName = UA.userName;
-              
-
-          
-            if (_moduleId != null)
+         
+            if (!string.Equals(_moduleId,""))
             {
                 Modules moduleObj = new Modules();
                 DataSet dsobj = new DataSet();
                 dsobj = moduleObj.GetModule(_moduleId);
-                lblModule.Text = dsobj.Tables[0].Rows[0]["ModuleDesc"].ToString();
-                _TableName = dsobj.Tables[0].Rows[0]["BaseTable"].ToString();
-                hdfTableName.Value = _TableName;
-                DataSet ds = new DataSet();
-                ds = moduleObj.GetModules();
-                string  tabliFirst = "";
-                tabliFirst = " <li style='width:80px;' >" + " <a href='EnggDataListLandingPage.aspx" + "'" + "'" + "'" + ">" + "<img" + " src=" + "'" +
-                    ds.Tables[0].Rows[4]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>" 
-                    + "All" + "</p>" + "</a></li>";
-                horizonaltab.Controls.Add(new LiteralControl(tabliFirst));
-                string tabhtml = "";
-
-                for (int f = 0; f < ds.Tables[0].Rows.Count; f++)
+                if(dsobj.Tables[0].Rows.Count>0)
                 {
-                    tabhtml = " <li style='width:80px;' >" + " <a href='EnggDatalistBaseTable.aspx?Id=" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "'" + "'" + "'" + ">" + "<img" + " src=" + "'" + ds.Tables[0].Rows[f]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "</p>" + "</a></li>";
+                    lblModule.Text = dsobj.Tables[0].Rows[0]["ModuleDesc"].ToString();
+                    _TableName = dsobj.Tables[0].Rows[0]["BaseTable"].ToString();
+                    hdfTableName.Value = _TableName;
+                    DataSet ds = new DataSet();
+                    ds = moduleObj.GetModules();
+                    if(ds.Tables[0].Rows.Count>0)
+                    {
+                        string tabliFirst = "";
+                        tabliFirst = " <li style='width:80px;' >" + " <a href='EnggDataListLandingPage.aspx" + "'" + "'" + "'" + ">" + "<img" + " src=" + "'" +
+                            ds.Tables[0].Rows[4]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>"
+                            + "All" + "</p>" + "</a></li>";
+                        horizonaltab.Controls.Add(new LiteralControl(tabliFirst));
+                        string tabhtml = "";
 
-                    horizonaltab.Controls.Add(new LiteralControl(tabhtml));
+                        for (int f = 0; f < ds.Tables[0].Rows.Count; f++)
+                        {
+                            tabhtml = " <li style='width:80px;' >" + " <a href='EnggDatalistBaseTable.aspx?Id=" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "'" + "'" + "'" + ">" + "<img" + " src=" + "'" + ds.Tables[0].Rows[f]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "</p>" + "</a></li>";
+
+                            horizonaltab.Controls.Add(new LiteralControl(tabhtml));
+                        }
+                    }
+                   
                 }
+               
             }
         }
       
@@ -98,8 +111,11 @@ namespace FlyCn.EngineeredDataList
             dtgUploadGrid.MasterTableView.GetColumn("Field_DataType").Visible = false;
             dtgUploadGrid.MasterTableView.GetColumn("Key_Field").Visible = false;
             dtgUploadGrid.MasterTableView.GetColumn("Field_Name").Visible = false;
-            
-            
+            dtgUploadGrid.MasterTableView.GetColumn("Ref_TableName").Visible = false;
+            dtgUploadGrid.MasterTableView.GetColumn("Ref_JoinField").Visible = false;
+            dtgUploadGrid.MasterTableView.GetColumn("Ref_SelectField").Visible = false;
+            dtgUploadGrid.Rebind(); 
+                    
         }
         protected void dtgUploadGrid_ItemDataBound(object sender, GridItemEventArgs e)
         {
@@ -112,9 +128,10 @@ namespace FlyCn.EngineeredDataList
                 GridDataItem item = e.Item as GridDataItem;
                 if (item["ExcelMustFields"].Text == "Y")
                 {
+                    item.Enabled = false;
                     //string temp = (string)item["Field_Name"].Text;
                     //item.Display = false;
-                    item.Enabled = false;
+                   
                 }
               
             } 
@@ -124,12 +141,17 @@ namespace FlyCn.EngineeredDataList
         {
             if (_moduleId != null)
             {
-                DataSet dsObj = new DataSet();
-                CommonDAL cmDalObj = new CommonDAL();
-                dsObj = cmDalObj.GetTableDefinition(_TableName);
-                DataTable dtobj = new DataTable();
-                dtobj = dsObj.Tables[0];
-                dtgUploadGrid.DataSource = dtobj;
+               _TableName = hdfTableName.Value;
+                if(_TableName != null)
+                {
+                    DataSet dsObj = new DataSet();
+                    CommonDAL cmDalObj = new CommonDAL();
+                    dsObj = cmDalObj.GetTableDefinition(_TableName);
+                    DataTable dtobj = new DataTable();
+                    dtobj = dsObj.Tables[0];
+                    dtgUploadGrid.DataSource = dtobj;
+                }
+               
              }
         }
     
@@ -206,15 +228,15 @@ namespace FlyCn.EngineeredDataList
                             if (importObj.SheetName == currentSheet)
                             {
                                 dsFile = new DataSet();
-                                dsFile = importObj.ScanExcelFileToDS(excelSheets);
                                 dsTable = comDAL.GetTableDefinition(comDAL.tableName);
+                                dsFile = importObj.ScanExcelFileToDS(excelSheets,dsTable);
                                 columnExistCheck = validationObj.ValidateExcelDataStructure(dsFile, dsTable);
                                 if (columnExistCheck == true)
                                 {
                                     //SlideEffectUpload
                                     //lblMsg.Text = "Successfully Uploaded!";
                                     ScriptManager.RegisterStartupScript(this, GetType(), "Upload", "GenerateTemplateNextClick();", true);
-                                    ScriptManager.RegisterStartupScript(this, GetType(), "SlideEffect", "SlideEffectUpload();", true);
+                                   // ScriptManager.RegisterStartupScript(this, GetType(), "SlideEffect", "SlideEffectUpload();", true);
                                     ScriptManager.RegisterStartupScript(this, GetType(), "SlideEffect", "ShowGridButton();", true);
                                     EnaableButtonandGrid();
                                     CheckBoxAllCheck();
@@ -353,12 +375,11 @@ namespace FlyCn.EngineeredDataList
             GridHeaderItem headerItem = dtgUploadGrid.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
             if (headerItem != null)
             {
-                 bool checkHeader = true;
+                bool checkHeader = true;
                 foreach (GridDataItem dataItem in dtgUploadGrid.MasterTableView.Items)
                 {
                     if (!(dataItem.FindControl("CheckBox1") as CheckBox).Checked)
                     {
-
                         (dataItem.FindControl("CheckBox1") as CheckBox).Checked = checkHeader;
                     }
                 }
@@ -453,6 +474,10 @@ namespace FlyCn.EngineeredDataList
                }
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tempDS"></param>
 
        public void RemoveErrorRow(DataSet tempDS)
        {
@@ -483,7 +508,9 @@ namespace FlyCn.EngineeredDataList
                checkds.AcceptChanges();
            }
        }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void GetUserSelectedFields()
         {
              string temps="";
@@ -503,6 +530,9 @@ namespace FlyCn.EngineeredDataList
                 }
                         
         }
+        /// <summary>
+        /// 
+        /// </summary>
        
         public void GetErrorRows()
         {
@@ -530,6 +560,9 @@ namespace FlyCn.EngineeredDataList
                 }
            
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public void DynamicSheet()
        {
             switch(moduleObj.ModuleID)
@@ -598,7 +631,11 @@ namespace FlyCn.EngineeredDataList
         {
             dtgvalidationErros.Rebind();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void BtnNext_Click(object sender, EventArgs e)//btn validate
         {
 
@@ -612,9 +649,10 @@ namespace FlyCn.EngineeredDataList
             {
                 try
                 {
+                    dsTable = comDAL.GetTableDefinition(comDAL.tableName);
                     tempDS = new DataSet();
-                    tempDS = importObj.GetExcelData();
-                    CheckBoxColumns();//getting the fieldnames that has been uncheced
+                    tempDS = importObj.GetExcelData(dsTable);
+                    CheckBoxColumns();//getting the fieldnames that has been unchecked
                     RemoveColumnFromDS(tempDS);
                     ValidateDataStructure(tempDS);
                     hdfstatusID.Value = validationObj.importfile.status_Id.ToString();
@@ -641,7 +679,11 @@ namespace FlyCn.EngineeredDataList
 
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnImport_Click(object sender, EventArgs e)
         {
           
@@ -657,9 +699,9 @@ namespace FlyCn.EngineeredDataList
                 }
                 importObj.ProjectNo = UA.projectNo;
                 importObj.UserName = UA.userName;
-
+                dsTable = comDAL.GetTableDefinition(comDAL.tableName);
                 tempDS = new DataSet();
-                tempDS = importObj.GetExcelData();
+                tempDS = importObj.GetExcelData(dsTable);
                 if (hdfremovedField.Value != null)
                 {
                     GetUserSelectedFields();//results stored in 'columnNames' Global variable list
@@ -674,12 +716,12 @@ namespace FlyCn.EngineeredDataList
                 {
                     //Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
                     //excelImportThread.Start();
-                    //new Thread(delegate()
-                    //     {
-                    //         importObj.ImportExcelData(tempDS);
-                    //     }).Start();
+                    new Thread(delegate()
+                         {
+                             importObj.ImportExcelData(tempDS);
+                         }).Start();
 
-                   importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+                  // importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
                 }
                 //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
                 ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id + "&ModuleName=" + importObj.SheetName;//iframe page ImportStatusList.aspx is called with query string revisonid and module name from excel sheet name

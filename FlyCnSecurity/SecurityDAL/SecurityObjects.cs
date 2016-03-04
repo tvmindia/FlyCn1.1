@@ -29,6 +29,7 @@ namespace FlyCnSecurity.SecurityDAL
 
         #region Public Properties
 
+
         /// <summary>
         /// Object ID Property
         /// </summary>
@@ -587,6 +588,8 @@ namespace FlyCnSecurity.SecurityDAL
 
             SqlCommand cmd = new SqlCommand("GetObjectDetails", con);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@RoleId", RoleID);
+
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = cmd;
             dataset = new DataSet();

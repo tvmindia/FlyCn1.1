@@ -110,6 +110,16 @@ namespace FlyCn.DocumentSettings
         {
             get { return "Drum no invalid"; }
         }
+
+        public static string ALV
+        {
+            get{return "Allocated length is small";}
+        }
+
+        public static string ULV
+        {
+            get { return "Used Drum Can Not Change";}
+        }
         #endregion CableDrumValidation
 
 

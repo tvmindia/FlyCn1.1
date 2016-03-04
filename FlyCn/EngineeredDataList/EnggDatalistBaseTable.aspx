@@ -107,30 +107,37 @@ ul.departments { list-style-type: none; }*/
                    text-overflow: ellipsis; 
     
             }
+            .uploadButton
+            {
+             
+            }
     </style>
+    <script src="../Scripts/jquery-1.11.3.min.js"></script>
     <script src="../Scripts/UserJs/UserValidations.js"></script>
+
     <script>
         //function ValidateBtnClick(event)
         //{
         //    event.set_cancel(false);
         //    UploadNextClick();
-           
-
+       
         //}
 
-        function UploadNextClick() {
+        function UploadNextClick()
+        {
             document.getElementById("Upload").style.display = "none";
             document.getElementById("DivValidate").style.display = "";
             document.getElementById("GenerateTemplate").style.display = "none";
             document.getElementById("Import").style.display = "none";
 
             /*import link non-clickable*/
-            document.getElementById('import').disabled = true;
+           // document.getElementById('import').disabled = true;
             document.getElementById('import').style.textDecoration = 'none';
-            document.getElementById('import').removeAttribute("href");
+           // document.getElementById('import').removeAttribute("href");
             document.getElementById('import').onclick = "return false";
         }
-        function GenerateTemplateNextClick() {
+        function GenerateTemplateNextClick()
+        {
             var firstdiv = document.getElementById("Upload");
             firstdiv.style.display = "";
             document.getElementById("GenerateTemplate").style.display = "none";
@@ -138,15 +145,15 @@ ul.departments { list-style-type: none; }*/
             document.getElementById("Import").style.display = "none";
 
             /*import link non-clickable*/
-            document.getElementById('import').disabled = true;
+          //  document.getElementById('import').disabled = true;
             document.getElementById('import').style.textDecoration = 'none';
-            document.getElementById('import').removeAttribute("href");
-            document.getElementById('import').onclick = "return false";
+           // document.getElementById('import').removeAttribute("href");
+            //document.getElementById('import').onclick = "return false";
 
             /*validate link non-clickable*/
-            document.getElementById('validate').disabled = true;
+           // document.getElementById('validate').disabled = true;
             document.getElementById('validate').style.textDecoration='none'
-            document.getElementById('validate').removeAttribute("href");
+          //  document.getElementById('validate').removeAttribute("href");
             document.getElementById('validate').onclick = "return false";
             
         }
@@ -161,7 +168,8 @@ ul.departments { list-style-type: none; }*/
            
         }
 
-        function GenerateTemplateDivShow() {
+        function GenerateTemplateDivShow()
+        {
           
             document.getElementById("Upload").style.display = "none";
             document.getElementById("Import").style.display = "none";
@@ -171,28 +179,50 @@ ul.departments { list-style-type: none; }*/
             /*import link non-clickable*/
             document.getElementById('import').disabled = true;
             document.getElementById('import').style.textDecoration = 'none';
-            document.getElementById('import').removeAttribute("href");
+           // document.getElementById('import').removeAttribute("href");
             document.getElementById('import').onclick = "return false";
-
             /*validate link non-clickable*/
+
             document.getElementById('validate').disabled = true;
             document.getElementById('validate').style.textDecoration = 'none'
-            document.getElementById('validate').removeAttribute("href");
+           // document.getElementById('validate').removeAttribute("href");
             document.getElementById('validate').onclick = "return false";
 
             /*upload link non-clickable*/
-            document.getElementById('upload').disabled = true;
-            document.getElementById('upload').style.textDecoration = 'none'
-            document.getElementById('upload').removeAttribute("href");
-            document.getElementById('upload').onclick = "return false";
+           // document.getElementById('upload').disabled = true;
+          //  document.getElementById('upload').style.textDecoration = 'none'
+            //document.getElementById('upload').removeAttribute("href");
+           // document.getElementById('upload').onclick = "return false";
+        }
+
+        function LinkDisable()
+        {
+            //document.getElementById('validate').disabled = true;
+            //document.getElementById('upload').disabled = true;
+            //document.getElementById('validate').removeAttribute("href");
+              document.getElementById('validate').onclick = "return false";
+            //document.getElementById('import').removeAttribute("href");
+              document.getElementById('import').onclick = "return false";
+        }
+        function ShowGridButton() {
+            $("#uploadControlDiv").animate({ "left": "-=250px" }, "slow");
+            
+            var dividerbar = document.getElementById('idDividerBar');
+            dividerbar.style.display = "block";
+            var divtohide = document.getElementById('Gridandbutton');
+            divtohide.style.display = "block";
         }
         
+        $(document).ready(function () {
+            LinkDisable();
+            //GenerateTemplateDivShow();
+            //a = document.getElementById();
+            //a.setAttribute("href", "somelink url");
+
+        });
+        //GenerateTemplateDivShow
             
-        //function codeAddress() {
-        //    alert('ok');
-        //    parent.OnEnggDataListTreeBinding();
-        //}
-        //window.onload = codeAddress;
+       
     </script>
 
 </asp:Content>
@@ -257,18 +287,7 @@ ul.departments { list-style-type: none; }*/
         //   // var upload = document.getElementById('Gridandbutton');
         //   // upload.style.display = "";
         // }
-        function ShowGridButton()
-        {
-            var divtohide = document.getElementById('Gridandbutton');
-            divtohide.style.display = "block";
-        }
-        function SlideEffectUpload()
-        {
-            //uploadControlDiv
-            $("#uploadControlDiv").animate({ "left": "+=50px" }, "slow");
-
-        }
-
+          
     </script>
 
 
@@ -294,13 +313,9 @@ ul.departments { list-style-type: none; }*/
                         <li><a href="#" id="upload" onclick='GenerateTemplateNextClick();'>Upload &nbsp;&nbsp; <img src="../Images/Icons/RightArrow16.png" />
                         </a>
                         </li>
+                        <li><a href="#" id="validate" onclick='UploadNextClick();'>Validate &nbsp;&nbsp; <img src="../Images/Icons/RightArrow16.png" /></a></li>
                         <li>
-                            <a href="#" id="validate" onclick='UploadNextClick();'>Validate &nbsp;&nbsp; <img src="../Images/Icons/RightArrow16.png" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" id="import" onclick='Import();'>Import
-                            </a>
+                        <a href="#" id="import" onclick='Import();'>Import</a>
                         </li>
                     </ul>
                 </div>
@@ -348,30 +363,33 @@ ul.departments { list-style-type: none; }*/
     <div id="Upload" style="display: none; margin-left: 30%;">
 
 
-        <div class="col-md-12 Span-One" style="vertical-align:middle">
-            <div class="col-md-4" id="uploadControlDiv" style="text-align:left;margin-top:5%;position:absolute">
+        <div class="col-md-12 Span-One" style="vertical-align:middle" id="uploadControlDiv">
+            <div class="col-md-7"  style="text-align:left;margin-top:5%">
 
-               <div class="col-md-10">
+               <div class="col-md-11">
+                    <div class="col-md-10">
                
-                    <asp:FileUpload ID="DataImportFileUpload" runat="server" class="FlatbuttonUpload" width="300px" /> </div>
-                           
-               <div class="col-md-2">
-                <asp:Button ID="btnUpload" runat="server" Text="Upload" class="Flatbutton" OnClientClick="return validateExcel()" OnClick="btn_upload_Click" Style="width: 80px" />
-                 </div>
+                    <asp:FileUpload ID="DataImportFileUpload" runat="server" class="FlatbuttonUpload" width="250px"  />
+                        </div>
+               
+           <div class="col-md-2">
+                <asp:Button ID="btnUpload" runat="server" Text="Upload" class="Flatbutton uploadButton" OnClientClick="return validateExcel()" OnClick="btn_upload_Click" Style="width: 80px" />
+            </div>
+                     </div>     
                <div>
                      <asp:Label ID="lblMsg" runat="server" Text="" Font-Bold="true"></asp:Label>
                  </div>
 
             </div>
             <%--middle line --%>
-            <div class="col-md-1">&nbsp;</div>
-            <div class="col-md-1"  style="border-left: 1px solid #cfc7c0;min-height:250px;display:none">&nbsp;</div>
+            <div>&nbsp;</div>
+            <div class="col-md-1" id="idDividerBar"  style="border-left: 1px solid #cfc7c0;min-height:250px;display:none">&nbsp;</div>
             <%--middle line --%>
 
-            <div class="col-md-5" id="Gridandbutton" style="display:none">  
-                <%--<div >--%>
+            <div class="col-md-4" id="Gridandbutton" style="display:none">  
+            <%--<div >--%>
                 <asp:Label ID="lblUploadGridHeading" runat="server" Text="Choose Fields" CssClass="subtitle"></asp:Label>
-              <div style="height: 220px;" class="chooseFieldsBox">
+              <div style="height: 220px;width:150%" class="chooseFieldsBox"> <%--grid width is set here--%>
                 <div  style="overflow-y: scroll; height: 200px;">
                     <asp:UpdatePanel ID="dtgUploadGridUpdatepanel" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
@@ -386,18 +404,17 @@ ul.departments { list-style-type: none; }*/
                                                 <asp:CheckBox ID="CheckBox1" runat="server" OnCheckedChanged="ToggleRowSelection" AutoPostBack="false" Checked="true"/>
                                             </ItemTemplate>
                                          </telerik:GridTemplateColumn>
-                                    </Columns>
+                                   </Columns>
                                 </MasterTableView>
-
                             </telerik:RadGrid>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-                        </div>
+                  </div>
                     
              </div>
                <div class="Flatbutton" style="width:150px">
-                               <asp:Button ID="btnValidate" class="buttonValidateAndImport" runat="server"  OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Validate"></asp:Button>
-                               <img src="../Images/Icons/RightArrow16.png" />
+                <asp:Button ID="btnValidate" class="buttonValidateAndImport" runat="server"  OnClick="BtnNext_Click" OnClientClick="return UploadNextClick();" Text="Validate"></asp:Button>
+                <img src="../Images/Icons/RightArrow16.png" />
                           
                        
                         </div>
@@ -596,10 +613,12 @@ ul.departments { list-style-type: none; }*/
 
          </div>
     </div>
-       <asp:HiddenField ID="hdfTableName" runat="server" />
+       <asp:HiddenField ID="hdfTableName" runat="server"/>
        <asp:HiddenField ID="hdfFileName" runat="server"/>
        <asp:HiddenField ID="hdfFileLocation" runat="server"/>
        <asp:HiddenField ID="hdfstatusID" runat="server"/>
        <asp:HiddenField ID="hdfremovedField" runat="server"/>
-       <asp:HiddenField ID="hdfErrorRow" runat="server" />
+       <asp:HiddenField ID="hdfErrorRow" runat="server"/>
+       <asp:HiddenField ID="hdfModuleID" runat="server"/>
+       
 </asp:Content>

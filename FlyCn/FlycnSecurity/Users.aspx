@@ -38,7 +38,7 @@
                           </div>
                            
                        <br />
-                        <div class="contentTopBar" style="width:500px;"></div>
+                      <%--  <div class="contentTopBar" style="width:500px;"></div>--%>
                          <div style="width:500px;">
                      <telerik:RadGrid ID="dtgManageExisting" runat="server" OnDeleteCommand="dtgManageExisting_DeleteCommand1" OnNeedDataSource="dtgManageExisting_NeedDataSource" OnItemCommand="dtgManageExisting_ItemCommand1" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" >
                            <HeaderStyle  HorizontalAlign="Center" />

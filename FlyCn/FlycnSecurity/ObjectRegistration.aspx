@@ -143,18 +143,23 @@
      <%--  <div class="contentTopBar" style="width:500px;display:none" id="contentTopBar" runat="server"></div>--%>
 
 
-     <asp:GridView ID="gvObjectRegistration" GridLines="None" Width="380px"  runat="server" ForeColor="#333333" >
+     <asp:GridView ID="gvObjectRegistration" GridLines="None" Width="380px"  runat="server" ForeColor="#333333"  >
                           <AlternatingRowStyle BackColor="White"/>
                           <Columns>
                                <asp:TemplateField>
 
                                 <ItemTemplate>
+
+                                       
                                     <asp:ImageButton ID="imgBtnDelete" runat="server"  ImageUrl="~/Images/Trash can - 04.png"  OnClientClick="return confirm('Deletion Confirmation \n\n\n\n\ Are you sure you want to delete this item ?');" OnClick="imgBtnDelete_Click"/>
                                 <%--   <asp:ImageButton ID="imgBtnUpdate" runat="server" ImageUrl="~/Images/Icons/editToolBarIcon.png" OnClick="imgBtnUpdate_Click" />--%>
                                 
                                 </ItemTemplate>
 
                             </asp:TemplateField>
+
+                              
+
                           </Columns>
 
 
@@ -175,51 +180,5 @@
 </div>
 
     <asp:HiddenField ID="hdnBrowserManualOpen" runat="server"   />
-
-
-
-
-
-    <%--<div class="div"> 
-     
-
-                <table  style="width:14%" >
-                    <tr>
-                        <td class="tabletd"></td>
-
-                        <td class="tabletd"></td>
-
-           </tr>
-                       
-                    <tr>
-                         <td class="tabletd"></td>
-
-                         <td class="tabletd"></td>
-                    </tr>
- </table>
-
-
-                <br />
-                <br />
-                
-
-     
-                <table >
-                    <tr>
-                      <td> </td>
-
-                        <td class="tabletd">
-
-            </td>
-
-                    </tr>
-                </table>
-      
-           
-     </div>--%>
-    
-     <%--<asp:Button ID="BtnRegister" runat="server" Text="Register" />--%>
-
-    
 
 </asp:Content>

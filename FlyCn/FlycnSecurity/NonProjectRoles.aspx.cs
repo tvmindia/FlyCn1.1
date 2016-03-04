@@ -300,15 +300,12 @@ namespace FlyCn.FlycnSecurity
 
         #endregion Bind Role Type ComboBox
 
-        #region Bind Role Scope ComboBox
-
-
         #region Bind Scope Value
 
         public void BindScopeValue(string level, string seletedValue)
         {
             string tableName = string.Empty;
-           
+
             DataSet dsRoles = null;
 
             switch (level)
@@ -339,8 +336,8 @@ namespace FlyCn.FlycnSecurity
                     lstRoleScope.DataTextField = "Description";
                     lstRoleScope.DataValueField = "ID";
                     lstRoleScope.DataSource = dsRoles;
-
                     lstRoleScope.DataBind();
+
 
 
                     if (seletedValue != null)
@@ -349,43 +346,43 @@ namespace FlyCn.FlycnSecurity
 
                         if (tempSelectedValue.Contains(','))
                         {
-                             string lastPart  = string.Empty;
+                            string lastPart = string.Empty;
 
-                             int count = seletedValue.Split(',').Length;
+                            int count = seletedValue.Split(',').Length;
 
                             for (int i = count; i >= 1; i--)
                             {
-                              
-                                    string str = tempSelectedValue;
-                                    string ext = string.Empty;
-                                    if (str.Contains(','))
+
+                                string str = tempSelectedValue;
+                                string ext = string.Empty;
+                                if (str.Contains(','))
+                                {
+
+                                    ext = str.Substring(0, str.LastIndexOf(","));
+
+                                    lastPart = str.Split(',').Last();
+
+                                    if (lstRoleScope.Items.FindByText(lastPart) != null)
                                     {
-
-                                        ext = str.Substring(0, str.LastIndexOf(","));
-
-                                        lastPart = str.Split(',').Last();
-
-                                        if (lstRoleScope.Items.FindByText(lastPart) != null)
-                                        {
-                                            lstRoleScope.Items.FindByText(lastPart).Selected = true;
-                                        }
-
-                                        tempSelectedValue = ext;
+                                        lstRoleScope.Items.FindByText(lastPart).Selected = true;
                                     }
 
-                                    else
+                                    tempSelectedValue = ext;
+                                }
+
+                                else
+                                {
+                                    lastPart = str;
+
+
+                                    if (lstRoleScope.Items.FindByText(lastPart) != null)
                                     {
-                                        lastPart = str;
 
+                                        lstRoleScope.Items.FindByText(lastPart).Selected = true;
 
-                                        if (lstRoleScope.Items.FindByText(lastPart) != null)
-                                        {
-                                           
-                                            lstRoleScope.Items.FindByText(lastPart).Selected = true;
-                                          
-                                        }
                                     }
-                             
+                                }
+
                             }
                         }
 
@@ -393,19 +390,19 @@ namespace FlyCn.FlycnSecurity
                         {
                             if (lstRoleScope.Items.FindByText(seletedValue) != null)
                             {
-                               
+
                                 lstRoleScope.Items.FindByText(seletedValue).Selected = true;
                             }
                         }
                     }
 
-                       
+
 
                     else
                     {
                         if (level != "1")
                         {
-                            lstRoleScope.Items.Insert(0, "--Select--");  
+                            lstRoleScope.Items.Insert(0, "--Select--");
                         }
                     }
 
@@ -433,6 +430,10 @@ namespace FlyCn.FlycnSecurity
         }
 
         #endregion Bind Scope Value
+
+
+        #region Bind Role Scope ComboBox
+
 
         public void BindRoleScopeComboBox(string seletedValue)
         {
@@ -807,7 +808,7 @@ namespace FlyCn.FlycnSecurity
            
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
 
-            ToolBar.AddButton.Visible = false;
+            ToolBar.AddButton.Visible = true;
             ToolBar.EditButton.Visible = false;
             ToolBar.DeleteButton.Visible = false;
             ToolBar.UpdateButton.Visible = false;
@@ -878,7 +879,21 @@ namespace FlyCn.FlycnSecurity
 
                     //RegisterToolBox();
                 }
+                else
+                {
+                    if (functionName == "Add")
+                    {
+                        ClearControls();
 
+                        foreach (GridDataItem item in dtgNonProjectRoles.Items)
+                        {
+                            if (item.BackColor == System.Drawing.Color.LightPink)
+                            {
+                                item.BackColor = System.Drawing.Color.Transparent;
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -975,6 +990,13 @@ namespace FlyCn.FlycnSecurity
            
         }
         #endregion ToolBar_onClick
+
+        protected void CheckBoxList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+       
 
     }
 }

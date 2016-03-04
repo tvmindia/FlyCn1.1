@@ -705,16 +705,7 @@ transition: .1s ease;
     margin-top:30px;
 }
 
-.Flatbutton:hover, .Flatbutton.hover {
-    background-color: #008C8C;
-    text-shadow: -1px 1px #27496d;
-    cursor:pointer;
-}
 
-.Flatbutton:active, .Flatbutton.active {
-    background-color: #006C6C;
-    text-shadow: -1px 1px #193047;
-}
 
  
 
@@ -725,8 +716,8 @@ transition: .1s ease;
    font-size:large;
     height: 35px;
     
-    
-    vertical-align: middle;
+    margin-left:0px;
+  /*vertical-align: middle;*/
     padding: 5px;
     margin-top: 30px;
 }

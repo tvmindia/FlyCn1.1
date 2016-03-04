@@ -10,18 +10,26 @@ namespace FlyCn.FlyCnDAL
     {
         public void BindTree(RadTreeView myTree)
         {
-
-            UIClasses.Const Const = new UIClasses.Const();
-            FlyCnDAL.Security.UserAuthendication UA;
+            string moduleID = "";
             HttpContext context = HttpContext.Current;
+            //moduleID = (string)(context.Session["ModuleID"]);
+            //moduleID=(string)(Session["ModuleID"]);
+            UIClasses.Const Const = new UIClasses.Const();
+          
+
+            FlyCnDAL.Security.UserAuthendication UA;
             UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
             myTree.Nodes.Clear();
             RadTreeNode rtn1 = new RadTreeNode("Data Import Wizard", "");
             rtn1.NavigateUrl = "../EngineeredDataList/EnggDataListLandingPage.aspx";
             rtn1.Target = "contentPane";
             myTree.Nodes.Add(rtn1);
+            
             RadTreeNode rtn2 = new RadTreeNode("Direct Import", "");
-            rtn2.NavigateUrl = "../EngineeredDataList/EnggDatalistBaseTable.aspx?id=ELE";
+            //GenerateTemplateNextClick();
+            //rtn2.Attributes.Add("onclick", "alert(1)");
+            rtn2.Attributes.Add("onclick", "GenerateTemplateNextClick()");
+            rtn2.NavigateUrl = "../EngineeredDataList/EnggDatalistBaseTable.aspx?id=" + moduleID;
             rtn2.Target = "contentPane";
             myTree.Nodes.Add(rtn2);
             RadTreeNode rtn3 = new RadTreeNode("View Data", "");

@@ -151,6 +151,32 @@ namespace FlyCnSecurity.SecurityDAL
             con.Close();
             return dt;
         }
+
+
+        #region GetAlldetailsOfObjectAccess
+
+        public DataTable GetAlldetailsOfObjectAccess(string RoleId)
+        {
+
+            SqlConnection con = null;
+            DataTable dt = null;
+
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetAlldetailsOfObjectAccess", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@RoleId", Convert.ToInt32(RoleId));
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            dt = new DataTable();
+            adapter.Fill(dt);
+            //dt.Columns["Add"].DataType = typeof(bool);
+
+            con.Close();
+            return dt;
+        }
+
+        #endregion GetAlldetailsOfObjectAccess
+
         public DataTable ObjectRegistrationDetailsBYLevelId(string LevelId, string RoleId)
         {
 
@@ -187,7 +213,7 @@ namespace FlyCnSecurity.SecurityDAL
 
         }
 
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------
+        //--------------------------CRUD of object access :shamila---------------------------------------//
 
 
         #region Add Object Access For Roles
@@ -225,10 +251,14 @@ namespace FlyCnSecurity.SecurityDAL
                 Output.Direction = ParameterDirection.Output;
                 cmd.Parameters.Add(Output);
 
+               
 
                 cmd.ExecuteNonQuery();
 
-                result = Convert.ToInt32(Output.Value);
+                if (Output.Value != DBNull.Value)
+                {
+                    result = Convert.ToInt32(Output.Value);
+                }
 
 
 
@@ -242,6 +272,8 @@ namespace FlyCnSecurity.SecurityDAL
 
         #endregion Add Object Access For Roles
 
+        #region Delete Object Access
+      
         public int DeleteObjectAccessForRoleByObjIdAndRoleId()
         {
             int result = 0;
@@ -265,7 +297,10 @@ namespace FlyCnSecurity.SecurityDAL
 
                 cmd.ExecuteNonQuery();
 
-                result = Convert.ToInt32(Output.Value);
+                if (Output.Value != DBNull.Value)
+                {
+                    result = Convert.ToInt32(Output.Value);
+                }
 
                 conn.Close();
              }
@@ -285,5 +320,55 @@ namespace FlyCnSecurity.SecurityDAL
             }
             return result;
         }
+
+        #endregion Delete Object Access
+
+        #region UpdateObjectAccess
+
+        public int UpdateObjectAccessByRoleIDAndObjID()
+        {
+            int result = 0;
+            SqlConnection conn = null;
+            SqlCommand cmd = null;
+
+            try
+            {
+                conn = dcon.GetDBConnection();
+                cmd = new SqlCommand("UpdateObjectAccessByRoleIDAndObjID", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = ProjectNo;
+                cmd.Parameters.Add("@ObjId", SqlDbType.NVarChar, 10).Value = ObjectId;
+                cmd.Parameters.Add("@Add", SqlDbType.Bit).Value = Add;
+                cmd.Parameters.Add("@Edit", SqlDbType.Bit).Value = Edit;
+                cmd.Parameters.Add("@Delete", SqlDbType.Bit).Value = Delete;
+                cmd.Parameters.Add("@ReadOnly", SqlDbType.Bit).Value = ReadOnly;
+                cmd.Parameters.Add("@Property1", SqlDbType.NVarChar, 10).Value = Property1;
+                cmd.Parameters.Add("@Property2", SqlDbType.NVarChar, 10).Value = Property2;
+                cmd.Parameters.Add("@Property3", SqlDbType.NVarChar, 10).Value = Property3;
+                cmd.Parameters.Add("@Created_By", SqlDbType.NVarChar, 255).Value = Created_By;
+                cmd.Parameters.Add("@RoleID", SqlDbType.Int).Value = RoleID;
+
+
+                SqlParameter Output = new SqlParameter("@Status", SqlDbType.Int);
+                cmd.Parameters.Add(Output);
+                Output.Direction = ParameterDirection.Output;
+
+                cmd.ExecuteNonQuery();
+
+                if (Output.Value != DBNull.Value)
+                {
+                    result = Convert.ToInt32(Output.Value);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        #endregion UpdateObjectAccess
     }
 }

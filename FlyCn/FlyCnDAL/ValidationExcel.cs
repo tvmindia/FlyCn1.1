@@ -469,7 +469,7 @@ namespace FlyCn.FlyCnDAL
              
                 string comma = "";
                 DataSet CableDS = null;
-               
+                
                 int length;
                 StringBuilder errorDescLists = new StringBuilder();
                 DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
@@ -499,6 +499,7 @@ namespace FlyCn.FlyCnDAL
                              return true;
                          }
                        
+                       
                    }
                 }
                 return false;
@@ -507,16 +508,16 @@ namespace FlyCn.FlyCnDAL
             #region DrumValidation
             public bool DrumValidation(DataRow dr, DataSet dsTable, int rowNO, dbConnection dbCon)
             {
+                int drumAllocLength,usedLength;
                 StringBuilder errorDescLists = new StringBuilder();
                 string comma = "";
                 DataSet DrumDS = null;
                 DrumDS = new DataSet();
                 DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
                 string keyField = GetInvalidKeyField(keyFieldRow, dr);
-
-                if ((dr["ProjectNo"].ToString() != "") && (dr["ModuleID"].ToString() != "") && (dr["Category"].ToString() != "") && (dr["DrumNo"].ToString() != ""))
+                if ((dr["ProjectNo"].ToString() != "") && (dr["ModuleID"].ToString() != "") && (dr["Category"].ToString() != "") && (dr["DrumNo"].ToString() != "") && (dr["CableTypeCatg"].ToString() != "") && (dr["CableTypeCode"].ToString() !=""))
                 {
-                    DrumDS = importfile.GetDrumMaster(dr["ProjectNo"].ToString(), dr["ModuleID"].ToString(), dr["Category"].ToString(), dr["DrumNo"].ToString(), dbCon);
+                    DrumDS = importfile.GetDrumMaster(dr["ProjectNo"].ToString(), dr["ModuleID"].ToString(), dr["Category"].ToString(), dr["DrumNo"].ToString(), dr["CableTypeCatg"].ToString(), dr["CableTypeCode"].ToString(), dbCon);
                     if(DrumDS.Tables[0].Rows.Count==0)
                     {
                              errorDescLists.Append(comma);
@@ -526,6 +527,34 @@ namespace FlyCn.FlyCnDAL
                              rowNO = rowNO + 2;
                              importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
                              return true;
+                    }
+                    if(DrumDS.Tables[0].Rows.Count>0)
+                    {
+                     //Drum Changes Case
+                     drumAllocLength = (DrumDS.Tables[0].Rows[0]["AllocLength"].ToString() != "") ? int.Parse(DrumDS.Tables[0].Rows[0]["AllocLength"].ToString()) : 0;
+                     if (drumAllocLength < (int.Parse(dr["Total Length"].ToString())))
+                     {
+                        errorDescLists.Append(comma);
+                        errorDescLists.Append(" ");
+                        errorDescLists.Append(Messge.ALV);
+                        comma = "";
+                        rowNO = rowNO + 2;
+                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                        return true;
+                     }
+                            usedLength =(DrumDS.Tables[0].Rows[0]["UsedLength"].ToString() !="") ? int.Parse(DrumDS.Tables[0].Rows[0]["UsedLength"].ToString()) : 0;
+                            if (usedLength!=0)
+                            {
+                                errorDescLists.Append(comma);
+                                errorDescLists.Append(" ");
+                                errorDescLists.Append(Messge.ULV);
+                                comma = "";
+                                rowNO = rowNO + 2;
+                                importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                                return true;
+                            }
+
+                        //Drum Changes Case
                     }
                     
                 }

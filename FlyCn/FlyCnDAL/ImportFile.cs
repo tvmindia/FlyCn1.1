@@ -597,7 +597,7 @@ namespace FlyCn.FlyCnDAL
         #endregion LoadInputScreen
 
         #region GetExcelData
-        public DataSet GetExcelData()
+        public DataSet GetExcelData(DataSet dsTable)
         {
             var Request = request;
             string tempFolder = temporaryFolder;
@@ -607,8 +607,9 @@ namespace FlyCn.FlyCnDAL
             {
                if (ExcelFileName.Length > 0)
                 {
+                    //DataSet dsTable=new DataSet();//temporry
                     excelSheets = OpenExcelFile();
-                    dsFile = ScanExcelFileToDS(excelSheets);
+                    dsFile = ScanExcelFileToDS(excelSheets,dsTable);
                 }
             }
             catch (Exception ex)
@@ -625,18 +626,79 @@ namespace FlyCn.FlyCnDAL
         #endregion GetExcelData
 
         #region ScanExcelFileToDS
-        public DataSet ScanExcelFileToDS(string[] excelSheets)
+        public DataSet ScanExcelFileToDS(string[] excelSheets,DataSet dsTable)
         {
+            
             DataSet dsFile = new DataSet();
+            //DataSet dsOrig = new DataSet();
+            DataTable FreshTable = new DataTable();
+            //bool flag = false;
+            int k;
             OleDbConnection excelConnection1 = new OleDbConnection(ExcelConnectionString);
             try
             {
-                excelConnection1.Open();
+                  
+                   excelConnection1.Open();
+                   var command = excelConnection1.CreateCommand();
+               
+                    //command.CommandText = "SELECT * FROM " + excelSheets[0];
+                   command.CommandText = string.Format("Select * from [{0}]", excelSheets[0]);
+                    var conditions = "";
+                    foreach (DataRow dr in dsTable.Tables[0].Rows)
+                    {
+                     conditions += "[" + dr["Field_Description"].ToString()+ "]" + " IS NOT NULL AND ";
+                    }
+                    if (conditions != "")
+                    {
+                        command.CommandText += " WHERE " + conditions.Remove(conditions.Length - 5);
+                    }
+              
                 string query = string.Format("Select * from [{0}]", excelSheets[0]);
-                using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
+                using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(command.CommandText, excelConnection1))
                 {
                     dataAdapter.Fill(dsFile);
                 }
+                //working
+                //if ((dsFile.Tables[0] != null) && (dsFile.Tables[0].Rows.Count > 0))
+                //{
+                //    List<System.Data.DataRow> removeRowIndex = new List<System.Data.DataRow>();
+                //    for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
+                //    {
+                //        k = 0;
+                //        for (int index = 0; index < dsFile.Tables[0].Columns.Count; index++)
+                //        {
+                //            if((dsFile.Tables[0].Rows[i][index]==DBNull.Value)||(string.IsNullOrEmpty(dsFile.Tables[0].Rows[i][index].ToString().Trim())))
+                //            {
+                //                k++;
+                //            }
+                        
+                //        }
+                //        if(k==dsFile.Tables[0].Columns.Count)
+                //        {
+                //            removeRowIndex.Add(dsFile.Tables[0].Rows[i]);
+                //        }
+                //   }
+                //    // Remove all blank of in-valid rows
+                //    foreach (System.Data.DataRow rowIndex in removeRowIndex)
+                //    {
+                //        dsFile.Tables[0].Rows.Remove(rowIndex);
+                //    }
+                //}
+                //working
+                //catch(Exception e)
+               // {
+               //     WPFMessageBox.Show(e.Message, Globalization.GetValue("Import_ImportOption_FormHeader"), WPFMessageBoxButtons.OK, WPFMessageBoxImage.Error);
+               // }
+                //  FreshTable = dsFile.Tables[0].AsEnumerable().Where(row => String.IsNullOrEmpty(row.Field<string>)).ToList().ForEach(row.
+                //  to prevent null rows
+                //  foreach (DataRow dr in dsFile.Tables[0].Rows)
+                //  {
+                //   FreshTable = dsFile.Tables[0].Rows.Cast<DataRow>().Where(row => !row.ItemArray.All(field => field is System.DBNull)).CopyToDataTable();
+                //   FreshTable.AcceptChanges();
+                //   dsFile.Tables[0].AsEnumerable()Where(Function(row) row.ItemArray.All(Function(field) field Is Nothing Or field Is DBNull.Value Or field.Equals(""))).ToList().ForEach(Sub(row) row.Delete())  
+                //   DtSet.Tables(0).AcceptChanges()  
+                //  }
+                //to prevent null rows
             }
             catch (Exception ex)
             {
@@ -869,12 +931,9 @@ namespace FlyCn.FlyCnDAL
                 da = new SqlDataAdapter();
                 if (dbCon.SQLCon == null)
                 {
-                   
-                    dbCon = new dbConnection();
-
-                    dbCon.GetDBConnection();
+                 dbCon = new dbConnection();
+                 dbCon.GetDBConnection();
                 }
-              
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "GetAllCableScheduleDetails";
                 cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = projectNo;
@@ -884,7 +943,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.Connection = dbCon.SQLCon;
                 da.SelectCommand = cmd;
                 da.Fill(ds);
-             }
+            }
             catch (Exception ex)
             {
                 throw ex;
@@ -898,7 +957,7 @@ namespace FlyCn.FlyCnDAL
 
         #endregion GetCableScheduleMaster
         #region GetDrumMaster
-        public DataSet GetDrumMaster(string projectNo, string moduleID, string category, string DrumNo, dbConnection dbCon = null)
+        public DataSet GetDrumMaster(string projectNo, string moduleID, string category, string drumNo, string cableTypeCatg, string cableTypeCode, dbConnection dbCon = null)
         {
             SqlCommand cmd = null;
             DataSet ds = null;
@@ -918,7 +977,9 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = projectNo;
                 cmd.Parameters.Add("@ModuleID", SqlDbType.NVarChar, 10).Value = moduleID;
                 cmd.Parameters.Add("@Category", SqlDbType.NVarChar, 25).Value = category;
-                cmd.Parameters.Add("@DrumNo", SqlDbType.NVarChar, 50).Value = DrumNo;
+                cmd.Parameters.Add("@DrumNo", SqlDbType.NVarChar, 50).Value = drumNo;
+                cmd.Parameters.Add("@CableTypeCatg", SqlDbType.NVarChar, 5).Value = cableTypeCatg;
+                cmd.Parameters.Add("@CableTypeCode", SqlDbType.NVarChar, 50).Value = cableTypeCode;
                 cmd.Connection = dbCon.SQLCon;
                 da.SelectCommand = cmd;
                 da.Fill(ds);
