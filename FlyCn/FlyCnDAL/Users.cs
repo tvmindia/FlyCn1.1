@@ -82,8 +82,6 @@ namespace FlyCn.FlyCnDAL
 
         #region private variables
         ErrorHandling eObj = new ErrorHandling();
-        dbConnection flycnCon = new dbConnection();
-
         #endregion private variables
         /// <summary>
         /// Get User Details By User Name
@@ -235,7 +233,7 @@ namespace FlyCn.FlyCnDAL
 
                 cmd.ExecuteNonQuery();
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.InsertionSuccessData(page,"New User Created Successfully..!!!");
+                eObj.InsertionSuccessData(page);
             }
             catch (Exception ex)
             {
@@ -295,11 +293,10 @@ namespace FlyCn.FlyCnDAL
         {
             DataTable datatableobj = null;
             SqlConnection con = null;
-            //DBconnection dcon = new DBconnection();
+            DBconnection dcon = new DBconnection();
             try
             {
-                //con = dcon.GetDBConnection();
-                con = flycnCon.GetDBConnection();
+                con = dcon.GetDBConnection();
                 SqlCommand cmd = new SqlCommand("SelectAllUsers", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter adapter = new SqlDataAdapter();
@@ -435,7 +432,7 @@ namespace FlyCn.FlyCnDAL
                 datatableobj = new DataTable();
                 adapter.Fill(datatableobj);
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.InsertionSuccessData(page,"Data Saved Successfully..!!!");
+                eObj.InsertionSuccessData(page);
             }
             catch (Exception ex)
             {
@@ -470,7 +467,7 @@ namespace FlyCn.FlyCnDAL
 
                 cmd.ExecuteNonQuery();
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.InsertionSuccessData(page, "Data Updated Successfully..!!!");
+                eObj.DeleteSuccessData(page);
             }
             catch (Exception ex)
             {
@@ -595,7 +592,7 @@ namespace FlyCn.FlyCnDAL
 
                 cmd.ExecuteNonQuery();
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.InsertionSuccessData(page, "User Deleted Successfully..!!!");
+                eObj.DeleteSuccessData(page);
             }
             catch (Exception ex)
             {
@@ -629,6 +626,9 @@ namespace FlyCn.FlyCnDAL
                 cmdEdit.Parameters.Add("@EmailId", SqlDbType.VarChar, 50).Value = UserEMail;
                 cmdEdit.Parameters.Add("@Active", SqlDbType.Bit).Value = Active;
                 result = cmdEdit.ExecuteNonQuery();
+
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.UpdationSuccessData(page);
             }
 
             catch (SqlException ex)
@@ -644,6 +644,350 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion EditM_users
 
-       
+        #region GetAllModules
+        public DataTable GetAllModules()
+        {
+            SqlConnection conn = null;
+            DataTable ds = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter da = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
+
+                cmd = new SqlCommand("GetAllModuleDesc", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                ds = new DataTable();
+                da.Fill(ds);
+
+                conn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+
+        }
+
+        #endregion GetAllModules
+
+        #region InsertProjectModules
+        public DataTable InsertProjectModules(string moduleId,string projectNo)
+        {
+            UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+            CreatedBy = UA.userName;
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("InsertNonProjectModules", con);
+                cmd.Parameters.Add("@moduleID", SqlDbType.NVarChar, 10).Value = moduleId;
+                cmd.Parameters.Add("@projectNo", SqlDbType.NChar, 7).Value = projectNo;
+                cmd.Parameters.Add("@createdBy", SqlDbType.NVarChar, 50).Value = CreatedBy;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.SmallDateTime).Value = DateTime.Now;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+
+                datatableobj = new DataTable();
+                adapter.Fill(datatableobj);
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.InsertionSuccessData(page);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return datatableobj;
+        }
+        #endregion InsertProjectModules
+
+        #region DeleteModule
+        public void DeleteModule(string moduleID,string projectNo)
+        {
+
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("DeleteModules", con);
+                cmd.Parameters.Add("@moduleID", SqlDbType.NVarChar, 10).Value = moduleID;
+                cmd.Parameters.Add("@projectNo", SqlDbType.NChar, 7).Value = projectNo;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+
+                cmd.ExecuteNonQuery();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.DeleteSuccessData(page);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+        #endregion DeleteModule
+
+        #region GetAllCategories
+        public DataTable GetAllCategories(string moduleId)
+        {
+            SqlConnection conn = null;
+            DataTable ds = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter da = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
+
+                cmd = new SqlCommand("GetAllCategoryByModuleID", conn);
+                cmd.Parameters.Add("@moduleId", SqlDbType.NVarChar, 10).Value = moduleId;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                ds = new DataTable();
+                da.Fill(ds);
+
+                conn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+
+        }
+
+        #endregion GetAllCategories
+
+        #region GetAllModulesByProjectNo
+        public DataTable GetAllModulesByProjectNo(string projectNo)
+        {
+            SqlConnection conn = null;
+            DataTable ds = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter da = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
+
+                cmd = new SqlCommand("GetAllprjectmodule", conn);
+                cmd.Parameters.Add("@projectNo", SqlDbType.NChar, 7).Value = projectNo;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                ds = new DataTable();
+                da.Fill(ds);
+
+                conn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+
+        }
+
+        #endregion GetAllModulesByProjectNo
+
+        #region GetProjectNameByProjectNo
+        public DataTable GetProjectNameByProjectNo()
+        {
+              FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+              UIClasses.Const Const= new UIClasses.Const();
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+            SqlConnection conn = null;
+            DataTable ds = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter da = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
+
+                cmd = new SqlCommand("GetProjectName", conn);
+                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value =UA.projectNo ;
+              
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                ds = new DataTable();
+                da.Fill(ds);
+
+                conn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+
+        }
+
+        #endregion GetProjectNameByProjectNo
+
+        #region UpdateDefaultProject
+        public void UpdateDefaultProject(string projectNo)
+        {
+            UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+            CreatedBy = UA.userName;
+           
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("SetDefaultProject", con);
+                cmd.Parameters.Add("@def_ProjectNo", SqlDbType.VarChar, 50).Value = projectNo;
+                cmd.Parameters.Add("@userName", SqlDbType.VarChar, 50).Value = UA.userName;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.ExecuteNonQuery();
+
+              
+               
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+         
+        }
+        #endregion UpdateDefaultProject
+
+        #region GetProjectNoByUserName
+        public DataTable GetProjectNoByUserName(string userName)
+         {
+            SqlConnection conn = null;
+            DataTable ds = null;
+           
+            SqlDataAdapter da = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
+
+                SqlCommand cmd = new SqlCommand("SelectDef_ProjectNo", conn);
+                cmd.Parameters.Add("@userName", SqlDbType.VarChar, 50).Value = userName;
+
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                ds = new DataTable();
+                da.Fill(ds);
+
+                conn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+
+        }
+
+        #endregion GetProjectNoByUserName
     }
-}
+    }

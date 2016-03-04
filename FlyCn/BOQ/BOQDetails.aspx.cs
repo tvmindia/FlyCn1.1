@@ -60,7 +60,7 @@ namespace FlyCn.BOQ
                     ToolBarVisibility(1);//Save button visible
                   //  Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.linkbuttonClient();", false);
 
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), " ", "DisablePopUP();", true);
+                 //   ScriptManager.RegisterStartupScript(this, this.GetType(), " ", "DisablePopUP();", true);
                     //Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "_hideNotification();", true);
                     //Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
                     hdfDocumentStatus.Value = latestStatus;

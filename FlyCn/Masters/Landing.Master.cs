@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using FlyCn.FlyCnDAL;
+using System.Data;
 
 
 namespace FlyCn.Masters
@@ -17,18 +18,19 @@ namespace FlyCn.Masters
         protected void Page_Init(object sender, EventArgs e)
       
         {
-           
-           // ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(userName)", true);
-
-            if (Session[Const.LoginSession] == null) 
+             // ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(userName)", true);
+             if (Session[Const.LoginSession] == null) 
             {
                 if (GetCurrentPageName() == Const.HomePage || GetCurrentPageName().ToUpper() == Const.Default.ToUpper())
                 {
                    
                     imgMenu.Visible = false;
+                    imgProjSwithing.Visible = false;
+                    lblProject.Visible = false;
+                    lblProjectName.Visible = false;
+                    lblProjectNo.Visible = false;
                     lnkLoginLogout.Attributes.Add("onclick", "return openLogin('slow')");
-                
-                }
+                 }
                 else if (GetCurrentPageName() == Const.ApprovalPageURL)
                 {
                     if (Request.QueryString["logid"] != null)
@@ -59,7 +61,6 @@ namespace FlyCn.Masters
                 }
                 else
                 {
-
                     Response.Redirect(Const.HomePageURL);
                 }
 
@@ -87,14 +88,24 @@ namespace FlyCn.Masters
             return sRet;
         }
 
-
+          
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             UIClasses.InputPages ip = new UIClasses.InputPages();
             try
             {
+                  FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+            FlyCnDAL.Users userObj = new FlyCnDAL.Users();
+            DataTable dt = new DataTable();
+
                 this.head.Controls.Add(ip.GetLandingThemeCss());
 
+                dt = userObj.GetProjectNameByProjectNo();
+                lblProjectNo.Text = UA.projectNo+"-";
+                lblProjectName.Text = dt.Rows[0]["ProjectName"].ToString();
             }
             catch(Exception ex)
             {
@@ -125,6 +136,7 @@ namespace FlyCn.Masters
         {
             Session.Remove(Const.LoginSession);
             Response.Redirect("~/Home.aspx");
+           
         }
         
     }

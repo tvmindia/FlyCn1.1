@@ -787,6 +787,7 @@ using Messages = FlyCn.UIClasses.Messages;
 
         public DataTable GetDocHeaderDetails(string revid, string type)
         {
+            string projNo = HttpContext.Current.Session["projectNo"].ToString();
             SqlConnection con = null;
             DataTable dt = new DataTable();
             SqlDataAdapter da = null;
@@ -803,7 +804,7 @@ using Messages = FlyCn.UIClasses.Messages;
                 string SelectQuery = "GetDocDetailsByProjectNoRevisionID";
                 SqlCommand cmdSelect = new SqlCommand(SelectQuery, con);
                 cmdSelect.CommandType = CommandType.StoredProcedure;
-                cmdSelect.Parameters.AddWithValue("@projectno", "C00001");
+                cmdSelect.Parameters.AddWithValue("@projectno", projNo);
                 cmdSelect.Parameters.AddWithValue("@RevisionID", revid);
                 cmdSelect.Parameters.AddWithValue("@type", type);
                 da = new SqlDataAdapter(cmdSelect);

@@ -782,6 +782,32 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion InsertProjectRoles
 
-
+        #region GetAllProjectSwitching
+        public DataTable GetAllProjectSwitching()
+        {
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("GetAllProjectsForSwitching", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                datatableobj = new DataTable();
+                adapter.Fill(datatableobj);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return datatableobj;
+        }
+        #endregion GetAllProjectSwitching
     }
 }

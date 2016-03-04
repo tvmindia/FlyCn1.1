@@ -115,6 +115,7 @@ namespace FlyCn.FlycnSecurity
 
             }
             BindData();
+            clearControls();
         }
        #endregion UpdateM_user 
 
@@ -188,6 +189,16 @@ namespace FlyCn.FlycnSecurity
         {
            
         }
+
+        #region clearControls
+        public void clearControls()
+        {
+            txtLoginName.Text = "";
+            txtEmail.Text = "";
+            txtPassword.Text = "";
+            txtConfirmPassword.Text = "";
+        }
+        #endregion clearControls
 
         #region Delete from M_User
 

@@ -137,7 +137,7 @@ namespace FlyCn.FlycnSecurity
             DataTable dt = new DataTable();
             dt = userObj.SelectUsersToDropDown();
             DropDownList1.DataSource = dt;
-            DropDownList1.DataTextField = "UserName";
+            DropDownList1.DataTextField = "UserID";
             DropDownList1.DataBind();
         }
         #endregion BindDropDownUser

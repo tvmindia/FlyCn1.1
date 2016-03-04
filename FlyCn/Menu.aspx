@@ -7,7 +7,7 @@
      <style>
         #MainBody_div1 {
  
-  z-index: 3;
+  z-index: 0;
   position:relative;
   
   left:30%;
@@ -27,6 +27,7 @@
     var str = "hello()";
     $(document).ready(function () {
         $("#MainBody_div1").fadeIn();
+       
     });
     function bindimage(id, heading, color) {
         debugger;
@@ -91,6 +92,7 @@
 
 
 
+  
 
 </script>
     
@@ -119,4 +121,5 @@
 
        
         </table>
+   
 </asp:Content>

@@ -36,7 +36,7 @@ namespace FlyCn.FlyCnDAL
         #region Global Variables
 
         SecurityUsers securityUsrObj = new SecurityUsers();
-
+       
         #endregion Global Variables
 
 
@@ -235,12 +235,19 @@ namespace FlyCn.FlyCnDAL
 
             public UserAuthendication(String userName, String password)
             {
-
+                ProjectsSwithching sw = new ProjectsSwithching();
+               Users userObj = new Users();
+               DataTable dt = new DataTable();
                 if (userName == password)
                 {
                     isValidUser = true;
                     userN = userName;
-                    project = "C00001";
+                   // project = sw.ProjNo();
+                    dt = userObj.GetProjectNoByUserName(userName);
+                    if (dt.Rows.Count > 0)
+                    {
+                        project = dt.Rows[0]["DefaultProjectNo"].ToString();
+                    }
                     GetUserDetails();
                 }
                 else
@@ -250,12 +257,57 @@ namespace FlyCn.FlyCnDAL
                 }
             }
 
+            public UserAuthendication(String userName)
+            {
+                Users userObj = new Users();
+                DataTable dt = new DataTable();
+                isValidUser = true;
+                dt = userObj.GetProjectNoByUserName(userName);
+                if (dt.Rows.Count > 0)
+                {
+                    project = dt.Rows[0]["DefaultProjectNo"].ToString();
+                }
+                
+            }
+
+            public UserAuthendication(String userName,string projectNo,bool isDefault)
+            {
+                Users userObj = new Users();
+                DataTable dt = new DataTable();
+                isValidUser = true;
+                userN = userName;
+                GetUserDetails();
+
+                if (isDefault)
+                {
+                    dt = userObj.GetProjectNoByUserName(userName);
+                    if (dt.Rows.Count > 0)
+                    {
+                        project = dt.Rows[0]["DefaultProjectNo"].ToString();
+                    }
+                }
+                else {
+                    project = projectNo;
+                }
+              
+
+            }
 
             public UserAuthendication(String userName, int specialAccessCode)
             {
+                Users userObj = new Users();
+                DataTable dt = new DataTable();
                 isValidUser = true;
                 userN = userName;
-                project = "C00001";
+                if (dt.Rows.Count > 0)
+                {
+                    project = dt.Rows[0]["DefaultProjectNo"].ToString();
+                    
+                }
+                else
+                {
+
+                }
                 GetUserDetails();
 
             }
@@ -289,6 +341,7 @@ namespace FlyCn.FlyCnDAL
                 {
                     return project;
                 }
+                
             }
 
             public string theme

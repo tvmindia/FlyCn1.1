@@ -504,6 +504,7 @@ namespace FlyCn.BOQ
 
             try
             {
+               //  string projNo = HttpContext.Current.Session["projectNo"].ToString();
                 DataSet ds = new DataSet();
                 documentMaster = new DocumentMaster();
                 ds = documentMaster.GetAllBOQDocumentHeader(UA.projectNo, "BOQ");

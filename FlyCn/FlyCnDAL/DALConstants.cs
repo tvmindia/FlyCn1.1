@@ -21,6 +21,8 @@ namespace FlyCn.FlyCnDAL
         public string AssignRoles = "../FlycnSecurity/AssignRoles.aspx";
         public string Users = "../FlycnSecurity/Users.aspx";
         public string ManageAccess = "../FlycnSecurity/ManageAccess.aspx";
+        public string ManageModules = "../FlycnSecurity/ManageModules.aspx";
+        public string ManageCategory = "../FlycnSecurity/ManageCategory.aspx";
         //dictionary
     }
 }
