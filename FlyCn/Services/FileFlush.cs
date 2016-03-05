@@ -60,7 +60,8 @@ namespace FlyCn.Services
         }
         public static void StopFileDeleteThread()
         {
-            BackgroundWorker worker = (BackgroundWorker)HttpContext.Current.Application["FileFlushing"];
+            BackgroundWorker worker = new BackgroundWorker();
+            worker = (BackgroundWorker)HttpContext.Current.Application["FileFlushing"];
             if (worker != null)
                 worker.CancelAsync();
         }

@@ -10,7 +10,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
           <script>
-              function CallParentJs(statvalue) {
+              function ChangeStatusMsg(statvalue)
+              {
                   parent.ChangeStatusMsg(statvalue);
               }
 

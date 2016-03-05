@@ -653,7 +653,7 @@ namespace FlyCn.FlyCnDAL
                         command.CommandText += " WHERE " + conditions.Remove(conditions.Length - 5);
                     }
               
-                string query = string.Format("Select * from [{0}]", excelSheets[0]);
+               // string query = string.Format("Select * from [{0}]", excelSheets[0]);
                 using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(command.CommandText, excelConnection1))
                 {
                     dataAdapter.Fill(dsFile);
