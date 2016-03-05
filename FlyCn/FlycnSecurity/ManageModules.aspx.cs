@@ -44,7 +44,7 @@ namespace FlyCn.FlycnSecurity
                 string functionName = e.Item.Value;
                 string project = ddlProjects.SelectedValue;
                 string str = "";
-                ds = userObj.GetAllModules();
+                ds = userObj.GetAllModulesToManage();
                 dp = userObj.GetAllModulesByProjectNo(ddlProjects.SelectedItem.Value);
                 int count = ds.Rows.Count;
                 if (e.Item.Value == "Save")
@@ -103,7 +103,7 @@ namespace FlyCn.FlycnSecurity
         {
             FlyCnDAL.Users userObj = new FlyCnDAL.Users();
             DataTable ds = new DataTable();
-            ds = userObj.GetAllModules();
+            ds = userObj.GetAllModulesToManage();
             dtgManageModules.DataSource = ds;
            
         }

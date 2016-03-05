@@ -78,6 +78,48 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+
+        public string category
+        {
+            get;
+            set;
+        }
+
+        public string categoryDesc
+        {
+            get;
+            set;
+        }
+
+        public string categoryHelp
+        {
+            get;
+            set;
+        }
+
+        public int displayOrder
+        {
+            get;
+            set;
+        }
+
+        public string categoryType
+        {
+            get;
+            set;
+        }
+
+        public string keyField
+        {
+            get;
+            set;
+        }
+
+        public bool keyFieldGrpBy
+        {
+            get;
+            set;
+        }
         #endregion public properties
 
         #region private variables
@@ -645,7 +687,7 @@ namespace FlyCn.FlyCnDAL
         #endregion EditM_users
 
         #region GetAllModules
-        public DataTable GetAllModules()
+        public DataTable GetAllModules(string projectNo)
         {
             SqlConnection conn = null;
             DataTable ds = null;
@@ -658,6 +700,7 @@ namespace FlyCn.FlyCnDAL
                 //conn.Open();
 
                 cmd = new SqlCommand("GetAllModuleDesc", conn);
+                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value = projectNo;
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 da = new SqlDataAdapter();
@@ -989,5 +1032,128 @@ namespace FlyCn.FlyCnDAL
         }
 
         #endregion GetProjectNoByUserName
+
+        #region GetAllModulesToManage
+        public DataTable GetAllModulesToManage()
+        {
+            SqlConnection conn = null;
+            DataTable ds = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter da = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
+
+                cmd = new SqlCommand("GetAllModulesToManage", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                ds = new DataTable();
+                da.Fill(ds);
+
+                conn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+
+        }
+
+        #endregion GetAllModulesToManage
+
+        #region InsertCategories
+        public DataTable InsertCategories(string moduleId, string projectNo)
+        {
+            DataTable datatableobj = null;
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("InsertCategories", con);
+                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value = projectNo;
+                cmd.Parameters.Add("@ModuleId", SqlDbType.NVarChar, 10).Value = moduleId;
+                cmd.Parameters.Add("@category", SqlDbType.NVarChar, 25).Value = category;
+                cmd.Parameters.Add("@categoryDesc", SqlDbType.NVarChar, 100).Value = categoryDesc;
+                cmd.Parameters.Add("@categoryHelp", SqlDbType.NVarChar, 255).Value = categoryHelp;
+                cmd.Parameters.Add("@displayOrder", SqlDbType.Int).Value = displayOrder;
+                cmd.Parameters.Add("@categoryType", SqlDbType.NVarChar, 10).Value = categoryType;
+                cmd.Parameters.Add("@keyField", SqlDbType.NVarChar, 50).Value = keyField;
+                cmd.Parameters.Add("@keyFieldGrpBy", SqlDbType.Bit).Value = keyFieldGrpBy;
+
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+
+                datatableobj = new DataTable();
+                adapter.Fill(datatableobj);
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.InsertionSuccessData(page);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return datatableobj;
+        }
+        #endregion InsertCategories
+
+        #region DeleteCategories
+        public void DeleteCategories(string moduleId,string projectNo)
+        {
+
+            SqlConnection con = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("DeleteCategories", con);
+                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value = projectNo;
+                cmd.Parameters.Add("@ModuleId", SqlDbType.NVarChar, 10).Value = moduleId;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+
+                cmd.ExecuteNonQuery();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.DeleteSuccessData(page);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+        #endregion DeleteCategories
     }
     }
