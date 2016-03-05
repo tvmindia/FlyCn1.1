@@ -141,13 +141,17 @@
                 <%=ToolBar.ClientID %>_SetAddVisible(false);
                 <%=ToolBar.ClientID %>_SetSaveVisible(true);
                 <%=ToolBar.ClientID %>_SetUpdateVisible(false);
-                <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+                <%=ToolBar.ClientID %>_SetDeleteVisible(true);
             }
 
          function OnClientButtonClicking(sender, args) {
              var btn = args.get_item();
              if (btn.get_value() == 'Save') {
                  args.set_cancel(!validate());
+             }
+             if (btn.get_value() == 'Delete') {
+
+                 args.set_cancel(!validateDelete());
              }
          }
          function validate() {
@@ -176,5 +180,22 @@
                  return false;
              }
          }
+
+          function validateDelete()
+          {
+              var project = document.getElementById('<%=ddlProjects.ClientID %>').value;
+              project = trimString(project);
+              var module = document.getElementById('<%=ddlModule.ClientID %>').value;
+              module = trimString(module);
+              if (project != "--select project--" || module != "--select module--")
+              {
+                   return true;
+              }
+          else {
+                 displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+          return false;
+          }
+          
+          }
          </script>
 </asp:Content>

@@ -31,7 +31,6 @@ namespace FlyCn.FlycnSecurity
             string module = ddlModule.SelectedValue;
             string project = ddlProjects.SelectedValue;
             ds = userObj.GetAllCategories(module);
-            //   dp = userObj.GetAllModulesByProjectNo(ddlProjects.SelectedItem.Value);
             int count = ds.Rows.Count;
             if (e.Item.Value == "Save")
             {
@@ -43,24 +42,27 @@ namespace FlyCn.FlycnSecurity
 
                     CheckBox checkColumnAdd = item["Modulescheck"].Controls[0] as CheckBox;
                     checkColumnAdd.Checked = true;
+            
+                }
+            }
+            if (e.Item.Value == "Delete")
+            {
+                foreach (GridDataItem item in dtgManageCategory.Items)
+                {
+
+                    CheckBox checkColumnAdd = item["Modulescheck"].Controls[0] as CheckBox;
                     if (checkColumnAdd.Checked == false)
                     {
-                        foreach (DataRow dr in dp.Rows)
-                        {
-
-
-                            string Id = item.GetDataKeyValue("ModuleID").ToString();
-                            if (Id == Convert.ToString(dr["ModuleID"]))
-                            {
                                 userObj.DeleteCategories(module, project);
-                            }
-
-                        }
+                                dtgManageCategory.Rebind();
+                           
                     }
                 }
             }
+          
         }
         #endregion ToolBar_onClick
+
         public void FillUsers()
         {
             FlyCnDAL.Users userObj = new FlyCnDAL.Users();
@@ -160,6 +162,10 @@ namespace FlyCn.FlycnSecurity
                 GridDataItem item = (GridDataItem)e.Item;
                 CheckBox checkBoxAdd = (CheckBox)item["Modulescheck"].Controls[0];
                 checkBoxAdd.Enabled = true;
+                if (checkBoxAdd.Checked == false)
+                {
+
+                }
             }
         }
     }

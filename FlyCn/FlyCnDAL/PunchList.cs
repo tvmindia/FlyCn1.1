@@ -1277,7 +1277,7 @@ namespace FlyCn.FlyCnDAL
                 if (!isFromMobile)
                 {
                     var page = HttpContext.Current.CurrentHandler as Page;
-                    eObj.InsertionSuccessData(page, "Data Inserted Successfully..!!!!");
+                    eObj.InsertionSuccessData(page);
                 }
             }
             catch (SqlException ex)
