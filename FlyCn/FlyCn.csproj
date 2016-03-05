@@ -1069,12 +1069,10 @@
       <DependentUpon>ManageProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectsSwithching.aspx.cs">
-      <DependentUpon>ProjectsSwithching.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ProjectsSwithching.aspx.designer.cs">
       <DependentUpon>ProjectsSwithching.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ProjectsSwithching.aspx.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FileFlush.cs" />
     <Compile Include="Site.Master.cs">
