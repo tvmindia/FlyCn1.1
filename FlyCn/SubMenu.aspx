@@ -15,7 +15,7 @@
 
                 //if (spanID.indexOf('_') >= 0)
                 //{
-                //    spanID.split('_')[1].color = "white";
+                //    spanID.split('_')[1].color = "white"; 
                 //    spanID.split('_')[0].color = "red";
                 //}
             }
