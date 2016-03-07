@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlyCn.FlyCnDAL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -11,8 +12,10 @@ namespace FlyCn.FlycnSecurity
 {
     public partial class ManageCategory : System.Web.UI.Page
     {
+        ErrorHandling eObj = new ErrorHandling();
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
             if (!IsPostBack)
@@ -25,7 +28,7 @@ namespace FlyCn.FlycnSecurity
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
             FlyCnDAL.Users userObj = new FlyCnDAL.Users();
-            FlyCn.FlyCnDAL.ErrorHandling eObj = new FlyCn.FlyCnDAL.ErrorHandling();
+           
             DataTable ds, dp = new DataTable();
             string functionName = e.Item.Value;
             string module = ddlModule.SelectedValue;
@@ -37,13 +40,13 @@ namespace FlyCn.FlycnSecurity
                 FillUsers();
                 dtgManageCategory.Rebind();
 
-                foreach (GridDataItem item in dtgManageCategory.Items)
-                {
+                //foreach (GridDataItem item in dtgManageCategory.Items)
+                //{
 
-                    CheckBox checkColumnAdd = item["Modulescheck"].Controls[0] as CheckBox;
-                    checkColumnAdd.Checked = true;
-            
-                }
+                //    CheckBox checkColumnAdd = item["Modulescheck"].Controls[0] as CheckBox;
+                //    checkColumnAdd.Checked = false;
+
+                //}
             }
             if (e.Item.Value == "Delete")
             {
@@ -51,14 +54,23 @@ namespace FlyCn.FlycnSecurity
                 {
 
                     CheckBox checkColumnAdd = item["Modulescheck"].Controls[0] as CheckBox;
-                    if (checkColumnAdd.Checked == false)
+                    if (checkColumnAdd.Checked == true)
                     {
-                                userObj.DeleteCategories(module, project);
+                        string category = item.GetDataKeyValue("Category").ToString();
+                        userObj.DeleteCategories(category, project);
                                 dtgManageCategory.Rebind();
                            
                     }
                 }
+               
             }
+            txtCategory.Text = "";
+            txtCategoryDesc.Text = "";
+            txtCategoryHelp.Text = "";
+            txtCategoryType.Text = "";
+            txtDisplayOrder.Text = "";
+            txtKeyField.Text = "";
+            chkIsActive.Checked = false;
           
         }
         #endregion ToolBar_onClick
@@ -87,10 +99,20 @@ namespace FlyCn.FlycnSecurity
         }
         protected void dtgManageCategory_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+            DataTable dt = new DataTable();
+            FlyCnDAL.Users userObj = new FlyCnDAL.Users();
+            string module = ddlModule.SelectedValue;
+            if (module != "--select module--")
+            {
+                dt = userObj.GetAllCategories(module);
+                dtgManageCategory.DataSource = dt;
+                
+            }
             if (dtgManageCategory.DataSource == null)
             {
                 dtgManageCategory.DataSource = new string[] { };
             }
+           
         }
 
         #region Bind ddlprojectmodule
@@ -138,21 +160,21 @@ namespace FlyCn.FlycnSecurity
             string module = ddlModule.SelectedValue;
             ds = userObj.GetAllCategories(module);
             dtgManageCategory.DataSource = ds;
-            try
-            {
+            //try
+            //{
                 dtgManageCategory.DataBind();
 
-                foreach (GridDataItem item in dtgManageCategory.Items)
-                {
+                //foreach (GridDataItem item in dtgManageCategory.Items)
+                //{
 
-                    CheckBox checkColumnAdd = item["Modulescheck"].Controls[0] as CheckBox;
-                    checkColumnAdd.Checked = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                //    CheckBox checkColumnAdd = item["Modulescheck"].Controls[0] as CheckBox;
+                //    checkColumnAdd.Checked = false;
+                //}
+          //  }
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
 
         protected void dtgManageCategory_ItemCreated(object sender, GridItemEventArgs e)
@@ -162,10 +184,22 @@ namespace FlyCn.FlycnSecurity
                 GridDataItem item = (GridDataItem)e.Item;
                 CheckBox checkBoxAdd = (CheckBox)item["Modulescheck"].Controls[0];
                 checkBoxAdd.Enabled = true;
-                if (checkBoxAdd.Checked == false)
-                {
+              
+            }
+          
+        }
 
-                }
+        protected void dtgManageCategory_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                dtgManageCategory.Rebind();
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
             }
         }
     }

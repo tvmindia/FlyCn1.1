@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -59,7 +60,7 @@ namespace FlyCn
                             if (dt.Rows[i]["ProjectNo"].ToString() == projectNo)
                             {
                                 userObj.UpdateDefaultProject(projectNo);
-                                
+                               // e.Item.ForeColor = System.Drawing.Color.Green;
                                 FlyCnDAL.Security.UserAuthendication UA;                                
                                 UIClasses.Const Const = new UIClasses.Const();
                                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
@@ -104,6 +105,22 @@ namespace FlyCn
                
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), " ", "parent.goMenu()", true);
             }
+        }
+
+        protected void dtgProjectSwitching_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+           //// string projNo = lblProjNo.Text;
+           // FlyCnDAL.ProjectParameters projObj = new FlyCnDAL.ProjectParameters();
+           // DataTable dt = new DataTable();
+           // dt = projObj.GetAllProjectSwitching();
+           // int rowCount = dt.Rows.Count;
+           // for (int i = 0; i < rowCount; i++)
+           // {
+           //     if (dt.Rows[i]["ProjectNo"].ToString() == "C00001")
+           //     {
+           //         e.Item.BackColor = System.Drawing.Color.Green;
+           //     }
+           // }
         }
         }
     }

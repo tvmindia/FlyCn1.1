@@ -1122,7 +1122,7 @@ namespace FlyCn.FlyCnDAL
         #endregion InsertCategories
 
         #region DeleteCategories
-        public void DeleteCategories(string moduleId,string projectNo)
+        public void DeleteCategories(string category,string projectNo)
         {
 
             SqlConnection con = null;
@@ -1132,7 +1132,7 @@ namespace FlyCn.FlyCnDAL
                 con = dcon.GetDBConnection();
                 SqlCommand cmd = new SqlCommand("DeleteCategories", con);
                 cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value = projectNo;
-                cmd.Parameters.Add("@ModuleId", SqlDbType.NVarChar, 10).Value = moduleId;
+                cmd.Parameters.Add("@Category", SqlDbType.NVarChar, 25).Value = category;
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
