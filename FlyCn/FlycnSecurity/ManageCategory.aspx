@@ -24,18 +24,43 @@
                  <asp:DropDownList ID="ddlProjects" runat="server" Width="150px" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged">
                        <asp:ListItem Text="--select project--"></asp:ListItem>
                  </asp:DropDownList>
+                  <asp:RequiredFieldValidator ID="frvProjects" runat="server" ErrorMessage="*"
+                                    Display="Dynamic" SetFocusOnError="true"
+                                    ForeColor="Red"
+                                    ValidationGroup="Group"
+                                    ControlToValidate="ddlProjects">
+                                </asp:RequiredFieldValidator>
                   </div>
              <div class="col-md-6">
-                 <asp:DropDownList ID="ddlModule" runat="server" Width="150px" AppendDataBoundItems="false" AutoPostBack="true" OnSelectedIndexChanged="ddlModule_SelectedIndexChanged">
-                       <asp:ListItem Text="--select module--" Selected="True"></asp:ListItem>
-                 </asp:DropDownList>
+                
                   </div>
              </div>
+              <br />
+              <br />
+               <div class="col-md-12">
+                    <div class="col-md-3">
+                  <asp:Label ID="lblModule" runat="server" Text="Select module"></asp:Label>
+                  </div>
+                     <div class="col-md-3">
+                          <asp:DropDownList ID="ddlModule" runat="server" Width="150px" AppendDataBoundItems="false" AutoPostBack="true" OnSelectedIndexChanged="ddlModule_SelectedIndexChanged">
+                       <asp:ListItem Text="--select module--" Selected="True"></asp:ListItem>
+                 </asp:DropDownList>
+                          <asp:RequiredFieldValidator ID="rfvModule" runat="server" ErrorMessage="*"
+                                    Display="Dynamic" SetFocusOnError="true"
+                                    ForeColor="Red"
+                                    ValidationGroup="Group"
+                                    ControlToValidate="ddlModule">
+                                </asp:RequiredFieldValidator>
+                         </div>
+                    <div class="col-md-6">
+                
+                  </div>
+                   </div>
                <div style="width: 470px; height: 400px; margin-left:65px;margin-left:25px;">
                 <br />
                       <br />
                  <div class="contentTopBar" style="width:470px;"></div>
-                <telerik:RadGrid ID="dtgManageCategory" runat="server" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageCategory_NeedDataSource" OnItemCreated="dtgManageCategory_ItemCreated">
+                <telerik:RadGrid ID="dtgManageCategory" runat="server" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageCategory_NeedDataSource" OnItemCreated="dtgManageCategory_ItemCreated" OnPreRender="dtgManageCategory_PreRender">
                     <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />

@@ -58,6 +58,24 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.DropDownList ddlProjects;
         
         /// <summary>
+        /// frvProjects control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator frvProjects;
+        
+        /// <summary>
+        /// lblModule control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblModule;
+        
+        /// <summary>
         /// ddlModule control.
         /// </summary>
         /// <remarks>
@@ -65,6 +83,15 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlModule;
+        
+        /// <summary>
+        /// rfvModule control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvModule;
         
         /// <summary>
         /// dtgManageCategory control.

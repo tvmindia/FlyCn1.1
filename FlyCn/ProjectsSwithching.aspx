@@ -10,7 +10,7 @@
         <div class="contentTopBar" style="width:750px;">&nbsp;</div> 
    
                          <div style="width:750px;">
-                     <telerik:RadGrid ID="dtgProjectSwitching" runat="server" AllowPaging="true" OnNeedDataSource="dtgProjectSwitching_NeedDataSource" OnItemCommand="dtgProjectSwitching_ItemCommand" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" >
+                     <telerik:RadGrid ID="dtgProjectSwitching" runat="server" AllowPaging="true" OnNeedDataSource="dtgProjectSwitching_NeedDataSource" OnItemCommand="dtgProjectSwitching_ItemCommand" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnItemDataBound="dtgProjectSwitching_ItemDataBound">
                            <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
