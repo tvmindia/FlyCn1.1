@@ -121,7 +121,7 @@ namespace FlyCn.FlyCnDAL
                     if (flag == true)
                     {
                         rowNO= rowNO + 2;
-                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(),flag,rowNO,dbCon);
                         return true;
                     }
                     else return false;
@@ -412,8 +412,9 @@ namespace FlyCn.FlyCnDAL
                 DataRow refTableOneRow = null;
                 DataRow[] masterDataExisting = null;
                 StringBuilder errorDescLists = new StringBuilder();
-                bool flag = false;
-                ///
+               // bool flag = false;
+                bool IsError = true;
+                
                 DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
                 string keyField = GetInvalidKeyField(keyFieldRow, dr);
 
@@ -430,7 +431,8 @@ namespace FlyCn.FlyCnDAL
                         if (refTableName == "M_Personnel")
                         {
                            //Error for table name M_Personel
-                            flag = true;
+                            IsError = true;
+                           // flag = true;
                             errorDescLists.Append(comma);
                             errorDescLists.Append(cName);
                             errorDescLists.Append("is Invalid Data");
@@ -438,9 +440,8 @@ namespace FlyCn.FlyCnDAL
                         }
                         else
                         {
-                           
-                            //Warning for Normal masters
-                            flag = true;
+                           //Warning for Normal masters
+                            IsError = false;
                             errorDescLists.Append(comma);
                             errorDescLists.Append(cName);
                             errorDescLists.Append("Warning");
@@ -450,13 +451,20 @@ namespace FlyCn.FlyCnDAL
                      
                     }
                 }
-                    if (flag == true)
+
+                if (IsError == true)
+                {
+                    rowNO = rowNO + 2;
+                    isupdate = importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), IsError, rowNO, dbCon);
+                    return true;
+                }
+                    if (IsError == false)//means warning
                     {
                         rowNO = rowNO + 2;
-                        isupdate=importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                        isupdate = importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), IsError, rowNO, dbCon);
+                        importfile.WarningCount = importfile.WarningCount + 1;
                         return true;
                     }
-               
                     return false;
                 
             }
@@ -495,7 +503,7 @@ namespace FlyCn.FlyCnDAL
                              errorDescLists.Append(Messge.CADTL);
                              comma = "";
                              rowNO = rowNO + 2;
-                             importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                             importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(),true,rowNO, dbCon);
                              return true;
                          }
                        
@@ -525,7 +533,7 @@ namespace FlyCn.FlyCnDAL
                              errorDescLists.Append(Messge.DNV);
                              comma = "";
                              rowNO = rowNO + 2;
-                             importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                             importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(),true,rowNO, dbCon);
                              return true;
                     }
                     if(DrumDS.Tables[0].Rows.Count>0)
@@ -539,7 +547,7 @@ namespace FlyCn.FlyCnDAL
                         errorDescLists.Append(Messge.ALV);
                         comma = "";
                         rowNO = rowNO + 2;
-                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(),true,rowNO, dbCon);
                         return true;
                      }
                             usedLength =(DrumDS.Tables[0].Rows[0]["UsedLength"].ToString() !="") ? int.Parse(DrumDS.Tables[0].Rows[0]["UsedLength"].ToString()) : 0;
@@ -550,7 +558,7 @@ namespace FlyCn.FlyCnDAL
                                 errorDescLists.Append(Messge.ULV);
                                 comma = "";
                                 rowNO = rowNO + 2;
-                                importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), rowNO, dbCon);
+                                importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(),true,rowNO, dbCon);
                                 return true;
                             }
 
