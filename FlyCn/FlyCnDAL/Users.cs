@@ -1761,7 +1761,7 @@ namespace FlyCn.FlyCnDAL
         #endregion DeleteManageActivities
 
         #region GetAllSys_Activities
-        public DataTable GetAllSys_Activities(string projectNo, string moduleId,string fullDesc)
+        public DataTable GetAllSys_Activities(string projectNo, string moduleId,string fullDesc,string category)
         {
             SqlConnection conn = null;
             DataTable ds = null;
@@ -1773,10 +1773,13 @@ namespace FlyCn.FlyCnDAL
                 conn = dcon.GetDBConnection();
                 //conn.Open();
 
-                SqlCommand cmd = new SqlCommand("GetAllSys_Activities", conn);
+                SqlCommand cmd = new SqlCommand("FillActivities", conn);
                 cmd.Parameters.Add("@moduleId", SqlDbType.NVarChar, 10).Value = moduleId;
                 cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value = projectNo;
-               // cmd.Parameters.Add("@category", SqlDbType.NVarChar, 25).Value = category;
+                if (category != "")
+                {
+                    cmd.Parameters.Add("@category", SqlDbType.NVarChar, 25).Value = category;
+                }
                 cmd.Parameters.Add("@fullDesc", SqlDbType.NVarChar, 50).Value = fullDesc;
                 cmd.CommandType = CommandType.StoredProcedure;
 

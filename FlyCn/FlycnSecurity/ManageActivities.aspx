@@ -119,7 +119,7 @@
          <div class="col-md-12"  style="border-left: 1px solid #cfc7c0;min-height:400px">
                                    <div class="contentTopBar" style="width:450px;margin-left:20%;"></div>
                          <div style="width:450px;margin-left:20%;">
-                              <telerik:RadGrid ID="dtgManageActivities" runat="server" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageActivities_NeedDataSource" OnItemCreated="dtgManageActivities_ItemCreated" OnPreRender="dtgManageActivities_PreRender">
+                              <telerik:RadGrid ID="dtgManageActivities" runat="server" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageActivities_NeedDataSource" OnItemCreated="dtgManageActivities_ItemCreated" OnPreRender="dtgManageActivities_PreRender" OnItemCommand="dtgManageActivities_ItemCommand">
                                      <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
@@ -128,7 +128,8 @@
                            <%--  <telerik:GridBoundColumn HeaderText="Id" DataField="ModuleActID" UniqueName="ModuleActID" Display="false"></telerik:GridBoundColumn> --%>
                               <telerik:GridBoundColumn HeaderText="Activities" DataField="FullDesc" UniqueName="FullDesc"></telerik:GridBoundColumn> 
                              <telerik:GridCheckBoxColumn HeaderText="Delete" DataType="System.Boolean" UniqueName="Modulescheck"></telerik:GridCheckBoxColumn>
-                        
+                                    <telerik:GridButtonColumn CommandName="Manage" ButtonType="LinkButton" Text="Manage" UniqueName="Manage" ItemStyle-ForeColor="#3399ff">
+                                                </telerik:GridButtonColumn>
                               <%--<telerik:GridBoundColumn HeaderText="Access Type" DataField="AccessType" UniqueName="AccessType" ></telerik:GridBoundColumn> --%>
                         </Columns>
                     </MasterTableView>
@@ -1088,6 +1089,15 @@
                 return false;
 
             }
+        }
+        function NavigateManage()
+        {
+            var myHidden = document.getElementById('<%= selected_tab.ClientID %>');
+            myHidden.value = 2;
+            funtab1 = document.getElementById("tab1");
+
+            funtab1.style.display = "none";
+            document.getElementById("tab2").style.display = "block";
         }
         function FullDescriptionCheck(txtLoginName) {
             debugger;

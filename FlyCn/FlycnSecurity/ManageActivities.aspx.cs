@@ -536,6 +536,7 @@ namespace FlyCn.FlycnSecurity
                 checkBoxAdd.Enabled = true;
 
             }
+       
            
         }
 
@@ -545,258 +546,283 @@ namespace FlyCn.FlycnSecurity
             FlyCnDAL.Users userObj = new FlyCnDAL.Users();
             DataTable dt = new DataTable();
             string project = ddlSelectProject.SelectedItem.Text;
+            if (project == "--select project--")
+            {
+                project = ddlProjects.SelectedItem.Text;
+                ddlSelectProject.SelectedItem.Text = project;
+            }
             string module = ddlSelectModule.SelectedItem.Value;
+            if (module == "--select module--")
+            {
+                module = ddlModule.SelectedItem.Value;
+                ddlSelectModule.SelectedItem.Text = module;
+            }
             string category = ddlCategory.SelectedItem.Value;
+            if (category == "--select category--")
+            {
+                category=ddlManageCategory.SelectedItem.Value;
+                ddlCategory.SelectedItem.Text = category;
+            }
             string desc = ddlActivity.SelectedItem.Text;
-            dt = userObj.GetAllSys_Activities(project, module,desc);
-           
-            txtFullDesc.Text = dt.Rows[0]["FullDesc"].ToString();
-            txtShortDesc.Text = dt.Rows[0]["ShortDesc"].ToString();
-            bool failApplicable =Convert.ToBoolean(dt.Rows[0]["FailApplicable"]);
-            if(failApplicable==true)
+            if (desc == "--select Activity--")
             {
-                chkIsFailApplicable.Checked = true;
+                foreach (GridDataItem item in dtgManageActivities.Items)
+                {
+                    desc = item.GetDataKeyValue("FullDesc").ToString();
+                }
+                ddlActivity.SelectedItem.Text = desc;
             }
-            else
+            dt = userObj.GetAllSys_Activities(project, module,desc,category);
+            if (dt.Rows.Count > 0)
             {
-                chkIsFailApplicable.Checked = false;
-            }
-            txtActualStartDateCaption.Text = dt.Rows[0]["Actual_StartDate_Caption"].ToString();
-            txtStatusCaption.Text = dt.Rows[0]["CompStatus_Caption"].ToString();
-            txtActualCompleteDateCaption.Text = dt.Rows[0]["Actual_ComplDate_Caption"].ToString();
-            bool plannedStartDate =Convert.ToBoolean(dt.Rows[0]["Planned_StartDate_OnOff"]);
-            if(plannedStartDate==true)
-            {
-                chkPlannedStartDate.Checked = true;
-            }
-            else
-            {
-                chkPlannedStartDate.Checked = false;
-            }
-            bool plannedCmpltDate = Convert.ToBoolean(dt.Rows[0]["Planned_ComplDate_OnOff"]);
-            if(plannedCmpltDate==true)
-            {
-                chkPlannedCmpltDate.Checked = true;
-            }
-            else
-            {
-                chkPlannedCmpltDate.Checked = false;
-            }
-            bool foreCastStartDate = Convert.ToBoolean(dt.Rows[0]["Forecast_StartDate_OnOff"]);
-            if(foreCastStartDate==true)
-            {
-                chkForeCastStartDate.Checked = true;
-            }
-            else
-            {
-                chkForeCastStartDate.Checked = false;
-            }
-            bool foreCastEndDate = Convert.ToBoolean(dt.Rows[0]["Forecast_EndDate_OnOff"]);
-            if(foreCastEndDate==true)
-            {
-                chkForeCastEndDate.Checked = true;
-            }
-            else
-            {
-                chkForeCastEndDate.Checked = false;
-            }
-            bool actualStartDate = Convert.ToBoolean(dt.Rows[0]["Actual_StartDate_OnOff"]);
-            if(actualStartDate==true)
-            {
-                chkActualStartDate.Checked = true;
-            }
-            else
-            {
-                chkActualStartDate.Checked = false;
-            }
-            bool status = Convert.ToBoolean(dt.Rows[0]["Status_OnOff"]);
-            if(status==true)
-            {
-                chkStatus.Checked = true;
-            }
-            else
-            {
-                chkStatus.Checked = false;
-            }
-            bool actualCompleteDate = Convert.ToBoolean(dt.Rows[0]["Actual_ComplDate_OnOff"]);
-            if(actualCompleteDate==true)
-            {
-                chkActualCompleteDate.Checked = true;
-            }
-            else
-            {
-                chkActualCompleteDate.Checked = false;
-            }
-            bool wbdId = Convert.ToBoolean(dt.Rows[0]["WBS_ID_OnOff"]);
-            if(wbdId==true)
-            {
-                chkWBSID.Checked = true;
-            }
-            else
-            {
-                chkWBSID.Checked = false;
-            }
-            bool activityID = Convert.ToBoolean(dt.Rows[0]["Activity_ID_OnOff"]);
-            if(activityID==true)
-            {
-                chkActivityID.Checked = true;
-            }
-            else
-            {
-                chkActivityID.Checked = false;
-            }
-            bool budgetHours = Convert.ToBoolean(dt.Rows[0]["Budget_Hrs_OnOff"]);
-            if(budgetHours==true)
-            {
-                chkBudgetHours.Checked = true;
-            }
-            else
-            {
-                chkBudgetHours.Checked = false;
-            }
-            bool spentHoursProductive = Convert.ToBoolean(dt.Rows[0]["Spent_Hrs_Productive_OnOff"]);
-            if(spentHoursProductive==true)
-            {
-                chkSpentHoursProductive.Checked = true;
-            }
-            else
-            {
-                chkSpentHoursProductive.Checked = false;
-            }
-            bool spentHoursNonProductive = Convert.ToBoolean(dt.Rows[0]["Spent_Hrs_NonProductive_OnOff"]);
-            if(spentHoursNonProductive==true)
-            {
-                chkSpentHoursNonProductive.Checked = true;
-            }
-            else
-            {
-                chkSpentHoursNonProductive.Checked = false;
-            }
-            bool activityWeight = Convert.ToBoolean(dt.Rows[0]["Activity_Weight_OnOff"]);
-            if(activityWeight==true)
-            {
-                chkActivityWeight.Checked = true;
-            }
-            else
-            {
-                chkActivityWeight.Checked = false;
-            }
-            bool qtyToInstall = Convert.ToBoolean(dt.Rows[0]["QtyTo_Install_OnOff"]);
-            if(qtyToInstall==true)
-            {
-                chkQtyToInstall.Checked = true;
-            }
-            else
-            {
-                chkQtyToInstall.Checked = false;
-            }
-            bool quantityInstalled = Convert.ToBoolean(dt.Rows[0]["Qty_Installed_OnOff"]);
-            if(quantityInstalled==true)
-            {
-                chkQuantityInstalled.Checked = true;
-            }
-            else
-            {
-                chkQuantityInstalled.Checked=false;
-            }
-            bool unitOfMeasure = Convert.ToBoolean(dt.Rows[0]["UnitOfMeasure_OnOff"]);
-            if(unitOfMeasure==true)
-            {
-                chkUnitOfMeasure.Checked = true;
-            }
-            else
-            {
-                chkUnitOfMeasure.Checked = false;
-            }
-            bool completed = Convert.ToBoolean(dt.Rows[0]["Completed_By_OnOff"]);
-            if(completed==true)
-            {
-                chkCompleted.Checked = true;
-            }
-            else
-            {
-                chkCompleted.Checked = false;
-            }
-            bool rFIRef_No = Convert.ToBoolean(dt.Rows[0]["RFI_RefNo_OnOff"]);
-            if(rFIRef_No==true)
-            {
-                chkRFIRef_No.Checked = true;
-            }
-            else
-            {
-                chkRFIRef_No.Checked = false;
-            }
-            bool rFIDate = Convert.ToBoolean(dt.Rows[0]["RFI_Date_OnOff"]);
-            if(rFIDate==true)
-            {
-                chkRFIDate.Checked = true;
-            }
-            else
-            {
-                chkRFIDate.Checked = false;
-            }
-            bool aFIRef_No = Convert.ToBoolean(dt.Rows[0]["AFI_RefNo_OnOff"]);
-            if(aFIRef_No==true)
-            {
-                chkAFIRef_No.Checked = true;
-            }
-            else
-            {
-                chkAFIRef_No.Checked = false;
-            }
-            //update from here onwards
-            bool aFIDate = Convert.ToBoolean(dt.Rows[0]["AFI_Date_OnOff"]);
-            if(aFIDate==true)
-            {
-                chkAFIDate.Checked = true;
-            }
-            else
-            {
-                chkAFIDate.Checked = false;
-            }
-            bool remarks = Convert.ToBoolean(dt.Rows[0]["Remarks_OnOff"]);
-            if(remarks==true)
-            {
-                chkRemarks.Checked = true;
-            }
-            else
-            {
-                chkRemarks.Checked = false;
-            }
-            txtTotalCaption.Text = dt.Rows[0]["Total_Caption"].ToString();
-            txtPassedCaption.Text = dt.Rows[0]["Passed_Caption"].ToString();
-            txtFailedCaption.Text = dt.Rows[0]["Failed_Caption"].ToString();
-            txtInProgressCaption.Text = dt.Rows[0]["InProgress_Caption"].ToString();
-            txtTestedCaption.Text = dt.Rows[0]["Tested_Caption"].ToString();
-            txtReadyCaption.Text = dt.Rows[0]["Ready_Caption"].ToString();
-            txtNotReadyCaption.Text = dt.Rows[0]["Not_Ready_Caption"].ToString();
-            txtNotTested.Text = dt.Rows[0]["Not_Tested_Caption"].ToString();
-            txtBalanceCaption.Text = dt.Rows[0]["Balance_Caption"].ToString();
-            bool quantityVerified = Convert.ToBoolean(dt.Rows[0]["Qty_Verified_OnOff"]);
-            if(quantityVerified==true)
-            {
-                chkQuantityVerified.Checked = true;
-            }
-            else
-            {
-                chkQuantityVerified.Checked = false;
-            }
-            //userObj.projectNo = ddlSelectProject.SelectedItem.Text;
-            //userObj.moduleId = ddlSelectModule.SelectedItem.Value;
-            //userObj.Managecategory = ddlCategory.SelectedItem.Value;
-            txtModuleActId.Text = Convert.ToString(dt.Rows[0]["ModuleActID"]);
-            //if (txtModuleActId.Text != "")
-            //{
-            //    userObj.moduleActId = Convert.ToInt32(txtModuleActId.Text);
-            //}
-            bool kpiQuantity = Convert.ToBoolean(dt.Rows[0]["KPI_Qty_YN"]);
-            if(kpiQuantity==true)
-            {
-                chkKpiQuantity.Checked = true;
-            }
-            else
-            {
-                chkKpiQuantity.Checked = false;
+                txtFullDesc.Text = dt.Rows[0]["FullDesc"].ToString();
+                txtShortDesc.Text = dt.Rows[0]["ShortDesc"].ToString();
+                bool failApplicable = Convert.ToBoolean(dt.Rows[0]["FailApplicable"]);
+                if (failApplicable == true)
+                {
+                    chkIsFailApplicable.Checked = true;
+                }
+                else
+                {
+                    chkIsFailApplicable.Checked = false;
+                }
+                txtActualStartDateCaption.Text = dt.Rows[0]["Actual_StartDate_Caption"].ToString();
+                txtStatusCaption.Text = dt.Rows[0]["CompStatus_Caption"].ToString();
+                txtActualCompleteDateCaption.Text = dt.Rows[0]["Actual_ComplDate_Caption"].ToString();
+                bool plannedStartDate = Convert.ToBoolean(dt.Rows[0]["Planned_StartDate_OnOff"]);
+                if (plannedStartDate == true)
+                {
+                    chkPlannedStartDate.Checked = true;
+                }
+                else
+                {
+                    chkPlannedStartDate.Checked = false;
+                }
+                bool plannedCmpltDate = Convert.ToBoolean(dt.Rows[0]["Planned_ComplDate_OnOff"]);
+                if (plannedCmpltDate == true)
+                {
+                    chkPlannedCmpltDate.Checked = true;
+                }
+                else
+                {
+                    chkPlannedCmpltDate.Checked = false;
+                }
+                bool foreCastStartDate = Convert.ToBoolean(dt.Rows[0]["Forecast_StartDate_OnOff"]);
+                if (foreCastStartDate == true)
+                {
+                    chkForeCastStartDate.Checked = true;
+                }
+                else
+                {
+                    chkForeCastStartDate.Checked = false;
+                }
+                bool foreCastEndDate = Convert.ToBoolean(dt.Rows[0]["Forecast_EndDate_OnOff"]);
+                if (foreCastEndDate == true)
+                {
+                    chkForeCastEndDate.Checked = true;
+                }
+                else
+                {
+                    chkForeCastEndDate.Checked = false;
+                }
+                bool actualStartDate = Convert.ToBoolean(dt.Rows[0]["Actual_StartDate_OnOff"]);
+                if (actualStartDate == true)
+                {
+                    chkActualStartDate.Checked = true;
+                }
+                else
+                {
+                    chkActualStartDate.Checked = false;
+                }
+                bool status = Convert.ToBoolean(dt.Rows[0]["Status_OnOff"]);
+                if (status == true)
+                {
+                    chkStatus.Checked = true;
+                }
+                else
+                {
+                    chkStatus.Checked = false;
+                }
+                bool actualCompleteDate = Convert.ToBoolean(dt.Rows[0]["Actual_ComplDate_OnOff"]);
+                if (actualCompleteDate == true)
+                {
+                    chkActualCompleteDate.Checked = true;
+                }
+                else
+                {
+                    chkActualCompleteDate.Checked = false;
+                }
+                bool wbdId = Convert.ToBoolean(dt.Rows[0]["WBS_ID_OnOff"]);
+                if (wbdId == true)
+                {
+                    chkWBSID.Checked = true;
+                }
+                else
+                {
+                    chkWBSID.Checked = false;
+                }
+                bool activityID = Convert.ToBoolean(dt.Rows[0]["Activity_ID_OnOff"]);
+                if (activityID == true)
+                {
+                    chkActivityID.Checked = true;
+                }
+                else
+                {
+                    chkActivityID.Checked = false;
+                }
+                bool budgetHours = Convert.ToBoolean(dt.Rows[0]["Budget_Hrs_OnOff"]);
+                if (budgetHours == true)
+                {
+                    chkBudgetHours.Checked = true;
+                }
+                else
+                {
+                    chkBudgetHours.Checked = false;
+                }
+                bool spentHoursProductive = Convert.ToBoolean(dt.Rows[0]["Spent_Hrs_Productive_OnOff"]);
+                if (spentHoursProductive == true)
+                {
+                    chkSpentHoursProductive.Checked = true;
+                }
+                else
+                {
+                    chkSpentHoursProductive.Checked = false;
+                }
+                bool spentHoursNonProductive = Convert.ToBoolean(dt.Rows[0]["Spent_Hrs_NonProductive_OnOff"]);
+                if (spentHoursNonProductive == true)
+                {
+                    chkSpentHoursNonProductive.Checked = true;
+                }
+                else
+                {
+                    chkSpentHoursNonProductive.Checked = false;
+                }
+                bool activityWeight = Convert.ToBoolean(dt.Rows[0]["Activity_Weight_OnOff"]);
+                if (activityWeight == true)
+                {
+                    chkActivityWeight.Checked = true;
+                }
+                else
+                {
+                    chkActivityWeight.Checked = false;
+                }
+                bool qtyToInstall = Convert.ToBoolean(dt.Rows[0]["QtyTo_Install_OnOff"]);
+                if (qtyToInstall == true)
+                {
+                    chkQtyToInstall.Checked = true;
+                }
+                else
+                {
+                    chkQtyToInstall.Checked = false;
+                }
+                bool quantityInstalled = Convert.ToBoolean(dt.Rows[0]["Qty_Installed_OnOff"]);
+                if (quantityInstalled == true)
+                {
+                    chkQuantityInstalled.Checked = true;
+                }
+                else
+                {
+                    chkQuantityInstalled.Checked = false;
+                }
+                bool unitOfMeasure = Convert.ToBoolean(dt.Rows[0]["UnitOfMeasure_OnOff"]);
+                if (unitOfMeasure == true)
+                {
+                    chkUnitOfMeasure.Checked = true;
+                }
+                else
+                {
+                    chkUnitOfMeasure.Checked = false;
+                }
+                bool completed = Convert.ToBoolean(dt.Rows[0]["Completed_By_OnOff"]);
+                if (completed == true)
+                {
+                    chkCompleted.Checked = true;
+                }
+                else
+                {
+                    chkCompleted.Checked = false;
+                }
+                bool rFIRef_No = Convert.ToBoolean(dt.Rows[0]["RFI_RefNo_OnOff"]);
+                if (rFIRef_No == true)
+                {
+                    chkRFIRef_No.Checked = true;
+                }
+                else
+                {
+                    chkRFIRef_No.Checked = false;
+                }
+                bool rFIDate = Convert.ToBoolean(dt.Rows[0]["RFI_Date_OnOff"]);
+                if (rFIDate == true)
+                {
+                    chkRFIDate.Checked = true;
+                }
+                else
+                {
+                    chkRFIDate.Checked = false;
+                }
+                bool aFIRef_No = Convert.ToBoolean(dt.Rows[0]["AFI_RefNo_OnOff"]);
+                if (aFIRef_No == true)
+                {
+                    chkAFIRef_No.Checked = true;
+                }
+                else
+                {
+                    chkAFIRef_No.Checked = false;
+                }
+                //update from here onwards
+                bool aFIDate = Convert.ToBoolean(dt.Rows[0]["AFI_Date_OnOff"]);
+                if (aFIDate == true)
+                {
+                    chkAFIDate.Checked = true;
+                }
+                else
+                {
+                    chkAFIDate.Checked = false;
+                }
+                bool remarks = Convert.ToBoolean(dt.Rows[0]["Remarks_OnOff"]);
+                if (remarks == true)
+                {
+                    chkRemarks.Checked = true;
+                }
+                else
+                {
+                    chkRemarks.Checked = false;
+                }
+                txtTotalCaption.Text = dt.Rows[0]["Total_Caption"].ToString();
+                txtPassedCaption.Text = dt.Rows[0]["Passed_Caption"].ToString();
+                txtFailedCaption.Text = dt.Rows[0]["Failed_Caption"].ToString();
+                txtInProgressCaption.Text = dt.Rows[0]["InProgress_Caption"].ToString();
+                txtTestedCaption.Text = dt.Rows[0]["Tested_Caption"].ToString();
+                txtReadyCaption.Text = dt.Rows[0]["Ready_Caption"].ToString();
+                txtNotReadyCaption.Text = dt.Rows[0]["Not_Ready_Caption"].ToString();
+                txtNotTested.Text = dt.Rows[0]["Not_Tested_Caption"].ToString();
+                txtBalanceCaption.Text = dt.Rows[0]["Balance_Caption"].ToString();
+                bool quantityVerified = Convert.ToBoolean(dt.Rows[0]["Qty_Verified_OnOff"]);
+                if (quantityVerified == true)
+                {
+                    chkQuantityVerified.Checked = true;
+                }
+                else
+                {
+                    chkQuantityVerified.Checked = false;
+                }
+                //userObj.projectNo = ddlSelectProject.SelectedItem.Text;
+                //userObj.moduleId = ddlSelectModule.SelectedItem.Value;
+                //userObj.Managecategory = ddlCategory.SelectedItem.Value;
+                txtModuleActId.Text = Convert.ToString(dt.Rows[0]["ModuleActID"]);
+                //if (txtModuleActId.Text != "")
+                //{
+                //    userObj.moduleActId = Convert.ToInt32(txtModuleActId.Text);
+                //}
+                bool kpiQuantity = Convert.ToBoolean(dt.Rows[0]["KPI_Qty_YN"]);
+                if (kpiQuantity == true)
+                {
+                    chkKpiQuantity.Checked = true;
+                }
+                else
+                {
+                    chkKpiQuantity.Checked = false;
+                }
             }
 
         }
@@ -833,5 +859,14 @@ namespace FlyCn.FlycnSecurity
             return false;
         }
         #endregion ValidateDescriptions
+
+        protected void dtgManageActivities_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.CommandName == "Manage")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "NavigateManage();", true);
+                FillAllBoxes();
+            }
+        }
     }
 }
