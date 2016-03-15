@@ -791,17 +791,18 @@ namespace FlyCn.WebServices
                                                             case ".jpg":
                                                             case ".jpeg": //imageFile confirmed
                                                                          buffer = MakeThumbnail((byte[])dr[imgColName[i] as string], 90, 90);//images are converted to thumbnails of 90*90px
+                                                                         System.IO.File.WriteAllBytes(fileURL, buffer);
                                                                                     break;
                                                             default: //non-image file confirmed
-                                                                buffer = (byte[])dr[imgColName[i] as string];
+                                                                //buffer = (byte[])dr[imgColName[i] as string];
                                                                                     break;
                                                         }
                                                 }
                                                 else
                                                 {
                                                     buffer = (byte[])dr[imgColName[i] as string];
+                                                    System.IO.File.WriteAllBytes(fileURL, buffer);
                                                 }
-                                                System.IO.File.WriteAllBytes(fileURL, buffer);
                                             }
                                             row.Add(imgColName[i] as string, fileURL);
                                         }

@@ -444,6 +444,8 @@ namespace FlyCn.EngineeredDataList
                 if (IsError)
                 {
                     validationObj.importfile.errorCount = validationObj.importfile.errorCount + 1;
+                    validationObj.importfile.errorCount = validationObj.importfile.errorCount - validationObj.importfile.WarningCount;
+                   
                 }
             }
             

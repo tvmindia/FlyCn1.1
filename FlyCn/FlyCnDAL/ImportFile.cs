@@ -12,7 +12,7 @@ using System.Threading;
 using System.Web.Caching;
 using System.IO;
 using System.Diagnostics;
-
+using ExcelProp = FlyCn.DocumentSettings.DocumentStatusSettings;
 namespace FlyCn.FlyCnDAL
 {
     #region classImportFile
@@ -190,9 +190,11 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-
-
-
+        public int WarningCount
+        {
+            get;
+            set;
+        }
         public string fileName
         {
             get;
@@ -461,7 +463,7 @@ namespace FlyCn.FlyCnDAL
         /// <param name="ExcelFileName"></param>
         /// <param name="InsertCount"></param>
 
-        public Int16 InsertExcelImportErrorDetails(string KeyField, string ErrorDescription,int rowNO,dbConnection dbCon)
+        public Int16 InsertExcelImportErrorDetails(string KeyField, string ErrorDescription,Boolean isError,int rowNO,dbConnection dbCon)
         {
          
             SqlCommand cmd = new SqlCommand();
@@ -476,6 +478,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.Add("@Key_Field", SqlDbType.NVarChar, 50).Value = KeyField;
                 cmd.Parameters.Add("@Excel_RowNO", SqlDbType.Int).Value = rowNO;//excel error row number
                 cmd.Parameters.Add("@Error_Description", SqlDbType.NVarChar, 250).Value = ErrorDescription;
+                cmd.Parameters.Add("@IsError", SqlDbType.Bit).Value = isError;
                 outputparamIsUpdate.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
@@ -642,15 +645,15 @@ namespace FlyCn.FlyCnDAL
                    var command = excelConnection1.CreateCommand();
                
                     //command.CommandText = "SELECT * FROM " + excelSheets[0];
-                   command.CommandText = string.Format("Select * from [{0}]", excelSheets[0]);
+                   command.CommandText = string.Format("Select * from [{0}]", SheetName + "$");
                     var conditions = "";
                     foreach (DataRow dr in dsTable.Tables[0].Rows)
                     {
-                     conditions += "[" + dr["Field_Description"].ToString()+ "]" + " IS NOT NULL AND ";
+                     conditions += "[" + dr["Field_Description"].ToString()+ "]" + " IS NOT NULL OR ";
                     }
                     if (conditions != "")
                     {
-                        command.CommandText += " WHERE " + conditions.Remove(conditions.Length - 5);
+                        command.CommandText += " WHERE " + conditions.Remove(conditions.Length - 4);
                     }
               
                // string query = string.Format("Select * from [{0}]", excelSheets[0]);
@@ -748,12 +751,20 @@ namespace FlyCn.FlyCnDAL
                     int t = 0;
                     foreach (DataRow row in dt.Rows)
                     {
-                        excelSheets[t] = row["TABLE_NAME"].ToString();
-                        t++;
+                        if ("'" + ExcelProp.FileDescriptionSheetName + "$" + "'"  == row["TABLE_NAME"].ToString())
+                        {
+                            SheetDescription = row["TABLE_NAME"].ToString();
+                            SheetDescription = SheetDescription.TrimEnd('$');
+                        }
+                        else
+                        {
+                             SheetName = row["TABLE_NAME"].ToString();
+                             SheetName = SheetName.TrimEnd('$');
+                        }
+                       excelSheets[t] = row["TABLE_NAME"].ToString();
+                       t++;
                     }
-                    SheetName = excelSheets[0];
-                    SheetDescription = excelSheets[1];
-                    SheetName = SheetName.TrimEnd('$');
+                                     
                 }
             }
             catch (Exception ex)

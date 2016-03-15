@@ -43,6 +43,11 @@ namespace FlyCn.DocumentSettings
 
 
         #region ExcelSheetNames
+
+        public static string FileDescriptionSheetName
+        {
+            get { return "Field Description"; }
+        }
         public static string CIV
         {
             get { return "Civil"; }//returns module description of tables from modules
@@ -121,6 +126,8 @@ namespace FlyCn.DocumentSettings
             get { return "Used Drum Can Not Change";}
         }
         #endregion CableDrumValidation
+
+      
 
 
     }

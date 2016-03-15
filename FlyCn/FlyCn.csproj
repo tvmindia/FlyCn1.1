@@ -864,6 +864,7 @@
     <Compile Include="FlyCnDAL\EnggDataList.cs" />
     <Compile Include="FlyCnDAL\EngineeredViewList.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
+    <Compile Include="FlyCnDAL\ErrorInformation.cs" />
     <Compile Include="FlyCnDAL\ExcelTemplate.cs" />
     <Compile Include="FlyCnDAL\ImportFile.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />

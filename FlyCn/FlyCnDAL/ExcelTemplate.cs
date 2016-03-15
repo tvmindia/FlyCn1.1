@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using ExcelProp = FlyCn.DocumentSettings.DocumentStatusSettings;
 
 
 
@@ -69,7 +70,7 @@ namespace FlyCn.FlyCnDAL
                 List<string> SheetNames = new List<string>();
 
                 SheetNames.Add(sheetname);
-                SheetNames.Add("Field Description");
+                SheetNames.Add(ExcelProp.FileDescriptionSheetName);
                 int colIndex = 1;
                 int rowIndex = 1;
 
