@@ -8,7 +8,18 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <script src="../Scripts/jquery-1.8.2.js"></script>
      
-   
+    <style>
+          .selectbox {
+            width: 69%;
+            background-color: #FFF;
+            height:25px;
+            font: 400 12px/18px 'Open Sans', sans-serif;
+            color: #000;
+            font-weight: normal;
+            border: 1px solid #ccc;
+            margin: 5px 0 0 0;
+            padding: 5px;
+    </style>
 
     <asp:ScriptManager ID="scriptmanager1" runat="server"></asp:ScriptManager>
 
@@ -29,7 +40,7 @@
                        
                    </td><td>
                        <br />
-                    <asp:DropDownList ID="DropDownList1" runat="server" Width="150px" AppendDataBoundItems="true" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="true">
+                    <asp:DropDownList ID="DropDownList1" runat="server" Width="150px" CssClass="selectbox" AppendDataBoundItems="true" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="true">
                         <asp:ListItem Text="--select user--"></asp:ListItem>
                     </asp:DropDownList>
                       </td> </tr>
@@ -78,10 +89,10 @@
                 <div style="margin-left:90px;">
                 <asp:Label ID="Label3" runat="server" Text="Select Level"></asp:Label>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:DropDownList ID="DropDownList2" runat="server" Width="150px" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged">
+                <asp:DropDownList ID="DropDownList2" runat="server" Width="150px" CssClass="selectbox" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged">
                     <asp:ListItem Text="--select level--"></asp:ListItem>
                 </asp:DropDownList>
-                <asp:DropDownList ID="DropDownList3" runat="server" Width="150px" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="DropDownList3_SelectedIndexChanged">
+                <asp:DropDownList ID="DropDownList3" runat="server" Width="150px" CssClass="selectbox" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="DropDownList3_SelectedIndexChanged">
                     <asp:ListItem Text="--select--"></asp:ListItem>
                 </asp:DropDownList>
                </div>

@@ -67,7 +67,15 @@ namespace FlyCn.FlyCnDAL
             rtn5.Target = "contentPane";
             myTree.Nodes.Add(rtn5);
 
+            RadTreeNode rtn6 = new RadTreeNode("ModuleActivities", "ModuleActivities");
+            rtn6.NavigateUrl = cnst.ModuleActivities;
+            rtn6.Target = "contentPane";
+            myTree.Nodes.Add(rtn6);
 
+            RadTreeNode rtn7 = new RadTreeNode("ManageActivities", "ManageActivities");
+            rtn7.NavigateUrl = cnst.ManageActivities;
+            rtn7.Target = "contentPane";
+            myTree.Nodes.Add(rtn7);
         }
         #endregion BindTree()
 

@@ -4,6 +4,18 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+    <style>
+          .selectbox {
+            width: 69%;
+            background-color: #FFF;
+            height:25px;
+            font: 400 12px/18px 'Open Sans', sans-serif;
+            color: #000;
+            font-weight: normal;
+            border: 1px solid #ccc;
+            margin: 5px 0 0 0;
+            padding: 5px;
+    </style>
     <script type="text/javascript">
         $(document).ready(function () {
          
@@ -187,7 +199,7 @@
                         <asp:Label ID="lblTheme" runat="server" CssClass="control-label col-md-6 "  Text="Theme"></asp:Label>
                          
                       <div class="col-md-6">
-                        <asp:DropDownList ID="ddlTheme" runat="server" Width="150px">
+                        <asp:DropDownList ID="ddlTheme" runat="server" Width="150px" CssClass="selectbox">
                             <asp:ListItem Text="--select theme--" Value="0"></asp:ListItem>
                             <asp:ListItem Text="FlyCnGreen" Value="FlyCnGreen"></asp:ListItem>
                             <asp:ListItem Text="FlyCnRed" Value="FlyCnRed"></asp:ListItem>

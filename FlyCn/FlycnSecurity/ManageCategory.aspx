@@ -5,7 +5,19 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
  <script src="../Scripts/jquery-1.8.2.js"></script>
-
+    <style>
+          .selectbox {
+            width: 69%;
+            background-color: #FFF;
+            height:25px;
+            font: 400 12px/18px 'Open Sans', sans-serif;
+            color: #000;
+            font-weight: normal;
+            border: 1px solid #ccc;
+            margin: 5px 0 0 0;
+            padding: 5px;
+        }
+    </style>
  <asp:ScriptManager ID="scriptmanager1" runat="server"></asp:ScriptManager>
      <div class="importWizardContainer" style="height:500px;">
           <div class="col-md-12">
@@ -21,7 +33,7 @@
                   <asp:Label ID="lblProject" runat="server" Text="Select Project"></asp:Label>
                   </div>
              <div class="col-md-3">
-                 <asp:DropDownList ID="ddlProjects" runat="server" Width="150px" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged">
+                 <asp:DropDownList ID="ddlProjects" runat="server" Width="150px" CssClass="selectbox" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged">
                        <asp:ListItem Text="--select project--"></asp:ListItem>
                  </asp:DropDownList>
                   <asp:RequiredFieldValidator ID="frvProjects" runat="server" ErrorMessage="*"
@@ -42,7 +54,7 @@
                   <asp:Label ID="lblModule" runat="server" Text="Select module"></asp:Label>
                   </div>
                      <div class="col-md-3">
-                          <asp:DropDownList ID="ddlModule" runat="server" Width="150px" AppendDataBoundItems="false" AutoPostBack="true" OnSelectedIndexChanged="ddlModule_SelectedIndexChanged">
+                          <asp:DropDownList ID="ddlModule" runat="server" Width="150px" CssClass="selectbox" AppendDataBoundItems="false" AutoPostBack="true" OnSelectedIndexChanged="ddlModule_SelectedIndexChanged">
                        <asp:ListItem Text="--select module--" Selected="True"></asp:ListItem>
                  </asp:DropDownList>
                           <asp:RequiredFieldValidator ID="rfvModule" runat="server" ErrorMessage="*"
@@ -56,9 +68,11 @@
                 
                   </div>
                    </div>
-               <div style="width: 470px; height: 400px; margin-left:65px;margin-left:25px;">
+              
+               <div style="width: 470px; height: 400px; margin-left:5%;">
                 <br />
                       <br />
+                   <br />
                  <div class="contentTopBar" style="width:470px;"></div>
                 <telerik:RadGrid ID="dtgManageCategory" runat="server" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageCategory_NeedDataSource" OnItemCreated="dtgManageCategory_ItemCreated" OnPreRender="dtgManageCategory_PreRender">
                     <HeaderStyle  HorizontalAlign="Center" />
