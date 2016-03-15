@@ -577,17 +577,40 @@ namespace FlyCn.FlycnSecurity
             {
                 txtFullDesc.Text = dt.Rows[0]["FullDesc"].ToString();
                 txtShortDesc.Text = dt.Rows[0]["ShortDesc"].ToString();
-                bool failApplicable = Convert.ToBoolean(dt.Rows[0]["FailApplicable"]);
-                if (failApplicable == true)
+                if (dt.Columns.Contains("FailApplicable")==true)
                 {
-                    chkIsFailApplicable.Checked = true;
+                    bool failApplicable = Convert.ToBoolean(dt.Rows[0]["FailApplicable"]);
+                    if (failApplicable == true)
+                    {
+                        chkIsFailApplicable.Checked = true;
+                    }
+                    else
+                    {
+                        chkIsFailApplicable.Checked = false;
+                    }
                 }
                 else
                 {
-                    chkIsFailApplicable.Checked = false;
+                    bool failApplicable = Convert.ToBoolean(dt.Rows[0]["FailApplicable_YN"]);
+                    if (failApplicable == true)
+                    {
+                        chkIsFailApplicable.Checked = true;
+                    }
+                    else
+                    {
+                        chkIsFailApplicable.Checked = false;
+                    }
                 }
+                
                 txtActualStartDateCaption.Text = dt.Rows[0]["Actual_StartDate_Caption"].ToString();
-                txtStatusCaption.Text = dt.Rows[0]["CompStatus_Caption"].ToString();
+                if (dt.Columns.Contains("CompStatus_Caption"))
+                {
+                    txtStatusCaption.Text = dt.Rows[0]["CompStatus_Caption"].ToString();
+                }
+                else
+                {
+                    txtStatusCaption.Text = dt.Rows[0]["Status_Caption"].ToString();
+                }
                 txtActualCompleteDateCaption.Text = dt.Rows[0]["Actual_ComplDate_Caption"].ToString();
                 bool plannedStartDate = Convert.ToBoolean(dt.Rows[0]["Planned_StartDate_OnOff"]);
                 if (plannedStartDate == true)
@@ -797,15 +820,30 @@ namespace FlyCn.FlycnSecurity
                 txtNotReadyCaption.Text = dt.Rows[0]["Not_Ready_Caption"].ToString();
                 txtNotTested.Text = dt.Rows[0]["Not_Tested_Caption"].ToString();
                 txtBalanceCaption.Text = dt.Rows[0]["Balance_Caption"].ToString();
-                bool quantityVerified = Convert.ToBoolean(dt.Rows[0]["Qty_Verified_OnOff"]);
-                if (quantityVerified == true)
+                if (dt.Columns.Contains("Qty_Verified_OnOff"))
                 {
-                    chkQuantityVerified.Checked = true;
+                    if (dt.Rows[0]["Qty_Verified_OnOff"] == null)
+                    {
+                        chkQuantityVerified.Checked = false;
+                    }
+                    else
+                    {
+                        bool quantityVerified = Convert.ToBoolean(dt.Rows[0]["Qty_Verified_OnOff"]);
+                        if (quantityVerified == true)
+                        {
+                            chkQuantityVerified.Checked = true;
+                        }
+                        else
+                        {
+                            chkQuantityVerified.Checked = false;
+                        }
+                    }
                 }
                 else
                 {
                     chkQuantityVerified.Checked = false;
                 }
+               
                 //userObj.projectNo = ddlSelectProject.SelectedItem.Text;
                 //userObj.moduleId = ddlSelectModule.SelectedItem.Value;
                 //userObj.Managecategory = ddlCategory.SelectedItem.Value;
@@ -814,15 +852,23 @@ namespace FlyCn.FlycnSecurity
                 //{
                 //    userObj.moduleActId = Convert.ToInt32(txtModuleActId.Text);
                 //}
-                bool kpiQuantity = Convert.ToBoolean(dt.Rows[0]["KPI_Qty_YN"]);
-                if (kpiQuantity == true)
+                if (dt.Columns.Contains("KPI_Qty_YN"))
                 {
-                    chkKpiQuantity.Checked = true;
+                    bool kpiQuantity = Convert.ToBoolean(dt.Rows[0]["KPI_Qty_YN"]);
+                    if (kpiQuantity == true)
+                    {
+                        chkKpiQuantity.Checked = true;
+                    }
+                    else
+                    {
+                        chkKpiQuantity.Checked = false;
+                    }
                 }
                 else
                 {
                     chkKpiQuantity.Checked = false;
                 }
+                
             }
 
         }
@@ -848,11 +894,14 @@ namespace FlyCn.FlycnSecurity
 
         #region ValidateDescriptions
         [System.Web.Services.WebMethod]
-        public static bool ValidateFullDescription(string fullDesc,string moduleId,string project)
+        public static bool ValidateFullDescription(string fullDesc,string moduleDesc,string project,string category)
         {
             FlyCnDAL.Users userObj = new FlyCnDAL.Users();
+            DataTable dt = new DataTable();
+            dt = userObj.GetModuleId(moduleDesc);
+            string moduleId = Convert.ToString(dt.Rows[0]["ModuleID"]);
 
-            if (userObj.ValidateFullDesc(fullDesc, moduleId, project))
+            if (userObj.ValidateFullDesc(fullDesc, moduleId, project, category))
             {
                 return true;
             }
@@ -866,6 +915,10 @@ namespace FlyCn.FlycnSecurity
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "NavigateManage();", true);
                 FillAllBoxes();
+                ddlSelectProject.Enabled = false;
+                ddlSelectModule.Enabled = false;
+                ddlCategory.Enabled = false;
+                ddlActivity.Enabled = false;
             }
         }
     }

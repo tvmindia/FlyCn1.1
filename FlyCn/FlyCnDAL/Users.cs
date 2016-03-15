@@ -1558,7 +1558,7 @@ namespace FlyCn.FlyCnDAL
             try
             {
                 con = dcon.GetDBConnection();
-                SqlCommand cmd = new SqlCommand("InsertManageActivities", con);
+                SqlCommand cmd = new SqlCommand("ManageActivities", con);
                 cmd.Parameters.Add("@FullDesc", SqlDbType.NVarChar, 50).Value = fullDesc; ;
                 cmd.Parameters.Add("@ShortDesc", SqlDbType.NVarChar, 50).Value = shortDesc;
                 cmd.Parameters.Add("@FailApplicable_YN", SqlDbType.Bit).Value = failApplicable;
@@ -1948,7 +1948,7 @@ namespace FlyCn.FlyCnDAL
         #endregion Getsys_ActLibraryToFindModuleActId
 
         #region ValidateFullDesc
-        public bool ValidateFullDesc(string CheckFullDesc,string moduleId,string fullDesc)
+        public bool ValidateFullDesc(string CheckFullDesc,string moduleId,string projectNo,string category)
         {
             bool flag;
             SqlConnection con = null;
@@ -1962,6 +1962,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.Add("@moduleId", SqlDbType.NVarChar, 10).Value = moduleId;
                 cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value = projectNo;
                 cmd.Parameters.Add("@fullDesc", SqlDbType.NVarChar, 50).Value = CheckFullDesc;
+                cmd.Parameters.Add("@category", SqlDbType.NVarChar, 25).Value = category;
                 SqlParameter outflag = cmd.Parameters.Add("@flag", SqlDbType.Bit);
                 outflag.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -1987,6 +1988,49 @@ namespace FlyCn.FlyCnDAL
         }
 
         #endregion ValidateFullDesc
+        #region GetModuleId
+        public DataTable GetModuleId(string moduleDesc)
+        {
+            SqlConnection conn = null;
+            DataTable ds = null;
+
+            SqlDataAdapter da = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
+
+                SqlCommand cmd = new SqlCommand("GetModuleId", conn);
+                cmd.Parameters.Add("@moduleDesc", SqlDbType.NVarChar, 50).Value = moduleDesc;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                ds = new DataTable();
+                da.Fill(ds);
+
+                conn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+
+        }
+        #endregion GetModuleId
 
     }
     }

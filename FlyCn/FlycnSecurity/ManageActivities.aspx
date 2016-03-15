@@ -159,7 +159,7 @@
                               <asp:Label ID="lblSelectProject" runat="server"  CssClass="control-label col-md-6 " Text="Select Project"></asp:Label>
                                 <div class="col-md-6">
                                       <asp:DropDownList ID="ddlSelectProject" runat="server" Width="150px" CssClass="selectbox" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddlSelectProject_SelectedIndexChanged">
-                       <asp:ListItem Text="--select project--"></asp:ListItem>
+                      
                  </asp:DropDownList>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                                   <asp:Label ID="lblSelectModule" runat="server"  CssClass="control-label col-md-6 " Text="Select Module"></asp:Label>
                                 <div class="col-md-6">
                                 <asp:DropDownList ID="ddlSelectModule" runat="server" Width="150px" CssClass="selectbox" AppendDataBoundItems="false" AutoPostBack="true" OnSelectedIndexChanged="ddlSelectModule_SelectedIndexChanged">
-                       <asp:ListItem Text="--select module--"></asp:ListItem>
+                     
                  </asp:DropDownList>
                                 </div>
                             </div>
@@ -200,7 +200,7 @@
 
                                   <asp:Label ID="lblActivity" runat="server"  CssClass="control-label col-md-6 " Text="Select Activity"></asp:Label>
                                 <div class="col-md-6">
-                                <asp:DropDownList ID="ddlActivity" runat="server" Width="150px" CssClass="selectbox" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddlActivity_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddlActivity" runat="server" Width="150px" CssClass="selectbox" AppendDataBoundItems="false" AutoPostBack="true" OnSelectedIndexChanged="ddlActivity_SelectedIndexChanged">
                        <asp:ListItem Text="--select Activity--"></asp:ListItem>
                  </asp:DropDownList>
                                 </div>
@@ -1099,14 +1099,17 @@
             funtab1.style.display = "none";
             document.getElementById("tab2").style.display = "block";
         }
-        function FullDescriptionCheck(txtLoginName) {
+        function FullDescriptionCheck() {
             debugger;
             var FullDesc = document.getElementById('<%=txtFullDesc.ClientID %>').value;
-            var Module = document.getElementById('<%=ddlModule.ClientID %>').value;
-            var Projects = document.getElementById('<%=ddlProjects.ClientID %>').value;
-            Projects = trimString(Projects);
-           <%-- var ShortDesc = document.getElementById('<%=txtShortDesc.ClientID %>').value;--%>
-            PageMethods.ValidateFullDescription(FullDesc,Module,Projects, OnSuccess, onError);
+            var Module = document.getElementById('<%=ddlSelectModule.ClientID %>');
+            var selectedModule = Module.options[Module.selectedIndex].innerHTML;
+            var Projects = document.getElementById('<%=ddlSelectProject.ClientID %>');
+            var selectedProject = Projects.options[Projects.selectedIndex].innerHTML;
+            var categories = document.getElementById('<%=ddlCategory.ClientID %>');
+            var selectedCategories = categories.options[categories.selectedIndex].innerHTML;
+
+            PageMethods.ValidateFullDescription(FullDesc, selectedModule, selectedProject,selectedCategories, OnSuccess, onError);
             function OnSuccess(response, userContext, methodName) {
 
                 var LnameImage = document.getElementById('<%=imgWebLnames.ClientID %>');
