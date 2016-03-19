@@ -98,9 +98,10 @@
     <div style="float:left; width:53%; ">
         <br />
         <br />
-        <br />
-        <br />
+       
          <div class="col-md-12"  style="border-left: 1px solid #cfc7c0;min-height:400px">
+              <br />
+        <br />
                                    <div class="contentTopBar" style="width:450px;margin-left:20%;"></div>
                          <div style="width:450px;margin-left:20%;">
                               <telerik:RadGrid ID="dtgManageActivities" runat="server" AllowPaging="true" Width="100%" Skin="Silk" OnItemCreated="dtgManageActivities_ItemCreated" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageActivities_NeedDataSource" OnPreRender="dtgManageActivities_PreRender">

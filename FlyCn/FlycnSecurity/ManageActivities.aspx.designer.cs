@@ -22,6 +22,24 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
+        /// tabs1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor tabs1;
+        
+        /// <summary>
+        /// tabs2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor tabs2;
+        
+        /// <summary>
         /// ToolBar control.
         /// </summary>
         /// <remarks>
@@ -236,6 +254,24 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtShortDesc;
+        
+        /// <summary>
+        /// shortdescTrue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image shortdescTrue;
+        
+        /// <summary>
+        /// errorShortDesc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image errorShortDesc;
         
         /// <summary>
         /// lblActualStartDateCaption control.

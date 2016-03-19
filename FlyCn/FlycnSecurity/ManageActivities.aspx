@@ -47,8 +47,8 @@
     <div class="container" style="width: 100%;">
          <div class="col-md-12">
                <ul id="tabs">
-                    <li><a href="#" onclick="MyTab1(this);" id="tabs1">Manage</a></li>
-                    <li><a href="#" onclick="MyTab2(this);" id="tabs2">Create New</a></li>
+                    <li><a href="#" onclick="MyTab1(this);" id="tabs1" runat="server">Manage</a></li>
+                    <li><a href="#" onclick="MyTab2(this);" id="tabs2" runat="server">New</a></li>
                 </ul>
    <div id="content">
          <div id="tab1">
@@ -101,7 +101,7 @@
                   <asp:Label ID="lblManageCategory" runat="server" Text="Select Category"></asp:Label>
                   </div>
              <div class="col-md-3">
-                 <asp:DropDownList ID="ddlManageCategory" runat="server" Width="150px" CssClass="selectbox" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddlManageCategory_SelectedIndexChanged">
+                 <asp:DropDownList ID="ddlManageCategory" runat="server" Width="150px" CssClass="selectbox" AppendDataBoundItems="false" AutoPostBack="true" OnSelectedIndexChanged="ddlManageCategory_SelectedIndexChanged">
                        <asp:ListItem Text="--select category--" ></asp:ListItem>
                  </asp:DropDownList>
                   
@@ -114,9 +114,11 @@
     <div style="float:left; width:53%; ">
         <br />
         <br />
-        <br />
-        <br />
+      
+
          <div class="col-md-12"  style="border-left: 1px solid #cfc7c0;min-height:400px">
+             <br />
+             <br />
                                    <div class="contentTopBar" style="width:450px;margin-left:20%;"></div>
                          <div style="width:450px;margin-left:20%;">
                               <telerik:RadGrid ID="dtgManageActivities" runat="server" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageActivities_NeedDataSource" OnItemCreated="dtgManageActivities_ItemCreated" OnPreRender="dtgManageActivities_PreRender" OnItemCommand="dtgManageActivities_ItemCommand">
@@ -246,8 +248,15 @@
 
                                  <asp:Label ID="lblShortDesc" runat="server" Text="Short Desc" CssClass="control-label col-md-6 "></asp:Label>
                                 <div class="col-md-6">
-                                   <asp:TextBox ID="txtShortDesc" runat="server" CssClass="form-control" ></asp:TextBox>
-                                </div>
+                                  <table>
+                                        <tr>
+                                            <td>
+                                      <asp:TextBox ID="txtShortDesc" runat="server" CssClass="form-control" onchange="ShortDescriptionCheck(this)"></asp:TextBox>
+                                 </td>  <td>
+                        <asp:Image  ID="shortdescTrue" runat="server" ToolTip="Login Name is Available" ImageUrl="~/Images/ProjectImages/Check.png" Width="17px" Height="17px"/></td>
+                        <td>   <asp:Image ID="errorShortDesc" runat="server" ToolTip="This description name is Unavailable" ImageUrl="~/Images/ProjectImages/newClose.png" Width="10px" Height="10px" /></td>
+                           </tr> </table>
+                                      </div>
                             </div>
                          
                         </div>
@@ -958,7 +967,11 @@
            var LnameImage = document.getElementById('<%=imgWebLnames.ClientID %>');
            LnameImage.style.display = "none";
            var errLname = document.getElementById('<%=errorLnames.ClientID %>');
-           errLname.style.display = "none";
+            errLname.style.display = "none";
+            var shortdescTrue = document.getElementById('<%=shortdescTrue.ClientID %>');
+            shortdescTrue.style.display = "none";
+            var errorShortDesc = document.getElementById('<%=errorShortDesc.ClientID %>');
+            errorShortDesc.style.display = "none";
 
          var myHidden = document.getElementById('<%= selected_tab.ClientID %>');
              document.getElementById("tab1").style.display = "block";
@@ -971,7 +984,7 @@
              id = document.getElementById('IDAccordion');
             
              OpenDetailAccordion(id);
-
+            
              $('.accordion-toggle').on('click', function (event) {
                 
                  event.preventDefault();
@@ -1016,6 +1029,7 @@
              }
          }
      }
+    
      function MyTab1(Id)
      {
          var myHidden = document.getElementById('<%= selected_tab.ClientID %>');
@@ -1024,8 +1038,11 @@
          funtab2.style.display = "none";
          document.getElementById("tab1").style.display = "block";
         
+         document.getElementById('<%=tabs2.ClientID%>').innerHTML = 'New';    
+         window.location.href = window.location.href;
+       
      }
-     function MyTab2(Id) {
+        function MyTab2(Id) {
          var myHidden = document.getElementById('<%= selected_tab.ClientID %>');
          myHidden.value = 2;
          funtab1 = document.getElementById("tab1");
@@ -1033,7 +1050,7 @@
          funtab1.style.display = "none";
          document.getElementById("tab2").style.display = "block";
          
-     }
+        }
         
         function OnClientButtonClicking(sender, args) {
          var btn = args.get_item();
@@ -1095,12 +1112,12 @@
             var myHidden = document.getElementById('<%= selected_tab.ClientID %>');
             myHidden.value = 2;
             funtab1 = document.getElementById("tab1");
-
             funtab1.style.display = "none";
             document.getElementById("tab2").style.display = "block";
+           
+         
         }
         function FullDescriptionCheck() {
-            debugger;
             var FullDesc = document.getElementById('<%=txtFullDesc.ClientID %>').value;
             var Module = document.getElementById('<%=ddlSelectModule.ClientID %>');
             var selectedModule = Module.options[Module.selectedIndex].innerHTML;
@@ -1114,6 +1131,38 @@
 
                 var LnameImage = document.getElementById('<%=imgWebLnames.ClientID %>');
                 var errLname = document.getElementById('<%=errorLnames.ClientID %>');
+                if (response == false) {
+
+                    LnameImage.style.display = "block";
+                    errLname.style.display = "none";
+
+                }
+                if (response == true) {
+                    errLname.style.display = "block";
+                    errLname.style.color = "Red";
+                    errLname.innerHTML = "Name Alreay Exists"
+                    LnameImage.style.display = "none";
+
+                }
+            }
+            function onError(response, userContext, methodName) {
+
+
+            }
+        }
+        function ShortDescriptionCheck() {
+            var ShortDesc = document.getElementById('<%=txtShortDesc.ClientID %>').value;
+            var Module = document.getElementById('<%=ddlSelectModule.ClientID %>');
+            var selectedModule = Module.options[Module.selectedIndex].innerHTML;
+            var Projects = document.getElementById('<%=ddlSelectProject.ClientID %>');
+            var selectedProject = Projects.options[Projects.selectedIndex].innerHTML;
+            var categories = document.getElementById('<%=ddlCategory.ClientID %>');
+            var selectedCategories = categories.options[categories.selectedIndex].innerHTML;
+            PageMethods.ValidateShortDescription(ShortDesc, selectedModule, selectedProject, selectedCategories, OnSuccess, onError);
+            function OnSuccess(response, userContext, methodName) {
+
+                var LnameImage = document.getElementById('<%=shortdescTrue.ClientID %>');
+                var errLname = document.getElementById('<%=errorShortDesc.ClientID %>');
                 if (response == false) {
 
                     LnameImage.style.display = "block";

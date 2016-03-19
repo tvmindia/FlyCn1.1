@@ -1605,15 +1605,23 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.Add("@ModuleActID", SqlDbType.SmallInt).Value = moduleActId;
                 cmd.Parameters.Add("@KPI_Qty_YN", SqlDbType.Bit).Value = KpiQty;
                 cmd.Parameters.Add("@ActCode", SqlDbType.SmallInt).Value = actCode;
+                SqlParameter outParamIsUpdated = cmd.Parameters.Add("@isUpdate",SqlDbType.Int);
+                outParamIsUpdated.Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = cmd;
-
-                datatableobj = new DataTable();
-                adapter.Fill(datatableobj);
+                cmd.ExecuteNonQuery();
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.InsertionSuccessData(page);
+                if(Convert.ToInt16(outParamIsUpdated.Value)==1)
+                {
+                    
+                    eObj.UpdationSuccessData(page);
+                }
+                else
+                {
+                    eObj.InsertionSuccessData(page);
+                }
+             
+              
             }
             catch (Exception ex)
             {
@@ -1988,6 +1996,49 @@ namespace FlyCn.FlyCnDAL
         }
 
         #endregion ValidateFullDesc
+
+        #region ValidateShortDesc
+        public bool ValidateShortDesc(string CheckShortDesc, string moduleId, string projectNo, string category)
+        {
+            bool flag;
+            SqlConnection con = null;
+            try
+            {
+
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("ValidateShortDescription", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@moduleId", SqlDbType.NVarChar, 10).Value = moduleId;
+                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value = projectNo;
+                cmd.Parameters.Add("@shortDesc", SqlDbType.NVarChar, 50).Value = CheckShortDesc;
+                cmd.Parameters.Add("@category", SqlDbType.NVarChar, 25).Value = category;
+                SqlParameter outflag = cmd.Parameters.Add("@flag", SqlDbType.Bit);
+                outflag.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                flag = (bool)outflag.Value;
+                if (flag == true)
+                {
+                    return flag;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+            return false;
+        }
+
+        #endregion ValidateShortDesc
+
         #region GetModuleId
         public DataTable GetModuleId(string moduleDesc)
         {
