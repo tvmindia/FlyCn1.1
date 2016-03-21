@@ -405,6 +405,10 @@ namespace FlyCn.FlycnSecurity
                     ddlManageCategory.ClearSelection();
                     ddlManageCategory.Items.Insert(0, new ListItem("--select category--", "-1"));
                 }
+                else
+                {
+                //    ddlManageCategory.Items.Insert(0, new ListItem("--select category--", "-1"));
+                }
             }
             catch (Exception)
             {
