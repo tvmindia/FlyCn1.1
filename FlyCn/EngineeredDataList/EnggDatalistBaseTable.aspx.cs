@@ -749,11 +749,11 @@ namespace FlyCn.EngineeredDataList
                 {
                     //Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
                     //excelImportThread.Start();
-                         //new Thread(delegate()
-                         //{
-                         //    importObj.ImportExcelData(tempDS);
-                         //}).Start();
-                  importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+                    new Thread(delegate()
+                    {
+                        importObj.ImportExcelData(tempDS);
+                    }).Start();
+                  //importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
                 }
                 //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
                 ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id + "&ModuleName=" + importObj.SheetName;//iframe page ImportStatusList.aspx is called with query string revisonid and module name from excel sheet name
