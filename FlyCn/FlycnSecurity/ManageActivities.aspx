@@ -87,8 +87,7 @@
              <div class="col-md-3">
                  <asp:DropDownList ID="ddlModule" runat="server" Width="150px" CssClass="selectbox" AppendDataBoundItems="false" AutoPostBack="true" OnSelectedIndexChanged="ddlModule_SelectedIndexChanged">
                        <asp:ListItem Text="--select module--" ></asp:ListItem>
-                 </asp:DropDownList>
-                  
+                 </asp:DropDownList>                  
                   </div>
              <div class="col-md-6">
                 

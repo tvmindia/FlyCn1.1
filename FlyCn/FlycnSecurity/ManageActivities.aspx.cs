@@ -394,16 +394,17 @@ namespace FlyCn.FlycnSecurity
                 string project = ddlProjects.SelectedValue;
                 string module = ddlModule.SelectedItem.Value;
                 dtCategory = userObj.GetAllCategory(project, module);
-                if (dtCategory.Rows.Count > 0)
+                if ((dtCategory.Rows.Count > 0) && (dtCategory !=null))
                 {
+                   
                     ddlManageCategory.DataSource = dtCategory;
                     ddlManageCategory.DataTextField = "CategoryDesc";
                     //ddlManageCategory.DataValueField = "Category";
 
                     ddlManageCategory.DataBind();
-                  
-                    ddlManageCategory.ClearSelection();
                     ddlManageCategory.Items.Insert(0, new ListItem("--select category--", "-1"));
+                    ddlManageCategory.ClearSelection();
+                   
                 }
                 else
                 {
@@ -530,10 +531,20 @@ namespace FlyCn.FlycnSecurity
 
             FlyCnDAL.Users userObj = new FlyCnDAL.Users();
             DataTable ds = new DataTable();
-
+            DataTable dtCategory = new DataTable();
             string module = ddlModule.SelectedValue;
             string project = ddlProjects.SelectedItem.Text;
             string category = ddlManageCategory.SelectedItem.Text;
+            dtCategory = userObj.GetAllCategory(project, module);
+            if (dtCategory.Rows.Count > 0)
+            {
+
+            }
+            else
+            {
+                ddlManageCategory.Items.Clear();
+                ddlManageCategory.Items.Insert(0, new ListItem("--select category--", "-1"));
+            }
             if (category != "--select category--")
             {
                 ds = userObj.GetAllActivities(project, module, category);
