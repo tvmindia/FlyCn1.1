@@ -147,7 +147,7 @@ namespace FlyCn.FlyCnDAL
                 adapter.Fill(ds);
 
                 if (ds.Tables[0].Rows.Count > 0)
-            {
+               {
                     ModuleID = ds.Tables[0].Rows[0]["ModuleID"].ToString();
                     ModuleDesc = ds.Tables[0].Rows[0]["ModuleDesc"].ToString();
                     ModuleType = ds.Tables[0].Rows[0]["ModuleType"].ToString();

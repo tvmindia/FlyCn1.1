@@ -25,6 +25,7 @@ namespace FlyCn.EngineeredDataList
         FlyCnDAL.Security.UserAuthendication UA;
         ImportFile importObj = new ImportFile();
         ValidationExcel validationObj = new ValidationExcel();
+        ErrorInformation ErrorInfoObj = new ErrorInformation();
         CommonDAL comDAL = new CommonDAL();
         Modules moduleObj = new Modules();
         DataSet tempDS = null;
@@ -45,7 +46,6 @@ namespace FlyCn.EngineeredDataList
                 }
                 
                 //ViewState["ModuleID"] = _moduleId;
-               
                 //RadTreeView node = new RadTreeView("rvleftmenu");
                 //node.ExpandMode = TreeNodeExpandMode.ServerSideCallBack;
                 //rvleftmenu.Nodes.Add(node);
@@ -212,7 +212,7 @@ namespace FlyCn.EngineeredDataList
 
         protected void dtgvalidationErros_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            GridErrorvalidateBind(validationObj.importfile.status_Id);
+            GridErrorvalidateBind(importObj.status_Id);
         }
 
         protected void btn_upload_Click(object sender, EventArgs e)
@@ -220,7 +220,7 @@ namespace FlyCn.EngineeredDataList
 
             importObj.TableName = comDAL.tableName;
             DataSet dsFile = null;
-            // importObj.fileName = "file";
+          
             try
             {
                 if (DataImportFileUpload.HasFile)
@@ -256,7 +256,7 @@ namespace FlyCn.EngineeredDataList
                                     //SlideEffectUpload
                                     //lblMsg.Text = "Successfully Uploaded!";
                                     ScriptManager.RegisterStartupScript(this, GetType(), "Upload", "GenerateTemplateNextClick();", true);
-                                   // ScriptManager.RegisterStartupScript(this, GetType(), "SlideEffect", "SlideEffectUpload();", true);
+                                    //ScriptManager.RegisterStartupScript(this, GetType(), "SlideEffect", "SlideEffectUpload();", true);
                                     ScriptManager.RegisterStartupScript(this, GetType(), "SlideEffect", "ShowGridButton();", true);
                                     EnaableButtonandGrid();
                                     CheckBoxAllCheck();
@@ -293,21 +293,7 @@ namespace FlyCn.EngineeredDataList
                         return;//invalid file extension
                     }
                    
-                    //importObj.temporaryFolder = path;
-                   
-                    //importObj.testFile = importObj.fileName;
-                    //importObj.ExcelFileName = importObj.fileName;
-                    //Thread excelImportThread = new Thread(new ThreadStart(importObj.ImportExcelFile));
-                    //excelImportThread.Start();
-                    //tempDS = new DataSet();
-                    //tempDS=importObj.ImportExcelFile();
-                    // if (tempDS.Tables[0].Rows.Count>0)
-                    // {
-                    //     ViewState["ExcelDS"] = tempDS;
-                    // }
-                    // tempDS = null;
-                    // tempDS = (DataSet)ViewState["ExcelDS"];
-                    //lblMsg.Text = "Thread started";
+                  
                 }//end of hasfile if
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "GenerateTemplateNextClick();", true);
@@ -352,7 +338,7 @@ namespace FlyCn.EngineeredDataList
 
                 catch (Exception ex)
                 {
-                   // lblMsg.Text = "Problem while deleting previous file,Please try again!";
+                    //lblMsg.Text = "Problem while deleting previous file,Please try again!";
                     //importObj.importStatus = -1;
                     var page = HttpContext.Current.CurrentHandler as Page;
                     eObj.ErrorData(ex, page);
@@ -368,21 +354,30 @@ namespace FlyCn.EngineeredDataList
        
         public void GridErrorvalidateBind(Guid _statusid)
         {
-            
-            DataSet ds = new DataSet();
+            int errorCount,warningCount;
+           
             if (_statusid != Guid.Empty)
             {
-                ds = importObj.getErrorDetails(_statusid);
+                DataSet ds = new DataSet();
+                ds = ErrorInfoObj.getErrorDetails(_statusid);
                 dtgvalidationErros.DataSource = ds;
-                string temp = "";
-
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                if(ds.Tables[0].Rows.Count>0)
                 {
-                  temp = temp + dr["Key_Field"].ToString() + "|";
+                   errorCount=ds.Tables[0].Select("IsError='TRUE'").Length;
+                   warningCount = ds.Tables[0].Select("IsError='FALSE'").Length;
+                   lblVErrorsCount.Text= errorCount.ToString();
+                   validationObj.ErrorInfoObj.ErrorCount = errorCount;
+                   validationObj.ErrorInfoObj.WarningCount = warningCount;
+                   string temp = "";
+                   foreach (DataRow dr in ds.Tables[0].Rows)
+                   {
+                       if (dr["IsError"].ToString() == "True")
+                       {
+                           temp = temp + dr["Key_Field"].ToString() + "|";
+                       }
+                   }
+                   hdfErrorRow.Value = temp;
                 }
-
-                hdfErrorRow.Value = temp;
-                
             }
 
             if (dtgvalidationErros.DataSource == null)
@@ -414,12 +409,15 @@ namespace FlyCn.EngineeredDataList
             List<string> MasterColumns = new List<string>();
             MasterDS = tblDef.SelectAllMastersDataByTableName(comDAL.tableName, UA.projectNo);
             dsTable = comDAL.GetTableDefinition(comDAL.tableName);
-            validationObj.importfile.TotalCount = dsFile.Tables[0].Rows.Count;
+            importObj.TotalCount = dsFile.Tables[0].Rows.Count;
+            //validationObj.importfile.TotalCount = dsFile.Tables[0].Rows.Count;
+            //validationObj.importfile.ErrorInfoObj.Status_ID = importObj.ErrorInfoObj.Status_ID;
             DataRow[] MasterFieldDetails = dsTable.Tables[0].Select("Ref_TableName IS NOT NULL");
             foreach (DataRow row in MasterFieldDetails)//storing master having columns
             {
                 MasterColumns.Add(row["Field_Description"].ToString());//column 2 field descrption
             }
+           
             dbConnection dbCon = new dbConnection();
             dbCon.GetDBConnection();
             for (int i = dsFile.Tables[0].Rows.Count-1; i >= 0; i--)
@@ -428,7 +426,7 @@ namespace FlyCn.EngineeredDataList
                 IsError = validationObj.excelDatasetValidation(dsFile.Tables[0].Rows[i], dsTable, i, dbCon);
                 if(IsError!=true)
                 {
-                   IsError = validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i, comDAL.tableName, MasterColumns, dbCon);
+                   IsError = validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i+2, comDAL.tableName, MasterColumns, dbCon);
                    if (comDAL.ExcelSheetName == "Cables")
                    {
                        if(IsError != true)
@@ -441,12 +439,14 @@ namespace FlyCn.EngineeredDataList
                      }
                    }
                 }
-                if (IsError)
-                {
-                    validationObj.importfile.errorCount = validationObj.importfile.errorCount + 1;
-                    validationObj.importfile.errorCount = validationObj.importfile.errorCount - validationObj.importfile.WarningCount;
+                //if (IsError)
+                //{
+                //    //validationObj.importfile.errorCount = validationObj.importfile.errorCount + 1;
+                //    //validationObj.importfile.errorCount = validationObj.importfile.errorCount - validationObj.importfile.WarningCount;
+
+                //  //  validationObj.ErrorInfoObj.ErrorCount = validationObj.ErrorInfoObj.ErrorCount + 1;
                    
-                }
+                //}
             }
             
              dbCon.DisconectDB();
@@ -663,9 +663,16 @@ namespace FlyCn.EngineeredDataList
 
             //Thread excelImportThread = new Thread(new ThreadStart(importObj.ImportExcelFile));
             //excelImportThread.Start();
+            importObj = new ImportFile(Guid.NewGuid());
             importObj.ExcelFileName = hdfFileName.Value;
             importObj.fileLocation = hdfFileLocation.Value;
             importObj.fileName = importObj.ExcelFileName;
+            validationObj.ErrorInfoObj.Status_ID = importObj.status_Id;
+            /////
+            //validationObj.importfile.ExcelFileName = hdfFileName.Value;
+            //validationObj.importfile.fileLocation = hdfFileLocation.Value;
+            //validationObj.importfile.fileName = validationObj.importfile.ExcelFileName;
+            /////
 
             if (File.Exists(importObj.fileLocation))
             {
@@ -677,12 +684,14 @@ namespace FlyCn.EngineeredDataList
                     CheckBoxColumns();//getting the fieldnames that has been unchecked
                     RemoveColumnFromDS(tempDS);
                     ValidateDataStructure(tempDS);
-                    hdfstatusID.Value = validationObj.importfile.status_Id.ToString();
-                    lblVupldFilename.Text = importObj.ExcelFileName;
-                    lblVtotltowcount.Text = validationObj.importfile.TotalCount.ToString();
-                    lblVErrorsCount.Text = validationObj.importfile.errorCount.ToString();
-                    GridErrorvalidateBind(validationObj.importfile.status_Id);
-                    if(validationObj.importfile.errorCount==validationObj.importfile.TotalCount)
+                    hdfstatusID.Value = validationObj.ErrorInfoObj.Status_ID.ToString();
+                    lblVupldFilename.Text = importObj.fileName;
+                    lblVtotltowcount.Text = importObj.TotalCount.ToString();
+                    
+                   // GridErrorvalidateBind(validationObj.importfile.status_Id);
+                    GridErrorvalidateBind(validationObj.ErrorInfoObj.Status_ID);
+                    //if(validationObj.importfile.errorCount==validationObj.importfile.TotalCount)
+                    if (validationObj.ErrorInfoObj.ErrorCount == importObj.TotalCount)
                     {
                         ScriptManager.RegisterStartupScript(this, this.GetType(),"DisableImport","DisableImportButton();",true);
                     }
@@ -708,9 +717,10 @@ namespace FlyCn.EngineeredDataList
         /// <param name="e"></param>
         protected void btnImport_Click(object sender, EventArgs e)
         {
-          
+            // validationObj.importfile
             try
             {
+                importObj = new ImportFile(new Guid(hdfstatusID.Value));
                 importObj.ExcelFileName = hdfFileName.Value;
                 importObj.fileLocation = hdfFileLocation.Value;
                 importObj.fileName = importObj.ExcelFileName;
@@ -718,6 +728,7 @@ namespace FlyCn.EngineeredDataList
                 if (hdfstatusID.Value != null)
                 {
                     importObj.status_Id = Guid.Parse(hdfstatusID.Value);
+                    validationObj.ErrorInfoObj.Status_ID = importObj.status_Id;
                 }
                 importObj.ProjectNo = UA.projectNo;
                 importObj.UserName = UA.userName;
@@ -738,12 +749,11 @@ namespace FlyCn.EngineeredDataList
                 {
                     //Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
                     //excelImportThread.Start();
-                    new Thread(delegate()
-                         {
-                             importObj.ImportExcelData(tempDS);
-                         }).Start();
-
-                  // importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+                         //new Thread(delegate()
+                         //{
+                         //    importObj.ImportExcelData(tempDS);
+                         //}).Start();
+                  importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
                 }
                 //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
                 ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id + "&ModuleName=" + importObj.SheetName;//iframe page ImportStatusList.aspx is called with query string revisonid and module name from excel sheet name
@@ -751,7 +761,7 @@ namespace FlyCn.EngineeredDataList
                 hdfFileLocation.Value = "";
                 hdfFileName.Value = "";
                 hdfremovedField.Value = "";
-                hdfstatusID.Value = "";
+                
                 hdfTableName.Value = "";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "Import();", true);
             }
@@ -765,6 +775,20 @@ namespace FlyCn.EngineeredDataList
             {
               
             }
+        }
+
+       
+        protected void BtnDone_Click(object sender, EventArgs e)
+        {
+            Guid statusid;
+            if((hdfstatusID.Value!=null)||(hdfstatusID.Value!=""))
+            {
+                
+               Guid.TryParse(hdfstatusID.Value, out statusid);
+               ErrorInfoObj.Status_ID = statusid;
+               ErrorInfoObj.DeleteExcelErrorDetails(hdfstatusID.Value);
+            }
+           
         }
 
        

@@ -553,9 +553,10 @@ ul.departments { list-style-type: none; }*/
                 <tr>
                     <td>
                         <div class="Flatbutton" style="width:150px">
-                             <a href="#" class="buttonNext" onclick="return GenerateTemplateDivShow();">
-                            <div id="Div3" class="nav" style="color:white">Done</div>
-                             </a>
+                            <asp:Button ID="BtnDone" class="buttonValidateAndImport" runat="server"  OnClick="BtnDone_Click" OnClientClick="return GenerateTemplateDivShow();" Text="Done"></asp:Button>
+                              <%-- <a href="#" class="buttonNext" onclick="return GenerateTemplateDivShow();">--%>
+                              <%--  <div id="Div3" class="nav" style="color:white">Done</div>--%>
+                            
                         </div>
                        
                     </td>

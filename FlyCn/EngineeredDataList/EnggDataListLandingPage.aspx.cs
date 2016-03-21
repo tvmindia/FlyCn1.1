@@ -43,6 +43,8 @@ namespace FlyCn.EngineeredDataList
             Modules moduleObj = new Modules();
             DataSet ds = new DataSet();
             ds = moduleObj.GetModules();
+             if((ds.Tables[0].Rows.Count>0)&&(ds!=null))
+             {
             string tabhtml = "";
             string tabliFirst = "";
             tabliFirst = " <li style='width:80px;' >" + " <a href='EnggDataListLandingPage.aspx"+ "'" + "'" + "'" + ">" + "<img" + " src=" + "'" +
@@ -107,7 +109,7 @@ namespace FlyCn.EngineeredDataList
            
                     body.Controls.Add(new LiteralControl(myInnerHtml));
            
-
+             }//ds check if
           
         }
     }

@@ -18,7 +18,7 @@ namespace FlyCn.FlyCnDAL
     #region classImportFile
     public class ImportFile
     {
-
+        public ErrorInformation ErrorInfoObj = new ErrorInformation();
         #region Public Properties
         public Guid status_Id
         {
@@ -32,26 +32,22 @@ namespace FlyCn.FlyCnDAL
         }
         public ImportFile()
         {
-
-            status_Id = Guid.NewGuid();
+            
         }
 
-        //public ImportFile(Guid StatusId)
-        //{
+        public ImportFile(Guid StatusId)
+        {
 
-        //    status_Id = StatusId;
+            status_Id = StatusId;
+            ErrorInfoObj.Status_ID = status_Id;
 
-        //}
+        }
         public string ExcelFileName
         {
             get;
             set;
         }
-        public string StatusId
-        {
-            get;
-            set;
-        }
+      
 
         public string ProjectNo
         {
@@ -228,6 +224,8 @@ namespace FlyCn.FlyCnDAL
            
         #region methods
 
+       
+
         #region InitializeExcelImportDetails
         /// <summary>
         /// Initialize the values of Excel import details table 
@@ -320,43 +318,8 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion Update Excel Import Details
 
-        #region Error Details
-        public DataSet getErrorDetails(Guid status_Id)
-        {
-            DataSet datatableobj = null;
-            SqlConnection con = null;
-            dbConnection dcon = null;
-            if (status_Id != Guid.Empty)
-            {
-                try
-                {
-                    dcon = new dbConnection();
-                    con = dcon.GetDBConnection();
-                    SqlCommand cmd = new SqlCommand("SelectExcelImportErrorDetails", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@Status_Id", SqlDbType.UniqueIdentifier).Value = status_Id;
-                    //cmd.Parameters.AddWithValue("@userName", UserName);
-                    SqlDataAdapter adapter = new SqlDataAdapter();
-                    adapter.SelectCommand = cmd;
-                    datatableobj = new DataSet();
-                    adapter.Fill(datatableobj);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    if (con != null)
-                    {
-                        con.Close();
-                    }
-                }
-            }
 
-            return datatableobj;
-        }
-        #endregion Error Details
+
         #region getAllExcelImportDetails
         public DataSet getAllExcelImportDetails(string userName)
         {
@@ -375,6 +338,7 @@ namespace FlyCn.FlyCnDAL
             return datatableobj;
         }
         #endregion getAllExcelImportDetails
+
         #region getDistictExcelImportDetailsByUserName
         public DataSet getDistictExcelImportDetailsByUserName(string userName)
         {
@@ -422,7 +386,7 @@ namespace FlyCn.FlyCnDAL
                 da.SelectCommand = cmd;
                 //con.Open();
                 da.Fill(myRec);
-                if (myRec.Tables[0].Rows.Count > 0)
+                if ((myRec.Tables[0].Rows.Count > 0)&&(myRec!=null))
                 {
                     UpdateCount = Convert.ToInt32(myRec.Tables[0].Rows[0]["Update_Count"]);
                     TimeRemaining = TimeSpan.FromMilliseconds(Convert.ToDouble(myRec.Tables[0].Rows[0]["Time_Remaining"])).ToString(@"hh\:mm\:ss");
@@ -456,43 +420,7 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion getExcelImportDetailsById
 
-        #region Insert Excel Import Error Details
-        /// <summary>
-        /// Insert the values of Excel import error details table
-        /// </summary>
-        /// <param name="ExcelFileName"></param>
-        /// <param name="InsertCount"></param>
-
-        public Int16 InsertExcelImportErrorDetails(string KeyField, string ErrorDescription,Boolean isError,int rowNO,dbConnection dbCon)
-        {
-         
-            SqlCommand cmd = new SqlCommand();
-            SqlParameter outputparamIsUpdate = cmd.Parameters.Add("@IsUpdate", SqlDbType.TinyInt);
-           
-            try
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "InsertExcelImportErrorDetails";
-                cmd.Connection = dbCon.SQLCon;
-                cmd.Parameters.Add("@Import_Status_Id", SqlDbType.UniqueIdentifier).Value = status_Id;
-                cmd.Parameters.Add("@Key_Field", SqlDbType.NVarChar, 50).Value = KeyField;
-                cmd.Parameters.Add("@Excel_RowNO", SqlDbType.Int).Value = rowNO;//excel error row number
-                cmd.Parameters.Add("@Error_Description", SqlDbType.NVarChar, 250).Value = ErrorDescription;
-                cmd.Parameters.Add("@IsError", SqlDbType.Bit).Value = isError;
-                outputparamIsUpdate.Direction = ParameterDirection.Output;
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-             
-            }
-            return Convert.ToInt16(outputparamIsUpdate.Value);
-        }
-        #endregion Insert Excel Import Error Details
+        
 
         #region UpdateExcelImportDetails
         /// <summary>
@@ -633,14 +561,9 @@ namespace FlyCn.FlyCnDAL
         {
             
             DataSet dsFile = new DataSet();
-            //DataSet dsOrig = new DataSet();
-            DataTable FreshTable = new DataTable();
-            //bool flag = false;
-            int k;
             OleDbConnection excelConnection1 = new OleDbConnection(ExcelConnectionString);
             try
             {
-                  
                    excelConnection1.Open();
                    var command = excelConnection1.CreateCommand();
                
@@ -903,6 +826,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@Updated_By", UserName);
                 cmd.Parameters.AddWithValue("@Updated_Date", System.DateTime.Now);
                 SqlParameter outPutParameter = new SqlParameter();
+                
                 outPutParameter.ParameterName = "@isUpdate";
                 outPutParameter.SqlDbType = System.Data.SqlDbType.Int;
                 outPutParameter.Direction = System.Data.ParameterDirection.Output;
