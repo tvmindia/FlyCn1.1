@@ -320,8 +320,10 @@
     <Content Include="FlyCnMasters\UserMaster.aspx" />
     <Content Include="FlycnSecurity\AssignRoles.aspx" />
     <Content Include="FlycnSecurity\ManageAccess.aspx" />
+    <Content Include="FlycnSecurity\ManageActivities.aspx" />
     <Content Include="FlycnSecurity\ManageCategory.aspx" />
     <Content Include="FlycnSecurity\ManageModules.aspx" />
+    <Content Include="FlycnSecurity\ModuleActivities.aspx" />
     <Content Include="FlycnSecurity\NonProjectRoles.aspx" />
     <Content Include="FlycnSecurity\Object.aspx" />
     <Content Include="FlycnSecurity\ObjectAccessForRoles.aspx" />
@@ -932,6 +934,13 @@
     <Compile Include="FlycnSecurity\ManageAccess.aspx.designer.cs">
       <DependentUpon>ManageAccess.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FlycnSecurity\ManageActivities.aspx.cs">
+      <DependentUpon>ManageActivities.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlycnSecurity\ManageActivities.aspx.designer.cs">
+      <DependentUpon>ManageActivities.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FlycnSecurity\ManageCategory.aspx.cs">
       <DependentUpon>ManageCategory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -945,6 +954,13 @@
     </Compile>
     <Compile Include="FlycnSecurity\ManageModules.aspx.designer.cs">
       <DependentUpon>ManageModules.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FlycnSecurity\ModuleActivities.aspx.cs">
+      <DependentUpon>ModuleActivities.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlycnSecurity\ModuleActivities.aspx.designer.cs">
+      <DependentUpon>ModuleActivities.aspx</DependentUpon>
     </Compile>
     <Compile Include="FlycnSecurity\NonProjectRoles.aspx.cs">
       <DependentUpon>NonProjectRoles.aspx</DependentUpon>

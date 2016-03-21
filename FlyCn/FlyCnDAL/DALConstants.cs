@@ -23,6 +23,8 @@ namespace FlyCn.FlyCnDAL
         public string ManageAccess = "../FlycnSecurity/ManageAccess.aspx";
         public string ManageModules = "../FlycnSecurity/ManageModules.aspx";
         public string ManageCategory = "../FlycnSecurity/ManageCategory.aspx";
+        public string ModuleActivities = "../FlycnSecurity/ModuleActivities.aspx";
+        public string ManageActivities = "../FlycnSecurity/ManageActivities.aspx";
         //dictionary
     }
 }

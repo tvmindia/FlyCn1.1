@@ -441,7 +441,7 @@
                              <asp:Label ID="lblProjectNo" runat="server" Text="Project No"></asp:Label>
                                     </div>
                                <div class="col-md-3" style="margin-left:-15%;">
-                                   <asp:DropDownList ID="ddlProjectNo" runat="server" AutoPostBack="true" AppendDataBoundItems="true" OnSelectedIndexChanged="ddlProjectNo_SelectedIndexChanged">
+                                   <asp:DropDownList ID="ddlProjectNo" runat="server" CssClass="selectbox" AutoPostBack="true" AppendDataBoundItems="true" OnSelectedIndexChanged="ddlProjectNo_SelectedIndexChanged">
                                        <asp:ListItem Text="--select Project No--"></asp:ListItem>
                                    </asp:DropDownList>
                                    </div>
