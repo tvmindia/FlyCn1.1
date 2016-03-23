@@ -101,7 +101,7 @@ namespace FlyCn.FlyCnDAL
 
         #region ModulesMethods
         #region GetModules
-        public DataSet GetModules()
+        public DataSet GetModules(string projectNO)
         {
             try
             {
@@ -109,6 +109,7 @@ namespace FlyCn.FlyCnDAL
                 con = dcon.GetDBConnection();
                 SqlCommand cmd = new SqlCommand("GetAllModules", con);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = projectNO;
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = cmd;
                 ds = new DataSet();
@@ -138,15 +139,15 @@ namespace FlyCn.FlyCnDAL
             {
             dbConnection dcon = new dbConnection();
             con = dcon.GetDBConnection();
-                SqlCommand cmd = new SqlCommand("GetModuleByModuleID", con);
+            SqlCommand cmd = new SqlCommand("GetModuleByModuleID", con);
             cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@ModuleID", SqlDbType.NVarChar, 10).Value = moduleID;
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = cmd;
-                ds = new DataSet();
-                adapter.Fill(ds);
+            cmd.Parameters.Add("@ModuleID", SqlDbType.NVarChar, 10).Value = moduleID;
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            ds = new DataSet();
+            adapter.Fill(ds);
 
-                if (ds.Tables[0].Rows.Count > 0)
+                if((ds.Tables[0].Rows.Count > 0)&&(ds!=null))
                {
                     ModuleID = ds.Tables[0].Rows[0]["ModuleID"].ToString();
                     ModuleDesc = ds.Tables[0].Rows[0]["ModuleDesc"].ToString();

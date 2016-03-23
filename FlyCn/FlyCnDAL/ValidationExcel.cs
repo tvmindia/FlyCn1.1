@@ -426,7 +426,7 @@ namespace FlyCn.FlyCnDAL
             #endregion DataValidation
             #region MasterDataExist
             //validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i, comDAL.tableName,List<string> MasterColumns);
-            public bool MasterDataExist(DataSet dsTable,DataSet MasterDS, DataRow dr,int rowNO, string TableName, List<string> MasterColumns,dbConnection dbCon)
+            public bool MasterDataExist(DataSet dsTable, DataSet MasterDS, DataRow dr, int rowNO, string TableName, List<string> MasterColumns, dbConnection dbCon)
             {
                 string comma = "";
                 Int16 isupdate;
@@ -436,67 +436,56 @@ namespace FlyCn.FlyCnDAL
                 DataRow refTableOneRow = null;
                 DataRow[] masterDataExisting = null;
                 StringBuilder errorDescLists = new StringBuilder();
-               // bool flag = false;
                 bool IsError = true;
-                
+
                 DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
                 string keyField = GetInvalidKeyField(keyFieldRow, dr);
 
                 foreach (string dc in MasterColumns)
                 {
                     cName = dc.ToString();
-                    refTableRow = dsTable.Tables[0].Select("Field_Description = '" + cName + "' AND Ref_TableName IS NOT NULL");
-                    refTableOneRow = refTableRow[0];
-                    refTableName = refTableOneRow["Ref_TableName"].ToString();
-                    masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[cName].ToString() + "'");
-                    if (masterDataExisting.Length == 0)//data does not exists in the masters
+                    if (dr[cName].ToString() != "")
                     {
-                        
-                        if (refTableName == "M_Personnel")
+                        refTableRow = dsTable.Tables[0].Select("Field_Description = '" + cName + "' AND Ref_TableName IS NOT NULL");
+                        refTableOneRow = refTableRow[0];
+                        refTableName = refTableOneRow["Ref_TableName"].ToString();
+                        masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[cName].ToString() + "'");
+                        if (masterDataExisting.Length == 0)//data does not exists in the masters
                         {
-                            errorDescLists.Clear();
-                            //Error for table name M_Personel
-                            IsError = true;
-                            //flag = true;
-                            errorDescLists.Append(comma);
-                            errorDescLists.Append(cName);
-                            errorDescLists.Append(" is Invalid Data");
-                            comma = ",";
 
+                            if (refTableName == "M_Personnel")
+                            {
+                                errorDescLists.Clear();
+                                //Error for table name M_Personel
+                                IsError = true;
+                                //flag = true;
+                                errorDescLists.Append(comma);
+                                errorDescLists.Append(cName);
+                                errorDescLists.Append(" is Invalid Data");
+                                comma = ",";
+                                isupdate = ErrorInfoObj.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), IsError, rowNO, dbCon);
+                                return true;
+                            }
+                            else
+                            {
+                                //Warning for Normal masters
+                                errorDescLists.Clear();
+                                IsError = false;
+                                errorDescLists.Append(comma);
+                                errorDescLists.Append(cName);
+                                errorDescLists.Append(" Warning");
+                                comma = "";
+                                isupdate = ErrorInfoObj.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), IsError, rowNO, dbCon);
+                                ErrorInfoObj.WarningCount = ErrorInfoObj.WarningCount + 1;
+                                //return true;
 
-                            //rowNO = rowNO + 2;
-                            isupdate = ErrorInfoObj.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), IsError, rowNO, dbCon);
-                            return true;
-                        }
-                        else
-                        {
-                            //Warning for Normal masters
-                            errorDescLists.Clear();
-                            IsError = false;
-                            errorDescLists.Append(comma);
-                            errorDescLists.Append(cName);
-                            errorDescLists.Append(" Warning");
-                            comma = "";
+                            }//else
 
+                        }//if
+                    }//if
+                }//foreach
+                  return false;
 
-                           // rowNO = rowNO + 2;
-                            isupdate = ErrorInfoObj.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), IsError, rowNO, dbCon);
-                            ErrorInfoObj.WarningCount = ErrorInfoObj.WarningCount + 1;
-                            //return true;
-
-                        }
-                     
-                    }
-                }
-
-                //if (IsError == true)
-                //{
-                   
-                //}
-                //if (IsError == false)//means warning
-                //{                       
-                //}
-                return false;
                 
             }
             #endregion MasterDataExist
@@ -594,7 +583,8 @@ namespace FlyCn.FlyCnDAL
                                 return true;
                             }
 
-                        //Drum Changes Case
+                            //Drum Changes Case
+
                     }
                     
                 }

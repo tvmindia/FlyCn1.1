@@ -13,10 +13,13 @@ namespace FlyCn.EngineeredDataList
     {
         string _tree;
         int maxTilesPerRow = 4;
+        UIClasses.Const Const = new UIClasses.Const();
+        FlyCnDAL.Security.UserAuthendication UA;
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.collapsenode();", true);
-          //_tree = Request.QueryString["tree"];
+            UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
+
             PlaceLandingPageIcons();
         }
 
@@ -42,7 +45,7 @@ namespace FlyCn.EngineeredDataList
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.HideTreeNode();", true);
             Modules moduleObj = new Modules();
             DataSet ds = new DataSet();
-            ds = moduleObj.GetModules();
+            ds = moduleObj.GetModules(UA.projectNo);
              if((ds.Tables[0].Rows.Count>0)&&(ds!=null))
              {
             string tabhtml = "";

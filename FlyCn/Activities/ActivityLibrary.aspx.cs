@@ -34,7 +34,7 @@ namespace FlyCn.Activities
         void loadModules() {
 
             FlyCnDAL.Modules mObj = new FlyCnDAL.Modules();
-            rcmbModules.DataSource = mObj.GetModules().Tables[0];
+            rcmbModules.DataSource = mObj.GetModules(UA.projectNo).Tables[0];
             rcmbModules.DataTextField = mObj.cmbTextField;
             rcmbModules.DataValueField = mObj.cmbValueField;
             rcmbModules.DataBind();

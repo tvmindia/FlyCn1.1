@@ -76,8 +76,8 @@ namespace FlyCn.EngineeredDataList
                     _TableName = dsobj.Tables[0].Rows[0]["BaseTable"].ToString();
                     hdfTableName.Value = _TableName;
                     DataSet ds = new DataSet();
-                    ds = moduleObj.GetModules();
-                    if(ds.Tables[0].Rows.Count>0)
+                    ds = moduleObj.GetModules(importObj.ProjectNo);
+                    if((ds.Tables[0].Rows.Count>0)&&(ds!=null))
                     {
                         string tabliFirst = "";
                         tabliFirst = " <li style='width:80px;' >" + " <a href='EnggDataListLandingPage.aspx" + "'" + "'" + "'" + ">" + "<img" + " src=" + "'" +
@@ -366,6 +366,7 @@ namespace FlyCn.EngineeredDataList
                    errorCount=ds.Tables[0].Select("IsError='TRUE'").Length;
                    warningCount = ds.Tables[0].Select("IsError='FALSE'").Length;
                    lblVErrorsCount.Text= errorCount.ToString();
+                   lblwarningCount.Text = warningCount.ToString();
                    validationObj.ErrorInfoObj.ErrorCount = errorCount;
                    validationObj.ErrorInfoObj.WarningCount = warningCount;
                    string temp = "";
@@ -747,13 +748,12 @@ namespace FlyCn.EngineeredDataList
                 }
                 if (tempDS.Tables[0].Rows.Count > 0)
                 {
-                    //Thread excelImportThread = new Thread(new ThreadStart(importObj.InsertFile(tempDS););
-                    //excelImportThread.Start();
-                    new Thread(delegate()
-                    {
-                        importObj.ImportExcelData(tempDS);
-                    }).Start();
-                  //importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+
+                    //new Thread(delegate()
+                    //{
+                    //    importObj.ImportExcelData(tempDS);
+                    //}).Start();
+                 importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
                 }
                 //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
                 ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id + "&ModuleName=" + importObj.SheetName;//iframe page ImportStatusList.aspx is called with query string revisonid and module name from excel sheet name

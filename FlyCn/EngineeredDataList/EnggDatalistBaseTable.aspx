@@ -483,16 +483,13 @@ ul.departments { list-style-type: none; }*/
               
                 </div>
 
-                <div class="col-md-7"><asp:Label ID="lblVtotlrows" runat="server" Text="Total rows"></asp:Label>
-                </div>
-                <div class="col-md-5"> <asp:Label ID="lblVtotltowcount" runat="server" Text=""></asp:Label>
-                </div>
-
-                <div class="col-md-7"> <asp:Label ID="lblVErrors" runat="server" Text="Errors"></asp:Label>
-                </div>
-                <div class="col-md-5"> <asp:Label ID="lblVErrorsCount" runat="server" Text=""></asp:Label>
-                </div>
-                 <br /><br />
+                <div class="col-md-7"><asp:Label ID="lblVtotlrows" runat="server" Text="Total rows"></asp:Label></div>
+                <div class="col-md-5"> <asp:Label ID="lblVtotltowcount" runat="server" Text=""></asp:Label></div>
+                <div class="col-md-7"> <asp:Label ID="lblVErrors" runat="server" Text="Errors"></asp:Label></div>
+                <div class="col-md-5"> <asp:Label ID="lblVErrorsCount" runat="server" Text=""></asp:Label></div>
+                <div class="col-md-7"><asp:Label ID="lblwarnCount" runat="server" Text="Warnings"></asp:Label></div>
+                <div class="col-md-5"> <asp:Label ID="lblwarningCount" runat="server" Text=""></asp:Label></div>
+               
                  </div>
                             
 
