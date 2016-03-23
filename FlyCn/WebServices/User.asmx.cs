@@ -67,15 +67,33 @@ namespace FlyCn.WebServices
         public string UserDetails(string username)
         {  //return msg data initialization
             DataSet ds = new DataSet();
+            DataTable OverView = new DataTable();
+            OverView.Columns.Add("Item");
+            OverView.Columns.Add("No");
+           
             try
             {   //Retrieving user details
-                //FlyCnDAL.Users User = new FlyCnDAL.Users(username);
-                //ds.Tables.Add(User.GetUserDetailsByUserName(username));
-                DataTable OverView = new DataTable();
-                OverView.Columns.Add("overview");
                 DataRow dr = OverView.NewRow();
-                dr["overview"] = "Total Projects          2\nPending Documents          12\nPunch List Items          24";
+                FlyCnDAL.Users User = new FlyCnDAL.Users(username);
+                
+                //-----------Approval count
+                ApprovelMaster approvelMaster = new ApprovelMaster();
+                DataSet dataSet = new DataSet();
+                dataSet = approvelMaster.GetAllPendingApprovalsByVerifier(User.UserEMail);
+                dr["Item"] = "Approvals";
+                dr["No"] = dataSet.Tables[0].Rows.Count;
                 OverView.Rows.Add(dr);
+
+                //-------------Punchlist count
+                FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+                dataSet.Tables.Add(punchObj.GetPunchList("WEIL"));
+                dr = OverView.NewRow();
+                dr["Item"] = "Punch List";
+                dr["No"] = dataSet.Tables[1].Rows.Count;
+                OverView.Rows.Add(dr);
+
+                
+                //-----------packing to send
                 ds.Tables.Add(OverView);
             }
             catch (Exception ex)
