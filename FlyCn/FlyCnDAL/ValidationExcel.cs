@@ -28,7 +28,11 @@ namespace FlyCn.FlyCnDAL
                 get;
                 set;
             }
-
+            public string statusID
+            {
+                get;
+                set;
+            }
             #endregion Public Properties
 
             #region Methods
@@ -333,17 +337,22 @@ namespace FlyCn.FlyCnDAL
             #endregion Methods
             #region DataValidation
             //public int DataValidation(DataSet dsFile,DataSet MasterDS,DataSet dsTable)
-            public int DataValidation(DataRow dr, DataSet MasterDS, DataSet dsTable, List<string> MasterColumns,string userName,dbConnection dbcon)
+            public int DataValidation(DataRow dr, DataSet MasterDS, DataSet dsTable, List<string> MasterColumns,string userName,int rowNO, dbConnection dbCon)
             {
+                string comma = "";
                 string refTableName = "";
                 string refSelectField = "";
                 string refJoinField = "";
+                bool IsError = false;
                 string cName="";
                 string fieldName = "";
                 DataRow[] refTableRow = null;
                 DataRow refTableOneRow = null;
                 DataRow[] masterDataExisting = null;
-                //int count = 0;
+                StringBuilder errorDescLists = new StringBuilder();
+                DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
+                string keyField = GetInvalidKeyField(keyFieldRow, dr);
+                ErrorInfoObj.Status_ID = Guid.Parse(statusID);
                 try
                 {
                  //---------------------------------------------STEP1 MASTER DATA VALIDATE--------------------------------------------------//
@@ -358,10 +367,23 @@ namespace FlyCn.FlyCnDAL
                                 refTableName = refTableOneRow["Ref_TableName"].ToString();
                                 refSelectField = refTableOneRow["Ref_SelectField"].ToString();
                                 refJoinField = refTableOneRow["Ref_JoinField"].ToString();
+                                if(lengthCheck(int.Parse(refTableOneRow["Field_Size"].ToString()), dr[fieldName].ToString().Length)!=true)
+                                {
+                                    IsError = true;
+                                    errorDescLists.Append(comma);
+                                    errorDescLists.Append(fieldName);
+                                    errorDescLists.Append(" Size is Big");
+                                    comma = ",";
+                                   
+                                    ErrorInfoObj.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), IsError, rowNO, dbCon);
+                                    return 1;
+
+                                }
+
                                 masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[fieldName].ToString() + "'");
                                
                                     //Not found in masters so insert into masters as well as in masterDS
-                                    if (masterDataExisting.Length == 0)
+                                  if (masterDataExisting.Length == 0)
                                    {
                                     //continue;
                                     //Add New record to MasterDS
@@ -402,7 +424,7 @@ namespace FlyCn.FlyCnDAL
                                         }
                                     }//for
                                     //Add New record to DatabaseTable
-                                    objMO.InsertMasterData(dt, dr.Table.Rows[0]["ProjectNo"].ToString(), refTableName,userName,dbcon,true);
+                                    objMO.InsertMasterData(dt, dr.Table.Rows[0]["ProjectNo"].ToString(), refTableName,userName,dbCon,true);
                                 }
                              // }//if
                         
@@ -452,7 +474,6 @@ namespace FlyCn.FlyCnDAL
                         masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[cName].ToString() + "'");
                         if (masterDataExisting.Length == 0)//data does not exists in the masters
                         {
-
                             if (refTableName == "M_Personnel")
                             {
                                 errorDescLists.Clear();

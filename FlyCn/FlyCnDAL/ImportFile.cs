@@ -724,6 +724,7 @@ namespace FlyCn.FlyCnDAL
                 dbcon = new dbConnection();
                 dbcon.GetDBConnection();
                 ValidationExcel validationObj = new ValidationExcel();
+                validationObj.statusID =status_Id.ToString();
                 totalCount = dsFile.Tables[0].Rows.Count;
                 InitializeExcelImportDetails(ExcelFileName, totalCount, dbcon);
 
@@ -745,7 +746,10 @@ namespace FlyCn.FlyCnDAL
                 for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
                 {
                     // Thread.Sleep(200);
-                    validationObj.DataValidation(dsFile.Tables[0].Rows[i], MasterDS, dsTable, MasterColumns, UserName, dbcon);
+                    if((validationObj.DataValidation(dsFile.Tables[0].Rows[i], MasterDS, dsTable, MasterColumns, UserName,i+2,dbcon)==1))
+                    {
+                        continue;
+                    }
                     insertResult = ImportExcelRow(dsTable, dsFile.Tables[0].Rows[i], dbcon);
                     if (insertResult == 1)
                     {

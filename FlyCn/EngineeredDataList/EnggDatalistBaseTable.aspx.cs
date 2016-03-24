@@ -214,7 +214,11 @@ namespace FlyCn.EngineeredDataList
         {
             GridErrorvalidateBind(importObj.status_Id);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btn_upload_Click(object sender, EventArgs e)
         {
 
@@ -730,6 +734,7 @@ namespace FlyCn.EngineeredDataList
                 {
                     importObj.status_Id = Guid.Parse(hdfstatusID.Value);
                     validationObj.ErrorInfoObj.Status_ID = importObj.status_Id;
+                    
                 }
                 importObj.ProjectNo = UA.projectNo;
                 importObj.UserName = UA.userName;
@@ -753,7 +758,7 @@ namespace FlyCn.EngineeredDataList
                     {
                         importObj.ImportExcelData(tempDS);
                     }).Start();
-                // importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+                 //importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
                 }
                 //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
                 ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id + "&ModuleName=" + importObj.SheetName;//iframe page ImportStatusList.aspx is called with query string revisonid and module name from excel sheet name
