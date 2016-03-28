@@ -368,41 +368,46 @@ namespace FlyCn.FlyCnDAL
         /// <param name="id"></param>
         /// <returns>DataSet</returns>
 
-        public DataSet getExcelImportDetailsById(string id)
+        public DataSet getExcelImportDetailsById(string statusID)
         {
+            Guid statID=Guid.Empty;
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
-            DataSet myRec = new DataSet();
+            DataSet ds = new DataSet();
             SqlDataAdapter da = new SqlDataAdapter();
 
             dbConnection dcon = new dbConnection();
             try
             {
+                if (statusID!="")
+                {
+                    statID = Guid.Parse(statusID);
+                }
+                
                 con = dcon.GetDBConnection();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SelectAllExcelImportDetailsById";
-                cmd.Parameters.AddWithValue("@StatusId", id);
+                cmd.Parameters.AddWithValue("@StatusId", statID);
                 cmd.Connection = con;
                 da.SelectCommand = cmd;
-                //con.Open();
-                da.Fill(myRec);
-                if ((myRec.Tables[0].Rows.Count > 0)&&(myRec!=null))
+                da.Fill(ds);
+                if ((ds.Tables[0].Rows.Count > 0)&&(ds!=null))
                 {
-                    UpdateCount = Convert.ToInt32(myRec.Tables[0].Rows[0]["Update_Count"]);
-                    TimeRemaining = TimeSpan.FromMilliseconds(Convert.ToDouble(myRec.Tables[0].Rows[0]["Time_Remaining"])).ToString(@"hh\:mm\:ss");
-                    InsertCount = Convert.ToInt32(myRec.Tables[0].Rows[0]["Insert_Count"]);
-                    ErrorCount = Convert.ToInt32(myRec.Tables[0].Rows[0]["Error_Count"]);
-                    LastUpdatedTime = Convert.ToDateTime(myRec.Tables[0].Rows[0]["Last_Updated_Time"]);
-                    TimeElapsed = TimeSpan.FromMilliseconds(Convert.ToDouble(myRec.Tables[0].Rows[0]["Time_Elapsed"])).ToString(@"hh\:mm\:ss");
-                    ProjectNo = myRec.Tables[0].Rows[0]["ProjNo"].ToString();
-                    FileName = myRec.Tables[0].Rows[0]["File_Name"].ToString();
-                    TableName = myRec.Tables[0].Rows[0]["Table_Name"].ToString();
-                    TotalCount = Convert.ToInt32(myRec.Tables[0].Rows[0]["Total_Count"].ToString());
-                    StartTime = Convert.ToDateTime(myRec.Tables[0].Rows[0]["Start_Time"].ToString());
-                    UserName = myRec.Tables[0].Rows[0]["User_Name"].ToString();
-                    InsertStatus = Convert.ToInt32(myRec.Tables[0].Rows[0]["InsertStatus"].ToString());
-                    Remarks = myRec.Tables[0].Rows[0]["Remarks"].ToString();
-                    // IsDeleted = Convert.ToByte(myRec.Tables[0].Rows[0]["IsDeleted"].ToString());
+                    UpdateCount = (ds.Tables[0].Rows[0]["Update_Count"].ToString()!=null?(Convert.ToInt32(ds.Tables[0].Rows[0]["Update_Count"])):0);
+                    TimeRemaining = (!DBNull.Value.Equals(ds.Tables[0].Rows[0]["Time_Remaining"]) ? (TimeSpan.FromMilliseconds(Convert.ToDouble(ds.Tables[0].Rows[0]["Time_Remaining"])).ToString(@"hh\:mm\:ss")) : string.Empty);
+                    InsertCount = (ds.Tables[0].Rows[0]["Insert_Count"].ToString()!=null?(Convert.ToInt32(ds.Tables[0].Rows[0]["Insert_Count"])):0);
+                    ErrorCount = (ds.Tables[0].Rows[0]["Error_Count"].ToString()!=null?(Convert.ToInt32(ds.Tables[0].Rows[0]["Error_Count"])):0);
+                    LastUpdatedTime =(ds.Tables[0].Rows[0]["Last_Updated_Time"].ToString()!=null?(Convert.ToDateTime(ds.Tables[0].Rows[0]["Last_Updated_Time"])):DateTime.MinValue);
+                    TimeElapsed = (ds.Tables[0].Rows[0]["Time_Elapsed"].ToString() != null ? (TimeSpan.FromMilliseconds(Convert.ToDouble(ds.Tables[0].Rows[0]["Time_Elapsed"])).ToString(@"hh\:mm\:ss")):string.Empty);
+                    ProjectNo = (ds.Tables[0].Rows[0]["ProjNo"].ToString()!=null ? (ds.Tables[0].Rows[0]["ProjNo"].ToString()):"");
+                    FileName = (ds.Tables[0].Rows[0]["File_Name"].ToString()!=null ?(ds.Tables[0].Rows[0]["File_Name"].ToString()):"");
+                    TableName = (ds.Tables[0].Rows[0]["Table_Name"].ToString()!=null?(ds.Tables[0].Rows[0]["Table_Name"].ToString()):"");
+                    TotalCount = (ds.Tables[0].Rows[0]["Total_Count"].ToString()!=null?(Convert.ToInt32(ds.Tables[0].Rows[0]["Total_Count"].ToString())):0);
+                    StartTime = (ds.Tables[0].Rows[0]["Start_Time"].ToString()!=null?(Convert.ToDateTime(ds.Tables[0].Rows[0]["Start_Time"].ToString())):DateTime.MinValue);
+                    UserName = ds.Tables[0].Rows[0]["User_Name"].ToString();
+                    InsertStatus =(ds.Tables[0].Rows[0]["InsertStatus"].ToString()!=null?(Convert.ToInt32(ds.Tables[0].Rows[0]["InsertStatus"].ToString())):0);
+                    Remarks = ds.Tables[0].Rows[0]["Remarks"].ToString();
+                    // IsDeleted = Convert.ToByte(ds.Tables[0].Rows[0]["IsDeleted"].ToString());
                 }
             }
             catch (Exception ex)
@@ -416,7 +421,7 @@ namespace FlyCn.FlyCnDAL
                     con.Close();
                 }
             }
-            return myRec;
+            return ds;
         }
         #endregion getExcelImportDetailsById
 

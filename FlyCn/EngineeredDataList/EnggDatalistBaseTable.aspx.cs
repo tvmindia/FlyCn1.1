@@ -758,7 +758,7 @@ namespace FlyCn.EngineeredDataList
                     {
                         importObj.ImportExcelData(tempDS);
                     }).Start();
-                 //importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
+               // importObj.ImportExcelData(tempDS);//<a href="../ExcelImport/ImportStatusList.aspx" target="_self" class="a">Click to see Import Status</a>
                 }
                 //ContentIframe.Attributes["src"] = "BOQDetails.aspx?Revisionid=" + Revisionid + "&QueryTimeStatus="+ QueryTimeStatus;
                 ContentIframe.Attributes["src"] = "../ExcelImport/ImportStatus.aspx?StatusID=" + importObj.status_Id + "&ModuleName=" + importObj.SheetName;//iframe page ImportStatusList.aspx is called with query string revisonid and module name from excel sheet name
@@ -785,14 +785,14 @@ namespace FlyCn.EngineeredDataList
        
         protected void BtnDone_Click(object sender, EventArgs e)
         {
-            Guid statusid;
-            if((hdfstatusID.Value!=null)||(hdfstatusID.Value!=""))
-            {
+            //Guid statusid;
+            //if((hdfstatusID.Value!=null)||(hdfstatusID.Value!=""))
+            //{
                 
-               Guid.TryParse(hdfstatusID.Value, out statusid);
-               ErrorInfoObj.Status_ID = statusid;
-               ErrorInfoObj.DeleteExcelErrorDetails(hdfstatusID.Value);
-            }
+            //   Guid.TryParse(hdfstatusID.Value, out statusid);
+            //   ErrorInfoObj.Status_ID = statusid;
+            //   ErrorInfoObj.DeleteExcelErrorDetails(hdfstatusID.Value);
+            //}
            
         }
 
