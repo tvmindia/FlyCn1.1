@@ -394,11 +394,11 @@ namespace FlyCn.FlyCnDAL
                 if ((ds.Tables[0].Rows.Count > 0)&&(ds!=null))
                 {
                     UpdateCount = (ds.Tables[0].Rows[0]["Update_Count"].ToString()!=null?(Convert.ToInt32(ds.Tables[0].Rows[0]["Update_Count"])):0);
-                    TimeRemaining = (!DBNull.Value.Equals(ds.Tables[0].Rows[0]["Time_Remaining"]) ? (TimeSpan.FromMilliseconds(Convert.ToDouble(ds.Tables[0].Rows[0]["Time_Remaining"])).ToString(@"hh\:mm\:ss")) : string.Empty);
+                    TimeRemaining = (!DBNull.Value.Equals(ds.Tables[0].Rows[0]["Time_Remaining"]) ? (TimeSpan.FromMilliseconds(Convert.ToDouble(ds.Tables[0].Rows[0]["Time_Remaining"])).ToString(@"hh\:mm\:ss")) : "00:00:00");
                     InsertCount = (ds.Tables[0].Rows[0]["Insert_Count"].ToString()!=null?(Convert.ToInt32(ds.Tables[0].Rows[0]["Insert_Count"])):0);
                     ErrorCount = (ds.Tables[0].Rows[0]["Error_Count"].ToString()!=null?(Convert.ToInt32(ds.Tables[0].Rows[0]["Error_Count"])):0);
                     LastUpdatedTime =(ds.Tables[0].Rows[0]["Last_Updated_Time"].ToString()!=null?(Convert.ToDateTime(ds.Tables[0].Rows[0]["Last_Updated_Time"])):DateTime.MinValue);
-                    TimeElapsed = (ds.Tables[0].Rows[0]["Time_Elapsed"].ToString() != null ? (TimeSpan.FromMilliseconds(Convert.ToDouble(ds.Tables[0].Rows[0]["Time_Elapsed"])).ToString(@"hh\:mm\:ss")):string.Empty);
+                    TimeElapsed = (ds.Tables[0].Rows[0]["Time_Elapsed"].ToString() != null ? (TimeSpan.FromMilliseconds(Convert.ToDouble(ds.Tables[0].Rows[0]["Time_Elapsed"])).ToString(@"hh\:mm\:ss")):"00:00:00");
                     ProjectNo = (ds.Tables[0].Rows[0]["ProjNo"].ToString()!=null ? (ds.Tables[0].Rows[0]["ProjNo"].ToString()):"");
                     FileName = (ds.Tables[0].Rows[0]["File_Name"].ToString()!=null ?(ds.Tables[0].Rows[0]["File_Name"].ToString()):"");
                     TableName = (ds.Tables[0].Rows[0]["Table_Name"].ToString()!=null?(ds.Tables[0].Rows[0]["Table_Name"].ToString()):"");
