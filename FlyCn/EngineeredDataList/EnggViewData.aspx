@@ -9,7 +9,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
       <script src="../Scripts/jquery-1.11.3.min.js"></script>
-    <script src="../Scripts/ToolBar.js"></script>
+      <script src="../Scripts/ToolBar.js"></script>
     <script>
 
         function OnClientTabSelecting(sender, eventArgs) {
@@ -236,15 +236,14 @@
                                     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
                                     </asp:ScriptManager>
                                        
-                                    <telerik:RadGrid ID="dtgEnggDataList" runat="server"  OnItemCommand="dtgEnggDataList_ItemCommand"   OnPreRender="dtgEnggDataList_PreRender"   OnNeedDataSource="dtgEnggDataList_NeedDataSource"  
+                                    <telerik:RadGrid ID="dtgEnggDataList" runat="server"  AllowPaging="True" AllowFilteringByColumn="True" AllowSorting="True"  OnItemCommand="dtgEnggDataList_ItemCommand"   OnPreRender="dtgEnggDataList_PreRender"   OnNeedDataSource="dtgEnggDataList_NeedDataSource"  
                                 Skin="Silk" width="100%">
                                 <MasterTableView DataKeyNames="" CssClass="myclass">
 
                                     <Columns>
                                         <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png">
                                         </telerik:GridButtonColumn> 
-                                       
-                                         <telerik:GridButtonColumn CommandName="ViewDetailColumn" Text="ViewDetails" UniqueName="ViewDetailColumn"  ButtonType="ImageButton" Display="false" ImageUrl="~/Images/Document Next-WF.png"  ></telerik:GridButtonColumn>
+                                       <telerik:GridButtonColumn CommandName="ViewDetailColumn" Text="ViewDetails" UniqueName="ViewDetailColumn"  ButtonType="ImageButton" Display="false" ImageUrl="~/Images/Document Next-WF.png"  ></telerik:GridButtonColumn>
                                     </Columns>
                                 </MasterTableView>
  

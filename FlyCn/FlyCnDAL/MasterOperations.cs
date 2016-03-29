@@ -128,7 +128,7 @@ namespace FlyCn.FlyCnDAL
         /// <param name="TableName"></param>
         /// <param name="ProjNo"></param>
         /// <returns> return datatable</returns>
-        public DataTable BindMasters(string TableName, string ProjNo)
+        public DataTable BindMasters(string TableName, string ProjNo,bool ISbaseTable=false)
         {
             //string TableName = "M_Country";
             //string ProjNo = "C00001";
@@ -139,16 +139,21 @@ namespace FlyCn.FlyCnDAL
             dbConnection dcon = new dbConnection();
             con = dcon.GetDBConnection();
 
-            DataSet da = null;
+            
             SystemDefenitionDetails sd = new SystemDefenitionDetails();
-            dt = sd.getFieldNames(TableName);
-            int totalrows = dt.Rows.Count;
-            if(totalrows>0)
+            if (ISbaseTable)
             {
-
-       
+                dt = sd.getFieldNames(TableName, ProjNo, true);
+            }
+            else
+            {
+                dt = sd.getFieldNames(TableName, ProjNo);
+            }
+      
+           
+            if((dt.Rows.Count>0)||(dt!=null))
+            {
             string temp = dt.Rows[0]["Field_Name"].ToString();
-
             SqlCommand cmd = new SqlCommand("SelectMasterTable", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@TableName", TableName);
@@ -156,7 +161,7 @@ namespace FlyCn.FlyCnDAL
             {
                 cmd.Parameters.AddWithValue("@ProjNo", ProjNo);
                 FieldValue = "ProjNo";
-                for (int i = 1; i < totalrows; i++)
+                for (int i = 1; i < dt.Rows.Count; i++)
                 {
                     FieldValue = FieldValue + "," + dt.Rows[i]["Field_Name"];
                 }
@@ -165,7 +170,7 @@ namespace FlyCn.FlyCnDAL
             }
             else
             {
-                for (int i = 0; i < totalrows; i++)
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     FieldValue = FieldValue + dt.Rows[i]["Field_Name"] + ",";
                 }
@@ -267,7 +272,7 @@ namespace FlyCn.FlyCnDAL
             SqlConnection con = null;
             DataTable dt = null;
             DataTable dts = null;
-            dts = dbobj.getFieldNames(TableName);
+            dts = dbobj.getFieldNames(TableName, ProjNo);
             dbConnection dcon = new dbConnection();
             con = dcon.GetDBConnection();
 
