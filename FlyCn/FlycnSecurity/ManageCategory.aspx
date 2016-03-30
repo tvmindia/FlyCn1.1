@@ -5,6 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
  <script src="../Scripts/jquery-1.8.2.js"></script>
+    <script src="../Scripts/Messages.js"></script>
     <style>
           .selectbox {
             width: 69%;
@@ -187,37 +188,37 @@
              var btn = args.get_item();
              if (btn.get_value() == 'Save') {
                  args.set_cancel(!validate());
+                
              }
              if (btn.get_value() == 'Delete') {
 
                  args.set_cancel(!validateDelete());
              }
          }
-         function validate() {
-             var project = document.getElementById('<%=ddlProjects.ClientID %>').value;
-             project = trimString(project);
-             var module = document.getElementById('<%=ddlModule.ClientID %>').value;
-             module = trimString(module);
-             var category = document.getElementById('<%=txtCategory.ClientID %>').value;
-             category = trimString(category);
-             var categoryDesc = document.getElementById('<%=txtCategoryDesc.ClientID %>').value;
-             categoryDesc = trimString(categoryDesc);
-             var categoryHelp = document.getElementById('<%=txtCategoryHelp.ClientID %>').value;
-             categoryHelp = trimString(categoryHelp);
-             var displayOrder = document.getElementById('<%=txtDisplayOrder.ClientID %>').value;
-             displayOrder = trimString(displayOrder);
-             var categoryType = document.getElementById('<%=txtCategoryType.ClientID %>').value;
-             categoryType = trimString(categoryType);
-             var keyField = document.getElementById('<%=txtKeyField.ClientID %>').value;
-             keyField = trimString(keyField);
-  
-             if (project != "--select project--" || module != "--select module--"||category!=""||categoryDesc!=""||categoryHelp!=""||displayOrder!=""||categoryType!=""||keyField!="") {
-                 return true;
-             }
-             else {
-                 displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
-                 return false;
-             }
+      
+   function validate() {
+       var regexp = /^[a-zA-Z]+$/;
+       var r = /^-?\d\d*$/;
+       var project = document.getElementById('<%=ddlProjects.ClientID %>').value;
+       var module = document.getElementById('<%=ddlModule.ClientID %>').value;
+       var category = document.getElementById('<%=txtCategory.ClientID %>');
+       var categoryDesc = document.getElementById('<%=txtCategoryDesc.ClientID %>');
+       var categoryHelp = document.getElementById('<%=txtCategoryHelp.ClientID %>');
+       var categoryType = document.getElementById('<%=txtCategoryType.ClientID %>');
+       var keyField = document.getElementById('<%=txtKeyField.ClientID %>');
+       var displayOrder = document.getElementById('<%=txtDisplayOrder.ClientID %>');
+       if ((category.value.match(regexp)) && (categoryDesc.value.match(regexp)) && (categoryHelp.value.match(regexp)) && (categoryType.value.match(regexp)) && (keyField.value.match(regexp)) && (displayOrder.value.match(r)) && (project != "--select project--") && (module != "--select module--")) {
+           return true;
+       } else {
+           if ((project == "--select project--") && (module == "--select module--")) {
+               displayMessage(messageType.Error, messages.DropdownSelect);
+           }
+           else {
+               displayMessage(messageType.Error, messages.IncorrectFormat);
+           }
+           return false;
+       }
+      
          }
 
           function validateDelete()

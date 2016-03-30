@@ -8,7 +8,9 @@
     EditModeNewClick: "Sorry You dont have the permission to add a new document!",
     UserNameNeeded: "Please Select User..!!!",
     PasswordDoesnotMatch: "Password Doesn't Match..!!!",
-    SelectLevel: "Please Select Level..!!!"
+    SelectLevel: "Please Select Level..!!!",
+    IncorrectFormat: "Input string not in a correct format",
+    DropdownSelect:"Please select a value from dropdown"
 }
 
 
