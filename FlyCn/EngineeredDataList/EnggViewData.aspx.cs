@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
-using FlyCn.UserControls;
 using FlyCn.FlyCnDAL;
 using System.Data;
 using FlyCn.UIClasses;
@@ -18,7 +17,7 @@ namespace FlyCn.EngineeredDataList
 {
     public partial class EnggViewData : System.Web.UI.Page
     {
-        string _id;
+        string moduleID;
         string _tableName;
         string Key = "";
         string primarykeys = "";
@@ -31,9 +30,12 @@ namespace FlyCn.EngineeredDataList
         FlyCnDAL.Security.UserAuthendication UA;
         FlyCnDAL.SystemDefenitionDetails systabledefenitionobj = new FlyCnDAL.SystemDefenitionDetails();
         FlyCnDAL.MasterOperations dynamicmasteroperationobj = new FlyCnDAL.MasterOperations();
-
+        UIClasses.DynamicIcons dynamiClasObj = new UIClasses.DynamicIcons();
+        
         protected void Page_Load(object sender, EventArgs e)
         {
+           string moduleID = Request.QueryString["Id"];
+            UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
             SecurityCheck();
 
             ToolBarVisibility(4);
@@ -43,6 +45,8 @@ namespace FlyCn.EngineeredDataList
           
             //---------------------------------------------------------
             PlaceControls();
+            
+            horizonaltab.Controls.Add(new LiteralControl(dynamiClasObj.EILViewDataHorizontalTabBind(UA.projectNo,Const.EILViewData)));//horizontal tile bind
         }
 
         #region SecurityCheck
@@ -451,30 +455,36 @@ namespace FlyCn.EngineeredDataList
 
         protected void dtgEnggDataList_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+            GridBind();
+        }
+
+        public void GridBind()
+        {
             UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
-         
-            datatableobj = dynamicmasteroperationobj.BindMasters(_tableName, UA.projectNo,true);
+            datatableobj = dynamicmasteroperationobj.BindMasters(_tableName, UA.projectNo,moduleID, true);//boolean true is used to flag the dynamic sp for current need
             dtgEnggDataList.DataSource = datatableobj;
         }
 
         #region Page_Init
         protected void Page_Init(object sender, System.EventArgs e)
         {
-     
-            //if (Request.QueryString["Id"] == null) { }
-            //else
-            //{
-            //    _id = Request.QueryString["Id"];
-               
-            //}
-            _id = "ELE";
+
+            if (Request.QueryString["Id"]!= null) 
+            {
+                moduleID = Request.QueryString["Id"];//id from horizontaltab click
+            }
+            else
+            {
+                moduleID = "ELE";//default id for View Data Grid
+            }
+          
            
 
             string sdw = "";
             Modules mObj = new Modules();
             DataSet ds = new DataSet();
-            ds=mObj.GetModule(_id);
-             _tableName = mObj.BaseTable;
+            ds = mObj.GetModule(moduleID);
+            _tableName = mObj.BaseTable;
             lblTableName.Text=_tableName;
             SystemDefenitionDetails sObj = new SystemDefenitionDetails();
             datatableobj=sObj.GetPrimarykeys(_tableName);
@@ -504,16 +514,16 @@ namespace FlyCn.EngineeredDataList
                 tab.Text = "New";
                 RadMultiPage1.SelectedIndex = 1;
              
-                ToolBarVisibility(3);
+               ToolBarVisibility(3);
                
 
             }
             if (e.Item.Value == "Save")
             {
                 Insert();
-                ToolBarVisibility(1);
+              ToolBarVisibility(1);
                 dtgEnggDataList.Rebind();
-                ToolBarVisibility(4);
+               ToolBarVisibility(4);
                 //calling js function DisableBOQHeaderTextBox()to make text box readonly
         
 
@@ -521,13 +531,13 @@ namespace FlyCn.EngineeredDataList
             if (e.Item.Value == "Update")
             {
              
-                ToolBarVisibility(1);
+               ToolBarVisibility(1);
                 Update();
                 ToolBarVisibility(4);
             }
             if (e.Item.Value == "Edit")
             {
-                ToolBarVisibility(2);
+               ToolBarVisibility(2);
        
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                 tab.Selected = true;

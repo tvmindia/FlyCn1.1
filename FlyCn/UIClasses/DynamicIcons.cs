@@ -537,21 +537,21 @@ namespace FlyCn.UIClasses
             return size;
         }
 
-       public string EILHorizontalTabBind(string projectNO)
+       public string EILViewDataHorizontalTabBind(string projectNO,string constLink)
         {
+            string pagelink = "";
             Modules moduleObj = new Modules();
             DataSet ds = new DataSet();
+            UIClasses.Const Const = new UIClasses.Const();
             ds = moduleObj.GetModules(projectNO);
             string tabhtml = "";
             if ((ds.Tables[0].Rows.Count > 0) && (ds != null))
             {
-                         
-
+                //pagelink="Const"+"."+constLink;
                 for (int f = 0; f < ds.Tables[0].Rows.Count; f++)
                 {
-                    tabhtml = " <li style='width:80px;' >" + " <a href='EnggDatalistBaseTable.aspx?Id=" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "'" + "'" + "'" + ">" + "<img" + " src=" + "'" + ds.Tables[0].Rows[f]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "</p>" + "</a></li>";
-
-                   // horizonaltab.Controls.Add(new LiteralControl(tabhtml));
+                    tabhtml = tabhtml + " <li style='width:80px;' >" + " <a href=" + constLink +"?Id=" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + ">" + "<img" + " src=" + "'" + ds.Tables[0].Rows[f]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "</p>" + "</a></li>";
+                    //tabhtml = tabhtml + " <li style='width:80px;' >" + " <a href='EnggDatalistBaseTable.aspx?Id=" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "'" + "'" + "'" + ">" + "<img" + " src=" + "'" + ds.Tables[0].Rows[f]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>" + ds.Tables[0].Rows[f]["ModuleID"].ToString() + "</p>" + "</a></li>";
                 }
             }
             return tabhtml;

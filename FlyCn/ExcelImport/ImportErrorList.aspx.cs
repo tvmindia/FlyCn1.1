@@ -19,7 +19,7 @@ namespace FlyCn.ExcelImport
         {
             if(!IsPostBack)
             {
-             // BindData();
+             BindData();
             }
         }
         #endregion Page_Load
@@ -27,19 +27,20 @@ namespace FlyCn.ExcelImport
         #region BindData()
         public void BindData()
         {
-            //DataSet ds = new DataSet();
-
-            ////FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
+            DataSet ds = new DataSet();
+            
+            //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             //ImportFile detailsObj = new ImportFile();
-            //ds = detailsObj.getErrorDetails();
-            //RadGrid1_ErrorList.DataSource = ds;
-            //try
-            //{
-            //    RadGrid1_ErrorList.DataBind();
-            //}
-            //catch (Exception)
-            //{
-            //}
+            ErrorInformation errInfoObj = new ErrorInformation();
+           // ds = errInfoObj.getErrorDetails();
+            RadGrid1_ErrorList.DataSource = ds;
+            try
+            {
+                RadGrid1_ErrorList.DataBind();
+            }
+            catch (Exception)
+            {
+            }
         }
         #endregion BindData()
 
