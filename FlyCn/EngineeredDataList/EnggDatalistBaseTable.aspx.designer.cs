@@ -211,6 +211,24 @@ namespace FlyCn.EngineeredDataList {
         protected global::System.Web.UI.WebControls.Label lblVErrorsCount;
         
         /// <summary>
+        /// lblwarnCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblwarnCount;
+        
+        /// <summary>
+        /// lblwarningCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblwarningCount;
+        
+        /// <summary>
         /// btnImport control.
         /// </summary>
         /// <remarks>
@@ -236,6 +254,15 @@ namespace FlyCn.EngineeredDataList {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlIframe ContentIframe;
+        
+        /// <summary>
+        /// BtnDone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnDone;
         
         /// <summary>
         /// hdfTableName control.

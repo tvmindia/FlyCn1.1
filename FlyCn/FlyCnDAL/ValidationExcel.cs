@@ -15,8 +15,8 @@ namespace FlyCn.FlyCnDAL
         {
 
             #region Public Properties
-            public ImportFile importfile = new ImportFile();
-            
+            //public ImportFile importfile = new ImportFile(Guid.NewGuid());
+            public ErrorInformation ErrorInfoObj = new ErrorInformation();
             public string errorMessage
             {
                 get;
@@ -28,11 +28,22 @@ namespace FlyCn.FlyCnDAL
                 get;
                 set;
             }
-
+            public string statusID
+            {
+                get;
+                set;
+            }
             #endregion Public Properties
 
             #region Methods
+            //#region GenerateStatusID
+            //public void GenerateStatusID()
+            //{
+            //    status_Id = Guid.NewGuid();
+            //    ErrorInfoObj.Status_ID = status_Id;
+            //}
 
+            //#endregion GenerateStatusID
             #region Data Validation
             /// <summary>
             /// Validation of Excel Data
@@ -43,29 +54,25 @@ namespace FlyCn.FlyCnDAL
             {
                 DataTable dtError = CreateErrorTable();
                 DataSet dsError = new DataSet();
-                  
-                // DAL.Constants constantList = new DAL.Constants();
-                // DAL.ExcelImportDAL stdDal = new DAL.ExcelImportDAL();
-                // DAL.ExcelImportDetailsDAL detailsDal = new DAL.ExcelImportDetailsDAL(status_Id);
-                // List<ExcelValidationModel> lmd = new List<ExcelValidationModel>();
                 CommonDAL stdDal = new CommonDAL();
-                //ImportFile importfile = new ImportFile();
+                
                 try
                 {
                     DataRow[] result = dsTable.Tables[0].Select("ExcelMustFields='Y'");
                     DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
-                    //StringBuilder keyFieldLists = new StringBuilder();
                     StringBuilder errorDescLists = new StringBuilder();
                     bool flag = false;
                     string keyField = GetInvalidKeyField(keyFieldRow, dr);
                     string comma = "";
                     foreach (var item in result)
                     {
-                        //string FieldName = item["Field_Name"].ToString();
+                       
                         string FieldName = item["Field_Description"].ToString();
                         string FieldDataType = item["Field_DataType"].ToString();
                         string temp = dr[FieldName].ToString().Trim();
-                        //if (dr[FieldName].ToString().Trim() == "" || dr[FieldName] == null)
+                        int stringSize = int.Parse(item["Field_Size"].ToString());
+                        int dataSize = temp.Length;
+                       
                         if (dr[FieldName].ToString().Trim() == "" || string.IsNullOrEmpty(dr[FieldName].ToString()))
                         {
 
@@ -115,13 +122,21 @@ namespace FlyCn.FlyCnDAL
                             errorDescLists.Append(" is invalid");
                             comma = ",";
                         }
+                        else if (FieldDataType == "S" && !lengthCheck(stringSize, dataSize))
+                        {
+                            flag = true;
+                            errorDescLists.Append(comma);
+                            errorDescLists.Append(FieldName);
+                            errorDescLists.Append(" Size is Big");
+                            comma = ",";
+                        }
 
                     }
 
                     if (flag == true)
                     {
                         rowNO= rowNO + 2;
-                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(),flag,rowNO,dbCon);
+                        ErrorInfoObj.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), flag, rowNO, dbCon);
                         return true;
                     }
                     else return false;
@@ -131,6 +146,19 @@ namespace FlyCn.FlyCnDAL
                     throw ex;
                 }
             }
+
+
+            #region lengthCheck
+            public bool lengthCheck(int stringSize, int dataSize)
+            {
+                if (dataSize <= stringSize)
+                {
+                    return true;
+                }
+                return false;
+            }
+
+            #endregion lengthCheck
 
             /// <summary>
             /// Create datatable for Error Descriptions
@@ -309,17 +337,22 @@ namespace FlyCn.FlyCnDAL
             #endregion Methods
             #region DataValidation
             //public int DataValidation(DataSet dsFile,DataSet MasterDS,DataSet dsTable)
-            public int DataValidation(DataRow dr, DataSet MasterDS, DataSet dsTable, List<string> MasterColumns,string userName,dbConnection dbcon)
+            public int DataValidation(DataRow dr, DataSet MasterDS, DataSet dsTable, List<string> MasterColumns,string userName,int rowNO, dbConnection dbCon)
             {
+                string comma = "";
                 string refTableName = "";
                 string refSelectField = "";
                 string refJoinField = "";
+                bool IsError = false;
                 string cName="";
                 string fieldName = "";
                 DataRow[] refTableRow = null;
                 DataRow refTableOneRow = null;
                 DataRow[] masterDataExisting = null;
-                //int count = 0;
+                StringBuilder errorDescLists = new StringBuilder();
+                DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
+                string keyField = GetInvalidKeyField(keyFieldRow, dr);
+                ErrorInfoObj.Status_ID = Guid.Parse(statusID);
                 try
                 {
                  //---------------------------------------------STEP1 MASTER DATA VALIDATE--------------------------------------------------//
@@ -334,10 +367,23 @@ namespace FlyCn.FlyCnDAL
                                 refTableName = refTableOneRow["Ref_TableName"].ToString();
                                 refSelectField = refTableOneRow["Ref_SelectField"].ToString();
                                 refJoinField = refTableOneRow["Ref_JoinField"].ToString();
+                                if(lengthCheck(int.Parse(refTableOneRow["Field_Size"].ToString()), dr[fieldName].ToString().Length)!=true)
+                                {
+                                    IsError = true;
+                                    errorDescLists.Append(comma);
+                                    errorDescLists.Append(fieldName);
+                                    errorDescLists.Append(" Size is Big");
+                                    comma = ",";
+                                   
+                                    ErrorInfoObj.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), IsError, rowNO, dbCon);
+                                    return 1;
+
+                                }
+
                                 masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[fieldName].ToString() + "'");
                                
                                     //Not found in masters so insert into masters as well as in masterDS
-                                    if (masterDataExisting.Length == 0)
+                                  if (masterDataExisting.Length == 0)
                                    {
                                     //continue;
                                     //Add New record to MasterDS
@@ -378,7 +424,7 @@ namespace FlyCn.FlyCnDAL
                                         }
                                     }//for
                                     //Add New record to DatabaseTable
-                                    objMO.InsertMasterData(dt, dr.Table.Rows[0]["ProjectNo"].ToString(), refTableName,userName,dbcon,true);
+                                    objMO.InsertMasterData(dt, dr.Table.Rows[0]["ProjectNo"].ToString(), refTableName,userName,dbCon,true);
                                 }
                              // }//if
                         
@@ -402,7 +448,7 @@ namespace FlyCn.FlyCnDAL
             #endregion DataValidation
             #region MasterDataExist
             //validationObj.MasterDataExist(dsTable, MasterDS, dsFile.Tables[0].Rows[i], i, comDAL.tableName,List<string> MasterColumns);
-            public bool MasterDataExist(DataSet dsTable,DataSet MasterDS, DataRow dr,int rowNO, string TableName, List<string> MasterColumns,dbConnection dbCon)
+            public bool MasterDataExist(DataSet dsTable, DataSet MasterDS, DataRow dr, int rowNO, string TableName, List<string> MasterColumns, dbConnection dbCon)
             {
                 string comma = "";
                 Int16 isupdate;
@@ -412,60 +458,55 @@ namespace FlyCn.FlyCnDAL
                 DataRow refTableOneRow = null;
                 DataRow[] masterDataExisting = null;
                 StringBuilder errorDescLists = new StringBuilder();
-               // bool flag = false;
                 bool IsError = true;
-                
+
                 DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
                 string keyField = GetInvalidKeyField(keyFieldRow, dr);
 
                 foreach (string dc in MasterColumns)
                 {
                     cName = dc.ToString();
-                    refTableRow = dsTable.Tables[0].Select("Field_Description = '" + cName + "' AND Ref_TableName IS NOT NULL");
-                    refTableOneRow = refTableRow[0];
-                    refTableName = refTableOneRow["Ref_TableName"].ToString();
-                    masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[cName].ToString() + "'");
-                    if (masterDataExisting.Length == 0)//data does not exists in the masters
+                    if (dr[cName].ToString() != "")
                     {
-                        
-                        if (refTableName == "M_Personnel")
+                        refTableRow = dsTable.Tables[0].Select("Field_Description = '" + cName + "' AND Ref_TableName IS NOT NULL");
+                        refTableOneRow = refTableRow[0];
+                        refTableName = refTableOneRow["Ref_TableName"].ToString();
+                        masterDataExisting = MasterDS.Tables[0].Select("TableName = '" + refTableName + "' AND Code = '" + dr[cName].ToString() + "'");
+                        if (masterDataExisting.Length == 0)//data does not exists in the masters
                         {
-                           //Error for table name M_Personel
-                            IsError = true;
-                           // flag = true;
-                            errorDescLists.Append(comma);
-                            errorDescLists.Append(cName);
-                            errorDescLists.Append("is Invalid Data");
-                            comma = ",";
-                        }
-                        else
-                        {
-                           //Warning for Normal masters
-                            IsError = false;
-                            errorDescLists.Append(comma);
-                            errorDescLists.Append(cName);
-                            errorDescLists.Append("Warning");
-                            comma = "";
+                            if (refTableName == "M_Personnel")
+                            {
+                                errorDescLists.Clear();
+                                //Error for table name M_Personel
+                                IsError = true;
+                                //flag = true;
+                                errorDescLists.Append(comma);
+                                errorDescLists.Append(cName);
+                                errorDescLists.Append(" is Invalid Data");
+                                comma = ",";
+                                isupdate = ErrorInfoObj.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), IsError, rowNO, dbCon);
+                                return true;
+                            }
+                            else
+                            {
+                                //Warning for Normal masters
+                                errorDescLists.Clear();
+                                IsError = false;
+                                errorDescLists.Append(comma);
+                                errorDescLists.Append(cName);
+                                errorDescLists.Append(" Warning");
+                                comma = "";
+                                isupdate = ErrorInfoObj.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), IsError, rowNO, dbCon);
+                                ErrorInfoObj.WarningCount = ErrorInfoObj.WarningCount + 1;
+                                //return true;
 
-                        }
-                     
-                    }
-                }
+                            }//else
 
-                if (IsError == true)
-                {
-                    rowNO = rowNO + 2;
-                    isupdate = importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), IsError, rowNO, dbCon);
-                    return true;
-                }
-                    if (IsError == false)//means warning
-                    {
-                        rowNO = rowNO + 2;
-                        isupdate = importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), IsError, rowNO, dbCon);
-                        importfile.WarningCount = importfile.WarningCount + 1;
-                        return true;
-                    }
-                    return false;
+                        }//if
+                    }//if
+                }//foreach
+                  return false;
+
                 
             }
             #endregion MasterDataExist
@@ -483,7 +524,7 @@ namespace FlyCn.FlyCnDAL
                 DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
                 string keyField = GetInvalidKeyField(keyFieldRow, dr);
                 CableDS = new DataSet();
-              
+                ImportFile importfile = new ImportFile();
                 if ((dr["ProjectNo"].ToString() != "") && (dr["ModuleID"].ToString() != "") && (dr["Category"].ToString() != "") && (dr["Cable No"].ToString() !=""))
                 { 
                  CableDS = importfile.GetCableScheduleMaster(dr["ProjectNo"].ToString(), dr["ModuleID"].ToString(), dr["Category"].ToString(), dr["Cable No"].ToString(),dbCon);
@@ -503,7 +544,7 @@ namespace FlyCn.FlyCnDAL
                              errorDescLists.Append(Messge.CADTL);
                              comma = "";
                              rowNO = rowNO + 2;
-                             importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(),true,rowNO, dbCon);
+                             ErrorInfoObj.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), true, rowNO, dbCon);
                              return true;
                          }
                        
@@ -523,6 +564,7 @@ namespace FlyCn.FlyCnDAL
                 DrumDS = new DataSet();
                 DataRow[] keyFieldRow = dsTable.Tables[0].Select("Key_Field='Y'");
                 string keyField = GetInvalidKeyField(keyFieldRow, dr);
+                ImportFile importfile = new ImportFile();
                 if ((dr["ProjectNo"].ToString() != "") && (dr["ModuleID"].ToString() != "") && (dr["Category"].ToString() != "") && (dr["DrumNo"].ToString() != "") && (dr["CableTypeCatg"].ToString() != "") && (dr["CableTypeCode"].ToString() !=""))
                 {
                     DrumDS = importfile.GetDrumMaster(dr["ProjectNo"].ToString(), dr["ModuleID"].ToString(), dr["Category"].ToString(), dr["DrumNo"].ToString(), dr["CableTypeCatg"].ToString(), dr["CableTypeCode"].ToString(), dbCon);
@@ -533,7 +575,7 @@ namespace FlyCn.FlyCnDAL
                              errorDescLists.Append(Messge.DNV);
                              comma = "";
                              rowNO = rowNO + 2;
-                             importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(),true,rowNO, dbCon);
+                             ErrorInfoObj.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), true, rowNO, dbCon);
                              return true;
                     }
                     if(DrumDS.Tables[0].Rows.Count>0)
@@ -547,7 +589,7 @@ namespace FlyCn.FlyCnDAL
                         errorDescLists.Append(Messge.ALV);
                         comma = "";
                         rowNO = rowNO + 2;
-                        importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(),true,rowNO, dbCon);
+                        ErrorInfoObj.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), true, rowNO, dbCon);
                         return true;
                      }
                             usedLength =(DrumDS.Tables[0].Rows[0]["UsedLength"].ToString() !="") ? int.Parse(DrumDS.Tables[0].Rows[0]["UsedLength"].ToString()) : 0;
@@ -558,11 +600,12 @@ namespace FlyCn.FlyCnDAL
                                 errorDescLists.Append(Messge.ULV);
                                 comma = "";
                                 rowNO = rowNO + 2;
-                                importfile.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(),true,rowNO, dbCon);
+                                ErrorInfoObj.InsertExcelImportErrorDetails(keyField, errorDescLists.ToString(), true, rowNO, dbCon);
                                 return true;
                             }
 
-                        //Drum Changes Case
+                            //Drum Changes Case
+
                     }
                     
                 }

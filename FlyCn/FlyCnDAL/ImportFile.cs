@@ -18,7 +18,7 @@ namespace FlyCn.FlyCnDAL
     #region classImportFile
     public class ImportFile
     {
-
+        public ErrorInformation ErrorInfoObj = new ErrorInformation();
         #region Public Properties
         public Guid status_Id
         {
@@ -32,26 +32,22 @@ namespace FlyCn.FlyCnDAL
         }
         public ImportFile()
         {
-
-            status_Id = Guid.NewGuid();
+            
         }
 
-        //public ImportFile(Guid StatusId)
-        //{
+        public ImportFile(Guid StatusId)
+        {
 
-        //    status_Id = StatusId;
+            status_Id = StatusId;
+            ErrorInfoObj.Status_ID = status_Id;
 
-        //}
+        }
         public string ExcelFileName
         {
             get;
             set;
         }
-        public string StatusId
-        {
-            get;
-            set;
-        }
+      
 
         public string ProjectNo
         {
@@ -228,6 +224,8 @@ namespace FlyCn.FlyCnDAL
            
         #region methods
 
+       
+
         #region InitializeExcelImportDetails
         /// <summary>
         /// Initialize the values of Excel import details table 
@@ -320,43 +318,8 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion Update Excel Import Details
 
-        #region Error Details
-        public DataSet getErrorDetails(Guid status_Id)
-        {
-            DataSet datatableobj = null;
-            SqlConnection con = null;
-            dbConnection dcon = null;
-            if (status_Id != Guid.Empty)
-            {
-                try
-                {
-                    dcon = new dbConnection();
-                    con = dcon.GetDBConnection();
-                    SqlCommand cmd = new SqlCommand("SelectExcelImportErrorDetails", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@Status_Id", SqlDbType.UniqueIdentifier).Value = status_Id;
-                    //cmd.Parameters.AddWithValue("@userName", UserName);
-                    SqlDataAdapter adapter = new SqlDataAdapter();
-                    adapter.SelectCommand = cmd;
-                    datatableobj = new DataSet();
-                    adapter.Fill(datatableobj);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    if (con != null)
-                    {
-                        con.Close();
-                    }
-                }
-            }
 
-            return datatableobj;
-        }
-        #endregion Error Details
+
         #region getAllExcelImportDetails
         public DataSet getAllExcelImportDetails(string userName)
         {
@@ -375,6 +338,7 @@ namespace FlyCn.FlyCnDAL
             return datatableobj;
         }
         #endregion getAllExcelImportDetails
+
         #region getDistictExcelImportDetailsByUserName
         public DataSet getDistictExcelImportDetailsByUserName(string userName)
         {
@@ -404,41 +368,46 @@ namespace FlyCn.FlyCnDAL
         /// <param name="id"></param>
         /// <returns>DataSet</returns>
 
-        public DataSet getExcelImportDetailsById(string id)
+        public DataSet getExcelImportDetailsById(string statusID)
         {
+            Guid statID=Guid.Empty;
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
-            DataSet myRec = new DataSet();
+            DataSet ds = new DataSet();
             SqlDataAdapter da = new SqlDataAdapter();
 
             dbConnection dcon = new dbConnection();
             try
             {
+                if (statusID!="")
+                {
+                    statID = Guid.Parse(statusID);
+                }
+                
                 con = dcon.GetDBConnection();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SelectAllExcelImportDetailsById";
-                cmd.Parameters.AddWithValue("@StatusId", id);
+                cmd.Parameters.AddWithValue("@StatusId", statID);
                 cmd.Connection = con;
                 da.SelectCommand = cmd;
-                //con.Open();
-                da.Fill(myRec);
-                if (myRec.Tables[0].Rows.Count > 0)
+                da.Fill(ds);
+                if ((ds.Tables[0].Rows.Count > 0)&&(ds!=null))
                 {
-                    UpdateCount = Convert.ToInt32(myRec.Tables[0].Rows[0]["Update_Count"]);
-                    TimeRemaining = TimeSpan.FromMilliseconds(Convert.ToDouble(myRec.Tables[0].Rows[0]["Time_Remaining"])).ToString(@"hh\:mm\:ss");
-                    InsertCount = Convert.ToInt32(myRec.Tables[0].Rows[0]["Insert_Count"]);
-                    ErrorCount = Convert.ToInt32(myRec.Tables[0].Rows[0]["Error_Count"]);
-                    LastUpdatedTime = Convert.ToDateTime(myRec.Tables[0].Rows[0]["Last_Updated_Time"]);
-                    TimeElapsed = TimeSpan.FromMilliseconds(Convert.ToDouble(myRec.Tables[0].Rows[0]["Time_Elapsed"])).ToString(@"hh\:mm\:ss");
-                    ProjectNo = myRec.Tables[0].Rows[0]["ProjNo"].ToString();
-                    FileName = myRec.Tables[0].Rows[0]["File_Name"].ToString();
-                    TableName = myRec.Tables[0].Rows[0]["Table_Name"].ToString();
-                    TotalCount = Convert.ToInt32(myRec.Tables[0].Rows[0]["Total_Count"].ToString());
-                    StartTime = Convert.ToDateTime(myRec.Tables[0].Rows[0]["Start_Time"].ToString());
-                    UserName = myRec.Tables[0].Rows[0]["User_Name"].ToString();
-                    InsertStatus = Convert.ToInt32(myRec.Tables[0].Rows[0]["InsertStatus"].ToString());
-                    Remarks = myRec.Tables[0].Rows[0]["Remarks"].ToString();
-                    // IsDeleted = Convert.ToByte(myRec.Tables[0].Rows[0]["IsDeleted"].ToString());
+                    UpdateCount = (ds.Tables[0].Rows[0]["Update_Count"].ToString()!=null?(Convert.ToInt32(ds.Tables[0].Rows[0]["Update_Count"])):0);
+                    TimeRemaining = (!DBNull.Value.Equals(ds.Tables[0].Rows[0]["Time_Remaining"]) ? (TimeSpan.FromMilliseconds(Convert.ToDouble(ds.Tables[0].Rows[0]["Time_Remaining"])).ToString(@"hh\:mm\:ss")) : "00:00:00");
+                    InsertCount = (ds.Tables[0].Rows[0]["Insert_Count"].ToString()!=null?(Convert.ToInt32(ds.Tables[0].Rows[0]["Insert_Count"])):0);
+                    ErrorCount = (ds.Tables[0].Rows[0]["Error_Count"].ToString()!=null?(Convert.ToInt32(ds.Tables[0].Rows[0]["Error_Count"])):0);
+                    LastUpdatedTime =(ds.Tables[0].Rows[0]["Last_Updated_Time"].ToString()!=null?(Convert.ToDateTime(ds.Tables[0].Rows[0]["Last_Updated_Time"])):DateTime.MinValue);
+                    TimeElapsed = (ds.Tables[0].Rows[0]["Time_Elapsed"].ToString() != null ? (TimeSpan.FromMilliseconds(Convert.ToDouble(ds.Tables[0].Rows[0]["Time_Elapsed"])).ToString(@"hh\:mm\:ss")):"00:00:00");
+                    ProjectNo = (ds.Tables[0].Rows[0]["ProjNo"].ToString()!=null ? (ds.Tables[0].Rows[0]["ProjNo"].ToString()):"");
+                    FileName = (ds.Tables[0].Rows[0]["File_Name"].ToString()!=null ?(ds.Tables[0].Rows[0]["File_Name"].ToString()):"");
+                    TableName = (ds.Tables[0].Rows[0]["Table_Name"].ToString()!=null?(ds.Tables[0].Rows[0]["Table_Name"].ToString()):"");
+                    TotalCount = (ds.Tables[0].Rows[0]["Total_Count"].ToString()!=null?(Convert.ToInt32(ds.Tables[0].Rows[0]["Total_Count"].ToString())):0);
+                    StartTime = (ds.Tables[0].Rows[0]["Start_Time"].ToString()!=null?(Convert.ToDateTime(ds.Tables[0].Rows[0]["Start_Time"].ToString())):DateTime.MinValue);
+                    UserName = ds.Tables[0].Rows[0]["User_Name"].ToString();
+                    InsertStatus =(ds.Tables[0].Rows[0]["InsertStatus"].ToString()!=null?(Convert.ToInt32(ds.Tables[0].Rows[0]["InsertStatus"].ToString())):0);
+                    Remarks = ds.Tables[0].Rows[0]["Remarks"].ToString();
+                    // IsDeleted = Convert.ToByte(ds.Tables[0].Rows[0]["IsDeleted"].ToString());
                 }
             }
             catch (Exception ex)
@@ -452,47 +421,11 @@ namespace FlyCn.FlyCnDAL
                     con.Close();
                 }
             }
-            return myRec;
+            return ds;
         }
         #endregion getExcelImportDetailsById
 
-        #region Insert Excel Import Error Details
-        /// <summary>
-        /// Insert the values of Excel import error details table
-        /// </summary>
-        /// <param name="ExcelFileName"></param>
-        /// <param name="InsertCount"></param>
-
-        public Int16 InsertExcelImportErrorDetails(string KeyField, string ErrorDescription,Boolean isError,int rowNO,dbConnection dbCon)
-        {
-         
-            SqlCommand cmd = new SqlCommand();
-            SqlParameter outputparamIsUpdate = cmd.Parameters.Add("@IsUpdate", SqlDbType.TinyInt);
-           
-            try
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "InsertExcelImportErrorDetails";
-                cmd.Connection = dbCon.SQLCon;
-                cmd.Parameters.Add("@Import_Status_Id", SqlDbType.UniqueIdentifier).Value = status_Id;
-                cmd.Parameters.Add("@Key_Field", SqlDbType.NVarChar, 50).Value = KeyField;
-                cmd.Parameters.Add("@Excel_RowNO", SqlDbType.Int).Value = rowNO;//excel error row number
-                cmd.Parameters.Add("@Error_Description", SqlDbType.NVarChar, 250).Value = ErrorDescription;
-                cmd.Parameters.Add("@IsError", SqlDbType.Bit).Value = isError;
-                outputparamIsUpdate.Direction = ParameterDirection.Output;
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-             
-            }
-            return Convert.ToInt16(outputparamIsUpdate.Value);
-        }
-        #endregion Insert Excel Import Error Details
+        
 
         #region UpdateExcelImportDetails
         /// <summary>
@@ -633,14 +566,9 @@ namespace FlyCn.FlyCnDAL
         {
             
             DataSet dsFile = new DataSet();
-            //DataSet dsOrig = new DataSet();
-            DataTable FreshTable = new DataTable();
-            //bool flag = false;
-            int k;
             OleDbConnection excelConnection1 = new OleDbConnection(ExcelConnectionString);
             try
             {
-                  
                    excelConnection1.Open();
                    var command = excelConnection1.CreateCommand();
                
@@ -801,6 +729,7 @@ namespace FlyCn.FlyCnDAL
                 dbcon = new dbConnection();
                 dbcon.GetDBConnection();
                 ValidationExcel validationObj = new ValidationExcel();
+                validationObj.statusID =status_Id.ToString();
                 totalCount = dsFile.Tables[0].Rows.Count;
                 InitializeExcelImportDetails(ExcelFileName, totalCount, dbcon);
 
@@ -822,7 +751,10 @@ namespace FlyCn.FlyCnDAL
                 for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
                 {
                     // Thread.Sleep(200);
-                    validationObj.DataValidation(dsFile.Tables[0].Rows[i], MasterDS, dsTable, MasterColumns, UserName, dbcon);
+                    if((validationObj.DataValidation(dsFile.Tables[0].Rows[i], MasterDS, dsTable, MasterColumns, UserName,i+2,dbcon)==1))
+                    {
+                        continue;
+                    }
                     insertResult = ImportExcelRow(dsTable, dsFile.Tables[0].Rows[i], dbcon);
                     if (insertResult == 1)
                     {
@@ -903,6 +835,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@Updated_By", UserName);
                 cmd.Parameters.AddWithValue("@Updated_Date", System.DateTime.Now);
                 SqlParameter outPutParameter = new SqlParameter();
+                
                 outPutParameter.ParameterName = "@isUpdate";
                 outPutParameter.SqlDbType = System.Data.SqlDbType.Int;
                 outPutParameter.Direction = System.Data.ParameterDirection.Output;

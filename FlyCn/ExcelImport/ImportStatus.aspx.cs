@@ -24,8 +24,6 @@ namespace FlyCn.ExcelImport
                 if (Request.QueryString["ModuleName"] != null)
                 {
                     exObj.TableName = Request.QueryString["ModuleName"];
-                
-
                 }
                 lbl_FileName1.Text = exObj.FileName;
 
