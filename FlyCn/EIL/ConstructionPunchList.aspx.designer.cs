@@ -148,15 +148,6 @@ namespace FlyCn.EIL {
         protected global::System.Web.UI.WebControls.Label lblTag;
         
         /// <summary>
-        /// ddlTag control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTag;
-        
-        /// <summary>
         /// lblActivity control.
         /// </summary>
         /// <remarks>
@@ -974,5 +965,14 @@ namespace FlyCn.EIL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnSecurity;
+        
+        /// <summary>
+        /// hdnTagNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnTagNo;
     }
 }

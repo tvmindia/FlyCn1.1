@@ -10,9 +10,11 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 using Telerik.Web.UI;
 #endregion Namespaces
 
@@ -20,6 +22,10 @@ namespace FlyCn.EIL
 {
     public partial class ConstructionPunchList : System.Web.UI.Page
     {
+        public string listFilter = null; 
+              //listFilter = null;
+           
+
         #region Global Variables
         ErrorHandling eObj = new ErrorHandling();
         DataTable dt = new DataTable();
@@ -47,7 +53,9 @@ namespace FlyCn.EIL
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
             //----------- Page Security Checking ----------------//          
-            
+
+            bindpageload();
+
             SecurityCheck();
             //dt = pObj.GetPunchListItemDetails(projno, ID);
             //txtIDno.Text = dt.Rows[0]["IDNo"].ToString();
@@ -57,7 +65,9 @@ namespace FlyCn.EIL
             ToolBarVisibility(4);
             if (!IsPostBack)
             {
-               
+                //bindpageload();
+
+                BindDropDownModule();
                 LoadComboBox();
                 if (Request.QueryString["Mode"] != null)
                 {              
@@ -82,6 +92,57 @@ namespace FlyCn.EIL
 
         }
         #endregion Page_Load
+        public void bindpageload()
+        {
+            listFilter = null;
+            listFilter = BindName();
+
+        }
+        private string BindName()
+        {          
+             FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+             UIClasses.Const Const = new UIClasses.Const();
+             FlyCnDAL.Security.UserAuthendication UA;
+             HttpContext context = HttpContext.Current;
+             UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+             string project = UA.projectNo;
+             string moduleId = "";
+            string category = "";
+             if ((ddlModule.Text != "") && (ddlCategory.Text != ""))
+             {
+                 moduleId = ddlModule.SelectedItem.Value;
+                 category = ddlCategory.SelectedItem.Value;
+                 
+             }
+             StringBuilder output = new StringBuilder();
+             //try
+             //{
+                 DataTable dt = punchObj.GetTagNo(project, moduleId, category);
+                 
+                 output.Append("[");
+
+                 for (int i = 0; i < dt.Rows.Count; ++i)
+                 {
+                     output.Append("\"" + dt.Rows[i][punchObj.KeyField] + "\"");
+
+                     if (i != (dt.Rows.Count - 1))
+                     {
+                         output.Append(",");
+                     }
+
+                 }
+
+                 output.Append("]");
+             //}
+            //catch(Exception ex)
+            // {
+            //     var page = HttpContext.Current.CurrentHandler as Page;
+            //     eObj.ErrorData(ex, page);
+            //     throw ex;
+            // }
+         
+            return output.ToString();
+        } 
 
         #region ToolBar_OnClick
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
@@ -113,7 +174,7 @@ namespace FlyCn.EIL
         protected void dtgManageProjectGrid_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dt;
-            dt = pObj.GetPunchList(lblTypeNeed.Text);
+            dt = pObj.GetPunchList();
             dtgManageProjectGrid.DataSource = dt;
            
 
@@ -764,7 +825,7 @@ namespace FlyCn.EIL
 
                 case 4://toally invicible
                     ToolBar.AddButton.Visible = false;
-                    ToolBar.SaveButton.Visible = false;
+                    ToolBar.SaveButton.Visible = true;
                     ToolBar.UpdateButton.Visible = false;
                     ToolBar.EditButton.Visible = false;
                     ToolBar.DeleteButton.Visible = false;
@@ -1192,6 +1253,10 @@ namespace FlyCn.EIL
                 pObj.Idno = Convert.ToInt32(txtIDno.Text);
                 pObj.EILType = hdnMode.Value;
                 pObj.CoveredByProject = 0;
+                if (ddlCategory.SelectedItem.Text != "--select category--")
+                {
+                    pObj.Category = ddlCategory.SelectedItem.Value;
+                }
                 if (rdbCoveredByYes.Checked)
                 {
                     pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByYes.ToolTip);
@@ -1223,7 +1288,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    mObj.RequestedBy = null;
+                    mObj.RequestedBy = Convert.ToString(DBNull.Value);
                 }
                 if (ddlResponsiblePerson.SelectedItem.Text != "-Select-")
                 {
@@ -1231,7 +1296,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    mObj.ResponsiblePerson = null;
+                    mObj.ResponsiblePerson = Convert.ToString(DBNull.Value);
                 }
                 if (ddlInspector.SelectedItem.Text != "-Select-")
                 {
@@ -1239,7 +1304,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    mObj.Inspector = null;
+                    mObj.Inspector = Convert.ToString(DBNull.Value);
                 }
                 if (ddlSignedBy.SelectedItem.Text != "-Select-")
                 {
@@ -1247,7 +1312,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    mObj.SignedBy = null;
+                    mObj.SignedBy = Convert.ToString(DBNull.Value);
                 }
                 if (ddlEnteredBy.SelectedItem.Text != "-Select-")
                 {
@@ -1256,7 +1321,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    mObj.EnteredBy = null;
+                    mObj.EnteredBy = Convert.ToString(DBNull.Value);
                 }
 
                 if (RadEnteredDate.SelectedDate != null)
@@ -1269,7 +1334,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    pObj.Discipline = null;
+                    pObj.Discipline = Convert.ToString(DBNull.Value);
                 }
                 pObj.ItemDescription = txtItemDescription.Text;
                 if (ddlLocation.SelectedItem.Text != "-Select-")
@@ -1278,7 +1343,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    pObj.Location = null;
+                    pObj.Location = Convert.ToString(DBNull.Value);
                 }
                 if (ddlArea.SelectedItem.Text != "-Select-")
                 {
@@ -1286,7 +1351,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    pObj.Area = null;
+                    pObj.Area = Convert.ToString(DBNull.Value);
                 }
                 if (ddlUnit.SelectedItem.Text != "-Select-")
                 {
@@ -1294,7 +1359,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    pObj.Unit = null;
+                    pObj.Unit = Convert.ToString(DBNull.Value);
                 }
                 if (ddlPlant.SelectedItem.Text != "-Select-")
                 {
@@ -1302,7 +1367,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    pObj.Plant = null;
+                    pObj.Plant = Convert.ToString(DBNull.Value);
                 }
                 if (RadScheduleCompletionDate.SelectedDate != null)
                 {
@@ -1324,7 +1389,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    pObj.FailCategory = null;
+                    pObj.FailCategory = Convert.ToString(DBNull.Value);
                 }
                 //if (ddlCategory.SelectedItem.Text != "-Select-")
                 //{
@@ -1340,7 +1405,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    pObj.System = null;
+                    pObj.System = Convert.ToString(DBNull.Value);
                 }
                 if (ddlSubsystem.SelectedItem.Text != "-Select-")
                 {
@@ -1349,7 +1414,7 @@ namespace FlyCn.EIL
                 else
                 {
 
-                    pObj.Subsystem = null;
+                    pObj.Subsystem = Convert.ToString(DBNull.Value);
                 }
 
                 string val = null;
@@ -1371,7 +1436,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    pObj.ControlSystem = null;
+                    pObj.ControlSystem = Convert.ToString(DBNull.Value);
                 }
 
                 if (ddlOrganization.SelectedItem.Text != "-Select-")
@@ -1380,7 +1445,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    pObj.Organization = null;
+                    pObj.Organization = Convert.ToString(DBNull.Value);
                 }
                 // pObj.CoveredByProject=
                 // pObj.ChangeReq=
@@ -1390,7 +1455,7 @@ namespace FlyCn.EIL
                 }
                 else
                 {
-                    pObj.ActionBy = null;
+                    pObj.ActionBy = Convert.ToString(DBNull.Value);
 
                 }
                 pObj.ChangeReq = 0;
@@ -1995,6 +2060,95 @@ namespace FlyCn.EIL
         }
 
         #endregion ValidateIdNo
+
+        protected void ddlModule_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable dtmodules = null;
+            FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+            
+            UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+             string project = UA.projectNo;
+             string moduleId = ddlModule.SelectedItem.Value;
+            try
+            {
+                dtmodules = new DataTable();
+                dtmodules = punchObj.GetAllCategory(project,moduleId);
+                ddlCategory.DataSource = dtmodules;
+                ddlCategory.DataTextField = "CategoryDesc";
+                ddlCategory.DataValueField = "Category";
+                ddlCategory.DataBind();
+                ddlCategory.Items.Insert(0, new ListItem("--select category--", "-1"));
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+           
+        }
+
+
+        #region BindDropDownModule
+        public void BindDropDownModule()
+        {
+            FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+            DataTable dt = new DataTable();
+            dt = punchObj.GetAllModules();
+            ddlModule.DataSource = dt;
+            ddlModule.DataTextField = "ModuleDesc";
+            ddlModule.DataValueField = "ModuleID";
+            ddlModule.DataBind();
+            ddlModule.Items.Insert(0, new ListItem("--select module--", "-1"));
+        }
+        #endregion BindDropDownModule
+
+        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable dtActivity = null;
+            FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+
+            UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+            string project = UA.projectNo;
+            string moduleId = ddlModule.SelectedItem.Value;
+            try
+            {
+                dtActivity = new DataTable();
+                string category = ddlCategory.SelectedItem.Value;
+                dtActivity = punchObj.GetAllActivitiesFromSys_Activities(project, moduleId, category);
+
+                ddlActivity.DataSource = dtActivity;
+                ddlActivity.DataTextField = "FullDesc";
+                ddlActivity.DataBind();
+                ddlActivity.Items.Insert(0, new ListItem("--select Activity--", "-1"));
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+            //try
+            //{
+            //    dtTagNo = new DataTable();
+            //    string category = ddlCategory.SelectedItem.Value;
+            //    dtTagNo = punchObj.GetTagNo(project, moduleId, category);
+
+            //    ddlTag.DataSource = dtTagNo;
+            //    ddlTag.DataTextField = punchObj.KeyField;
+            //    ddlTag.DataBind();
+            //    ddlTag.Items.Insert(0, new ListItem("--select TagNo--", "-1"));
+            //}
+            //catch(Exception ex)
+            //{
+            //    throw ex;
+            //}
+            
+        }
     }
 }
         

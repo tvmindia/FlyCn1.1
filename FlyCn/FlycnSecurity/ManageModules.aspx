@@ -56,7 +56,7 @@
                         <Columns>
                             <telerik:GridBoundColumn HeaderText="ModuleID" DataField="ModuleID" Display="false"></telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderText="Module" DataField="ModuleDesc" Display="true"></telerik:GridBoundColumn>
-                            <telerik:GridCheckBoxColumn HeaderText="Select" DataType="System.Boolean" UniqueName="Modulescheck"></telerik:GridCheckBoxColumn>
+                            <telerik:GridCheckBoxColumn HeaderText="Select"  DataType="System.Boolean" UniqueName="Modulescheck" AutoPostBackOnFilter="true"></telerik:GridCheckBoxColumn>
                         </Columns>
                     </MasterTableView>
 

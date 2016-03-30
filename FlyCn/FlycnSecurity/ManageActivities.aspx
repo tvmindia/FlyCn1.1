@@ -21,14 +21,14 @@
     <script src="../Content/themes/FlyCnBlue/js/bootstrap-datepicker.js"></script>
         <script src="../Scripts/ToolBar.js"></script>
     <style>
-        #tabs li a {
+     
+           #tabs li a {
             color: white;
             display: block;
             text-decoration: none;
             font-size: small;
             font-weight: lighter;
         }
-
               .selectbox {
             width: 69%;
             background-color: #FFF;
@@ -1054,7 +1054,7 @@
         function OnClientButtonClicking(sender, args) {
          var btn = args.get_item();
          if (btn.get_value() == 'Save') {
-             args.set_cancel(!validate());
+             args.set_cancel(!validateEdit());
          }
         }
 
@@ -1065,26 +1065,31 @@
                 args.set_cancel(!validates());
             }
         }
-        function validate() {
+        function validateEdit() {
          var Module = document.getElementById('<%=ddlSelectModule.ClientID %>').value;
-         Module = trimString(Module);
-         var Projects = document.getElementById('<%=ddlProjects.ClientID %>').value;
-         Projects = trimString(Projects);
+            Module = trimString(Module);
+           
+         var Projects = document.getElementById('<%=ddlSelectProject.ClientID %>').value;
+            Projects = trimString(Projects);
+           
          var category = document.getElementById('<%=ddlCategory.ClientID %>').value;
             category = trimString(category);
+
+            var activity = document.getElementById('<%=ddlActivity.ClientID %>').value;
+            activity = trimString(activity);
            
-         if (Module != "--select module--" || Projects != "--select project--" || category != "--select category--")
+            if ((Module != "--select module--") || (Module != "-1") || (Projects != "-1") || (Projects != "--select project--") || (category != "--select category--") || (activity != "--select Activity--"))
          {
+             displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+             return false;
             
-             return true;
              
          }
          else
          {
             
-             displayMessage(messageType.Error, messages.UserNameNeeded);
-             return false;
-             
+           
+             return true;
          }
         }
         function validates() {

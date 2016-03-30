@@ -1323,11 +1323,7 @@ namespace FlyCn.FlyCnDAL
 
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = cmd;
-
-                datatableobj = new DataTable();
-                adapter.Fill(datatableobj);
+                cmd.ExecuteNonQuery();
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.InsertionSuccessData(page);
             }

@@ -69,6 +69,20 @@ namespace FlyCn.FlyCnDAL
                 Success.Text = "Successfully Inserted..!!!"; 
  
   }
+         public void ErrorMessage(Page pg)
+         {
+
+             var master1 = pg.Master;
+             ContentPlaceHolder mpContentPlaceHolder1;
+             mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
+             HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
+             divMask1.Style["display"] = "";// divMask1.Style["display"] = "";   
+             divMask1.Style["visibility"] = "visible";
+             Label Success = (Label)master1.FindControl("lblErrorInfo");
+             divMask1.Attributes["class"] = "Succesmsgboxes";
+             Success.Text = "Invalid Column..!!!";
+
+         }
          public void InsertionSuccessData(Page pg,string msg)//if insert does not happend becasue of already existing
          {
              var master1 = pg.Master;

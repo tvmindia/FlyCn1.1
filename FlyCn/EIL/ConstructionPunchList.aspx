@@ -5,7 +5,25 @@
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 
 <asp:Content ID="phdConstructionPunchListHead" ContentPlaceHolderID="head" runat="server">
-
+    
+     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+  <%-- <script src="../Scripts/jquery-1.11.3.min.js"></script>--%>
+     <%-- <script src="../Scripts/jquery-1.12.0.min.js"></script>--%>
+      <script src="../Scripts/jquery.1.9.1.min.js"></script>
+    <script src="../Scripts/jquery-ui.min10.2.js"></script>
+    
+    <%--<script src="../Scripts/jquery-1.8.3.min.js"></script>--%>
+   <%--  <script src="../Scripts/jquery-ui.js"></script> --%>
+    <script src="../Scripts/ToolBar.js"></script>
+    <script src="../Scripts/Messages.js"></script>
+    <script src="../Content/themes/FlyCnBlue/js/selectize.js"></script>
+    <script src="../Content/themes/FlyCnBlue/js/index.js"></script>    
+    <script src="../Content/themes/FlyCnBlue/js/bootstrap.min.js"></script>
+    <script src="../Content/themes/FlyCnBlue/js/bootstrap-datepicker.js"></script>
+   <link href="../Scripts/jquery-ui.css" rel="stylesheet" />
     <style type="text/css">
         .selectbox {
             width: 69%;
@@ -18,7 +36,20 @@
             margin: 5px 0 0 0;
             padding: 5px;
         }
-
+        .ui-autocomplete {
+background: fixed;
+font-size:small;
+font-family:Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+background-color: ghostwhite;
+ box-shadow:1px 1px 1px 1px #f3e6d8;
+ overflow-y:auto;
+ max-height:270px;
+}
+        .loader {
+            background-image: url(E:\Applications\FlyCn1.1_New\FlyCn\Images\gladsmall.png);
+            background-repeat: no-repeat;
+            background-position: right;
+        }  
         .textbox {
             width: 48%;
             height: 10px;   
@@ -68,11 +99,7 @@
             width: 400px;
         }
     </style>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-     <script src="../Scripts/ToolBar.js"></script>
-    <script src="../Scripts/Messages.js"></script>
+   
     <title>Input</title>
   <%--  <!-----bootstrap css--->
     <link href="../Content/themes/FlyCnBlue/css/roboto_google_api.css" rel="stylesheet" />
@@ -90,17 +117,10 @@
 </asp:Content>
 
 <asp:Content ID="phdConstructionPunchListMaster" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <script src="../Scripts/jquery-1.11.3.min.js"></script>
-     <script src="../Content/themes/FlyCnBlue/js/selectize.js"></script>
-    <script src="../Content/themes/FlyCnBlue/js/index.js"></script>
     
-  
-    <!-----bootstrap js--->
      
-    <script src="../Content/themes/FlyCnBlue/js/bootstrap.min.js"></script>
-    <script src="../Content/themes/FlyCnBlue/js/bootstrap-datepicker.js"></script>
-        <script src="../Scripts/ToolBar.js"></script>
     <script type="text/javascript">
+       
         function ClearTextBox() {
             $('textarea').empty();
 
@@ -231,7 +251,6 @@
                     ClearTexBox();
 
                     if (tab.get_text() == "New") {
-
                         <%=ToolBar.ClientID %>_SetAddVisible(false);
                         <%=ToolBar.ClientID %>_SetSaveVisible(true);
                         <%=ToolBar.ClientID %>_SetUpdateVisible(false);
@@ -309,14 +328,84 @@
 
     <script type="text/javascript">
 
-
+        $(document).ready(function () {
+            debugger;
+       
+            var ID = document.getElementById('<%=hdnTagNo.ClientID %>').value;
+            var Tag=document.getElementById('txtTag1').textContent;
+           
+           
+            var ac=null;
+            var count=1;
+            ac = <%=listFilter %>;
+            
+            $( "#txtTag1" ).autocomplete({
+              
+                source: function(request, response) {
+                  
+                    var results = $.ui.autocomplete.filter(ac, request.term);
+                    
+                    response(results.slice(0, 10));
+                },
+                search: function () {
+                    $(this).addClass('loader');
+                },
+                select: function (event, ui) {
+                  
+                    if(ui.item.label!="More>>>")
+                    {
+                        Tag=ui.item.label;
+                    }
+                   
+                    if(ui.item.id=="txtMore")
+                    {    
+                        ++count;
+                        var clickCount=count*10;
+                        $(this).autocomplete({ source : ac.slice(0, clickCount) });                     
+                    }
+                   
+                    event.preventDefault();
+                }, 
+                focus: function(event, ui) {
+                   
+                    $("#txtTag1").val(Tag);
+                   
+                },
+                response: function (event, ui) {
+                    
+                    $(this).removeClass('loader');
+                        ui.content.push({
+                            label: 'More>>>',
+                            id:'txtMore',
+                            
+                      
+                        });   
+                   
+                }
+            }).mouseover(function() {
+                $(this).autocomplete("search");
+            });
+          
+        });
+       
+        //var i=  $('#txtTag1').val(ui.item.id);
+        //$("#txtMore").select(function(){
+        //    alert("Hi");
+        //});
+        //.data("autocomplete")._renderItem = function (ul, item) {
+        //    return $("<li>")
+        //        .data("item.autocomplete", item)
+        //        .append("<a>" + item.label + "<br>" + item.desc + "</a>")
+        //        .appendTo(ul);
+        //}
 
         $(document).ready(function () {
+            
             var LnameImage = document.getElementById('<%=imgWebLnames.ClientID %>');
             LnameImage.style.display = "none";
             var errLname = document.getElementById('<%=errorLnames.ClientID %>');
             errLname.style.display = "none";
-
+  
             //------------------------For Security-----------------------------------------------//
            
             //var security = document.getElementById("hdnSecurityMaster").value;
@@ -475,7 +564,7 @@
                            
 
                              <%-- Tracking Details--%>
-                                               <div class="accordion-container" style="display:none"> <a href="#" class="accordion-toggle"  style="display:none">Tracking Details  
+                                               <div class="accordion-container"> <a href="#" class="accordion-toggle" id="IDAccordion">Tracking Details  
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                               
                              <div class="accordion-content" > 
@@ -486,7 +575,7 @@
                             <asp:Label ID="lblModule" runat="server" Text="Module"  class="control-label col-md-5" for="email3"></asp:Label>
                      
                                             <div class="col-md-7">
-                                                <asp:DropDownList ID="ddlModule" runat="server" CssClass="selectbox"></asp:DropDownList>
+                                                <asp:DropDownList ID="ddlModule" runat="server" CssClass="selectbox" AppendDataBoundItems="false" AutoPostBack="true" OnSelectedIndexChanged="ddlModule_SelectedIndexChanged"></asp:DropDownList>
                                             </div>
                                         </div>
                                         <%-- </form>--%>
@@ -498,23 +587,25 @@
 
                                              <asp:Label ID="lblCate" runat="server" Text="Category"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
-                                                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="selectbox"></asp:DropDownList>
+                                                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="selectbox" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AppendDataBoundItems="false" AutoPostBack="true"></asp:DropDownList>
 
                                             </div>
                                         </div>
                                         <%-- </form>--%>
                                     </div>
 
-                               
+                           
                                     <div class="col-md-6">
 
                                         <div class="form-group">
-
+                                              <br />
                                             <asp:Label ID="lblTag" runat="server" Text="Tag"  class="control-label col-md-5" for="email3"></asp:Label>
-                                            <div class="col-md-7">
-                                                <asp:DropDownList ID="ddlTag" runat="server" CssClass="selectbox"></asp:DropDownList>
-
+                                             
+                                             <div class="col-md-7">                                           
+                                                 <input id="txtTag1" type="text" style="width:180px;"/>
+                                                 
                                             </div>
+                                       <%--   <input id="txtLoading" type="text" value="Loading"/>--%>
                                         </div>
                                         <%-- </form>--%>
                                     </div>
@@ -522,6 +613,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
+                                           
  <asp:Label ID="lblActivity" runat="server" Text="Activity"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
                                                 <asp:DropDownList ID="ddlActivity" runat="server" CssClass="selectbox"></asp:DropDownList>
@@ -638,7 +730,7 @@
                                     
          </div>
                                   <%-- Location Details--%>
-                                             <div class="accordion-container"> <a href="#" class="accordion-toggle">  Location Details 
+                                             <div class="accordion-container"> <a href="#" class="accordion-toggle" >  Location Details 
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                               
                              <div class="accordion-content"> 
@@ -1388,6 +1480,7 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
     <asp:HiddenField ID="hdnMode" runat="server" ClientIDMode="Static"/>
     <asp:HiddenField ID="hdnIdNo" runat="server" ClientIDMode="Static" />
        <asp:HiddenField ID="hdnSecurity" runat="server" />
+    <asp:HiddenField ID="hdnTagNo" runat="server" />
 </asp:Content>
 
 

@@ -100,7 +100,7 @@
         <br />
        
          <div class="col-md-12"  style="border-left: 1px solid #cfc7c0;min-height:400px">
-              <br />
+            
         <br />
                                    <div class="contentTopBar" style="width:450px;margin-left:20%;"></div>
                          <div style="width:450px;margin-left:20%;">
@@ -179,7 +179,7 @@
                     <div class="col-md-12 Span-One">
                         <div class="col-md-6">
 
-                            <div class="form-group">
+                            <div class="form-group required">
 
                                 <asp:Label ID="lblFullDesc" runat="server" Text="Full Desc" CssClass="control-label col-md-6 "></asp:Label>
                                 <div class="col-md-6">
@@ -550,7 +550,7 @@
 
                         <div class="col-md-6">
 
-                            <div class="form-group required">
+                            <div class="form-group">
 
                                   <asp:Label ID="lblAFIRef_No" runat="server" Text="AFI Ref_No" CssClass="control-label col-md-6 "></asp:Label>
                                 <div class="col-md-6">
@@ -964,22 +964,18 @@
         }
         function validate() {
          var Module = document.getElementById('<%=ddlSelectModule.ClientID %>').value;
-         Module = trimString(Module);
-         var Projects = document.getElementById('<%=ddlProjects.ClientID %>').value;
-         Projects = trimString(Projects);
-        
-         if(Module!="--select module--"||Projects!="--select project--")
+         var Projects = document.getElementById('<%=ddlProjects.ClientID %>').value;        
+         var FullDesc = document.getElementById('<%=txtFullDesc.ClientID %>').value;          
+           
+         if((Module=="--select module--") && (Projects=="--select project--") || (FullDesc==""))
          {
-            
-             return true;
-             
+             displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+             return false;
          }
          else
          {
-            
-             displayMessage(messageType.Error, messages.UserNameNeeded);
-             return false;
-             
+             alert("true");
+             return true;          
          }
         }
         function validates() {
