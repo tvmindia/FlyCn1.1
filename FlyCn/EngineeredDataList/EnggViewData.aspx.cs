@@ -103,32 +103,35 @@ namespace FlyCn.EngineeredDataList
             datatableobj = systabledefenitionobj.GetComboBoxDetails(_tableName);
 
             //--- generate sql for drop down based on system table defenition
-            for (int f = 0; f < datatableobj.Rows.Count; f++)
+            if ((datatableobj.Rows.Count > 0) && (datatableobj != null))
             {
-                if (datatableobj.Rows[f]["Field_DataType"].ToString() == "C" | datatableobj.Rows[f]["Field_DataType"].ToString() == "N")
+                for (int f = 0; f < datatableobj.Rows.Count; f++)
                 {
-                    tableName = datatableobj.Rows[f]["Ref_TableName"].ToString();
-                    string fieldName = combo.ID;
-                    fieldName = fieldName.Substring(3);//remove cmb from combo id
-
-                    if (fieldName == datatableobj.Rows[f]["Field_Name"].ToString())
+                    if (datatableobj.Rows[f]["Field_DataType"].ToString() == "C" | datatableobj.Rows[f]["Field_DataType"].ToString() == "N")
                     {
-                        joinField = datatableobj.Rows[f]["Ref_JoinField"].ToString();
-                        selectField = datatableobj.Rows[f]["Ref_SelectField"].ToString();
                         tableName = datatableobj.Rows[f]["Ref_TableName"].ToString();
-                        string query = "SELECT " + joinField + "," + selectField + " FROM " + tableName;
-                        dst = dynamicmasteroperationobj.GetComboBoxData(query);
+                        string fieldName = combo.ID;
+                        fieldName = fieldName.Substring(3);//remove cmb from combo id
+
+                        if (fieldName == datatableobj.Rows[f]["Field_Name"].ToString())
+                        {
+                            joinField = datatableobj.Rows[f]["Ref_JoinField"].ToString();
+                            selectField = datatableobj.Rows[f]["Ref_SelectField"].ToString();
+                            tableName = datatableobj.Rows[f]["Ref_TableName"].ToString();
+                            string query = "SELECT " + joinField + "," + selectField + " FROM " + tableName;
+                            dst = dynamicmasteroperationobj.GetComboBoxData(query);
+                        }
                     }
                 }
-            }
-            combo.Items.Clear();
-            foreach (DataRow row in dst.Rows)
-            {
-                RadComboBoxItem item = new RadComboBoxItem();
-                item.Text = row[dst.Columns[1].ColumnName].ToString();
-                item.Value = row[dst.Columns[0].ColumnName].ToString();
-                combo.Items.Add(item);
-                item.DataBind();
+                combo.Items.Clear();
+                foreach (DataRow row in dst.Rows)
+                {
+                    RadComboBoxItem item = new RadComboBoxItem();
+                    item.Text = row[dst.Columns[1].ColumnName].ToString();
+                    item.Value = row[dst.Columns[0].ColumnName].ToString();
+                    combo.Items.Add(item);
+                    item.DataBind();
+                }
             }
         }
 
@@ -329,16 +332,19 @@ namespace FlyCn.EngineeredDataList
                 string KeyValue = "";
                 string sdw = "";
                 datatbl = systabledefenitionobj.GetPrimarykeys(_tableName);
-                for (int i = 0; i < datatbl.Rows.Count; i++)
+                if ((datatbl.Rows.Count > 0 && datatbl != null))
                 {
-                    Key = datatbl.Rows[i]["Field_Name"].ToString();
-                    primarykeys = primarykeys + Key + ",";
+                    for (int i = 0; i < datatbl.Rows.Count; i++)
+                    {
+                        Key = datatbl.Rows[i]["Field_Name"].ToString();
+                        primarykeys = primarykeys + Key + ",";
 
-                    ID = item.GetDataKeyValue(Key).ToString();
-                    KeyValue = KeyValue + ID + ",";
+                        ID = item.GetDataKeyValue(Key).ToString();
+                        KeyValue = KeyValue + ID + ",";
 
 
 
+                    }
                 }
                 primarykeys = primarykeys.TrimEnd(',', ' ');
                 KeyValue = KeyValue.TrimEnd(',', ' ');

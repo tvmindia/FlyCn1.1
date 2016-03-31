@@ -14,12 +14,31 @@ namespace FlyCn.ExcelImport
 {
     public partial class ImportErrorList : System.Web.UI.Page
     {
+
+        UIClasses.Const Const = new UIClasses.Const();
+        FlyCnDAL.Security.UserAuthendication UA;
+        string moduleID = "";
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
+            if(Request.QueryString["Id"]!=null)
+            {
+                moduleID = Request.QueryString["Id"];
+            }
+            else
+            {
+                moduleID = "";
+            }
+           
             if(!IsPostBack)
             {
-             BindData();
+                if ((moduleID != null) || (moduleID != ""))
+                {
+                    BindData();
+                }
+            
             }
         }
         #endregion Page_Load
@@ -27,20 +46,19 @@ namespace FlyCn.ExcelImport
         #region BindData()
         public void BindData()
         {
-            DataSet ds = new DataSet();
-            
-            //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
-            //ImportFile detailsObj = new ImportFile();
-            ErrorInformation errInfoObj = new ErrorInformation();
-           // ds = errInfoObj.getErrorDetails();
-            RadGrid1_ErrorList.DataSource = ds;
+           
             try
             {
-                RadGrid1_ErrorList.DataBind();
+                DataSet ds = new DataSet();
+                ErrorInformation errInfoObj = new ErrorInformation();
+                ds = errInfoObj.GetAllErrorDetails(UA.userName,UA.projectNo);
+                RadGrid1_ErrorList.DataSource = ds;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+               
             }
+            
         }
         #endregion BindData()
 
@@ -52,8 +70,9 @@ namespace FlyCn.ExcelImport
                 if (e.CommandName == "Select")
                 {
                     GridDataItem item = e.Item as GridDataItem;
-                    string StatusId = item.GetDataKeyValue("Status_Id").ToString();
-                    Response.Redirect("ImportErrorDetails.aspx?StatusId=" + StatusId);
+                    string StatusId = item.GetDataKeyValue("Status_ID").ToString();
+                    //Response.Redirect("ImportErrorDetails.aspx?StatusId=" + StatusId);
+                    Response.Redirect("ImportErrorDetails.aspx?StatusId=" + StatusId, false);
                 }
             }
             catch (Exception ex)

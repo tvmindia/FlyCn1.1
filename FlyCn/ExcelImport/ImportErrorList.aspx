@@ -38,7 +38,7 @@
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
                                        
                                         </ClientSettings>
-                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="Status_Id">
+                                        <MasterTableView AutoGenerateColumns="False" DataKeyNames="Status_ID">
                                             <Columns>
                                                
 

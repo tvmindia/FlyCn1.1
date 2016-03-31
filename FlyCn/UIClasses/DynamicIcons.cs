@@ -539,7 +539,7 @@ namespace FlyCn.UIClasses
 
        public string EILViewDataHorizontalTabBind(string projectNO,string constLink)
         {
-            string pagelink = "";
+           
             Modules moduleObj = new Modules();
             DataSet ds = new DataSet();
             UIClasses.Const Const = new UIClasses.Const();

@@ -363,7 +363,7 @@ namespace FlyCn.EngineeredDataList
             if (_statusid != Guid.Empty)
             {
                 DataSet ds = new DataSet();
-                ds = ErrorInfoObj.getErrorDetails(_statusid);
+                ds = ErrorInfoObj.getErrorDetails(_statusid.ToString());
                 dtgvalidationErros.DataSource = ds;
                 if(ds.Tables[0].Rows.Count>0)
                 {

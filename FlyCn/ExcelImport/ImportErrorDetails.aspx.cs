@@ -12,35 +12,40 @@ namespace FlyCn.ExcelImport
 {
     public partial class ImportErrorDetails : System.Web.UI.Page
     {
+        string StatusId = "";
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString["StatusId"] != null)
+            {
+                StatusId = Request.QueryString["StatusId"];
+            }
             if(!IsPostBack)
             {
-                //BindData();
+                BindData();
             }
 
         }
         #endregion Page_Load
 
         #region BindData()
-        //public void BindData()
-        //{
-        //    DataSet ds = new DataSet();
+        public void BindData()
+        {
+          try
+            {
+                if (StatusId != null)
+                {
+                    DataSet ds = new DataSet();
+                    ErrorInformation errInfoObj = new ErrorInformation();
+                    ds = errInfoObj.getErrorDetails(StatusId);
+                    RadGrid1_ErrorDetails.DataSource = ds;
+                }
+            }
+            catch (Exception)
+            {
 
-        //   // FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
-        //    ImportFile detailsObj = new ImportFile();
-        //    ds = detailsObj.getErrorDetails();
-        //    RadGrid1_ErrorDetails.DataSource = ds;
-        //    try
-        //    {
-        //        RadGrid1_ErrorDetails.DataBind();
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //    }
-        //}
+            }
+        }
         #endregion BindData()
     }
 }
