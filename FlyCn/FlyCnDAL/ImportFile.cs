@@ -321,20 +321,38 @@ namespace FlyCn.FlyCnDAL
        
 
         #region getAllExcelImportDetails
-        public DataSet getAllExcelImportDetails(string userName)
+        public DataSet getAllExcelImportDetails(string userName,string projectNO)
         {
             DataSet datatableobj = null;
-            SqlConnection con = null;
-            dbConnection dcon = new dbConnection();
-            con = dcon.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("SelectAllExcelImportDetails", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@UserName", userName);
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = cmd;
-            datatableobj = new DataSet();
-            adapter.Fill(datatableobj);
-            con.Close();
+
+            dbConnection dcon = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("SelectAllExcelImportDetails", dcon.SQLCon);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@UserName", userName);
+                cmd.Parameters.AddWithValue("@ProjNo", projectNO);
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                datatableobj = new DataSet();
+                adapter.Fill(datatableobj);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if(dcon.SQLCon!=null)
+                {
+                    dcon.GetDBConnection();
+                }
+            }
+                
+         
+            
             return datatableobj;
         }
         #endregion getAllExcelImportDetails

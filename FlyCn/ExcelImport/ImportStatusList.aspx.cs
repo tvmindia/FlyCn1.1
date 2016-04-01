@@ -38,7 +38,7 @@ namespace FlyCn.ExcelImport
             //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();
 
-            ds = detailsObj.getAllExcelImportDetails(UA.userName);
+            ds = detailsObj.getAllExcelImportDetails(UA.userName,UA.projectNo);
              
             RadGrid1.DataSource = ds.Tables[0];
             try

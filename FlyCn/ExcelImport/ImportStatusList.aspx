@@ -12,7 +12,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         <style>
         #tabs li a {
-            color: #000000;
+         
             display: block;
             text-decoration: none;
         }
@@ -51,6 +51,7 @@
                 <ul id="tabs">
                     <li><a href="#" name="tab1">Ongoing</a></li>
                     <li><a href="#" name="tab2">Completed</a></li>
+                    <li><a href="#" name="tab3">Aborted</a></li>
                 </ul>
                 <div id="content">
                     <div id="tab1">
@@ -153,6 +154,11 @@
                                 </telerik:RadGrid>
                             </div>
                         </div>
+
+                    </div>
+
+
+                    <div id="tab3">
 
                     </div>
                 </div>
