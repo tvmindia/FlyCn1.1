@@ -45,11 +45,7 @@ background-color: ghostwhite;
  overflow-y:auto;
  max-height:270px;
 }
-        .loader {
-            background-image: url(E:\Applications\FlyCn1.1_New\FlyCn\Images\gladsmall.png);
-            background-repeat: no-repeat;
-            background-position: right;
-        }  
+      
         .textbox {
             width: 48%;
             height: 10px;   
@@ -294,7 +290,14 @@ background-color: ghostwhite;
         }
         function ClearTexBox() {
             document.getElementById('<%=txtIDno.ClientID %>').value = "";
-
+            var LnameImage = document.getElementById('<%=imgWebLnames.ClientID %>');
+            LnameImage.style.display = "none";
+            var errLname = document.getElementById('<%=errorLnames.ClientID %>');
+            errLname.style.display = "none";
+  
+            document.getElementById('<%=ddlModule.ClientID %>').value="--select module--";
+            document.getElementById('<%=ddlCategory.ClientID %>').value="--select category--";
+            document.getElementById('<%=ddlActivity.ClientID %>').value="--select Activity--";
                   $('input[type=text]').each(function () {
                       $(this).val('');
                   });
@@ -328,79 +331,10 @@ background-color: ghostwhite;
 
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            debugger;
-       
-            var ID = document.getElementById('<%=hdnTagNo.ClientID %>').value;
-            var Tag=document.getElementById('txtTag1').textContent;
-           
-           
-            var ac=null;
-            var count=1;
-            ac = <%=listFilter %>;
-            
-            $( "#txtTag1" ).autocomplete({
-              
-                source: function(request, response) {
-                  
-                    var results = $.ui.autocomplete.filter(ac, request.term);
-                    
-                    response(results.slice(0, 10));
-                },
-                search: function () {
-                    $(this).addClass('loader');
-                },
-                select: function (event, ui) {
-                  
-                    if(ui.item.label!="More>>>")
-                    {
-                        Tag=ui.item.label;
-                    }
-                   
-                    if(ui.item.id=="txtMore")
-                    {    
-                        ++count;
-                        var clickCount=count*10;
-                        $(this).autocomplete({ source : ac.slice(0, clickCount) });                     
-                    }
-                   
-                    event.preventDefault();
-                }, 
-                focus: function(event, ui) {
-                   
-                    $("#txtTag1").val(Tag);
-                   
-                },
-                response: function (event, ui) {
-                    
-                    $(this).removeClass('loader');
-                        ui.content.push({
-                            label: 'More>>>',
-                            id:'txtMore',
-                            
-                      
-                        });   
-                   
-                }
-            }).mouseover(function() {
-                $(this).autocomplete("search");
-            });
-          
-        });
-       
-        //var i=  $('#txtTag1').val(ui.item.id);
-        //$("#txtMore").select(function(){
-        //    alert("Hi");
-        //});
-        //.data("autocomplete")._renderItem = function (ul, item) {
-        //    return $("<li>")
-        //        .data("item.autocomplete", item)
-        //        .append("<a>" + item.label + "<br>" + item.desc + "</a>")
-        //        .appendTo(ul);
-        //}
+    
 
         $(document).ready(function () {
-            
+            debugger;
             var LnameImage = document.getElementById('<%=imgWebLnames.ClientID %>');
             LnameImage.style.display = "none";
             var errLname = document.getElementById('<%=errorLnames.ClientID %>');
@@ -473,6 +407,7 @@ background-color: ghostwhite;
                 }
             }
         }
+        
         function checkIdNo(txtIDno)
         {
             var ID = document.getElementById('<%=txtIDno.ClientID %>').value;
@@ -503,13 +438,27 @@ background-color: ghostwhite;
                
             }
         }
-        
+      <%--  function ValidateTagNo()
+        {
+            var module = document.getElementById('<%=txtIDno.ClientID %>').value;
+            var category = document.getElementById('<%=txtIDno.ClientID %>').value;
+            PageMethods.GetModuleAndCategory(module, category, OnSuccess, onError);
+            function OnSuccess(response, userContext, methodName) {
+
+            }
+            function onError(response, userContext, methodName) {
+
+            }
+        }--%>
+       
             </script>
 
 
     <asp:Label ID="lblTitle" runat="server" Text="" CssClass="PageHeading"></asp:Label>
    
     <div class="container" style="width: 100%">
+       
+   
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected" OnClientTabSelecting="OnClientTabSelecting"
             CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
 
@@ -531,7 +480,7 @@ background-color: ghostwhite;
                                     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" EnablePageMethods="true">
                                     </asp:ScriptManager>
 
-
+                                    
 
                                     <telerik:RadGrid ID="dtgManageProjectGrid" runat="server" CellSpacing="0"
                                         GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true"  AlwaysVisible="true" OnSelectedIndexChanged="dtgManageProjectGrid_SelectedIndexChanged" OnItemCommand="dtgManageProjectGrid_ItemCommand"
@@ -602,7 +551,9 @@ background-color: ghostwhite;
                                             <asp:Label ID="lblTag" runat="server" Text="Tag"  class="control-label col-md-5" for="email3"></asp:Label>
                                              
                                              <div class="col-md-7">                                           
-                                                 <input id="txtTag1" type="text" style="width:180px;"/>
+                                                    <telerik:RadComboBox RenderMode="Lightweight" ID="radTagNo" EnableAutomaticLoadOnDemand="true" ItemsPerRequest="10" ShowMoreResultsBox="true" EnableVirtualScrolling="true" runat="server" Width="180" Height="200px" EmptyMessage="Search for TagNo..." >
+                                                    <WebServiceSettings Method="GetAllTagNo" Path="ConstructionPunchList.aspx"></WebServiceSettings>
+                                                         </telerik:RadComboBox>
                                                  
                                             </div>
                                        <%--   <input id="txtLoading" type="text" value="Loading"/>--%>
@@ -826,8 +777,9 @@ background-color: ghostwhite;
                                             </div>
                                         </div>
                                         <%-- </form>--%>
+                                    
                                     </div>
-                             
+                            
 
                                
                                     <div class="col-md-6">
@@ -844,7 +796,7 @@ background-color: ghostwhite;
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-
+   
                                 </div>
                                 </div></div>
                                   <%--Item Details--%>  
@@ -1392,11 +1344,6 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
                                         </td>
                                     </tr>
                                 </table>
-                                      
-
-                                  
-                          
-
                               
                                 <table style="width: 100%;">
                                     <tr>
@@ -1472,8 +1419,9 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
                     </td>
                 </tr>
             </table>
-
+            
         </div>
+        
  </div>
 
      <asp:HiddenField ID="hdnAccessMode" runat="server" />
@@ -1481,6 +1429,7 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
     <asp:HiddenField ID="hdnIdNo" runat="server" ClientIDMode="Static" />
        <asp:HiddenField ID="hdnSecurity" runat="server" />
     <asp:HiddenField ID="hdnTagNo" runat="server" />
+ 
 </asp:Content>
 
 
