@@ -24,8 +24,9 @@ namespace FlyCn.EIL
     {
         public string listFilter = null; 
               //listFilter = null;
-           
-
+        private const int ItemsPerRequest = 10;
+        
+   
         #region Global Variables
         ErrorHandling eObj = new ErrorHandling();
         DataTable dt = new DataTable();
@@ -53,9 +54,9 @@ namespace FlyCn.EIL
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
             //----------- Page Security Checking ----------------//          
-
-            bindpageload();
-
+           
+            //bindpageload();
+          
             SecurityCheck();
             //dt = pObj.GetPunchListItemDetails(projno, ID);
             //txtIDno.Text = dt.Rows[0]["IDNo"].ToString();
@@ -65,6 +66,14 @@ namespace FlyCn.EIL
             ToolBarVisibility(4);
             if (!IsPostBack)
             {
+                 if ((ddlModule.Text != "") && (ddlModule.Text != null))
+            {
+                Session["module"] = ddlModule.SelectedItem.Value;
+                 }
+                if ((ddlCategory.Text != "") && (ddlCategory.Text!=null))
+            {
+                Session["category"] = ddlCategory.SelectedItem.Value;
+                }
                 //bindpageload();
 
                 BindDropDownModule();
@@ -88,61 +97,91 @@ namespace FlyCn.EIL
             }
             BindData(IdNo, hdnMode.Value);
             SetTitle();
-
+            if ((ddlModule.Text != "") && (ddlModule.Text != null))
+            {
+                Session["module"] = ddlModule.SelectedItem.Value;
+            }
+            if ((ddlCategory.Text != "") && (ddlCategory.Text != null))
+            {
+                Session["category"] = ddlCategory.SelectedItem.Value;
+            }
 
         }
         #endregion Page_Load
-        public void bindpageload()
-        {
-            listFilter = null;
-            listFilter = BindName();
 
-        }
-        private string BindName()
-        {          
-             FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
-             UIClasses.Const Const = new UIClasses.Const();
-             FlyCnDAL.Security.UserAuthendication UA;
-             HttpContext context = HttpContext.Current;
-             UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
-             string project = UA.projectNo;
-             string moduleId = "";
-            string category = "";
-             if ((ddlModule.Text != "") && (ddlCategory.Text != ""))
-             {
-                 moduleId = ddlModule.SelectedItem.Value;
-                 category = ddlCategory.SelectedItem.Value;
-                 
-             }
-             StringBuilder output = new StringBuilder();
-             //try
-             //{
-                 DataTable dt = punchObj.GetTagNo(project, moduleId, category);
-                 
-                 output.Append("[");
+        //public string BindModule()
+        //{
+        //    string moduleId = "";
+        //    if ((ddlModule.Text != "") && (ddlModule.Text != null))
+        //    {
+        //        moduleId = ddlModule.SelectedItem.Value;
+        //    }
+        //    return moduleId;
+        //}
+        //public string BindCategory()
+        //{
+        //    string category = "";
+        //    if (ddlCategory.Text != "")
+        //    {
+        //        category = ddlCategory.SelectedItem.Value;
+        //    }
+        //    return category;
+        //}
+        //public void bindpageload()
+        //{
+        //    listFilter = null;
+        //    listFilter = BindName();
 
-                 for (int i = 0; i < dt.Rows.Count; ++i)
-                 {
-                     output.Append("\"" + dt.Rows[i][punchObj.KeyField] + "\"");
+        //}
+        //public void BindName()
+        //{
+        //    FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+        //    UIClasses.Const Const = new UIClasses.Const();
+        //    FlyCnDAL.Security.UserAuthendication UA;
+        //    HttpContext context = HttpContext.Current;
+        //    UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+        //    string project = UA.projectNo;
+        //    string moduleId = "";
+        //    string category = "";
+        //    if ((ddlModule.Text != "") && (ddlCategory.Text != ""))
+        //    {
+        //        moduleId = ddlModule.SelectedItem.Value;
+        //        category = ddlCategory.SelectedItem.Value;
 
-                     if (i != (dt.Rows.Count - 1))
-                     {
-                         output.Append(",");
-                     }
+        //    }
+        //    //StringBuilder output = new StringBuilder();
+        //    //try
+        //    //{
+        //    string text = "1";
+        //    DataTable dt = punchObj.GetTagNo(project, moduleId, category, text);
+        //    radTagNo.DataSource = dt;
+        //    radTagNo.DataTextField = punchObj.KeyField;
 
-                 }
+        //    //output.Append("[");
 
-                 output.Append("]");
-             //}
-            //catch(Exception ex)
-            // {
-            //     var page = HttpContext.Current.CurrentHandler as Page;
-            //     eObj.ErrorData(ex, page);
-            //     throw ex;
-            // }
-         
-            return output.ToString();
-        } 
+        //    //for (int i = 0; i < dt.Rows.Count; ++i)
+        //    //{
+        //    //    output.Append("\"" + dt.Rows[i][punchObj.KeyField] + "\"");
+
+        //    //    if (i != (dt.Rows.Count - 1))
+        //    //    {
+        //    //        output.Append(",");
+        //    //    }
+
+        //    //}
+
+        //    //output.Append("]");
+        //    radTagNo.DataBind();
+        //    //}
+        //    //catch(Exception ex)
+        //    // {
+        //    //     var page = HttpContext.Current.CurrentHandler as Page;
+        //    //     eObj.ErrorData(ex, page);
+        //    //     throw ex;
+        //    // }
+
+        //    //return output.ToString();
+        //} 
 
         #region ToolBar_OnClick
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
@@ -1253,10 +1292,10 @@ namespace FlyCn.EIL
                 pObj.Idno = Convert.ToInt32(txtIDno.Text);
                 pObj.EILType = hdnMode.Value;
                 pObj.CoveredByProject = 0;
-                if (ddlCategory.SelectedItem.Text != "--select category--")
-                {
-                    pObj.Category = ddlCategory.SelectedItem.Value;
-                }
+                //if (ddlCategory.SelectedItem.Text != "--select category--")
+                //{
+                //    pObj.Category = ddlCategory.SelectedItem.Value;
+                //}
                 if (rdbCoveredByYes.Checked)
                 {
                     pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByYes.ToolTip);
@@ -2044,7 +2083,7 @@ namespace FlyCn.EIL
            
         }
         #endregion dtgManageProjectGrid_SelectedIndexChanged
-
+        
         #region ValidateIdNo
         [System.Web.Services.WebMethod]
         public static bool ValidateIdNo(int LogID,string EType)
@@ -2058,9 +2097,51 @@ namespace FlyCn.EIL
             }
             return false;
         }
+         [System.Web.Services.WebMethod(EnableSession=true)]
+        public static RadComboBoxData GetAllTagNo(RadComboBoxContext context)
+        {
+             
+            FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+            string moduleId = HttpContext.Current.Session["module"].ToString();
+            string category = HttpContext.Current.Session["category"].ToString();
+            DataTable data = punchObj.GetTagNo(moduleId,category,context.Text);
 
+            RadComboBoxData comboData = new RadComboBoxData();
+            int itemOffset = context.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            comboData.EndOfItems = endOffset == data.Rows.Count;
+
+            List<RadComboBoxItemData> result = new List<RadComboBoxItemData>(endOffset - itemOffset);
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                RadComboBoxItemData itemData = new RadComboBoxItemData();
+                itemData.Text = data.Rows[i][punchObj.KeyField].ToString();
+                result.Add(itemData);
+            }
+
+            comboData.Message = GetStatusMessage(endOffset, data.Rows.Count);
+
+            comboData.Items = result.ToArray();
+            return comboData;
+        }
+         [System.Web.Services.WebMethod]
+        private static string GetStatusMessage(int offset, int total)
+        {
+            if (total <= 0)
+                return "No matches";
+
+            return String.Format("Items <b>1</b>-<b>{0}</b> out of <b>{1}</b>", offset, total);
+        }
+        //[System.Web.Services.WebMethod]
+        //public static string GetModuleAndCategory(string module)
+        // {
+        //     string moduleId = module;
+        //     return moduleId;
+        // }
         #endregion ValidateIdNo
 
+        #region ddlModule_SelectedIndexChanged
         protected void ddlModule_SelectedIndexChanged(object sender, EventArgs e)
         {
             DataTable dtmodules = null;
@@ -2074,6 +2155,7 @@ namespace FlyCn.EIL
              string moduleId = ddlModule.SelectedItem.Value;
             try
             {
+               
                 dtmodules = new DataTable();
                 dtmodules = punchObj.GetAllCategory(project,moduleId);
                 ddlCategory.DataSource = dtmodules;
@@ -2081,6 +2163,7 @@ namespace FlyCn.EIL
                 ddlCategory.DataValueField = "Category";
                 ddlCategory.DataBind();
                 ddlCategory.Items.Insert(0, new ListItem("--select category--", "-1"));
+               
             }
             catch(Exception ex)
             {
@@ -2088,7 +2171,7 @@ namespace FlyCn.EIL
             }
            
         }
-
+        #endregion ddlModule_SelectedIndexChanged
 
         #region BindDropDownModule
         public void BindDropDownModule()
@@ -2101,9 +2184,11 @@ namespace FlyCn.EIL
             ddlModule.DataValueField = "ModuleID";
             ddlModule.DataBind();
             ddlModule.Items.Insert(0, new ListItem("--select module--", "-1"));
+           
         }
         #endregion BindDropDownModule
 
+        #region ddlCategory_SelectedIndexChanged
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             DataTable dtActivity = null;
@@ -2134,21 +2219,15 @@ namespace FlyCn.EIL
             }
             //try
             //{
-            //    dtTagNo = new DataTable();
-            //    string category = ddlCategory.SelectedItem.Value;
-            //    dtTagNo = punchObj.GetTagNo(project, moduleId, category);
-
-            //    ddlTag.DataSource = dtTagNo;
-            //    ddlTag.DataTextField = punchObj.KeyField;
-            //    ddlTag.DataBind();
-            //    ddlTag.Items.Insert(0, new ListItem("--select TagNo--", "-1"));
+            //    BindName();
             //}
-            //catch(Exception ex)
+            //catch (Exception ex)
             //{
             //    throw ex;
             //}
-            
+
         }
+        #endregion ddlCategory_SelectedIndexChanged
     }
 }
         
