@@ -13,6 +13,24 @@ namespace FlyCn.EngineeredDataList {
     public partial class EnggViewData {
         
         /// <summary>
+        /// Heading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Heading;
+        
+        /// <summary>
+        /// horizonaltab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl horizonaltab;
+        
+        /// <summary>
         /// lblTableName control.
         /// </summary>
         /// <remarks>

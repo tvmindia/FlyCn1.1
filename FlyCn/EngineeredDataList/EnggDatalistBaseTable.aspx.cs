@@ -80,10 +80,10 @@ namespace FlyCn.EngineeredDataList
                     if((ds.Tables[0].Rows.Count>0)&&(ds!=null))
                     {
                         string tabliFirst = "";
-                        tabliFirst = " <li style='width:80px;' >" + " <a href='EnggDataListLandingPage.aspx" + "'" + "'" + "'" + ">" + "<img" + " src=" + "'" +
-                            ds.Tables[0].Rows[4]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>"
-                            + "All" + "</p>" + "</a></li>";
-                        horizonaltab.Controls.Add(new LiteralControl(tabliFirst));
+                        //tabliFirst = " <li style='width:80px;' >" + " <a href='EnggDataListLandingPage.aspx" + "'" + "'" + "'" + ">" + "<img" + " src=" + "'" +
+                        //    ds.Tables[0].Rows[4]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>"
+                        //    + "All" + "</p>" + "</a></li>";
+                        //horizonaltab.Controls.Add(new LiteralControl(tabliFirst));
                         string tabhtml = "";
 
                         for (int f = 0; f < ds.Tables[0].Rows.Count; f++)
@@ -363,7 +363,7 @@ namespace FlyCn.EngineeredDataList
             if (_statusid != Guid.Empty)
             {
                 DataSet ds = new DataSet();
-                ds = ErrorInfoObj.getErrorDetails(_statusid);
+                ds = ErrorInfoObj.getErrorDetails(_statusid.ToString());
                 dtgvalidationErros.DataSource = ds;
                 if(ds.Tables[0].Rows.Count>0)
                 {

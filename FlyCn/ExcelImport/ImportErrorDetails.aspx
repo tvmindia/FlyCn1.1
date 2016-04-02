@@ -29,7 +29,7 @@
              </ul>
     <div id="content"  >
            <div id="tab1"  >
-             <telerik:radgrid ID="RadGrid1_ErrorDetails" runat="server" >
+             <telerik:radgrid ID="RadGrid1_ErrorDetails" runat="server" Width="100%" >
               <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
@@ -39,9 +39,9 @@
                                         </ClientSettings>
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="Status_Id">
                                             <Columns>                             
-                                                 <telerik:GridBoundColumn HeaderText="File Name" DataField="File_Name" UniqueName="File_Name" ></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Key Field" DataField="Key_Field" UniqueName="Key_Field" ></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="Error Description" DataField="Error_Description" UniqueName="Error_Description"></telerik:GridBoundColumn>       
+                                                 <telerik:GridBoundColumn HeaderText="Row NO" DataField="Excel_RowNO" UniqueName="Excel_RowNO" ItemStyle-Width="25%" ></telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Key Field" DataField="Key_Field" UniqueName="Key_Field" ItemStyle-Width="25%" ></telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Error Description" DataField="Error_Description" UniqueName="Error_Description" ItemStyle-Width="50%"></telerik:GridBoundColumn>       
                                             </Columns>
                                         </MasterTableView>
         </telerik:radgrid>

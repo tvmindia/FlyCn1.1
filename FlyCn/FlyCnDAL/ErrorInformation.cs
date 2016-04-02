@@ -74,24 +74,23 @@ namespace FlyCn.FlyCnDAL
     #endregion privateproperties
 
         #region methods
-
-        #region getErrorDetails
-        public DataSet getErrorDetails(Guid status_Id)
+        #region  GetAllErrorDetails
+        public DataSet GetAllErrorDetails(string userName,string projectNo)
         {
             DataSet ds = null;
 
             dbConnection dbCon = null;
-            if (status_Id != Guid.Empty)
-            {
+          
                 try
                 {
                     dbCon = new dbConnection();
                     dbCon.GetDBConnection();
                     SqlCommand cmd = new SqlCommand();
-                    cmd.CommandText = "SelectExcelImportErrorDetails";
+                    cmd.CommandText = "[SelectDistinctExcelImportErrorDetails]";
                     cmd.Connection = dbCon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@Status_Id", SqlDbType.UniqueIdentifier).Value = status_Id;
+                    cmd.Parameters.Add("@userName", SqlDbType.VarChar, 100).Value = userName;
+                    cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar,7).Value = projectNo;
                     SqlDataAdapter adapter = new SqlDataAdapter();
                     adapter.SelectCommand = cmd;
                     ds = new DataSet();
@@ -108,8 +107,49 @@ namespace FlyCn.FlyCnDAL
                         dbCon.DisconectDB();
                     }
                 }
-            }
+           
 
+            return ds;
+        }
+        #endregion GetAllErrorDetails
+        #region getErrorDetails
+        public DataSet getErrorDetails(string status_Id)
+        {
+            DataSet ds = null;
+            Guid statid = Guid.Empty;
+            dbConnection dbCon = null;
+            if (status_Id != "")
+            {
+                statid = Guid.Parse(status_Id);
+
+
+                try
+                {
+                    dbCon = new dbConnection();
+                    dbCon.GetDBConnection();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandText = "SelectExcelImportErrorDetails";
+                    cmd.Connection = dbCon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Status_Id", SqlDbType.UniqueIdentifier).Value = statid;
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    adapter.SelectCommand = cmd;
+                    ds = new DataSet();
+                    adapter.Fill(ds);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (dbCon.SQLCon != null)
+                    {
+                        dbCon.DisconectDB();
+                    }
+                }
+
+            }
             return ds;
         }
         #endregion getErrorDetails

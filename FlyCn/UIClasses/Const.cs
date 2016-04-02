@@ -45,6 +45,21 @@ namespace FlyCn.UIClasses
             }
 
         }
+        public string EILViewData
+        {
+            get
+            {
+                return "EnggViewData.aspx";
+            }
+        }
+
+        public string EILDataListBase
+        {
+            get
+            {
+                return "EnggDatalistBaseTable.aspx";
+            }
+        }
     }
 
       public static class Messages

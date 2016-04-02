@@ -9,12 +9,12 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
       <script src="../Scripts/jquery-1.11.3.min.js"></script>
-    <script src="../Scripts/ToolBar.js"></script>
+      <script src="../Scripts/ToolBar.js"></script>
     <script>
 
         function OnClientTabSelecting(sender, eventArgs) {
           
-            debugger;
+            
 
             var tab = eventArgs.get_tab();
 
@@ -27,7 +27,7 @@
                 if (tab.get_text() == "New") {
                   
                     eventArgs.set_cancel(false);
-                    <%=ToolBar.ClientID %>_hideNotification();
+            <%--     <%=ToolBar.ClientID %>_hideNotification();--%>
                 }
                 else
                     if (tab.get_text() == "Details") {
@@ -42,7 +42,7 @@
             else
                 if (PageSecurity.isReadOnly) {
                     if (tab.get_text() == "New") {
-                        <%=ToolBar.ClientID %>_hideNotification();
+                 <%--    <%=ToolBar.ClientID %>_hideNotification();--%>
                         AlertMsg(messages.EditModeNewClick);
 
                         eventArgs.set_cancel(true);
@@ -60,13 +60,13 @@
                 }
                 else if (PageSecurity.isEditOnly) {
                     if (tab.get_text() == "New") {
-                        <%=ToolBar.ClientID %>_hideNotification();
+                  <%--    <%=ToolBar.ClientID %>_hideNotification();--%>
                         AlertMsg(messages.EditModeNewClick);
                         eventArgs.set_cancel(true);
                     }
                     else
                         if (tab.get_text() == "Details") {
-                            <%=ToolBar.ClientID %>_SetEditVisible(false);
+                           <%=ToolBar.ClientID %>_SetEditVisible(false);
                             <%=ToolBar.ClientID %>_SetAddVisible(false);
                             <%=ToolBar.ClientID %>_SetSaveVisible(false);
                             <%=ToolBar.ClientID %>_SetUpdateVisible(false);
@@ -86,7 +86,7 @@
 
         function OnClientButtonClicking(sender, args) {
             var btn = args.get_item();
-         //debugger;
+        
        //if (btn.get_value() == 'Save') {
            
        //    args.set_cancel(!Validate());
@@ -116,8 +116,8 @@
        $("input:text").val('');
    }
    function EnableButtonsForNew() {
-       debugger;
-          <%=ToolBar.ClientID %>_SetAddVisible(false);
+      
+         <%=ToolBar.ClientID %>_SetAddVisible(false);
           <%=ToolBar.ClientID %>_SetSaveVisible(true);
           <%=ToolBar.ClientID %>_SetUpdateVisible(false);
           <%=ToolBar.ClientID %>_SetDeleteVisible(false);
@@ -126,7 +126,7 @@
       }
 
         function SelectTabList() {
-            debugger;
+          
           var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
             var tab = tabStrip.findTabByValue("1");
         
@@ -144,7 +144,7 @@
 
         function onClientTabSelected(sender, args) {
            
-            debugger;
+           
           var tab = args.get_tab();
           if (tab.get_value() == '2') {//New tab selected
              
@@ -157,7 +157,7 @@
 
                   if ((PageSecurity.isWriteOnly)) {
                       
-                      <%=ToolBar.ClientID %>_SetEditVisible(false);
+                     <%=ToolBar.ClientID %>_SetEditVisible(false);
                       <%=ToolBar.ClientID %>_SetAddVisible(false);
                       <%=ToolBar.ClientID %>_SetSaveVisible(true);
                       <%=ToolBar.ClientID %>_SetUpdateVisible(false);
@@ -168,7 +168,7 @@
 
                   if ((PageSecurity.isReadOnly)) {
                      
-                      <%=ToolBar.ClientID %>_SetEditVisible(false);
+                     <%=ToolBar.ClientID %>_SetEditVisible(false);
                       <%=ToolBar.ClientID %>_SetAddVisible(false);
                       <%=ToolBar.ClientID %>_SetSaveVisible(false);
                       <%=ToolBar.ClientID %>_SetUpdateVisible(false);
@@ -187,7 +187,7 @@
 
           if (tab.get_value() == "1") {//List tab selected
             
-              <%=ToolBar.ClientID %>_SetAddVisible(false);
+             <%=ToolBar.ClientID %>_SetAddVisible(false);
               <%=ToolBar.ClientID %>_SetSaveVisible(false);
               <%=ToolBar.ClientID %>_SetUpdateVisible(false);
               <%=ToolBar.ClientID %>_SetDeleteVisible(false);
@@ -205,7 +205,13 @@
         }
         </script>
 
-
+    <%--HorizontalTab--%>
+     <div id="Heading" runat="server" style="width: 90%; text-align: center; margin: 20px">
+        <ul class="list-inline" id="horizonaltab" runat="server" style="width: 100%;">
+            <li style="width: 10px;"></li>
+        </ul>
+    </div>
+    <%--HorizontalTab--%>
       <div class="container" style="width:100%">
           <asp:Label ID="lblTableName" runat="server" Text=""></asp:Label>
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
@@ -220,14 +226,14 @@
 
              <div id="content">
               
-            <div class="contentTopBar"></div>
+            <div class="contentTopBar">
 
                  <table style="width:100%">
                 <tr>
-                    <td>&nbsp
-                    </td>
+                  <%--  <td>&nbsp
+                    </td>--%>
                     <td>
-                         <uc1:ToolBar runat="server" ID="ToolBar" />
+                      <uc1:ToolBar runat="server" ID="ToolBar" />
 
                          <telerik:RadMultiPage ID="RadMultiPage1" runat="server" SelectedIndex="0" CssClass="outerMultiPage">
                             <telerik:RadPageView ID="rpList" runat="server">
@@ -236,15 +242,14 @@
                                     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
                                     </asp:ScriptManager>
                                        
-                                    <telerik:RadGrid ID="dtgEnggDataList" runat="server"  OnItemCommand="dtgEnggDataList_ItemCommand"   OnPreRender="dtgEnggDataList_PreRender"   OnNeedDataSource="dtgEnggDataList_NeedDataSource"  
+                                    <telerik:RadGrid ID="dtgEnggDataList" runat="server"  AllowPaging="True" AllowFilteringByColumn="True" AllowSorting="True"  OnItemCommand="dtgEnggDataList_ItemCommand"   OnPreRender="dtgEnggDataList_PreRender"   OnNeedDataSource="dtgEnggDataList_NeedDataSource"  
                                 Skin="Silk" width="100%">
                                 <MasterTableView DataKeyNames="" CssClass="myclass">
 
                                     <Columns>
                                         <telerik:GridButtonColumn CommandName="EditData" Text="Edit" UniqueName="EditData" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png">
                                         </telerik:GridButtonColumn> 
-                                       
-                                         <telerik:GridButtonColumn CommandName="ViewDetailColumn" Text="ViewDetails" UniqueName="ViewDetailColumn"  ButtonType="ImageButton" Display="false" ImageUrl="~/Images/Document Next-WF.png"  ></telerik:GridButtonColumn>
+                                       <telerik:GridButtonColumn CommandName="ViewDetailColumn" Text="ViewDetails" UniqueName="ViewDetailColumn"  ButtonType="ImageButton" Display="false" ImageUrl="~/Images/Document Next-WF.png"  ></telerik:GridButtonColumn>
                                     </Columns>
                                 </MasterTableView>
  
@@ -265,6 +270,7 @@
                     
                     </tr>
                      </table>
+                </div>
                 </div>
           </div>
     <asp:HiddenField ID="HiddenField" runat="server" />

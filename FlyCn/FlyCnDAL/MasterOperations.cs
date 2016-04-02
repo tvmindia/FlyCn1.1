@@ -128,61 +128,74 @@ namespace FlyCn.FlyCnDAL
         /// <param name="TableName"></param>
         /// <param name="ProjNo"></param>
         /// <returns> return datatable</returns>
-        public DataTable BindMasters(string TableName, string ProjNo)
+        public DataTable BindMasters(string TableName, string ProjNo,string moduleID=null,bool ISbaseTable=false)
         {
             //string TableName = "M_Country";
             //string ProjNo = "C00001";
             string FieldValue = "";
-            SqlConnection con = null;
             DataTable dt = null;
-
             dbConnection dcon = new dbConnection();
-            con = dcon.GetDBConnection();
-
-            DataSet da = null;
+            try 
+            { 
+            dcon.GetDBConnection();
             SystemDefenitionDetails sd = new SystemDefenitionDetails();
-            dt = sd.getFieldNames(TableName);
-            int totalrows = dt.Rows.Count;
-            if(totalrows>0)
+            if (ISbaseTable)
             {
-
-       
-            string temp = dt.Rows[0]["Field_Name"].ToString();
-
-            SqlCommand cmd = new SqlCommand("SelectMasterTable", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@TableName", TableName);
-            if (temp == "ProjNo")
-            {
-                cmd.Parameters.AddWithValue("@ProjNo", ProjNo);
-                FieldValue = "ProjNo";
-                for (int i = 1; i < totalrows; i++)
-                {
-                    FieldValue = FieldValue + "," + dt.Rows[i]["Field_Name"];
-                }
-                FieldValue = FieldValue + "";
-                cmd.Parameters.AddWithValue("@p_selectedFields", FieldValue);
+                dt = sd.getFieldNames(TableName, ProjNo, true);
             }
             else
             {
-                for (int i = 0; i < totalrows; i++)
-                {
-                    FieldValue = FieldValue + dt.Rows[i]["Field_Name"] + ",";
-                }
-                FieldValue = FieldValue + "";
-                FieldValue = FieldValue.TrimEnd(',');
-                cmd.Parameters.AddWithValue("@p_selectedFields", FieldValue);
+                dt = sd.getFieldNames(TableName, ProjNo);
             }
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = cmd;
-            dt = new DataTable();
-            adapter.Fill(dt);
-            con.Close();
-           
-            }
-            return dt;
-        }
 
+            if ((dt.Rows.Count > 0) || (dt != null))
+            {
+                string temp = dt.Rows[0]["Field_Name"].ToString();
+                SqlCommand cmd = new SqlCommand("SelectMasterTable", dcon.SQLCon);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@TableName", TableName);
+                cmd.Parameters.AddWithValue("@ModuleID", moduleID);
+                if (temp == "ProjNo")
+                {
+                    cmd.Parameters.AddWithValue("@ProjectNo", ProjNo);
+                    FieldValue = "ProjNo";
+                    for (int i = 1; i < dt.Rows.Count; i++)
+                    {
+                        FieldValue = FieldValue + "," + dt.Rows[i]["Field_Name"];
+                    }
+                    FieldValue = FieldValue + "";
+                    cmd.Parameters.AddWithValue("@p_selectedFields", FieldValue);
+                }
+                else
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        FieldValue = FieldValue + dt.Rows[i]["Field_Name"] + ",";
+                    }
+                    FieldValue = FieldValue + "";
+                    FieldValue = FieldValue.TrimEnd(',');
+                    cmd.Parameters.AddWithValue("@p_selectedFields", FieldValue);
+                }
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                dt = new DataTable();
+                adapter.Fill(dt);
+            }
+           }
+           catch(Exception ex)
+           {
+                 
+           }
+            finally
+            {
+                if(dcon.SQLCon!=null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+           return dt;
+      }
+      
         #endregion BindMasters
 
         #region DeleteMasterData
@@ -267,7 +280,7 @@ namespace FlyCn.FlyCnDAL
             SqlConnection con = null;
             DataTable dt = null;
             DataTable dts = null;
-            dts = dbobj.getFieldNames(TableName);
+            dts = dbobj.getFieldNames(TableName, ProjNo);
             dbConnection dcon = new dbConnection();
             con = dcon.GetDBConnection();
 
