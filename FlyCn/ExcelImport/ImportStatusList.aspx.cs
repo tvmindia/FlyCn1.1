@@ -34,12 +34,8 @@ namespace FlyCn.ExcelImport
         public void BindData()
         {
             DataSet ds = new DataSet();
-
-            //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();
-
             ds = detailsObj.getAllExcelImportDetails(UA.userName,UA.projectNo);
-             
             RadGrid1.DataSource = ds.Tables[0];
             try
             {
@@ -156,7 +152,7 @@ namespace FlyCn.ExcelImport
             //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();
             DataSet ds = new DataSet();
-            ds = detailsObj.getDistictExcelImportDetailsByUserName(UA.userName);
+            ds = detailsObj.getDistictExcelImportDetailsByUserName(UA.userName,UA.projectNo,true);
             RadGrid2.DataSource = ds.Tables[0];
             try
             {
@@ -169,7 +165,29 @@ namespace FlyCn.ExcelImport
         }
         #endregion BindCompletedDetails()
 
-        
+        #region BindAbortedDetails
+        public void BindAbortedDetails()
+        {
+            ImportFile detailsObj = new ImportFile();
+            DataSet ds = new DataSet();
+            ds = detailsObj.getDistictExcelImportDetailsByUserName(UA.userName, UA.projectNo, false);
+            RadGrid3.DataSource = ds.Tables[0];
+            try
+            {
+              RadGrid1.DataBind();
+            }
+            catch (Exception)
+            {
+                //
+            }
+        }
+        #endregion BindAbortedDetails
 
+        protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            BindAbortedDetails();
+        }
+
+       
     }
 }

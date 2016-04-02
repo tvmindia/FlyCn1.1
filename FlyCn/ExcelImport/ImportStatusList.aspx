@@ -57,10 +57,11 @@
                     <div id="tab1">
                         <div role="tabpanel" class="tab-pane active" id="home">
                             <div class="table-responsive">
-                                <div class="contentTopBar"></div>
-
+                                <div class="contentTopBar">
+                                </div>
                                 <div id="divList" style="width: 100%; text-align: center">
-                                    <telerik:RadGrid ID="RadGrid1" runat="server" OnItemCommand="RadGrid1_ItemCommand" OnNeedDataSource="RadGrid1_NeedDataSource" OnItemDataBound="RadGrid1_ItemDataBound">
+
+                                 <telerik:RadGrid ID="RadGrid1" runat="server" OnItemCommand="RadGrid1_ItemCommand" OnNeedDataSource="RadGrid1_NeedDataSource" OnItemDataBound="RadGrid1_ItemDataBound">
                                         <HeaderStyle HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
@@ -84,7 +85,7 @@
                                                 <telerik:GridBoundColumn HeaderText="Update_Count" DataField="Update_Count" UniqueName="Update_Count" Display="false"></telerik:GridBoundColumn>
                                          
                                                 
- <telerik:GridTemplateColumn HeaderText="Error_Count" UniqueName="Error_Count"> 
+                                        <telerik:GridTemplateColumn HeaderText="Error_Count" UniqueName="Error_Count"> 
                               
                             <ItemTemplate> 
                                 <asp:HyperLink ID="Error_Count1" runat="server" Text='<%#Eval("Error_Count") %>' ></asp:HyperLink> 
@@ -100,6 +101,7 @@
                                             </Columns>
                                         </MasterTableView>
                                     </telerik:RadGrid>
+
                                 </div>
 
 
@@ -158,9 +160,56 @@
                     </div>
 
 
-                    <div id="tab3">
+                    <div id="tab3"><%--Aborted--%>
+                         <div role="tabpanel" class="tab-pane active" id="DivAborted">
 
+                            <div class="table-responsive">
+                            <div class="contentTopBar"></div>
+                                <telerik:RadGrid ID="RadGrid3" runat="server" OnNeedDataSource="RadGrid3_NeedDataSource">
+                                    <HeaderStyle HorizontalAlign="Center" />
+                                    <ItemStyle HorizontalAlign="Left" />
+                                    <AlternatingItemStyle HorizontalAlign="Left" />
+                                    <ClientSettings>
+                                        <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />
+
+                                    </ClientSettings>
+                                    <MasterTableView AutoGenerateColumns="False" DataKeyNames="Status_Id">
+                                        <Columns>
+
+
+                                            <telerik:GridButtonColumn CommandName="Select" ButtonType="ImageButton" ImageUrl="~/Images/Document Next-WF.png" UniqueName="EditData">
+                                            </telerik:GridButtonColumn>
+
+                                            <telerik:GridBoundColumn HeaderText="Status ID" DataField="Status_Id" UniqueName="Status_Id" Display="false"></telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderText="Project Number" DataField="ProjNo" UniqueName="ProjNo" Display="false"></telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderText="File Name" DataField="File_Name" UniqueName="File_Name"></telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderText="Table Name" DataField="Table_Name" UniqueName="Table_Name"></telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderText="Start Time" DataField="Start_Time" UniqueName="Start_Time" Display="false"></telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderText="Total Count" DataField="Total_Count" UniqueName="Total_Count"></telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderText="Insert Count" DataField="Insert_Count" UniqueName="Insert_Count" Display="false"></telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderText="Update_Count" DataField="Update_Count" UniqueName="Update_Count" Display="false"></telerik:GridBoundColumn>
+                                           <telerik:GridTemplateColumn HeaderText="Error_Count" UniqueName="Error_Count"> 
+                              
+                                           <ItemTemplate> 
+                                           <asp:HyperLink ID="Error_Count1" runat="server" Text='<%#Eval("Error_Count") %>' ></asp:HyperLink> 
+                                           </ItemTemplate> 
+                                           </telerik:GridTemplateColumn> 
+                                            <telerik:GridBoundColumn HeaderText="User_Name" DataField="User_Name" UniqueName="User_Name" Display="false"></telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderText="InsertStatus" DataField="InsertStatus" UniqueName="InsertStatus"></telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderText="Remarks" DataField="Remarks" UniqueName="Remarks" Display="false"></telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderText="Last Updated Time" DataField="Last_Updated_Time" UniqueName="Last_Updated_Time" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderText="Processed Count" DataField="Processed_Count" UniqueName="Processed_Count"></telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderText="Is Deleted" DataField="IsDeleted" UniqueName="IsDeleted" Display="false"></telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderText="Time Remaining" DataField="Time_Remaining" UniqueName="Time_Remaining" Display="false"></telerik:GridBoundColumn>
+                                        </Columns>
+                                    </MasterTableView>
+                                </telerik:RadGrid>
+                            </div>
+
+                        </div>
                     </div>
+
+
                 </div>
             </div>
 

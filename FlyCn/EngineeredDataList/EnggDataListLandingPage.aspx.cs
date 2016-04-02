@@ -51,7 +51,7 @@ namespace FlyCn.EngineeredDataList
             string tabhtml = "";
             string tabliFirst = "";
             tabliFirst = " <li style='width:80px;' >" + " <a href='EnggDataListLandingPage.aspx"+ "'" + "'" + "'" + ">" + "<img" + " src=" + "'" +
-                ds.Tables[0].Rows[4]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>"
+                ds.Tables[0].Rows[3]["ModuleIconURLsmall"].ToString() + "'" + ">" + "<p>"
                 + "All" + "</p>" + "</a></li>";
 
             string myInnerHtml = "<div class='EnggTilesContainerDiv'>" +
@@ -89,10 +89,6 @@ namespace FlyCn.EngineeredDataList
                 " <a href='"+ url +"'>" + "<img" + " src=" + "'" + img
                 + "'" + "','" + desc + "' border=" + "0" + " alt=Submission Form" + "/></a></td></tr><tr><td style='padding:5px;'>" + desc + "</td></tr>" +
                 "</table></td>";
-
-
-
-
                 if ((f + 1) % maxTilesPerRow == 0)
                 {
                     myInnerHtml = myInnerHtml + "</tr>" +
@@ -100,18 +96,12 @@ namespace FlyCn.EngineeredDataList
                     rows = rows + 1;
                     cols = 0;
                 }
-
-               
-      
             }
             myInnerHtml = myInnerHtml +
              "</tr>" +
                  " </table></div>";
-               
-              
-           
-                    body.Controls.Add(new LiteralControl(myInnerHtml));
-           
+
+                    body.Controls.Add(new LiteralControl(myInnerHtml));      
              }//ds check if
           
         }

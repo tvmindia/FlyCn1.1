@@ -50,7 +50,7 @@
                          <asp:Timer runat="server" id="Timer4" interval="1000"  ontick="UpdateTimer2_Tick" />
         <asp:UpdatePanel runat="server" id="UpdatePanel7" updatemode="Conditional">
             <Triggers>
-                <asp:AsyncPostBackTrigger controlid="Timer4" eventname="Tick" />
+                <asp:AsyncPostBackTrigger controlid="Timer4" eventname="Tick"/>
             </Triggers>
             <ContentTemplate>
                 

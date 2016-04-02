@@ -147,7 +147,8 @@ namespace FlyCn.FlyCnDAL
         {
             started = 1,
             Processing = 2,
-            Finished = 3
+            Finished = 3,
+            Aborted = 4
         }
         public string SheetName
         {
@@ -358,7 +359,7 @@ namespace FlyCn.FlyCnDAL
         #endregion getAllExcelImportDetails
 
         #region getDistictExcelImportDetailsByUserName
-        public DataSet getDistictExcelImportDetailsByUserName(string userName)
+        public DataSet getDistictExcelImportDetailsByUserName(string userName, string projectNO,bool checkCase)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
@@ -367,8 +368,11 @@ namespace FlyCn.FlyCnDAL
             dbConnection dcon = new dbConnection();
             con = dcon.GetDBConnection();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "SelectCompletedExcelImportDetailsByUserName";
+            cmd.CommandText = "[SelectCompletedAndAbortedExcelImportDetails]";
             cmd.Parameters.AddWithValue("@UserName", userName);
+            cmd.Parameters.AddWithValue("@ProjectNO",projectNO);
+            cmd.Parameters.Add("@Case", SqlDbType.Bit).Value = checkCase;
+
             cmd.Connection = con;
             da.SelectCommand = cmd;
 
@@ -766,6 +770,7 @@ namespace FlyCn.FlyCnDAL
                 }
 
                 //------------------------------------Main Import Loop----------------------------------------------------------//
+                int counter = 0;
                 for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
                 {
                     // Thread.Sleep(200);
@@ -783,14 +788,24 @@ namespace FlyCn.FlyCnDAL
                         updateCount = updateCount + 1;
                     }
                     UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Processing, dbcon);
+                    counter = i;//for checking abort or finished
                 }
-
-                UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Finished, dbcon);
-
+                if(counter!=0)//means loop stoped in between importing iteration
+                {
+                    //this updates table with 'aborted' status if something happened in
+                    UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Aborted, dbcon);
+                }
+                else//import finished
+                {
+                    UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Finished, dbcon); 
+                }
             }
             catch (Exception ex)
             {
-                //    throw ex;
+               
+               //this updates table with 'aborted' status if something happened in
+               // UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Aborted, dbcon);
+                throw ex;
             }
             finally
             {

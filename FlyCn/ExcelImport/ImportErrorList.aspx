@@ -70,12 +70,12 @@
                                                 <telerik:GridButtonColumn CommandName="Select" ButtonType="ImageButton" ImageUrl="~/Images/Document Next-WF.png" UniqueName="EditData">
                                                 </telerik:GridButtonColumn>
 
-                                                <telerik:GridBoundColumn HeaderText="Status ID" DataField="Status_ID" UniqueName="Status_ID" Display="false"></telerik:GridBoundColumn>
+                                                  <telerik:GridBoundColumn HeaderText="Status ID" DataField="Status_ID" UniqueName="Status_ID" Display="false"></telerik:GridBoundColumn>
                                                   <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjNo" UniqueName="ProjNo" ></telerik:GridBoundColumn>
                                                   <telerik:GridBoundColumn HeaderText="File Name" DataField="File_Name" UniqueName="File_Name" ></telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Table Name" DataField="Table_Name" UniqueName="Table_Name" ></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="Error_Count" DataField="Error_Count" UniqueName="Error_Count" ></telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn HeaderText="Started Time" DataField="Start_Time" UniqueName="Start_Time"  ></telerik:GridBoundColumn>
+                                                  <telerik:GridBoundColumn HeaderText="Table Name" DataField="Table_Name" UniqueName="Table_Name" ></telerik:GridBoundColumn>
+                                                  <telerik:GridBoundColumn HeaderText="Error_Count" DataField="Error_Count" UniqueName="Error_Count" ></telerik:GridBoundColumn>
+                                                  <telerik:GridBoundColumn HeaderText="Started Time" DataField="Start_Time" UniqueName="Start_Time"  ></telerik:GridBoundColumn>
                                                 
                                             </Columns>
                                         </MasterTableView>
