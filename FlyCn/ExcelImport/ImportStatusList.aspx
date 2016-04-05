@@ -5,16 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script src="../Scripts/jquery.1.9.1.min.js"></script>
+   <%-- <script src="../Scripts/jquery.1.9.1.min.js"></script>--%>
+       <script src="../Scripts/jquery-1.11.3.min.js"></script>
+       <script src="../Scripts/jquery-ui.min-1.11.3.js"></script>
+       
     
   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         <style>
         #tabs li a {
-         
+         color: white;
             display: block;
             text-decoration: none;
+            font-size: small;
+            font-weight: lighter;
         }
 
 
@@ -49,9 +54,10 @@
 
 
                 <ul id="tabs">
-                    <li><a href="#" name="tab1">Ongoing</a></li>
-                    <li><a href="#" name="tab2">Completed</a></li>
-                    <li><a href="#" name="tab3">Aborted</a></li>
+                    <li><a href="#" name="tab1" onclick="ChangeTab1(this);" id="tabs1" runat="server">Ongoing</a></li>
+                    <li><a href="#" name="tab2" onclick="ChangeTab2(this);" id="tabs2" runat="server">Completed</a></li>
+                    <li><a href="#" name="tab3" onclick="ChangeTab3(this);" id="tabs3" runat="server">Aborted</a></li>
+                    <li><a href="#" name="tab4" onclick="ChangeTab4(this);" id="tabs4" runat="server">Details</a></li>
                 </ul>
                 <div id="content">
                     <div id="tab1">
@@ -165,7 +171,7 @@
 
                             <div class="table-responsive">
                             <div class="contentTopBar"></div>
-                                <telerik:RadGrid ID="RadGrid3" runat="server" OnNeedDataSource="RadGrid3_NeedDataSource">
+                                <telerik:RadGrid ID="RadGrid3" runat="server" OnNeedDataSource="RadGrid3_NeedDataSource" OnItemCommand="RadGrid3_ItemCommand">
                                     <HeaderStyle HorizontalAlign="Center" />
                                     <ItemStyle HorizontalAlign="Left" />
                                     <AlternatingItemStyle HorizontalAlign="Left" />
@@ -209,6 +215,20 @@
                         </div>
                     </div>
 
+                    <div id="tab4"><%--Details--%>
+                        <div role="tabpanel" class="tab-pane active" id="DivDetails">
+
+                            <div class="table-responsive">
+                            <div class="contentTopBar"></div>
+
+                                 <iframe id="idimportdStatusIframe" runat="server" style="width: 1000px; height: 600px;"></iframe>
+							
+							</div>
+							</div>
+
+
+                    </div>
+
 
                 </div>
             </div>
@@ -216,27 +236,73 @@
         
 
     </div>
-
+    <asp:HiddenField ID="hdfselected_tab" runat="server"/>
     <script>
-
+      
         $(document).ready(function () {
-            $("#content").find("[id^='tab']").hide(); // Hide all content
-            $("#tabs li:first").attr("id", "current"); // Activate the first tab
-            $("#content #tab1").fadeIn(); // Show first tab's content
-            parent.showTreeNode();
-            $('#tabs a').click(function (e) {
-                e.preventDefault();
-                if ($(this).closest("li").attr("id") == "current") { //detection for current tab
-                    return;
-                }
-                else {
-                    $("#content").find("[id^='tab']").hide(); // Hide all content
-                    $("#tabs li").attr("id", ""); //Reset id's
-                    $(this).parent().attr("id", "current"); // Activate this
-                    $('#' + $(this).attr('name')).fadeIn(); // Show content for the current tab
-                }
-            });
+            var myHidden = document.getElementById('<%= hdfselected_tab.ClientID %>');
+            document.getElementById("tab1").style.display = "block";
+            document.getElementById("tab4").style.display = "none";
+            document.getElementById("tab2").style.display = "none";
+            document.getElementById("tab3").style.display = "none";
+            if(myHidden.value==2)
+            {
+                document.getElementById("tab2").style.display = "block";
+                document.getElementById("tab1").style.display = "none";
+                document.getElementById("tab4").style.display = "none";
+                document.getElementById("tab3").style.display = "none";
+            }
+            if(myHidden.value==3)
+            {
+                document.getElementById("tab3").style.display = "block";
+                document.getElementById("tab1").style.display = "none";
+                document.getElementById("tab2").style.display = "none";
+                document.getElementById("tab4").style.display = "none";
+            }
+            if(myHidden.value==4)
+            {
+                document.getElementById("tab4").style.display = "block";
+                document.getElementById("tab1").style.display = "none";
+                document.getElementById("tab2").style.display = "none";
+                document.getElementById("tab3").style.display = "none";
+            }
+            
         });
+        function ChangeTab1(Id) {
+            var myHidden = document.getElementById('<%= hdfselected_tab.ClientID %>');
+            myHidden.value = 1;
+            document.getElementById("tab1").style.display = "block";
+            document.getElementById("tab4").style.display = "none";
+            document.getElementById("tab2").style.display = "none";
+            document.getElementById("tab3").style.display = "none";
+            
+        }
+        function ChangeTab2(Id) {
+            var myHidden = document.getElementById('<%= hdfselected_tab.ClientID %>');
+            document.getElementById("tab2").style.display = "block";
+            document.getElementById("tab1").style.display = "none";
+            document.getElementById("tab4").style.display = "none";
+            document.getElementById("tab3").style.display = "none";
+            myHidden.value = 2;
+        }
+        function ChangeTab3(Id) {
+            var myHidden = document.getElementById('<%= hdfselected_tab.ClientID %>');
+            document.getElementById("tab3").style.display = "block";
+            document.getElementById("tab1").style.display = "none";
+            document.getElementById("tab2").style.display = "none";
+            document.getElementById("tab4").style.display = "none";
+            myHidden.value = 3;
+        }
+        function ChangeTab4(Id)
+        {
+            var myHidden = document.getElementById('<%= hdfselected_tab.ClientID %>');
+            document.getElementById("tab4").style.display = "block";
+            document.getElementById("tab1").style.display = "none";
+            document.getElementById("tab2").style.display = "none";
+            document.getElementById("tab3").style.display = "none";
+            myHidden.value = 4;
+          
+        }
 
 
     </script>

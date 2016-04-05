@@ -279,7 +279,7 @@ namespace FlyCn.FlyCnDAL
         /// <param name="UpdateCount"></param>
         /// <param name="ErrorCount"></param>
         /// <param name="Remarks"></param>
-        public void UpdateExcelImportDetails(string userName, string ProjNo, string TableName, string ExcelFileName, int InsertCount, int UpdateCount, int ErrorCount, string Remarks, excelImportstatus processStatus, dbConnection dcon=null)
+        public void UpdateExcelImportDetails(string userName, string ProjNo, string TableName, string ExcelFileName, int InsertCount, int UpdateCount, string Remarks, excelImportstatus processStatus, dbConnection dcon=null)
         {
           
             SqlCommand cmd = new SqlCommand();
@@ -300,7 +300,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@Table_Name", TableName);
                 cmd.Parameters.AddWithValue("@Insert_Count", InsertCount);
                 cmd.Parameters.AddWithValue("@Update_Count", UpdateCount);
-                cmd.Parameters.AddWithValue("@Error_Count", ErrorCount);
+               // cmd.Parameters.AddWithValue("@Error_Count", ErrorCount);
                 cmd.Parameters.AddWithValue("@User_Name", userName);
                 cmd.Parameters.AddWithValue("@InsertStatus", processStatus);
                 cmd.Parameters.AddWithValue("@Remarks", Remarks);
@@ -787,17 +787,17 @@ namespace FlyCn.FlyCnDAL
                     {
                         updateCount = updateCount + 1;
                     }
-                    UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Processing, dbcon);
+                    UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, Remarks, excelImportstatus.Processing, dbcon);
                     counter = i;//for checking abort or finished
                 }
-                if(counter!=0)//means loop stoped in between importing iteration
+                if(counter!=0)//means loop stopped in between importing iteration
                 {
                     //this updates table with 'aborted' status if something happened in
-                    UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Aborted, dbcon);
+                    UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, Remarks, excelImportstatus.Aborted, dbcon);
                 }
                 else//import finished
                 {
-                    UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Finished, dbcon); 
+                    UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, Remarks, excelImportstatus.Finished, dbcon); 
                 }
             }
             catch (Exception ex)

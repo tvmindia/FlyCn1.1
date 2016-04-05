@@ -31,13 +31,13 @@ namespace FlyCn.EngineeredDataList {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl horizonaltab;
         
         /// <summary>
-        /// lblTableName control.
+        /// lblModule control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTableName;
+        protected global::System.Web.UI.WebControls.Label lblModule;
         
         /// <summary>
         /// RadTabStrip1 control.

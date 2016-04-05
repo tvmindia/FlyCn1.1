@@ -213,7 +213,7 @@
     </div>
     <%--HorizontalTab--%>
       <div class="container" style="width:100%">
-          <asp:Label ID="lblTableName" runat="server" Text=""></asp:Label>
+          <asp:Label ID="lblModule" runat="server" CssClass="PageHeading"></asp:Label>
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" Width="300px" OnClientTabSelected="onClientTabSelected"
      
       OnClientTabSelecting="OnClientTabSelecting"       CausesValidation="false" SelectedIndex="0" Skin="FlyCnRed_Rad" EnableEmbeddedSkins="false">
