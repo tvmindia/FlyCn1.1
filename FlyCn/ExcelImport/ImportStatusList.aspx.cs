@@ -34,12 +34,8 @@ namespace FlyCn.ExcelImport
         public void BindData()
         {
             DataSet ds = new DataSet();
-
-            //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();
-
-            ds = detailsObj.getAllExcelImportDetails(UA.userName);
-             
+            ds = detailsObj.getAllExcelImportDetails(UA.userName,UA.projectNo);
             RadGrid1.DataSource = ds.Tables[0];
             try
             {
@@ -61,7 +57,10 @@ namespace FlyCn.ExcelImport
                 {
                     GridDataItem item = e.Item as GridDataItem;
                     string StatusId = item.GetDataKeyValue("Status_Id").ToString();
-                    Response.Redirect("ImportStatus.aspx?StatusId=" + StatusId);
+                    //Response.Redirect("ImportStatus.aspx?StatusId=" + StatusId);
+                    hdfselected_tab.Value = "4";
+                    idimportdStatusIframe.Attributes["src"] = "ImportStatus.aspx?StatusId=" + StatusId;//loading import status page in iframe
+                    //idimportdStatusIframe.Style["display"] = "block";//fdfdfdfdf
                 }
             }
             catch (Exception ex)
@@ -125,7 +124,10 @@ namespace FlyCn.ExcelImport
                 {
                     GridDataItem item = e.Item as GridDataItem;
                     string StatusId = item.GetDataKeyValue("Status_Id").ToString();
-                    Response.Redirect("ImportStatus.aspx?StatusId=" + StatusId);
+                    //Response.Redirect("ImportStatus.aspx?StatusId=" + StatusId);
+                    idimportdStatusIframe.Attributes["src"] = "ImportStatus.aspx?StatusId=" + StatusId;//loading import status page in iframe
+                    hdfselected_tab.Value = "4";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ChangeTab", "ChangeTab();", true);
                 }
             }
             catch (Exception ex)
@@ -152,11 +154,9 @@ namespace FlyCn.ExcelImport
         #region BindCompletedDetails()
         public void BindCompletedDetails()
         {
-   
-            //FlyCnDAL.ExcelImport detailsObj = new FlyCnDAL.ExcelImport();
             ImportFile detailsObj = new ImportFile();
             DataSet ds = new DataSet();
-            ds = detailsObj.getDistictExcelImportDetailsByUserName(UA.userName);
+            ds = detailsObj.getDistictExcelImportDetailsByUserName(UA.userName,UA.projectNo,true);
             RadGrid2.DataSource = ds.Tables[0];
             try
             {
@@ -164,12 +164,55 @@ namespace FlyCn.ExcelImport
             }
             catch (Exception)
             {
-            //throw;
+           
             }
         }
         #endregion BindCompletedDetails()
 
-        
+        #region BindAbortedDetails
+        public void BindAbortedDetails()
+        {
+            ImportFile detailsObj = new ImportFile();
+            DataSet ds = new DataSet();
+            ds = detailsObj.getDistictExcelImportDetailsByUserName(UA.userName, UA.projectNo, false);
+            RadGrid3.DataSource = ds.Tables[0];
+            try
+            {
+              RadGrid1.DataBind();
+            }
+            catch (Exception)
+            {
+                //
+            }
+        }
+        #endregion BindAbortedDetails
+
+        protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            BindAbortedDetails();
+        }
+        #region RadGrid3_ItemCommand
+        protected void RadGrid3_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem item = e.Item as GridDataItem;
+                    string StatusId = item.GetDataKeyValue("Status_Id").ToString();
+                    //Response.Redirect("ImportStatus.aspx?StatusId=" + StatusId);
+                    idimportdStatusIframe.Attributes["src"] = "ImportStatus.aspx?StatusId=" + StatusId;//loading import status page in iframe
+                    hdfselected_tab.Value ="4";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ChangeTab", "ChangeTab();", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion RadGrid3_ItemCommand
+
 
     }
 }

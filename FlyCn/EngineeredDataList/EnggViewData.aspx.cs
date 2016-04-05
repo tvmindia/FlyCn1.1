@@ -145,13 +145,15 @@ namespace FlyCn.EngineeredDataList
                 //HtmlGenericControl divcontrol = new HtmlGenericControl();
                 //divcontrol.Attributes["class"] = "col-md-12 Span-One col-md-6 form-group";
                 //divcontrol.TagName = "div";
-              
+                
                 Table table = new Table();
+                Modules moduleobj = new Modules();
                 StringBuilder html = new StringBuilder();
                 datatableobj = systabledefenitionobj.GetComboBoxDetails(_tableName);
-                lblTableName.Text = datatableobj.Rows[0]["Table_Description"].ToString();
+                moduleobj.GetModule(moduleID);
+                lblModule.Text = moduleobj.ModuleDesc;
                 int totalrows = datatableobj.Rows.Count;
-                
+
                 if (totalrows < 6)//------if no of rows less than 6 place all controls in one side
                 {
                     for (int f = 0; f < datatableobj.Rows.Count; f++)
@@ -491,7 +493,8 @@ namespace FlyCn.EngineeredDataList
             DataSet ds = new DataSet();
             ds = mObj.GetModule(moduleID);
             _tableName = mObj.BaseTable;
-            lblTableName.Text=_tableName;
+            //lblTableName.Text=_tableName;
+            lblModule.Text = mObj.ModuleDesc;
             SystemDefenitionDetails sObj = new SystemDefenitionDetails();
             datatableobj=sObj.GetPrimarykeys(_tableName);
             for (int i = 0; i < datatableobj.Rows.Count; i++)

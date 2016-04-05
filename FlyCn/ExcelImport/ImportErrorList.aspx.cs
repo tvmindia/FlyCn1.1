@@ -18,6 +18,7 @@ namespace FlyCn.ExcelImport
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
         string moduleID = "";
+        string StatusId = "";
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -70,9 +71,9 @@ namespace FlyCn.ExcelImport
                 if (e.CommandName == "Select")
                 {
                     GridDataItem item = e.Item as GridDataItem;
-                    string StatusId = item.GetDataKeyValue("Status_ID").ToString();
-                    //Response.Redirect("ImportErrorDetails.aspx?StatusId=" + StatusId);
-                    Response.Redirect("ImportErrorDetails.aspx?StatusId=" + StatusId, false);
+                    StatusId = item.GetDataKeyValue("Status_ID").ToString();
+                    Divtab1.Style.Add("display", "none");
+                    BindErrorDetails(StatusId);
                 }
             }
             catch (Exception ex)
@@ -81,5 +82,57 @@ namespace FlyCn.ExcelImport
             }
         }
         #endregion RadGrid1_ItemCommand
+
+        #region BindErrorDetails()
+        public void BindErrorDetails(string StatusId)
+        {
+            try
+            {
+                if (StatusId != null)
+                {
+                    if (StatusId != "")
+                    {
+                        DataSet ds = new DataSet();
+                        ErrorInformation errInfoObj = new ErrorInformation();
+                        ds = errInfoObj.getErrorDetails(StatusId);
+                        RadGrid1_ErrorDetails.DataSource = ds;
+                    }
+                   
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        #endregion BindErrorDetails()
+
+        protected void RadGrid1_ErrorList_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem item = (GridDataItem)e.Item;
+                ImageButton link = (ImageButton)item["EditData"].Controls[0];
+                int index = e.Item.ItemIndex;
+                link.Attributes.Add("onclick", "RadGrid1_ErrorList_ItemCommandClient();");
+            }
+        }
+
+        protected void RadGrid1_ErrorDetails_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+          
+                BindErrorDetails(StatusId);
+            
+           
+        }
+
+        protected void RadGrid1_ErrorDetails_PreRender(object sender, EventArgs e)
+        {
+            RadGrid1_ErrorDetails.Rebind();
+        }
+
+      
+
+        
     }
 }

@@ -147,7 +147,8 @@ namespace FlyCn.FlyCnDAL
         {
             started = 1,
             Processing = 2,
-            Finished = 3
+            Finished = 3,
+            Aborted = 4
         }
         public string SheetName
         {
@@ -278,7 +279,7 @@ namespace FlyCn.FlyCnDAL
         /// <param name="UpdateCount"></param>
         /// <param name="ErrorCount"></param>
         /// <param name="Remarks"></param>
-        public void UpdateExcelImportDetails(string userName, string ProjNo, string TableName, string ExcelFileName, int InsertCount, int UpdateCount, int ErrorCount, string Remarks, excelImportstatus processStatus, dbConnection dcon=null)
+        public void UpdateExcelImportDetails(string userName, string ProjNo, string TableName, string ExcelFileName, int InsertCount, int UpdateCount, string Remarks, excelImportstatus processStatus, dbConnection dcon=null)
         {
           
             SqlCommand cmd = new SqlCommand();
@@ -299,7 +300,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.AddWithValue("@Table_Name", TableName);
                 cmd.Parameters.AddWithValue("@Insert_Count", InsertCount);
                 cmd.Parameters.AddWithValue("@Update_Count", UpdateCount);
-                cmd.Parameters.AddWithValue("@Error_Count", ErrorCount);
+               // cmd.Parameters.AddWithValue("@Error_Count", ErrorCount);
                 cmd.Parameters.AddWithValue("@User_Name", userName);
                 cmd.Parameters.AddWithValue("@InsertStatus", processStatus);
                 cmd.Parameters.AddWithValue("@Remarks", Remarks);
@@ -321,26 +322,44 @@ namespace FlyCn.FlyCnDAL
        
 
         #region getAllExcelImportDetails
-        public DataSet getAllExcelImportDetails(string userName)
+        public DataSet getAllExcelImportDetails(string userName,string projectNO)
         {
             DataSet datatableobj = null;
-            SqlConnection con = null;
-            dbConnection dcon = new dbConnection();
-            con = dcon.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("SelectAllExcelImportDetails", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@UserName", userName);
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = cmd;
-            datatableobj = new DataSet();
-            adapter.Fill(datatableobj);
-            con.Close();
+
+            dbConnection dcon = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("SelectAllExcelImportDetails", dcon.SQLCon);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@UserName", userName);
+                cmd.Parameters.AddWithValue("@ProjNo", projectNO);
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                datatableobj = new DataSet();
+                adapter.Fill(datatableobj);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if(dcon.SQLCon!=null)
+                {
+                    dcon.GetDBConnection();
+                }
+            }
+                
+         
+            
             return datatableobj;
         }
         #endregion getAllExcelImportDetails
 
         #region getDistictExcelImportDetailsByUserName
-        public DataSet getDistictExcelImportDetailsByUserName(string userName)
+        public DataSet getDistictExcelImportDetailsByUserName(string userName, string projectNO,bool checkCase)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
@@ -349,8 +368,11 @@ namespace FlyCn.FlyCnDAL
             dbConnection dcon = new dbConnection();
             con = dcon.GetDBConnection();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "SelectCompletedExcelImportDetailsByUserName";
+            cmd.CommandText = "[SelectCompletedAndAbortedExcelImportDetails]";
             cmd.Parameters.AddWithValue("@UserName", userName);
+            cmd.Parameters.AddWithValue("@ProjectNO",projectNO);
+            cmd.Parameters.Add("@Case", SqlDbType.Bit).Value = checkCase;
+
             cmd.Connection = con;
             da.SelectCommand = cmd;
 
@@ -748,6 +770,7 @@ namespace FlyCn.FlyCnDAL
                 }
 
                 //------------------------------------Main Import Loop----------------------------------------------------------//
+                int counter = 0;
                 for (int i = dsFile.Tables[0].Rows.Count - 1; i >= 0; i--)
                 {
                     // Thread.Sleep(200);
@@ -764,15 +787,25 @@ namespace FlyCn.FlyCnDAL
                     {
                         updateCount = updateCount + 1;
                     }
-                    UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Processing, dbcon);
+                    UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, Remarks, excelImportstatus.Processing, dbcon);
+                    counter = i;//for checking abort or finished
                 }
-
-                UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Finished, dbcon);
-
+                if(counter!=0)//means loop stopped in between importing iteration
+                {
+                    //this updates table with 'aborted' status if something happened in
+                    UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, Remarks, excelImportstatus.Aborted, dbcon);
+                }
+                else//import finished
+                {
+                    UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, Remarks, excelImportstatus.Finished, dbcon); 
+                }
             }
             catch (Exception ex)
             {
-                //    throw ex;
+               
+               //this updates table with 'aborted' status if something happened in
+               // UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Aborted, dbcon);
+                throw ex;
             }
             finally
             {
