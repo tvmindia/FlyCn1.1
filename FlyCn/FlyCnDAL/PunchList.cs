@@ -342,6 +342,47 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
+        public string linkId
+        {
+            get;
+            set;
+        }
+        public string moduleId
+        {
+            get;
+            set;
+        }
+        public string category
+        {
+            get;
+            set;
+        }
+        public string keyField
+        {
+            get;
+            set;
+        }
+       
+        public string logDesc
+        {
+            get;
+            set;
+        }
+        public string logStatus
+        {
+            get;
+            set;
+        }
+        public string updatedBy
+        {
+            get;
+            set;
+        }
+        public DateTime updatedDate
+        {
+            get;
+            set;
+        }
         #endregion fileSize
 
         #region KeyField
@@ -350,7 +391,11 @@ namespace FlyCn.FlyCnDAL
             get;
             set;
         }
-
+        public string categoryDesc
+        {
+            get;
+            set;
+        }
         #endregion KeyField
 
         #endregion Properties
@@ -788,9 +833,60 @@ namespace FlyCn.FlyCnDAL
                 {
                     cmdInsert.Parameters.Add("@signedby", SqlDbType.NVarChar, 15).Value = DBNull.Value;
                 }
+                if (linkId != null && linkId != "")
+                {
+                    cmdInsert.Parameters.Add("@LnkId", SqlDbType.NVarChar, 50).Value = linkId;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@LnkId", SqlDbType.NVarChar, 50).Value = DBNull.Value;
+                }
+                cmdInsert.Parameters.Add("@moduleId",SqlDbType.NVarChar,10).Value=moduleId;
+                cmdInsert.Parameters.Add("@trackCategory", SqlDbType.NVarChar, 25).Value = category;
+                cmdInsert.Parameters.Add("@categoryDesc", SqlDbType.NVarChar, 25).Value = categoryDesc;
+                //cmdInsert.Parameters.Add("@actCode", SqlDbType.SmallInt).Value = 1;
+                if (logDesc != null && logDesc != "")
+                {
+                    cmdInsert.Parameters.Add("@logDesc", SqlDbType.NText).Value = logDesc;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@logDesc", SqlDbType.NText).Value = DBNull.Value;
+                }
+                if (logStatus != null && logStatus != "")
+                {
+                    cmdInsert.Parameters.Add("@logStatus", SqlDbType.NVarChar, 10).Value = logStatus;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@logStatus", SqlDbType.NVarChar, 10).Value = DBNull.Value;
+                }
+                if(updatedBy!=null && updatedBy!="")
+                {
+                    cmdInsert.Parameters.Add("@updatedBy", SqlDbType.NVarChar, 256).Value = updatedBy;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@updatedBy", SqlDbType.NVarChar, 256).Value = DBNull.Value;
+                }
+                if(updatedDate!=null)
+                {
+                    cmdInsert.Parameters.Add("@updatedDate", SqlDbType.DateTime).Value = DateTime.Now.ToString("yyyy-MM-dd");
+                }
+               else
+                {
+                    cmdInsert.Parameters.Add("@updatedDate", SqlDbType.DateTime).Value = DBNull.Value;
+                }
                 cmdInsert.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
                 cmdInsert.Parameters.AddWithValue("@createdby", UA.userName);
+
+                SqlParameter outputp = cmdInsert.Parameters.Add("@out", SqlDbType.NVarChar,100);
+                outputp.Direction = ParameterDirection.Output;
+              
+              
                 result = cmdInsert.ExecuteNonQuery();
+                string dfdf = outputp.Value.ToString();
+                
             }
             catch (SqlException ex)
             {
@@ -805,6 +901,328 @@ namespace FlyCn.FlyCnDAL
 
         }
         #endregion AddtoPunchList
+
+        #region EILInsertWithoutTrackingDetails
+        /// <summary>
+        /// To insert data to the EIL table
+        /// </summary>
+        /// <param name="mObj">Object of the personnel table</param>
+        /// <returns>integer value 0 or 1</returns>
+        public int EILInsertWithoutTrackingDetails(MasterPersonal mObj)
+        {
+            int result = 0;
+            SqlConnection con = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                UIClasses.Const Const = new UIClasses.Const();
+                FlyCnDAL.Security.UserAuthendication UA;
+
+                HttpContext context = HttpContext.Current;
+                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+
+                string insertQuery = "EILInsertWithoutTrackingDetails";
+                SqlCommand cmdInsert = new SqlCommand(insertQuery, con);
+                cmdInsert.CommandType = CommandType.StoredProcedure;
+                cmdInsert.Parameters.Add("@projectno", SqlDbType.NVarChar, 7).Value = UA.projectNo;
+                cmdInsert.Parameters.Add("@Idno", SqlDbType.Int).Value = Idno;
+                cmdInsert.Parameters.Add("@EILType", SqlDbType.NVarChar, 7).Value = EILType;
+                if (mObj.OpenBy != null && mObj.OpenBy != "")
+                {
+                    cmdInsert.Parameters.Add("@openby", SqlDbType.NVarChar, 15).Value = mObj.OpenBy;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@openby", SqlDbType.NVarChar, 15).Value = DBNull.Value;
+                }
+                if (OpenDate != null && OpenDate != "")
+                {
+                    cmdInsert.Parameters.Add("@opendate", SqlDbType.DateTime).Value = Convert.ToDateTime(OpenDate);
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@opendate", SqlDbType.DateTime).Value = DBNull.Value;
+                }
+                if (mObj.EnteredBy != null && mObj.EnteredBy != "")
+                {
+                    cmdInsert.Parameters.Add("@enteredby", SqlDbType.NVarChar, 15).Value = mObj.EnteredBy;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@enteredby", SqlDbType.NVarChar, 15).Value = DBNull.Value;
+                }
+                if (EnteredDt != null && EnteredDt != "")
+                {
+                    cmdInsert.Parameters.Add("@entereddate", SqlDbType.DateTime).Value = Convert.ToDateTime(EnteredDt);
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@entereddate", SqlDbType.DateTime).Value = DBNull.Value;
+                }
+                if (Plant != null && Plant != "")
+                {
+                    cmdInsert.Parameters.Add("@plant", SqlDbType.NVarChar, 10).Value = Plant;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@plant", SqlDbType.NVarChar, 10).Value = DBNull.Value;
+
+                }
+                if (Area != null && Area != "")
+                {
+                    cmdInsert.Parameters.Add("@area", SqlDbType.NVarChar, 10).Value = Area;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@area", SqlDbType.NVarChar, 10).Value = DBNull.Value;
+                }
+                if (Location != null && Location != "")
+                {
+                    cmdInsert.Parameters.Add("@location", SqlDbType.NVarChar, 10).Value = Location;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@location", SqlDbType.NVarChar, 10).Value = DBNull.Value;
+                }
+                if (Unit != null && Unit != "")
+                {
+                    cmdInsert.Parameters.Add("@unit", SqlDbType.NVarChar, 10).Value = Unit;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@unit", SqlDbType.NVarChar, 10).Value = DBNull.Value;
+                }
+                if (Drawing != null && Drawing != "")
+                {
+                    cmdInsert.Parameters.Add("@drawing", SqlDbType.NVarChar, 25).Value = Drawing;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@drawing", SqlDbType.NVarChar, 25).Value = DBNull.Value;
+                }
+                if (Sheet != null && Sheet != "")
+                {
+                    cmdInsert.Parameters.Add("@sheet", SqlDbType.NVarChar, 20).Value = Sheet;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@sheet", SqlDbType.NVarChar, 20).Value = DBNull.Value;
+                }
+                if (Revison != null && Revison != "")
+                {
+                    cmdInsert.Parameters.Add("@revision", SqlDbType.NVarChar, 10).Value = Revison;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@revision", SqlDbType.NVarChar, 10).Value = DBNull.Value;
+                }
+                if (ItemDescription != null && ItemDescription != "")
+                {
+                    cmdInsert.Parameters.AddWithValue("@itemdescription", SqlDbType.NText).Value = ItemDescription;
+                }
+                else
+                {
+                    cmdInsert.Parameters.AddWithValue("@itemdescription", SqlDbType.NText).Value = DBNull.Value;
+                }
+                if (RFINo != null && RFINo != "")
+                {
+                    cmdInsert.Parameters.Add("@rfino", SqlDbType.NVarChar, 25).Value = RFINo;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@rfino", SqlDbType.NVarChar, 25).Value = DBNull.Value;
+                }
+                if (RFIDate != null && RFIDate != "")
+                {
+                    cmdInsert.Parameters.AddWithValue("@rfidate", SqlDbType.DateTime).Value = Convert.ToDateTime(RFIDate);
+                }
+                else
+                {
+                    cmdInsert.Parameters.AddWithValue("@rfidate", SqlDbType.DateTime).Value = DBNull.Value;
+                }
+                if (mObj.Inspector != null && mObj.Inspector != "")
+                {
+                    cmdInsert.Parameters.Add("@inspector", SqlDbType.NVarChar, 15).Value = mObj.Inspector;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@inspector", SqlDbType.NVarChar, 15).Value = DBNull.Value;
+                }
+                if (mObj.RequestedBy != null && mObj.RequestedBy != "")
+                {
+                    cmdInsert.Parameters.Add("@requestedby", SqlDbType.NVarChar, 15).Value = mObj.RequestedBy;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@requestedby", SqlDbType.NVarChar, 15).Value = DBNull.Value;
+                }
+                if (ActionBy != null && ActionBy != "")
+                {
+                    cmdInsert.Parameters.Add("@actionby", SqlDbType.NVarChar, 5).Value = ActionBy;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@actionby", SqlDbType.NVarChar, 5).Value = DBNull.Value;
+                }
+                if (Discipline != null && Discipline != "")
+                {
+                    cmdInsert.Parameters.Add("@displine", SqlDbType.NVarChar, 5).Value = Discipline;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@displine", SqlDbType.NVarChar, 5).Value = DBNull.Value;
+                }
+                if (Category != null && Category != "")
+                {
+                    cmdInsert.Parameters.Add("@category", SqlDbType.NVarChar, 5).Value = Category;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@category", SqlDbType.NVarChar, 5).Value = DBNull.Value;
+                }
+                cmdInsert.Parameters.AddWithValue("@queryrevision", QueryRevision);
+                if (ScheduledDateCompletion != null && ScheduledDateCompletion != "")
+                {
+                    cmdInsert.Parameters.Add("@scheduleddatecompletion", SqlDbType.DateTime).Value = Convert.ToDateTime(ScheduledDateCompletion);
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@scheduleddatecompletion", SqlDbType.DateTime).Value = DBNull.Value;
+
+                }
+                if (CoveredByProject != null)
+                {
+                    cmdInsert.Parameters.Add("@coveredbyproject", SqlDbType.Bit).Value = CoveredByProject;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@coveredbyproject", SqlDbType.Bit).Value = DBNull.Value;
+                }
+                if (System != null && System != "")
+                {
+                    cmdInsert.Parameters.Add("@system", SqlDbType.NVarChar, 20).Value = System;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@system", SqlDbType.NVarChar, 20).Value = DBNull.Value;
+                }
+                if (Subsystem != null && Subsystem != "")
+                {
+                    cmdInsert.Parameters.Add("@subsystem", SqlDbType.NVarChar, 20).Value = Subsystem;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@subsystem", SqlDbType.NVarChar, 20).Value = DBNull.Value;
+                }
+                if (ControlSystem != null && ControlSystem != "")
+                {
+                    cmdInsert.Parameters.Add("@controlsystem", SqlDbType.NVarChar, 20).Value = ControlSystem;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@controlsystem", SqlDbType.NVarChar, 20).Value = DBNull.Value;
+                }
+                if (FailCategory != null && FailCategory != "")
+                {
+                    cmdInsert.Parameters.Add("@failcategory", SqlDbType.NVarChar, 1).Value = FailCategory;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@failcategory", SqlDbType.NVarChar, 1).Value = DBNull.Value;
+                }
+                if (ChangeReq != null)
+                {
+                    cmdInsert.Parameters.Add("@changereq", SqlDbType.Bit).Value = ChangeReq;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@changereq", SqlDbType.Bit).Value = DBNull.Value;
+                }
+                if (Reference != null && Reference != "")
+                {
+                    cmdInsert.Parameters.Add("@reference", SqlDbType.NVarChar, 25).Value = Reference;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@reference", SqlDbType.NVarChar, 25).Value = DBNull.Value;
+                }
+                if (ReferenceDate != null && ReferenceDate != "")
+                {
+                    cmdInsert.Parameters.Add("@referencedate", SqlDbType.DateTime).Value = Convert.ToDateTime(ReferenceDate);
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@referencedate", SqlDbType.DateTime).Value = DBNull.Value;
+                }
+                if (mObj.ResponsiblePerson != null && mObj.ResponsiblePerson != "")
+                {
+                    cmdInsert.Parameters.Add("@responsibleperson", SqlDbType.NVarChar, 15).Value = mObj.ResponsiblePerson;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@responsibleperson", SqlDbType.NVarChar, 15).Value = DBNull.Value;
+                }
+                if (Organization != null && Organization != "")
+                {
+                    cmdInsert.Parameters.Add("@organization", SqlDbType.NVarChar, 5).Value = Organization;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@organization", SqlDbType.NVarChar, 5).Value = DBNull.Value;
+                }
+                if (CompletionDate != null && CompletionDate != "")
+                {
+                    cmdInsert.Parameters.Add("@completiondate", SqlDbType.DateTime).Value = Convert.ToDateTime(CompletionDate);
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@completiondate", SqlDbType.DateTime).Value = DBNull.Value;
+                }
+                if (CompletionRemarks != null && CompletionRemarks != "")
+                {
+                    cmdInsert.Parameters.Add("@completionremarks", SqlDbType.NText).Value = CompletionRemarks;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@completionremarks", SqlDbType.NText).Value = DBNull.Value;
+                }
+
+                if (mObj.SignedBy != null && mObj.SignedBy != "")
+                {
+                    cmdInsert.Parameters.Add("@signedby", SqlDbType.NVarChar, 15).Value = mObj.SignedBy;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@signedby", SqlDbType.NVarChar, 15).Value = DBNull.Value;
+                }
+                if (linkId != null && linkId != "")
+                {
+                    cmdInsert.Parameters.Add("@LnkId", SqlDbType.NVarChar, 50).Value = linkId;
+                }
+                else
+                {
+                    cmdInsert.Parameters.Add("@LnkId", SqlDbType.NVarChar, 50).Value = DBNull.Value;
+                }
+                cmdInsert.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+                cmdInsert.Parameters.AddWithValue("@createdby", UA.userName);
+                result = cmdInsert.ExecuteNonQuery();
+
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return result;
+
+        }
+        #endregion EILInsertWithoutTrackingDetails
+
 
         #region EditPunchListItems
         /// <summary>
@@ -939,6 +1357,71 @@ namespace FlyCn.FlyCnDAL
             return dt;
         }
         #endregion GetPunchListItemDetails
+
+        #region GetIntermediateLog
+        public DataTable GetIntermediateLog(string id)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection con = null;
+            SqlDataAdapter daObj;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                string selectQuery = "GetIntermediateLog";
+                SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
+                cmdSelect.Parameters.Add("@IdNo",SqlDbType.NVarChar,50).Value= id;
+                daObj = new SqlDataAdapter(cmdSelect);
+                daObj.Fill(dt);
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return dt;
+        }
+        #endregion GetIntermediateLog
+
+        #region GetActivityByActCode
+        public DataTable GetActivityByActCode(string id,string projectNo,string moduleId,string category)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection con = null;
+            SqlDataAdapter daObj;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                string selectQuery = "GetActivityByActCode";
+                SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
+                cmdSelect.Parameters.Add("@actCode", SqlDbType.SmallInt).Value = id;
+                cmdSelect.Parameters.Add("@projectno", SqlDbType.NVarChar,7).Value = projectNo;
+                cmdSelect.Parameters.Add("@moduleId", SqlDbType.NVarChar, 10).Value = moduleId;
+                cmdSelect.Parameters.Add("@trackCategory",SqlDbType.NVarChar,25).Value=category;
+                daObj = new SqlDataAdapter(cmdSelect);
+                daObj.Fill(dt);
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return dt;
+        }
+        #endregion GetActivityByActCode
 
         #region Get Punch List Item Details For Mobile
         /// <summary>

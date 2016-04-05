@@ -120,11 +120,12 @@
              <br />
                                    <div class="contentTopBar" style="width:450px;margin-left:20%;"></div>
                          <div style="width:450px;margin-left:20%;">
-                              <telerik:RadGrid ID="dtgManageActivities" runat="server" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageActivities_NeedDataSource" OnItemCreated="dtgManageActivities_ItemCreated" OnPreRender="dtgManageActivities_PreRender" OnItemCommand="dtgManageActivities_ItemCommand">
+                              <telerik:RadGrid ID="dtgManageActivities" runat="server"  GridLines="None" CellSpacing="0"  AlwaysVisible="true" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageActivities_NeedDataSource" OnItemCreated="dtgManageActivities_ItemCreated" OnPreRender="dtgManageActivities_PreRender" OnItemCommand="dtgManageActivities_ItemCommand">
                                      <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
-                    <MasterTableView  AutoGenerateColumns="false" ShowHeadersWhenNoRecords="true" ShowHeader="true" DataKeyNames="FullDesc" NoMasterRecordsText="No Activities have been added.">
+                                    <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
+                    <MasterTableView  AutoGenerateColumns="false" ShowHeadersWhenNoRecords="true" ShowHeader="true" DataKeyNames="FullDesc" NoMasterRecordsText="No Activities have been added." InsertItemPageIndexAction="ShowItemOnFirstPage" InsertItemDisplay="Top">
                          <Columns>
                            <%--  <telerik:GridBoundColumn HeaderText="Id" DataField="ModuleActID" UniqueName="ModuleActID" Display="false"></telerik:GridBoundColumn> --%>
                               <telerik:GridBoundColumn HeaderText="Activities" DataField="FullDesc" UniqueName="FullDesc"></telerik:GridBoundColumn> 
@@ -1066,7 +1067,7 @@
             }
         }
         function validateEdit() {
-         var Module = document.getElementById('<%=ddlSelectModule.ClientID %>').value;
+        <%-- var Module = document.getElementById('<%=ddlSelectModule.ClientID %>').value;
             Module = trimString(Module);
            
          var Projects = document.getElementById('<%=ddlSelectProject.ClientID %>').value;
@@ -1078,7 +1079,7 @@
             var activity = document.getElementById('<%=ddlActivity.ClientID %>').value;
             activity = trimString(activity);
            
-            if ((Module != "--select module--") || (Module != "-1") || (Projects != "-1") || (Projects != "--select project--") || (category != "--select category--") || (activity != "--select Activity--"))
+            if ((Module != "--select module--") && (Module != "-1") && (Projects != "-1") && (Projects != "--select project--") && (category != "--select category--") && (activity != "--select Activity--"))
          {
              displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
              return false;
@@ -1087,10 +1088,10 @@
          }
          else
          {
-            
+            --%>
            
              return true;
-         }
+         //}
         }
         function validates() {
             var Module = document.getElementById('<%=ddlModule.ClientID %>').value;

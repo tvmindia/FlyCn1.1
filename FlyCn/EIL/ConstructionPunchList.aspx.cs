@@ -77,6 +77,8 @@ namespace FlyCn.EIL
                 //bindpageload();
 
                 BindDropDownModule();
+                BindDropdownCategory();
+                BindDropdownActivity();
                 LoadComboBox();
                 if (Request.QueryString["Mode"] != null)
                 {              
@@ -188,12 +190,19 @@ namespace FlyCn.EIL
         {
             if (e.Item.Value == "Save")
             {
-                Insert();
+                if (hdfValidateSave.Value == "1")
+                {
+                    InserEil();
+                }
+                else
+                {
+                    Insert();
+                }
             }
             if (e.Item.Value == "Update")
             {
                 Update();
-
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ClearTextBox", "ClearTexBox();", true);
             }
             if (e.Item.Value == "Delete")
             {
@@ -205,7 +214,14 @@ namespace FlyCn.EIL
         #region btnSave_Click
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Insert();
+            if (hdfValidateSave.Value == "1")
+            {
+                InserEil();
+            }
+            else
+            {
+                Insert();
+            }
         }
         #endregion btnSave_Click
 
@@ -237,7 +253,7 @@ namespace FlyCn.EIL
         #region dtgManageProjectGrid_ItemCommand
         protected void dtgManageProjectGrid_ItemCommand(object source, GridCommandEventArgs e)
         {
-
+            DataTable dtId,dtAct = new DataTable();
             if (e.CommandName == "EditData")
             {
                 ToolBarVisibility(2);
@@ -267,218 +283,243 @@ namespace FlyCn.EIL
                 string projno = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["ProjectNo"].ToString();
 
                 dt = pObj.GetPunchListItemDetails(projno, ID);
-                txtIDno.Text = dt.Rows[0]["IDNo"].ToString();
-                string opndate = dt.Rows[0]["OpenDt"].ToString();
+                if (dt.Rows.Count > 0)
+                {
+                    string lnkId = dt.Rows[0]["LinkIDNo"].ToString();
+                    dtId = pObj.GetIntermediateLog(lnkId);
+                    if (dtId.Rows.Count > 0)
+                    {
+                        ddlModule.Text = dtId.Rows[0]["ModuleID"].ToString();
+                        BindDropdownCategory();
+                        string category1 = dtId.Rows[0]["Category"].ToString();
+                       // ddlCategory.ClearSelection();
+                        ddlCategory.Items.FindByValue(category1).Selected = true;                     
+                       
+                        string actCode = dtId.Rows[0]["ActCode"].ToString();
+                        dtAct = pObj.GetActivityByActCode(actCode,projno, ddlModule.Text, category1);
+                        BindDropdownActivity();
+                        string activity = dtAct.Rows[0]["FullDesc"].ToString();
+                        ddlActivity.Items.FindByValue(activity).Selected = true;
+                        
+                    }
+                    //else
+                    //{
+                    //    ddlModule.Text = "--select module--";
+                    //    ddlCategory.Text = "--select category--";
+                    //}
+                    radTagNo.Text = dt.Rows[0]["LinkIDNo"].ToString();
+                    txtIDno.Text = dt.Rows[0]["IDNo"].ToString();
+                    string opndate = dt.Rows[0]["OpenDt"].ToString();
 
-                if (opndate != "")
-                {
+                    if (opndate != "")
+                    {
 
-                    RadOpenDate.SelectedDate = Convert.ToDateTime(opndate);
-                }
-                string opnby = dt.Rows[0]["OpenBy"].ToString();
-                if (opnby != "")
-                {
-                    ddlOpenBy.SelectedValue = opnby;
+                        RadOpenDate.SelectedDate = Convert.ToDateTime(opndate);
+                    }
+                    string opnby = dt.Rows[0]["OpenBy"].ToString();
+                    if (opnby != "")
+                    {
+                        ddlOpenBy.SelectedValue = opnby;
 
-                }
-                else
-                {
-                    ddlOpenBy.SelectedIndex = ddlOpenBy.Items.IndexOf(ddlOpenBy.Items.FindByText("-Select-"));
-                }
-                string reqby = dt.Rows[0]["ReqBy"].ToString();
-                if (reqby != "")
-                {
-                    ddlRequestedBy.SelectedValue = reqby;
-                }
-                else
-                {
-                    ddlRequestedBy.SelectedIndex = ddlRequestedBy.Items.IndexOf(ddlRequestedBy.Items.FindByText("-Select-"));
-                }
-                string resperson = dt.Rows[0]["ComplRespPerson"].ToString();
-                if (resperson != "")
-                {
-                    ddlResponsiblePerson.SelectedValue = resperson;
-                }
-                else
-                {
-                    ddlResponsiblePerson.SelectedIndex = ddlResponsiblePerson.Items.IndexOf(ddlResponsiblePerson.Items.FindByText("-Select-"));
-                }
-                string inspector = dt.Rows[0]["Inspector"].ToString();
-                if (inspector != "")
-                {
-                    ddlInspector.SelectedValue = inspector;
-                }
-                else
-                {
-                    ddlInspector.SelectedIndex = ddlInspector.Items.IndexOf(ddlInspector.Items.FindByText("-Select-"));
-                }
-                string signed = dt.Rows[0]["SignOffBy"].ToString();
-                if (signed != "")
-                {
-                    ddlSignedBy.SelectedValue = signed;
-                }
-                else
-                {
-                    ddlSignedBy.SelectedIndex = ddlSignedBy.Items.IndexOf(ddlSignedBy.Items.FindByText("-Select-"));
-                }
-                string entrdby = dt.Rows[0]["EnteredBy"].ToString();
-                if (entrdby != "")
-                {
-                    ddlEnteredBy.SelectedValue = entrdby;
-                }
-                else
-                {
-                    ddlEnteredBy.SelectedIndex = ddlEnteredBy.Items.IndexOf(ddlEnteredBy.Items.FindByText("-Select-"));
-                }
+                    }
+                    else
+                    {
+                        ddlOpenBy.SelectedIndex = ddlOpenBy.Items.IndexOf(ddlOpenBy.Items.FindByText("-Select-"));
+                    }
+                    string reqby = dt.Rows[0]["ReqBy"].ToString();
+                    if (reqby != "")
+                    {
+                        ddlRequestedBy.SelectedValue = reqby;
+                    }
+                    else
+                    {
+                        ddlRequestedBy.SelectedIndex = ddlRequestedBy.Items.IndexOf(ddlRequestedBy.Items.FindByText("-Select-"));
+                    }
+                    string resperson = dt.Rows[0]["ComplRespPerson"].ToString();
+                    if (resperson != "")
+                    {
+                        ddlResponsiblePerson.SelectedValue = resperson;
+                    }
+                    else
+                    {
+                        ddlResponsiblePerson.SelectedIndex = ddlResponsiblePerson.Items.IndexOf(ddlResponsiblePerson.Items.FindByText("-Select-"));
+                    }
+                    string inspector = dt.Rows[0]["Inspector"].ToString();
+                    if (inspector != "")
+                    {
+                        ddlInspector.SelectedValue = inspector;
+                    }
+                    else
+                    {
+                        ddlInspector.SelectedIndex = ddlInspector.Items.IndexOf(ddlInspector.Items.FindByText("-Select-"));
+                    }
+                    string signed = dt.Rows[0]["SignOffBy"].ToString();
+                    if (signed != "")
+                    {
+                        ddlSignedBy.SelectedValue = signed;
+                    }
+                    else
+                    {
+                        ddlSignedBy.SelectedIndex = ddlSignedBy.Items.IndexOf(ddlSignedBy.Items.FindByText("-Select-"));
+                    }
+                    string entrdby = dt.Rows[0]["EnteredBy"].ToString();
+                    if (entrdby != "")
+                    {
+                        ddlEnteredBy.SelectedValue = entrdby;
+                    }
+                    else
+                    {
+                        ddlEnteredBy.SelectedIndex = ddlEnteredBy.Items.IndexOf(ddlEnteredBy.Items.FindByText("-Select-"));
+                    }
 
-                string entrdDate = dt.Rows[0]["EnteredDt"].ToString();
-                if (entrdDate != "")
-                {
-                    RadEnteredDate.SelectedDate = Convert.ToDateTime(entrdDate);
-                }
+                    string entrdDate = dt.Rows[0]["EnteredDt"].ToString();
+                    if (entrdDate != "")
+                    {
+                        RadEnteredDate.SelectedDate = Convert.ToDateTime(entrdDate);
+                    }
 
-                string displne = dt.Rows[0]["Discipline"].ToString();
-                if (displne != "")
-                {
-                    ddlDiscipline.SelectedValue = displne;
-                }
-                else
-                {
-                    ddlDiscipline.SelectedIndex = ddlDiscipline.Items.IndexOf(ddlDiscipline.Items.FindByText("-Select-"));
-                }
+                    string displne = dt.Rows[0]["Discipline"].ToString();
+                    if (displne != "")
+                    {
+                        ddlDiscipline.SelectedValue = displne;
+                    }
+                    else
+                    {
+                        ddlDiscipline.SelectedIndex = ddlDiscipline.Items.IndexOf(ddlDiscipline.Items.FindByText("-Select-"));
+                    }
 
-                txtItemDescription.Text = dt.Rows[0]["Description"].ToString();
-                string location = dt.Rows[0]["Location"].ToString();
-                if (location != "")
-                {
-                    ddlLocation.SelectedValue = location;
-                }
-                else
-                {
-                    ddlLocation.SelectedIndex = ddlLocation.Items.IndexOf(ddlLocation.Items.FindByText("-Select-"));
-                }
-                string area = dt.Rows[0]["Area"].ToString();
-                if (area != "")
+                    txtItemDescription.Text = dt.Rows[0]["Description"].ToString();
+                    string location = dt.Rows[0]["Location"].ToString();
+                    if (location != "")
+                    {
+                        ddlLocation.SelectedValue = location;
+                    }
+                    else
+                    {
+                        ddlLocation.SelectedIndex = ddlLocation.Items.IndexOf(ddlLocation.Items.FindByText("-Select-"));
+                    }
+                    string area = dt.Rows[0]["Area"].ToString();
+                    if (area != "")
 
-                { ddlArea.SelectedValue = area; }
-                else
-                {
-                    ddlArea.SelectedIndex = ddlArea.Items.IndexOf(ddlArea.Items.FindByText("-Select-"));
-                }
-                string unit = dt.Rows[0]["Unit"].ToString();
-                if (unit != "")
-                {
-                    ddlUnit.SelectedValue = unit;
-                }
-                else
-                {
-                    ddlUnit.SelectedIndex = ddlUnit.Items.IndexOf(ddlUnit.Items.FindByText("-Select-"));
-                }
-                string plant = dt.Rows[0]["Plant"].ToString();
-                if (plant != "")
-                {
-                    ddlPlant.SelectedValue = plant;
-                }
-                else
-                {
-                    ddlPlant.SelectedIndex = ddlPlant.Items.IndexOf(ddlPlant.Items.FindByText("-Select-"));
-                }
-                string schDate = dt.Rows[0]["SchComplDt"].ToString();
-                if (schDate != "")
-                {
+                    { ddlArea.SelectedValue = area; }
+                    else
+                    {
+                        ddlArea.SelectedIndex = ddlArea.Items.IndexOf(ddlArea.Items.FindByText("-Select-"));
+                    }
+                    string unit = dt.Rows[0]["Unit"].ToString();
+                    if (unit != "")
+                    {
+                        ddlUnit.SelectedValue = unit;
+                    }
+                    else
+                    {
+                        ddlUnit.SelectedIndex = ddlUnit.Items.IndexOf(ddlUnit.Items.FindByText("-Select-"));
+                    }
+                    string plant = dt.Rows[0]["Plant"].ToString();
+                    if (plant != "")
+                    {
+                        ddlPlant.SelectedValue = plant;
+                    }
+                    else
+                    {
+                        ddlPlant.SelectedIndex = ddlPlant.Items.IndexOf(ddlPlant.Items.FindByText("-Select-"));
+                    }
+                    string schDate = dt.Rows[0]["SchComplDt"].ToString();
+                    if (schDate != "")
+                    {
 
-                    RadScheduleCompletionDate.SelectedDate = Convert.ToDateTime(schDate);
-                }
-                string rfiDate = dt.Rows[0]["RFIDate"].ToString();
-                if (rfiDate != "")
-                {
+                        RadScheduleCompletionDate.SelectedDate = Convert.ToDateTime(schDate);
+                    }
+                    string rfiDate = dt.Rows[0]["RFIDate"].ToString();
+                    if (rfiDate != "")
+                    {
 
-                    RadRFIDate.SelectedDate = Convert.ToDateTime(rfiDate);
-                }
-                txtRFINo.Text = dt.Rows[0]["RFINo"].ToString();
-                txtSheet.Text = dt.Rows[0]["Sht"].ToString();
-                txtDrawing.Text = dt.Rows[0]["DwgNo"].ToString();
-                string failcategory = dt.Rows[0]["FailCategory"].ToString();
-                if (failcategory != "")
-                {
-                    ddlFailCategory.SelectedValue = failcategory;
-                }
-                else
-                {
-                    ddlFailCategory.SelectedIndex = ddlFailCategory.Items.IndexOf(ddlFailCategory.Items.FindByText("-Select-"));
-                }
-                string category = dt.Rows[0]["Category"].ToString();
-                if (category != "")
-                {
-                    ddlCategoryList.SelectedValue = category;
-                }
-                else
-                {
+                        RadRFIDate.SelectedDate = Convert.ToDateTime(rfiDate);
+                    }
+                    txtRFINo.Text = dt.Rows[0]["RFINo"].ToString();
+                    txtSheet.Text = dt.Rows[0]["Sht"].ToString();
+                    txtDrawing.Text = dt.Rows[0]["DwgNo"].ToString();
+                    string failcategory = dt.Rows[0]["FailCategory"].ToString();
+                    if (failcategory != "")
+                    {
+                        ddlFailCategory.SelectedValue = failcategory;
+                    }
+                    else
+                    {
+                        ddlFailCategory.SelectedIndex = ddlFailCategory.Items.IndexOf(ddlFailCategory.Items.FindByText("-Select-"));
+                    }
+                    string category = dt.Rows[0]["Category"].ToString();
+                    if (category != "")
+                    {
+                        ddlCategoryList.SelectedValue = category;
+                    }
+                    else
+                    {
 
-                    ddlCategoryList.SelectedIndex = ddlCategoryList.Items.IndexOf(ddlCategoryList.Items.FindByText("-Select-"));
-                }
-                string system = dt.Rows[0]["TO_System"].ToString();
-                if (system != "")
-                {
-                    ddlSystem.SelectedValue = system;
-                }
-                else
-                {
-                    ddlSystem.SelectedIndex = ddlSystem.Items.IndexOf(ddlSystem.Items.FindByText("-Select-"));
-                }
+                        ddlCategoryList.SelectedIndex = ddlCategoryList.Items.IndexOf(ddlCategoryList.Items.FindByText("-Select-"));
+                    }
+                    string system = dt.Rows[0]["TO_System"].ToString();
+                    if (system != "")
+                    {
+                        ddlSystem.SelectedValue = system;
+                    }
+                    else
+                    {
+                        ddlSystem.SelectedIndex = ddlSystem.Items.IndexOf(ddlSystem.Items.FindByText("-Select-"));
+                    }
 
-                string subsystem = dt.Rows[0]["TO_Subsystem"].ToString();
-                if (subsystem != "")
-                {
-                    ddlSubsystem.SelectedValue = subsystem;
-                }
-                else
-                {
-                    ddlSubsystem.SelectedIndex = ddlSubsystem.Items.IndexOf(ddlSubsystem.Items.FindByText("-Select-"));
-                }
-                string cntrlsystem = dt.Rows[0]["CTRL_System"].ToString();
-                if (cntrlsystem != "")
-                {
-                    ddlControlSystem.SelectedValue = cntrlsystem;
-                }
-                else
-                {
-                    ddlControlSystem.SelectedIndex = ddlControlSystem.Items.IndexOf(ddlControlSystem.Items.FindByText("-Select-"));
-                }
-                txtReference.Text = dt.Rows[0]["ChangeReqRef"].ToString();
+                    string subsystem = dt.Rows[0]["TO_Subsystem"].ToString();
+                    if (subsystem != "")
+                    {
+                        ddlSubsystem.SelectedValue = subsystem;
+                    }
+                    else
+                    {
+                        ddlSubsystem.SelectedIndex = ddlSubsystem.Items.IndexOf(ddlSubsystem.Items.FindByText("-Select-"));
+                    }
+                    string cntrlsystem = dt.Rows[0]["CTRL_System"].ToString();
+                    if (cntrlsystem != "")
+                    {
+                        ddlControlSystem.SelectedValue = cntrlsystem;
+                    }
+                    else
+                    {
+                        ddlControlSystem.SelectedIndex = ddlControlSystem.Items.IndexOf(ddlControlSystem.Items.FindByText("-Select-"));
+                    }
+                    txtReference.Text = dt.Rows[0]["ChangeReqRef"].ToString();
 
-                string refDate = dt.Rows[0]["ChangeReqDt"].ToString();
-                if (refDate != "")
-                {
-                    RadReferenceDate.SelectedDate = Convert.ToDateTime(refDate);
-                }
-                txtRevision.Text = dt.Rows[0]["Rev"].ToString();
+                    string refDate = dt.Rows[0]["ChangeReqDt"].ToString();
+                    if (refDate != "")
+                    {
+                        RadReferenceDate.SelectedDate = Convert.ToDateTime(refDate);
+                    }
+                    txtRevision.Text = dt.Rows[0]["Rev"].ToString();
 
-                string compDate = dt.Rows[0]["ComplDt"].ToString();
-                if (compDate != "")
-                {
-                    RadCompletionDate.SelectedDate = Convert.ToDateTime(compDate);
+                    string compDate = dt.Rows[0]["ComplDt"].ToString();
+                    if (compDate != "")
+                    {
+                        RadCompletionDate.SelectedDate = Convert.ToDateTime(compDate);
+                    }
+                    txtCompletionRemarks.Text = dt.Rows[0]["ComplRemarks"].ToString();
+                    string organization = dt.Rows[0]["ComplRespOrg"].ToString();
+                    if (organization != "")
+                    {
+                        ddlOrganization.SelectedValue = organization;
+                    }
+                    else
+                    {
+                        ddlOrganization.SelectedIndex = ddlOrganization.Items.IndexOf(ddlOrganization.Items.FindByText("-Select-"));
+                    }
+                    string actionby = dt.Rows[0]["ActionBy"].ToString();
+                    if (actionby != "")
+                    {
+                        ddlActionBy.SelectedValue = actionby;
+                    }
+                    else
+                    {
+                        ddlActionBy.SelectedIndex = ddlActionBy.Items.IndexOf(ddlActionBy.Items.FindByText("-Select-"));
+                    }
                 }
-                txtCompletionRemarks.Text = dt.Rows[0]["ComplRemarks"].ToString();
-                string organization = dt.Rows[0]["ComplRespOrg"].ToString();
-                if (organization != "")
-                {
-                    ddlOrganization.SelectedValue = organization;
-                }
-                else
-                {
-                    ddlOrganization.SelectedIndex = ddlOrganization.Items.IndexOf(ddlOrganization.Items.FindByText("-Select-"));
-                }
-                string actionby = dt.Rows[0]["ActionBy"].ToString();
-                if (actionby != "")
-                {
-                    ddlActionBy.SelectedValue = actionby;
-                }
-                else
-                {
-                    ddlActionBy.SelectedIndex = ddlActionBy.Items.IndexOf(ddlActionBy.Items.FindByText("-Select-"));
-                }
-
                 DataTable dtt;
                 dtt = pObj.GetFileFromEILAttachByProjectNoRefEILType(ID);
                 grdFileUpload.DataSource = dtt;
@@ -1512,16 +1553,29 @@ namespace FlyCn.EIL
                     }
                 }
                 pObj.EILType = lblTypeNeed.Text;
+                if ((ddlModule.Text != "") && (ddlModule.Text != null))
+                {
+                   pObj.moduleId = ddlModule.SelectedItem.Value;
+                }
+                if ((ddlCategory.Text != "") && (ddlCategory.Text != null))
+                {
+                    pObj.category = ddlCategory.SelectedItem.Value;
+                    pObj.categoryDesc = ddlCategory.SelectedItem.Text;
+                }
+                if (radTagNo.Text != "")
+                {
+                    pObj.linkId = radTagNo.Text;
+                }
+
                 try
                 {
                     result = pObj.AddtoPunchList(mObj);
-                    if (result == 1)
-                    {
+                   
                         var page = HttpContext.Current.CurrentHandler as Page;
                         var master = page.Master;
-                        eObj.InsertionSuccessData(page,"Data inserted successfully..!!!");
-                        dtgManageProjectGrid.Rebind();
-                    }
+                        eObj.InsertionSuccessData(page);
+                        dtgManageProjectGrid.Rebind();                 
+                  
                 }
 
                 catch (SqlException ex)
@@ -1576,6 +1630,291 @@ namespace FlyCn.EIL
             }
         }
         #endregion Insert
+
+        #region InserEil
+        public void InserEil()
+        {
+
+            RadTab tab = (RadTab)RadTabStrip1.FindTabByText("View");
+            tab.Selected = true;
+            RadMultiPage1.SelectedIndex = 0;
+            try
+            {
+
+                int result = 0;
+                pObj.Idno = Convert.ToInt32(txtIDno.Text);
+                pObj.EILType = hdnMode.Value;
+                pObj.CoveredByProject = 0;
+                //if (ddlCategory.SelectedItem.Text != "--select category--")
+                //{
+                //    pObj.Category = ddlCategory.SelectedItem.Value;
+                //}
+                if (rdbCoveredByYes.Checked)
+                {
+                    pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByYes.ToolTip);
+
+                }
+                else
+                {
+                    if (rdbCoveredByNo.Checked)
+                    {
+                        pObj.CoveredByProject = Convert.ToInt32(rdbCoveredByNo.ToolTip);
+
+                    }
+                }
+                if (ddlOpenBy.SelectedItem.Text != "-Select-")
+                {
+                    mObj.OpenBy = Convert.ToString(ddlOpenBy.SelectedValue);
+                }
+                else
+                {
+                    mObj.OpenBy = null;
+                }
+                if (RadOpenDate.SelectedDate != null)
+                {
+                    pObj.OpenDate = Convert.ToString(RadOpenDate.SelectedDate);
+                }
+                if (ddlRequestedBy.SelectedItem.Text != "-Select-")
+                {
+                    mObj.RequestedBy = Convert.ToString(ddlRequestedBy.SelectedValue);
+                }
+                else
+                {
+                    mObj.RequestedBy = Convert.ToString(DBNull.Value);
+                }
+                if (ddlResponsiblePerson.SelectedItem.Text != "-Select-")
+                {
+                    mObj.ResponsiblePerson = Convert.ToString(ddlResponsiblePerson.SelectedValue);
+                }
+                else
+                {
+                    mObj.ResponsiblePerson = Convert.ToString(DBNull.Value);
+                }
+                if (ddlInspector.SelectedItem.Text != "-Select-")
+                {
+                    mObj.Inspector = Convert.ToString(ddlInspector.SelectedValue);
+                }
+                else
+                {
+                    mObj.Inspector = Convert.ToString(DBNull.Value);
+                }
+                if (ddlSignedBy.SelectedItem.Text != "-Select-")
+                {
+                    mObj.SignedBy = Convert.ToString(ddlSignedBy.SelectedValue);
+                }
+                else
+                {
+                    mObj.SignedBy = Convert.ToString(DBNull.Value);
+                }
+                if (ddlEnteredBy.SelectedItem.Text != "-Select-")
+                {
+                    mObj.EnteredBy = Convert.ToString(ddlEnteredBy.SelectedValue);
+
+                }
+                else
+                {
+                    mObj.EnteredBy = Convert.ToString(DBNull.Value);
+                }
+
+                if (RadEnteredDate.SelectedDate != null)
+                {
+                    pObj.EnteredDt = Convert.ToString(RadEnteredDate.SelectedDate);
+                }
+                if (ddlDiscipline.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Discipline = Convert.ToString(ddlDiscipline.SelectedValue);
+                }
+                else
+                {
+                    pObj.Discipline = Convert.ToString(DBNull.Value);
+                }
+                pObj.ItemDescription = txtItemDescription.Text;
+                if (ddlLocation.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Location = Convert.ToString(ddlLocation.SelectedValue);
+                }
+                else
+                {
+                    pObj.Location = Convert.ToString(DBNull.Value);
+                }
+                if (ddlArea.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Area = Convert.ToString(ddlArea.SelectedValue);
+                }
+                else
+                {
+                    pObj.Area = Convert.ToString(DBNull.Value);
+                }
+                if (ddlUnit.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Unit = Convert.ToString(ddlUnit.SelectedValue);
+                }
+                else
+                {
+                    pObj.Unit = Convert.ToString(DBNull.Value);
+                }
+                if (ddlPlant.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Plant = Convert.ToString(ddlPlant.SelectedValue);
+                }
+                else
+                {
+                    pObj.Plant = Convert.ToString(DBNull.Value);
+                }
+                if (RadScheduleCompletionDate.SelectedDate != null)
+                {
+                    pObj.ScheduledDateCompletion = Convert.ToString(RadScheduleCompletionDate.SelectedDate);
+                }
+                if (RadRFIDate.SelectedDate != null)
+                {
+                    pObj.RFIDate = Convert.ToString(RadRFIDate.SelectedDate);
+                }
+
+                pObj.RFINo = txtRFINo.Text;
+                pObj.Sheet = txtSheet.Text;
+                pObj.Drawing = txtDrawing.Text;
+                if (ddlFailCategory.SelectedItem.Text != "-Select-")
+                {
+
+                    pObj.FailCategory = Convert.ToString(ddlFailCategory.SelectedValue);
+
+                }
+                else
+                {
+                    pObj.FailCategory = Convert.ToString(DBNull.Value);
+                }
+               
+                if (ddlSystem.SelectedItem.Text != "-Select-")
+                {
+                    pObj.System = Convert.ToString(ddlSystem.SelectedValue);
+                }
+                else
+                {
+                    pObj.System = Convert.ToString(DBNull.Value);
+                }
+                if (ddlSubsystem.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Subsystem = Convert.ToString(ddlSubsystem.SelectedValue);
+                }
+                else
+                {
+
+                    pObj.Subsystem = Convert.ToString(DBNull.Value);
+                }
+
+                string val = null;
+                pObj.QueryRevision = string.IsNullOrEmpty(val) ? '0' : Convert.ToInt32(txtQueryRevision.Text);
+                pObj.Reference = txtReference.Text;
+                if (RadReferenceDate.SelectedDate != null)
+                {
+                    pObj.ReferenceDate = Convert.ToString(RadReferenceDate.SelectedDate);
+                }
+                pObj.Revison = txtRevision.Text;
+                if (RadCompletionDate.SelectedDate != null)
+                {
+                    pObj.CompletionDate = Convert.ToString(RadCompletionDate.SelectedDate);
+                }
+                pObj.CompletionRemarks = txtCompletionRemarks.Text;
+                if (ddlControlSystem.SelectedItem.Text != "-Select-")
+                {
+                    pObj.ControlSystem = Convert.ToString(ddlControlSystem.SelectedValue);
+                }
+                else
+                {
+                    pObj.ControlSystem = Convert.ToString(DBNull.Value);
+                }
+
+                if (ddlOrganization.SelectedItem.Text != "-Select-")
+                {
+                    pObj.Organization = Convert.ToString(ddlOrganization.SelectedValue);
+                }
+                else
+                {
+                    pObj.Organization = Convert.ToString(DBNull.Value);
+                }
+               
+                if (ddlActionBy.SelectedItem.Text != "-Select-")
+                {
+                    pObj.ActionBy = Convert.ToString(ddlActionBy.SelectedValue);
+                }
+                else
+                {
+                    pObj.ActionBy = Convert.ToString(DBNull.Value);
+
+                }
+                pObj.ChangeReq = 0;
+                if (rdbChangeRequestyes.Checked)
+                {
+                    pObj.ChangeReq = Convert.ToInt32(rdbChangeRequestyes.ToolTip);
+
+                }
+                else
+                {
+                    if (rdbchangerequestno.Checked)
+                    {
+                        pObj.CoveredByProject = Convert.ToInt32(rdbchangerequestno.ToolTip);
+
+                    }
+                }
+                pObj.EILType = lblTypeNeed.Text;
+                if ((ddlModule.Text != "") && (ddlModule.Text != null))
+                {
+                    pObj.moduleId = ddlModule.SelectedItem.Value;
+                }
+                if ((ddlCategory.Text != "") && (ddlCategory.Text != null))
+                {
+                    pObj.category = ddlCategory.SelectedItem.Value;
+                    pObj.categoryDesc = ddlCategory.SelectedItem.Text;
+                }
+                if (radTagNo.Text != "")
+                {
+                    pObj.linkId = radTagNo.Text;
+                }
+
+                try
+                {
+                    result = pObj.EILInsertWithoutTrackingDetails(mObj);
+                    
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    var master = page.Master;
+                    eObj.InsertionSuccessData(page);
+                    dtgManageProjectGrid.Rebind();
+
+                }
+
+                catch (SqlException ex)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    var master = page.Master;
+                    eObj.ErrorData(ex, page);
+                }
+                catch (FormatException ex)
+                {
+                    var page = HttpContext.Current.CurrentHandler as Page;
+                    var master = page.Master;
+                    eObj.ErrorData(ex, page);
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            catch (FormatException ex)
+            {
+
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+                RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("1");
+                RadTab tab2 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tabs.ResetTabCaptions(tab1, tab2);
+                RadMultiPage1.SelectedIndex = 0;
+            }
+        }
+        #endregion InserEil
 
         #region LoadComboBox
         /// <summary>
@@ -2083,7 +2422,36 @@ namespace FlyCn.EIL
            
         }
         #endregion dtgManageProjectGrid_SelectedIndexChanged
-        
+
+        #region BindTagNo
+        public RadComboBoxData GetTag(RadComboBoxContext context)
+        {
+            FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+            string moduleId = ddlModule.SelectedItem.Value;
+            string category = ddlCategory.SelectedItem.Value; 
+            DataTable data = punchObj.GetTagNo(moduleId, category, context.Text);
+
+            RadComboBoxData comboData = new RadComboBoxData();
+            int itemOffset = context.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            comboData.EndOfItems = endOffset == data.Rows.Count;
+
+            List<RadComboBoxItemData> result = new List<RadComboBoxItemData>(endOffset - itemOffset);
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                RadComboBoxItemData itemData = new RadComboBoxItemData();
+                itemData.Text = data.Rows[i][punchObj.KeyField].ToString();
+                result.Add(itemData);
+            }
+
+            comboData.Message = GetStatusMessage(endOffset, data.Rows.Count);
+
+            comboData.Items = result.ToArray();
+            return comboData;
+        }
+        #endregion BindTagNo
+
         #region ValidateIdNo
         [System.Web.Services.WebMethod]
         public static bool ValidateIdNo(int LogID,string EType)
@@ -2133,16 +2501,82 @@ namespace FlyCn.EIL
 
             return String.Format("Items <b>1</b>-<b>{0}</b> out of <b>{1}</b>", offset, total);
         }
-        //[System.Web.Services.WebMethod]
-        //public static string GetModuleAndCategory(string module)
-        // {
-        //     string moduleId = module;
-        //     return moduleId;
-        // }
         #endregion ValidateIdNo
 
-        #region ddlModule_SelectedIndexChanged
-        protected void ddlModule_SelectedIndexChanged(object sender, EventArgs e)
+         #region BindDropdownCategory
+         public void BindDropdownCategory()
+         {
+            if(ddlModule.Text!="" && ddlModule.Text!="-1")
+            {
+                DataTable dtmodules = null;
+                FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+
+                UIClasses.Const Const = new UIClasses.Const();
+                FlyCnDAL.Security.UserAuthendication UA;
+                HttpContext context = HttpContext.Current;
+                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                string project = UA.projectNo;
+                string moduleId = ddlModule.SelectedItem.Value;
+                try
+                {
+
+                    dtmodules = new DataTable();
+                    dtmodules = punchObj.GetAllCategory(project, moduleId);
+                    ddlCategory.DataSource = dtmodules;
+                    ddlCategory.DataTextField = "CategoryDesc";
+                    ddlCategory.DataValueField = "Category";
+                    ddlCategory.DataBind();
+                    ddlCategory.Items.Insert(0, new ListItem("--select category--", "-1"));
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+         }
+         #endregion BindDropdownCategory
+
+         #region BindDropdownActivity
+         public void BindDropdownActivity()
+         {
+             if (ddlModule.Text != "" && ddlModule.Text != "-1" && ddlCategory.Text != "" && ddlCategory.Text != "-1")
+             {
+                 DataTable dtActivity = null;
+                 FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
+
+                 UIClasses.Const Const = new UIClasses.Const();
+                 FlyCnDAL.Security.UserAuthendication UA;
+                 HttpContext context = HttpContext.Current;
+                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+                 string project = UA.projectNo;
+                 string moduleId = ddlModule.SelectedItem.Value;
+                 try
+                 {
+                     dtActivity = new DataTable();
+                     string category = ddlCategory.SelectedItem.Value; 
+                     dtActivity = punchObj.GetAllActivitiesFromSys_Activities(project, moduleId, category);
+
+                     ddlActivity.DataSource = dtActivity;
+                     ddlActivity.DataTextField = "FullDesc";
+                     //ddlActivity.DataValueField = "ShortDesc";
+                     ddlActivity.DataBind();
+                     ddlActivity.Items.Insert(0, new ListItem("--select Activity--", "-1"));
+
+                 }
+                 catch (Exception ex)
+                 {
+                     throw ex;
+                 }
+             }
+             else
+             {
+                 ddlActivity.Items.Insert(0, new ListItem("--select Activity--", "-1"));
+             }
+         }
+         #endregion BindDropdownActivity
+         #region ddlModule_SelectedIndexChanged
+         protected void ddlModule_SelectedIndexChanged(object sender, EventArgs e)
         {
             DataTable dtmodules = null;
             FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
