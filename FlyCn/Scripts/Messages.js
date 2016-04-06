@@ -10,7 +10,8 @@
     PasswordDoesnotMatch: "Password Doesn't Match..!!!",
     SelectLevel: "Please Select Level..!!!",
     IncorrectFormat: "Input string not in a correct format",
-    DropdownSelect:"Please select a value from dropdown"
+    DropdownSelect: "Please select a value from dropdown",
+    TrackingDetails:"Please select all tracking details"
 }
 
 

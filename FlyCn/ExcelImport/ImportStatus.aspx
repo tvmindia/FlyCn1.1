@@ -38,6 +38,7 @@
                    text-overflow: ellipsis; 
     
             }
+ 
 </style>
    <div style="overflow-y:hidden;">
        <%-- <form role="form-horizontal">--%>

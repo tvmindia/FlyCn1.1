@@ -252,7 +252,17 @@ background-color: ghostwhite;
                         <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                         <%=ToolBar.ClientID %>_SetDeleteVisible(false);
                         <%=ToolBar.ClientID %>_SetAttachVisible(false);
-                      
+                        var IdNo = document.getElementById("<%=txtIDno.ClientID %>").value;
+                        var moduleId = document.getElementById('<%=ddlModule.ClientID %>').selectedIndex;
+                        var category = document.getElementById('<%=ddlCategory.ClientID %>').selectedIndex;
+                        var activity = document.getElementById('<%=ddlActivity.ClientID %>').selectedIndex;
+                        var tag = $telerik.findComboBox("<%= radTagNo.ClientID %>");
+                       
+                        IdNo.EditMode = true;
+                        moduleId.EditMode = true;
+                        category.EditMode = true;
+                        activity.EditMode = true;
+                        tag.EditMode = true;
                     }
                     if (document.getElementById("<%= grdFileUpload.ClientID %>") != null)
                         document.getElementById("<%= grdFileUpload.ClientID %>").style.display = "none";
@@ -268,6 +278,7 @@ background-color: ghostwhite;
 
                 SelectTabList();
                 SetTabNewTextAndIcon();
+
             }
 
         }
@@ -280,24 +291,43 @@ background-color: ghostwhite;
             }
             if (btn.get_value() == 'Update') {
 
-                args.set_cancel(!validate());
+                args.set_cancel(!validateEdit());
+
             }
             if (btn.get_value() == 'Save') {
 
-                args.set_cancel(!validate());
+                args.set_cancel(!validateSave());
             }
 
         }
         function ClearTexBox() {
-            document.getElementById('<%=txtIDno.ClientID %>').value = "";
+            document.getElementById('<%=txtIDno.ClientID %>').value = "";          
             var LnameImage = document.getElementById('<%=imgWebLnames.ClientID %>');
             LnameImage.style.display = "none";
             var errLname = document.getElementById('<%=errorLnames.ClientID %>');
             errLname.style.display = "none";
-  
-            document.getElementById('<%=ddlModule.ClientID %>').value="--select module--";
-            document.getElementById('<%=ddlCategory.ClientID %>').value="--select category--";
-            document.getElementById('<%=ddlActivity.ClientID %>').value="--select Activity--";
+            document.getElementById('<%=ddlModule.ClientID %>').selectedIndex = "0";          
+            document.getElementById('<%=ddlCategory.ClientID %>').selectedIndex = "0";            
+            document.getElementById('<%=ddlActivity.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlOpenBy.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlEnteredBy.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlPlant.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlArea.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlLocation.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlUnit.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlSystem.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlControlSystem.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlSubsystem.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlRequestedBy.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlInspector.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlActionBy.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlDiscipline.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlFailCategory.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlCategoryList.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlResponsiblePerson.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlOrganization.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlSignedBy.ClientID %>').selectedIndex = "0";
+           
                   $('input[type=text]').each(function () {
                       $(this).val('');
                   });
@@ -307,24 +337,73 @@ background-color: ghostwhite;
     </script>
     <script type="text/javascript">
 
-        function validate() {
-
-
+        function validateSave() {
             var IdNo = document.getElementById("<%=txtIDno.ClientID %>").value;
+            var moduleId = document.getElementById('<%=ddlModule.ClientID %>').selectedIndex;
+            var category = document.getElementById('<%=ddlCategory.ClientID %>').selectedIndex;
+            var activity = document.getElementById('<%=ddlActivity.ClientID %>').selectedIndex;
+            var tag = $telerik.findComboBox("<%= radTagNo.ClientID %>").get_text();
 
-            if (IdNo == "") {
+            if (moduleId != "0")
+            {
+               
+                if (category == "0" || activity == "0" || tag == "Search for TagNo...")
+                {
+                    displayMessage(messageType.Error, messages.TrackingDetails);
+                    return false;
+                }
+                else if (IdNo == "") {
+                    document.getElementById("<%=lblerror.ClientID %>").innerHTML = "";
 
+                    displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+                    return false;
+
+                }
+                else {
+                    document.getElementById("<%=lblerror.ClientID %>").innerHTML = "";
+                    return true;
+
+                }
+               
+            }
+            else if (IdNo == "") {
+                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "";
 
                 displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
-                // alert(messageType.Error, messages.MandatoryFieldsGeneral);
+                return false;
+
+            }
+            else {
+                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "";
+              
+                if (moduleId == "0" && IdNo != "") {
+                    var myHidden = document.getElementById('<%= hdfValidateSave.ClientID %>');
+                    myHidden.value = "1";
+                  
+                }
+                else {
+                  
+                    myHidden.value = "2";
+                }
+                return true;
+            }     
+        }
+        
+        function validateEdit()
+        {
+            var IdNo = document.getElementById("<%=txtIDno.ClientID %>").value;
+            if (IdNo == "") {
+                document.getElementById("<%=lblerror.ClientID %>").innerHTML = "";
+
+                displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
                 return false;
 
             }
             else {
                 document.getElementById("<%=lblerror.ClientID %>").innerHTML = "";
                 return true;
-            }
 
+            }
         }
     </script>
 
@@ -438,18 +517,6 @@ background-color: ghostwhite;
                
             }
         }
-      <%--  function ValidateTagNo()
-        {
-            var module = document.getElementById('<%=txtIDno.ClientID %>').value;
-            var category = document.getElementById('<%=txtIDno.ClientID %>').value;
-            PageMethods.GetModuleAndCategory(module, category, OnSuccess, onError);
-            function OnSuccess(response, userContext, methodName) {
-
-            }
-            function onError(response, userContext, methodName) {
-
-            }
-        }--%>
        
             </script>
 
@@ -483,7 +550,7 @@ background-color: ghostwhite;
                                     
 
                                     <telerik:RadGrid ID="dtgManageProjectGrid" runat="server" CellSpacing="0"
-                                        GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true"  AlwaysVisible="true" OnSelectedIndexChanged="dtgManageProjectGrid_SelectedIndexChanged" OnItemCommand="dtgManageProjectGrid_ItemCommand"
+                                        GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true" OnPageIndexChanged="dtgManageProjectGrid_PageIndexChanged"  AlwaysVisible="true" OnSelectedIndexChanged="dtgManageProjectGrid_SelectedIndexChanged" OnItemCommand="dtgManageProjectGrid_ItemCommand"
                                         PageSize="10" Width="100%" Skin="Silk">
                                          <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType" InsertItemPageIndexAction="ShowItemOnFirstPage" InsertItemDisplay="Top" >
@@ -560,14 +627,17 @@ background-color: ghostwhite;
                                         </div>
                                         <%-- </form>--%>
                                     </div>
-
+                                          <br />
+                                          <br />
+                                          
+                                       
                                     <div class="col-md-6">
 
                                         <div class="form-group">
                                            
  <asp:Label ID="lblActivity" runat="server" Text="Activity"  class="control-label col-md-5" for="email3"></asp:Label>
                                             <div class="col-md-7">
-                                                <asp:DropDownList ID="ddlActivity" runat="server" CssClass="selectbox"></asp:DropDownList>
+                                                <asp:DropDownList ID="ddlActivity" runat="server" CssClass="selectbox"  AppendDataBoundItems="false" AutoPostBack="true"></asp:DropDownList>
 
                                             </div>
                                         </div>
@@ -1220,7 +1290,7 @@ background-color: ghostwhite;
                                         </div>
                                         <%-- </form>--%>
 
-                                 </div></div></div>
+                                 </div></div></div></div>
                                   <div class="accordion-container"> <a href="#" class="accordion-toggle">Attachments 
                                             
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
@@ -1429,6 +1499,7 @@ Text="Delete" CommandName="Delete" runat="server" />--%>
     <asp:HiddenField ID="hdnIdNo" runat="server" ClientIDMode="Static" />
        <asp:HiddenField ID="hdnSecurity" runat="server" />
     <asp:HiddenField ID="hdnTagNo" runat="server" />
+    <asp:HiddenField ID="hdfValidateSave" runat="server" />
  
 </asp:Content>
 
