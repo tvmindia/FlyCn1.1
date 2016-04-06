@@ -107,6 +107,7 @@ namespace FlyCn.EIL
             {
                 Session["category"] = ddlCategory.SelectedItem.Value;
             }
+           
 
         }
         #endregion Page_Load
@@ -198,11 +199,25 @@ namespace FlyCn.EIL
                 {
                     Insert();
                 }
+                radTagNo.Text = "";
+                //RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                //tab.Selected = true;
+                //tab.Text = "New";
             }
             if (e.Item.Value == "Update")
             {
+              
                 Update();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "ClearTextBox", "ClearTexBox();", true);
+                txtIDno.Enabled = true;
+                ddlActivity.Enabled = true;
+                ddlModule.Enabled = true;
+                ddlCategory.Enabled = true;
+                radTagNo.Enabled = true;
+                radTagNo.Text = "";
+                RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
+                tab.Selected = true;
+                tab.Text = "New";
             }
             if (e.Item.Value == "Delete")
             {
@@ -290,17 +305,18 @@ namespace FlyCn.EIL
                     if (dtId.Rows.Count > 0)
                     {
                         ddlModule.Text = dtId.Rows[0]["ModuleID"].ToString();
+                        ddlModule.Enabled = false;
                         BindDropdownCategory();
                         string category1 = dtId.Rows[0]["Category"].ToString();
                        // ddlCategory.ClearSelection();
-                        ddlCategory.Items.FindByValue(category1).Selected = true;                     
-                       
+                        ddlCategory.Items.FindByValue(category1).Selected = true;
+                        ddlCategory.Enabled = false;
                         string actCode = dtId.Rows[0]["ActCode"].ToString();
                         dtAct = pObj.GetActivityByActCode(actCode,projno, ddlModule.Text, category1);
                         BindDropdownActivity();
                         string activity = dtAct.Rows[0]["FullDesc"].ToString();
                         ddlActivity.Items.FindByValue(activity).Selected = true;
-                        
+                        ddlActivity.Enabled = false;
                     }
                     //else
                     //{
@@ -308,7 +324,9 @@ namespace FlyCn.EIL
                     //    ddlCategory.Text = "--select category--";
                     //}
                     radTagNo.Text = dt.Rows[0]["LinkIDNo"].ToString();
+                    radTagNo.Enabled = false;
                     txtIDno.Text = dt.Rows[0]["IDNo"].ToString();
+                    txtIDno.Enabled = false;
                     string opndate = dt.Rows[0]["OpenDt"].ToString();
 
                     if (opndate != "")
@@ -2603,7 +2621,7 @@ namespace FlyCn.EIL
             {
                 throw ex;
             }
-           
+            radTagNo.Text = "";
         }
         #endregion ddlModule_SelectedIndexChanged
 
@@ -2662,6 +2680,14 @@ namespace FlyCn.EIL
 
         }
         #endregion ddlCategory_SelectedIndexChanged
+
+        protected void dtgManageProjectGrid_PageIndexChanged(object sender, GridPageChangedEventArgs e)
+        {
+            RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+            tab.Selected = true;
+            RadTab tab2 = (RadTab)RadTabStrip1.FindTabByValue("2");
+            tab2.Text = "New";
+        }
     }
 }
         

@@ -252,7 +252,17 @@ background-color: ghostwhite;
                         <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                         <%=ToolBar.ClientID %>_SetDeleteVisible(false);
                         <%=ToolBar.ClientID %>_SetAttachVisible(false);
-                      
+                        var IdNo = document.getElementById("<%=txtIDno.ClientID %>").value;
+                        var moduleId = document.getElementById('<%=ddlModule.ClientID %>').selectedIndex;
+                        var category = document.getElementById('<%=ddlCategory.ClientID %>').selectedIndex;
+                        var activity = document.getElementById('<%=ddlActivity.ClientID %>').selectedIndex;
+                        var tag = $telerik.findComboBox("<%= radTagNo.ClientID %>");
+                       
+                        IdNo.EditMode = true;
+                        moduleId.EditMode = true;
+                        category.EditMode = true;
+                        activity.EditMode = true;
+                        tag.EditMode = true;
                     }
                     if (document.getElementById("<%= grdFileUpload.ClientID %>") != null)
                         document.getElementById("<%= grdFileUpload.ClientID %>").style.display = "none";
@@ -268,6 +278,7 @@ background-color: ghostwhite;
 
                 SelectTabList();
                 SetTabNewTextAndIcon();
+
             }
 
         }
@@ -290,13 +301,13 @@ background-color: ghostwhite;
 
         }
         function ClearTexBox() {
-            document.getElementById('<%=txtIDno.ClientID %>').value = "";
+            document.getElementById('<%=txtIDno.ClientID %>').value = "";          
             var LnameImage = document.getElementById('<%=imgWebLnames.ClientID %>');
             LnameImage.style.display = "none";
             var errLname = document.getElementById('<%=errorLnames.ClientID %>');
             errLname.style.display = "none";
-            document.getElementById('<%=ddlModule.ClientID %>').selectedIndex = "0";
-            document.getElementById('<%=ddlCategory.ClientID %>').selectedIndex = "0";
+            document.getElementById('<%=ddlModule.ClientID %>').selectedIndex = "0";          
+            document.getElementById('<%=ddlCategory.ClientID %>').selectedIndex = "0";            
             document.getElementById('<%=ddlActivity.ClientID %>').selectedIndex = "0";
             document.getElementById('<%=ddlOpenBy.ClientID %>').selectedIndex = "0";
             document.getElementById('<%=ddlEnteredBy.ClientID %>').selectedIndex = "0";
@@ -316,7 +327,7 @@ background-color: ghostwhite;
             document.getElementById('<%=ddlResponsiblePerson.ClientID %>').selectedIndex = "0";
             document.getElementById('<%=ddlOrganization.ClientID %>').selectedIndex = "0";
             document.getElementById('<%=ddlSignedBy.ClientID %>').selectedIndex = "0";
-            alert("done");
+           
                   $('input[type=text]').each(function () {
                       $(this).val('');
                   });
@@ -539,7 +550,7 @@ background-color: ghostwhite;
                                     
 
                                     <telerik:RadGrid ID="dtgManageProjectGrid" runat="server" CellSpacing="0"
-                                        GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true"  AlwaysVisible="true" OnSelectedIndexChanged="dtgManageProjectGrid_SelectedIndexChanged" OnItemCommand="dtgManageProjectGrid_ItemCommand"
+                                        GridLines="None" OnNeedDataSource="dtgManageProjectGrid_NeedDataSource1" AllowPaging="true" OnPageIndexChanged="dtgManageProjectGrid_PageIndexChanged"  AlwaysVisible="true" OnSelectedIndexChanged="dtgManageProjectGrid_SelectedIndexChanged" OnItemCommand="dtgManageProjectGrid_ItemCommand"
                                         PageSize="10" Width="100%" Skin="Silk">
                                          <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                                         <MasterTableView AutoGenerateColumns="False" DataKeyNames="ProjectNo,IDNo,EILType" InsertItemPageIndexAction="ShowItemOnFirstPage" InsertItemDisplay="Top" >
