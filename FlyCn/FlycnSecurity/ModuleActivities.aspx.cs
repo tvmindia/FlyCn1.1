@@ -16,6 +16,7 @@ namespace FlyCn.FlycnSecurity
         ErrorHandling eObj = new ErrorHandling();
         protected void Page_Load(object sender, EventArgs e)
         {
+            SecurityCheck();
             if(!IsPostBack)
             {
                 BindDropDownActivityProjectNo();
@@ -97,6 +98,59 @@ namespace FlyCn.FlycnSecurity
                 dtgManageActivities.DataSource = new string[] { };
             }
         }
+
+        #region SecurityCheck
+        public void SecurityCheck()
+        {
+            string logicalObject = "ModuleActivities";
+
+            FlyCnDAL.Security.PageSecurity PS = new Security.PageSecurity(logicalObject, this);
+
+            if (PS.isWrite == true)
+            {
+                dtgManageActivities.MasterTableView.GetColumn("Modulescheck").Display = false;
+                ToolBar.Visible = false;
+                ToolBar1.Visible = true;
+                tabs2.Visible = true;
+            }
+            else
+             if (PS.isEdit == true)
+                {
+                    dtgManageActivities.MasterTableView.GetColumn("Modulescheck").Display = false;
+                    ToolBar.Visible = false;
+                    ToolBar1.Visible = true;
+                    tabs2.Visible = true;
+                }
+                 if (PS.isAdd == true)
+                {
+                    dtgManageActivities.MasterTableView.GetColumn("Modulescheck").Display = false;
+                    ToolBar.Visible = false;
+                    ToolBar1.Visible = true;
+                    tabs2.Visible = true;
+                }
+                 if (PS.isRead == true)
+                {
+                    dtgManageActivities.MasterTableView.GetColumn("Modulescheck").Display = false;
+                    ToolBar.Visible= false;
+                    ToolBar1.Visible = false;
+                    tabs2.Visible = false;
+                }
+
+                if (PS.isDenied == true)
+                {
+                    HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=accessdenied", true);
+                }
+            if (PS.isDelete == true)
+            {
+                dtgManageActivities.MasterTableView.GetColumn("Modulescheck").Display = true;
+                ToolBar.Visible = true;
+                //ToolBar1.Visible = false;
+                //tabs2.Visible = false;
+            }
+
+        }
+        #endregion SecurityCheck
+
 
         #region FillActivities
         public void FillActivities()

@@ -18,6 +18,7 @@ namespace FlyCn.FlycnSecurity
             
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
+            SecurityCheck();
             if (!IsPostBack)
             {
                 Bindddlprojectmodule();
@@ -74,6 +75,56 @@ namespace FlyCn.FlycnSecurity
           
         }
         #endregion ToolBar_onClick
+
+        #region SecurityCheck
+        public void SecurityCheck()
+        {
+            string logicalObject = "ManageCategory";
+
+            FlyCnDAL.Security.PageSecurity PS = new Security.PageSecurity(logicalObject, this);
+
+            if (PS.isWrite == true)
+            {
+                dtgManageCategory.MasterTableView.GetColumn("Modulescheck").Display = true;
+                ToolBar.Visible = true;
+                ToolBar.SaveButton.Visible = true;
+                ToolBar.DeleteButton.Visible = false;
+            }
+            else
+            if (PS.isEdit == true)
+                {
+                    dtgManageCategory.MasterTableView.GetColumn("Modulescheck").Display = false;
+                    ToolBar.Visible = false;
+                    ToolBar.SaveButton.Visible = false;
+                    ToolBar.DeleteButton.Visible = false;
+                }
+                if (PS.isAdd == true)
+                {
+                    dtgManageCategory.MasterTableView.GetColumn("Modulescheck").Display = false;
+                    ToolBar.Visible = true;
+                    ToolBar.SaveButton.Visible = true;
+                    ToolBar.DeleteButton.Visible = false;
+                }
+                 if (PS.isRead == true)
+                {
+                    dtgManageCategory.MasterTableView.GetColumn("Modulescheck").Display = false;
+                    ToolBar.Visible = false;
+                    ToolBar.SaveButton.Visible = false;
+                    ToolBar.DeleteButton.Visible = false;
+                }
+
+                 if (PS.isDenied == true)
+                {
+                    HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=accessdenied", true);
+                }
+            if (PS.isDelete == true)
+            {
+                dtgManageCategory.MasterTableView.GetColumn("Modulescheck").Display = true;
+                ToolBar.DeleteButton.Visible = true;
+            }
+
+        }
+        #endregion SecurityCheck
 
         public void FillUsers()
         {

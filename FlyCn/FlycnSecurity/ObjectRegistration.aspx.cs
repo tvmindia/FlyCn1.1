@@ -22,6 +22,7 @@ using System.Data.SqlClient;
 
 using System.Reflection;
 using System.Collections;
+using FlyCn.FlyCnDAL;
 
 
 namespace FlyCn.FlycnSecurity
@@ -262,7 +263,46 @@ namespace FlyCn.FlycnSecurity
 
         #endregion Methods
 
+        #region SecurityCheck
+        public void SecurityCheck()
+        {
+            string logicalObject = "Roles";
 
+            FlyCnDAL.Security.PageSecurity PS = new Security.PageSecurity(logicalObject, this);
+
+            if (PS.isWrite == true)
+            {
+                gvObjectRegistration.Visible = true;
+                btnRegister.Visible = true;
+            }
+            else
+                if (PS.isEdit == true)
+                {
+                    gvObjectRegistration.Visible = false;
+                    btnRegister.Visible = false;
+                }
+                else if (PS.isAdd == true)
+                {
+                    gvObjectRegistration.Visible = false;
+                    btnRegister.Visible = true;
+                }
+                else if (PS.isRead == true)
+                {
+                    gvObjectRegistration.Visible = false;
+                    btnRegister.Visible = false;
+                }
+
+                else if (PS.isDenied == true)
+                {
+                    HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=accessdenied", true);
+                }
+            if (PS.isDelete == true)
+            {
+               
+            }
+
+        }
+        #endregion SecurityCheck
         protected void Page_Load(object sender, EventArgs e)
         {
             if (lblError.Text != string.Empty)
@@ -274,6 +314,7 @@ namespace FlyCn.FlycnSecurity
 
             DataSet dsObjectsWithParentIDNull = null;
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
+            SecurityCheck();
             if (!Page.IsPostBack)
             {
                 hdnBrowserManualOpen.Value = "True";

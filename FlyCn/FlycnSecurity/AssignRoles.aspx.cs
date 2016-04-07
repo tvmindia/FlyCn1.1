@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using Telerik.Web.UI;
+using FlyCn.FlyCnDAL;
 
 namespace FlyCn.FlycnSecurity
 {
@@ -16,6 +17,7 @@ namespace FlyCn.FlycnSecurity
         {
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
             ToolBar.OnClientButtonClicking = "OnClientButtonClicking";
+            SecurityCheck();
             if (!IsPostBack)
             {
                 BindDropDownUser();
@@ -108,6 +110,47 @@ namespace FlyCn.FlycnSecurity
             }
         }
         #endregion ToolBar_onClick
+
+        #region SecurityCheck
+        public void SecurityCheck()
+        {
+            string logicalObject = "AssignRoles";
+
+            FlyCnDAL.Security.PageSecurity PS = new Security.PageSecurity(logicalObject, this);
+
+            if (PS.isWrite == true)
+            {
+                dtgAssignRoles.MasterTableView.GetColumn("Assignrolescheck").Display = true;
+                ToolBar.Visible = true;
+            }
+            else
+                if (PS.isEdit == true)
+                {
+                    dtgAssignRoles.MasterTableView.GetColumn("Assignrolescheck").Display = false;
+                    ToolBar.Visible = false;
+                }
+                else if (PS.isAdd == true)
+                {
+                    dtgAssignRoles.MasterTableView.GetColumn("Assignrolescheck").Display = true;
+                    ToolBar.Visible = true;
+                }
+                else if (PS.isRead == true)
+                {
+                    dtgAssignRoles.MasterTableView.GetColumn("Assignrolescheck").Display = false;
+                    ToolBar.Visible = false;
+                }
+
+                else if (PS.isDenied == true)
+                {
+                    HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=accessdenied", true);
+                }
+            if (PS.isDelete == true)
+            {
+                
+            }
+
+        }
+        #endregion SecurityCheck
 
         #region dtgCurrentRoles_NeedDataSource
         protected void dtgCurrentRoles_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)

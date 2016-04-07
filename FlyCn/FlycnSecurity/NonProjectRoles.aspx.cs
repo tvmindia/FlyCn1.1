@@ -217,6 +217,65 @@ namespace FlyCn.FlycnSecurity
 
         #endregion Delete Role By ID
 
+        #region SecurityCheck
+        public void SecurityCheck()
+        {
+            string logicalObject = "Roles";
+
+            FlyCnDAL.Security.PageSecurity PS = new Security.PageSecurity(logicalObject, this);
+
+            if (PS.isWrite == true)
+            {
+                dtgNonProjectRoles.MasterTableView.GetColumn("EditData").Display = true;
+                dtgNonProjectRoles.MasterTableView.GetColumn("Delete").Display = false;
+                ToolBar.Visible = true;
+                ToolBar.AddButton.Visible = true;
+                ToolBar.SaveButton.Visible = true;
+                ToolBar1.Visible = true;
+            }
+            else
+                if (PS.isEdit == true)
+                {
+                    dtgNonProjectRoles.MasterTableView.GetColumn("EditData").Display = true;
+                    dtgNonProjectRoles.MasterTableView.GetColumn("Delete").Display = false;
+                    ToolBar.Visible = true;
+                    ToolBar.AddButton.Visible = false;
+                    ToolBar.SaveButton.Visible = true;
+                    ToolBar1.Visible = false;
+                }
+                else if (PS.isAdd == true)
+                {
+                    dtgNonProjectRoles.MasterTableView.GetColumn("EditData").Display = false;
+                    dtgNonProjectRoles.MasterTableView.GetColumn("Delete").Display = false;
+                    ToolBar.Visible = true;
+                    ToolBar.AddButton.Visible = true;
+                    ToolBar.SaveButton.Visible = false;
+                    ToolBar1.Visible = true;
+                }
+                else if (PS.isRead == true)
+                {
+                    dtgNonProjectRoles.MasterTableView.GetColumn("EditData").Display = false;
+                    dtgNonProjectRoles.MasterTableView.GetColumn("Delete").Display = false;
+                    ToolBar.Visible = false;
+                    ToolBar.AddButton.Visible = false;
+                    ToolBar.SaveButton.Visible = false;
+                    ToolBar1.Visible = false;
+                }
+
+                else if (PS.isDenied == true)
+                {
+                    HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=accessdenied", true);
+                }
+            if (PS.isDelete == true)
+            {
+                
+                dtgNonProjectRoles.MasterTableView.GetColumn("Delete").Display = true;
+                
+            }
+
+        }
+        #endregion SecurityCheck
+
         #region Clear Controls
 
         public void ClearControls()
@@ -818,7 +877,7 @@ namespace FlyCn.FlycnSecurity
             //{
             //    lblError.Text = string.Empty;
             //}
-
+            SecurityCheck();
             if (!IsPostBack)
             {
                 BindRoleTypeComboBox(null);

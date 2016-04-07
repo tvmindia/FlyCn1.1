@@ -48,7 +48,7 @@
          <div class="col-md-12">
                <ul id="tabs">
                     <li><a href="#" onclick="MyTab1(this);" id="tabs1">Manage</a></li>
-                    <li><a href="#" onclick="MyTab2(this);" id="tabs2">Create New</a></li>
+                    <li><a href="#" onclick="MyTab2(this);" id="tabs2" runat="server">Create New</a></li>
                 </ul>
    <div id="content">
          <div id="tab1">
