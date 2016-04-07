@@ -75,11 +75,12 @@
                       <br />
                    <br />
                  <div class="contentTopBar" style="width:470px;"></div>
-                <telerik:RadGrid ID="dtgManageCategory" runat="server" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageCategory_NeedDataSource" OnItemCreated="dtgManageCategory_ItemCreated" OnPreRender="dtgManageCategory_PreRender">
+                <telerik:RadGrid ID="dtgManageCategory" GridLines="None" runat="server" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="5" OnNeedDataSource="dtgManageCategory_NeedDataSource" OnItemCreated="dtgManageCategory_ItemCreated" OnPreRender="dtgManageCategory_PreRender">
                     <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
-                    <MasterTableView AutoGenerateColumns="false" ShowHeadersWhenNoRecords="true" ShowHeader="true" DataKeyNames="Category" NoMasterRecordsText="No categories have been added.">
+                       <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
+                    <MasterTableView AutoGenerateColumns="false" ShowHeadersWhenNoRecords="true" ShowHeader="true" DataKeyNames="Category" NoMasterRecordsText="No categories have been added." InsertItemPageIndexAction="ShowItemOnFirstPage" InsertItemDisplay="Top">
                         <Columns>
                             <telerik:GridBoundColumn HeaderText="CategoryID" DataField="Category" Display="false"></telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderText="Category" DataField="CategoryDesc" Display="true"></telerik:GridBoundColumn>

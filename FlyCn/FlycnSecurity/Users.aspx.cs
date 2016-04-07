@@ -334,16 +334,22 @@ namespace FlyCn.FlycnSecurity
 
                                 string emailID = dt.Rows[i]["EmailId"].ToString();
                                 txtEmail.Text = emailID;
-
-                                bool active =Convert.ToBoolean(dt.Rows[i]["Active"]);
-                                 if(active==true)
-                                 {
-                                     chkIsActive.Checked = true;
-                                 }
+                                if (dt.Rows[i]["Active"] != DBNull.Value)
+                                {
+                                    bool active = Convert.ToBoolean(dt.Rows[i]["Active"]);
+                                    if (active == true)
+                                    {
+                                        chkIsActive.Checked = true;
+                                    }
+                                    else
+                                    {
+                                        chkIsActive.Checked = false;
+                                    }
+                                }
                                 else
-                                 {
-                                     chkIsActive.Checked = false;
-                                 }
+                                {
+                                    chkIsActive.Checked = false;
+                                }
 
                                 string theme = dt.Rows[i]["Theme"].ToString();
                                 ddlTheme.SelectedValue = theme;
