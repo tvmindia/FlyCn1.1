@@ -691,12 +691,8 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 50).Value = CreatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.SmallDateTime).Value = DateTime.Now;
                 cmd.CommandType = CommandType.StoredProcedure;
-               
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = cmd;
-                
-                datatableobj = new DataTable();
-                adapter.Fill(datatableobj);
+
+                cmd.ExecuteNonQuery();
                 var page = HttpContext.Current.CurrentHandler as Page;
                 eObj.InsertionSuccessData(page);
             }
@@ -732,8 +728,7 @@ namespace FlyCn.FlyCnDAL
                 adapter.SelectCommand = cmd;
 
                 cmd.ExecuteNonQuery();
-                var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.DeleteSuccessData(page);
+                
             }
             catch (Exception ex)
             {

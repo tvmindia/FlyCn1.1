@@ -86,7 +86,7 @@ namespace FlyCn.WebServices
 
                 //-------------Punchlist count
                 FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
-                dataSet.Tables.Add(punchObj.GetPunchList());
+              //  dataSet.Tables.Add(punchObj.GetPunchList());
                 dr = OverView.NewRow();
                 dr["Item"] = "Punch List";
                 dr["No"] = dataSet.Tables[1].Rows.Count;

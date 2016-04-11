@@ -159,8 +159,8 @@ namespace FlyCn.FlyCnDAL
             
             public PageSecurity(string pageName, Page objPage)
             {
-      
 
+                FlyCn.Masters.Landing landObj = new FlyCn.Masters.Landing();
               var  MasterValue = objPage.Master;
               ContentPlaceHolder mpContentPlaceHolder1; 
               mpContentPlaceHolder1 = (ContentPlaceHolder)MasterValue.FindControl("ContentPlaceHolder1");
@@ -175,12 +175,22 @@ namespace FlyCn.FlyCnDAL
               Security sObj = new Security();
               string result;
 
-              //string userAccess = DALObj.GetUserAccess(txtUserName.Text, txtLevelDescription.Text);
-              //lblPermission.Text = userAccess;
 
               result = sObj.LoginSecurityCheck(usrname, pageName);
-         
-                 
+              try
+              {
+                  if (result != "")
+                  {
+                      objPage.ClientScript.RegisterStartupScript(this.GetType(), result, "parent.GetPermissionValue('" + result.ToUpper() + "');", true);
+                     
+                  }
+              }
+              catch (Exception)
+              {
+
+
+              }
+          
                       
                 hdnSecurityField.Value = result.Replace("a","wa");
 

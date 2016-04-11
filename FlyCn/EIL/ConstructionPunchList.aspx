@@ -298,7 +298,16 @@ background-color: ghostwhite;
 
                 args.set_cancel(!validateSave());
             }
+            if (btn.get_value() == 'Add') {
 
+                args.set_cancel(!validateAdd());
+            }
+
+        }
+
+        function validateAdd()
+        {
+            return true;
         }
         function ClearTexBox() {
             document.getElementById('<%=txtIDno.ClientID %>').value = "";          
@@ -406,8 +415,6 @@ background-color: ghostwhite;
             }
         }
     </script>
-
-
     <script type="text/javascript">
 
     

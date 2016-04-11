@@ -165,6 +165,17 @@ namespace FlyCn.FlycnSecurity
         #region dtgAssignRoles_NeedDataSource
         protected void dtgAssignRoles_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+            if (DropDownList3.SelectedValue != "--select--")
+            {
+                int rolescope = Convert.ToInt32(DropDownList2.SelectedValue);
+                string scopeValue = DropDownList3.SelectedValue;
+                FlyCnDAL.Users userObj = new FlyCnDAL.Users();
+                DataTable ds = new DataTable();
+                DataTable dt = new DataTable();
+                ds = userObj.AssignUserRoles(rolescope, scopeValue);
+                dtgAssignRoles.DataSource = ds;
+                dtgAssignRoles.DataBind();
+            }
             if (dtgAssignRoles.DataSource == null)
             {
                 dtgAssignRoles.DataSource = new string[] { };

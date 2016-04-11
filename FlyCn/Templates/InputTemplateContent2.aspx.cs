@@ -24,7 +24,7 @@ namespace FlyCn.Templates
         protected void dtgManageProjectGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dt;
-            dt = pObj.GetPunchList();
+            dt = pObj.GetPunchList("QEIL");
             dtgManageProjectGrid.DataSource = dt;
 
         }

@@ -41,7 +41,8 @@ namespace FlyCn
         {
              FlyCnDAL.ProjectParameters projObj = new FlyCnDAL.ProjectParameters();
             FlyCnDAL.Users userObj = new FlyCnDAL.Users();
-            DataTable dt = new DataTable();
+            DataTable dt,ds = new DataTable();
+            ds = userObj.GetProjectNameByProjectNo();
             GridDataItem items = e.Item as GridDataItem;
            
             if (items != null)
@@ -90,7 +91,14 @@ namespace FlyCn
                                 FlyCnDAL.Security.UserAuthendication UA;
                                 UIClasses.Const Const = new UIClasses.Const();
                                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
-
+                                if(ds.Rows.Count>0)
+                                {
+                                    
+                                }
+                                else
+                                {
+                                    userObj.UpdateDefaultProject(projectNo);
+                                }
                                 FlyCnDAL.Security.UserAuthendication UA_Changed = new FlyCnDAL.Security.UserAuthendication(UA.userName, projectNo, false);
                                 if (UA_Changed.ValidUser)
                                 {

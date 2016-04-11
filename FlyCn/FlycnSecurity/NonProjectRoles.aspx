@@ -90,16 +90,17 @@
         }
 
         function OnClientButtonClicking(sender, args) {
-           
             var btn = args.get_item();
             if (btn.get_value() == 'Save') {
-                args.set_cancel(!validate());
+                args.set_cancel(!validateSave());
             }
         }
-   <%--     function validate() {
-            debuggr;
+        function validateSave() {
+          
+         
             var RoleName = document.getElementById('<%=txtCreateRoleName.ClientID %>').value;
-            RoleName = trimString(RoleName);
+           RoleName = trimString(RoleName);
+           alert(RoleName)
             var Description = document.getElementById('<%=txtDescription.ClientID %>').value;
             Description = trimString(Description);
             var ProjNo = document.getElementById('<%=ddlProjectNo.ClientID %>').value;
@@ -113,7 +114,7 @@
                 return true;
             }
 
-        }--%>
+        }
 
     </script>
 

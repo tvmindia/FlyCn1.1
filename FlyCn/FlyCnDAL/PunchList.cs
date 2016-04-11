@@ -468,7 +468,7 @@ namespace FlyCn.FlyCnDAL
         /// To get desatils from EIL table
         /// </summary>
         /// <returns>Datatable with details from table</returns>
-        public DataTable GetPunchList()
+        public DataTable GetPunchList(string eilType)
         {
             DataTable dt = new DataTable();
             SqlConnection con = null;
@@ -487,7 +487,14 @@ namespace FlyCn.FlyCnDAL
                 SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
                 cmdSelect.CommandType = CommandType.StoredProcedure;
                 cmdSelect.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value=UA.projectNo;
-            
+                if (EILType != null)
+                {
+                    cmdSelect.Parameters.Add("@eilType", SqlDbType.NVarChar, 4).Value = EILType;
+                }
+                else
+                {
+                    cmdSelect.Parameters.Add("@eilType", SqlDbType.NVarChar, 4).Value = eilType;
+                }
                 daObj = new SqlDataAdapter(cmdSelect);
                
       

@@ -254,13 +254,14 @@
            
             var Theme = document.getElementById('<%=ddlTheme.ClientID %>').value;
             Theme = trimString(Theme);
-            if (logName != "" || password != "" || ConfirmPass != "" || Email != "" || Theme!="") {
-                return true;
+            alert(Theme);
+            if (logName != "" || password != "" || ConfirmPass != "" || Email != "" || Theme != "--select theme--") {
+                displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+                return false;
             }
             else
             {
-                displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
-                return false;
+                return true;
             }
             if(password==ConfirmPass)
             {

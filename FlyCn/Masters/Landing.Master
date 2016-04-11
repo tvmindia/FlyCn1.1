@@ -91,7 +91,11 @@
             $("#LoginDiv").fadeOut();
 
         }
-
+        function GetPermissionValue()
+        {
+            var i = document.getElementById("hdfPermission").value;
+            alert(i)
+        }
         $(document).ready(function(){
             if(document.getElementById("lblError").innerHTML!=""){
                 openLogin('');
@@ -116,7 +120,33 @@
             OpenNewProjectWizard();
         }
 
+        function OpenNewProjectWizardWithoutClose() {
+            var frame = document.getElementById('IframeProjectSwitching');
+
+
+            try {
+                $("#modal_dialog").dialog({
+                    open: function() { $(".ui-dialog-titlebar-close").hide();},
+                    title: "Project Switching",
+                    width: 800,
+                    height: 400,
+                    resizable: false,
+                    buttons: {}, modal: true
+                });
+
+                return false;
+            }
+
+            catch (X) {
+                alert(X.message);
+            }
+         
+        }
       
+        function GetPermissionValue(result)
+        {
+            document.getElementById('lblUserPermission').innerHTML = result;
+        }
         function OpenNewProjectWizard() {
             var frame = document.getElementById('IframeProjectSwitching');
           
@@ -181,7 +211,7 @@
             <table style="width: 100%">
                 <tr>
                     <td style="width: 1%"></td>
-                    <td>FlyCn 1.0 | RWDX | </td>
+                    <td>FlyCn 1.0 |&nbsp;<asp:Label ID="lblUserPermission" runat="server" Text=""></asp:Label>&nbsp;| </td>
                     <td style="width: 10%"></td>
                     <td style="width: 1%"></td>
                      
@@ -238,8 +268,7 @@
 
                 <iframe id="IframeProjectSwitching" src="../ProjectsSwithching.aspx" style="width: 1000px; height: 500px;"></iframe>
             </div>
-        
-
+  
     </form>
 </body>
 </html>

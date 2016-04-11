@@ -12,6 +12,8 @@ namespace FlyCn.Masters
 {
     public partial class Landing : System.Web.UI.MasterPage
     {
+     
+        
         UIClasses.Const Const= new UIClasses.Const();
         public string LogId = "";
 
@@ -73,6 +75,8 @@ namespace FlyCn.Masters
 
         }
 
+       
+
         public void setLogoutAndUserName(FlyCnDAL.Security.UserAuthendication UA)
         {
             lblUser.Text = UA.userName;
@@ -104,8 +108,15 @@ namespace FlyCn.Masters
                 this.head.Controls.Add(ip.GetLandingThemeCss());
 
                 dt = userObj.GetProjectNameByProjectNo();
-                lblProjectNo.Text = UA.projectNo+"-";
-                lblProjectName.Text = dt.Rows[0]["ProjectName"].ToString();
+                if (dt.Rows.Count > 0)
+                {
+                    lblProjectNo.Text = UA.projectNo + "-";
+                    lblProjectName.Text = dt.Rows[0]["ProjectName"].ToString();
+                }
+               else
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ProjectWizard", "OpenNewProjectWizardWithoutClose();", true);
+                }
             }
             catch(Exception ex)
             {

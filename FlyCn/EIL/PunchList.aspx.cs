@@ -12,17 +12,26 @@ namespace FlyCn.EIL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadLeftMenu();
-           
+            string modeValue = Request.QueryString["Mode"].ToString();
+            if(modeValue=="QEIL")
+            {
+                LoadLeftMenu(2);
+            }
+            else
+            {
+                LoadLeftMenu(0);
+            }
+            
+            
         }
-        public void LoadLeftMenu()
+        public void LoadLeftMenu(int node)
         {
             UIClasses.InputPages ip = new UIClasses.InputPages();
             FlyCnDAL.PunchList PL = new FlyCnDAL.PunchList();
 
             RadTreeView tview = ip.FindLeftTree(this);
             PL.BindTree(tview);
-            ip.DefaultTreeNode(this, 0);
+            ip.DefaultTreeNode(this, node);
 
         }
     }

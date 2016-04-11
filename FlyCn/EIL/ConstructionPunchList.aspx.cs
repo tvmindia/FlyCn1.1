@@ -85,7 +85,7 @@ namespace FlyCn.EIL
                     hdnMode.Value = Request.QueryString["Mode"].ToString();
                     EilType=hdnMode.Value;
                 }
-
+                string url = Request.Url.Query;
                 hdnMode.Value = EilType;
             }
             hdnMode.Value = EilType;
@@ -107,8 +107,10 @@ namespace FlyCn.EIL
             {
                 Session["category"] = ddlCategory.SelectedItem.Value;
             }
-           
-
+            if (EilType != "" && EilType != null)
+            {
+                Session["EilType"] = EilType;
+            }
         }
         #endregion Page_Load
 
@@ -200,14 +202,10 @@ namespace FlyCn.EIL
                     Insert();
                 }
                 radTagNo.Text = "";
-                //RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
-                //tab.Selected = true;
-                //tab.Text = "New";
+                
             }
-            if (e.Item.Value == "Update")
+            if(e.Item.Value=="Add")
             {
-              
-                Update();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "ClearTextBox", "ClearTexBox();", true);
                 txtIDno.Enabled = true;
                 ddlActivity.Enabled = true;
@@ -218,6 +216,12 @@ namespace FlyCn.EIL
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("2");
                 tab.Selected = true;
                 tab.Text = "New";
+            }
+            if (e.Item.Value == "Update")
+            {
+              
+                Update();
+                ToolBarVisibility(2);
             }
             if (e.Item.Value == "Delete")
             {
@@ -243,8 +247,9 @@ namespace FlyCn.EIL
         #region dtgManageProjectGrid_NeedDataSource1
         protected void dtgManageProjectGrid_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+            string eilType = Session["EilType"].ToString();
             DataTable dt;
-            dt = pObj.GetPunchList();
+            dt = pObj.GetPunchList(eilType);
             dtgManageProjectGrid.DataSource = dt;
            
 
@@ -1307,6 +1312,10 @@ namespace FlyCn.EIL
 
                 pObj.Idno = Convert.ToInt32(txtIDno.Text);
                 pObj.EILType = hdnMode.Value;
+                if(pObj.EILType==""||pObj.EILType==null)
+                {
+                    pObj.EILType =Convert.ToString(Session["EilType"]);
+                }
 
 
                 result = pObj.EditPunchListItems(pObj.Idno, mObj);

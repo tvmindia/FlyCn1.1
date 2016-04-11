@@ -19,13 +19,13 @@ namespace FlyCn.Templates
             ToolBar.onClick += new RadToolBarEventHandler(ToolBar_onClick);
         }
 
-          #region dtgManageProjectGrid_NeedDataSource1
+        #region dtgManageProjectGrid_NeedDataSource1
         protected void dtgManageProjectGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dt;
-            dt = pObj.GetPunchList();
+            dt = pObj.GetPunchList("CEIL");
             dtgManageProjectGrid.DataSource = dt;
-            
+
         }
         #endregion dtgManageProjectGrid_NeedDataSource1
 
