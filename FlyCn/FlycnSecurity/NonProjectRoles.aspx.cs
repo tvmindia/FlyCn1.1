@@ -963,6 +963,16 @@ namespace FlyCn.FlycnSecurity
         #region dtgManageExistingRoles_NeedDataSource
         protected void dtgManageExistingRoles_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
+            FlyCnDAL.ProjectParameters projObj = new FlyCnDAL.ProjectParameters();
+            DataTable dt = new DataTable();
+            FlyCnDAL.Users userObj = new FlyCnDAL.Users();
+            string ProjNo = ddlProjectNo.SelectedValue;
+            if (ProjNo != "--select Project No--")
+            {
+                dt = projObj.GetAllProjectRoles(ProjNo);
+                dtgManageExistingRoles.DataSource = dt;
+               
+            }
             if (dtgManageExistingRoles.DataSource == null)
             {
                 dtgManageExistingRoles.DataSource = new string[] { };
@@ -993,32 +1003,18 @@ namespace FlyCn.FlycnSecurity
 
         #endregion Toolbar visibility for project roles
 
-        #region BindData
-        public void BindData()
-        {
-            FlyCnDAL.ProjectParameters projObj = new FlyCnDAL.ProjectParameters();
-            DataTable ds = new DataTable();
-            string ProjNo = ddlProjectNo.SelectedValue;
-            if (ProjNo != "--select Project No--")
-            {
-                ds = projObj.GetAllProjectRoles(ProjNo);
-                dtgManageExistingRoles.DataSource = ds;
-                try
-                {
-                    dtgManageExistingRoles.DataBind();
-
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-        }
-        #endregion BindData
 
         protected void ddlProjectNo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindData();
+            //BindData();
+            FlyCnDAL.ProjectParameters projObj = new FlyCnDAL.ProjectParameters();
+            DataTable dt = new DataTable();
+             string ProjNo = ddlProjectNo.SelectedValue;
+             if (ProjNo != "--select Project No--")
+             {
+                 dt = projObj.GetAllProjectRoles(ProjNo);
+                 dtgManageExistingRoles.Rebind();
+             }
             txtCreateRoleName.Text = "";
             txtDescription.Text = "";
         }
@@ -1031,8 +1027,17 @@ namespace FlyCn.FlycnSecurity
            
             projObj.RoleName = txtCreateRoleName.Text;
             projObj.Description = txtDescription.Text;
-            projObj.InsertProjectRoles(ProjNo);
-         
+           int result = projObj.InsertProjectRoles(ProjNo);
+           if(result==0)
+           {
+               var page = HttpContext.Current.CurrentHandler as Page;
+               eObj.AlreadyExistsData(page);
+           }
+            else
+           {
+           var page = HttpContext.Current.CurrentHandler as Page;
+           eObj.InsertionSuccessData(page);
+           }
         }
 
         #region ToolBar_onClick
@@ -1043,8 +1048,9 @@ namespace FlyCn.FlycnSecurity
             if (e.Item.Value == "Save")
             {
                 FillUser();
-               // dtgManageExistingRoles.Rebind();
-                BindData();
+                dtgManageExistingRoles.Rebind();
+                txtCreateRoleName.Text="";
+                txtDescription.Text = "";
             }
            
         }
@@ -1053,6 +1059,50 @@ namespace FlyCn.FlycnSecurity
         protected void CheckBoxList1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        public void DeleteProjectRolesbyId(int roleId,string description,string roleName,string projectNo)
+        {
+            FlyCnDAL.ProjectParameters projObj = new FlyCnDAL.ProjectParameters();
+            try
+            {
+
+              int result = projObj.DeleteProjectRoles(roleId, description, roleName, projectNo);
+
+                if (result == 1)
+                {
+                    eObj.InsertionSuccessData(this, Messages.DeletionSuccessfull);
+                    dtgManageExistingRoles.Rebind();
+                }
+            }
+            catch (SqlException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            catch (FormatException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+
+        }
+
+        protected void dtgManageExistingRoles_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+           
+            GridDataItem items = e.Item as GridDataItem;
+            int roleId = Convert.ToInt32(items.GetDataKeyValue("RoleID"));
+            string description = items.GetDataKeyValue("Description").ToString();
+            string roleName = items.GetDataKeyValue("RoleName").ToString();
+            string ProjNo = ddlProjectNo.SelectedValue;
+            if (e.CommandName == "Delete")
+            {
+                DeleteProjectRolesbyId(roleId,description,roleName,ProjNo);
+            }
+           
         }
 
        

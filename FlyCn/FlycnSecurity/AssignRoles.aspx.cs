@@ -57,12 +57,12 @@ namespace FlyCn.FlycnSecurity
                             {
 
                                 string Id = item.GetDataKeyValue("RoleName").ToString();
-                                for (int i = 0; i <= count; i++)
-                                {
-                                    foreach (GridDataItem row in dtgAssignRoles.Items)
-                                    {
-
-                                        string RoleName = row.GetDataKeyValue("RoleName").ToString();
+                                //for (int i = 0; i <= count; i++)
+                                //{
+                                    //foreach (GridDataItem row in dtgAssignRoles.Items)
+                                    //{
+                                int i = 0;
+                                    string RoleName = item.GetDataKeyValue("RoleName").ToString();
 
 
                                         if (RoleName == Id)
@@ -70,8 +70,8 @@ namespace FlyCn.FlycnSecurity
                                             RoleID = Convert.ToInt32(ds.Rows[i]["RoleID"]);
                                         }
                                         i = i + 1;
-                                    }
-                                }
+                                //}
+                                //}
                                 userObj.UserId = DropDownList1.SelectedItem.Value;
                                 userObj.RoleID = RoleID;
                                 userObj.InsertAssignedRoles();
@@ -81,10 +81,10 @@ namespace FlyCn.FlycnSecurity
                             if (checkColumnAdd.Checked == false)
                             {
                                 int i = 0;
-                                foreach (GridDataItem row in dtgAssignRoles.Items)
-                                {
+                                //foreach (GridDataItem row in dtgAssignRoles.Items)
+                                //{
                                     string Id = item.GetDataKeyValue("RoleName").ToString();
-                                    string RoleName = row.GetDataKeyValue("RoleName").ToString();
+                                    string RoleName = item.GetDataKeyValue("RoleName").ToString();
                                     string userID = DropDownList1.SelectedItem.Value;
 
                                     if (RoleName == Id)
@@ -93,13 +93,13 @@ namespace FlyCn.FlycnSecurity
                                         userObj.DeleteUser(userID, RoleID);
                                     }
                                     i = i + 1;
-                                }
+                                //}
                                 // userObj.DeleteUser();
                                 //  BindCurrentRoles();
                             }
                         }
                     }
-                    BindCurrentRoles();
+                   
               //  }
             }
             catch (Exception ex)
@@ -108,6 +108,7 @@ namespace FlyCn.FlycnSecurity
                 eObj.ErrorData(ex, page);
                // throw ex;
             }
+            dtgAssignRoles.Rebind();
         }
         #endregion ToolBar_onClick
 
@@ -174,7 +175,7 @@ namespace FlyCn.FlycnSecurity
                 DataTable dt = new DataTable();
                 ds = userObj.AssignUserRoles(rolescope, scopeValue);
                 dtgAssignRoles.DataSource = ds;
-                dtgAssignRoles.DataBind();
+                
             }
             if (dtgAssignRoles.DataSource == null)
             {
@@ -279,11 +280,18 @@ namespace FlyCn.FlycnSecurity
                 GridDataItem item = (GridDataItem)e.Item;
                 CheckBox checkBoxAdd = (CheckBox)item["Assignrolescheck"].Controls[0];
                 checkBoxAdd.Enabled = true;
+                checkBoxAdd.AutoPostBack = true;
+                //checkBoxAdd.CheckedChanged += new EventHandler(checkBoxAdd_CheckedChanged);
+                //checkBoxAdd.Attributes.Add("onclick", "oncheckedChaned();");
             }
-
 
         }
         #endregion dtgAssignRoles_ItemCreated
+
+        //void checkBoxAdd_CheckedChanged(object sender, EventArgs e)
+        //{
+          
+        //}
 
         #region DropDownList1_SelectedIndexChanged
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)

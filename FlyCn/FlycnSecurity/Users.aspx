@@ -5,16 +5,17 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
     <style>
-          .selectbox {
+        .selectbox {
             width: 69%;
             background-color: #FFF;
-            height:25px;
+            height: 25px;
             font: 400 12px/18px 'Open Sans', sans-serif;
             color: #000;
             font-weight: normal;
             border: 1px solid #ccc;
             margin: 5px 0 0 0;
             padding: 5px;
+        }
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -250,18 +251,17 @@
             var ConfirmPass = document.getElementById('<%=txtConfirmPassword.ClientID %>').value;
             ConfirmPass = trimString(ConfirmPass);
             var Email = document.getElementById('<%=txtEmail.ClientID %>').value;
-            Email = trimString(Email);
-           
+            Email = trimString(Email);   
             var Theme = document.getElementById('<%=ddlTheme.ClientID %>').value;
             Theme = trimString(Theme);
-            alert(Theme);
-            if (logName != "" || password != "" || ConfirmPass != "" || Email != "" || Theme != "--select theme--") {
-                displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
-                return false;
+            if (logName != "" && password != "" && ConfirmPass != "" && Email != "" && Theme != "--select theme--") {
+                return true;
             }
             else
             {
-                return true;
+               
+                displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+                return false;
             }
             if(password==ConfirmPass)
             {

@@ -100,7 +100,6 @@
          
             var RoleName = document.getElementById('<%=txtCreateRoleName.ClientID %>').value;
            RoleName = trimString(RoleName);
-           alert(RoleName)
             var Description = document.getElementById('<%=txtDescription.ClientID %>').value;
             Description = trimString(Description);
             var ProjNo = document.getElementById('<%=ddlProjectNo.ClientID %>').value;
@@ -442,7 +441,7 @@
                              <asp:Label ID="lblProjectNo" runat="server" Text="Project No"></asp:Label>
                                     </div>
                                <div class="col-md-3" style="margin-left:-15%;">
-                                   <asp:DropDownList ID="ddlProjectNo" runat="server" CssClass="selectbox" AutoPostBack="true" AppendDataBoundItems="true" OnSelectedIndexChanged="ddlProjectNo_SelectedIndexChanged">
+                                   <asp:DropDownList ID="ddlProjectNo" runat="server" Width="150px" CssClass="selectbox" AutoPostBack="true" AppendDataBoundItems="true" OnSelectedIndexChanged="ddlProjectNo_SelectedIndexChanged">
                                        <asp:ListItem Text="--select Project No--"></asp:ListItem>
                                    </asp:DropDownList>
                                    </div>
@@ -454,12 +453,14 @@
                        <br />
                                    <%-- <div class="contentTopBar" style="width:450px;"></div>--%>
                          <div style="width:450px;">
-                              <telerik:RadGrid ID="dtgManageExistingRoles" runat="server" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageExistingRoles_NeedDataSource">
+                              <telerik:RadGrid ID="dtgManageExistingRoles" runat="server" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageExistingRoles_NeedDataSource" OnItemCommand="dtgManageExistingRoles_ItemCommand">
                                      <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
-                    <MasterTableView  AutoGenerateColumns="false" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No roles have been added.">
+                    <MasterTableView  AutoGenerateColumns="false" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No roles have been added." DataKeyNames="RoleID,RoleName,Description">
                          <Columns>
+                              <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" ItemStyle-Width="2px"  ImageUrl="~/Images/Cancel.png" Text="Delete" UniqueName="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are you sure">
+                                </telerik:GridButtonColumn>
                               <telerik:GridBoundColumn HeaderText="Role ID" DataField="RoleID" UniqueName="RoleID" ></telerik:GridBoundColumn> 
                               <telerik:GridBoundColumn HeaderText="Role Name" DataField="RoleName" UniqueName="RoleName"></telerik:GridBoundColumn>
                            <telerik:GridBoundColumn HeaderText="Description" DataField="Description" UniqueName="Description"></telerik:GridBoundColumn>

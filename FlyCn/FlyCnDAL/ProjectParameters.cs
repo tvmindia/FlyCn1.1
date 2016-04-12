@@ -746,27 +746,26 @@ namespace FlyCn.FlyCnDAL
         #endregion GetAllProjectRoles
 
         #region InsertProjectRoles
-        public DataTable InsertProjectRoles(string ProjectNo)
+        public int InsertProjectRoles(string ProjectNo)
         {
-            DataTable datatableobj = null;
+           
             SqlConnection con = null;
             DBconnection dcon = new DBconnection();
+            int result = 0;
             try
             {
                 con = dcon.GetDBConnection();
                 SqlCommand cmd = new SqlCommand("InsertProjectRoles", con);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = ProjectNo;
                 cmd.Parameters.Add("@RoleName", SqlDbType.NVarChar,50).Value = RoleName;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 250).Value = Description;
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = cmd;
-
-                datatableobj = new DataTable();
-                adapter.Fill(datatableobj);
+                SqlParameter outParamIsUpdated = cmd.Parameters.Add("@outParam", SqlDbType.Int);
+                outParamIsUpdated.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                result = Convert.ToInt32(outParamIsUpdated.Value);
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.InsertionSuccessData(page, "Data Saved Successfully..!!!");
+                eObj.InsertionSuccessData(page);
             }
             catch (Exception ex)
             {
@@ -778,7 +777,7 @@ namespace FlyCn.FlyCnDAL
             {
                 con.Close();
             }
-            return datatableobj;
+            return result;
         }
         #endregion InsertProjectRoles
 
@@ -809,5 +808,41 @@ namespace FlyCn.FlyCnDAL
             return datatableobj;
         }
         #endregion GetAllProjectSwitching
+
+        #region DeleteProjectRoles
+        public int DeleteProjectRoles(int roleId,string description,string roleName,string projectNo)
+        {
+            
+            SqlConnection conObj = null;
+            try
+            {
+                DBconnection dcon = new DBconnection();
+                conObj = dcon.GetDBConnection();
+
+
+                SqlCommand cmd = new SqlCommand("DeleteProjectRoles", conObj);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = projectNo;
+                cmd.Parameters.Add("@RoleName",SqlDbType.NVarChar,50).Value=roleName;
+                cmd.Parameters.Add("@Description",SqlDbType.NVarChar,250).Value=description;
+                cmd.Parameters.Add("@RoleId",SqlDbType.Int).Value=roleId;
+                cmd.ExecuteScalar();
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.DeleteSuccessData(page);
+                return 1;
+            }
+            catch (SqlException ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                var master = page.Master;
+                eObj.ErrorData(ex, page);
+            }
+            finally
+            {
+                conObj.Close();
+            }
+            return 0;
+        }
+        #endregion DeleteProjectRoles
     }
 }

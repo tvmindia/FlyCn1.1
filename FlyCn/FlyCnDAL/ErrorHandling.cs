@@ -54,6 +54,20 @@ namespace FlyCn.FlyCnDAL
             error.Text = "";
         }
 
+        public void AlreadyExistsData(Page pg)
+        {
+            var master1 = pg.Master;
+            ContentPlaceHolder mpContentPlaceHolder1;
+            Label Success = (Label)master1.FindControl("lblErrorInfo");
+            mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
+            HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
+            divMask1.Style["display"] = "";// divMask1.Style["display"] = "";   
+            divMask1.Style["visibility"] = "visible";
+
+            divMask1.Attributes["class"] = "ErrormsgBoxes";
+            Success.Text = "Insertion failed..RoleName already exists..!!!"; 
+ 
+        }
          public void InsertionSuccessData(Page pg)
   
             {
