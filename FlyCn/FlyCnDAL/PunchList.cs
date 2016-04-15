@@ -1,12 +1,15 @@
 ﻿#region Namespaces
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using Telerik.Web.UI;
+using System.Runtime.InteropServices;
 #endregion Namespaces
 
 namespace FlyCn.FlyCnDAL
@@ -513,6 +516,91 @@ namespace FlyCn.FlyCnDAL
             return dt;
         }
         #endregion GetPunchList()
+
+        #region GetChartData
+
+        public DataTable GetChartData()  
+    {
+        SqlConnection conn = null;
+        DataTable dt = null;
+        SqlCommand cmd = null;
+        SqlDataAdapter da = null;
+        dbConnection dcon = new dbConnection();
+        try
+        {
+            conn = dcon.GetDBConnection();
+            //conn.Open();
+
+            cmd = new SqlCommand("GetPunchListSummary", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            dt = new DataTable();
+            da.Fill(dt);
+
+          
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+
+        finally
+        {
+            if (conn != null)
+            {
+                conn.Close();
+            }
+
+        }
+        return dt;
+    }
+        #endregion GetChartData
+
+        #region GetChartDataBasedOnActionBy
+        public DataTable GetChartDataBasedOnActionBy(string ActionBy)
+        {
+            SqlConnection conn = null;
+            DataTable ds = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter da = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
+
+                cmd = new SqlCommand("GetPunchListSummaryBasedOnActionBy", conn);
+                cmd.Parameters.Add("@ActionBy", SqlDbType.NVarChar, 5).Value = ActionBy;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                ds = new DataTable();
+                da.Fill(ds);
+              
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+            return ds;
+        }
+
+        #endregion GetChartDataBasedOnActionBy
+
 
         #region GetOpenByfromPersonnel
         /// <summary>
@@ -2635,7 +2723,121 @@ namespace FlyCn.FlyCnDAL
 
         #endregion GetTagNo
 
+        public void GeneratePunchListExcelTemplate()
+        {
+
+            SqlConnection con = null;
+            SqlDataAdapter daObj;
+
+
+            DataTable dt = new DataTable();
+            string errorstatus = "";
+            try
+            {
+                errorstatus = "started";
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                string selectQuery = "GetPunchListSummary";
+                SqlCommand cmdSelect = new SqlCommand(selectQuery, con);
+                cmdSelect.CommandType = CommandType.StoredProcedure;
+                daObj = new SqlDataAdapter(cmdSelect);
+                daObj.Fill(dt);
+              
+               // Microsoft.Office.Interop.Excel.Range excelCellrange;
+                errorstatus = "Creating App";
+                Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+               Microsoft.Office.Interop.Excel.Workbook ExcelWorkBook = null;
+               Microsoft.Office.Interop.Excel.Worksheet ExcelWorkSheet = null;
+               ExcelWorkBook = ExcelApp.Workbooks.Add(Microsoft.Office.Interop.Excel.XlWBATemplate.xlWBATWorksheet);
+                errorstatus = "Created";
+                int colIndex = 1;
+                int rowIndex = 1;
+
+          
+               
+                //var rows = ds.Tables[0].Rows;
+
+                //for (int i = 1; i < 2; i++)
+                //    ExcelWorkBook.Worksheets.Add();
+
+                //--------------------   First Sheet------------------------------//
+                ExcelWorkSheet = ExcelWorkBook.Worksheets[1];
+                //foreach (DataRow row in rows)
+                //{
+                    ExcelWorkSheet.Columns.AutoFit();
+                 foreach (DataColumn column in dt.Columns)
+                 {
+                     string columnName = Convert.ToString(column.ColumnName);
+
+                     ExcelWorkSheet.Cells[rowIndex, colIndex].Value = columnName;
+
+                     colIndex++;
+                 }
+                    rowIndex++;
+                //
+                //  for (int j = 0; j < dsTable.Tables[0].Rows.Count; j++)
+                //{
+                //    //string paramName = dsTable.Tables[0].Rows[j]["Field_Name"].ToString();
+                //    string excelColName = dsTable.Tables[0].Rows[j]["Field_Description"].ToString();
+                //
+                    for (int j = 0; j < dt.Rows.Count; j++)
+                    {
+                        colIndex = 1;
+                        foreach (DataColumn dc in dt.Columns)
+                        {
+                            ExcelWorkSheet.Cells[rowIndex, colIndex].Value = dt.Rows[j][dc.ColumnName].ToString();
+                            colIndex++;
+                        }
+                        rowIndex++;
+                    }
+              
+                //---------------------Second Sheet----------------------------//
+                string file = "PunchlistSummary";
+                string path = ("~/Content/ExcelTemplate/");
+                
+                HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
+                HttpContext.Current.Response.AddHeader("content-disposition",
+                                                "attachment;filename=" + file + ".xlsx");
+                string filepath = path + file + ".xlsx";
+                if (File.Exists(HttpContext.Current.Server.MapPath(filepath)))
+                {
+                    File.Delete(HttpContext.Current.Server.MapPath(filepath));
+                    // System.IO.File.Delete(filepath);
+                    ExcelWorkBook.SaveAs(HttpContext.Current.Server.MapPath(filepath));
+                    ExcelWorkBook.Close();
+                    ExcelApp.Quit();
+                    HttpContext.Current.Response.TransmitFile(HttpContext.Current.Server.MapPath(filepath));
+                    HttpContext.Current.Response.End();
+                }
+                else
+                {
+
+                    errorstatus = "saving";
+                    ExcelWorkBook.SaveAs(HttpContext.Current.Server.MapPath(filepath));
+                    ExcelWorkBook.Close();
+                    ExcelApp.Quit();
+
+
+                    HttpContext.Current.Response.TransmitFile(HttpContext.Current.Server.MapPath(filepath));
+                    HttpContext.Current.Response.End();
+                    errorstatus = "saved";
+
+                }
+
+                Marshal.ReleaseComObject(ExcelWorkSheet);
+                Marshal.ReleaseComObject(ExcelWorkBook);
+                Marshal.ReleaseComObject(ExcelApp);
+            }
+            catch (Exception exHandle)
+            {
+
+                throw new Exception(exHandle.Message + errorstatus);
+            }
+        }
+
     }
 
         #endregion Methods
+
+
 }

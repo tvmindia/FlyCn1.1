@@ -12,6 +12,7 @@ namespace FlyCn.UIClasses
 {
     public class InputPages
     {
+      
        public RadTreeView FindLeftTree(System.Web.UI.Page pg){
 
             var master = pg.Master.Master;
@@ -38,6 +39,7 @@ namespace FlyCn.UIClasses
             radpane.ContentUrl = tree.Nodes[node].NavigateUrl;
         }
 
+       
 
         public string GetCurrentPageName()
         {

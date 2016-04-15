@@ -192,6 +192,8 @@
     <Content Include="BOQ\BOQHeader.aspx" />
     <Content Include="Content\FlyCnMain.css" />
     <Content Include="Content\Home.css" />
+    <Content Include="EIL\MileStone.aspx" />
+    <Content Include="EIL\PunchListSummary.aspx" />
     <Content Include="EIL\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -391,6 +393,7 @@
     <Content Include="Images\Icons\setup.png" />
     <Content Include="Images\Icons\sr.png" />
     <Content Include="Images\Icons\subscribe.png" />
+    <Content Include="Images\Icons\summary.png" />
     <Content Include="Images\Icons\system.png" />
     <Content Include="Images\Icons\task.png" />
     <Content Include="Images\Icons\TeleCommunication16.png" />
@@ -779,12 +782,26 @@
     <Compile Include="EIL\ConstructionPunchList.aspx.designer.cs">
       <DependentUpon>ConstructionPunchList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EIL\MileStone.aspx.cs">
+      <DependentUpon>MileStone.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIL\MileStone.aspx.designer.cs">
+      <DependentUpon>MileStone.aspx</DependentUpon>
+    </Compile>
     <Compile Include="EIL\PunchList.aspx.cs">
       <DependentUpon>PunchList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="EIL\PunchList.aspx.designer.cs">
       <DependentUpon>PunchList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIL\PunchListSummary.aspx.cs">
+      <DependentUpon>PunchListSummary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIL\PunchListSummary.aspx.designer.cs">
+      <DependentUpon>PunchListSummary.aspx</DependentUpon>
     </Compile>
     <Compile Include="EngineeredDataList\EnggDataList.aspx.cs">
       <DependentUpon>EnggDataList.aspx</DependentUpon>

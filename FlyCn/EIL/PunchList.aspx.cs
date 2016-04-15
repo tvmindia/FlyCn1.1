@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlyCn.FlyCnDAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,18 +11,27 @@ namespace FlyCn.EIL
 {
     public partial class PunchList : System.Web.UI.Page
     {
+        DALConstants cnsObj = new DALConstants();
         protected void Page_Load(object sender, EventArgs e)
         {
-            string modeValue = Request.QueryString["Mode"].ToString();
-            if(modeValue=="QEIL")
+            string modeValue = "";
+        
+            if (Request.QueryString["Mode"] != null)
             {
-                LoadLeftMenu(2);
+                if (modeValue == "QEIL")
+                {
+                    LoadLeftMenu(2);
+                }
+                else
+                {
+                    LoadLeftMenu(0);
+                }
             }
             else
             {
-                LoadLeftMenu(0);
+               
+
             }
-            
             
         }
         public void LoadLeftMenu(int node)
@@ -32,6 +42,12 @@ namespace FlyCn.EIL
             RadTreeView tview = ip.FindLeftTree(this);
             PL.BindTree(tview);
             ip.DefaultTreeNode(this, node);
+
+        }
+
+        public void LoadPunchListInputScreen(RadPane myContentPane)
+        {
+            myContentPane.ContentUrl = cnsObj.PunchListSummary;
 
         }
     }
