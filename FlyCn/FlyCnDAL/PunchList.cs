@@ -526,6 +526,11 @@ namespace FlyCn.FlyCnDAL
         SqlCommand cmd = null;
         SqlDataAdapter da = null;
         dbConnection dcon = new dbConnection();
+        UIClasses.Const Const = new UIClasses.Const();
+        FlyCnDAL.Security.UserAuthendication UA;
+
+        HttpContext context = HttpContext.Current;
+        UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
         try
         {
             conn = dcon.GetDBConnection();
@@ -533,7 +538,7 @@ namespace FlyCn.FlyCnDAL
 
             cmd = new SqlCommand("GetPunchListSummary", conn);
             cmd.CommandType = CommandType.StoredProcedure;
-
+            cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value = UA.projectNo;
             da = new SqlDataAdapter();
             da.SelectCommand = cmd;
             dt = new DataTable();
@@ -558,6 +563,95 @@ namespace FlyCn.FlyCnDAL
         return dt;
     }
         #endregion GetChartData
+
+        #region GetProjectByAreaGraphDetails
+
+        public DataTable GetProjectByAreaGraphDetails()
+        {
+            SqlConnection conn = null;
+            DataTable dt = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter da = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
+
+                cmd = new SqlCommand("GetProjectByAreaGraphDetails", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                dt = new DataTable();
+                da.Fill(dt);
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+            return dt;
+        }
+        #endregion GetProjectByAreaGraphDetails
+
+        #region GetProjectManpowerChartData
+
+        public DataTable GetProjectManpowerChartData()
+        {
+            SqlConnection conn = null;
+            DataTable dt = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter da = null;
+            dbConnection dcon = new dbConnection();
+            UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
+
+                cmd = new SqlCommand("GetProjectManpowerGraphDetails", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value = UA.projectNo;
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                dt = new DataTable();
+                da.Fill(dt);
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+            return dt;
+        }
+        #endregion GetProjectManpowerChartData
 
         #region GetChartDataBasedOnActionBy
         public DataTable GetChartDataBasedOnActionBy(string ActionBy)
@@ -2799,6 +2893,7 @@ namespace FlyCn.FlyCnDAL
                 HttpContext.Current.Response.AddHeader("content-disposition",
                                                 "attachment;filename=" + file + ".xlsx");
                 string filepath = path + file + ".xlsx";
+             
                 if (File.Exists(HttpContext.Current.Server.MapPath(filepath)))
                 {
                     File.Delete(HttpContext.Current.Server.MapPath(filepath));

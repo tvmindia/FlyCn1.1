@@ -439,12 +439,12 @@
         }
 
         function DisableTreeNode(nodeclassname) {
-            debugger;
+            
             document.getElementsByClassName(nodeclassname)[0].style.DisableTreeNode = true;
             document.getElementsByClassName(nodeclassname)[0].style.color = "gray";
         }
         function EnableTreeNode(nodeclassname) {
-            debugger;
+          
             document.getElementsByClassName(nodeclassname)[0].style.DisableTreeNode = false;
             document.getElementsByClassName(nodeclassname)[0].style.color = "black";
         }

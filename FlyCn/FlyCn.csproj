@@ -192,6 +192,7 @@
     <Content Include="BOQ\BOQHeader.aspx" />
     <Content Include="Content\FlyCnMain.css" />
     <Content Include="Content\Home.css" />
+    <Content Include="EIL\Dashboards.aspx" />
     <Content Include="EIL\MileStone.aspx" />
     <Content Include="EIL\PunchListSummary.aspx" />
     <Content Include="EIL\Site.css" />
@@ -781,6 +782,13 @@
     </Compile>
     <Compile Include="EIL\ConstructionPunchList.aspx.designer.cs">
       <DependentUpon>ConstructionPunchList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIL\Dashboards.aspx.cs">
+      <DependentUpon>Dashboards.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIL\Dashboards.aspx.designer.cs">
+      <DependentUpon>Dashboards.aspx</DependentUpon>
     </Compile>
     <Compile Include="EIL\MileStone.aspx.cs">
       <DependentUpon>MileStone.aspx</DependentUpon>
