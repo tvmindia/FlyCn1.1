@@ -155,7 +155,7 @@ namespace FlyCn.EIL
             }
 
                str.Append(" var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_material2'));");
-            str.Append(" chart.draw(data, {width: 550, height: 500, title: 'Project-By-Area',");
+            str.Append(" chart.draw(data, {width: 500, height: 500, title: 'Project-By-Area',");
             str.Append("hAxis: {title: 'Area'},vAxis: {title: 'Percentage'},backgroundColor: '#f4f4d7',bar: {groupWidth: '20%'}");
             str.Append("}); }");
             str.Append("</script>");
@@ -195,7 +195,7 @@ namespace FlyCn.EIL
                 Microsoft.Office.Interop.Excel.Chart xlChart = chartObj.Chart;
 
                 int colIndex = 1;
-                int rowIndex = 1;
+                int rowIndex = 5;
 
                 ws.Columns.AutoFit();
                 foreach (DataColumn column in dt.Columns)
@@ -222,7 +222,7 @@ namespace FlyCn.EIL
 
                 int nRows = 5;
                 int nColumns = dt.Rows.Count;
-                string upperLeftCell = "A1";
+                string upperLeftCell = "A5";
                 int endRowNumber = System.Int32.Parse(upperLeftCell.Substring(1))
                     + nRows - 1;
                 char endColumnLetter = System.Convert.ToChar(
@@ -232,40 +232,43 @@ namespace FlyCn.EIL
                 string lowerRightCell = System.String.Format("{0}{1}",
                     endColumnLetter, endRowNumber);
 
-                //Microsoft.Office.Interop.Excel.Range rg = ws.get_Range(upperLeftCell, lowerRightCell);
-                //for (int i = 1; i <= dt.Rows.Count; i++)
-                //{
-                //    rg[1, i] = dt.Rows[i - 1][0].ToString();          //For Adding Header Text
-                //    rg[2, i] = int.Parse(dt.Rows[i - 1][1].ToString());  //For Adding Datarow Value
-                //}
-
-
                 Microsoft.Office.Interop.Excel.Range chartRange = ws.get_Range(upperLeftCell, lowerRightCell);
                 xlChart.SetSourceData(chartRange, Type.Missing);
                 xlChart.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlColumnClustered;
 
-                // *******************Customize axes: ***********************
-                //////Microsoft.Office.Interop.Excel.Axis xAxis = (Microsoft.Office.Interop.Excel.Axis)xlChart.Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlCategory,
-                //////     Microsoft.Office.Interop.Excel.XlAxisGroup.xlPrimary);
-                //xAxis.HasTitle = true;
-                // xAxis.AxisTitle.Text = "X Axis";
-
-                //////Microsoft.Office.Interop.Excel.Axis yAxis = (Microsoft.Office.Interop.Excel.Axis)xlChart.Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlSeriesAxis,
-                //////     Microsoft.Office.Interop.Excel.XlAxisGroup.xlPrimary);
-                //yAxis.HasTitle = true;
-                //yAxis.AxisTitle.Text = "Y Axis";
-
-                //////Microsoft.Office.Interop.Excel.Axis zAxis = (Microsoft.Office.Interop.Excel.Axis)xlChart.Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlValue,
-                //////     Microsoft.Office.Interop.Excel.XlAxisGroup.xlPrimary);
-                //zAxis.HasTitle = true;
-                //zAxis.AxisTitle.Text = "Z Axis";
-
+               
                 // *********************Add title: *******************************
                 xlChart.HasTitle = true;
                 xlChart.ChartTitle.Text = "PunchList Summary";
 
                 // *****************Set legend:***************************
                 xlChart.HasLegend = true;
+
+                //---------------insert logo---------------------------//
+                object misValue = System.Reflection.Missing.Value;
+
+                ws.Shapes.AddPicture("E:\\Applications\\FlyCn1.1_New\\FlyCn\\Images\\flycnLogo.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoCTrue, 700, 1, 20, 45); 
+
+
+                //----------------------Adding Custom header to the excel file--------------//
+                ws.get_Range("A1", "z3").Merge(false);
+                chartRange = ws.get_Range("A1", "z3");
+                chartRange.FormulaR1C1 = "Flycn";
+                chartRange.HorizontalAlignment = 3;
+                chartRange.VerticalAlignment = 3;
+                //--------------------------Cell font color , size--------------------------//
+                Microsoft.Office.Interop.Excel.Range formatRange;
+                formatRange = ws.get_Range("A1", "z3");
+                formatRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                formatRange.Font.Size = 25;
+               
+                //-------------------Cell background color----------------//
+                Microsoft.Office.Interop.Excel.Range formatRange1;
+                formatRange1 = ws.get_Range("A1", "z3");
+                formatRange1.Interior.Color = System.Drawing.
+                ColorTranslator.ToOle(System.Drawing.Color.Bisque);
+               
+
                 string file = "PunchlistSummary";
                 string path = ("~/Content/ExcelTemplate/");
 
@@ -299,15 +302,7 @@ namespace FlyCn.EIL
 
                 }
                 xla.Visible = true;
-                // ****************For Quiting The Excel Aplication ***********************
-                //if (xla != null)
-                //{
-                //    xla.DisplayAlerts = false;
-                //    wb.Close();
-                //    wb = null;
-                //    xla.Quit();
-                //    xla = null;
-                //}
+              
             }
             catch (Exception ex)
             {
@@ -315,8 +310,7 @@ namespace FlyCn.EIL
                 eObj.ErrorData(ex, page);
 
             }
-            //FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
-            //punchObj.GeneratePunchListExcelTemplate();
+          
         }
         #endregion PunchListSummary_Download
         protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
@@ -336,7 +330,7 @@ namespace FlyCn.EIL
                 Microsoft.Office.Interop.Excel.Chart xlChart = chartObj.Chart;
 
                 int colIndex = 1;
-                int rowIndex = 1;
+                int rowIndex = 5;
 
                 ws.Columns.AutoFit();
                 foreach (DataColumn column in dt.Columns)
@@ -363,7 +357,7 @@ namespace FlyCn.EIL
 
                 int nRows = 5;
                 int nColumns = dt.Rows.Count;
-                string upperLeftCell = "A1";
+                string upperLeftCell = "A5";
                 int endRowNumber = System.Int32.Parse(upperLeftCell.Substring(1))
                     + nRows - 1;
                 char endColumnLetter = System.Convert.ToChar(
@@ -373,14 +367,6 @@ namespace FlyCn.EIL
                 string lowerRightCell = System.String.Format("{0}{1}",
                     endColumnLetter, endRowNumber);
 
-                //Microsoft.Office.Interop.Excel.Range rg = ws.get_Range(upperLeftCell, lowerRightCell);
-                //for (int i = 1; i <= dt.Rows.Count; i++)
-                //{
-                //    rg[1, i] = dt.Rows[i - 1][0].ToString();          //For Adding Header Text
-                //    rg[2, i] = int.Parse(dt.Rows[i - 1][1].ToString());  //For Adding Datarow Value
-                //}
-
-
                 Microsoft.Office.Interop.Excel.Range chartRange = ws.get_Range(upperLeftCell, lowerRightCell);
                 xlChart.SetSourceData(chartRange, Type.Missing);
                 xlChart.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlColumnClustered;
@@ -388,28 +374,38 @@ namespace FlyCn.EIL
                 Microsoft.Office.Interop.Excel.SeriesCollection oSeriesCollection = (Microsoft.Office.Interop.Excel.SeriesCollection)chartObj.Chart.SeriesCollection(Type.Missing);
                 Microsoft.Office.Interop.Excel.Series series1 = oSeriesCollection.Item(1);
                 series1.Delete();
-                // *******************Customize axes: ***********************
-                //////Microsoft.Office.Interop.Excel.Axis xAxis = (Microsoft.Office.Interop.Excel.Axis)xlChart.Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlCategory,
-                //////     Microsoft.Office.Interop.Excel.XlAxisGroup.xlPrimary);
-                //xAxis.HasTitle = true;
-                // xAxis.AxisTitle.Text = "X Axis";
-
-                //////Microsoft.Office.Interop.Excel.Axis yAxis = (Microsoft.Office.Interop.Excel.Axis)xlChart.Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlSeriesAxis,
-                //////     Microsoft.Office.Interop.Excel.XlAxisGroup.xlPrimary);
-                //yAxis.HasTitle = true;
-                //yAxis.AxisTitle.Text = "Y Axis";
-
-                //////Microsoft.Office.Interop.Excel.Axis zAxis = (Microsoft.Office.Interop.Excel.Axis)xlChart.Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlValue,
-                //////     Microsoft.Office.Interop.Excel.XlAxisGroup.xlPrimary);
-                //zAxis.HasTitle = true;
-                //zAxis.AxisTitle.Text = "Z Axis";
-
+              
                 // *********************Add title: *******************************
                 xlChart.HasTitle = true;
                 xlChart.ChartTitle.Text = "Project-Manpower Graph";
 
                 // *****************Set legend:***************************
                 xlChart.HasLegend = true;
+
+                //---------------insert logo---------------------------//
+                object misValue = System.Reflection.Missing.Value;
+
+                ws.Shapes.AddPicture("E:\\Applications\\FlyCn1.1_New\\FlyCn\\Images\\flycnLogo.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoCTrue, 700, 1, 20, 45);
+
+
+                //----------------------Adding Custom header to the excel file--------------//
+                ws.get_Range("A1", "z3").Merge(false);
+                chartRange = ws.get_Range("A1", "z3");
+                chartRange.FormulaR1C1 = "Flycn";
+                chartRange.HorizontalAlignment = 3;
+                chartRange.VerticalAlignment = 3;
+                //--------------------------Cell font color , size--------------------------//
+                Microsoft.Office.Interop.Excel.Range formatRange;
+                formatRange = ws.get_Range("A1", "z3");
+                formatRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                formatRange.Font.Size = 25;
+
+                //-------------------Cell background color----------------//
+                Microsoft.Office.Interop.Excel.Range formatRange1;
+                formatRange1 = ws.get_Range("A1", "z3");
+                formatRange1.Interior.Color = System.Drawing.
+                ColorTranslator.ToOle(System.Drawing.Color.Bisque);
+
                 string file = "ProjectManpower";
                 string path = ("~/Content/ExcelTemplate/");
 
@@ -480,7 +476,7 @@ namespace FlyCn.EIL
                 Microsoft.Office.Interop.Excel.Chart xlChart = chartObj.Chart;
 
                 int colIndex = 1;
-                int rowIndex = 1;
+                int rowIndex = 5;
 
                 ws.Columns.AutoFit();
                 foreach (DataColumn column in dt.Columns)
@@ -507,7 +503,7 @@ namespace FlyCn.EIL
 
                 int nRows = 5;
                 int nColumns = dt.Rows.Count;
-                string upperLeftCell = "A1";
+                string upperLeftCell = "A5";
                 int endRowNumber = System.Int32.Parse(upperLeftCell.Substring(1))
                     + nRows - 1;
                 char endColumnLetter = System.Convert.ToChar(
@@ -525,52 +521,44 @@ namespace FlyCn.EIL
                 //}
 
 
-                Microsoft.Office.Interop.Excel.Range chartRange = ws.get_Range("A1", "A5");
+                Microsoft.Office.Interop.Excel.Range chartRange = ws.get_Range("A5", "A10");
                 xlChart.SetSourceData(chartRange, Type.Missing);
                 xlChart.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlColumnClustered;
 
-                // *******************Customize axes: ***********************
-                //////Microsoft.Office.Interop.Excel.Axis xAxis = (Microsoft.Office.Interop.Excel.Axis)xlChart.Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlCategory,
-                //////     Microsoft.Office.Interop.Excel.XlAxisGroup.xlPrimary);
-                //xAxis.HasTitle = true;
-                // xAxis.AxisTitle.Text = "X Axis";
-
-                //Microsoft.Office.Interop.Excel.Axis yAxis = (Microsoft.Office.Interop.Excel.Axis)xlChart.Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlSeriesAxis,Microsoft.Office.Interop.Excel.XlAxisGroup.xlPrimary);
-                //yAxis.HasTitle = true;
-                //yAxis.AxisTitle.Text = "Percentage";
-
-                //////Microsoft.Office.Interop.Excel.Axis zAxis = (Microsoft.Office.Interop.Excel.Axis)xlChart.Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlValue,
-                //////     Microsoft.Office.Interop.Excel.XlAxisGroup.xlPrimary);
-                //zAxis.HasTitle = true;
-                //zAxis.AxisTitle.Text = "Z Axis";
-
-                //Microsoft.Office.Interop.Excel.Axis xAxis = (Microsoft.Office.Interop.Excel.Axis)xlChart.Axes((Microsoft.Office.Interop.Excel.XlAxisType.xlValue), (Microsoft.Office.Interop.Excel.XlAxisGroup.xlPrimary));
-                //xAxis.HasTitle = true;
-                //xAxis.AxisTitle.Text = "Area";
-
-                //Microsoft.Office.Interop.Excel.Axis yAxis = (Microsoft.Office.Interop.Excel.Axis)xlChart.Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlValue, Microsoft.Office.Interop.Excel.XlAxisGroup.xlPrimary);
-                ////yAxis.MajorTickMark = XlTickMark.xlTickMarkCross;
-                //yAxis.HasTitle = true;
-                //yAxis.AxisTitle.Text = "Compression (lbf)";
-                // *********************Add title: *******************************
-                ////Microsoft.Office.Interop.Excel.SeriesCollection oSeriesCollection = (Microsoft.Office.Interop.Excel.SeriesCollection)chartObj.Chart.SeriesCollection(Type.Missing);
-                ////Microsoft.Office.Interop.Excel.Series series1 = oSeriesCollection.Item(2);
-                //series1.Delete();
-                ////series1.Values = chartRange;
-                //series1.Name = "some name";
+             
                 xlChart.SeriesCollection(1).Name = "Area";
                 xlChart.SeriesCollection(1).XValues = ws.get_Range("B2:B5");
-                //Microsoft.Office.Interop.Excel.Axis xaxis = (Microsoft.Office.Interop.Excel.Axis)xlChart.Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlCategory, series1.AxisGroup);
-                //xlChart.Legend.LegendEntries(xlChart.Legend.LegendEntries().Count).Delete();
-                //xaxis.HasTitle = true;
-                //xaxis.AxisTitle.Text = "Area";
-                //xlChart.Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlValue).MinimumScale = 0;
-                //xlChart.Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlValue).MaximumScale = 50;
+              
                 xlChart.HasTitle = true;
                 xlChart.ChartTitle.Text = "Project-By-Area Graph";
 
                 // *****************Set legend:***************************
                 xlChart.HasLegend = true;
+
+                //---------------insert logo---------------------------//
+                object misValue = System.Reflection.Missing.Value;
+
+                ws.Shapes.AddPicture("E:\\Applications\\FlyCn1.1_New\\FlyCn\\Images\\flycnLogo.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoCTrue, 700, 1, 20, 45);
+
+
+                //----------------------Adding Custom header to the excel file--------------//
+                ws.get_Range("A1", "z3").Merge(false);
+                chartRange = ws.get_Range("A1", "z3");
+                chartRange.FormulaR1C1 = "Flycn";
+                chartRange.HorizontalAlignment = 3;
+                chartRange.VerticalAlignment = 3;
+                //--------------------------Cell font color , size--------------------------//
+                Microsoft.Office.Interop.Excel.Range formatRange;
+                formatRange = ws.get_Range("A1", "z3");
+                formatRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                formatRange.Font.Size = 25;
+
+                //-------------------Cell background color----------------//
+                Microsoft.Office.Interop.Excel.Range formatRange1;
+                formatRange1 = ws.get_Range("A1", "z3");
+                formatRange1.Interior.Color = System.Drawing.
+                ColorTranslator.ToOle(System.Drawing.Color.Bisque);
+
                 string file = "ProjectByArea";
                 string path = ("~/Content/ExcelTemplate/");
 

@@ -896,6 +896,7 @@
     <Compile Include="FlyCnDAL\EngineeredViewList.cs" />
     <Compile Include="FlyCnDAL\ErrorHandling.cs" />
     <Compile Include="FlyCnDAL\ErrorInformation.cs" />
+    <Compile Include="FlyCnDAL\ExcelReportSettings.cs" />
     <Compile Include="FlyCnDAL\ExcelTemplate.cs" />
     <Compile Include="FlyCnDAL\ImportFile.cs" />
     <Compile Include="FlyCnDAL\Landing.cs" />
@@ -1256,6 +1257,17 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

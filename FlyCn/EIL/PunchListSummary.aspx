@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="PunchListSummary.aspx.cs" Inherits="FlyCn.EIL.PunchListSummary" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server"   >
      <script type="text/javascript" src="https://www.google.com/jsapi"></script> 
     <style type="text/css">
     .submit {
@@ -15,7 +15,15 @@
         background-position-x: 5px;
       
     }
- body{overflow:auto; position:relative}
+ body 
+ {
+     
+      height:1200px;
+      
+ }
+
+ html {width:100%; height:100%; overflow:auto; }
+
 </style>
      <script type="text/javascript">
 
@@ -76,24 +84,24 @@
           }
         </script>
     
- &nbsp;&nbsp; <asp:Label ID="lblTitle" runat="server" Text="PunchList Summary" CssClass="PageHeading"></asp:Label>
-     <div class="importWizardContainer" style="height:600px;overflow:auto;">
+ &nbsp;&nbsp; <asp:Label ID="lblTitle" runat="server" Text="DashBoard" CssClass="PageHeading"></asp:Label>
+     <div class="importWizardContainer" style="height:1200px">
           <asp:Literal ID="ltScripts" runat="server"></asp:Literal> 
           <asp:Literal ID="ltManpowerScripts" runat="server"></asp:Literal>  
          <asp:Literal ID="ltProjectByArea" runat="server"></asp:Literal>  
          <div class="col-md-12">
              <div class="col-md-5">
-    <div id="columnchart_material" style="width: 550px; height: 500px;background-color:#fff2e6; box-shadow: 0 0 3px 3px #d0e1e1;">      
+    <div id="columnchart_material" style="width: 500px; height: 500px;background-color:#fff2e6; box-shadow: 0 0 3px 3px #d0e1e1;">      
              </div>  
-       <div style="width: 550px; height: 23px;background-color:#fff2e6;box-shadow:  3px 3px 3px 0 #d0e1e1;">    
+       <div style="width: 500px; height: 23px;background-color:#fff2e6;box-shadow:  3px 3px 3px 0 #d0e1e1;">    
            <div style="margin-left:90%;" > 
        <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Images/Download-202-WF.png" ToolTip="Download" OnClick="ImageButton1_Click"  /> 
    </div>  </div>
                  </div> <div class="col-md-1"></div>
              <div class="col-md-6">
-          <div id="columnchart_material1" style="width: 550px; height: 500px;background-color:bisque; box-shadow:  0 0 3px 3px #d0e1e1;">        
+          <div id="columnchart_material1" style="width: 500px; height: 500px;background-color:bisque; box-shadow:  0 0 3px 3px #d0e1e1;">        
              </div>  
-                <div style="width: 550px; height: 23px;background-color:#f0f0f5; box-shadow:  3px 3px 3px 0 #d0e1e1;">    
+                <div style="width: 500px; height: 23px;background-color:#f0f0f5; box-shadow:  3px 3px 3px 0 #d0e1e1;">    
            <div style="margin-left:90%;" > 
        <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Images/Download-202-WF.png" ToolTip="Download" OnClick="ImageButton2_Click"  /> 
    </div>  </div>   
@@ -102,9 +110,9 @@
           <div class="col-md-12" style="height:20px;"></div>
          <div class="col-md-12">
              <div class="col-md-5">
-                  <div id="columnchart_material2" style="width: 550px; height: 500px;background-color:#f4f4d7; box-shadow: 0 0 3px 3px #d0e1e1;">      
+                  <div id="columnchart_material2" style="width: 500px; height: 500px;background-color:#f4f4d7; box-shadow: 0 0 3px 3px #d0e1e1;">      
              </div>  
-                   <div style="width: 550px; height: 23px;background-color:#f4f4d7;box-shadow:  3px 3px 3px 0 #d0e1e1;">    
+                   <div style="width: 500px; height: 23px;background-color:#f4f4d7;box-shadow:  3px 3px 3px 0 #d0e1e1;">    
            <div style="margin-left:90%;" > 
        <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Images/Download-202-WF.png" ToolTip="Download" OnClick="ImageButton3_Click"  /> 
    </div>  </div>  
