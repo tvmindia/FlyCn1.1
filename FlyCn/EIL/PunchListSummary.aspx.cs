@@ -15,6 +15,8 @@ namespace FlyCn.EIL
     public partial class PunchListSummary : System.Web.UI.Page
     {
         FlyCnDAL.ErrorHandling eObj = new FlyCnDAL.ErrorHandling();
+
+        #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.collapsenode();", true);
@@ -26,6 +28,7 @@ namespace FlyCn.EIL
                 BindProjectByAreaChart();
             }  
         }
+        #endregion Page_Load
 
         #region BindChart
         public void BindChart()
@@ -172,11 +175,7 @@ namespace FlyCn.EIL
             }
         }
         #endregion BindProjectByAreaChart
-        protected void printPunchList_Click(object sender, EventArgs e)
-        {
-           
-            }
-
+        
         #region PunchListSummary_Download
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
         {
@@ -184,7 +183,7 @@ namespace FlyCn.EIL
             {
                 FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
                 DataTable dt = punchObj.GetChartData();
-
+                FlyCnDAL.ExcelReportSettings excelObj = new FlyCnDAL.ExcelReportSettings();
                 Microsoft.Office.Interop.Excel.Application xla = new Microsoft.Office.Interop.Excel.Application();
                 //  xla.Visible = true;
                 Microsoft.Office.Interop.Excel.Workbook wb = xla.Workbooks.Add(Microsoft.Office.Interop.Excel.XlSheetType.xlWorksheet);
@@ -193,7 +192,7 @@ namespace FlyCn.EIL
                 Microsoft.Office.Interop.Excel.ChartObjects chartObjs = (Microsoft.Office.Interop.Excel.ChartObjects)ws.ChartObjects(Type.Missing);
                 Microsoft.Office.Interop.Excel.ChartObject chartObj = chartObjs.Add(250, 60, 300, 300);
                 Microsoft.Office.Interop.Excel.Chart xlChart = chartObj.Chart;
-
+                excelObj.GenerateReport(ws);
                 int colIndex = 1;
                 int rowIndex = 5;
 
@@ -244,31 +243,7 @@ namespace FlyCn.EIL
                 // *****************Set legend:***************************
                 xlChart.HasLegend = true;
 
-                //---------------insert logo---------------------------//
-                object misValue = System.Reflection.Missing.Value;
-
-                ws.Shapes.AddPicture("E:\\Applications\\FlyCn1.1_New\\FlyCn\\Images\\flycnLogo.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoCTrue, 700, 1, 20, 45); 
-
-
-                //----------------------Adding Custom header to the excel file--------------//
-                ws.get_Range("A1", "z3").Merge(false);
-                chartRange = ws.get_Range("A1", "z3");
-                chartRange.FormulaR1C1 = "Flycn";
-                chartRange.HorizontalAlignment = 3;
-                chartRange.VerticalAlignment = 3;
-                //--------------------------Cell font color , size--------------------------//
-                Microsoft.Office.Interop.Excel.Range formatRange;
-                formatRange = ws.get_Range("A1", "z3");
-                formatRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
-                formatRange.Font.Size = 25;
-               
-                //-------------------Cell background color----------------//
-                Microsoft.Office.Interop.Excel.Range formatRange1;
-                formatRange1 = ws.get_Range("A1", "z3");
-                formatRange1.Interior.Color = System.Drawing.
-                ColorTranslator.ToOle(System.Drawing.Color.Bisque);
-               
-
+              
                 string file = "PunchlistSummary";
                 string path = ("~/Content/ExcelTemplate/");
 
@@ -313,22 +288,25 @@ namespace FlyCn.EIL
           
         }
         #endregion PunchListSummary_Download
+
+        #region Project-ManpowerDownload
         protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
         {
             try
             {
                 FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
                 DataTable dt = punchObj.GetProjectManpowerChartData();
+                FlyCnDAL.ExcelReportSettings excelObj = new FlyCnDAL.ExcelReportSettings();
 
                 Microsoft.Office.Interop.Excel.Application xla = new Microsoft.Office.Interop.Excel.Application();
-                //  xla.Visible = true;
+                
                 Microsoft.Office.Interop.Excel.Workbook wb = xla.Workbooks.Add(Microsoft.Office.Interop.Excel.XlSheetType.xlWorksheet);
                 Microsoft.Office.Interop.Excel.Worksheet ws = (Microsoft.Office.Interop.Excel.Worksheet)wb.ActiveSheet;
                 //********************** Now create the chart. *****************************
                 Microsoft.Office.Interop.Excel.ChartObjects chartObjs = (Microsoft.Office.Interop.Excel.ChartObjects)ws.ChartObjects(Type.Missing);
                 Microsoft.Office.Interop.Excel.ChartObject chartObj = chartObjs.Add(250, 60, 300, 300);
                 Microsoft.Office.Interop.Excel.Chart xlChart = chartObj.Chart;
-
+                excelObj.GenerateReport(ws);
                 int colIndex = 1;
                 int rowIndex = 5;
 
@@ -382,30 +360,7 @@ namespace FlyCn.EIL
                 // *****************Set legend:***************************
                 xlChart.HasLegend = true;
 
-                //---------------insert logo---------------------------//
-                object misValue = System.Reflection.Missing.Value;
-
-                ws.Shapes.AddPicture("E:\\Applications\\FlyCn1.1_New\\FlyCn\\Images\\flycnLogo.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoCTrue, 700, 1, 20, 45);
-
-
-                //----------------------Adding Custom header to the excel file--------------//
-                ws.get_Range("A1", "z3").Merge(false);
-                chartRange = ws.get_Range("A1", "z3");
-                chartRange.FormulaR1C1 = "Flycn";
-                chartRange.HorizontalAlignment = 3;
-                chartRange.VerticalAlignment = 3;
-                //--------------------------Cell font color , size--------------------------//
-                Microsoft.Office.Interop.Excel.Range formatRange;
-                formatRange = ws.get_Range("A1", "z3");
-                formatRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
-                formatRange.Font.Size = 25;
-
-                //-------------------Cell background color----------------//
-                Microsoft.Office.Interop.Excel.Range formatRange1;
-                formatRange1 = ws.get_Range("A1", "z3");
-                formatRange1.Interior.Color = System.Drawing.
-                ColorTranslator.ToOle(System.Drawing.Color.Bisque);
-
+             
                 string file = "ProjectManpower";
                 string path = ("~/Content/ExcelTemplate/");
 
@@ -439,15 +394,7 @@ namespace FlyCn.EIL
 
                 }
                 xla.Visible = true;
-                // ****************For Quiting The Excel Aplication ***********************
-                //if (xla != null)
-                //{
-                //    xla.DisplayAlerts = false;
-                //    wb.Close();
-                //    wb = null;
-                //    xla.Quit();
-                //    xla = null;
-                //}
+               
             }
             catch (Exception ex)
             {
@@ -455,16 +402,18 @@ namespace FlyCn.EIL
                 eObj.ErrorData(ex, page);
 
             }
-            //FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
-            //punchObj.GeneratePunchListExcelTemplate();
+           
         }
+        #endregion Project-ManpowerDownload
 
+        #region Project-By-AreaDownload
         protected void ImageButton3_Click(object sender, ImageClickEventArgs e)
         {
             try
             {
                 FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
                 DataTable dt = punchObj.GetProjectByAreaGraphDetails();
+                FlyCnDAL.ExcelReportSettings excelObj = new FlyCnDAL.ExcelReportSettings();
 
                 Microsoft.Office.Interop.Excel.Application xla = new Microsoft.Office.Interop.Excel.Application();
                 //  xla.Visible = true;
@@ -474,7 +423,7 @@ namespace FlyCn.EIL
                 Microsoft.Office.Interop.Excel.ChartObjects chartObjs = (Microsoft.Office.Interop.Excel.ChartObjects)ws.ChartObjects(Type.Missing);
                 Microsoft.Office.Interop.Excel.ChartObject chartObj = chartObjs.Add(250, 60, 300, 300);
                 Microsoft.Office.Interop.Excel.Chart xlChart = chartObj.Chart;
-
+                excelObj.GenerateReport(ws);
                 int colIndex = 1;
                 int rowIndex = 5;
 
@@ -513,13 +462,6 @@ namespace FlyCn.EIL
                 string lowerRightCell = System.String.Format("{0}{1}",
                     endColumnLetter, endRowNumber);
 
-                //Microsoft.Office.Interop.Excel.Range chartRange = ws.get_Range(upperLeftCell, lowerRightCell);
-                //for (int i = 1; i <= dt.Rows.Count; i++)
-                //{
-                //    chartRange[1, i] = dt.Rows[i - 1][0].ToString();          //For Adding Header Text
-                //    chartRange[2, i] = dt.Rows[i - 1][1];  //For Adding Datarow Value
-                //}
-
 
                 Microsoft.Office.Interop.Excel.Range chartRange = ws.get_Range("A5", "A10");
                 xlChart.SetSourceData(chartRange, Type.Missing);
@@ -535,29 +477,7 @@ namespace FlyCn.EIL
                 // *****************Set legend:***************************
                 xlChart.HasLegend = true;
 
-                //---------------insert logo---------------------------//
-                object misValue = System.Reflection.Missing.Value;
-
-                ws.Shapes.AddPicture("E:\\Applications\\FlyCn1.1_New\\FlyCn\\Images\\flycnLogo.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoCTrue, 700, 1, 20, 45);
-
-
-                //----------------------Adding Custom header to the excel file--------------//
-                ws.get_Range("A1", "z3").Merge(false);
-                chartRange = ws.get_Range("A1", "z3");
-                chartRange.FormulaR1C1 = "Flycn";
-                chartRange.HorizontalAlignment = 3;
-                chartRange.VerticalAlignment = 3;
-                //--------------------------Cell font color , size--------------------------//
-                Microsoft.Office.Interop.Excel.Range formatRange;
-                formatRange = ws.get_Range("A1", "z3");
-                formatRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
-                formatRange.Font.Size = 25;
-
-                //-------------------Cell background color----------------//
-                Microsoft.Office.Interop.Excel.Range formatRange1;
-                formatRange1 = ws.get_Range("A1", "z3");
-                formatRange1.Interior.Color = System.Drawing.
-                ColorTranslator.ToOle(System.Drawing.Color.Bisque);
+              
 
                 string file = "ProjectByArea";
                 string path = ("~/Content/ExcelTemplate/");
@@ -592,15 +512,7 @@ namespace FlyCn.EIL
 
                 }
                 xla.Visible = true;
-                // ****************For Quiting The Excel Aplication ***********************
-                //if (xla != null)
-                //{
-                //    xla.DisplayAlerts = false;
-                //    wb.Close();
-                //    wb = null;
-                //    xla.Quit();
-                //    xla = null;
-                //}
+               
             }
             catch (Exception ex)
             {
@@ -608,10 +520,10 @@ namespace FlyCn.EIL
                 eObj.ErrorData(ex, page);
 
             }
-            //FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
-            //punchObj.GeneratePunchListExcelTemplate();
+          
         }
-        }
+        #endregion Project-By-AreaDownload
+    }
           
            
         }  

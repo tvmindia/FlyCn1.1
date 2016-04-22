@@ -93,15 +93,15 @@
              <div class="col-md-5">
     <div id="columnchart_material" style="width: 500px; height: 500px;background-color:#fff2e6; box-shadow: 0 0 3px 3px #d0e1e1;">      
              </div>  
-       <div style="width: 500px; height: 23px;background-color:#fff2e6;box-shadow:  3px 3px 3px 0 #d0e1e1;">    
+       <div style="width: 500px; height: 23px;background-color:#fff2e6;box-shadow:  0 2px 0 2px #d0e1e1;">    
            <div style="margin-left:90%;" > 
        <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Images/Download-202-WF.png" ToolTip="Download" OnClick="ImageButton1_Click"  /> 
    </div>  </div>
                  </div> <div class="col-md-1"></div>
              <div class="col-md-6">
-          <div id="columnchart_material1" style="width: 500px; height: 500px;background-color:bisque; box-shadow:  0 0 3px 3px #d0e1e1;">        
+          <div id="columnchart_material1" style="width: 500px; height: 500px;background-color:#f0f0f5; box-shadow:  0 0 3px 3px #d0e1e1;">        
              </div>  
-                <div style="width: 500px; height: 23px;background-color:#f0f0f5; box-shadow:  3px 3px 3px 0 #d0e1e1;">    
+                <div style="width: 500px; height: 23px;background-color:#f0f0f5; box-shadow:  0 2px 0 2px #d0e1e1;">    
            <div style="margin-left:90%;" > 
        <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Images/Download-202-WF.png" ToolTip="Download" OnClick="ImageButton2_Click"  /> 
    </div>  </div>   
@@ -112,7 +112,7 @@
              <div class="col-md-5">
                   <div id="columnchart_material2" style="width: 500px; height: 500px;background-color:#f4f4d7; box-shadow: 0 0 3px 3px #d0e1e1;">      
              </div>  
-                   <div style="width: 500px; height: 23px;background-color:#f4f4d7;box-shadow:  3px 3px 3px 0 #d0e1e1;">    
+                   <div style="width: 500px; height: 23px;background-color:#f4f4d7;box-shadow:  0 2px 0 2px #d0e1e1;">    
            <div style="margin-left:90%;" > 
        <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Images/Download-202-WF.png" ToolTip="Download" OnClick="ImageButton3_Click"  /> 
    </div>  </div>  
