@@ -332,6 +332,7 @@
     <Content Include="FlycnSecurity\Object.aspx" />
     <Content Include="FlycnSecurity\ObjectAccessForRoles.aspx" />
     <Content Include="FlycnSecurity\ObjectRegistration.aspx" />
+    <Content Include="FlycnSecurity\RolesAndPermissions.aspx" />
     <Content Include="FlycnSecurity\Users.aspx" />
     <Content Include="Images\deniedLock.jpg" />
     <Content Include="Images\dnd.jpg" />
@@ -1022,6 +1023,13 @@
     </Compile>
     <Compile Include="FlycnSecurity\ObjectRegistration.aspx.designer.cs">
       <DependentUpon>ObjectRegistration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FlycnSecurity\RolesAndPermissions.aspx.cs">
+      <DependentUpon>RolesAndPermissions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FlycnSecurity\RolesAndPermissions.aspx.designer.cs">
+      <DependentUpon>RolesAndPermissions.aspx</DependentUpon>
     </Compile>
     <Compile Include="FlycnSecurity\Users.aspx.cs">
       <DependentUpon>Users.aspx</DependentUpon>

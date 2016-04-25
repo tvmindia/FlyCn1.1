@@ -135,34 +135,32 @@ namespace FlyCn.EIL
         public void BindProjectByAreaChart()
         {
             DataTable dsChartData = new DataTable();
-            StringBuilder str = new StringBuilder();
+            StringBuilder strScript = new StringBuilder();
             FlyCnDAL.PunchList punchObj = new FlyCnDAL.PunchList();
             try
             {
                 dsChartData = punchObj.GetProjectByAreaGraphDetails();
+                strScript.Append(@"<script type='text/javascript'>  
+                    google.load('visualization', '1', {packages: ['corechart']});</script>  
+  
+                    <script type='text/javascript'>  
+                    function drawVisualization() {         
+                    var data = google.visualization.arrayToDataTable([  
+                    ['Area', 'Workdone', 'Weighted'],");
 
-               str.Append(@"<script type=*text/javascript*> google.load( *visualization*, *1*, {packages:[*corechart*]});
-                       google.setOnLoadCallback(drawChart);
-                       function drawChart() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Percentage');
-        data.addColumn('number', 'Area');     
- 
-        data.addRows(" + dsChartData.Rows.Count + ");");
+                foreach (DataRow row in dsChartData.Rows)
+                {
+                    strScript.Append("['" + row["Area"] + "'," + row["Workdone"] + "," +
+                        row["Weighted"] + "],");
+                }
+                strScript.Remove(strScript.Length - 1, 1);
+                strScript.Append("]);");
 
-               for (int i = 0; i <= dsChartData.Rows.Count - 1; i++)
-            {
-                str.Append("data.setValue(" + i + "," + 1 + "," + dsChartData.Rows[i]["Percentage"].ToString() + ") ;");   
-                str.Append("data.setValue( " + i + "," + 0 + "," + "'" + dsChartData.Rows[i]["Area"].ToString() + "');");
-                        
-            }
+                strScript.Append("var options = { title : 'Project-By-Area Graph',bar: {groupWidth: '30%'}, vAxis: {title: 'Percentage', viewWindow:{max:50,min:0}, gridlines: { count:10}},  hAxis: {title: 'Area'}, backgroundColor: '#f4f4d7',seriesType: 'bars', series: {3: {type: 'area'}}, animation: { duration: 1000, startup: true } };");
+                strScript.Append(" var chart = new google.visualization.ComboChart(document.getElementById('columnchart_material2'));  chart.draw(data, options); } google.setOnLoadCallback(drawVisualization);");
+                strScript.Append(" </script>");
 
-               str.Append(" var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_material2'));");
-            str.Append(" chart.draw(data, {width: 500, height: 500, title: 'Project-By-Area',");
-            str.Append("hAxis: {title: 'Area'},vAxis: {title: 'Percentage'},backgroundColor: '#f4f4d7',bar: {groupWidth: '20%'}");
-            str.Append("}); }");
-            str.Append("</script>");
-            ltProjectByArea.Text = str.ToString().Replace('*', '"');
+                ltProjectByArea.Text = strScript.ToString();
 
             }
             catch
@@ -171,7 +169,7 @@ namespace FlyCn.EIL
             finally
             {
                 dsChartData.Dispose();
-                str.Clear();
+                strScript.Clear();
             }
         }
         #endregion BindProjectByAreaChart
@@ -192,6 +190,7 @@ namespace FlyCn.EIL
                 Microsoft.Office.Interop.Excel.ChartObjects chartObjs = (Microsoft.Office.Interop.Excel.ChartObjects)ws.ChartObjects(Type.Missing);
                 Microsoft.Office.Interop.Excel.ChartObject chartObj = chartObjs.Add(250, 60, 300, 300);
                 Microsoft.Office.Interop.Excel.Chart xlChart = chartObj.Chart;
+                excelObj.pageTitle = "PunchList Summary Report";
                 excelObj.GenerateReport(ws);
                 int colIndex = 1;
                 int rowIndex = 5;
@@ -306,6 +305,7 @@ namespace FlyCn.EIL
                 Microsoft.Office.Interop.Excel.ChartObjects chartObjs = (Microsoft.Office.Interop.Excel.ChartObjects)ws.ChartObjects(Type.Missing);
                 Microsoft.Office.Interop.Excel.ChartObject chartObj = chartObjs.Add(250, 60, 300, 300);
                 Microsoft.Office.Interop.Excel.Chart xlChart = chartObj.Chart;
+                excelObj.pageTitle = "Project Manpower Report";
                 excelObj.GenerateReport(ws);
                 int colIndex = 1;
                 int rowIndex = 5;
@@ -416,13 +416,14 @@ namespace FlyCn.EIL
                 FlyCnDAL.ExcelReportSettings excelObj = new FlyCnDAL.ExcelReportSettings();
 
                 Microsoft.Office.Interop.Excel.Application xla = new Microsoft.Office.Interop.Excel.Application();
-                //  xla.Visible = true;
+
                 Microsoft.Office.Interop.Excel.Workbook wb = xla.Workbooks.Add(Microsoft.Office.Interop.Excel.XlSheetType.xlWorksheet);
                 Microsoft.Office.Interop.Excel.Worksheet ws = (Microsoft.Office.Interop.Excel.Worksheet)wb.ActiveSheet;
                 //********************** Now create the chart. *****************************
                 Microsoft.Office.Interop.Excel.ChartObjects chartObjs = (Microsoft.Office.Interop.Excel.ChartObjects)ws.ChartObjects(Type.Missing);
                 Microsoft.Office.Interop.Excel.ChartObject chartObj = chartObjs.Add(250, 60, 300, 300);
                 Microsoft.Office.Interop.Excel.Chart xlChart = chartObj.Chart;
+                excelObj.pageTitle = "Project-By-Area Report";
                 excelObj.GenerateReport(ws);
                 int colIndex = 1;
                 int rowIndex = 5;
@@ -462,22 +463,21 @@ namespace FlyCn.EIL
                 string lowerRightCell = System.String.Format("{0}{1}",
                     endColumnLetter, endRowNumber);
 
-
-                Microsoft.Office.Interop.Excel.Range chartRange = ws.get_Range("A5", "A10");
+                Microsoft.Office.Interop.Excel.Range chartRange = ws.get_Range("A5", "C9");
                 xlChart.SetSourceData(chartRange, Type.Missing);
                 xlChart.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlColumnClustered;
 
-             
-                xlChart.SeriesCollection(1).Name = "Area";
-                xlChart.SeriesCollection(1).XValues = ws.get_Range("B2:B5");
-              
+                Microsoft.Office.Interop.Excel.SeriesCollection oSeriesCollection = (Microsoft.Office.Interop.Excel.SeriesCollection)chartObj.Chart.SeriesCollection(Type.Missing);
+                //Microsoft.Office.Interop.Excel.Series series1 = oSeriesCollection.Item(1);
+                //series1.Delete();
+
+                // *********************Add title: *******************************
                 xlChart.HasTitle = true;
                 xlChart.ChartTitle.Text = "Project-By-Area Graph";
 
                 // *****************Set legend:***************************
                 xlChart.HasLegend = true;
 
-              
 
                 string file = "ProjectByArea";
                 string path = ("~/Content/ExcelTemplate/");
@@ -512,7 +512,7 @@ namespace FlyCn.EIL
 
                 }
                 xla.Visible = true;
-               
+
             }
             catch (Exception ex)
             {

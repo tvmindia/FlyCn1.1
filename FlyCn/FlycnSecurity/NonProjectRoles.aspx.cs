@@ -909,7 +909,7 @@ namespace FlyCn.FlycnSecurity
 
             //}
 
-           
+            Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
         }
 
         #endregion Page Load
