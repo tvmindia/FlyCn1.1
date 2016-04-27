@@ -48,7 +48,7 @@
          <div class="col-md-12">
                <ul id="tabs">
                     <li><a href="#" onclick="MyTab1(this);" id="tabs1">Manage</a></li>
-                    <li><a href="#" onclick="MyTab2(this);" id="tabs2" runat="server">Create New</a></li>
+                    <li><a href="#" onclick="MyTab2(this);" id="tabs2" runat="server">New</a></li>
                 </ul>
    <div id="content">
          <div id="tab1">
@@ -104,7 +104,7 @@
         <br />
                                    <div class="contentTopBar" style="width:450px;margin-left:20%;"></div>
                          <div style="width:450px;margin-left:20%;">
-                              <telerik:RadGrid ID="dtgManageActivities" runat="server" AllowPaging="true" Width="100%" Skin="Silk" OnItemCreated="dtgManageActivities_ItemCreated" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageActivities_NeedDataSource" OnPreRender="dtgManageActivities_PreRender">
+                              <telerik:RadGrid ID="dtgManageActivities" runat="server" AllowPaging="true" Width="100%" Skin="Silk" OnItemCreated="dtgManageActivities_ItemCreated" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnNeedDataSource="dtgManageActivities_NeedDataSource" OnPreRender="dtgManageActivities_PreRender" OnItemCommand="dtgManageActivities_ItemCommand">
                                      <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
@@ -113,7 +113,7 @@
                            <%--  <telerik:GridBoundColumn HeaderText="Id" DataField="ModuleActID" UniqueName="ModuleActID" Display="false"></telerik:GridBoundColumn> --%>
                               <telerik:GridBoundColumn HeaderText="Activities" DataField="FullDesc" UniqueName="FullDesc"></telerik:GridBoundColumn> 
                              <telerik:GridCheckBoxColumn HeaderText="Select" DataType="System.Boolean" UniqueName="Modulescheck"></telerik:GridCheckBoxColumn>
-
+                             <telerik:GridButtonColumn CommandName="Manage" ButtonType="LinkButton" Text="Manage" UniqueName="Manage" ItemStyle-ForeColor="#3399ff"></telerik:GridButtonColumn>
                              <%--<telerik:GridBoundColumn HeaderText="Access Type" DataField="AccessType" UniqueName="AccessType" ></telerik:GridBoundColumn> --%>
                         </Columns>
                     </MasterTableView>
@@ -937,6 +937,8 @@
          funtab2.style.display = "none";
          document.getElementById("tab1").style.display = "block";
         
+         document.getElementById('<%=tabs2.ClientID%>').innerHTML = 'New';
+         window.location.href = window.location.href;
      }
      function MyTab2(Id) {
          var myHidden = document.getElementById('<%= selected_tab.ClientID %>');
@@ -947,7 +949,15 @@
          document.getElementById("tab2").style.display = "block";
          
      }
-        
+        function NavigateManage() {
+            var myHidden = document.getElementById('<%= selected_tab.ClientID %>');
+            myHidden.value = 2;
+            funtab1 = document.getElementById("tab1");
+            funtab1.style.display = "none";
+            document.getElementById("tab2").style.display = "block";
+
+
+        }
         function OnClientButtonClicking(sender, args) {
          var btn = args.get_item();
          if (btn.get_value() == 'Save') {
@@ -974,7 +984,6 @@
          }
          else
          {
-             alert("true");
              return true;          
          }
         }

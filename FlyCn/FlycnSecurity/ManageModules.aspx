@@ -48,7 +48,7 @@
                 <br />
                       
                  <div class="contentTopBar" style="width:450px;"></div>
-                <telerik:RadGrid ID="dtgManageModules" runat="server" AllowPaging="true" OnNeedDataSource="dtgManageModules_NeedDataSource" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnItemCreated="dtgManageModules_ItemCreated">
+                <telerik:RadGrid ID="dtgManageModules" runat="server" AllowPaging="true" OnNeedDataSource="dtgManageModules_NeedDataSource" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="7" OnItemCreated="dtgManageModules_ItemCreated" OnPageIndexChanged="dtgManageModules_PageIndexChanged" OnPreRender="dtgManageModules_PreRender" OnItemDataBound="dtgManageModules_ItemDataBound">
                     <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
@@ -56,6 +56,11 @@
                         <Columns>
                             <telerik:GridBoundColumn HeaderText="ModuleID" DataField="ModuleID" Display="false"></telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderText="Module" DataField="ModuleDesc" Display="true"></telerik:GridBoundColumn>
+                           <%-- <telerik:GridTemplateColumn UniqueName="Modulescheck" AutoPostBackOnFilter="true" HeaderText="Select"  DataType="System.Boolean">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chkModuleSelect" runat="server" />
+                        </ItemTemplate>
+                    </telerik:GridTemplateColumn>--%>
                             <telerik:GridCheckBoxColumn HeaderText="Select"  DataType="System.Boolean" UniqueName="Modulescheck" AutoPostBackOnFilter="true"></telerik:GridCheckBoxColumn>
                         </Columns>
                     </MasterTableView>

@@ -20,7 +20,7 @@
         }
     </style>
  <asp:ScriptManager ID="scriptmanager1" runat="server"></asp:ScriptManager>
-     <div class="importWizardContainer" style="height:500px;">
+     <div class="importWizardContainer" style="height:500px;overflow:auto;overflow-x:hidden;">
           <div class="col-md-12">
         <uc1:ToolBar runat="server" ID="ToolBar" /> 
         </div>

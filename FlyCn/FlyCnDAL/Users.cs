@@ -1429,6 +1429,8 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = projectNo;
                 cmd.Parameters.Add("@ModuleID", SqlDbType.NVarChar, 10).Value = moduleId;
                 cmd.Parameters.Add("@ModuleActID", SqlDbType.SmallInt).Value = moduleActId;
+                SqlParameter outParamIsUpdated = cmd.Parameters.Add("@isUpdate", SqlDbType.Int);
+                outParamIsUpdated.Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
@@ -1437,7 +1439,15 @@ namespace FlyCn.FlyCnDAL
                 datatableobj = new DataTable();
                 adapter.Fill(datatableobj);
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.InsertionSuccessData(page);
+                if (Convert.ToInt16(outParamIsUpdated.Value) == 1)
+                {
+
+                    eObj.UpdationSuccessData(page);
+                }
+                else
+                {
+                    eObj.InsertionSuccessData(page);
+                }
             }
             catch (Exception ex)
             {
@@ -1692,6 +1702,53 @@ namespace FlyCn.FlyCnDAL
                 cmd.Parameters.Add("@moduleId", SqlDbType.NVarChar, 10).Value = moduleId;
                 cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value = projectNo;
                 cmd.Parameters.Add("@category", SqlDbType.NVarChar, 25).Value = category;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                ds = new DataTable();
+                da.Fill(ds);
+
+                conn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+
+        }
+
+        #endregion GetAllActivities
+
+        #region GetAllSys_ActLibrary
+        public DataTable GetAllSys_ActLibrary(string projectNo, string moduleId, string fullDesc)
+        {
+            SqlConnection conn = null;
+            DataTable ds = null;
+
+            SqlDataAdapter da = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
+
+                SqlCommand cmd = new SqlCommand("GetAllSys_ActLibrary", conn);
+                cmd.Parameters.Add("@moduleId", SqlDbType.NVarChar, 10).Value = moduleId;
+                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value = projectNo;
+                cmd.Parameters.Add("@FullDesc", SqlDbType.NVarChar, 25).Value = fullDesc;
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 da = new SqlDataAdapter();

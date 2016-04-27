@@ -516,5 +516,496 @@ namespace FlyCn.FlycnSecurity
             }
         }
 
+        protected void dtgManageActivities_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            GridDataItem item = (GridDataItem)e.Item;
+            if (e.CommandName == "Manage")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "NavigateManage();", true);
+                string fullDesc = item.GetDataKeyValue("FullDesc").ToString();
+                FillAllBoxes(fullDesc);
+                ddlSelectProject.Enabled = false;
+                ddlSelectModule.Enabled = false;
+                tabs2.InnerHtml = "Edit";
+            }
+        }
+
+        #region FillAllBoxes()
+        public void FillAllBoxes(string fullDesc)
+        {
+            FlyCnDAL.Users userObj = new FlyCnDAL.Users();
+            DataTable dt = new DataTable();
+            string project = ddlSelectProject.SelectedItem.Text;
+            if (project == "--select project--")
+            {
+                project = ddlProjects.SelectedItem.Text;
+                ddlSelectProject.SelectedItem.Text = project;
+            }
+            string module = ddlModule.SelectedItem.Value;
+            if (module == "--select module--")
+            {
+                module = ddlSelectModule.SelectedItem.Value;
+                ddlSelectModule.SelectedItem.Text = module;
+            }
+            else
+            {
+                ddlSelectModule.SelectedItem.Text = module;
+            }
+
+            dt = userObj.GetAllSys_ActLibrary(project, module, fullDesc);
+            if (dt.Rows.Count > 0)
+            {
+                txtFullDesc.Text = dt.Rows[0]["FullDesc"].ToString();
+                txtShortDesc.Text = dt.Rows[0]["ShortDesc"].ToString();
+                if (dt.Columns.Contains("FailApplicable"))
+                {
+                    if (dt.Rows[0]["FailApplicable"] == DBNull.Value)
+                    {
+                        chkIsFailApplicable.Checked = false;
+                    }
+
+                    else
+                    {
+                        if (dt.Rows[0]["FailApplicable"] == DBNull.Value)
+                        {
+                            bool failApplicable = Convert.ToBoolean(dt.Rows[0]["FailApplicable_YN"]);
+                            if (failApplicable == true)
+                            {
+                                chkIsFailApplicable.Checked = true;
+                            }
+                            else
+                            {
+                                chkIsFailApplicable.Checked = false;
+                            }
+                        }
+                        else
+                        {
+                            chkIsFailApplicable.Checked = false;
+                        }
+                    }
+                }
+                else
+                {
+                    chkIsFailApplicable.Checked = false;
+                }
+
+                txtActualStartDateCaption.Text = dt.Rows[0]["Actual_StartDate_Caption"].ToString();
+                if (dt.Columns.Contains("CompStatus_Caption"))
+                {
+                    txtStatusCaption.Text = dt.Rows[0]["CompStatus_Caption"].ToString();
+                }
+                else
+                {
+                    txtStatusCaption.Text = dt.Rows[0]["Status_Caption"].ToString();
+                }
+                txtActualCompleteDateCaption.Text = dt.Rows[0]["Actual_ComplDate_Caption"].ToString();
+                if (dt.Rows[0]["Planned_StartDate_OnOff"] == DBNull.Value)
+                {
+                    chkPlannedStartDate.Checked = false;
+                }
+                else
+                {
+                    bool plannedStartDate = Convert.ToBoolean(dt.Rows[0]["Planned_StartDate_OnOff"]);
+                    if (plannedStartDate == true)
+                    {
+                        chkPlannedStartDate.Checked = true;
+                    }
+                    else
+                    {
+                        chkPlannedStartDate.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["Planned_ComplDate_OnOff"] == DBNull.Value)
+                {
+                    chkPlannedCmpltDate.Checked = false;
+                }
+                else
+                {
+                    bool plannedCmpltDate = Convert.ToBoolean(dt.Rows[0]["Planned_ComplDate_OnOff"]);
+                    if (plannedCmpltDate == true)
+                    {
+                        chkPlannedCmpltDate.Checked = true;
+                    }
+                    else
+                    {
+                        chkPlannedCmpltDate.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["Forecast_StartDate_OnOff"] == DBNull.Value)
+                {
+                    chkForeCastStartDate.Checked = false;
+                }
+                else
+                {
+                    bool foreCastStartDate = Convert.ToBoolean(dt.Rows[0]["Forecast_StartDate_OnOff"]);
+                    if (foreCastStartDate == true)
+                    {
+                        chkForeCastStartDate.Checked = true;
+                    }
+                    else
+                    {
+                        chkForeCastStartDate.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["Forecast_EndDate_OnOff"] == DBNull.Value)
+                {
+                    chkForeCastEndDate.Checked = false;
+                }
+                else
+                {
+                    bool foreCastEndDate = Convert.ToBoolean(dt.Rows[0]["Forecast_EndDate_OnOff"]);
+                    if (foreCastEndDate == true)
+                    {
+                        chkForeCastEndDate.Checked = true;
+                    }
+                    else
+                    {
+                        chkForeCastEndDate.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["Actual_StartDate_OnOff"] == DBNull.Value)
+                {
+                    chkActualStartDate.Checked = false;
+                }
+                else
+                {
+                    bool actualStartDate = Convert.ToBoolean(dt.Rows[0]["Actual_StartDate_OnOff"]);
+                    if (actualStartDate == true)
+                    {
+                        chkActualStartDate.Checked = true;
+                    }
+                    else
+                    {
+                        chkActualStartDate.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["Status_OnOff"] == DBNull.Value)
+                {
+                    chkStatus.Checked = false;
+                }
+                else
+                {
+                    bool status = Convert.ToBoolean(dt.Rows[0]["Status_OnOff"]);
+                    if (status == true)
+                    {
+                        chkStatus.Checked = true;
+                    }
+                    else
+                    {
+                        chkStatus.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["Actual_ComplDate_OnOff"] == DBNull.Value)
+                {
+                    chkActualCompleteDate.Checked = false;
+                }
+                else
+                {
+                    bool actualCompleteDate = Convert.ToBoolean(dt.Rows[0]["Actual_ComplDate_OnOff"]);
+                    if (actualCompleteDate == true)
+                    {
+                        chkActualCompleteDate.Checked = true;
+                    }
+                    else
+                    {
+                        chkActualCompleteDate.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["WBS_ID_OnOff"] == DBNull.Value)
+                {
+                    chkWBSID.Checked = false;
+                }
+                else
+                {
+                    bool wbdId = Convert.ToBoolean(dt.Rows[0]["WBS_ID_OnOff"]);
+                    if (wbdId == true)
+                    {
+                        chkWBSID.Checked = true;
+                    }
+                    else
+                    {
+                        chkWBSID.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["Activity_ID_OnOff"] == DBNull.Value)
+                {
+                    chkActivityID.Checked = false;
+                }
+                else
+                {
+                    bool activityID = Convert.ToBoolean(dt.Rows[0]["Activity_ID_OnOff"]);
+                    if (activityID == true)
+                    {
+                        chkActivityID.Checked = true;
+                    }
+                    else
+                    {
+                        chkActivityID.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["Budget_Hrs_OnOff"] == DBNull.Value)
+                {
+                    chkBudgetHours.Checked = false;
+                }
+                else
+                {
+                    bool budgetHours = Convert.ToBoolean(dt.Rows[0]["Budget_Hrs_OnOff"]);
+                    if (budgetHours == true)
+                    {
+                        chkBudgetHours.Checked = true;
+                    }
+                    else
+                    {
+                        chkBudgetHours.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["Spent_Hrs_Productive_OnOff"] == DBNull.Value)
+                {
+                    chkSpentHoursProductive.Checked = false;
+                }
+                else
+                {
+                    bool spentHoursProductive = Convert.ToBoolean(dt.Rows[0]["Spent_Hrs_Productive_OnOff"]);
+                    if (spentHoursProductive == true)
+                    {
+                        chkSpentHoursProductive.Checked = true;
+                    }
+                    else
+                    {
+                        chkSpentHoursProductive.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["Spent_Hrs_NonProductive_OnOff"] == DBNull.Value)
+                {
+                    chkSpentHoursNonProductive.Checked = false;
+                }
+                else
+                {
+                    bool spentHoursNonProductive = Convert.ToBoolean(dt.Rows[0]["Spent_Hrs_NonProductive_OnOff"]);
+                    if (spentHoursNonProductive == true)
+                    {
+                        chkSpentHoursNonProductive.Checked = true;
+                    }
+                    else
+                    {
+                        chkSpentHoursNonProductive.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["Activity_Weight_OnOff"] == DBNull.Value)
+                {
+                    chkActivityWeight.Checked = false;
+                }
+                else
+                {
+                    bool activityWeight = Convert.ToBoolean(dt.Rows[0]["Activity_Weight_OnOff"]);
+                    if (activityWeight == true)
+                    {
+                        chkActivityWeight.Checked = true;
+                    }
+                    else
+                    {
+                        chkActivityWeight.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["QtyTo_Install_OnOff"] == DBNull.Value)
+                {
+                    chkQtyToInstall.Checked = false;
+                }
+                else
+                {
+                    bool qtyToInstall = Convert.ToBoolean(dt.Rows[0]["QtyTo_Install_OnOff"]);
+                    if (qtyToInstall == true)
+                    {
+                        chkQtyToInstall.Checked = true;
+                    }
+                    else
+                    {
+                        chkQtyToInstall.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["Qty_Installed_OnOff"] == DBNull.Value)
+                {
+                    chkQuantityInstalled.Checked = false;
+                }
+                else
+                {
+                    bool quantityInstalled = Convert.ToBoolean(dt.Rows[0]["Qty_Installed_OnOff"]);
+                    if (quantityInstalled == true)
+                    {
+                        chkQuantityInstalled.Checked = true;
+                    }
+                    else
+                    {
+                        chkQuantityInstalled.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["UnitOfMeasure_OnOff"] == DBNull.Value)
+                {
+                    chkUnitOfMeasure.Checked = false;
+                }
+                else
+                {
+                    bool unitOfMeasure = Convert.ToBoolean(dt.Rows[0]["UnitOfMeasure_OnOff"]);
+                    if (unitOfMeasure == true)
+                    {
+                        chkUnitOfMeasure.Checked = true;
+                    }
+                    else
+                    {
+                        chkUnitOfMeasure.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["Completed_By_OnOff"] == DBNull.Value)
+                {
+                    chkCompleted.Checked = false;
+                }
+                else
+                {
+                    bool completed = Convert.ToBoolean(dt.Rows[0]["Completed_By_OnOff"]);
+                    if (completed == true)
+                    {
+                        chkCompleted.Checked = true;
+                    }
+                    else
+                    {
+                        chkCompleted.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["RFI_RefNo_OnOff"] == DBNull.Value)
+                {
+                    chkRFIRef_No.Checked = false;
+                }
+                else
+                {
+                    bool rFIRef_No = Convert.ToBoolean(dt.Rows[0]["RFI_RefNo_OnOff"]);
+                    if (rFIRef_No == true)
+                    {
+                        chkRFIRef_No.Checked = true;
+                    }
+                    else
+                    {
+                        chkRFIRef_No.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["RFI_Date_OnOff"] == DBNull.Value)
+                {
+                    chkRFIDate.Checked = false;
+                }
+                else
+                {
+                    bool rFIDate = Convert.ToBoolean(dt.Rows[0]["RFI_Date_OnOff"]);
+                    if (rFIDate == true)
+                    {
+                        chkRFIDate.Checked = true;
+                    }
+                    else
+                    {
+                        chkRFIDate.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["AFI_RefNo_OnOff"] == DBNull.Value)
+                {
+                    chkAFIRef_No.Checked = false;
+                }
+                else
+                {
+                    bool aFIRef_No = Convert.ToBoolean(dt.Rows[0]["AFI_RefNo_OnOff"]);
+                    if (aFIRef_No == true)
+                    {
+                        chkAFIRef_No.Checked = true;
+                    }
+                    else
+                    {
+                        chkAFIRef_No.Checked = false;
+                    }
+                }
+                //update from here onwards
+                if (dt.Rows[0]["AFI_Date_OnOff"] == DBNull.Value)
+                {
+                    chkAFIDate.Checked = false;
+                }
+                else
+                {
+                    bool aFIDate = Convert.ToBoolean(dt.Rows[0]["AFI_Date_OnOff"]);
+                    if (aFIDate == true)
+                    {
+                        chkAFIDate.Checked = true;
+                    }
+                    else
+                    {
+                        chkAFIDate.Checked = false;
+                    }
+                }
+                if (dt.Rows[0]["Remarks_OnOff"] == DBNull.Value)
+                {
+                    chkRemarks.Checked = false;
+                }
+                else
+                {
+                    bool remarks = Convert.ToBoolean(dt.Rows[0]["Remarks_OnOff"]);
+                    if (remarks == true)
+                    {
+                        chkRemarks.Checked = true;
+                    }
+                    else
+                    {
+                        chkRemarks.Checked = false;
+                    }
+                }
+                txtTotalCaption.Text = dt.Rows[0]["Total_Caption"].ToString();
+                txtPassedCaption.Text = dt.Rows[0]["Passed_Caption"].ToString();
+                txtFailedCaption.Text = dt.Rows[0]["Failed_Caption"].ToString();
+                txtInProgressCaption.Text = dt.Rows[0]["InProgress_Caption"].ToString();
+                txtTestedCaption.Text = dt.Rows[0]["Tested_Caption"].ToString();
+                txtReadyCaption.Text = dt.Rows[0]["Ready_Caption"].ToString();
+                txtNotReadyCaption.Text = dt.Rows[0]["Not_Ready_Caption"].ToString();
+                txtNotTested.Text = dt.Rows[0]["Not_Tested_Caption"].ToString();
+                txtBalanceCaption.Text = dt.Rows[0]["Balance_Caption"].ToString();
+                if (dt.Columns.Contains("Qty_Verified_OnOff"))
+                {
+                    if (dt.Rows[0]["Qty_Verified_OnOff"] == DBNull.Value)
+                    {
+                        chkQuantityVerified.Checked = false;
+                    }
+                    else
+                    {
+                        bool quantityVerified = Convert.ToBoolean(dt.Rows[0]["Qty_Verified_OnOff"]);
+                        if (quantityVerified == true)
+                        {
+                            chkQuantityVerified.Checked = true;
+                        }
+                        else
+                        {
+                            chkQuantityVerified.Checked = false;
+                        }
+                    }
+                }
+                else
+                {
+                    chkQuantityVerified.Checked = false;
+                }
+
+            //    if (dt.Columns.Contains("KPI_Qty_YN"))
+            //    {
+            //        bool kpiQuantity = Convert.ToBoolean(dt.Rows[0]["KPI_Qty_YN"]);
+            //        if (kpiQuantity == true)
+            //        {
+            //            chkKpiQuantity.Checked = true;
+            //        }
+            //        else
+            //        {
+            //            chkKpiQuantity.Checked = false;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        chkKpiQuantity.Checked = false;
+            //    }
+
+            }
+
+        }
+        #endregion FillAllBoxes()
+
         }
     }

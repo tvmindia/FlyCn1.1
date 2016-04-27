@@ -15,12 +15,16 @@ namespace FlyCn.EIL
         protected void Page_Load(object sender, EventArgs e)
         {
             string modeValue = "";
-        
+            modeValue = Request.QueryString["Mode"];
             if (Request.QueryString["Mode"] != null)
-            {
+            {              
                 if (modeValue == "QEIL")
                 {
                     LoadLeftMenu(2);
+                }
+                else if(modeValue=="CEIL")
+                {
+                    LoadLeftMenu(1);
                 }
                 else
                 {

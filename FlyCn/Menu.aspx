@@ -70,7 +70,7 @@
            
          
             if (SubTilePermissionDenied == true) {
-               
+                alert("Denied");
                 //SubTileDenied = true;
                 debugger;
                 var frame = document.getElementById('iframesub1');

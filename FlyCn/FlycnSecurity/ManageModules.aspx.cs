@@ -19,6 +19,7 @@ namespace FlyCn.FlycnSecurity
             SecurityCheck();
             if(!IsPostBack)
             {
+                Session["selectedID"] = null;
                 BindDropDownProjectNo();
             }
         }
@@ -53,8 +54,8 @@ namespace FlyCn.FlycnSecurity
                 {
                     foreach (GridDataItem item in dtgManageModules.Items)
                     {
-                      
-                        CheckBox checkColumnAdd = item["Modulescheck"].Controls[0] as CheckBox;
+
+                        CheckBox checkColumnAdd = (CheckBox)item["Modulescheck"].Controls[0];
                         if (checkColumnAdd.Checked == true)
                         {
                             string Id = item.GetDataKeyValue("ModuleID").ToString();
@@ -157,38 +158,140 @@ namespace FlyCn.FlycnSecurity
             {
                 GridDataItem item = (GridDataItem)e.Item;
                 CheckBox checkBoxAdd = (CheckBox)item["Modulescheck"].Controls[0];
+                //checkBoxAdd.Checked = true;
                 checkBoxAdd.Enabled = true;
+                checkBoxAdd.AutoPostBack = true;
+               // (item["Modulescheck"].Controls[0] as CheckBox).Checked = true;
             }
+            //FlyCnDAL.Users userObj = new FlyCnDAL.Users();
+            //DataTable dt = new DataTable();
+            //string project = ddlProjects.SelectedItem.Value;
+            //dt = userObj.GetAllModulesByProjectNo(project);
+
+            //string Id = "";
+
+            //foreach (DataRow dr in dt.Rows)
+            //{
+            //    foreach (GridDataItem colName in dtgManageModules.Items)
+            //    {
+            //        CheckBox checkColumnAdd = colName.FindControl("chkModuleSelect") as CheckBox;
+            //        Id = colName.GetDataKeyValue("ModuleID").ToString();
+
+            //        if (Id == Convert.ToString(dr["ModuleID"]))
+            //        {
+            //            // CheckBox chkbx = (CheckBox)colName["ModuleID"].FindControl("chkModuleSelect");
+            //            checkColumnAdd.Checked = true;
+
+            //        }
+            //    }
+
+           // }
         }
 
         protected void ddlProjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             foreach (GridDataItem colName in dtgManageModules.Items)
             {
-                CheckBox checkColumnAdd = colName["Modulescheck"].Controls[0] as CheckBox;
+                CheckBox checkColumnAdd = (CheckBox)colName["Modulescheck"].Controls[0];
                 checkColumnAdd.Checked = false;
+                //colName.Selected = false;
             }
             FlyCnDAL.Users userObj = new FlyCnDAL.Users();
             DataTable dt = new DataTable();
             string project = ddlProjects.SelectedItem.Value;
             dt = userObj.GetAllModulesByProjectNo(project);
-           
-            string Id= "";
-          
-                foreach (DataRow dr in dt.Rows)
-                {
+
+            string Id = "";
+
+            foreach (DataRow dr in dt.Rows)
+            {
                 foreach (GridDataItem colName in dtgManageModules.Items)
-                {            
+                {
+                   
                     CheckBox checkColumnAdd = colName["Modulescheck"].Controls[0] as CheckBox;
                     Id = colName.GetDataKeyValue("ModuleID").ToString();
-                   
-                        if (Id==Convert.ToString(dr["ModuleID"]))
-                        {
-                            checkColumnAdd.Checked = true;
-                        }
+
+                    if (Id.Contains(Convert.ToString(dr["ModuleID"])))
+                    {
+                        // CheckBox chkbx = (CheckBox)colName["ModuleID"].FindControl("chkModuleSelect");
+                       // colName.Selected = true;
+                        checkColumnAdd.Checked = true;
+
                     }
-                
+                }
+
             }
+        }
+
+        protected void dtgManageModules_PageIndexChanged(object sender, GridPageChangedEventArgs e)
+        {
+            RememberSelected();
+        }
+
+        private void RememberSelected()
+        {
+            string strIds = ",";
+
+            if (Session["selectedID"] != null)
+            {
+                strIds = Convert.ToString(Session["selectedID"]);
+            }
+
+            foreach (GridDataItem item in dtgManageModules.MasterTableView.Items)
+            {
+                CheckBox checkColumn = (CheckBox)item["Modulescheck"].Controls[0];
+                string Id = item.GetDataKeyValue("ModuleID").ToString();
+
+                if (checkColumn != null && checkColumn.Checked)
+                {
+                    strIds += Id.ToString() + ",";
+                }
+                else
+                {
+                    strIds = strIds.Replace("," + Id.ToString() + ",", ",");
+                }
+            }
+
+            Session["selectedID"] = strIds;
+        }
+
+        //protected void Unnamed_PreRender(object sender, EventArgs e)
+        //{
+           
+        //}
+
+        protected void dtgManageModules_PreRender(object sender, EventArgs e)
+        {
+            //string strIds = ",";
+
+            //if (Session["selectedID"] != null)
+            //{
+            //    strIds = Convert.ToString(Session["selectedID"]);
+            //}
+
+            //foreach (GridDataItem item in dtgManageModules.MasterTableView.Items)
+            //{
+            //    CheckBox checkColumn = (CheckBox)item["Modulescheck"].Controls[0];
+            //    string Id = item.GetDataKeyValue("ModuleID").ToString();
+
+            //    if (checkColumn != null)
+            //    {
+            //        if (strIds.IndexOf("," + Id.ToString() + ",") >= 0)
+            //        {
+            //            checkColumn.Checked = true;
+            //        }
+            //        else
+            //        {
+            //            checkColumn.Checked = false;
+            //        }
+            //    }
+            //}
+            
+        }
+
+        protected void dtgManageModules_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+          
         }
     }
 }

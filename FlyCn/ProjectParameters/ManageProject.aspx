@@ -314,50 +314,50 @@
 
   <div class="accordion-content"> 
                                       <div class="col-md-12 Span-One">
-                                    <div class="col-md-6">
-                                      <div class="form-group">
-                   <asp:Label ID="lblProjectNo" runat="server" Text="ProjectNo"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
-                                                <asp:TextBox ID="txtProjNo" runat="server"></asp:TextBox>
+                                    <div class="col-md-6 Span-One">
+                                      <div class="form-group required">
+                   <asp:Label ID="lblProjectNo" runat="server" Text="ProjectNo"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
+                                                <asp:TextBox ID="txtProjNo" runat="server"  CssClass="form-control"></asp:TextBox>
                                             </div>
                                           </div>
                                         </div>
-                                           <div class="col-md-6">
-                                      <div class="form-group">
-                                         <asp:Label ID="lblProjectName" runat="server" Text="Project Name"  class="control-label col-md-5" for="email3"></asp:Label>
-                                              <div class="col-md-7">
-                                                <asp:TextBox ID="txtProjName" runat="server"></asp:TextBox>
+                                           <div class="col-md-6 Span-One">
+                                      <div class="form-group required">
+                                         <asp:Label ID="lblProjectName" runat="server" Text="Project Name"  class="control-label col-md-6" for="email3"></asp:Label>
+                                              <div class="col-md-6">
+                                                <asp:TextBox ID="txtProjName" runat="server"  CssClass="form-control"></asp:TextBox>
                                                </div>
                                           </div>
                                                </div>
-                                                 <div class="col-md-6">
-                                      <div class="form-group">
-                                            <asp:Label ID="lblProjectLocation" runat="server" Text="Project Location"  class="control-label col-md-5" for="email3"></asp:Label>
-                                                <div class="col-md-7">
-                                                <asp:TextBox ID="txtLocation" runat="server"></asp:TextBox>
+                                                 <div class="col-md-6 Span-One">
+                                      <div class="form-group required">
+                                            <asp:Label ID="lblProjectLocation" runat="server" Text="Project Location"  class="control-label col-md-6" for="email3"></asp:Label>
+                                                <div class="col-md-6">
+                                                <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control"></asp:TextBox>
                                                </div>
                                           </div>
                                                      </div>
-                                                         <div class="col-md-6">
-                                      <div class="form-group">
-                                                       <asp:Label ID="lblProjectManager" runat="server" Text="Project Manager"  class="control-label col-md-5" for="email3"></asp:Label>
-                                                   <div class="col-md-7">
-                                                <asp:TextBox ID="txtManager" runat="server"></asp:TextBox>
+                                                         <div class="col-md-6 Span-One">
+                                      <div class="form-group required">
+                                                       <asp:Label ID="lblProjectManager" runat="server" Text="Project Manager"  class="control-label col-md-6" for="email3"></asp:Label>
+                                                   <div class="col-md-6">
+                                                <asp:TextBox ID="txtManager" runat="server" CssClass="form-control"></asp:TextBox>
                                                        </div>
                                                </div>
                                                              </div>
-                                           <div class="col-md-6">
+                                           <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                                          <asp:Label ID="lblBaseProject" runat="server" Text="Base Project"  class="control-label col-md-5" for="email3"></asp:Label>
-                                            <div class="col-md-7">
-                                                <asp:TextBox ID="txtBaseProject" runat="server"></asp:TextBox>
+                                          <asp:Label ID="lblBaseProject" runat="server" Text="Base Project"  class="control-label col-md-6" for="email3"></asp:Label>
+                                            <div class="col-md-6">
+                                                <asp:TextBox ID="txtBaseProject" runat="server" CssClass="form-control"></asp:TextBox>
                                             </div>
                                           </div>
                                                </div>
-                                          <div class="col-md-6">
+                                          <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                                          <asp:Label ID="lblActive" runat="server" Text="Active"  class="control-label col-md-5" for="email3"></asp:Label>
-                                            <div class="col-md-7">
+                                          <asp:Label ID="lblActive" runat="server" Text="Active"  class="control-label col-md-6" for="email3"></asp:Label>
+                                            <div class="col-md-6">
 
                                           
                                                 <asp:CheckBox ID="CheckboxActive" runat="server" AutoPostBack="false" />
@@ -375,70 +375,70 @@
                               
                              <div class="accordion-content"> 
                                       <div class="col-md-12 Span-One">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblCompanyName" runat="server" Text="Company Name"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
-                                                <asp:TextBox ID="txtCompanyName" runat="server"></asp:TextBox>
+                   <asp:Label ID="lblCompanyName" runat="server" Text="Company Name"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6 ">
+                                                <asp:TextBox ID="txtCompanyName" runat="server" CssClass="form-control"></asp:TextBox>
                                           </div></div>
                                         </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblAddress1" runat="server" Text="Address1"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblAddress1" runat="server" Text="Address1"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                            
-                                                <asp:TextBox ID="txtAddress1" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control"></asp:TextBox>
                                            </div>
                                           </div>
                                                 </div>
-                                           <div class="col-md-6">
+                                           <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblAddress2" runat="server" Text="Address2 "  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblAddress2" runat="server" Text="Address2 "  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                          
-                                                <asp:TextBox ID="txtAddress2" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control"></asp:TextBox>
                                            
                                           </div>
                                           </div></div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblTelephone" runat="server" Text="Telephone"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblTelephone" runat="server" Text="Telephone"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                          
                                             
-                                                <asp:TextBox ID="txtTelephone" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtTelephone" runat="server" CssClass="form-control"></asp:TextBox>
                                          </div>
                                           </div>
                                                 </div>
-                                              <div class="col-md-6">
+                                              <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblFax" runat="server" Text="Fax"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
-                                                <asp:TextBox ID="txtFax" runat="server"></asp:TextBox>
+                   <asp:Label ID="lblFax" runat="server" Text="Fax"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
+                                                <asp:TextBox ID="txtFax" runat="server" CssClass="form-control"></asp:TextBox>
                                           </div>
                                           </div>
                                                   </div>
-                                               <div class="col-md-6">
+                                               <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblEmail" runat="server" Text="Email"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
-                                                <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+                   <asp:Label ID="lblEmail" runat="server" Text="Email"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
+                                                <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control"></asp:TextBox>
                                         </div>
                                           </div>
                                                    </div>
-                                           <div class="col-md-6">
+                                           <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblWebsite" runat="server" Text="Website"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblWebsite" runat="server" Text="Website"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                           
-                                                <asp:TextBox ID="txtWebsite" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtWebsite" runat="server" CssClass="form-control"></asp:TextBox>
                                           </div>
                                           </div>
                                                </div>
-                                              <div class="col-md-6">
+                                              <div class="col-md-6 Span-One">
                                       <div class="form-group">
                                                 <asp:Label ID="lblComapnyLogo" runat="server" Text="Company Logo"></asp:Label>
-                                             <div class="col-md-7">
+                                             <div class="col-md-6">
                                                 <asp:FileUpload ID="fuLogo" runat="server" Height="22px" Width="175px" />
                                                 <asp:ImageButton ID="imbCompany" runat="server" Height="20px" Width="20px" />
                                                 <asp:Label ID="lblmsg" runat="server" Text=""></asp:Label>
@@ -454,66 +454,66 @@
                               
                              <div class="accordion-content"> 
                                       <div class="col-md-12 Span-One">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblClientName" runat="server" Text="Client Name "  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblClientName" runat="server" Text="Client Name "  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                     
                                         
                                         
-                                                <asp:TextBox ID="txtClientName" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtClientName" runat="server" CssClass="form-control"></asp:TextBox>
                                           </div>
                                           </div>
                                         </div>
-                                             <div class="col-md-6">
+                                             <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblContractDetails" runat="server" Text="Contract Details "  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblContractDetails" runat="server" Text="Contract Details "  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                     
                                       
-                                                <asp:TextBox ID="txtContractDetails" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtContractDetails" runat="server" CssClass="form-control"></asp:TextBox>
                                       
                                      </div>
                                           </div>
                                                  </div>
-                                             <div class="col-md-6">
+                                             <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblTelephone1" runat="server" Text="Telephone"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblTelephone1" runat="server" Text="Telephone"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                             
-                                                <asp:TextBox ID="txtClientTelephone" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtClientTelephone" runat="server" CssClass="form-control"></asp:TextBox>
                                        </div>
                                           </div></div>
-                                             <div class="col-md-6">
+                                             <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblClientFax" runat="server" Text="Client Fax"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
-                                                <asp:TextBox ID="txtClientFax" runat="server"></asp:TextBox>
+                   <asp:Label ID="lblClientFax" runat="server" Text="Client Fax"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
+                                                <asp:TextBox ID="txtClientFax" runat="server" CssClass="form-control"></asp:TextBox>
                                          </div>
                                           </div>
                                                  </div>
-                                               <div class="col-md-6">
+                                               <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblClientEmail" runat="server" Text="Client Email"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblClientEmail" runat="server" Text="Client Email"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                          
-                                                <asp:TextBox ID="txtClientEmail" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtClientEmail" runat="server" CssClass="form-control"></asp:TextBox>
                                             </div>
                                           </div>
                                                    </div>
-                                             <div class="col-md-6">
+                                             <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblClientWebsite" runat="server" Text="Website"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblClientWebsite" runat="server" Text="Website"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                            
-                                                <asp:TextBox ID="txtClientWebsite" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtClientWebsite" runat="server" CssClass="form-control"></asp:TextBox>
                                           </div>
                                           </div>
                                                  </div>
-                                             <div class="col-md-6">
+                                             <div class="col-md-6 Span-One">
                                       <div class="form-group">
                                                 <asp:Label ID="lblClientLogo" runat="server" Text="Client Logo"></asp:Label>
-                                         <div class="col-md-7">
+                                         <div class="col-md-6">
                                                 
                                          
                                                 <asp:FileUpload ID="fuClientLogo" runat="server" Height="22px" Width="175px" />
@@ -530,54 +530,54 @@
                               
                              <div class="accordion-content"> 
                                       <div class="col-md-12 Span-One">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblImplementationEngineer" runat="server" Text=" Implementation Engineer"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblImplementationEngineer" runat="server" Text=" Implementation Engineer"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                      
-                                                <asp:TextBox ID="txtImplementation" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtImplementation" runat="server" CssClass="form-control"></asp:TextBox>
                                           
                                            </div>
                                           </div>
                                         </div>
-                                             <div class="col-md-6">
+                                             <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblProjectAdmin" runat="server" Text="Project Admin "  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblProjectAdmin" runat="server" Text="Project Admin "  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                          
-                                                <asp:TextBox ID="txtProjectAdmin" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtProjectAdmin" runat="server" CssClass="form-control"></asp:TextBox>
                                      </div>
                                           </div>
                                                  </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblPunchListFromCompany" runat="server" Text="Punch List From Company"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblPunchListFromCompany" runat="server" Text="Punch List From Company"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                           
-                                                <asp:TextBox ID="txtPunchList" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtPunchList" runat="server" CssClass="form-control"></asp:TextBox>
                                            </div>
                                           </div>
                                                     </div>
-  <div class="col-md-6">
+  <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblPunchListFromPerson" runat="server" Text="Punch List From Person"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblPunchListFromPerson" runat="server" Text="Punch List From Person"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                         
-                                                <asp:TextBox ID="txtPunchListPerson" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtPunchListPerson" runat="server" CssClass="form-control"></asp:TextBox>
                                          </div></div></div>
-                                           <div class="col-md-6">
+                                           <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblPunchListToCompany" runat="server" Text="Punch List To Company"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblPunchListToCompany" runat="server" Text="Punch List To Company"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                           
-                                                <asp:TextBox ID="txtPunchListToCompany" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtPunchListToCompany" runat="server" CssClass="form-control"></asp:TextBox>
                                             </div></div></div>
-                                                 <div class="col-md-6">
+                                                 <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblPunchListTOPerson" runat="server" Text="Punch List TO Person"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblPunchListTOPerson" runat="server" Text="Punch List TO Person"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                           
-                                                <asp:TextBox ID="txtPunchListToPerson" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtPunchListToPerson" runat="server" CssClass="form-control"></asp:TextBox>
                                    
                              </div></div></div>
                                 </div>
@@ -588,47 +588,47 @@
                               
                              <div class="accordion-content"> 
                                       <div class="col-md-12 Span-One">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblPlant" runat="server" Text="Plant"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblPlant" runat="server" Text="Plant"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                     
-                                                <asp:TextBox ID="txtPlant" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtPlant" runat="server" CssClass="form-control"></asp:TextBox>
                                           </div></div></div>
-                                           <div class="col-md-6">
+                                           <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblArea" runat="server" Text="Area"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
-                                                <asp:TextBox ID="txtArea" runat="server"></asp:TextBox>
+                   <asp:Label ID="lblArea" runat="server" Text="Area"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
+                                                <asp:TextBox ID="txtArea" runat="server" CssClass="form-control"></asp:TextBox>
                                            </div></div></div>
-                                              <div class="col-md-6">
+                                              <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblLocation" runat="server" Text="Location"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblLocation" runat="server" Text="Location"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                          
-                                                <asp:TextBox ID="txtCaptionLocation" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtCaptionLocation" runat="server" CssClass="form-control"></asp:TextBox>
                                            </div>
                                           </div>
                                                   </div>
-                                          <div class="col-md-6">                                              
+                                          <div class="col-md-6 Span-One">                                              
                                       <div class="form-group">
-                   <asp:Label ID="lblSystem" runat="server" Text="System"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblSystem" runat="server" Text="System"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                 
-                                                <asp:TextBox ID="txtSystem" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtSystem" runat="server" CssClass="form-control"></asp:TextBox>
                                          </div></div></div>
-                                                <div class="col-md-6">                                              
+                                                <div class="col-md-6 Span-One">                                              
                                       <div class="form-group">
-                   <asp:Label ID="SubSystem" runat="server" Text="SubSystem"  class="control-label col-md-5" for="email3"></asp:Label>
-                                                      <div class="col-md-7">
-                                                <asp:TextBox ID="txtsubsystem" runat="server"></asp:TextBox>
+                   <asp:Label ID="SubSystem" runat="server" Text="SubSystem"  class="control-label col-md-6" for="email3"></asp:Label>
+                                                      <div class="col-md-6">
+                                                <asp:TextBox ID="txtsubsystem" runat="server" CssClass="form-control"></asp:TextBox>
                                        </div></div></div>
-                                             <div class="col-md-6">                                              
+                                             <div class="col-md-6 Span-One">                                              
                                       <div class="form-group">
-                   <asp:Label ID="blbMiscManpowerTracking" runat="server" Text="Misc Manpower Tracking"  class="control-label col-md-5" for="email3"></asp:Label>
-                                                      <div class="col-md-7">
+                   <asp:Label ID="blbMiscManpowerTracking" runat="server" Text="Misc Manpower Tracking"  class="control-label col-md-6" for="email3"></asp:Label>
+                                                      <div class="col-md-6">
                                   
-                                                <asp:TextBox ID="txtManPower" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtManPower" runat="server" CssClass="form-control"></asp:TextBox>
                                </div>
                                              </div>
                                                     </div>
@@ -642,42 +642,42 @@
                              <div class="accordion-content"> 
                                       <div class="col-md-12 Span-One">
                                     <div class="col-md-6">
-                                      <div class="form-group">
-                   <asp:Label ID="lblOtherCost1" runat="server" Text="Other Cost1"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                                      <div class="form-group Span-One">
+                   <asp:Label ID="lblOtherCost1" runat="server" Text="Other Cost1"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                    
                                     
-                                                <asp:TextBox ID="txtOtherCost1" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtOtherCost1" runat="server" CssClass="form-control"></asp:TextBox>
                                           </div></div></div>
-                                             <div class="col-md-6">
+                                             <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblOtherCost2" runat="server" Text="Other Cost2 "  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblOtherCost2" runat="server" Text="Other Cost2 "  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                  
-                                                <asp:TextBox ID="txtOtherCost2" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtOtherCost2" runat="server" CssClass="form-control"></asp:TextBox>
                        </div></div></div>
-                                             <div class="col-md-6">
+                                             <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblOtherCost3" runat="server" Text="Other Cost3"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblOtherCost3" runat="server" Text="Other Cost3"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                  
-                                                <asp:TextBox ID="txtOtherCost3" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtOtherCost3" runat="server" CssClass="form-control"></asp:TextBox>
                                            </div></div></div>
 
                                          
-                                      <div class="col-md-6">
+                                      <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblPaymentCurrency" runat="server" Text="Payment Currency"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblPaymentCurrency" runat="server" Text="Payment Currency"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                            
-                                                <asp:TextBox ID="txtPaymentCurrency" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtPaymentCurrency" runat="server" CssClass="form-control"></asp:TextBox>
                                           </div></div></div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblLunchBreakMinutes" runat="server" Text="Lunch Break Minutes"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblLunchBreakMinutes" runat="server" Text="Lunch Break Minutes"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                           
-                                                <asp:TextBox ID="txtLunchBreakMinutes" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtLunchBreakMinutes" runat="server" CssClass="form-control"></asp:TextBox>
                                          </div>
                                           </div>
                                                 </div>
@@ -690,26 +690,26 @@
                               
                              <div class="accordion-content"> 
                                       <div class="col-md-12 Span-One">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblLevel1" runat="server" Text="Level 1"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblLevel1" runat="server" Text="Level 1"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                        
                                          
-                                                <asp:TextBox ID="txtLevel1" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtLevel1" runat="server" CssClass="form-control"></asp:TextBox>
                                           </div></div></div>
-                                           <div class="col-md-6">
+                                           <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="Label2" runat="server" Text="Level 2"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
-                                                <asp:TextBox ID="txtLevel2" runat="server"></asp:TextBox>
+                   <asp:Label ID="Label2" runat="server" Text="Level 2"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
+                                                <asp:TextBox ID="txtLevel2" runat="server" CssClass="form-control"></asp:TextBox>
                                        </div>
                                           </div></div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="Label3" runat="server" Text="Level 3"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
-                                                <asp:TextBox ID="txtLevel3" runat="server"></asp:TextBox>
+                   <asp:Label ID="Label3" runat="server" Text="Level 3"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
+                                                <asp:TextBox ID="txtLevel3" runat="server" CssClass="form-control"></asp:TextBox>
                                          </div></div>
                                 </div>
                                           </div></div></div>
@@ -719,26 +719,26 @@
                               
                              <div class="accordion-content"> 
                                       <div class="col-md-12 Span-One">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblClient1" runat="server" Text="Client 1 "  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblClient1" runat="server" Text="Client 1 "  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                     
                                            
-                                                <asp:TextBox ID="txtClient1" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtClient1" runat="server" CssClass="form-control"></asp:TextBox>
                       </div></div></div>
+                                         <div class="col-md-6 Span-One">
+                                      <div class="form-group">
+                   <asp:Label ID="lblClient2" runat="server" Text="Client 2"  class="control-label col-md-6" for="email3"></asp:Label>
                                          <div class="col-md-6">
-                                      <div class="form-group">
-                   <asp:Label ID="lblClient2" runat="server" Text="Client 2"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
-                                                <asp:TextBox ID="txtClient2" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtClient2" runat="server" CssClass="form-control"></asp:TextBox>
                                      </div></div></div>
-                                           <div class="col-md-6">
+                                           <div class="col-md-6 Span-One">
                                       <div class="form-group">
-                   <asp:Label ID="lblThirdParty" runat="server" Text="Third Party"  class="control-label col-md-5" for="email3"></asp:Label>
-                                         <div class="col-md-7">
+                   <asp:Label ID="lblThirdParty" runat="server" Text="Third Party"  class="control-label col-md-6" for="email3"></asp:Label>
+                                         <div class="col-md-6">
                                             
-                                                <asp:TextBox ID="txtThirdParty" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtThirdParty" runat="server" CssClass="form-control"></asp:TextBox>
                    
                                           </div>
                                           </div>

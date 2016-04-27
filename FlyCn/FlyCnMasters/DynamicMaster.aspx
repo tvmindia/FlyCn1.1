@@ -54,7 +54,7 @@
             var security = document.getElementById("hdnSecurityMaster").value;
 
 
-            PageSecurityCheck(security);
+          <%--  PageSecurityCheck(security);
             if (PageSecurity.isWriteOnly) {
                 if (tab.get_text() == "New") {
 
@@ -86,7 +86,7 @@
                             <%=ToolBar.ClientID %>_SetSaveVisible(false);
                             <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                             <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-                            <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                         
                         }
 
                 }
@@ -104,9 +104,9 @@
                             <%=ToolBar.ClientID %>_SetSaveVisible(false);
                             <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                             <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-                            <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                       
                         }
-                }
+                }--%>
 
 
 
@@ -118,7 +118,7 @@
             var tab = args.get_tab();
             if (tab.get_value() == '2') {//New tab selected
 
-                try {
+               <%-- try {
 
                     ClearTextBox();
                     EnableButtonsForNew();
@@ -133,7 +133,7 @@
                         <%=ToolBar.ClientID %>_SetSaveVisible(true);
                         <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                         <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-                        <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                      
                     }
 
 
@@ -144,13 +144,13 @@
                         <%=ToolBar.ClientID %>_SetSaveVisible(false);
                         <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                         <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-                        <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                     
                     }
                 }
                 catch (x)
                 {
                     alert(x.message);
-                }
+                }--%>
 
             }
 
