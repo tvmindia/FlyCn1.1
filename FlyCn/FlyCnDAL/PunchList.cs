@@ -653,6 +653,48 @@ namespace FlyCn.FlyCnDAL
         }
         #endregion GetProjectManpowerChartData
 
+        #region GetProgressByFIWPDetails
+
+        public DataTable GetProgressByFIWPDetails()
+        {
+            SqlConnection conn = null;
+            DataTable dt = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter da = null;
+            dbConnection dcon = new dbConnection();
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
+
+                cmd = new SqlCommand("GetProgressByFIWPDetails", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                dt = new DataTable();
+                da.Fill(dt);
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+            return dt;
+        }
+        #endregion GetProgressByFIWPDetails
+
         #region GetChartDataBasedOnActionBy
         public DataTable GetChartDataBasedOnActionBy(string ActionBy)
         {

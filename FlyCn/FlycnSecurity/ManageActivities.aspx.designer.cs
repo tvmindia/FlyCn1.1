@@ -337,22 +337,22 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.TextBox txtActualCompleteDateCaption;
         
         /// <summary>
-        /// lblTotalCaption control.
+        /// lblInProgressCaption control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalCaption;
+        protected global::System.Web.UI.WebControls.Label lblInProgressCaption;
         
         /// <summary>
-        /// txtTotalCaption control.
+        /// txtInProgressCaption control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTotalCaption;
+        protected global::System.Web.UI.WebControls.TextBox txtInProgressCaption;
         
         /// <summary>
         /// lblPassedCaption control.
@@ -373,6 +373,24 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.TextBox txtPassedCaption;
         
         /// <summary>
+        /// lblTotalCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalCaption;
+        
+        /// <summary>
+        /// txtTotalCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTotalCaption;
+        
+        /// <summary>
         /// lblFailedCaption control.
         /// </summary>
         /// <remarks>
@@ -389,24 +407,6 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFailedCaption;
-        
-        /// <summary>
-        /// lblInProgressCaption control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInProgressCaption;
-        
-        /// <summary>
-        /// txtInProgressCaption control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtInProgressCaption;
         
         /// <summary>
         /// lblTestedCaption control.
@@ -445,24 +445,6 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.TextBox txtReadyCaption;
         
         /// <summary>
-        /// lblNotReadyCaption control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNotReadyCaption;
-        
-        /// <summary>
-        /// txtNotReadyCaption control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNotReadyCaption;
-        
-        /// <summary>
         /// lblNotTested control.
         /// </summary>
         /// <remarks>
@@ -479,6 +461,24 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNotTested;
+        
+        /// <summary>
+        /// lblNotReadyCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNotReadyCaption;
+        
+        /// <summary>
+        /// txtNotReadyCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNotReadyCaption;
         
         /// <summary>
         /// lblBalanceCaption control.
@@ -499,22 +499,22 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.TextBox txtBalanceCaption;
         
         /// <summary>
-        /// lblActualCompleteDate control.
+        /// lblActualStartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblActualCompleteDate;
+        protected global::System.Web.UI.WebControls.Label lblActualStartDate;
         
         /// <summary>
-        /// chkActualCompleteDate control.
+        /// chkActualStartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkActualCompleteDate;
+        protected global::System.Web.UI.WebControls.CheckBox chkActualStartDate;
         
         /// <summary>
         /// lblRFIDate control.
@@ -535,6 +535,24 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.CheckBox chkRFIDate;
         
         /// <summary>
+        /// lblActualCompleteDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblActualCompleteDate;
+        
+        /// <summary>
+        /// chkActualCompleteDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkActualCompleteDate;
+        
+        /// <summary>
         /// lblPlannedStartDate control.
         /// </summary>
         /// <remarks>
@@ -551,24 +569,6 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkPlannedStartDate;
-        
-        /// <summary>
-        /// lblPlannedCmpltDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPlannedCmpltDate;
-        
-        /// <summary>
-        /// chkPlannedCmpltDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkPlannedCmpltDate;
         
         /// <summary>
         /// lblForeCastStartDate control.
@@ -589,6 +589,24 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.CheckBox chkForeCastStartDate;
         
         /// <summary>
+        /// lblPlannedCmpltDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPlannedCmpltDate;
+        
+        /// <summary>
+        /// chkPlannedCmpltDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkPlannedCmpltDate;
+        
+        /// <summary>
         /// lblForeCastEndDate control.
         /// </summary>
         /// <remarks>
@@ -605,24 +623,6 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkForeCastEndDate;
-        
-        /// <summary>
-        /// lblActualStartDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblActualStartDate;
-        
-        /// <summary>
-        /// chkActualStartDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkActualStartDate;
         
         /// <summary>
         /// lblAFIDate control.
@@ -733,24 +733,6 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.CheckBox chkActivityID;
         
         /// <summary>
-        /// lblBudgetHours control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBudgetHours;
-        
-        /// <summary>
-        /// chkBudgetHours control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkBudgetHours;
-        
-        /// <summary>
         /// lblSpentHoursProductive control.
         /// </summary>
         /// <remarks>
@@ -767,6 +749,24 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkSpentHoursProductive;
+        
+        /// <summary>
+        /// lblBudgetHours control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBudgetHours;
+        
+        /// <summary>
+        /// chkBudgetHours control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkBudgetHours;
         
         /// <summary>
         /// lblSpentHoursNonProductive control.
@@ -805,24 +805,6 @@ namespace FlyCn.FlycnSecurity {
         protected global::System.Web.UI.WebControls.CheckBox chkQuantityInstalled;
         
         /// <summary>
-        /// lblQtyToInstall control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQtyToInstall;
-        
-        /// <summary>
-        /// chkQtyToInstall control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkQtyToInstall;
-        
-        /// <summary>
         /// lblQuantityVerified control.
         /// </summary>
         /// <remarks>
@@ -839,6 +821,24 @@ namespace FlyCn.FlycnSecurity {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkQuantityVerified;
+        
+        /// <summary>
+        /// lblQtyToInstall control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQtyToInstall;
+        
+        /// <summary>
+        /// chkQtyToInstall control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkQtyToInstall;
         
         /// <summary>
         /// lblKpiQuantity control.

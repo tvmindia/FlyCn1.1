@@ -110,6 +110,7 @@
                   </div>
              </div>
               </div>
+
     <div style="float:left; width:53%; ">
         <br />
         <br />
@@ -318,17 +319,17 @@
                             <%-- </form>--%>
                         </div>
                                              
-                        <div class="col-md-6  Span-One">
+                                 <div class="col-md-6  Span-One">
 
                             <div class="form-group">
-                                <asp:Label ID="lblTotalCaption" runat="server" Text="Total Caption" CssClass="control-label col-md-6 "></asp:Label>
+                                <asp:Label ID="lblInProgressCaption" runat="server" Text="InProgress Caption" CssClass="control-label col-md-6 "></asp:Label>
                                 <div class="col-md-6">
-                                    <asp:TextBox ID="txtTotalCaption" runat="server" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox ID="txtInProgressCaption" runat="server" CssClass="form-control"></asp:TextBox>
 
                                 </div>
                             </div>
                             <%-- </form>--%>
-                        </div>                      
+                        </div>
 
                         <div class="col-md-6  Span-One">
 
@@ -342,6 +343,17 @@
                             <%-- </form>--%>
                         </div>
                        
+                      <div class="col-md-6  Span-One">
+
+                            <div class="form-group">
+                                <asp:Label ID="lblTotalCaption" runat="server" Text="Total Caption" CssClass="control-label col-md-6 "></asp:Label>
+                                <div class="col-md-6">
+                                    <asp:TextBox ID="txtTotalCaption" runat="server" CssClass="form-control"></asp:TextBox>
+
+                                </div>
+                            </div>
+                            <%-- </form>--%>
+                        </div>             
                         <div class="col-md-6  Span-One">
 
                             <div class="form-group">
@@ -354,17 +366,6 @@
                             <%-- </form>--%>
                         </div>
                       
-                        <div class="col-md-6  Span-One">
-
-                            <div class="form-group">
-                                <asp:Label ID="lblInProgressCaption" runat="server" Text="InProgress Caption" CssClass="control-label col-md-6 "></asp:Label>
-                                <div class="col-md-6">
-                                    <asp:TextBox ID="txtInProgressCaption" runat="server" CssClass="form-control"></asp:TextBox>
-
-                                </div>
-                            </div>
-                            <%-- </form>--%>
-                        </div>
                        
                         <div class="col-md-6  Span-One">
 
@@ -390,17 +391,6 @@
                             <%-- </form>--%>
                         </div>                      
 
-                        <div class="col-md-6  Span-One">
-
-                            <div class="form-group">
-                                <asp:Label ID="lblNotReadyCaption" runat="server" Text="Not-Ready Caption" CssClass="control-label col-md-6 "></asp:Label>
-                                <div class="col-md-6">
-                                    <asp:TextBox ID="txtNotReadyCaption" runat="server" CssClass="form-control"></asp:TextBox>
-
-                                </div>
-                            </div>
-                            <%-- </form>--%>
-                        </div>
                        
                         <div class="col-md-6  Span-One">
 
@@ -414,6 +404,17 @@
                             <%-- </form>--%>
                         </div>
                     
+                        <div class="col-md-6  Span-One">
+
+                            <div class="form-group">
+                                <asp:Label ID="lblNotReadyCaption" runat="server" Text="Not-Ready Caption" CssClass="control-label col-md-6 "></asp:Label>
+                                <div class="col-md-6">
+                                    <asp:TextBox ID="txtNotReadyCaption" runat="server" CssClass="form-control"></asp:TextBox>
+
+                                </div>
+                            </div>
+                            <%-- </form>--%>
+                        </div>
                         <div class="col-md-6  Span-One">
 
                             <div class="form-group">
@@ -441,12 +442,12 @@
 
                             <div class="form-group">
 
-                                <asp:Label ID="lblActualCompleteDate" runat="server" Text="Actual CompleteDate" CssClass="control-label col-md-6 "></asp:Label>
+                                <asp:Label ID="lblActualStartDate" runat="server" Text="Actual StartDate" CssClass="control-label col-md-6 "></asp:Label>
                                 <div class="col-md-6">
                                     <table>
                                         <tr>
                                             <td>
-                                                <asp:CheckBox ID="chkActualCompleteDate" runat="server" /></td>
+                                                <asp:CheckBox ID="chkActualStartDate" runat="server" /></td>
                                             <td>&nbsp;Yes</td>
                                         </tr>
                                     </table>
@@ -454,6 +455,7 @@
                             </div>
                             <%-- </form>--%>
                         </div>
+                        
 
                         <div class="col-md-6">
 
@@ -472,8 +474,27 @@
                             </div>
                             <%-- </form>--%>
                         </div>
-
                         <div class="col-md-6">
+
+                            <div class="form-group">
+
+                                <asp:Label ID="lblActualCompleteDate" runat="server" Text="Actual CompleteDate" CssClass="control-label col-md-6 "></asp:Label>
+                                <div class="col-md-6">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <asp:CheckBox ID="chkActualCompleteDate" runat="server" /></td>
+                                            <td>&nbsp;Yes</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <%-- </form>--%>
+                        </div>
+                      
+
+                      
+                          <div class="col-md-6">
 
                             <div class="form-group">
 
@@ -491,25 +512,6 @@
                             </div>
                             <%-- </form>--%>
                         </div>
-
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-
-                                <asp:Label ID="lblPlannedCmpltDate" runat="server" Text="Planned CompleteDate" CssClass="control-label col-md-6 "></asp:Label>
-                                <div class="col-md-6">
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <asp:CheckBox ID="chkPlannedCmpltDate" runat="server" /></td>
-                                            <td>&nbsp;Yes</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <%-- </form>--%>
-                        </div>
-
                         <div class="col-md-6">
 
                             <div class="form-group">
@@ -528,7 +530,23 @@
                             </div>
                             <%-- </form>--%>
                         </div>
+                          <div class="col-md-6">
 
+                            <div class="form-group">
+
+                                <asp:Label ID="lblPlannedCmpltDate" runat="server" Text="Planned CompleteDate" CssClass="control-label col-md-6 "></asp:Label>
+                                <div class="col-md-6">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <asp:CheckBox ID="chkPlannedCmpltDate" runat="server" /></td>
+                                            <td>&nbsp;Yes</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <%-- </form>--%>
+                        </div>
                         <div class="col-md-6">
 
                             <div class="form-group">
@@ -547,23 +565,7 @@
                             <%-- </form>--%>
                         </div>
 
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-
-                                <asp:Label ID="lblActualStartDate" runat="server" Text="Actual StartDate" CssClass="control-label col-md-6 "></asp:Label>
-                                <div class="col-md-6">
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <asp:CheckBox ID="chkActualStartDate" runat="server" /></td>
-                                            <td>&nbsp;Yes</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <%-- </form>--%>
-                        </div>
+                        
 
                         <div class="col-md-6">
 
@@ -615,7 +617,7 @@
 
                         <div class="col-md-6">
 
-                            <div class="form-group required">
+                            <div class="form-group">
 
                                   <asp:Label ID="lblAFIRef_No" runat="server" Text="AFI Ref_No" CssClass="control-label col-md-6 "></asp:Label>
                                 <div class="col-md-6">
@@ -703,22 +705,7 @@
 
                 <div class="accordion-content">
                     <div class="col-md-12 Span-One">
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-
-                                <asp:Label ID="lblBudgetHours" runat="server" Text="Budget Hours" CssClass="control-label col-md-6 "></asp:Label>
-                                <div class="col-md-6">
-                                       <table>
-                              <tr>
-                                  <td> <asp:CheckBox ID="chkBudgetHours" runat="server" /></td>
-                                  <td>&nbsp;Yes</td>
-                              </tr>
-                          </table>
-                                </div>
-                            </div>
-                            <%-- </form>--%>
-                        </div>
+                      
 
                         <div class="col-md-6">
 
@@ -736,7 +723,22 @@
                             </div>
                             <%-- </form>--%>
                         </div>
+                          <div class="col-md-6">
 
+                            <div class="form-group">
+
+                                <asp:Label ID="lblBudgetHours" runat="server" Text="Budget Hours" CssClass="control-label col-md-6 "></asp:Label>
+                                <div class="col-md-6">
+                                       <table>
+                              <tr>
+                                  <td> <asp:CheckBox ID="chkBudgetHours" runat="server" /></td>
+                                  <td>&nbsp;Yes</td>
+                              </tr>
+                          </table>
+                                </div>
+                            </div>
+                            <%-- </form>--%>
+                        </div>
                         <div class="col-md-6">
 
                             <div class="form-group">
@@ -784,22 +786,7 @@
                          
                         </div>
 
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-
-                                 <asp:Label ID="lblQtyToInstall" runat="server" Text="Quantity To Install" CssClass="control-label col-md-6 "></asp:Label>
-                                <div class="col-md-6">
-                                  <table>
-                              <tr>
-                                  <td> <asp:CheckBox ID="chkQtyToInstall" runat="server" /></td>
-                                  <td>&nbsp;Yes</td>
-                              </tr>
-                          </table>
-                                </div>
-                            </div>
-                          
-                        </div>
+                     
 
                         <div class="col-md-6">
 
@@ -817,7 +804,22 @@
                             </div>
                           
                         </div>
+                           <div class="col-md-6">
 
+                            <div class="form-group">
+
+                                 <asp:Label ID="lblQtyToInstall" runat="server" Text="Quantity To Install" CssClass="control-label col-md-6 "></asp:Label>
+                                <div class="col-md-6">
+                                  <table>
+                              <tr>
+                                  <td> <asp:CheckBox ID="chkQtyToInstall" runat="server" /></td>
+                                  <td>&nbsp;Yes</td>
+                              </tr>
+                          </table>
+                                </div>
+                            </div>
+                          
+                        </div>
                          <div class="col-md-6">
 
                             <div class="form-group">

@@ -460,7 +460,7 @@ namespace FlyCn.FlycnSecurity
                    
                     ddlManageCategory.DataSource = dtCategory;
                     ddlManageCategory.DataTextField = "CategoryDesc";
-                    //ddlManageCategory.DataValueField = "Category";
+                    ddlManageCategory.DataValueField = "Category";
 
                     ddlManageCategory.DataBind();
                     ddlManageCategory.Items.Insert(0, new ListItem("--select category--", "-1"));
@@ -522,8 +522,8 @@ namespace FlyCn.FlycnSecurity
                 dtCategory = userObj.GetAllCategory(project,module);
 
                 ddlCategory.DataSource = dtCategory;
-                ddlCategory.DataTextField = "Category";
-              //  ddlCategory.DataValueField ="CategoryDesc";
+                ddlCategory.DataTextField = "CategoryDesc";
+                ddlCategory.DataValueField =  "Category";
                 ddlCategory.DataBind();
                 ddlCategory.Items.Insert(0, new ListItem("--select category--", "-1"));
 
@@ -569,7 +569,7 @@ namespace FlyCn.FlycnSecurity
 
             string module = ddlModule.SelectedValue;
             string project = ddlProjects.SelectedItem.Text;
-            string category = ddlManageCategory.SelectedItem.Text;
+            string category = ddlManageCategory.SelectedItem.Value;
             if (category != "--select category--")
             {
                 ds = userObj.GetAllActivities(project,module,category);
@@ -1138,6 +1138,7 @@ namespace FlyCn.FlycnSecurity
             try
             {
                 dtgManageActivities.Rebind();
+              
             }
             catch (Exception ex)
             {

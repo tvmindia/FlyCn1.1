@@ -88,7 +88,8 @@
      <div class="importWizardContainer" style="height:1200px">
           <asp:Literal ID="ltScripts" runat="server"></asp:Literal> 
           <asp:Literal ID="ltManpowerScripts" runat="server"></asp:Literal>  
-         <asp:Literal ID="ltProjectByArea" runat="server"></asp:Literal>  
+         <asp:Literal ID="ltProjectByArea" runat="server"></asp:Literal> 
+         <asp:Literal ID="ltProgressByFIWP" runat="server"></asp:Literal> 
          <div class="col-md-12">
              <div class="col-md-5">
     <div id="columnchart_material" style="width: 500px; height: 500px;background-color:#fff2e6; box-shadow: 0 0 3px 3px #d0e1e1;">      
@@ -119,6 +120,12 @@
                  </div>
              <div class="col-md-1"></div>
              <div class="col-md-6">
+                 <div id="columnchart_material3" style="width: 500px; height: 500px;background-color:#ebfaeb; box-shadow:  0 0 3px 3px #d0e1e1;">        
+             </div> 
+                  <div style="width: 500px; height: 23px;background-color:#ebfaeb;box-shadow:  0 2px 0 2px #d0e1e1;">    
+           <div style="margin-left:90%;" > 
+       <asp:ImageButton ID="ImageButton4" runat="server" ImageUrl="~/Images/Download-202-WF.png" ToolTip="Download" OnClick="ImageButton4_Click"  /> 
+   </div>  </div>  
                  </div>
              </div>
          </div>
