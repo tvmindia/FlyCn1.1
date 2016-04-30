@@ -67,12 +67,12 @@ namespace FlyCn.FlyCnDAL
             rtn5.Target = "contentPane";
             myTree.Nodes.Add(rtn5);
 
-            RadTreeNode rtn6 = new RadTreeNode("ModuleActivities", "ModuleActivities");
+            RadTreeNode rtn6 = new RadTreeNode("Activity Library", "ModuleActivities");
             rtn6.NavigateUrl = cnst.ModuleActivities;
             rtn6.Target = "contentPane";
             myTree.Nodes.Add(rtn6);
 
-            RadTreeNode rtn7 = new RadTreeNode("ManageActivities", "ManageActivities");
+            RadTreeNode rtn7 = new RadTreeNode("Manage Activity", "ManageActivities");
             rtn7.NavigateUrl = cnst.ManageActivities;
             rtn7.Target = "contentPane";
             myTree.Nodes.Add(rtn7);

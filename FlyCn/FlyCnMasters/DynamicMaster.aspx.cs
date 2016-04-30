@@ -25,9 +25,9 @@ namespace FlyCn.FlyCnMasters
         FlyCnDAL.Security.UserAuthendication UA;
         FlyCnDAL.SystemDefenitionDetails systabledefenitionobj = new FlyCnDAL.SystemDefenitionDetails();
         FlyCnDAL.MasterOperations dynamicmasteroperationobj = new FlyCnDAL.MasterOperations();
-
+        FlyCnDAL.Users userObj = new FlyCnDAL.Users();
         #region  Page_Load
-
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             SecurityCheck();
@@ -62,16 +62,20 @@ namespace FlyCn.FlyCnMasters
             {
                 string primarykeys = HiddenField.Value;
                 string KeyValue = HiddenField1.Value;
-                int result = dynamicmasteroperationobj.DeleteMasterData(primarykeys, _mode, KeyValue);
-                if (result == 1)
+                int checkProjectNo = userObj.ValidateProjectNoInMastersTable();
+                if (checkProjectNo == 0)
                 {
-                    dtgDynamicMasterGrid.Rebind();
-                    RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
-                    RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                    TabAddEditSettings tabs = new TabAddEditSettings();
-                    tabs.Addtab(tab, tab1);
-                    RadMultiPage1.SelectedIndex = 0;
+                    int result = dynamicmasteroperationobj.DeleteMasterData(primarykeys, _mode, KeyValue);
+                    if (result == 1)
+                    {
+                        dtgDynamicMasterGrid.Rebind();
+                        RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                        RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                        TabAddEditSettings tabs = new TabAddEditSettings();
+                        tabs.Addtab(tab, tab1);
+                        RadMultiPage1.SelectedIndex = 0;
 
+                    }
                 }
             }
 
@@ -367,12 +371,12 @@ namespace FlyCn.FlyCnMasters
                     }
                     else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "V")
                     {
-                       
+
                         datatableobj.Rows[f]["Values"] = UA.userName;
                     }
                     else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "D")
                     {
-                      //  string date = System.DateTime.Now.ToString();
+                        //  string date = System.DateTime.Now.ToString();
                         datatableobj.Rows[f]["Values"] = System.DateTime.Now.ToString("MM/dd/yyyy");
                     }
                     else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "B")
@@ -382,9 +386,9 @@ namespace FlyCn.FlyCnMasters
 
                         datatableobj.Rows[f]["Values"] = checkbox.Checked;
                     }
-                       
-               
-                   else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
+
+
+                    else if (datatableobj.Rows[f]["Field_DataType"].ToString() == "S" | datatableobj.Rows[f]["Field_DataType"].ToString() == "A")
                     {
                         TextBox box = (TextBox)placeholder.FindControl("txt" + datatableobj.Rows[f]["Field_Name"]);
 
@@ -397,7 +401,7 @@ namespace FlyCn.FlyCnMasters
                     }
                 }
 
-                int result = dynamicmasteroperationobj.InsertMasterData(datatableobj, projectNo, _mode,UA.userName);
+                int result = dynamicmasteroperationobj.InsertMasterData(datatableobj, projectNo, _mode, UA.userName);
 
                 dtgDynamicMasterGrid.Rebind();
                 RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
@@ -429,9 +433,31 @@ namespace FlyCn.FlyCnMasters
                 eObj.ErrorData(ex, page);
 
             }
-        }
 
+            foreach (Control c in placeholder.Controls)
+            {
+                if (c.GetType() == typeof(TextBox))
+                {
+                    ((TextBox)(c)).Text = string.Empty;
+                }
+
+            }
+        }
         #endregion  InsertData
+
+        //#region CleartextBoxes
+        //public void CleartextBoxes()
+        //{
+           
+        //    foreach (Control Cleartext in this.Controls)
+        //    {
+        //        if (Cleartext is TextBox)
+        //        {
+        //            ((TextBox)Cleartext).Text = "";
+        //        }
+        //    }
+        //}
+        //#endregion CleartextBoxes
 
         #region  dtgDynamicMasterGrid_NeedDataSource1
         protected void dtgDynamicMasterGrid_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -485,24 +511,28 @@ namespace FlyCn.FlyCnMasters
                 int result;
                 if (e.CommandName == "Delete")
                 {
-                    result = dynamicmasteroperationobj.DeleteMasterData(primarykeys, _mode, KeyValue);
-                    if (result == 1)
-                    {
-                        RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
-                        RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                        TabAddEditSettings tabs = new TabAddEditSettings();
-                        tabs.Addtab(tab, tab1);
-                        RadMultiPage1.SelectedIndex = 0;
-                    }
-                    else
-                    {
+                     int checkProjectNo = userObj.ValidateProjectNoInMastersTable();
+                     if (checkProjectNo == 0)
+                     {
+                         result = dynamicmasteroperationobj.DeleteMasterData(primarykeys, _mode, KeyValue);
+                         if (result == 1)
+                         {
+                             RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                             RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                             TabAddEditSettings tabs = new TabAddEditSettings();
+                             tabs.Addtab(tab, tab1);
+                             RadMultiPage1.SelectedIndex = 0;
+                         }
+                     }
+                     else
+                     {
 
-                        RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
-                        RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
-                        TabAddEditSettings tabs = new TabAddEditSettings();
-                        tabs.Addtab(tab, tab1);
-                        RadMultiPage1.SelectedIndex = 0;
-                    }
+                         RadTab tab = (RadTab)RadTabStrip1.FindTabByValue("1");
+                         RadTab tab1 = (RadTab)RadTabStrip1.FindTabByValue("2");
+                         TabAddEditSettings tabs = new TabAddEditSettings();
+                         tabs.Addtab(tab, tab1);
+                         RadMultiPage1.SelectedIndex = 0;
+                     }
                 }
                 else if (e.CommandName == "EditData")
                 {

@@ -135,6 +135,9 @@
                               <span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
 
                 <div class="accordion-content">
+                      <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate>
+        <fieldset>
                     <div class="col-md-12 Span-One">
                         <div class="col-md-6">
 
@@ -165,7 +168,9 @@
                         </div>
 
                     </div>
-
+             </fieldset>
+    </ContentTemplate>
+</asp:UpdatePanel>
                 </div>
 
             </div>

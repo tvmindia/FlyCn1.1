@@ -366,7 +366,7 @@
                                                         <asp:Label ID="lblProjectName" runat="server" Text="Project Name"></asp:Label>
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="txtProjectName" runat="server"></asp:TextBox>
+                                                        <asp:TextBox ID="txtProjectName" runat="server" ></asp:TextBox>
                                                         <span id="span1" runat="server" style="color: red; font-size: 15px; font-weight: 500; font-family: Trebuchet MS;">*</span>
                                                     </td>
 

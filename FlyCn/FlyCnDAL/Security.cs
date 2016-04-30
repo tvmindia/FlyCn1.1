@@ -248,23 +248,30 @@ namespace FlyCn.FlyCnDAL
                 ProjectsSwithching sw = new ProjectsSwithching();
                Users userObj = new Users();
                DataTable dt = new DataTable();
-                if (userName == password)
-                {
-                    isValidUser = true;
-                    userN = userName;
-                   // project = sw.ProjNo();
-                    dt = userObj.GetProjectNoByUserName(userName);
-                    if (dt.Rows.Count > 0)
-                    {
-                        project = dt.Rows[0]["DefaultProjectNo"].ToString();
-                    }
-                    GetUserDetails();
-                }
-                else
-                {
+               int validateLogin;
+               //if (userName == password)
+               //{
+                   userN = userName;
+                   uPassword = password;
+                   validateLogin = GetUserDetails();
+                   if (validateLogin == 1)
+                   {
+                       isValidUser = true;
+                     
+                       // project = sw.ProjNo();
+                       dt = userObj.GetProjectNoByUserName(userName);
+                       if (dt.Rows.Count > 0)
+                       {
+                           project = dt.Rows[0]["DefaultProjectNo"].ToString();
+                       }
 
-                    isValidUser = false;
-                }
+                   }
+               //}
+               else
+               {
+
+                   isValidUser = false;
+               }
             }
 
             public UserAuthendication(String userName)
@@ -286,18 +293,24 @@ namespace FlyCn.FlyCnDAL
                 DataTable dt = new DataTable();
                 isValidUser = true;
                 userN = userName;
-                GetUserDetails();
-
+                //GetUserDetails();
+                dt = userObj.GetProjectNoByUserName(userName);
                 if (isDefault)
                 {
                     dt = userObj.GetProjectNoByUserName(userName);
                     if (dt.Rows.Count > 0)
                     {
                         project = dt.Rows[0]["DefaultProjectNo"].ToString();
+                        theme = dt.Rows[0]["Theme"].ToString();
                     }
                 }
                 else {
                     project = projectNo;
+                    if (dt.Rows.Count > 0)
+                    {
+                        theme = dt.Rows[0]["Theme"].ToString();
+                    }
+                    
                 }
               
 
@@ -321,11 +334,12 @@ namespace FlyCn.FlyCnDAL
                 GetUserDetails();
 
             }
-
+            FlyCnDAL.Users.CryptographyFunctions funObj = new FlyCnDAL.Users.CryptographyFunctions();
             FlyCnDAL.DALConstants Constants = new FlyCnDAL.DALConstants();
             private Boolean isValidUser;
             private string userN;
             private string project;
+            private string uPassword;
 
             public Boolean ValidUser
             {
@@ -354,6 +368,13 @@ namespace FlyCn.FlyCnDAL
                 
             }
 
+            public string loginPassword
+            {
+                get
+                {
+                    return uPassword;
+                }
+            }
             public string theme
             {
                 get;
@@ -361,8 +382,10 @@ namespace FlyCn.FlyCnDAL
             }
 
 
-            private void GetUserDetails()
+            private int GetUserDetails()
             {
+                string password = funObj.Encrypt(loginPassword);
+                int flag=0;
                 try
                 {
                     DataTable dt = new DataTable();
@@ -373,12 +396,15 @@ namespace FlyCn.FlyCnDAL
                     con = dcon.GetDBConnection();
                     SqlCommand cmdSelect = new SqlCommand("GetUserDetails", con);
                     cmdSelect.CommandType = CommandType.StoredProcedure;
-                    cmdSelect.Parameters.AddWithValue("@UserName", userName);
+                    cmdSelect.Parameters.Add("@UserName", SqlDbType.VarChar, 50).Value = userName;
+                    cmdSelect.Parameters.Add("@Password", SqlDbType.VarChar, 50).Value = password;
+                    SqlParameter outflag = cmdSelect.Parameters.Add("@out", SqlDbType.Int);
+                    outflag.Direction = ParameterDirection.Output;
 
                     daObj = new SqlDataAdapter(cmdSelect);
                     daObj.Fill(dt);
-
-                    if (dt.Rows.Count > 0)
+                    flag = Convert.ToInt32(outflag.Value);
+                    if (flag==1)
                     {
                         if (dt.Rows[0]["theme"] == null || dt.Rows[0]["theme"].ToString() == "")
                         {
@@ -401,10 +427,11 @@ namespace FlyCn.FlyCnDAL
                 {
                     theme = Constants.DefaultTheme;
                 }
+                return flag;
             }
 
 
-
+            
         }
 
         public int InsertUser()

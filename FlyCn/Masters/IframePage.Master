@@ -37,7 +37,7 @@
      
      <script>
          function displayMessage(type, msg) {
-             debugger;
+           
              var s = document.getElementById("<%=Errorbox.ClientID%>");
            s.style.visibility = "visible";
            var divId = document.getElementById("<%=masterDiv.ClientID %>");

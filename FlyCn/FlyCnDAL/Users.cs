@@ -7,6 +7,8 @@ using System.Web;
 using FlyCn.UIClasses;
 using FlyCnSecurity.SecurityDAL;
 using System.Web.UI;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace FlyCn.FlyCnDAL
 {
@@ -349,6 +351,8 @@ namespace FlyCn.FlyCnDAL
         #region private variables
         ErrorHandling eObj = new ErrorHandling();
         #endregion private variables
+
+        CryptographyFunctions funObj = new CryptographyFunctions();
         /// <summary>
         /// Get User Details By User Name
         /// </summary>
@@ -480,7 +484,7 @@ namespace FlyCn.FlyCnDAL
             HttpContext context = HttpContext.Current;
             UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
             CreatedBy = UA.userName;
-           
+            string encryptedPassword=funObj.Encrypt(Password);
             SqlConnection con = null;
            
             dbConnection dcon = new dbConnection();
@@ -490,7 +494,7 @@ namespace FlyCn.FlyCnDAL
                 SqlCommand cmd = new SqlCommand("InsertM_Users", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@UserName", UserName);
-                cmd.Parameters.AddWithValue("@PassWord", Password);
+                cmd.Parameters.AddWithValue("@PassWord", encryptedPassword);
                 cmd.Parameters.AddWithValue("@EmailId", UserEMail);
                 cmd.Parameters.AddWithValue("@Theme", Theme);
                 cmd.Parameters.AddWithValue("@Active", Active);
@@ -2130,6 +2134,91 @@ namespace FlyCn.FlyCnDAL
 
         }
         #endregion GetModuleId
+
+        public class CryptographyFunctions
+        {
+            //AES 128bit Cross Platform (Java and C#) Encryption Compatibility
+            string key = System.Web.Configuration.WebConfigurationManager.AppSettings["cryptography"];
+            /// <summary>
+            /// AES 128bit Encryption function
+            /// </summary>
+            /// <param name="plainText">text to be encrypted</param>
+            /// <returns>Encrypted text</returns>
+            public string Encrypt(string plainText)
+            {
+                string encryptedText = "";
+                try
+                {
+
+                    var plainBytes = Encoding.UTF8.GetBytes(plainText);
+                    var keyBytes = new byte[16];
+                    var secretKeyBytes = Encoding.UTF8.GetBytes(key);
+                    Array.Copy(secretKeyBytes, keyBytes, Math.Min(keyBytes.Length, secretKeyBytes.Length));
+                    encryptedText = Convert.ToBase64String(new RijndaelManaged
+                    {
+                        Mode = CipherMode.CBC,
+                        Padding = PaddingMode.PKCS7,
+                        KeySize = 128,
+                        BlockSize = 128,
+                        Key = keyBytes,
+                        IV = keyBytes
+                    }.CreateEncryptor().TransformFinalBlock(plainBytes, 0, plainBytes.Length));
+                }
+                catch (Exception ex)
+                {
+                    //System.IO.File.WriteAllText(@Server.MapPath("~/Text.txt"), ex.Message);
+                    throw ex;
+                }
+                return encryptedText;
+            }
+        }
+
+        #region ValidateProjectNoInMastersTable
+        public int ValidateProjectNoInMastersTable()
+        {
+            int flag;
+            SqlConnection con = null;
+            UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+            CreatedBy = UA.userName;
+           
+            try
+            {
+
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("CheckProjectNoInAllMasters", con);
+                 cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value= UA.projectNo;
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter outflag = cmd.Parameters.Add("@out", SqlDbType.Int);
+                outflag.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                flag = Convert.ToInt32(outflag.Value);
+
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.AlreadyExistsProjectNo(page);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+            return flag;
+        }
+
+        #endregion ValidateProjectNoInMastersTable
+
 
     }
     }

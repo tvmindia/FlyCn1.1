@@ -104,7 +104,6 @@ namespace FlyCn.Masters
             UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
             FlyCnDAL.Users userObj = new FlyCnDAL.Users();
             DataTable dt = new DataTable();
-
                 this.head.Controls.Add(ip.GetLandingThemeCss());
 
                 dt = userObj.GetProjectNameByProjectNo();
@@ -135,7 +134,7 @@ namespace FlyCn.Masters
             }
             else
             {
-                lblError.Text = "Username/Password wrong !";
+                lblError.Text = "Incorrect Username/Password !!!";
                
             
             }

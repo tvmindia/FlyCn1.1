@@ -52,7 +52,13 @@
             var tab = eventArgs.get_tab();
 
             var security = document.getElementById("hdnSecurityMaster").value;
-
+            if (tab.get_text() == "New") {
+                 <%=ToolBar.ClientID %>_SetEditVisible(false);
+                <%=ToolBar.ClientID %>_SetAddVisible(false);
+                <%=ToolBar.ClientID %>_SetSaveVisible(true);
+                <%=ToolBar.ClientID %>_SetUpdateVisible(false);
+                <%=ToolBar.ClientID %>_SetDeleteVisible(false);
+            }
 
           <%--  PageSecurityCheck(security);
             if (PageSecurity.isWriteOnly) {
