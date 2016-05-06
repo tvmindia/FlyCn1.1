@@ -5,12 +5,14 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Data;
 using System.Web.UI;
+using Telerik.Web.UI;
 
 namespace FlyCn.FlyCnDAL
 {
 
     public class Modules
     {
+        DALConstants cnst = new DALConstants();
         ErrorHandling eObj = new ErrorHandling();
         DataSet ds = null;
         SqlConnection con = null;
@@ -186,6 +188,7 @@ namespace FlyCn.FlyCnDAL
 
         #endregion GetModuleByModuleID
 
+      
        
         #endregion ModulesMethods
 

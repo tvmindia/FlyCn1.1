@@ -21,6 +21,9 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <style>
+         html {width:100%; height:100%; overflow:auto; }
+    </style>
        <asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true" EnablePageMethods="true"  >
        
     </asp:ScriptManager>
@@ -255,7 +258,7 @@
                                          </div>
                                          
                                          
-                                       <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:scroll;overflow-y:scroll;">
+                                       <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:hidden;overflow-y:hidden;">
                                       <iframe id="ContentApprovers" runat="server" style="width: 1000px; height: 600px;"></iframe>
                                       </div>
                                     </div>
@@ -263,7 +266,7 @@
                                        <div class="accordion-container">
                                          <a href="#" class="accordion-toggle" id="IDAccordion">Details<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                                          <div class="accordion-content">
-                                         <iframe id="ContentIframe" name="BOQDetails" style="height: 200px; width: 100%; overflow: hidden;" runat="server"></iframe>
+                                         <iframe id="ContentIframe" name="BOQDetails" style="height: 500px; width: 100%; overflow: hidden;" runat="server"></iframe>
                                          </div>
                                        </div>
                                       </div>

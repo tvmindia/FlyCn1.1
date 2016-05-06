@@ -54,5 +54,11 @@ namespace FlyCn.EIL
             myContentPane.ContentUrl = cnsObj.PunchListSummary;
 
         }
+
+        public void LoadCategoryMgmtInputScreen(RadPane myContentPane)
+        {
+            myContentPane.ContentUrl = cnsObj.AllocateCategory;
+
+        }
     }
 }

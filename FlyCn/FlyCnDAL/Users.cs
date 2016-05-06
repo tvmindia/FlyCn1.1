@@ -917,6 +917,11 @@ namespace FlyCn.FlyCnDAL
             SqlCommand cmd = null;
             SqlDataAdapter da = null;
             dbConnection dcon = new dbConnection();
+            
+            UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
             try
             {
                 conn = dcon.GetDBConnection();
@@ -2219,6 +2224,54 @@ namespace FlyCn.FlyCnDAL
 
         #endregion ValidateProjectNoInMastersTable
 
+        #region BindModules
+        public DataTable BindModules()
+        {
+            SqlConnection conn = null;
+            DataTable ds = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter da = null;
+            dbConnection dcon = new dbConnection();
 
+            UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+            try
+            {
+                conn = dcon.GetDBConnection();
+                //conn.Open();
+
+                cmd = new SqlCommand("GetAllModuleDesc", conn);
+                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 7).Value = UA.projectNo;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                ds = new DataTable();
+                da.Fill(ds);
+
+                conn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            }
+
+        }
+
+        #endregion BindModules
     }
     }

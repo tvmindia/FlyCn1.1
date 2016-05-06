@@ -22,9 +22,9 @@
  
 
 </asp:Content>
-
- 
 <asp:Content ID="phdUserMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+     <script src="../Scripts/ToolBar.js"></script>
+
     <asp:ScriptManager ID="scmFilter" runat="server"></asp:ScriptManager>
       <uc1:GridviewFilter runat="server" id="GridviewFilter" tableName="M_USERS"/>
          <script type="text/javascript">
@@ -69,7 +69,6 @@
                  if (tab.get_text() == "New") {
 
                      eventArgs.set_cancel(false);
-                     <%=ToolBar.ClientID %>_hideNotification();
                  }
                  else
                      if (tab.get_text() == "Details") {
@@ -83,7 +82,7 @@
              else
                  if (PageSecurity.isReadOnly) {
                      if (tab.get_text() == "New") {
-                         <%=ToolBar.ClientID %>_hideNotification();
+                       
                          AlertMsg(messages.EditModeNewClick);
 
                          eventArgs.set_cancel(true);
@@ -95,13 +94,13 @@
                              <%=ToolBar.ClientID %>_SetSaveVisible(false);
                              <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                              <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-                             <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                           <%--  <%=ToolBar.ClientID %>_SetAttachVisible(false);--%>
                          }
 
                  }
                  else if (PageSecurity.isEditOnly) {
                      if (tab.get_text() == "New") {
-                         <%=ToolBar.ClientID %>_hideNotification();
+                        
                          AlertMsg(messages.EditModeNewClick);
                          eventArgs.set_cancel(true);
                      }
@@ -112,7 +111,7 @@
                              <%=ToolBar.ClientID %>_SetSaveVisible(false);
                              <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                              <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-                             <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                            <%-- <%=ToolBar.ClientID %>_SetAttachVisible(false);--%>
                          }
                  }
 
@@ -140,7 +139,7 @@
                          <%=ToolBar.ClientID %>_SetSaveVisible(true);
                          <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                          <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-                         <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                      <%--   <%=ToolBar.ClientID %>_SetAttachVisible(false);--%>
                      }
 
 
@@ -151,7 +150,7 @@
                          <%=ToolBar.ClientID %>_SetSaveVisible(false);
                          <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                          <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-                         <%=ToolBar.ClientID %>_SetAttachVisible(false);
+                       <%--  <%=ToolBar.ClientID %>_SetAttachVisible(false);--%>
                      }
 
 

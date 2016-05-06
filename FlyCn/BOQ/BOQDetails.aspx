@@ -404,7 +404,7 @@
                          <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(false);
                          <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
                          <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
-                         <%=ToolBarBOQDetail.ClientID %>_SetAttachVisible(false);
+                        <%-- <%=ToolBarBOQDetail.ClientID %>_SetAttachVisible(false);--%>
                      }
              }
              else if (PageSecurity.isEditOnly) {
@@ -442,7 +442,7 @@
                      <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(false);
                      <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
                      <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
-                     <%=ToolBarBOQDetail.ClientID %>_SetAttachVisible(false);
+                   <%--  <%=ToolBarBOQDetail.ClientID %>_SetAttachVisible(false);--%>
              }
              else
           {
@@ -452,7 +452,7 @@
                   <%=ToolBarBOQDetail.ClientID %>_SetSaveVisible(true);
                   <%=ToolBarBOQDetail.ClientID %>_SetUpdateVisible(false);
                   <%=ToolBarBOQDetail.ClientID %>_SetDeleteVisible(false);
-                  <%=ToolBarBOQDetail.ClientID %>_SetAttachVisible(false);
+                <%--  <%=ToolBarBOQDetail.ClientID %>_SetAttachVisible(false);--%>
 
               }
              }

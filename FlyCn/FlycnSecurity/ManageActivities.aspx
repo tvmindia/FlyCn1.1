@@ -231,7 +231,7 @@
                     <div class="col-md-12 Span-One">
                         <div class="col-md-6">
 
-                            <div class="form-group">
+                            <div class="form-group required">
 
                                 <asp:Label ID="lblFullDesc" runat="server" Text="Full Desc" CssClass="control-label col-md-6 "></asp:Label>
                                 <div class="col-md-6">
@@ -1062,7 +1062,7 @@
         function OnClientButtonClicking(sender, args) {
          var btn = args.get_item();
          if (btn.get_value() == 'Save') {
-             args.set_cancel(!validateEdit());
+             args.set_cancel(!validateDesc());
          }
         }
 
@@ -1100,6 +1100,29 @@
              return true;
          //}
         }
+       function validateDesc()
+        {
+            var fullDesc = document.getElementById('<%=txtFullDesc.ClientID %>').value;
+            fullDesc = trimString(fullDesc);
+            var Module = document.getElementById('<%=ddlSelectModule.ClientID %>').value;
+           Module = trimString(Module);
+           var category = document.getElementById('<%=ddlCategory.ClientID %>').value;
+           category = trimString(category);
+           var activity = document.getElementById('<%=ddlActivity.ClientID %>').value;
+           activity = trimString(activity);
+           var Projects = document.getElementById('<%=ddlSelectProject.ClientID %>').value;
+           Projects = trimString(Projects);
+           if ((fullDesc != "") && (Module != "-1") && (category != "-1") && (activity != "-1") && (Projects != "-1"))
+            {
+                return true;
+            }
+            else
+            {
+                displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+                return false;
+            }
+        }
+
         function validates() {
             var Module = document.getElementById('<%=ddlModule.ClientID %>').value;
             Module = trimString(Module);
@@ -1137,6 +1160,8 @@
             var selectedProject = Projects.options[Projects.selectedIndex].innerHTML;
             var categories = document.getElementById('<%=ddlCategory.ClientID %>');
             var selectedCategories = categories.options[categories.selectedIndex].innerHTML;
+            var fullDesc = document.getElementById('<%=txtFullDesc.ClientID %>').value;
+            fullDesc = trimString(fullDesc);
 
             PageMethods.ValidateFullDescription(FullDesc, selectedModule, selectedProject,selectedCategories, OnSuccess, onError);
             function OnSuccess(response, userContext, methodName) {
@@ -1156,6 +1181,7 @@
                     LnameImage.style.display = "none";
 
                 }
+                
             }
             function onError(response, userContext, methodName) {
 

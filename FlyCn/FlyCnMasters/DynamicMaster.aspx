@@ -10,6 +10,7 @@
 </asp:Content>
 <asp:Content ID="phdDynamicMasterContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script src="../Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../Scripts/ToolBar.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             parent.showTreeNode();
@@ -60,7 +61,7 @@
                 <%=ToolBar.ClientID %>_SetDeleteVisible(false);
             }
 
-          <%--  PageSecurityCheck(security);
+            PageSecurityCheck(security);
             if (PageSecurity.isWriteOnly) {
                 if (tab.get_text() == "New") {
 
@@ -112,7 +113,7 @@
                             <%=ToolBar.ClientID %>_SetDeleteVisible(false);
                        
                         }
-                }--%>
+                }
 
 
 
@@ -124,7 +125,7 @@
             var tab = args.get_tab();
             if (tab.get_value() == '2') {//New tab selected
 
-               <%-- try {
+                try {
 
                     ClearTextBox();
                     EnableButtonsForNew();
@@ -156,7 +157,7 @@
                 catch (x)
                 {
                     alert(x.message);
-                }--%>
+                }
 
             }
 

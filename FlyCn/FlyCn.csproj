@@ -162,6 +162,8 @@
     <Content Include="Approvels\Approvers.aspx" />
     <Content Include="Approvels\CloseDocument.aspx" />
     <Content Include="Approvels\DocDetails.aspx" />
+    <Content Include="CategoryManagement\AllocateCategory.aspx" />
+    <Content Include="CategoryManagement\CategoryMgmt.aspx" />
     <Content Include="DocumentRelated\DocumentAttachments.aspx" />
     <Content Include="Approvels\RejectedDocument.aspx" />
     <Content Include="bin\AjaxControlToolkit.dll" />
@@ -683,6 +685,20 @@
     <Compile Include="Approvels\DocDetails.aspx.designer.cs">
       <DependentUpon>DocDetails.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CategoryManagement\AllocateCategory.aspx.cs">
+      <DependentUpon>AllocateCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CategoryManagement\AllocateCategory.aspx.designer.cs">
+      <DependentUpon>AllocateCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CategoryManagement\CategoryMgmt.aspx.cs">
+      <DependentUpon>CategoryMgmt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CategoryManagement\CategoryMgmt.aspx.designer.cs">
+      <DependentUpon>CategoryMgmt.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DocumentRelated\DocumentAttachments.aspx.cs">
       <DependentUpon>DocumentAttachments.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -888,6 +904,7 @@
     </Compile>
     <Compile Include="FlyCnDAL\ApprovelMaster.cs" />
     <Compile Include="FlyCnDAL\BoqHeaderDetails.cs" />
+    <Compile Include="FlyCnDAL\CategoryAllocation.cs" />
     <Compile Include="FlyCnDAL\CommonDAL.cs" />
     <Compile Include="FlyCnDAL\DALConstants.cs">
       <SubType>Code</SubType>
