@@ -839,6 +839,9 @@ namespace FlyCn.FlyCnDAL
 
         #endregion Get All Role Scope
 
+
+       
+
         #region DeleteM_User
         public void DeleteM_User(string UserID)
         {

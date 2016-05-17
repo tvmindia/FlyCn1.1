@@ -22,7 +22,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <style>
-         html {width:100%; height:100%; overflow:auto; }
+         html {width:100%; height:auto; overflow:hidden; }
     </style>
        <asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true" EnablePageMethods="true"  >
        
@@ -66,7 +66,7 @@
                 <telerik:RadTab Text="New" PageViewID="rpAddEdit" Value="2" Width="100px"  Height="25px" runat="server" ImageUrl="~/Images/Icons/NewIcon.png"></telerik:RadTab>
             </Tabs>
         </telerik:RadTabStrip>
-        <div id="content">
+        <div id="content" style="height:800px;">
 
 
             <div class="contentTopBar"></div>
@@ -351,7 +351,7 @@
 
         function OnClientTabSelecting(sender, eventArgs) {
 
-            debugger;
+          
 
             var tab = eventArgs.get_tab();
             

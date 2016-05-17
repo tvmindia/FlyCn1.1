@@ -181,7 +181,7 @@ namespace FlyCn.FlyCnDAL
               {
                   if (result != "")
                   {
-                      objPage.ClientScript.RegisterStartupScript(this.GetType(), result, "parent.GetPermissionValue('" + result.ToUpper() + "');", true);
+                      //objPage.ClientScript.RegisterStartupScript(this.GetType(), result, "parent.GetPermissionValue('" + result.ToUpper() + "');", true);
                      
                   }
               }

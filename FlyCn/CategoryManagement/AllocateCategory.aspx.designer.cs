@@ -85,6 +85,24 @@ namespace FlyCn.CategoryManagement {
         protected global::System.Web.UI.WebControls.HiddenField hdfFieldName;
         
         /// <summary>
+        /// hdfAllocatedDataKey control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfAllocatedDataKey;
+        
+        /// <summary>
+        /// hdfkeyField control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfkeyField;
+        
+        /// <summary>
         /// selected_tab control.
         /// </summary>
         /// <remarks>
