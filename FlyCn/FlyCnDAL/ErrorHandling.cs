@@ -185,6 +185,27 @@ namespace FlyCn.FlyCnDAL
             Label Success = (Label)master1.FindControl("lblErrorInfo");
             divMask1.Attributes["class"] = "Succesmsgboxes";
             Success.Text = "Deleted Successfully";
-        }        
+        }
+
+        public void SqlNoDataError(Exception ex, Page pg)
+        {
+
+            //defn
+            //1 accept page obj
+            //2 find its master
+            //3 find the div control in master
+            //4 assign ex msg to error label
+            //5 show div
+            var master = pg.Master;
+            ContentPlaceHolder mpContentPlaceHolder;
+            Label error = (Label)master.FindControl("lblErrorInfo");
+            mpContentPlaceHolder = (ContentPlaceHolder)master.FindControl("MainBody");
+            HtmlControl divMask = (HtmlControl)master.FindControl("Errorbox");
+            divMask.Style["visibility"] = "visible";
+            divMask.Attributes["class"] = "ErrormsgBoxes";
+            error.Text = "No Corresponding Data In Database";
+
+        }
+
     }
 }

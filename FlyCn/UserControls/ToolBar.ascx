@@ -289,6 +289,7 @@ div.RadToolBar_Metro .rtbMiddle
 .template
  {
     background-color: Transparent !important;
+    z-index:-3;
  }
     </style>
 

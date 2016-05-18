@@ -102,6 +102,10 @@ namespace FlyCn.FlyCnDAL
 
         public DataTable GetPrimarykeys(string TableName)
         {
+             UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
             DataTable dt = null;
             SqlConnection con = null;
             dbConnection dcon = new dbConnection();
@@ -109,6 +113,7 @@ namespace FlyCn.FlyCnDAL
             SqlCommand cmd = new SqlCommand("GetPrimaryKeys", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@TableName", TableName);
+            cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = UA.projectNo;
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = cmd;
             dt = new DataTable();

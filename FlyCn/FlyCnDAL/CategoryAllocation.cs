@@ -252,7 +252,7 @@ namespace FlyCn.FlyCnDAL
             catch (Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
+                eObj.SqlNoDataError(ex, page);
                
             }
             finally
@@ -306,5 +306,41 @@ namespace FlyCn.FlyCnDAL
 
         }
         #endregion DeleteFromAllocatedTags
+
+        #region GetKeyFieldFromBaseTables()
+        public DataTable GetKeyFieldFromBaseTables(string TableName, string moduleID, bool ISbaseTable = false)
+        {
+           
+            DataTable dt = null;
+            dbConnection dcon = new dbConnection();
+            UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+            try
+            {
+                dcon.GetDBConnection();
+   
+                    SqlCommand cmd = new SqlCommand("GetBaseTableData", dcon.SQLCon);
+                    cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = UA.projectNo;
+                    cmd.Parameters.Add("@ModuleID", SqlDbType.NVarChar, 10).Value = moduleID;             
+                    cmd.CommandType = CommandType.StoredProcedure;                   
+
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    adapter.SelectCommand = cmd;
+                    dt = new DataTable();
+                    adapter.Fill(dt);
+                }
+            
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+
+
+            }
+            return dt;
+        }
+        #endregion GetKeyFieldFromBaseTables()
     }
 }

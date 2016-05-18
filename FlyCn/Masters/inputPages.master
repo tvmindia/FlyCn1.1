@@ -482,7 +482,7 @@
 
     <asp:UpdatePanel ID="upsuccessMessage" runat="server" UpdateMode="Always" >
         <ContentTemplate>
-    <div id="Errorbox" runat="server" class="div1" style="z-index:3">
+    <div id="Errorbox" runat="server" class="div1" style="z-index:-5">
         <table style="width: 90%; height: 50px; border: groove; border-radius: 5px 6px; background-color: lightgrey">
             <tr>
 
