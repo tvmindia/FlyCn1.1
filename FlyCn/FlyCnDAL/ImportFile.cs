@@ -800,12 +800,12 @@ namespace FlyCn.FlyCnDAL
                     UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, Remarks, excelImportstatus.Finished, dbcon); 
                 }
             }
-            catch (Exception ex)
+            catch
             {
                
                //this updates table with 'aborted' status if something happened in
                // UpdateExcelImportDetails(UserName, ProjectNo, TableName, ExcelFileName, insertcount, updateCount, errorCount, Remarks, excelImportstatus.Aborted, dbcon);
-                throw ex;
+               // throw ex;
             }
             finally
             {

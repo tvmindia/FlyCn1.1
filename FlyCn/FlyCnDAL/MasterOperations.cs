@@ -33,20 +33,20 @@ namespace FlyCn.FlyCnDAL
                 DataSet dataset = new DataSet();
                 string FieldValue = "";
                 string FieldParams = "";
-                SqlConnection con = null;
+              
                 SystemDefenitionDetails dbobj = new SystemDefenitionDetails();
                 dataset = dbobj.getDataToInsert(TableName);
                 if(dbcon==null)
                 {
-                  dbConnection dcon = new dbConnection();
-                  con=dcon.GetDBConnection();
+                  dbcon = new dbConnection();
+                  dbcon.GetDBConnection();
                 
                 }
                
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "InsertDynamicMaster";
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = con;
+                cmd.Connection = dbcon.SQLCon;
                 cmd.Parameters.AddWithValue("@TableName", TableName);
                 int totalrows = dataset.Tables[0].Rows.Count;
                 string temp = dataset.Tables[0].Rows[0]["Field_Name"].ToString();

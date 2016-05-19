@@ -20,7 +20,7 @@
 
         .menu {
             width: 300px;
-            height: 25;
+            height: 25px;
             font-size: 18px;
         }
 

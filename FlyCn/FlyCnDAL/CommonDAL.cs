@@ -395,7 +395,10 @@ namespace FlyCn.FlyCnDAL
             /// <returns>Dataset</returns>
             public DataSet GetTableDefinition(string TableName)
             {
-
+                UIClasses.Const Const = new UIClasses.Const();
+                FlyCnDAL.Security.UserAuthendication UA;
+                HttpContext context = HttpContext.Current;
+                UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
                 SqlConnection con = null;
                 DataSet ds = null;
                 SqlDataAdapter sda = null;
@@ -410,6 +413,7 @@ namespace FlyCn.FlyCnDAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SelectTable";
                 cmd.Parameters.Add("@tablename", SqlDbType.NVarChar).Value = TableName;
+                cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = UA.projectNo;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
