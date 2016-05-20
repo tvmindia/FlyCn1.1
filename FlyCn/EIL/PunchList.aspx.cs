@@ -55,6 +55,7 @@ namespace FlyCn.EIL
 
         }
 
+      
         public void LoadCategoryMgmtInputScreen(RadPane myContentPane)
         {
             myContentPane.ContentUrl = cnsObj.AllocateCategory;

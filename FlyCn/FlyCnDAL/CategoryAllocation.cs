@@ -72,7 +72,7 @@ namespace FlyCn.FlyCnDAL
 
                 cmd.ExecuteNonQuery();
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.InsertionSuccessData(page);
+                eObj.AllocateSuccessData(page);
             }
             catch (Exception ex)
             {
@@ -291,7 +291,7 @@ namespace FlyCn.FlyCnDAL
 
                 cmd.ExecuteNonQuery();
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.DeleteSuccessData(page);
+                eObj.DeAllocateSuccessData(page);
             }
             catch (Exception ex)
             {

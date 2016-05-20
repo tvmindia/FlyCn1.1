@@ -27,6 +27,7 @@ namespace FlyCn.FlyCnDAL
         public string ManageActivities = "../FlycnSecurity/ManageActivities.aspx";
         public string PunchListSummary = "../EIL/PunchListSummary.aspx";
         public string AllocateCategory = "../CategoryManagement/AllocateCategory.aspx";
+        public string ConstructionWorkPacks = "../WorkPacks/CWP.aspx";
         //dictionary
     }
 }

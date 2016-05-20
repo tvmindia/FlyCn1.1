@@ -250,21 +250,42 @@
 
         if (id == 'Attach') {
             var btn = btnItems.getItem(16);
-           
-           // var sep = btnItems.getItem(17);
+            var sep = btnItems.getItem(17);
             if (value) {
                 btn.set_visible(true);
                 sep.set_visible(true);
             }
             else {
                 btn.set_visible(false);
-             //   sep.set_visible(false);
-
+               sep.set_visible(false);
             }
-
         }
 
+        if (id == 'Allocate') {
+            var btn = btnItems.getItem(18);
+            var sep = btnItems.getItem(19);
+            if (value) {
+                btn.set_visible(true);
+                sep.set_visible(true);
+            }
+            else {
+                btn.set_visible(false);
+                sep.set_visible(false);
+            }
+        }
 
+        if (id == 'DeAllocate') {
+            var btn = btnItems.getItem(20);
+          //  var sep = btnItems.getItem(21);
+            if (value) {
+                btn.set_visible(true);
+              //  sep.set_visible(true);
+            }
+            else {
+                btn.set_visible(false);
+              //  sep.set_visible(false);
+            }
+        }
     }
 
 
@@ -347,8 +368,16 @@ div.RadToolBar_Metro .rtbMiddle
             ImageUrl="~/Images/Icons/attachToolbarIcon.png" DisabledImageUrl="~/Images/Icons/attachToolbarIconDisabled.png" >
              
            </telerik:RadToolBarButton>
-        
-        
+          <telerik:RadToolBarButton Value="AttachAllocateSeperator" IsSeparator="true" runat="server"   style="display:none" > </telerik:RadToolBarButton>
+         <telerik:RadToolBarButton runat="server" Text="" Value="Allocate"    ImagePosition="Left"   ToolTip="Allocate"   style="display:none"
+            ImageUrl="~/Images/Icons/AllocateToolbarIcon.png" DisabledImageUrl="~/Images/Icons/AllocateToolbarIconDisabled.png" >
+             
+           </telerik:RadToolBarButton>
+         <telerik:RadToolBarButton Value="AllocateDeAllocateSeperator" IsSeparator="true" runat="server"   style="display:none" > </telerik:RadToolBarButton>
+         <telerik:RadToolBarButton runat="server" Text="" Value="DeAllocate"    ImagePosition="Left"   ToolTip="DeAllocate"   style="display:none"
+            ImageUrl="~/Images/Icons/DeAllocateToolbarIcon.png" DisabledImageUrl="~/Images/Icons/DeAllocateToolbarIconDisabled.png" >
+             
+           </telerik:RadToolBarButton>
 
     </Items>
 </telerik:RadToolBar>

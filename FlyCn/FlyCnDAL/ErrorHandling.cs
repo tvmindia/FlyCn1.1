@@ -98,6 +98,21 @@ namespace FlyCn.FlyCnDAL
                 Success.Text = "Successfully Inserted..!!!"; 
  
   }
+
+         public void AllocateSuccessData(Page pg)
+         {
+
+             var master1 = pg.Master;
+             ContentPlaceHolder mpContentPlaceHolder1;
+             mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
+             HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
+             divMask1.Style["display"] = "";// divMask1.Style["display"] = "";   
+             divMask1.Style["visibility"] = "visible";
+             Label Success = (Label)master1.FindControl("lblErrorInfo");
+             divMask1.Attributes["class"] = "Succesmsgboxes";
+             Success.Text = "Successfully Allocated..!!!";
+
+         }
          public void ErrorMessage(Page pg)
          {
 
@@ -185,6 +200,18 @@ namespace FlyCn.FlyCnDAL
             Label Success = (Label)master1.FindControl("lblErrorInfo");
             divMask1.Attributes["class"] = "Succesmsgboxes";
             Success.Text = "Deleted Successfully";
+        }
+
+        public void DeAllocateSuccessData(Page pg)
+        {
+            var master1 = pg.Master;
+            ContentPlaceHolder mpContentPlaceHolder1;
+            mpContentPlaceHolder1 = (ContentPlaceHolder)master1.FindControl("MainBody");
+            HtmlControl divMask1 = (HtmlControl)master1.FindControl("Errorbox");
+            divMask1.Style["visibility"] = "visible"; //divMask1.Style["display"] = "";
+            Label Success = (Label)master1.FindControl("lblErrorInfo");
+            divMask1.Attributes["class"] = "Succesmsgboxes";
+            Success.Text = "DeAllocated Successfully..!!!";
         }
 
         public void SqlNoDataError(Exception ex, Page pg)

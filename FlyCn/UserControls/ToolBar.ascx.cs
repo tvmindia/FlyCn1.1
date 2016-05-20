@@ -21,7 +21,8 @@ namespace FlyCn.UserControls
         public DeclineBtn DeclineButton;
         public RejectBtn RejectButton;
         public AttachBtn AttachButton;
-       
+        public AllocateBtn AllocateButton;
+        public DeAllocateBtn DeAllocateButton;
      
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -40,8 +41,8 @@ namespace FlyCn.UserControls
               DeclineButton = new DeclineBtn(CommonToolBar);
               RejectButton = new RejectBtn(CommonToolBar);
               AttachButton = new AttachBtn(CommonToolBar);
-
-            
+              AllocateButton = new AllocateBtn(CommonToolBar);
+              DeAllocateButton = new DeAllocateBtn(CommonToolBar);
         }
         
 
@@ -575,6 +576,122 @@ namespace FlyCn.UserControls
 
         }
 
+        public class AllocateBtn
+        {
+            public RadToolBar CommonToolBar;
+
+            public AllocateBtn(RadToolBar ToolBar)
+            {
+                this.CommonToolBar = ToolBar;
+            }
+
+
+            //------------------ Edit  -----------------------------------------------
+            public bool Visible
+            {
+
+                get
+                {
+                    if (CommonToolBar.FindItemByValue("Allocate").Style["display"] == "block" || CommonToolBar.FindItemByValue("Allocate").Style["display"] == "")
+                    {
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+
+
+
+                set
+                {
+
+                    if (value)
+                    {
+                        CommonToolBar.FindItemByValue("Allocate").Style["display"] = "";
+                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "";
+                    }
+                    else
+                    {
+                        CommonToolBar.FindItemByValue("Allocate").Style["display"] = "none";
+                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "none";
+                    }
+
+
+                }
+
+
+            }
+            public void registerScript_onClientClick(string JavaScriptFunction)
+            {
+
+                CommonToolBar.FindItemByValue("Allocate").Attributes.Add("OnClick", JavaScriptFunction);
+            }
+
+
+        }
+
+        public class DeAllocateBtn
+        {
+            public RadToolBar CommonToolBar;
+
+            public DeAllocateBtn(RadToolBar ToolBar)
+            {
+                this.CommonToolBar = ToolBar;
+            }
+
+
+            //------------------ Edit  -----------------------------------------------
+            public bool Visible
+            {
+
+                get
+                {
+                    if (CommonToolBar.FindItemByValue("DeAllocate").Style["display"] == "block" || CommonToolBar.FindItemByValue("DeAllocate").Style["display"] == "")
+                    {
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+
+
+
+                set
+                {
+
+                    if (value)
+                    {
+                        CommonToolBar.FindItemByValue("DeAllocate").Style["display"] = "";
+                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "";
+                    }
+                    else
+                    {
+                        CommonToolBar.FindItemByValue("DeAllocate").Style["display"] = "none";
+                        // CommonToolBar.FindItemByValue("UpdateDeleteSeperator").Style["display"] = "none";
+                    }
+
+
+                }
+
+
+            }
+            public void registerScript_onClientClick(string JavaScriptFunction)
+            {
+
+                CommonToolBar.FindItemByValue("DeAllocate").Attributes.Add("OnClick", JavaScriptFunction);
+            }
+
+
+        }
+
 
         // register on client click javascript function
         public string  OnClientButtonClicking
@@ -598,7 +715,8 @@ namespace FlyCn.UserControls
                this.DeclineButton.Visible = value;
                this.RejectButton.Visible = value;
                this.AttachButton.Visible = value;
-           
+               this.AllocateButton.Visible = value;
+               this.DeAllocateButton.Visible = value;
            }
         
         }
