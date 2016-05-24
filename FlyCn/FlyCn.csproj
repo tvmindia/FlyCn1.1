@@ -164,6 +164,7 @@
     <Content Include="Approvels\DocDetails.aspx" />
     <Content Include="CategoryManagement\AllocateCategory.aspx" />
     <Content Include="CategoryManagement\CategoryMgmt.aspx" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="DocumentRelated\DocumentAttachments.aspx" />
     <Content Include="Approvels\RejectedDocument.aspx" />
     <Content Include="bin\AjaxControlToolkit.dll" />
@@ -568,6 +569,7 @@
     <Content Include="WebServices\Document.asmx" />
     <Content Include="WebServices\User.asmx" />
     <Content Include="WorkPacks\CWP.aspx" />
+    <Content Include="WorkPacks\CWP_Detail.aspx" />
     <Content Include="WorkPacks\WorkPacks.aspx" />
     <None Include="Properties\PublishProfiles\FlyCnPub.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
@@ -1282,6 +1284,13 @@
     </Compile>
     <Compile Include="WorkPacks\CWP.aspx.designer.cs">
       <DependentUpon>CWP.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WorkPacks\CWP_Detail.aspx.cs">
+      <DependentUpon>CWP_Detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WorkPacks\CWP_Detail.aspx.designer.cs">
+      <DependentUpon>CWP_Detail.aspx</DependentUpon>
     </Compile>
     <Compile Include="WorkPacks\WorkPacks.aspx.cs">
       <DependentUpon>WorkPacks.aspx</DependentUpon>

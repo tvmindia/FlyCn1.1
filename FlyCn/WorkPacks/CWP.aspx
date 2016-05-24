@@ -15,7 +15,55 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <script src="../Scripts/ToolBar.js"></script>
     <script src="../Scripts/Messages.js"></script>
-     
+      <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
+     <style type="text/css">
+        .ui-dialog-title {
+            padding-left: 15em;
+            color: #333300;
+        }
+
+        .ui-widget {
+    font-family: Verdana,Arial,sans-serif/*{ffDefault}*/;
+    font-size: 1.4em/*{fsDefault};;; */;
+}
+        .ui-dialog-titlebar {
+            background: transparent;
+            border: none;
+            /*height: 1.1em;*/
+        }
+         .RadGrid_Default {
+             border:none;
+         }
+        .ui-dialog .ui-dialog-titlebar-close {
+            right: 0;
+        }
+
+        .ui-dialog {
+            /*overflow:auto;
+      overflow-x:hidden;*/
+            background: top;
+            background-color: white;
+            border: 1px solid #fff;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            -moz-border-radius: 12px;
+            -webkit-border-radius: 12px;
+            border-radius: 12px;
+            -moz-box-shadow: 4px 4px 14px #000;
+            -webkit-box-shadow: 4px 4px 14px #000;
+            box-shadow: 4px 4px 14px #000;
+            border-top: #A6CAB8 3px solid;
+        }
+
+        .headings {
+            font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 15px;
+            font-style: normal;
+            color: #009933;
+        }
+
+        
+    </style>
      <asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true" EnablePageMethods="true"  >
        
     </asp:ScriptManager>
@@ -57,14 +105,14 @@
                                              </div>
                                          </telerik:RadPageView>
                                    <telerik:RadPageView ID="rpAddEdit" runat="server">
-                                          <uc1:ToolBar runat="server" ID="ToolBar" />
+                                          <uc1:ToolBar runat="server" ID="ToolBar" OnClientButtonClicking="SetIframeSrc(CWP_Detail)" />
                                         <div class="col-md-12 Span-One">
                                               <div class="col-md-6">
 
                                         <div class="form-group">
-                                            <asp:Label ID="lbl1" CssClass="control-label col-md-5" runat="server" Text="Label1"></asp:Label>   
+                                            <asp:Label ID="lblDocumentNo" CssClass="control-label col-md-5" runat="server" Text="Document No"></asp:Label>   
                                             <div class="col-md-7">
-                                                <asp:TextBox ID="txtlbl1" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtDocumentNo" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
                                               
                                             </div>
                                         </div>
@@ -72,9 +120,9 @@
                                               <div class="col-md-6">
 
                                         <div class="form-group">
-                                            <asp:Label ID="lbl2" CssClass="control-label col-md-5" runat="server" Text="Label2"></asp:Label>   
+                                            <asp:Label ID="lblDocumentOwner" CssClass="control-label col-md-5" runat="server" Text="Document Owner"></asp:Label>   
                                             <div class="col-md-7">
-                                                <asp:TextBox ID="txt2" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtDocumentOwner" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
                                               
                                             </div>
                                         </div>
@@ -82,9 +130,9 @@
                                               <div class="col-md-6">
 
                                         <div class="form-group">
-                                            <asp:Label ID="lbl3" CssClass="control-label col-md-5" runat="server" Text="Label3"></asp:Label>   
+                                            <asp:Label ID="lblClientDocumentNo" CssClass="control-label col-md-5" runat="server" Text="Client Document No"></asp:Label>   
                                             <div class="col-md-7">
-                                                <asp:TextBox ID="txt3" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtClientDocumentNo" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
                                               
                                             </div>
                                         </div>
@@ -92,19 +140,19 @@
                                               <div class="col-md-6">
 
                                         <div class="form-group">
-                                            <asp:Label ID="lbl4" CssClass="control-label col-md-5" runat="server" Text="Label4"></asp:Label>   
+                                            <asp:Label ID="lblPlanner" CssClass="control-label col-md-5" runat="server" Text="Planner"></asp:Label>   
                                             <div class="col-md-7">
-                                                <asp:TextBox ID="txt4" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtPlanner" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
                                               
                                             </div>
                                         </div>
                                     </div>
                                                                                       <div class="col-md-6">
 
-                                        <div class="form-group">
-                                            <asp:Label ID="lbl5" CssClass="control-label col-md-5" runat="server" Text="Label5"></asp:Label>   
+                                        <div class="form-group required">
+                                            <asp:Label ID="lblDocumentDate" CssClass="control-label col-md-5" runat="server" Text="Document Date"></asp:Label>   
                                             <div class="col-md-7">
-                                                <asp:TextBox ID="txt5" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtDocumentDate" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
                                               
                                             </div>
                                         </div>
@@ -112,10 +160,20 @@
                                             
                                                                                       <div class="col-md-6">
 
-                                        <div class="form-group">
-                                            <asp:Label ID="lbl6" CssClass="control-label col-md-5" runat="server" Text="Label6"></asp:Label>   
+                                        <div class="form-group required">
+                                            <asp:Label ID="lblDocumetTitle" CssClass="control-label col-md-5" runat="server" Text="Documet Title"></asp:Label>   
                                             <div class="col-md-7">
-                                                <asp:TextBox ID="txt6" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtDocumetTitle" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                              
+                                            </div>
+                                        </div>
+                                    </div>
+                                                                                                                           <div class="col-md-6">
+
+                                        <div class="form-group required">
+                                            <asp:Label ID="lblRemarks" CssClass="control-label col-md-5" runat="server" Text="Remarks"></asp:Label>   
+                                            <div class="col-md-7">
+                                                <asp:TextBox ID="txtRemarks" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
                                               
                                             </div>
                                         </div>
@@ -126,7 +184,7 @@
                                      <div class="col-md-6">&nbsp;</div>
                                      <div class="col-md-6">&nbsp;</div>
                                       <div class="col-md-6"></div>
-                                       <div id="modal_dialog" style="display: none; width: 1200px!important; height: 700px!important;overflow-x:hidden;overflow-y:hidden;">
+                                       <div id="modal_dialog" style="display: none; overflow-x:hidden;overflow-y:hidden;">
                                       <iframe id="ContentApprovers" runat="server" style="width: 1000px; height: 600px;"></iframe>
                                       </div>
                                        <div class="content white">
@@ -160,14 +218,56 @@
                   </table>
              </div>
         </div>
-    <script type="text/javascript">
-        function OnClientTabSelecting(sender, eventArgs) {
+     <div id="AddNewCWPDetail" style="display: none;width:800px; height: 500px; overflow-x: hidden;overflow-y:hidden "> 
+         
+        <iframe id="IframeContent" src="CWP_Detail.aspx" style="width:800px; height: 500px;overflow-y:hidden;">           
+        </iframe>         
 
+    </div>
+    <script type="text/javascript">
+        
+        function AddNewCWPDetailWindow(HyperlinkID) {
+            debugger;
+            if (HyperlinkID == "CWP_Detail") {
+                var AllRegistrationIframe = document.getElementById('IframeContent');
+                AllRegistrationIframe.src = "../WorkPacks/CWP_Detail.aspx";
+            }
+            var frame = document.getElementById('IframeContent');
+            try {
+                $("#AddNewCWPDetail").dialog({
+                    title: "New CWP Detail",
+                    width: 800,
+                    height: 500,
+                    resizable: false,
+                    buttons: {}, modal: true
+                    
+                });
+                return false
+            }
+            catch (X) {
+                alert(X.message);
+            }
+           
+        }
+        function OnClientButtonClicking(sender, args) {
+          
+            var btn = args.get_item();
+            if (btn.get_value() == 'Save') {
+
+                args.set_cancel(!validate());
+            }
+            if (btn.get_value() == 'Add') {
+                AddNewCWPDetailWindow("CWP_Detail");
+                args.set_cancel(true);
+            }
+        }
+
+        function OnClientTabSelecting(sender, eventArgs) {
+           
             var tab = eventArgs.get_tab();
                 if (tab.get_text() == "New") {
                     parent.collapsenode();
                     eventArgs.set_cancel(false);
-
                 }
                 else
                     if (tab.get_text() == "Details") {
@@ -176,11 +276,10 @@
                         <%=ToolBar.ClientID %>_SetSaveVisible(false);
                         <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                         <%=ToolBar.ClientID %>_SetDeleteVisible(false);
-                    }
-            }
-           
+                    }                   
+            }           
         function onClientTabSelected(sender, args) {
-
+           
             var tab = args.get_tab();
 
             if (tab.get_value() == '2') {
@@ -188,21 +287,15 @@
                 parent.collapsenode();
                 hideMe();
                
-                try {
-                  
-                    
+                try {                                     
                         <%=ToolBar.ClientID %>_SetEditVisible(false);
-                        <%=ToolBar.ClientID %>_SetAddVisible(false);
+                        <%=ToolBar.ClientID %>_SetAddVisible(true);
                         <%=ToolBar.ClientID %>_SetSaveVisible(true);
                         <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                         <%=ToolBar.ClientID %>_SetDeleteVisible(false);
                       
                     }
-
-
-                   
-             
-                catch (x) {
+              catch (x) {
                     alert(x.message);
                 }
                 
