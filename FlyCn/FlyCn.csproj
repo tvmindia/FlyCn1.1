@@ -914,6 +914,7 @@
     <Compile Include="FlyCnDAL\BoqHeaderDetails.cs" />
     <Compile Include="FlyCnDAL\CategoryAllocation.cs" />
     <Compile Include="FlyCnDAL\CommonDAL.cs" />
+    <Compile Include="FlyCnDAL\ConstructionWorkPacks.cs" />
     <Compile Include="FlyCnDAL\DALConstants.cs">
       <SubType>Code</SubType>
     </Compile>

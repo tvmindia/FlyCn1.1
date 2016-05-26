@@ -143,7 +143,7 @@
       <%-------All popup close button refresh Start ---%>
        
         function OnPopupRefresh(frame) {
-            debugger;
+           
             var innerDoc = frame.contentDocument || frame.contentWindow.document;
             var input = innerDoc.getElementById('popuprefreshRequired');
 
@@ -251,7 +251,7 @@
 
         function GetRadPane()
         {
-            debugger;
+         
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%= RadPane1.ClientID %>");
             return pane;

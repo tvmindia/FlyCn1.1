@@ -415,11 +415,7 @@
 
 
         }
-       <%-- function hideNofificationCount()
-        {
-            debugger;
-            <%=ToolBar.ClientID %>_hideNotification();
-}--%>
+
         
         function onClientTabSelected(sender, args) {
            

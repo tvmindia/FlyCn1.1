@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="CWP.aspx.cs" Inherits="FlyCn.WorkPacks.ConstructionWorkPacks" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masters/IframePage.Master" AutoEventWireup="true" CodeBehind="CWP.aspx.cs" Inherits="FlyCn.WorkPacks.CWP" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Src="~/UserControls/ToolBar.ascx" TagPrefix="uc1" TagName="ToolBar" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -90,15 +90,30 @@
                                      <telerik:RadPageView ID="rpList" runat="server">
                                          <div id="divList" style="width: 100%;text-align:center">
 
-                                             <telerik:RadGrid runat="server" ID="dtgCWPHeaderGrid" CellSpacing="0" GridLines="None" AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" PageSize="10" Width="99%" OnNeedDataSource="dtgCWPHeaderGrid_NeedDataSource">
+                                             <telerik:RadGrid runat="server" ID="dtgCWPHeaderGrid" CellSpacing="0" GridLines="None" AlwaysVisible="true" AllowPaging="true" AllowAutomaticDeletes="false" AllowSorting="true" AllowAutomaticUpdates="false" PageSize="10" Width="100%" OnNeedDataSource="dtgCWPHeaderGrid_NeedDataSource" OnItemCommand="dtgCWPHeaderGrid_ItemCommand">
                                                    <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />                 
                                         </ClientSettings>
-                                          <MasterTableView AutoGenerateColumns="False" DataKeyNames="" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No Items have been added." InsertItemPageIndexAction="ShowItemOnFirstPage" InsertItemDisplay="Top">
+                                          <MasterTableView AutoGenerateColumns="false" DataKeyNames="DocumentID,RevisionID" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No Items have been added." InsertItemPageIndexAction="ShowItemOnFirstPage" InsertItemDisplay="Top">
                                                <Columns>
+                                                    <telerik:GridButtonColumn CommandName="EditDoc" ButtonType="ImageButton" ImageUrl="~/Images/Icons/Pencil-01.png" Text="Edit" UniqueName="EditData">
+                                                </telerik:GridButtonColumn>
+                                                     <telerik:GridBoundColumn HeaderText="Project No" DataField="ProjectNo" UniqueName="ProjectNo" Display="false"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="DocumentID" DataField="DocumentID" UniqueName="DocumentID" Display="false"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="RevisionID" DataField="RevisionID" UniqueName="RevisionID" Display="false"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Document No" DataField="DocumentNo" UniqueName="DocumentNo"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Title" DataField="DocumentTitle" UniqueName="DocumentTitle"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Client Doc No" DataField="ClientDocNo" UniqueName="ClientDocNo"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Revision No" DataField="RevisionNo" UniqueName="RevisionNo"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Document Date" DataField="DocumentDate" UniqueName="DocumentDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Planner" DataField="Planner" UniqueName="Planner" ></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Document Owner" DataField="DocumentOwner" UniqueName="DocumentOwner"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Created Date" DataField="CreatedDate" UniqueName="CreatedDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Revision Date" DataField="RevisionDate" UniqueName="RevisionDate" DataType="System.DateTime" DataFormatString="{0:dd/MMM/yyyy}"></telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Document Status" DataField="DocumentStatus" UniqueName="DocumentStatus"></telerik:GridBoundColumn>
                                                    </Columns>
                                               </MasterTableView>
                                              </telerik:RadGrid>
@@ -112,7 +127,7 @@
                                         <div class="form-group">
                                             <asp:Label ID="lblDocumentNo" CssClass="control-label col-md-5" runat="server" Text="Document No"></asp:Label>   
                                             <div class="col-md-7">
-                                                <asp:TextBox ID="txtDocumentNo" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtDocumentNo" Enabled="false" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
                                               
                                             </div>
                                         </div>
@@ -122,14 +137,14 @@
                                         <div class="form-group">
                                             <asp:Label ID="lblDocumentOwner" CssClass="control-label col-md-5" runat="server" Text="Document Owner"></asp:Label>   
                                             <div class="col-md-7">
-                                                <asp:TextBox ID="txtDocumentOwner" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtDocumentOwner" Enabled="false" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
                                               
                                             </div>
                                         </div>
                                     </div>
                                               <div class="col-md-6">
 
-                                        <div class="form-group">
+                                        <div class="form-group required">
                                             <asp:Label ID="lblClientDocumentNo" CssClass="control-label col-md-5" runat="server" Text="Client Document No"></asp:Label>   
                                             <div class="col-md-7">
                                                 <asp:TextBox ID="txtClientDocumentNo" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
@@ -139,10 +154,10 @@
                                     </div>
                                               <div class="col-md-6">
 
-                                        <div class="form-group">
-                                            <asp:Label ID="lblPlanner" CssClass="control-label col-md-5" runat="server" Text="Planner"></asp:Label>   
+                                        <div class="form-group required">
+                                            <asp:Label ID="lblRevisionNo" CssClass="control-label col-md-5" runat="server" Text="Revision No"></asp:Label>   
                                             <div class="col-md-7">
-                                                <asp:TextBox ID="txtPlanner" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtRevisionNo" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
                                               
                                             </div>
                                         </div>
@@ -150,9 +165,9 @@
                                                                                       <div class="col-md-6">
 
                                         <div class="form-group required">
-                                            <asp:Label ID="lblDocumentDate" CssClass="control-label col-md-5" runat="server" Text="Document Date"></asp:Label>   
+                                            <asp:Label ID="lblDocumentTitle" CssClass="control-label col-md-5" runat="server" Text="Document Title"></asp:Label>   
                                             <div class="col-md-7">
-                                                <asp:TextBox ID="txtDocumentDate" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtDocumentTitle" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
                                               
                                             </div>
                                         </div>
@@ -161,19 +176,35 @@
                                                                                       <div class="col-md-6">
 
                                         <div class="form-group required">
-                                            <asp:Label ID="lblDocumetTitle" CssClass="control-label col-md-5" runat="server" Text="Documet Title"></asp:Label>   
+                                            <asp:Label ID="lblDocumetDate" CssClass="control-label col-md-5" runat="server" Text="Documet Date"></asp:Label>   
                                             <div class="col-md-7">
-                                                <asp:TextBox ID="txtDocumetTitle" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                               <!----------->                                               
+                                           <div id="datepicker" class="input-group date " data-date-format="dd-M-yyyy">
+                                           <input   id="txtdatepicker" class="form-control"  type="text" runat="server" readonly="readonly"/>
+                                           <span class="input-group-addon dateicon"  ><i class="glyphicon glyphicon-calendar"></i></span> </div>
+                                            <!----------->
                                               
                                             </div>
                                         </div>
                                     </div>
-                                                                                                                           <div class="col-md-6">
+                                                                                                                                      <div class="col-md-6">
+
+                                        <div class="form-group required">
+                                            <asp:Label ID="lblPlanner" CssClass="control-label col-md-5" runat="server" Text="Planner"></asp:Label>   
+                                            <div class="col-md-7">
+                                               <%-- <asp:TextBox ID="txtPlanner" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>--%>
+                                                 <telerik:RadComboBox RenderMode="Lightweight" ID="radPlanner" EnableAutomaticLoadOnDemand="true" ItemsPerRequest="10" ShowMoreResultsBox="true" EnableVirtualScrolling="true" runat="server" Width="180" Height="200px" EmptyMessage="Select Planner" >
+                                                    <WebServiceSettings Method="GetAllNames" Path="CWP.aspx"></WebServiceSettings>
+                                                         </telerik:RadComboBox>
+                                              
+                                            </div>
+                                        </div>
+                                    </div>                                                                          <div class="col-md-6">
 
                                         <div class="form-group required">
                                             <asp:Label ID="lblRemarks" CssClass="control-label col-md-5" runat="server" Text="Remarks"></asp:Label>   
                                             <div class="col-md-7">
-                                                <asp:TextBox ID="txtRemarks" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtRemarks" TextMode="MultiLine" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>
                                               
                                             </div>
                                         </div>
@@ -224,10 +255,77 @@
         </iframe>         
 
     </div>
+
+    <asp:HiddenField ID="hdfProjectNo" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfDocumentID" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfRevisionID" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfDocumentType" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfDocumentOwner" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfUserName" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfRevisionNumber" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfStatusValue" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfDocumentNo" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfRevisionIdCollection" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfdocumentDate" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfTabStatus" runat="server" ClientIDMode="Static" />
+
     <script type="text/javascript">
         
+        function ClearCWPHeaderTexBox() {
+
+            document.getElementById('<%=txtDocumentNo.ClientID %>').value = "------System Generated Code------";
+            document.getElementById('<%=txtDocumentOwner.ClientID%>').value = "-------Document Owner-------";
+            document.getElementById('<%=txtClientDocumentNo.ClientID %>').value = "";
+            document.getElementById('<%=txtRevisionNo.ClientID %>').value = "";
+            $('#datepicker').datepicker('update', '');
+            document.getElementById('<%=txtDocumentTitle.ClientID %>').value = "";
+            document.getElementById('<%=txtRemarks.ClientID %>').value = "";
+            var radCombo = $telerik.findComboBox("<%= radPlanner.ClientID %>");
+            radCombo.clearSelection();
+        }
+
+        function DisableCWPHeaderTextBox() {
+
+            var v1 = document.getElementById('<%=txtdatepicker.ClientID %>');
+            v1.setAttribute("readonly", "readonly");
+            v1 = document.getElementById('<%=txtClientDocumentNo.ClientID %>');
+            v1.setAttribute("readonly", "readonly");
+            v1 = document.getElementById('<%=txtRevisionNo.ClientID %>');
+            v1.setAttribute("readonly", "readonly");
+            v1 = document.getElementById('<%=txtDocumentTitle.ClientID %>');
+            v1.setAttribute("readonly", "readonly");
+            v1 = document.getElementById('<%=radPlanner.ClientID %>');
+            v1.setAttribute("readonly", "readonly");
+            v1 = document.getElementById('<%=txtRemarks.ClientID %>');
+            v1.setAttribute("readonly", "readonly");
+            // $('#datepicker').datepicker({ enableOnReadonly: false });
+            // $(document).off('.datepicker.data-api');
+            // $('#datepicker').datepicker('hide');
+            //$('#datepicker').datepicker("remove");
+            $(".input-group date").attr('readonly', 'readonly')
+            v1 = document.getElementById('<%=ContentIframe.ClientID %>');
+            v1.style["display"] = "block";
+        }
+        function EnableCWPHeaderTextBox() {
+
+            //Enable header textboxess
+            var e = document.getElementById('<%=txtClientDocumentNo.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            e = document.getElementById('<%=txtRevisionNo.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            e = document.getElementById('<%=txtdatepicker.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            e = document.getElementById('<%=txtDocumentTitle.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            e = document.getElementById('<%=txtRemarks.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            e = document.getElementById('<%=radPlanner.ClientID %>');
+            e.removeAttribute("readonly", 0);
+            //Enable header textboxess
+
+        }
         function AddNewCWPDetailWindow(HyperlinkID) {
-            debugger;
+          
             if (HyperlinkID == "CWP_Detail") {
                 var AllRegistrationIframe = document.getElementById('IframeContent');
                 AllRegistrationIframe.src = "../WorkPacks/CWP_Detail.aspx";
@@ -260,6 +358,10 @@
                 AddNewCWPDetailWindow("CWP_Detail");
                 args.set_cancel(true);
             }
+            if (btn.get_value() == 'Update') {
+
+                args.set_cancel(!validateUpdate());
+            }
         }
 
         function OnClientTabSelecting(sender, eventArgs) {
@@ -283,13 +385,14 @@
             var tab = args.get_tab();
 
             if (tab.get_value() == '2') {
-
+                ClearCWPHeaderTexBox();
+                EnableCWPHeaderTextBox();
                 parent.collapsenode();
                 hideMe();
                
                 try {                                     
                         <%=ToolBar.ClientID %>_SetEditVisible(false);
-                        <%=ToolBar.ClientID %>_SetAddVisible(true);
+                        <%=ToolBar.ClientID %>_SetAddVisible(false);
                         <%=ToolBar.ClientID %>_SetSaveVisible(true);
                         <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                         <%=ToolBar.ClientID %>_SetDeleteVisible(false);
@@ -314,6 +417,7 @@
             }
 
         }
+       
         $(document).ready(function () {
             $('.accordion-toggle').on('click', function (event) {
 
@@ -324,7 +428,27 @@
             parent.collapsenode();
         });
 
-
+        function validate()
+        {
+            debugger;
+            var docTitle = document.getElementById('<%=txtDocumentTitle.ClientID %>').value;
+            var planner = $telerik.findComboBox("<%= radPlanner.ClientID %>").get_text();
+            var docDate = document.getElementById('<%=txtdatepicker.ClientID %>').value;
+            var remarks = document.getElementById('<%=txtRemarks.ClientID %>').value;
+            var revNo = document.getElementById('<%=txtRevisionNo.ClientID %>').value;
+            var clientDocNo = document.getElementById('<%=txtClientDocumentNo.ClientID %>').value;
+            if (docTitle == "" || planner == "Select Planner" || docDate == "" || remarks == ""||revNo==""||clientDocNo=="") {
+                displayMessage(messageType.Error, messages.MandatoryFieldsGeneral);
+                return false;
+            }
+            else {
+                return true;
+            }
+            }
+        function validateUpdate()
+        {
+            return true;
+        }
         function OpenDetailAccordion(id) {
 
             if (id != undefined)//accordion called from accordion click functionjs
@@ -366,4 +490,19 @@
             }
         }
     </script>
+    <script>
+        $(function () {
+
+
+            $("#datepicker").datepicker({
+                autoclose: true,
+                clearBtn: true,
+                todayHighlight: true,
+                pickTime: false,
+                format: 'dd-mm-yyyy'
+            }).datepicker('update');
+            // }).datepicker('update', new Date());;
+        });
+
+</script>
 </asp:Content>

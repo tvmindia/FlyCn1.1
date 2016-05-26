@@ -528,5 +528,83 @@ namespace FlyCn.FlyCnDAL
             return dt;
         }
         #endregion  GetRevisionNumberByRevisionId
+
+        #region GetAllCWPDocumentHeader
+        public DataSet GetAllCWPDocumentHeader(string projectno, string documenttype)
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllCWPDocumentHeader]";
+                cmd.Parameters.Add("@projectNo", SqlDbType.NVarChar, 10).Value = projectno;
+                cmd.Parameters.Add("@documentType", SqlDbType.NVarChar, 3).Value = documenttype;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllCWPDocumentHeader
+
+
+        #region BindCWPHeader
+        public DataSet BindCWPHeader(Guid Revisionid)//New BOQ header binding method used to bind hiddenfields
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllCWPHeaderByRevisionID]";
+                cmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = Revisionid;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+            return ds;
+        }
+        #endregion BindCWPHeader
     }
 }

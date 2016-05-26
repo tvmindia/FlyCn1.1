@@ -204,6 +204,7 @@ namespace FlyCn.FlyCnDAL
         get;
         set;
     }
+   
 
         #endregion PersonalProperties
 
@@ -604,6 +605,63 @@ namespace FlyCn.FlyCnDAL
 
         }
         #endregion GetDEtailsFromPersonal
-        #endregion Methods
+
+        #region GetM_PersonnelNamesByProjectNo
+        public DataTable GetM_PersonnelNamesByProjectNo(string text)
+        {
+
+            DataTable ds = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter da = null;
+            dbConnection dcon = new dbConnection();
+            FlyCn.EIL.ConstructionPunchList punchObj = new EIL.ConstructionPunchList();
+            UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
+            string projectNo = UA.projectNo;
+            try
+            {
+                dcon.GetDBConnection();
+                //conn.Open();
+
+                cmd = new SqlCommand("GetM_PersonnelNamesByProjectNo", dcon.SQLCon);
+                cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = projectNo;
+                cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = text;
+                cmd.CommandType = CommandType.StoredProcedure;
+                da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                ds = new DataTable();
+                da.Fill(ds);
+            }
+            catch (SqlException spexe)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(spexe, page);
+
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+
+            }
+            return ds;
+        }
+
+        #endregion GetM_PersonnelNamesByProjectNo
+
+
+    #endregion Methods
     }
 }
