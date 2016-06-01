@@ -21,25 +21,15 @@ namespace FlyCn.CategoryManagement
             FlyCnDAL.CategoryAllocation objCatAll = new FlyCnDAL.CategoryAllocation();
             FlyCn.FlyCnDAL.Modules moduleObj = new FlyCn.FlyCnDAL.Modules();
             RadTreeView tview = ip.FindLeftTree(this);
-            //tview.Attributes.Add("onclick", "ClientNodeClicked(event)");
-
-           // objCatAll.LoadRootNodes(tview,TreeNodeExpandMode.ServerSideCallBack);
+      
             DataTable data = new DataTable();
             data = moduleObj.GetAllModuleAndCategory();
             tview.DataFieldParentID = "ModuleDesc";
-            tview.DataTextField = "CategoryDesc";
-            tview.DataValueField = "ModuleId";
-            tview.DataFieldID = "Category";
+            tview.DataTextField = "Category";
+            tview.DataValueField = "ModuleID";
+            tview.DataFieldID = "CategoryDesc";
             tview.DataSource = data;
             tview.DataBind();
-            //foreach(RadTreeNode node in tview.Nodes)
-            //{
-            //    int count = node.GetAllNodes().Count;
-            //    if(count==0)
-            //    {
-            //        node.Remove();
-            //    }
-            //}
            
             RadPane radpane = ip.FindContentPane(this);         
             objPunchList.LoadCategoryMgmtInputScreen(radpane);

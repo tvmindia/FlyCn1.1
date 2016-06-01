@@ -213,7 +213,7 @@
 
       <%-------ReviseDocumentWindow PopupWindow Start---%>
         function ReviseDocumentWindow() {
-
+           
             var DocumentTypeForHeading = document.getElementById('HiddenFieldDoctype').value;
             var frame = document.getElementById('IframeReviseDocument');
 
@@ -260,6 +260,7 @@
       <%-- display current document all revisions in left tree --%>
         function RevisionHistory()
         {
+         
             var contentWindow = GetContentWindow();
             var hiddenDocumentStatus = contentWindow.document.getElementById('hiddenStatusValue');
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
@@ -326,6 +327,7 @@
         <%-- Set CloseDocument iframe scr with parameters --%> 
         function CloseDocument(revisionid)
         {
+          
             var contentWindow = GetContentWindow();
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
@@ -374,7 +376,7 @@
         
         function ChangeOwner()
         {
-           
+         
             var contentWindow = GetContentWindow();
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
             var hiddenusername = contentWindow.document.getElementById('hiddenUsername');
@@ -448,9 +450,19 @@
             document.getElementsByClassName(nodeclassname)[0].style.color = "black";
         }
 
+        function HideReviseDocument(nodeclassname) {
+            debugger;
+            var tree = $find("<%= rtvLeftMenu.ClientID %>");
+            var node = tree.findNodeByText("Revise Document");
+            tree.trackChanges();
+            if (node != null) {
+                node.get_parent().get_nodes().remove(node);
+            }
+        }
         <%-- Set ReviseDocument iframe scr with parameters  --%> 
         function ReviseDocument()
         {
+           
             var contentWindow = GetContentWindow();
             var hiddenFieldRevisionID = contentWindow.document.getElementById('hiddenFieldRevisionID');
 

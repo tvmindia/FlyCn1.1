@@ -215,17 +215,29 @@ using Messages = FlyCn.UIClasses.Messages;
             DataTable datatableobj = null;
             SqlConnection con = null;
             dbConnection dcon = new dbConnection();
-            con = dcon.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("GetVarifierDetailsByRevisionId", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@RevisionId", RevisionID);
-          
-         
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = cmd;
-            datatableobj = new DataTable();
-            adapter.Fill(datatableobj);
-            con.Close();
+            Guid revId;
+            Guid.TryParse(RevisionID, out revId);
+            try
+            {
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("GetVarifierDetailsByRevisionId", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@RevisionId", revId);
+
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                datatableobj = new DataTable();
+                adapter.Fill(datatableobj);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
             return datatableobj;
         }
         #endregion  getDataFromVarifierMasterDetailsByRevisoinId
@@ -293,16 +305,24 @@ using Messages = FlyCn.UIClasses.Messages;
         {
            
             SqlConnection con = null;
+            Guid revId;
+            Guid.TryParse(RevisionID, out revId);
+            Guid approveId;
+            Guid.TryParse(ApprovalID, out approveId);
+            Guid docId;
+            Guid.TryParse(DocumentID, out docId);
+            Guid verId;
+            Guid.TryParse(VerifierID, out verId);
             try
             {
                 dbConnection dcon = new dbConnection();
                 con = dcon.GetDBConnection();
                 SqlCommand cmd = new SqlCommand("InsertApprovelMaster", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApprovalID", ApprovalID);
-                cmd.Parameters.AddWithValue("@DocumentID", DocumentID);
-                cmd.Parameters.AddWithValue("@RevisionID", RevisionID);
-                cmd.Parameters.AddWithValue("@VerifierID", VerifierID);
+                cmd.Parameters.AddWithValue("@ApprovalID", approveId);
+                cmd.Parameters.AddWithValue("@DocumentID", docId);
+                cmd.Parameters.AddWithValue("@RevisionID", revId);
+                cmd.Parameters.AddWithValue("@VerifierID", verId);
                 cmd.Parameters.AddWithValue("@VerifierLevel", VerifierLevel);
                 cmd.Parameters.AddWithValue("@IslevelManadatory", IsLevelManadatory);
                 if (ApprovalStatus != null)

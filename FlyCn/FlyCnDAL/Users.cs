@@ -398,7 +398,7 @@ namespace FlyCn.FlyCnDAL
             try
             {
                 con = dcon.GetDBConnection();
-                SqlCommand cmd = new SqlCommand("GetUserDetails", con);
+                SqlCommand cmd = new SqlCommand("GetUserDetailsByUserName", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@UserName", userName);
                 SqlDataAdapter adapter = new SqlDataAdapter();
@@ -427,10 +427,10 @@ namespace FlyCn.FlyCnDAL
             try
             {
                 con = dcon.GetDBConnection();
-                SqlCommand cmd = new SqlCommand("GetUserDetails", con);
+                SqlCommand cmd = new SqlCommand("GetUserDetailsByEmail", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@UserName", userEmail);
-                cmd.Parameters.AddWithValue("@IsEmail", 1);
+                cmd.Parameters.AddWithValue("@EmailId", userEmail);
+               // cmd.Parameters.AddWithValue("@IsEmail", 1);
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = cmd;
                 datatableobj = new DataTable();

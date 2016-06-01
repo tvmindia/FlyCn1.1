@@ -13,7 +13,7 @@ namespace FlyCn.FlyCnDAL
     public class CategoryAllocation
     {
         ErrorHandling eObj = new ErrorHandling();
-
+        Modules modulesObj = new Modules();
         #region public properties
         public string projectNo
         {
@@ -137,6 +137,7 @@ namespace FlyCn.FlyCnDAL
         #region BindData()
         public DataTable BindData(string TableName, string moduleID,string category,bool ISbaseTable=false)
         {
+
             string FieldValue = "";
             string result = "";
             DataTable dt = null;
@@ -164,7 +165,8 @@ namespace FlyCn.FlyCnDAL
                     SqlCommand cmd = new SqlCommand("GetAllocateTags", dcon.SQLCon);
                     cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = UA.projectNo;
                     cmd.Parameters.Add("@ModuleID", SqlDbType.NVarChar, 10).Value = moduleID;
-                    cmd.Parameters.Add("@Category", SqlDbType.NVarChar, 25).Value = category;
+                    cmd.Parameters.Add("@CategoryDesc", SqlDbType.NVarChar, 25).Value = category;
+                    cmd.Parameters.Add("@Category", SqlDbType.NVarChar, 100).Value = category;
                     cmd.CommandType = CommandType.StoredProcedure;
                    // cmd.Parameters.AddWithValue("@TableName", TableName);
                     //cmd.Parameters.AddWithValue("@ModuleID", moduleID);
@@ -342,5 +344,7 @@ namespace FlyCn.FlyCnDAL
             return dt;
         }
         #endregion GetKeyFieldFromBaseTables()
+
+       
     }
 }

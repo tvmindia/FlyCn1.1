@@ -409,6 +409,14 @@ namespace FlyCn.FlyCnDAL
                     DocDate =Convert.ToDateTime(BOQdoc.DocumentDate);
                     RevNo = BOQdoc.RevisionNo;
                     DocTitle = BOQdoc.DocumentTitle;
+                    break;
+
+                case "CWP":
+                    DocumentMaster docObj = new DocumentMaster();
+                    docObj.BindCWPHeader(RevisionID);
+                    DocDate = Convert.ToDateTime(docObj.DocDate);
+                    RevNo = docObj.RevNo;
+                    DocTitle = docObj.DocTitle;
 
                     break;
             }
@@ -589,6 +597,12 @@ namespace FlyCn.FlyCnDAL
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
+                if(ds.Tables[0].Rows.Count>0)
+                {
+                    DocDate =Convert.ToDateTime(ds.Tables[0].Rows[0]["DocumentDate"]);
+                    RevNo = ds.Tables[0].Rows[0]["RevisionNo"].ToString();
+                    DocTitle = ds.Tables[0].Rows[0]["DocumentTitle"].ToString();
+                }
             }
             catch (Exception ex)
             {

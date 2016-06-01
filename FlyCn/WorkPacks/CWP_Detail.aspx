@@ -60,16 +60,17 @@
          
            
             <div style="min-height:320px;max-height:330px;overflow-x:auto;overflow-y:auto;">
-           <telerik:RadGrid ID="dtgAddCWP_Detail" runat="server" CellSpacing="0" GridLines="None" AlwaysVisible="true" AllowPaging="true" Width="90%" AllowSorting="true" PageSize="6" OnNeedDataSource="dtgAddCWP_Detail_NeedDataSource" OnPreRender="dtgAddCWP_Detail_PreRender" OnItemCreated="dtgAddCWP_Detail_ItemCreated">
+           <telerik:RadGrid ID="dtgAddCWP_Detail" runat="server" CellSpacing="0" GridLines="None" AlwaysVisible="true" AllowPaging="true" Width="90%" AllowSorting="true" PageSize="6" OnNeedDataSource="dtgAddCWP_Detail_NeedDataSource" OnPreRender="dtgAddCWP_Detail_PreRender" OnItemDataBound="dtgAddCWP_Detail_ItemDataBound" OnItemCommand="dtgAddCWP_Detail_ItemCommand">
               <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />                 
                                         </ClientSettings>
-             <MasterTableView AutoGenerateColumns="true" DataKeyNames="" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No Items have been added." InsertItemPageIndexAction="ShowItemOnFirstPage" InsertItemDisplay="Top">
+             <MasterTableView AutoGenerateColumns="true" DataKeyNames="KeyField" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No Items have been added." InsertItemPageIndexAction="ShowItemOnFirstPage" InsertItemDisplay="Top">
                  <Columns>
                       <telerik:GridCheckBoxColumn HeaderText="SELECT" DataType="System.Boolean" UniqueName="Modulescheck"></telerik:GridCheckBoxColumn>
+                       <telerik:GridBoundColumn HeaderText="KeyField" DataField="KeyField" UniqueName="KeyField" Display="false"></telerik:GridBoundColumn>
                  </Columns>
              </MasterTableView>
          </telerik:RadGrid>   
@@ -78,9 +79,21 @@
            </div>
                <div class="footer" style="width:750px;">
           
-            <asp:Button  class="buttonroundCorner" runat="server" Text="Import"/>
+            <asp:Button ID="btnImport"  class="buttonroundCorner" runat="server" Text="Import" OnClick="btnImport_Click"/>
              </div>
          
     </ContentTemplate>
-</asp:UpdatePanel>   
+</asp:UpdatePanel> 
+     <asp:HiddenField ID="hdfRevisionID" runat="server" ClientIDMode="Static" />  
+    <asp:HiddenField ID="hdfItemID" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfProjectNo" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfModuleID" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfCategory" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfKeyField" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfKeyValue" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfCreatedBy" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfCreatedDate" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfUpdatedBy" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfUpdatedDate" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfFieldName" runat="server" ClientIDMode="Static" />
 </asp:Content>

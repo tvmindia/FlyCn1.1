@@ -208,7 +208,11 @@
                                               
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> 
+                                             <div class="col-md-6">&nbsp;</div>
+                                            <div class="col-md-6">
+                                             <asp:Label ID="lblDocumentStatus" CssClass="DocStatusLabel" runat="server" ClientIDMode="Static"></asp:Label>
+                                         </div>
                                             </div>
 
                                         <div class="col-md-12">
@@ -223,15 +227,27 @@
                                          <a href="#" class="accordion-toggle" id="IDAccordion">Details<span class="toggle-icon"><i class="fa fa-plus-circle"></i></span></a>
                                          <div class="accordion-content">
                                                 <div id="rpCWPDetailList" style="width: 100%;text-align:center">
-                                            <telerik:RadGrid ID="dtgCWPDetailGrid" runat="server" CellSpacing="0" GridLines="None"  AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" PageSize="10" Width="99%" OnNeedDataSource="dtgCWPDetailGrid_NeedDataSource">
+                                            <telerik:RadGrid ID="dtgCWPDetailGrid" runat="server" CellSpacing="0" GridLines="None" AlwaysVisible="true"  AllowPaging="true" AllowAutomaticDeletes="false" AllowAutomaticUpdates="false" AllowSorting="true" PageSize="10" Width="99%" OnNeedDataSource="dtgCWPDetailGrid_NeedDataSource" OnDeleteCommand="dtgCWPDetailGrid_DeleteCommand">
                                                 <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left"/>
                                         <AlternatingItemStyle HorizontalAlign="Left" />
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="false" />                                           
                                         </ClientSettings>
-                                                <MasterTableView AutoGenerateColumns="False" DataKeyNames="" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No Items have been added." InsertItemPageIndexAction="ShowItemOnFirstPage" InsertItemDisplay="Top">
+                                                <MasterTableView AutoGenerateColumns="False" DataKeyNames="ItemID" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No Items have been added." InsertItemPageIndexAction="ShowItemOnFirstPage" InsertItemDisplay="Top">
                                                     <Columns>
+                                                        <telerik:GridButtonColumn CommandName="Delete" ButtonType="ImageButton" ImageUrl="~/Images/Cancel.png" Text="Delete" UniqueName="Delete">
+                                </telerik:GridButtonColumn>
+                                                         <telerik:GridBoundColumn HeaderText="ItemID" DataField="ItemID" UniqueName="ItemID" Display="false"></telerik:GridBoundColumn>
+                                                         <telerik:GridBoundColumn HeaderText="RevisionID" DataField="RevisionID" UniqueName="RevisionID" Display="false"></telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn HeaderText="ProjectNo" DataField="ProjectNo" UniqueName="ProjectNo" Display="false"></telerik:GridBoundColumn>
+                                                          <telerik:GridBoundColumn HeaderText="Item No" DataField="ItemNo" UniqueName="ItemNo" Display="true"></telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn HeaderText="Module ID" DataField="ModuleID" UniqueName="ModuleID" Display="true"></telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn HeaderText="Category" DataField="Category" UniqueName="Category" Display="true"></telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn HeaderText="KeyField" DataField="KeyField" UniqueName="KeyField" Display="true"></telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn HeaderText="KeyValue" DataField="KeyValue" UniqueName="KeyValue" Display="true"></telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn HeaderText="CreatedBy" DataField="CreatedBy" UniqueName="CreatedBy" Display="false"></telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn HeaderText="CreatedDate" DataField="CreatedDate" UniqueName="CreatedDate" Display="false"></telerik:GridBoundColumn>
                                                         </Columns>
                                                     </MasterTableView>
                                             </telerik:RadGrid>
@@ -251,23 +267,25 @@
         </div>
      <div id="AddNewCWPDetail" style="display: none;width:800px; height: 500px; overflow-x: hidden;overflow-y:hidden "> 
          
-        <iframe id="IframeContent" src="CWP_Detail.aspx" style="width:800px; height: 500px;overflow-y:hidden;">           
+        <iframe id="IframeContent" src="CWP_Detail.aspx" style="width:800px; height: 500px;overflow-y:hidden;" runat="server">           
         </iframe>         
 
     </div>
 
     <asp:HiddenField ID="hdfProjectNo" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="hdfDocumentID" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="hdfRevisionID" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="hdfDocumentType" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="hdfDocumentOwner" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="hdfUserName" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="hdfRevisionNumber" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hiddenFieldDocumentID" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hiddenFieldRevisionID" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hiddenFieldDocumentType" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hiddenDocumentOwner" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hiddenUsername" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hiddenRevisionNumber" runat="server" ClientIDMode="Static" />
     <asp:HiddenField ID="hdfStatusValue" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="hdfDocumentNo" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="hdfRevisionIdCollection" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="hdfdocumentDate" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hiddenDocumentNo" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="HiddenRevisionIdCollection" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hiddendocumentDate" runat="server" ClientIDMode="Static" />
     <asp:HiddenField ID="hdfTabStatus" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdfLevelDescription" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hiddenStatusValue" runat="server" ClientIDMode="Static" />
 
     <script type="text/javascript">
         
@@ -282,6 +300,7 @@
             document.getElementById('<%=txtRemarks.ClientID %>').value = "";
             var radCombo = $telerik.findComboBox("<%= radPlanner.ClientID %>");
             radCombo.clearSelection();
+            radCombo.enable();
         }
 
         function DisableCWPHeaderTextBox() {
@@ -325,9 +344,9 @@
 
         }
         function AddNewCWPDetailWindow(HyperlinkID) {
-          
+            debugger;
             if (HyperlinkID == "CWP_Detail") {
-                var AllRegistrationIframe = document.getElementById('IframeContent');
+                var AllRegistrationIframe = document.getElementById('<%=IframeContent.ClientID %>');
                 AllRegistrationIframe.src = "../WorkPacks/CWP_Detail.aspx";
             }
             var frame = document.getElementById('IframeContent');
@@ -367,8 +386,9 @@
         function OnClientTabSelecting(sender, eventArgs) {
            
             var tab = eventArgs.get_tab();
-                if (tab.get_text() == "New") {
-                    parent.collapsenode();
+            if (tab.get_text() == "New") {
+                document.getElementById('<%=lblDocumentStatus.ClientID %>').innerHTML = "";
+                    //parent.collapsenode();
                     eventArgs.set_cancel(false);
                 }
                 else
@@ -379,7 +399,13 @@
                         <%=ToolBar.ClientID %>_SetUpdateVisible(false);
                         <%=ToolBar.ClientID %>_SetDeleteVisible(false);
                     }                   
-            }           
+        }
+        function clearGrid()
+        {
+            var view = $find("<%=  dtgCWPDetailGrid.ClientID %>").get_masterTableView();
+            view.set_dataSource([]);
+            view.dataBind();
+        }
         function onClientTabSelected(sender, args) {
            
             var tab = args.get_tab();
@@ -388,6 +414,7 @@
                 ClearCWPHeaderTexBox();
                 EnableCWPHeaderTextBox();
                 parent.collapsenode();
+                clearGrid();
                 hideMe();
                
                 try {                                     
@@ -405,15 +432,15 @@
                
             }
             if (tab.get_value() == "1") {
-                //parent.collapsenode();
-                //parent.HideTreeNode();
+                parent.collapsenode();
+                parent.HideTreeNode();
                 var tabStrip = $find("<%= RadTabStrip1.ClientID %>");
                 var tab = tabStrip.findTabByValue("1");
                 tab.select();
                 var tab1 = tabStrip.findTabByValue("2");
                 tab1.set_text("New");
                 tab1.set_imageUrl('../Images/Icons/NewIcon.png');
-               
+                parent.RevisionHistroyDeleteNode();
             }
 
         }
@@ -425,12 +452,12 @@
                 OpenDetailAccordion(this);
             });
 
-            parent.collapsenode();
+            //parent.collapsenode();
         });
 
         function validate()
         {
-            debugger;
+        
             var docTitle = document.getElementById('<%=txtDocumentTitle.ClientID %>').value;
             var planner = $telerik.findComboBox("<%= radPlanner.ClientID %>").get_text();
             var docDate = document.getElementById('<%=txtdatepicker.ClientID %>').value;
