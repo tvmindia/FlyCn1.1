@@ -466,15 +466,15 @@ namespace FlyCn.FlyCnMasters
 
             datatableobj = dynamicmasteroperationobj.BindMasters(_mode, UA.projectNo);         
             dtgDynamicMasterGrid.DataSource = datatableobj;
-            GridColumn col = dtgDynamicMasterGrid.MasterTableView.Columns.FindByUniqueNameSafe("VerifierID");
-            if(col!=null)
-            {
-                col.Display = false;
-            }
-            //if (_mode == "M_Verifiers")
+            //GridColumn col = dtgDynamicMasterGrid.MasterTableView.Columns.FindByUniqueNameSafe("VerifierID");
+            //if(col!=null)
             //{
-            //    dtgDynamicMasterGrid.MasterTableView.GetColumn("VerifierID").Display = false;
+            //    col.Display = false;
             //}
+            if (_mode == "M_Verifiers")
+            {
+                dtgDynamicMasterGrid.MasterTableView.GetColumn("VerifierID").Display = false;
+            }
 
         }
         #endregion  dtgDynamicMasterGrid_NeedDataSource1
