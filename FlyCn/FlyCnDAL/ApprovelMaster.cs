@@ -754,9 +754,9 @@ using Messages = FlyCn.UIClasses.Messages;
         #endregion LoadInputScreen
 
         #region LoadInputScreenwithlogid
-        public void LoadInputScreen(RadPane myContentPane,string logid)
+        public void LoadInputScreen(RadPane myContentPane,string logid,string docType)
         {
-            myContentPane.ContentUrl = "ApprovalDocument.aspx?logid=" + logid;
+            myContentPane.ContentUrl = "ApprovalDocument.aspx?logid=" + logid+"&docType="+docType;
         }
         #endregion LoadInputScreenwithlogid
 
@@ -982,5 +982,42 @@ using Messages = FlyCn.UIClasses.Messages;
             return dt;
         }
         #endregion GetRejectedVarifierDetailsByRevisionId
+
+        #region GetCWPAllPendingApprovalsByVerifierEmail
+        public DataSet GetCWPAllPendingApprovalsByVerifierEmail(string paramverifierEmail)
+        {
+            SqlConnection con = null;
+            DataSet ds = null;
+            try
+            {
+
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("GetCWPAllPendingApprovalsByVerifierEmail", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@verifierEmail", SqlDbType.NVarChar, 50).Value = paramverifierEmail;
+                SqlDataAdapter sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                var page = HttpContext.Current.CurrentHandler as Page;
+                eObj.ErrorData(ex, page);
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+
+                    con.Dispose();
+
+                }
+            }
+            return ds;
+        }
+        #endregion GetCWPAllPendingApprovalsByVerifierEmail
     }
 }

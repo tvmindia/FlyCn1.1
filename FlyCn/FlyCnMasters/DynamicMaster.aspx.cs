@@ -39,6 +39,7 @@ namespace FlyCn.FlyCnMasters
 
             PlaceControls();
             eObj.ClearMessage(this);
+          
         }
 
         #endregion  Page_Load
@@ -463,11 +464,17 @@ namespace FlyCn.FlyCnMasters
         protected void dtgDynamicMasterGrid_NeedDataSource1(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
 
-            datatableobj = dynamicmasteroperationobj.BindMasters(_mode, UA.projectNo);
-        
-          
+            datatableobj = dynamicmasteroperationobj.BindMasters(_mode, UA.projectNo);         
             dtgDynamicMasterGrid.DataSource = datatableobj;
-            
+            GridColumn col = dtgDynamicMasterGrid.MasterTableView.Columns.FindByUniqueNameSafe("VerifierID");
+            if(col!=null)
+            {
+                col.Display = false;
+            }
+            //if (_mode == "M_Verifiers")
+            //{
+            //    dtgDynamicMasterGrid.MasterTableView.GetColumn("VerifierID").Display = false;
+            //}
 
         }
         #endregion  dtgDynamicMasterGrid_NeedDataSource1

@@ -193,7 +193,7 @@
                                             <asp:Label ID="lblPlanner" CssClass="control-label col-md-5" runat="server" Text="Planner"></asp:Label>   
                                             <div class="col-md-7">
                                                <%-- <asp:TextBox ID="txtPlanner" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>--%>
-                                                 <telerik:RadComboBox RenderMode="Lightweight" ID="radPlanner" EnableAutomaticLoadOnDemand="true" ItemsPerRequest="10" ShowMoreResultsBox="true" EnableVirtualScrolling="true" runat="server" Width="180" Height="200px" EmptyMessage="Select Planner" >
+                                                 <telerik:RadComboBox RenderMode="Lightweight" ID="radPlanner" EnableAutomaticLoadOnDemand="true" ItemsPerRequest="10" ShowMoreResultsBox="true" EnableVirtualScrolling="true" runat="server" Width="220" Height="200px" EmptyMessage="Select Planner" >
                                                     <WebServiceSettings Method="GetAllNames" Path="CWP.aspx"></WebServiceSettings>
                                                          </telerik:RadComboBox>
                                               

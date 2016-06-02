@@ -84,7 +84,7 @@ namespace FlyCn.FlyCnDAL
                    
                     string body=fileName;
 
-                    string link="http://"+localhost+"/Approvels/Approvals.aspx?logid=" + logId + "";
+                    string link = "http://" + localhost + "/Approvels/Approvals.aspx?logid=" + logId + "&docType=" + domObj.DocumentType + "";
                     if (System.IO.File.Exists(fileName) == true)
                     {
                         System.IO.StreamReader objReader;

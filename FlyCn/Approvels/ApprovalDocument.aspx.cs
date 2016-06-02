@@ -18,6 +18,7 @@ namespace FlyCn.Approvels
         UIClasses.Const Const = new UIClasses.Const();
         FlyCnDAL.Security.UserAuthendication UA;
         string verifierEmail=null;
+        string documentType = null;
         ApprovelMaster approvelMaster;
        
         #endregion Global Variables
@@ -32,12 +33,20 @@ namespace FlyCn.Approvels
                 UA = (FlyCnDAL.Security.UserAuthendication)Session[Const.LoginSession];
                 Users userobj = new Users(UA.userName);
                 verifierEmail = userobj.UserEMail;
-
+                string documentType = Request.QueryString["docType"];
+                if (documentType != null)
+                {
+                    Session["documentType"] = documentType;
+                }
                 if (!IsPostBack)
                 {
                     dtgPendingApprovalGrid.Rebind();
                     string logIDMail = Request.QueryString["logid"];
-                    
+                    string documentTypes = Request.QueryString["docType"];
+                    if (documentType != null)
+                    {
+                        Session["documentType"] = documentType;
+                    }
                     if (logIDMail != null)//during the call from a mail
                     {
                          ApprovelMaster approvalmasterObj = new ApprovelMaster();
@@ -90,11 +99,23 @@ namespace FlyCn.Approvels
         #region dtgPendingApprovalGridBind
         public void PendingApprovalGridBind()
         {
+            string docType = null;
+            if (HttpContext.Current.Session["documentType"] != null)
+            {
+                docType = HttpContext.Current.Session["documentType"].ToString();
+            }
             try
             {
                 DataSet ds = new DataSet();
                 approvelMaster = new ApprovelMaster();
-                ds = approvelMaster.GetAllPendingApprovalsByVerifier(verifierEmail);
+                if (docType == "CWP")
+                {
+                    ds = approvelMaster.GetCWPAllPendingApprovalsByVerifierEmail(verifierEmail);
+                }
+                else
+                {
+                    ds = approvelMaster.GetAllPendingApprovalsByVerifier(verifierEmail);
+                }
                 dtgPendingApprovalGrid.DataSource = ds;
                
             }

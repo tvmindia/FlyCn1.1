@@ -19,6 +19,7 @@ namespace FlyCn.Approvels
             objApproval.BindTree(tview);
             RadPane radpane = ip.FindContentPane(this);
             string logIDMail = Request.QueryString["logid"];
+            string documentType = Request.QueryString["docType"];
             if (logIDMail == null)
             {
                 objApproval.LoadInputScreen(radpane);
@@ -26,7 +27,7 @@ namespace FlyCn.Approvels
             if(logIDMail!=null)
             {
 
-                objApproval.LoadInputScreen(radpane, logIDMail);
+                objApproval.LoadInputScreen(radpane, logIDMail, documentType);
             }
         }
     }
