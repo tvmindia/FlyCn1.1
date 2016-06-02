@@ -193,7 +193,7 @@
                                             <asp:Label ID="lblPlanner" CssClass="control-label col-md-5" runat="server" Text="Planner"></asp:Label>   
                                             <div class="col-md-7">
                                                <%-- <asp:TextBox ID="txtPlanner" Enabled="true" CssClass="form-control AutoGenTextbox" ClientIDMode="Static" runat="server"></asp:TextBox>--%>
-                                                 <telerik:RadComboBox RenderMode="Lightweight" ID="radPlanner" EnableAutomaticLoadOnDemand="true" ItemsPerRequest="10" ShowMoreResultsBox="true" EnableVirtualScrolling="true" runat="server" Width="220" Height="200px" EmptyMessage="Select Planner" >
+                                                 <telerik:RadComboBox RenderMode="Lightweight" ID="radPlanner" EnableAutomaticLoadOnDemand="true" ItemsPerRequest="10" ShowMoreResultsBox="true" EnableVirtualScrolling="true" runat="server" Width="250" Height="200px" EmptyMessage="Select Planner" >
                                                     <WebServiceSettings Method="GetAllNames" Path="CWP.aspx"></WebServiceSettings>
                                                          </telerik:RadComboBox>
                                               
@@ -389,7 +389,9 @@
             if (tab.get_text() == "New") {
                 document.getElementById('<%=lblDocumentStatus.ClientID %>').innerHTML = "";
                     //parent.collapsenode();
-                    eventArgs.set_cancel(false);
+                eventArgs.set_cancel(false);
+                var planner = document.getElementById('<%=radPlanner.ClientID %>');
+                planner.style.width = "250px";
                 }
                 else
                     if (tab.get_text() == "Details") {
@@ -441,6 +443,7 @@
                 tab1.set_text("New");
                 tab1.set_imageUrl('../Images/Icons/NewIcon.png');
                 parent.RevisionHistroyDeleteNode();
+                <%--document.getElementById('<%=radPlanner.ClientID %>').style.width=220;--%>
             }
 
         }

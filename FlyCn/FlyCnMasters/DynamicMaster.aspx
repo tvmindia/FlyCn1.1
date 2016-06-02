@@ -208,7 +208,7 @@
                             <telerik:RadGrid ID="dtgDynamicMasterGrid" runat="server" CellSpacing="0"
                                 GridLines="None" OnNeedDataSource="dtgDynamicMasterGrid_NeedDataSource1" AllowPaging="true" ItemStyle-HorizontalAlign="Left" AlternatingItemStyle-HorizontalAlign="Left"
                                 PageSize="7" AllowAutomaticDeletes="True" OnItemCommand="dtgDynamicMasterGrid_ItemCommand" Width="984px"
-                                OnPreRender="dtgDynamicMasterGrid_PreRender" AllowMultiRowEdit="true" DataKeyNames="Code" CommandItemDisplay="Right" Skin="Silk" AllowFilteringByColumn="true">
+                                OnPreRender="dtgDynamicMasterGrid_PreRender" AllowMultiRowEdit="true" DataKeyNames="Code" CommandItemDisplay="Right" Skin="Silk" AllowFilteringByColumn="true" OnDataBound="dtgDynamicMasterGrid_DataBound">
                                 <MasterTableView>
 
                                     <Columns>

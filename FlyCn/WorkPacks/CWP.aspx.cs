@@ -27,6 +27,7 @@ namespace FlyCn.WorkPacks
             RegisterToolBox();
             if(!IsPostBack)
             {
+               
                 //BindModule();
             }
             ToolBarVisibility(1);
@@ -270,7 +271,7 @@ namespace FlyCn.WorkPacks
                      hiddenFieldRevisionID.Value = revisionid;
                      CWPPopulate(revisionid);
                      dtgCWPDetailGrid.Rebind();
-                    
+                    radPlanner.Width=220;
                  }
             }
             catch (Exception ex)

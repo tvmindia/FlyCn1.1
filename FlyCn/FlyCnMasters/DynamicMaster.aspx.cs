@@ -471,10 +471,7 @@ namespace FlyCn.FlyCnMasters
             //{
             //    col.Display = false;
             //}
-            if (_mode == "M_Verifiers")
-            {
-                dtgDynamicMasterGrid.MasterTableView.GetColumn("VerifierID").Display = false;
-            }
+           
 
         }
         #endregion  dtgDynamicMasterGrid_NeedDataSource1
@@ -646,7 +643,10 @@ namespace FlyCn.FlyCnMasters
                 sdw = primarykeys.TrimEnd(',', ' ');
             }
             // string[] test = sdw.Split(",");
-            dtgDynamicMasterGrid.MasterTableView.DataKeyNames = sdw.Split(',').ToArray();// new string[] { sdw };
+            if (sdw != "")
+            {
+                dtgDynamicMasterGrid.MasterTableView.DataKeyNames = sdw.Split(',').ToArray();// new string[] { sdw };
+            }
         }
 
         #endregion  Page_Init
@@ -756,6 +756,14 @@ namespace FlyCn.FlyCnMasters
         }
 
         #endregion dtgDynamicMasterGrid_PreRender
+
+        protected void dtgDynamicMasterGrid_DataBound(object sender, EventArgs e)
+        {
+            if (_mode == "M_Verifiers")
+            {
+                dtgDynamicMasterGrid.MasterTableView.GetColumn("VerifierID").Display = false;
+            }
+        }
 
 
         //protected void RadTabStrip1_TabClick(object sender, RadTabStripEventArgs e)
