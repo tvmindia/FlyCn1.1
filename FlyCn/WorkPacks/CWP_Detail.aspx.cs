@@ -195,7 +195,6 @@ namespace FlyCn.WorkPacks
         //}
         //#endregion  Page_Init
 
-
         #region btnImport_Click
         protected void btnImport_Click(object sender, EventArgs e)
         {
@@ -260,6 +259,7 @@ namespace FlyCn.WorkPacks
         }
         #endregion btnImport_Click
 
+        #region CWPDetailPopulate
         public void CWPDetailPopulate()
         {
             try
@@ -290,7 +290,9 @@ namespace FlyCn.WorkPacks
                 throw ex;
             }
         }
+        #endregion CWPDetailPopulate
 
+        #region dtgAddCWP_Detail_ItemCommand
         protected void dtgAddCWP_Detail_ItemCommand(object sender, GridCommandEventArgs e)
         {
             string _tableName;
@@ -328,7 +330,9 @@ namespace FlyCn.WorkPacks
                 }
             }
         }
+        #endregion dtgAddCWP_Detail_ItemCommand
 
+        #region dtgAddCWP_Detail_ItemDataBound
         protected void dtgAddCWP_Detail_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)
@@ -339,11 +343,7 @@ namespace FlyCn.WorkPacks
 
             }
         }
-
-        //protected void dtgAddCWP_Detail_DataBinding(object sender, EventArgs e)
-        //{
-          
-            
-        //}
+        #endregion dtgAddCWP_Detail_ItemDataBound
+        
     }
 }

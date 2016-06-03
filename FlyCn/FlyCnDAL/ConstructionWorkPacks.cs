@@ -90,12 +90,12 @@ namespace FlyCn.FlyCnDAL
                 cwpcmd.Parameters.Add("@RevisionID", SqlDbType.UniqueIdentifier).Value = documentMaster.RevisionID;
                 cwpcmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 10).Value = documentMaster.ProjectNo;
                 cwpcmd.Parameters.Add("@RevisionNo", SqlDbType.NVarChar, 10).Value = revisionNo;
-                cwpcmd.Parameters.Add("@DocumentDate", SqlDbType.SmallDateTime).Value = documentDate;
+                cwpcmd.Parameters.Add("@DocumentDate", SqlDbType.SmallDateTime).Value = DateTime.Parse(documentDate.ToString());
                 cwpcmd.Parameters.Add("@DocumentTitle", SqlDbType.NVarChar, 250).Value = documentTitle;
                 cwpcmd.Parameters.Add("@Planner", SqlDbType.NVarChar, 50).Value = planner;
                 cwpcmd.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = remarks;
                 cwpcmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 50).Value = documentMaster.CreatedBy;
-                cwpcmd.Parameters.Add("@CreatedDate", SqlDbType.SmallDateTime).Value = documentMaster.CreatedDate;
+                cwpcmd.Parameters.Add("@CreatedDate", SqlDbType.SmallDateTime).Value = DateTime.Parse(documentMaster.CreatedDate.ToString());
                 SqlParameter OutparamId = cwpcmd.Parameters.Add("@OutparamId", SqlDbType.SmallInt);
                 OutparamId.Direction = ParameterDirection.Output;
                 SqlParameter OutRevisionId = cwpcmd.Parameters.Add("@OutRevisionID", SqlDbType.UniqueIdentifier);
