@@ -183,8 +183,8 @@ namespace FlyCn.FlyCnDAL
             catch (Exception ex)
             {
                 var page = HttpContext.Current.CurrentHandler as Page;
-                eObj.ErrorData(ex, page);
-                throw ex;
+                eObj.MandatoryFieldsData(page);
+              //  throw ex;
             }
             finally
             {
