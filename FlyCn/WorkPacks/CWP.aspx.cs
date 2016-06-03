@@ -13,6 +13,7 @@ namespace FlyCn.WorkPacks
 {
     public partial class CWP : System.Web.UI.Page
     {
+        #region Public Properties
         private const int ItemsPerRequest = 10;
         DocumentMaster documentMaster;
         ConstructionWorkPacks cwpObj;
@@ -20,6 +21,7 @@ namespace FlyCn.WorkPacks
             FlyCnDAL.Security.UserAuthendication UA;
             HttpContext context = HttpContext.Current;         
         ErrorHandling eObj = new ErrorHandling();
+        #endregion Public Properties
 
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
@@ -88,6 +90,8 @@ namespace FlyCn.WorkPacks
 
         }
         #endregion ToolBarVisibility
+
+        #region dtgCWPHeaderGrid_NeedDataSource
         protected void dtgCWPHeaderGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             try
@@ -109,7 +113,9 @@ namespace FlyCn.WorkPacks
                 dtgCWPHeaderGrid.DataSource = new string[] { };
             }
         }
+        #endregion dtgCWPHeaderGrid_NeedDataSource
 
+        #region dtgCWPDetailGrid_NeedDataSource
         protected void dtgCWPDetailGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             try
@@ -135,7 +141,9 @@ namespace FlyCn.WorkPacks
                 dtgCWPDetailGrid.DataSource = new string[] { };
             }
         }
+        #endregion dtgCWPDetailGrid_NeedDataSource
 
+        #region ToolBar_onClick
         protected void ToolBar_onClick(object sender, Telerik.Web.UI.RadToolBarEventArgs e)
         {
             string functionName = e.Item.Value;
@@ -164,6 +172,7 @@ namespace FlyCn.WorkPacks
                 RadMultiPage1.SelectedIndex = 1;
             }
         }
+        #endregion ToolBar_onClick
 
         #region AddCWPHeader
         public void AddNewCWP()
@@ -251,6 +260,8 @@ namespace FlyCn.WorkPacks
         }
 
         #endregion UpdateCWPHeader
+
+        #region dtgCWPHeaderGrid_ItemCommand
         protected void dtgCWPHeaderGrid_ItemCommand(object sender, GridCommandEventArgs e)
         {
             try
@@ -281,6 +292,7 @@ namespace FlyCn.WorkPacks
                 throw ex;
             }
         }
+        #endregion dtgCWPHeaderGrid_ItemCommand
 
         #region CWPPopulate
         public void CWPPopulate(string revisionID)
@@ -410,6 +422,7 @@ namespace FlyCn.WorkPacks
         }
         #endregion WebMethodToBindPlanners
 
+        #region dtgCWPDetailGrid_DeleteCommand
         protected void dtgCWPDetailGrid_DeleteCommand(object sender, GridCommandEventArgs e)
         {
             cwpObj = new ConstructionWorkPacks();
@@ -424,5 +437,6 @@ namespace FlyCn.WorkPacks
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Add", "OpenDetailAccordion();", true);
             ToolBarVisibility(2);
         }
+        #endregion dtgCWPDetailGrid_DeleteCommand
     }
 }
