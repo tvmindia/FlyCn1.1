@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
     <script src="../Scripts/jquery-1.8.2.js"></script>
      <script src="../Scripts/jquery-1.8.2.min.js"></script>
      <script src="../Scripts/jquery-ui-1.8.24.js"></script>
@@ -356,16 +355,21 @@
                     width: 800,
                     height: 500,
                     resizable: false,
-                    buttons: {}, modal: true
+                    buttons: {}, modal: true,
+                    close: function () {
+                        $find("<%= dtgCWPDetailGrid.ClientID %>").get_masterTableView().rebind(); 
+                        
+                    }
                     
                 });
-                return false
+                return false 
             }
             catch (X) {
                 alert(X.message);
             }
            
         }
+      
         function OnClientButtonClicking(sender, args) {
           
             var btn = args.get_item();
@@ -479,6 +483,12 @@
         {
             return true;
         }
+        function refreshCWP()
+        {
+            window.location.reload();
+          
+        }
+        
         function OpenDetailAccordion(id) {
 
             if (id != undefined)//accordion called from accordion click functionjs

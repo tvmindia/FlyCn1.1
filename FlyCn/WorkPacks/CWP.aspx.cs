@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using DocStatus = FlyCn.DocumentSettings.DocumentStatusSettings;
 using FlyCn.FlyCnDAL;
+using System.Web.UI.HtmlControls;
 
 namespace FlyCn.WorkPacks
 {
@@ -37,9 +38,16 @@ namespace FlyCn.WorkPacks
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtMid');", true);
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtTop');", true);
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtBot');", true);
+            string tab = Request.QueryString["pack"];
+            //if (tab == "tab")
+            //{
+            //    //Response.Redirect("CWP.aspx");
+            //    // ScriptManager.RegisterStartupScript(this, this.GetType(), " ", "refreshCWPQW();", true);
+            //}
         }
         #endregion Page_Load
 
+       
         #region Register ToolBox
 
         public void RegisterToolBox()
@@ -89,7 +97,7 @@ namespace FlyCn.WorkPacks
             }
 
         }
-        #endregion ToolBarVisibility
+        #endregion ToolBarVisibility       
 
         #region dtgCWPHeaderGrid_NeedDataSource
         protected void dtgCWPHeaderGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -115,13 +123,17 @@ namespace FlyCn.WorkPacks
         }
         #endregion dtgCWPHeaderGrid_NeedDataSource
 
+        public void reloadWindow()
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), " ", "refreshCWP();", true);
+        }
+
         #region dtgCWPDetailGrid_NeedDataSource
         protected void dtgCWPDetailGrid_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             try
-            { 
-
-
+            {
+               
                 cwpObj=new ConstructionWorkPacks();
                 UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
                 Guid revisionID;
@@ -129,7 +141,10 @@ namespace FlyCn.WorkPacks
                 DataTable ds = new DataTable();
                 ds = cwpObj.cwpDetailsObj.GetAllCWPDetail(revisionID,UA.projectNo);
                 dtgCWPDetailGrid.DataSource = ds;
-
+                if(ds.Rows.Count>0)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Add", "OpenDetailAccordion();", true);
+                }
             }
             catch (Exception ex)
             {
@@ -425,6 +440,10 @@ namespace FlyCn.WorkPacks
         #region dtgCWPDetailGrid_DeleteCommand
         protected void dtgCWPDetailGrid_DeleteCommand(object sender, GridCommandEventArgs e)
         {
+            var page = HttpContext.Current.CurrentHandler as Page;
+            var master = page.Master;
+            HtmlControl divMask = (HtmlControl)master.FindControl("Errorbox");
+            divMask.Style["visibility"] = "Hidden";
             cwpObj = new ConstructionWorkPacks();
             GridDataItem items = e.Item as GridDataItem;
             string keyItem = items.GetDataKeyValue("ItemID").ToString();

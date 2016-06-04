@@ -26,6 +26,7 @@ namespace FlyCn.WorkPacks
         string moduleId, category = "";
         DataTable datatableobj = new DataTable();
         string Revisionid;
+        CWP cwp = new CWP();
         #endregion Properties
 
         #region Page_Load
@@ -248,7 +249,9 @@ namespace FlyCn.WorkPacks
                        
                     }
                 }
-               
+                cwp.reloadWindow();
+              
+             
             }
             catch (Exception ex)
             {
