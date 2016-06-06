@@ -34,6 +34,7 @@ namespace FlyCn.WorkPacks
                 //BindModule();
             }
             ToolBarVisibility(1);
+           
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.collapsenode();", true);
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtMid');", true);
             Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.DisableTreeNode('rtTop');", true);
@@ -145,6 +146,13 @@ namespace FlyCn.WorkPacks
                 {
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Add", "OpenDetailAccordion();", true);
                 }
+               if(hdfValue.Value=="1")
+               {
+                   Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
+                   Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
+                   Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.RevisionHistory();", true);
+                   Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.HideReviseDocument('rtn3');", true);
+               }
             }
             catch (Exception ex)
             {
@@ -297,7 +305,7 @@ namespace FlyCn.WorkPacks
                      hiddenFieldRevisionID.Value = revisionid;
                      CWPPopulate(revisionid);
                      dtgCWPDetailGrid.Rebind();
-                    radPlanner.Width=220;
+                    radPlanner.Width=190;
                  }
             }
             catch (Exception ex)
@@ -455,6 +463,10 @@ namespace FlyCn.WorkPacks
             }
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Add", "OpenDetailAccordion();", true);
             ToolBarVisibility(2);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.expandnode();", true);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.showTreeNode();", true);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.RevisionHistory();", true);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "parent.HideReviseDocument('rtn3');", true);
         }
         #endregion dtgCWPDetailGrid_DeleteCommand
     }

@@ -12,7 +12,7 @@
     IncorrectFormat: "Input string not in a correct format",
     DropdownSelect: "Please select a value from dropdown",
     TrackingDetails: "Please select all tracking details",
-    checkboxNotChecked:"Please Select a Checkbox"
+    checkboxNotChecked:"Please select an item"
 }
 
 

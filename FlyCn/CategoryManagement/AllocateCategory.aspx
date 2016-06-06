@@ -27,54 +27,32 @@
   overflow-y:hidden;
   height:100%;
 }
-       
-      /*Custom Style for the table inside the modal popup*/
-   thead{
-    background-color: #5681e6;
-    text-align: center;
-    color: white;
-    font-family:Cambria, Cochin, Georgia, Times, Times New Roman, serif;  
-    font-size: 14px!important;
-    }
-  table{
-    border-collapse: collapse;    
-    
-   
-    }
-   table td {
-    text-align: left;
-    height:auto;
-    padding: 8px;
-    }
-   
-   table td{
-    width:auto;
-    height:10px;
-    font-family:Cambria, Cochin, Georgia, Times, Times New Roman, serif;
-    font-size:14px;
-    font-weight:200;
-    padding-left:4px;
-    }
- /*.modal table tr:nth-child(even){background-color: #f2f2f2}*/
-   table th {
-    background-color: #5681e6;
-    text-align: center;
-    color: white;
-    font-family:Cambria, Cochin, Georgia, Times, Times New Roman, serif;
-    font-size:16px;    
-    }
+     #tabs li a {
+            color: white;
+            display: block;
+            text-decoration: none;
+            font-size: small;
+            font-weight: lighter;
+        }  
+/*#menu ul li.selected {
+    background: #910000;
+    color:#FFFFFF;
+}*/
 
-   .RadGrid_Silk .rgHeader {
-    color: #878787;
-    text-transform: uppercase;
-    font-size: 14px!important;
-    height:20px;
-    width:auto;
+/*#menu li {
+    display: block;
+    float: left;
+    background: black;
 }
-        
-
-
- 
+#menu a {
+    display: block;
+    float: left;
+    margin-right: 17px;
+    padding: 5px 8px;
+    text-decoration: none;
+    font: 20px Georgia, "Times New Roman", Times, serif;
+    color: #FFFFFF;
+}*/
     </style>
      <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager><div style="margin-left:3%;">
     <asp:Label ID="lblTitle" runat="server" Text="Category Management" CssClass="PageHeading"></asp:Label></div>
@@ -91,7 +69,7 @@
                  
         <uc1:ToolBar runat="server" ID="ToolBar"/> 
                       <div>
-                           <telerik:RadGrid ID="dtgAllocateTags" runat="server"  GridLines="None" CellSpacing="0"  AlwaysVisible="true" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="6" OnNeedDataSource="dtgAllocateTags_NeedDataSource" OnPreRender="dtgAllocateTags_PreRender" OnItemCommand="dtgAllocateTags_ItemCommand" OnItemDataBound="dtgAllocateTags_ItemDataBound" >
+                           <telerik:RadGrid ID="dtgAllocateTags" runat="server"  GridLines="None" CellSpacing="0"  AlwaysVisible="true" AllowPaging="true" Width="100%" CssClass="outerMultiPage" AllowSorting="true"  PageSize="6" OnNeedDataSource="dtgAllocateTags_NeedDataSource" OnPreRender="dtgAllocateTags_PreRender" OnItemCommand="dtgAllocateTags_ItemCommand" OnItemDataBound="dtgAllocateTags_ItemDataBound" >
                                      <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
@@ -99,6 +77,7 @@
                     <MasterTableView  AutoGenerateColumns="true" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No Activities have been added." InsertItemPageIndexAction="ShowItemOnFirstPage" InsertItemDisplay="Top" DataKeyNames="">
                          <Columns>
                                <telerik:GridCheckBoxColumn HeaderText="SELECT" DataType="System.Boolean" UniqueName="Allocatecheck"></telerik:GridCheckBoxColumn>
+                               <telerik:GridBoundColumn HeaderText="KeyField" DataField="KeyField" UniqueName="KeyField" Display="false"></telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
 
@@ -111,7 +90,7 @@
                  
         <uc1:ToolBar runat="server" ID="ToolBar1" /> 
                       <div>
-                           <telerik:RadGrid ID="dtgAvailableTags" runat="server" GridLines="None" CellSpacing="0"  AlwaysVisible="true" AllowPaging="true" Width="100%" Skin="Silk" CssClass="outerMultiPage" AllowSorting="true"  PageSize="6" OnNeedDataSource="dtgAvailableTags_NeedDataSource" OnPreRender="dtgAvailableTags_PreRender" OnItemCommand="dtgAvailableTags_ItemCommand" OnItemDataBound="dtgAvailableTags_ItemDataBound">
+                           <telerik:RadGrid ID="dtgAvailableTags" runat="server" GridLines="None" CellSpacing="0"  AlwaysVisible="true" AllowPaging="true" Width="100%" CssClass="outerMultiPage" AllowSorting="true"  PageSize="6" OnNeedDataSource="dtgAvailableTags_NeedDataSource" OnPreRender="dtgAvailableTags_PreRender" OnItemCommand="dtgAvailableTags_ItemCommand" OnItemDataBound="dtgAvailableTags_ItemDataBound">
                                      <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
@@ -120,6 +99,7 @@
                          <Columns>
                              
                         <telerik:GridCheckBoxColumn HeaderText="SELECT" DataType="System.Boolean" UniqueName="Modulescheck"></telerik:GridCheckBoxColumn>
+                              
                               </Columns>
                     </MasterTableView>
 
@@ -142,6 +122,7 @@
               document.getElementById("tab1").style.display = "block";
               document.getElementById("tab2").style.display = "none";
               document.getElementById("tab1").selected = true;
+              
               if (myHidden.value == 2) {
                   document.getElementById("tab2").style.display = "block";
                   document.getElementById("tab1").style.display = "none";

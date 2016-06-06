@@ -192,7 +192,7 @@
                                             <asp:Label ID="lblPlanner" CssClass="control-label col-md-5" runat="server" Text="Planner"></asp:Label>   
                                             <div class="col-md-7">
                                              
-                                                 <telerik:RadComboBox RenderMode="Lightweight" ID="radPlanner" EnableAutomaticLoadOnDemand="true" ItemsPerRequest="10" ShowMoreResultsBox="true" EnableVirtualScrolling="true" runat="server" Width="250" Height="200px" EmptyMessage="Select Planner" >
+                                                 <telerik:RadComboBox RenderMode="Lightweight" ID="radPlanner" EnableAutomaticLoadOnDemand="true" ItemsPerRequest="10" ShowMoreResultsBox="true" EnableVirtualScrolling="true" runat="server" Width="190" Height="200px" EmptyMessage="Select Planner" >
                                                     <WebServiceSettings Method="GetAllNames" Path="CWP.aspx"></WebServiceSettings>
                                                          </telerik:RadComboBox>
                                               
@@ -285,7 +285,7 @@
     <asp:HiddenField ID="hdfTabStatus" runat="server" ClientIDMode="Static" />
     <asp:HiddenField ID="hdfLevelDescription" runat="server" ClientIDMode="Static" />
     <asp:HiddenField ID="hiddenStatusValue" runat="server" ClientIDMode="Static" />
-
+    <asp:HiddenField ID="hdfValue" runat="server"/>
     <script type="text/javascript">
         
         function ClearCWPHeaderTexBox() {
@@ -357,8 +357,10 @@
                     resizable: false,
                     buttons: {}, modal: true,
                     close: function () {
+                        var detailValue = document.getElementById('<%= hdfValue.ClientID %>');
+                        detailValue.value = "1";
                         $find("<%= dtgCWPDetailGrid.ClientID %>").get_masterTableView().rebind(); 
-                        
+                       
                     }
                     
                 });
@@ -395,7 +397,7 @@
                     //parent.collapsenode();
                 eventArgs.set_cancel(false);
                 var planner = document.getElementById('<%=radPlanner.ClientID %>');
-                planner.style.width = "250px";
+                planner.style.width = "220px";
                 }
                 else
                     if (tab.get_text() == "Details") {
