@@ -30,6 +30,10 @@ namespace FlyCn.FlyCnDAL
 
         public DataSet getDataToInsert(string TableName)
         {
+            UIClasses.Const Const = new UIClasses.Const();
+            FlyCnDAL.Security.UserAuthendication UA;
+            HttpContext context = HttpContext.Current;
+            UA = (FlyCnDAL.Security.UserAuthendication)context.Session[Const.LoginSession];
             DataSet dataset = null;
             SqlConnection con = null;
             dbConnection dcon = new dbConnection();
@@ -37,6 +41,7 @@ namespace FlyCn.FlyCnDAL
             SqlCommand cmd = new SqlCommand("SelectAllDataTOInsert", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@TableName", TableName);
+            cmd.Parameters.Add("@ProjectNo", SqlDbType.NVarChar, 7).Value = UA.projectNo;
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = cmd;
             dataset = new DataSet();

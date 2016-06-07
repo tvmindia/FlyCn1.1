@@ -26,90 +26,95 @@ namespace FlyCn.FlyCnDAL
         {
             //int result = 0;
             //SqlConnection con = null;
-           
+
             try
             {
-                List<object> list = (from row in dsTest.AsEnumerable() select (row["Values"])).ToList();
-                DataSet dataset = new DataSet();
-                string FieldValue = "";
-                string FieldParams = "";
+                List<object> list = (from row in dsTest.AsEnumerable().Where(row => !string.IsNullOrEmpty((row["Values"]).ToString())) select (row["Values"])).ToList();//string empty checking and return linq list
               
-                SystemDefenitionDetails dbobj = new SystemDefenitionDetails();
-                dataset = dbobj.getDataToInsert(TableName);
-                if(dbcon==null)
-                {
-                  dbcon = new dbConnection();
-                  dbcon.GetDBConnection();
-                
-                }
-               
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "InsertDynamicMaster";
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = dbcon.SQLCon;
-                cmd.Parameters.AddWithValue("@TableName", TableName);
-                int totalrows = dataset.Tables[0].Rows.Count;
-                string temp = dataset.Tables[0].Rows[0]["Field_Name"].ToString();
-                if (temp == "ProjectNo")
-                {
-                    cmd.Parameters.AddWithValue("@ProjNo", ProjNo);
-                    FieldValue = "ProjectNo" + ",";
-                    FieldParams = "'" + ProjNo + "'" + ",";
-                    for (int i = 1; i < totalrows; i++)
+                    DataSet dataset = new DataSet();
+                    string FieldValue = "";
+                    string FieldParams = "";
+
+                    SystemDefenitionDetails dbobj = new SystemDefenitionDetails();
+                    dataset = dbobj.getDataToInsert(TableName);
+                    if (dbcon == null)
                     {
+                        dbcon = new dbConnection();
+                        dbcon.GetDBConnection();
 
+                    }
 
-                        FieldValue = FieldValue + dataset.Tables[0].Rows[i]["Field_Name"] + ",";
-                        if (list[i - 1] == "")
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandText = "InsertDynamicMaster";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = dbcon.SQLCon;
+                    cmd.Parameters.AddWithValue("@TableName", TableName);
+                    int totalrows = dataset.Tables[0].Rows.Count;
+                    string temp = dataset.Tables[0].Rows[0]["Field_Name"].ToString();
+                    if (list.Count > 0)
+                    {
+                        if (temp == "ProjectNo")
                         {
-                            FieldParams = FieldParams + "NULL" + ",";
+                            cmd.Parameters.AddWithValue("@ProjNo", ProjNo);
+                            FieldValue = "ProjectNo" + ",";
+                            FieldParams = "'" + ProjNo + "'" + ",";
+                            for (int i = 1; i < totalrows; i++)
+                            {
 
+
+                                FieldValue = FieldValue + dataset.Tables[0].Rows[i]["Field_Name"] + ",";
+                                if (list.Count == 0)
+                                {
+                                    FieldParams = FieldParams + "NULL" + ",";
+
+                                }
+                                else
+                                {
+
+                                    FieldParams = FieldParams + "'" + list[i - 1] + "'" + ",";
+
+                                }
+                                //FieldParams = FieldParams +"'"+ list[i - 1]+"'"+",";
+
+                            }
                         }
                         else
                         {
+                            for (int i = 0; i < totalrows; i++)
+                            {
+                                FieldValue = FieldValue + dataset.Tables[0].Rows[i]["Field_Name"] + ",";
+                                if (list[i] == "")
+                                {
+                                    FieldParams = FieldParams + "NULL" + ",";
 
-                            FieldParams = FieldParams + "'" + list[i - 1] + "'" + ",";
+                                }
+                                else
+                                {
 
+                                    FieldParams = FieldParams + "'" + list[i] + "'" + ",";
+
+                                }
+
+                            }
                         }
-                        //FieldParams = FieldParams +"'"+ list[i - 1]+"'"+",";
 
+                        FieldValue = FieldValue + "Updated_By,Updated_Date";
+                        FieldParams = FieldParams + "'" + userName + "'" + "," + "'" + System.DateTime.Now.ToString("MM/dd/yyyy") + "'";
+                        cmd.Parameters.AddWithValue("@p_selectedFields", FieldValue);
+                        cmd.Parameters.AddWithValue("@p_selectedFieldsParameters", FieldParams);
+                        cmd.ExecuteScalar();
                     }
-                }
-                else
-                {
-                    for (int i = 0; i < totalrows; i++)
+                    if (flag != true)
                     {
-                        FieldValue = FieldValue + dataset.Tables[0].Rows[i]["Field_Name"] + ",";
-                        if (list[i] == "")
-                        {
-                            FieldParams = FieldParams + "NULL" + ",";
-
-                        }
-                        else
-                        {
-
-                            FieldParams = FieldParams + "'" + list[i] + "'" + ",";
-
-                        }
-
+                        var page = HttpContext.Current.CurrentHandler as Page;
+                        eObj.InsertionSuccessData(page);
                     }
+                    return 1;
                 }
-
-                FieldValue = FieldValue + "Updated_By,Updated_Date";
-                FieldParams = FieldParams + "'" + userName + "'" + "," + "'" + System.DateTime.Now.ToString("MM/dd/yyyy") + "'";
-                cmd.Parameters.AddWithValue("@p_selectedFields", FieldValue);
-                cmd.Parameters.AddWithValue("@p_selectedFieldsParameters", FieldParams);
-                cmd.ExecuteScalar();
-                if (flag != true)
-                {
-                    var page = HttpContext.Current.CurrentHandler as Page;
-                    eObj.InsertionSuccessData(page);
-                }
-                return 1;
-            }
+            
             catch (Exception ex)
             {
-              throw ex;
+                throw ex;
             }
             finally
             {

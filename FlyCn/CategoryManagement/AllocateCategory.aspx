@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
      <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
      <link href="../Content/themes/FlyCnRider/Splitter.FlyCnRider.css" rel="stylesheet" />
-    <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
+  
     <script src="../Scripts/jquery.1.9.1.min.js"></script>
     <script src="../Scripts/ToolBar.js"></script>
     <script src="../Scripts/Messages.js"></script>
@@ -27,6 +27,10 @@
   overflow-y:hidden;
   height:100%;
 }
+        .RadToolBar_Metro .rtbWrap {
+        background-color:#e4f7e6;
+        }
+
      #tabs li a {
             color: white;
             display: block;
@@ -34,25 +38,22 @@
             font-size: small;
             font-weight: lighter;
         }  
-/*#menu ul li.selected {
-    background: #910000;
-    color:#FFFFFF;
-}*/
-
+#menu ul li.selected {
+    background: #dbdaeb;
+    color:#009999;
+}
+.menu li.active {
+        background-color: #009999;
+    }
 /*#menu li {
     display: block;
     float: left;
     background: black;
-}
-#menu a {
-    display: block;
-    float: left;
-    margin-right: 17px;
-    padding: 5px 8px;
-    text-decoration: none;
-    font: 20px Georgia, "Times New Roman", Times, serif;
-    color: #FFFFFF;
 }*/
+
+        /*#tabs a::after {
+            background-color:#910000;
+        }*/
     </style>
      <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager><div style="margin-left:3%;">
     <asp:Label ID="lblTitle" runat="server" Text="Category Management" CssClass="PageHeading"></asp:Label></div>
@@ -69,7 +70,7 @@
                  
         <uc1:ToolBar runat="server" ID="ToolBar"/> 
                       <div>
-                           <telerik:RadGrid ID="dtgAllocateTags" runat="server"  GridLines="None" CellSpacing="0"  AlwaysVisible="true" AllowPaging="true" Width="100%" CssClass="outerMultiPage" AllowSorting="true"  PageSize="6" OnNeedDataSource="dtgAllocateTags_NeedDataSource" OnPreRender="dtgAllocateTags_PreRender" OnItemCommand="dtgAllocateTags_ItemCommand" OnItemDataBound="dtgAllocateTags_ItemDataBound" >
+                           <telerik:RadGrid ID="dtgAllocateTags" runat="server"  GridLines="None" CellSpacing="0"  AlwaysVisible="true" AllowPaging="true" Width="100%" CssClass="outerMultiPage" AllowSorting="true"  PageSize="6" OnNeedDataSource="dtgAllocateTags_NeedDataSource" OnPreRender="dtgAllocateTags_PreRender" OnItemCommand="dtgAllocateTags_ItemCommand" OnItemDataBound="dtgAllocateTags_ItemDataBound" OnDataBound="dtgAllocateTags_DataBound" >
                                      <HeaderStyle  HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />
                                         <AlternatingItemStyle HorizontalAlign="Left" />
@@ -77,7 +78,6 @@
                     <MasterTableView  AutoGenerateColumns="true" ShowHeadersWhenNoRecords="true" ShowHeader="true" NoMasterRecordsText="No Activities have been added." InsertItemPageIndexAction="ShowItemOnFirstPage" InsertItemDisplay="Top" DataKeyNames="">
                          <Columns>
                                <telerik:GridCheckBoxColumn HeaderText="SELECT" DataType="System.Boolean" UniqueName="Allocatecheck"></telerik:GridCheckBoxColumn>
-                               <telerik:GridBoundColumn HeaderText="KeyField" DataField="KeyField" UniqueName="KeyField" Display="false"></telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
 
@@ -114,6 +114,7 @@
     <asp:HiddenField ID="hdfAllocatedDataKey" runat="server" />
     <asp:HiddenField ID="hdfkeyField" runat="server" />
      <asp:HiddenField ID="selected_tab" runat="server" />
+    <asp:HiddenField ID="hdfValue" runat="server" />
       <script>
     
    
@@ -133,6 +134,7 @@
                   $(ev.currentTarget).parent('li').addClass('selected');
               });
           });
+         
           function MyTab1(Id) {
               var myHidden = document.getElementById('<%= selected_tab.ClientID %>');
               myHidden.value = 1;

@@ -125,6 +125,10 @@ namespace FlyCn.CategoryManagement
                 df = CategoryAllocationObj.GetKeyFieldFromBaseTables(_tableName, moduleId, true);
                 hdfkeyField.Value =df.Rows.Count.ToString();
                 dtgAllocateTags.DataSource = dt;
+                if(dt.Rows.Count>0)
+                {
+                    hdfValue.Value = "1";
+                }
             }
             if (dtgAllocateTags.DataSource == null)
             {
@@ -251,6 +255,7 @@ namespace FlyCn.CategoryManagement
         protected void dtgAllocateTags_PreRender(object sender, EventArgs e)
         {
             dtgAllocateTags.Rebind();
+           
         }
 
         protected void dtgAllocateTags_ItemCommand(object sender, GridCommandEventArgs e)
@@ -298,6 +303,14 @@ namespace FlyCn.CategoryManagement
                 GridDataItem dataItem = (GridDataItem)e.Item;
                 CheckBox chkBox = (CheckBox)dataItem["Allocatecheck"].Controls[0];
                 chkBox.Enabled = true; // enable CheckBox
+            }
+        }
+
+        protected void dtgAllocateTags_DataBound(object sender, EventArgs e)
+        {
+            if (hdfValue.Value == "1")
+            {
+                dtgAllocateTags.MasterTableView.GetColumn("KeyField").Display = false;
             }
         }
 
